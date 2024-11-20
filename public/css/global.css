@@ -1,0 +1,40 @@
+
+
+:root {
+  /* fonts */
+  --font-neo-sans-arabic: "Neo Sans Arabic";
+  --font-careem: Careem;
+
+  /* font sizes */
+  --font-size-25xl: 44px;
+  --font-size-47xl: 66px;
+  --font-size-10xl: 29px;
+  --font-size-xl: 20px;
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-5xl: 24px;
+  --font-size-3xl: 22px;
+  --font-size-37xl: 56px;
+  --font-size-lg: 18px;
+  --font-size-base-5: 16.5px;
+  --font-size-lg-5: 18.5px;
+
+  /* Colors */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-gray-100: #7a797e;
+  --color-gray-200: #1b1e24;
+  --color-gray-300: #171717;
+  --color-gray-400: rgba(0, 0, 0, 0.45);
+  --color-gray-500: rgba(0, 0, 0, 0.43);
+  --color-teal: #096770;
+  --color-lightcyan: #d4f8f8;
+
+  /* Border radiuses */
+  --br-21xl: 40px;
+  --br-4xl: 23px;
+  --br-xl: 20px;
+  --br-26xl: 45px;
+  --br-base: 16px;
+  --br-487xl: 506px;
+}
