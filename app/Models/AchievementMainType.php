@@ -19,4 +19,9 @@ class AchievementMainType extends Model
     {
         return $this->hasMany(SubAchievementType::class);
     }
+
+    public function achievements() : HasMany
+    {
+        return $this->hasMany(Achievement::class);
+    }
 }

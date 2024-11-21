@@ -5,12 +5,6 @@
         <livewire:home-landing-images />
     </div>
 
-{{--    <div id="top-sliders">--}}
-{{--        <br>--}}
-{{--        <br>--}}
-{{--        <br>--}}
-{{--        <livewire:profiles />--}}
-{{--    </div>--}}
 
     <div id="page-content-section">
         <div class="pt-5">
