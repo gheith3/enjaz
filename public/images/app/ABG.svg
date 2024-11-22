@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="421" viewBox="0 0 1920 421"><defs><style>.a {
+  fill: url("#a");
+}
+</style><linearGradient id="a" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#096771"></stop><stop offset="1" stop-color="#053439"></stop></linearGradient></defs><path class="a" d="M0,0H1920V421H0Z"></path></svg>
