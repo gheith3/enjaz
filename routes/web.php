@@ -8,10 +8,4 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     return view('about');
-})->name('about');
-
-Route::get('/achievers', function () {
-    return view('achievers');
-})->name('achievers');
-
-
+});

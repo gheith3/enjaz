@@ -127,6 +127,13 @@
     box-shadow: 0 3px 6px rgba(124, 124, 124, 0.16);
     border-radius: 29px;
 }
+
+.public-figure-card-title{
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
 #achievements-section{
     padding-top: 80px;
     background: linear-gradient(180.05deg, rgba(154, 84, 167, 0),
