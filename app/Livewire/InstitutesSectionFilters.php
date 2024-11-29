@@ -2,30 +2,26 @@
 
 namespace App\Livewire;
 
+use App\Models\OrganizationType;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class InstitutesSectionFilters extends Component
 {
-    public string $selectedFilter = 'الكل';
-
-    public array $primaryFilters = [
-        [
-            'name' => 'الكل',
-            'active' => true
-        ],
-        [
-            'name' => 'خاص',
-        ],
-        [
-            'name' => 'حكومي',
-        ]
-    ];
+    public int $selectedFilter = 0;
+    public Collection $types;
 
 
-    public function setFilter($filterName)
+    public function mount() : void
     {
-        $this->selectedFilter = $filterName;
-        $this->emit('filterSelected', $filterName);
+        $this->types = OrganizationType::all();
+    }
+
+
+    public function setFilter($id) : void
+    {
+        $this->selectedFilter = $id;
+        $this->dispatch('filterSelected', $id);
     }
 
     public function render()

@@ -1,17 +1,24 @@
 <div class="filters-section">
     <div class="filters-row primary-filters">
-        @foreach($primaryFilters as $filter)
-            <button 
-                wire:click="setFilter('{{ $filter['name'] }}')" 
-                class="filter-btn {{ $filter['name'] === $selectedFilter ? 'active' : '' }}"
+        <button
+            wire:click="setFilter('0')"
+            class="filter-btn {{ 0 === $selectedFilter ? 'active' : '' }}"
+        >
+
+            <span>الكل</span>
+        </button>
+        @foreach($this->types as $type)
+            <button
+                wire:click="setFilter('{{ $type->id }}')"
+                class="filter-btn {{ $type->id === $selectedFilter ? 'active' : '' }}"
             >
-          
-                <span>{{ $filter['name'] }}</span>
+
+                <span>{{ $type->title_ar }}</span>
             </button>
         @endforeach
     </div>
 
-   
+
 </div>
 @push('styles')
 

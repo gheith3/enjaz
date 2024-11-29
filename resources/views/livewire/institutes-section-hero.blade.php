@@ -6,11 +6,14 @@
             {{view("components.layouts.nav")}}
 
             <div class="hero-content">
-                <h1 class="hero-title">المؤسسات</h1>
-                
+                <h1 class="hero-title"> المؤسسات</h1>
+
                 <div class="search-container">
-                    <input type="text" placeholder="ابحث بالاسم" class="search-input">
-                    <button class="search-button">
+                    <input type="text"
+                           placeholder="ابحث بالاسم"
+                           wire:model="searchKey"
+                           class="search-input">
+                    <button class="search-button" wire:click="search">
                         <img src="{{ asset('images\app\searchIcon.svg') }}" alt="Search">
                     </button>
                 </div>

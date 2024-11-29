@@ -5,21 +5,7 @@
             <!-- Text Content - Left Half -->
             <div class="col-lg-6">
                 <p class="lead mb-4 text-white">
-                    من منطلقِ الواجب الوطني، وفخرًا بهذا
-                     البلد العظيم ومُنْجِزيه، واسترشادًا بقائده الداعم الأول
-                     للشباب. انبثقت فكرةُ هذه المبادرةِ الوطنية التي سَعَيْنا
-                    جاهدِين فيها أن تحتضنَ إنجازاتِ شباب عُمانَ، ولنسلطَ الضَّوْءَ
-                     عليها ونخلدَها، ولتكون إرثًا ثقافيًّا ومعرفيًا للأجيال
-                     القادمة.</br> نطمح بهذا المشروعِ الوطني أن نوثقَ نجاحاتِ
-                    أبناء هذا البلد المشرِّفةَ داخليًّا وخارجيًّا؛ ليكون مرجعًا
-                    معرفيًّا وقاعدةً أساسيةً لتخليد إنجازاتِ المنجزين الذين
-                    رفعوا راياتِ عُمانَ في المحافل الإقليمية والدولية،
-                     وحققوا بنجاحاتهم رُؤَى سلطانِنا المعظمِ. فهذه
-                    المبادرة ما هي إلا استجابةٌ لدعوته حفظه الله
-                     بالاهتمام بالإنسان العُماني كصانعِ حضارةٍ،
-                     وهدفًا للتنمية وأداةً للتطوير والتعمير.
-
-
+                    {{$teemSettings->introText}}
                 </p>
             </div>
 
@@ -27,16 +13,25 @@
             <div class="col-lg-6">
                 <div class="row g-3">
                     <div class="col-6">
-                        <img src="{{ asset('images/app/person.png') }}" alt="About Us Image 1" class="img-fluid rounded shadow">
+                        <img src="{{ asset($teemSettings->introImageOne) }}"
+                             style="height: 280px; width: 100%"
+                             alt="About Us Image 1"
+                             class="img-fluid rounded shadow">
                     </div>
                     <div class="col-6">
-                        <img src="{{ asset('images/app/person.png') }}" alt="About Us Image 2" class="img-fluid rounded shadow">
+                        <img src="{{ asset($teemSettings->introImageTwo) }}"
+                             style="height: 280px; width: 100%"
+                             alt="About Us Image 2" class="img-fluid rounded shadow">
                     </div>
                     <div class="col-6">
-                        <img src="{{ asset('images/app/person.png') }}" alt="About Us Image 3" class="img-fluid rounded shadow">
+                        <img src="{{ asset($teemSettings->introImageThree) }}"
+                             style="height: 280px; width: 100%"
+                             alt="About Us Image 3" class="img-fluid rounded shadow">
                     </div>
                     <div class="col-6">
-                        <img src="{{ asset('images/app/person.png') }}" alt="About Us Image 4" class="img-fluid rounded shadow">
+                        <img src="{{ asset($teemSettings->introImageFour) }}"
+                             style="height: 280px; width: 100%"
+                             alt="About Us Image 4" class="img-fluid rounded shadow">
                     </div>
                 </div>
             </div>
