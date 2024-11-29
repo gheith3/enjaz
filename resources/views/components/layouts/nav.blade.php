@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-transparent">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('welcome') }}">
+        <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('images/logo.png') }}" alt="Logo"
                  class="d-inline-block align-top">
         </a>
@@ -17,7 +17,7 @@
                     <a class="nav-link" href="#">الإعلام</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">المؤسسات</a>
+                    <a class="nav-link" href="{{ route('institutes') }}">المؤسسات</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('achievers') }}">المنجزين</a>

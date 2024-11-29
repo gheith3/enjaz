@@ -1,3 +1,4 @@
+<div>
 @if($this->person != null)
     <div id="public-figure">
         <div class="container">
@@ -28,3 +29,5 @@
     </div>
 
 @endif
+
+</div>

@@ -5,7 +5,6 @@
         <livewire:home-landing-images />
     </div>
 
-
     <div id="page-content-section">
         <div class="pt-5">
             <livewire:statics />
@@ -23,12 +22,6 @@
     <div>
         <livewire:achievements />
     </div>
-
-
-    <br>
-    <br>
-    <br>
-    <br>
 
 </x-layouts.app>
 
