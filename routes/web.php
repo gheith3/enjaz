@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\ContactUs;
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,11 +22,9 @@ Route::get('/achievers', function () {
 })->name('achievers');
 
 Route::get('/institutes', function () {
-    return view('institutes'); 
+    return view('institutes');
 })->name('institutes');
 
-Route::get('/contact-us', function () {
-    return view('contactUs');
-})->name('contact-us');
+Route::get('/contact-us', ContactUs::class)->name('contact-us');
 
 
