@@ -24,4 +24,8 @@ Route::get('/institutes', function () {
     return view('institutes'); 
 })->name('institutes');
 
+Route::get('/contact-us', function () {
+    return view('contactUs');
+})->name('contact-us');
+
 

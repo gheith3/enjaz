@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto gap-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">تواصل معنا</a>
+                    <a class="nav-link" href="{{ route('contact-us') }}">تواصل معنا</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">الإعلام</a>
