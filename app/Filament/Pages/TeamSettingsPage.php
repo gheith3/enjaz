@@ -32,8 +32,7 @@ class TeamSettingsPage extends SettingsPage
         foreach ($texts as $text){
             $textInputs[] = Forms\Components\Textarea::make($text)
                 ->label(str($text)->title())
-                ->required()
-                ->maxLength(255);
+                ->required();
         }
 
         return $form
