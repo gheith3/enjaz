@@ -1,6 +1,7 @@
 <div>
+    @if(count($this->achievements))
     <div class="container" id="new-achievement">
-        <x-section-title :title="'أحدث الإنجازات'" />
+        <x-section-title :title="$sectionTitle" />
         <div class="row" id="new-achievements-boxes">
             @foreach($this->achievements as $achievement)
                 <div class="col-md-4">
@@ -32,7 +33,7 @@
                                 </p>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a class="btn app-btn read-more-btn" href="">
+                                <a href="{{route('achievement.show', ['achievement' => $achievement->id])}}" class="btn app-btn read-more-btn">
                                     اقرأ المزيد
                                 </a>
                             </div>
@@ -42,9 +43,10 @@
             @endforeach
         </div>
         <div class="d-flex justify-content-end mt-5">
-            <button data-aos="fade-up" data-aos-duration="1000" class="btn app-btn px-5 mx-3">
+            <a  data-aos="fade-up" data-aos-duration="1000" class="btn app-btn px-5 mx-3">
                 المزيد
-            </button>
+            </a>
         </div>
     </div>
+    @endif
 </div>

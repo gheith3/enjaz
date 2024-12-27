@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PublicFigure extends Model
@@ -16,4 +17,11 @@ class PublicFigure extends Model
         'description_en',
         'image_path',
     ];
+
+    public function achievements(): BelongsToMany
+    {
+        return $this->belongsToMany(Achievement::class,
+            'achievement_public_figures')
+            ->withTimestamps();
+    }
 }

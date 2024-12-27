@@ -1,11 +1,13 @@
 <div class="achievers-grid">
-    @foreach($this->filteredAchievers as $achiever)
-    <div class="achiever-card">
-        <div class="card-image" style="background-image: url('{{ asset($achiever['image']) }}')">
-            <div class="category-badge">{{ $achiever['category'] }}</div>
-            <div class="name-badge">{{ $achiever['name'] }}</div>
-        </div>
-    </div>
+    @foreach($this->achievers as $achiever)
+        <a href="{{route('achievers.show', ['achiever' => $achiever->id])}}">
+            <div class="achiever-card">
+                <div class="card-image" style="background-image: url('{{ asset($achiever->image_path) }}')">
+                    {{--            <div class="category-badge">{{ $achiever->name_ar }}</div>--}}
+                    <div class="name-badge">{{ $achiever->name_ar }}</div>
+                </div>
+            </div>
+        </a>
     @endforeach
 </div>
 

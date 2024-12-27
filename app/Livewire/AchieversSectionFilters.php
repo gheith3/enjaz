@@ -2,67 +2,40 @@
 
 namespace App\Livewire;
 
+use App\Models\AchievementMainType;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class AchieversSectionFilters extends Component
 {
-    public string $selectedFilter = 'الكل';
 
-    public array $primaryFilters = [
-        [
-            'name' => 'الكل',
-            'icon' => null,
-            'active' => true
-        ],
-        [
-            'name' => 'الثقافة',
-            'icon' => 'images\app\cultureBookIcon.svg'
-        ],
-        [
-            'name' => 'العلوم',
-            'icon' => 'images\app\cultureBookIcon.svg'
-        ],
-        [
-            'name' => 'العسكرية',
-            'icon' => 'images\app\cultureBookIcon.svg'
-        ],
-        [
-            'name' => 'الطبي',
-            'icon' => 'images\app\cultureBookIcon.svg'
-        ],
-        [
-            'name' => 'الرياضة',
-            'icon' => 'images\app\cultureBookIcon.svg'
-        ]
-    ];
+    public Collection $primaryFilters;
+    public $selectedFilter = '0-0';
 
-    public array $secondaryFilters = [
-        [
-            'name' => 'الأدب',
-            'icon' => 'images\app\cultureBookIcon.svg'
-        ],
-        [
-            'name' => 'طلبة المدارس',
-            'icon' => 'images\app\cultureBookIcon.svg'
-        ],
-        [
-            'name' => 'الفنون',
-            'icon' => 'images\app\cultureBookIcon.svg'
-        ],
-        [
-            'name' => 'ريادة الأعمال',
-            'icon' => 'images\app\cultureBookIcon.svg'
-        ],
-        [
-            'name' => 'الإبتكارات',
-            'icon' => 'images\app\cultureBookIcon.svg'
-        ]
-    ];
+    public function mount() : void
+    {
+        $this->setFilters();
+    }
 
-    public function setFilter($filterName)
+    private function setFilters() : void
+    {
+        $this->primaryFilters = AchievementMainType::query()
+            ->with(['subTypes'])->get();
+    }
+
+    public function setFilter(string $filterName) : void
     {
         $this->selectedFilter = $filterName;
-        $this->emit('filterSelected', $filterName);
+        $_filters = str($filterName)->explode('-');
+        $this->dispatch('filterSelected', [
+            'main' => $_filters[0],
+            'sub' => $_filters[1]
+        ]);
+    }
+
+    public function getFilterId($main, $sub = '0') : string
+    {
+        return $main . '-' . $sub;
     }
 
     public function render()

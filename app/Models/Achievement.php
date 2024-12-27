@@ -34,6 +34,7 @@ class Achievement extends Model
         return $this->belongsTo(AchievementMainType::class);
     }
 
+
     public function subAchievementType(): BelongsTo
     {
         return $this->belongsTo(SubAchievementType::class);

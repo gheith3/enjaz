@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\ContactUs;
+use App\Livewire\SingleAchievement;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\SingleAchieverHero;
 
@@ -28,10 +29,12 @@ Route::get('/institutes', function () {
 
 Route::get('/contact-us', ContactUs::class)->name('contact-us');
 
-Route::get('/achievers/5', SingleAchieverHero::class)->name('achievers.single');
+Route::get('/achievers/{achiever}', SingleAchieverHero::class)
+    ->name('achievers.show');
 
-Route::get('/achievement', function () {
-    return view('singleacheive'); // Ensure the view name matches your file
-})->name('achievement.show');
+Route::get('/achievement/{achievement}', SingleAchievement::class)
+    ->name('achievement.show');
+
+
 
 

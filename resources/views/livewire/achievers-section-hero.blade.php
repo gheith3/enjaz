@@ -8,10 +8,12 @@
 
             <div class="hero-content">
                 <h1 class="hero-title">المنجزيــــن</h1>
-                
+
                 <div class="search-container">
-                    <input type="text" placeholder="ابحث بالاسم" class="search-input">
-                    <button class="search-button">
+                    <input type="text"
+                           wire:model.live="searchQuery"
+                           placeholder="ابحث بالاسم" class="search-input">
+                    <button class="search-button" wire:click="search">
                         <img src="{{ asset('images\app\searchIcon.svg') }}" alt="Search">
                     </button>
                 </div>

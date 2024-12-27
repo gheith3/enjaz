@@ -20,7 +20,7 @@
     </div>
 
     <div>
-        <livewire:achievements />
+        <livewire:achievers />
     </div>
 
 </x-layouts.app>

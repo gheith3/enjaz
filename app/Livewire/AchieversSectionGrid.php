@@ -2,60 +2,59 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class AchieversSectionGrid extends Component
 {
-    public array $achievers = [
-        [
-            'name' => 'علي الحبسي',
-            'category' => 'الرياضة',
-            'image' => 'images/app/achieverExampleImg1.png'
-        ],
-        [
-            'name' => 'د. جوخة الحارثية',
-            'category' => 'الأدب',
-            'image' => 'images/app/achieverExampleImg2.png'
-        ],
-        [
-            'name' => 'محمد الحوسني',
-            'category' => 'العلوم',
-            'image' => 'images/app/achieverExampleImg3.png'
-        ],
-        [
-            'name' => 'سارة البلوشي',
-            'category' => 'الطبي',
-            'image' => 'images/app/achieverExampleImg2.png'
-        ],
-        [
-            'name' => 'أحمد الراشدي',
-            'category' => 'العسكرية',
-            'image' => 'images/app/achieverExampleImg3.png'
-        ],
-        [
-            'name' => 'فاطمة الزدجالي',
-            'category' => 'الفنون',
-            'image' => 'images/app/achieverExampleImg1.png'
-        ],
-        [
-            'name' => 'خالد الريامي',
-            'category' => 'ريادة الأعمال',
-            'image' => 'images/app/achieverExampleImg1.png'
-        ],
-        [
-            'name' => 'مريم المعمري',
-            'category' => 'الإبتكارات',
-            'image' => 'images/app/achieverExampleImg3.png'
-        ]
+    public Collection $achievers;
+    public string $searchQuery = '';
+    public int $mainFilter = 0;
+    public int $subFilter = 0;
+
+    protected $listeners = [
+        'filterSelected' => 'updateFilter',
+        'searchUpdated' => 'updateSearch',
     ];
 
-    public string $selectedFilter = 'الكل';
-
-    protected $listeners = ['filterSelected' => 'updateFilter'];
-
-    public function updateFilter($filter)
+    public function mount()
     {
-        $this->selectedFilter = $filter;
+        $this->setAchievers();
+    }
+
+    public function updateFilter($filter): void
+    {
+        $this->mainFilter = $filter['main'];
+        $this->subFilter = $filter['sub'];
+
+        $this->setAchievers();
+    }
+
+    public function updateSearch($filter): void
+    {
+        $this->searchQuery = $filter['search-query'];
+        $this->setAchievers();
+    }
+
+    private function setAchievers(): void
+    {
+        $this->achievers = \App\Models\PublicFigure::query()
+            ->when($this->searchQuery != '', function ($query) {
+                $query
+                    ->where('name_ar', 'like', '%' . $this->searchQuery . '%')
+                    ->orWhere('name_en', 'like', '%' . $this->searchQuery . '%');
+            })
+            ->when($this->mainFilter != 0, function ($query) {
+                $query->whereHas('achievements', function ($query) {
+                    $query->where('achievement_main_type_id', $this->mainFilter);
+                });
+            })
+            ->when($this->subFilter != 0, function ($query) {
+                $query->whereHas('achievements', function ($query) {
+                    $query->where('sub_achievement_type_id', $this->subFilter);
+                });
+            })
+            ->get();
     }
 
     public function getFilteredAchieversProperty()
@@ -63,8 +62,8 @@ class AchieversSectionGrid extends Component
         if ($this->selectedFilter === 'الكل') {
             return $this->achievers;
         }
-        
-        return array_filter($this->achievers, function($achiever) {
+
+        return array_filter($this->achievers, function ($achiever) {
             return $achiever['category'] === $this->selectedFilter;
         });
     }
