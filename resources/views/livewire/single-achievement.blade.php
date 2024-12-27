@@ -1,0 +1,572 @@
+<div>
+<div class="single-achievement-page">
+    
+
+    <div class="achievement-details">
+    </div>
+
+
+
+    <div class="related-achievements">
+        
+    </div>
+</div>
+
+<div>
+<div id="hero-section">
+    <div class="background-container" style="overflow: visible;">
+        <img src="{{ asset('images/app/ABG.svg') }}" alt="" class="bg-main">
+        <div class="content-wrapper">
+            {{view("components.layouts.nav")}}
+            <div class="hero-content">
+                <div class="hero-text-container">
+                    <p class="hero-description" id="landing-title">جوخة الحارثي أول عربية تحقق جائزة مان بوكر العالمية</p>
+                </div>  
+            </div>
+            <div class="achiever-card" style="margin-top: 150px; margin-right: 100px; margin-left: 100px;">
+            <div class="card-image" style="background-image: url('{{ asset('images/app/achieverExampleImg2.png') }}'); margin-top: -50px; height: 300px; background-size: cover; background-position: center;">
+                <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 20px; color: white; font-weight: bold;">
+                    جوخة الحارثي
+                </div>
+            </div>
+            </div>
+           
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-5">
+    <div class="container">
+        <div class="card" id="statistics-card" style="position: relative;">
+            <a href="#" style="position: absolute; top: 40px; left: 20px; width: 24px; height: 24px;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 15.5l-4-4h3V3h2v8.5h3l-4 4zm0 5.5C6.48 21 2 16.52 2 11h2c0 4.42 3.58 8 8 8s8-3.58 8-8h2c0 5.52-4.48 10-10 10z"/>
+                </svg>
+            </a>
+            <div class="card-body">
+            <div class="row m-3 mt-5 justify-content-center">
+            <div class="story-section">
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <span style="background-color: #A88344; color: white; border-radius: 12px; padding: 5px 10px;">2019</span>
+                        <span style="background-color: #A88344; color: white; border-radius: 12px; padding: 5px 10px;">المجال الأدبي</span>
+                        <span style="background-color: #A88344; color: white; border-radius: 12px; padding: 5px 10px;">سلطنة عمان</span>
+
+                    </div>
+                    <p class="story-text" id="story-text" style="margin-top: 35px;">
+                      فازت الروائية جوخة الحارثي بجائزة مان بوكر العالمية
+                       لعام 2019عن روايتها ” سيدات القمر” في نسختها المترجمة” الأجرام السماوية” وفق ما أعلنت لجنة الجائزة في وقت متأخر
+                       من ليل الثلاثاء وبذلك تكون الحارثي اول عربية تفوز بهذه الجائزة الدولية المهمة. وتتناول رواية “سيدات
+                       القمر” للكاتبة العمانية جوخة الحارثي تحوّلات الماضي والحاضر وتَجْمع، بلغةٍ رشيقةٍ بين مآسي بشر لا ينقصهم
+                       شيء ومآسي آخرين ينقصهم كلُّ شيء وكتبت الروائية العمانية من قبل مجموعتين من الروايات القصيرة وكتابا
+                       </br></br>
+                       للأطفال وثلاث روايات باللغة العربية. وقد نشرت الحارثية ثلاث مجموعات من القصص القصيرة و ثلاث روايات
+                       “منامات” و “سيدة القمر” و “نارنجة” والرواية الاخيرة كانت قد فازت بجائزة السلطان قابوس للثقافة
+                       والفون والاداب. وتتكون لجنة تحكيم الجائزة العالمية مان بوكر 2019 من لجنة مؤلفة من خمسة قضاة
+                       برئاسة بيتانى هيوز مؤرخ ومؤلف ومذيع حائز على الجوائز وهى مؤلفة من كاتب ومترجم ورئيس للغة الإنجليزية PEN Maureen Freely 
+                       </br></br>
+                       الفيلسوف البروفسور انجى هوبس الروائى والساخر ناثان جون والكاتب والروائى بانكاج ميشرا. وستحصل جوخة على قيمة 
+                       الجائزة وهي 60 ألف دولار بالمشاركة مع الأكاديمية الأمريكية مارلين بوث التي ترجمت رواية “سيدات القمر” من العربية إلى 
+                       الإنجليزية ومارلين أستاذة في الأدب العربي في جامعة أكسفورد. ودرست جوخة الشعر العربي الكلاسيكي في جامعة إدنبرة باستكلندا.
+                        وتعمل حاليا مدرسة في جامعة السلطان قابوس بالعاصمة العمانية مسقط.. وتفوقت الكاتبة العمانية، 41 عاما، على 5 منافسين
+                        ضمتهم القائمة القصيرة للجائزة، من فرنسا وألمانيا وبولندا وكولومبيا وتشيلي وتحكي رواية “سيدات القمر” قصة ثلاث شقيقات
+                        </br></br>
+                        تواجهن تغييرات تحدث في المجتمع العماني وكيف تتعامل عائلتهن مع هذه التغيرات. تدور أحداث الرواية في قرية “العوافي”
+                        في سلطنة عمان، حيث تواجه ثلاث شقيقات: مايا، التي تزوجت من عبد الله بعد مشاكل كثيرة وأسماء التي تزوجت فقط كواجب
+                        اجتماعي وخولة التي تنتظر حبيبها الذي هاجر إلى كندا وتعكس قصص الشقيقات الثلاث تطور عمان من مجتمع تقليدي يمتلك
+                        العبيد إلى حداثة معقدة. وقال المحكمون في بيان “إنها (الرواية) منظمة ومبنية بأناقة وهي تحكي عن فترة زمنية في
+                        عمان من خلال مشاعر الحب والفقدان داخل أسرة واحدة”. ووصفت صحيفة الغارديان الرواية بأنها تقدم “لمحة عن ثقافة غير
+                        </br></br>
+                        معروفة نسبيا في الغرب”، بينما قالت صحيفة ذي ناشيونال إنها تشير إلى “ظهور موهبة أدبية كبرى” ووصفت الرواية بأنها
+                       
+                       “إنجاز قوي ومنسوجة بحرفية وبها خيال عميق”. وقالت رئيسة لجنة التحكيم بيتاني هيوز، إن الرواية أظهرت “فنا حساسا
+                        وجوانب مقلقة من تاريخنا المشترك”. وأضافت أن “الأسلوب يقاوم بمهارة العبارات المبتذلة عن العرق والعبودية والجنس”.
+                    </p>
+                 
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-5 achievement-library">
+    <div>
+        <h2 class="story-title">المزيد</h2>
+    </div>
+    
+    <div class="achievement-grid">
+        <!-- Achievement Card 1 -->
+        <div class="achievement-card">
+            <img src="{{ asset('images/app/person.png') }}" alt="Achievement Image" class="achievement-image">
+            <div class="tags-container">
+                <span class="tag">الرياضة</span>
+                <span class="tag">كرة القدم</span>
+            </div>
+            <div class="achievement-date">23 May 2023</div>
+            <p class="achievement-description">حصل مشروع «إزالة الفينول باستخدام كربون نشط مصنع من مخلفات طبيعية» من جامعة السلطان قابوس على إنجازين مشرفين على.</p>
+            <button class="read-more-btn">إقرأ المزيد</button>
+        </div>
+
+        <!-- Achievement Card 2 -->
+        <div class="achievement-card">
+            <img src="{{ asset('images/app/person.png') }}" alt="Achievement Image" class="achievement-image">
+            <div class="tags-container">
+                <span class="tag">الرياضة</span>
+                <span class="tag">كرة القدم</span>
+            </div>
+            <div class="achievement-date">23 May 2023</div>
+            <p class="achievement-description">حصل مشروع «إزالة الفينول باستخدام كربون نشط مصنع من مخلفات طبيعية» من جامعة السلطان قابوس على إنجازين مشرفين على المستوى الإقليمي والدولي جاء كالآتي: الميدالية الفضية …</p>
+            <button class="read-more-btn">إقرأ المزيد</button>
+        </div>
+
+        <div class="achievement-card">
+            <img src="{{ asset('images/app/person.png') }}" alt="Achievement Image" class="achievement-image">
+            <div class="tags-container">
+                <span class="tag">الرياضة</span>
+                <span class="tag">كرة القدم</span>
+            </div>
+            <div class="achievement-date">23 May 2023</div>
+            <p class="achievement-description">حصل مشروع «إزالة الفينول باستخدام كربون نشط مصنع من مخلفات طبيعية» من جامعة السلطان قابوس على إنجازين مشرفين على المستوى الإقليمي والدولي جاء كالآتي: الميدالية الفضية …</p>
+            <button class="read-more-btn">إقرأ المزيد</button>
+        </div>
+     
+   
+
+      </div>
+</div>
+</div>
+</div>
+
+@push('styles')
+<script>
+function toggleStory() {
+    var moreText = document.getElementById("more-text");
+    var btn = document.getElementById("show-more-btn");
+    if (moreText.style.display === "none") {
+        moreText.style.display = "inline";
+        btn.innerHTML = "اقرأ أقل <span class='up-arrow'>↑</span>";
+    } else {
+        moreText.style.display = "none";
+        btn.innerHTML = "اقرأ المزيد <span class='down-arrow'>↓</span>";
+    }
+}
+</script>
+<style>
+#hero-section { 
+    position: relative;
+    width: 100%;
+    height: 530px;
+    overflow: hidden;
+}
+
+.background-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.bg-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2409.1px;
+    height: 530px;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.content-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.bg-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: auto;
+    height: 380px;
+  
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 1200px;
+    z-index: 3;
+}
+
+.hero-text-container {
+    text-align: right;
+    max-width: 627px;
+    margin: clamp(50px, 10vh, 150px) 30px 0 auto; /* Responsive margin */
+    padding: 0 1rem;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    color: white;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-subtitle {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.hero-description {
+    color: white;
+    font-size: 1.25rem;
+    opacity: 0.8;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.social-icon {
+    width: 30px;
+    height: auto;
+    margin: 0 10px;
+}
+
+.social-text {
+ 
+    color: black; 
+    margin: 0 10px;
+}
+
+.statistics-data {
+    color: #096770;
+    font-weight: bold;  /* Updated color */
+}
+
+.story-title {
+    color: #096770;
+    font-weight: bold;  /* Updated color */
+}
+.more-library {
+    padding: 1rem;
+    margin: 1rem 0;
+}
+.more-title {
+    color: #096770;
+    font-weight: bold;  /* Updated color */
+}
+
+.media-title {
+    color: #096770;
+    font-weight: bold; 
+    font-size: 2rem; /* Updated color */
+}
+.media-library {
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.media-title {
+    color: #096770;
+    font-weight: bold; 
+}
+
+.title-icon {
+    width: 40px;
+    height: 40px;
+}
+
+
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    gap: 1.5rem;
+}
+
+.media-card {
+    margin-top: 20px;
+    position: relative;
+    height: 280px; /* Adjust height as needed */
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    color: white;
+    text-align: center;
+}
+
+.card-icon {
+    width: 50px; /* Adjust icon size as needed */
+    margin-bottom: 10px;
+}
+
+.empty-card {
+    /* Optional styles for the empty card */
+    height: 200px; /* Match the height of the other cards */
+}
+
+.achievement-library {
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.achievement-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #0B626A; /* Title color */
+    margin-bottom: 1.5rem;
+}
+
+.achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Display 4 columns */
+    gap: 1.5rem; /* Space between cards */
+}
+
+.achievement-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--color-white); /* Card background color */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); /* Match shadow */
+    padding: 1rem; /* Padding inside the card */
+}
+
+.achievement-image {
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 20px;
+}
+
+.tags-container {
+    display: flex;
+    justify-content: flex-strt; /* Center tags */
+    gap: 0.5rem; /* Space between tags */
+    margin: 0.5rem 0; /* Margin around tags */
+}
+
+.tag {
+    background-color: #D4F8F8; /* Light blue color for tags */
+    color: var(--color-black); /* Text color */
+    padding: 0.3rem 0.5rem; /* Padding inside tags */
+    border-radius: 20px;
+    font-size: 12px; /* Tag font size */
+}
+
+.achievement-date {
+    font-size: 12px; /* Date font size */
+    margin: 0.5rem 0; /* Margin around date */
+    text-align: start; /* Center date */
+}
+
+.achievement-description {
+    font-size: 12px; /* Description font size */
+    margin: 0.5rem 0; /* Margin around description */
+    text-align: start; /* Center description */
+}
+
+.read-more-btn {
+    background-color: #096770; /* Green button */
+    color: white; /* Text color */
+    border: none; /* No border */
+    padding: 0.5rem 1rem; /* Padding inside button */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    display: block; /* Block display */
+    margin: 0 auto; /* Center button */
+    font-size: 12px; /* Button font size */
+}   
+
+
+.filters-section {
+    padding: 2rem 1rem;
+    background-color: white;
+}
+
+.filters-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: flex-start;
+}
+
+.filter-btn {
+    display: flex;
+    align-items: start;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #666;
+    background: white;
+    color: #666;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: var(--font-size-5xl);
+}
+
+.filter-btn.active {
+    background: #0B626A;
+    color: white;
+    border-color: #0B626A;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.filter-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.filter-btn.active .filter-icon {
+    filter: brightness(0) invert(1);
+}
+
+
+@media (max-width: 768px) {
+    #hero-section {
+        height: 300px;
+    }
+
+    .bg-main {
+        width: 100%;
+        height: 100%;
+    }
+
+    .bg-overlay {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 6vw, 3rem);
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .filters-section {
+        padding: 1rem 0.5rem;
+    }
+
+    .filter-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .filter-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.achievers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding-bottom: 3rem;
+    padding-left: 12rem;
+    padding-right: 12rem;
+    padding-top: 3rem;
+
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.achiever-card {
+    border-radius: 26px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 3/4;
+    transition: transform 0.3s ease;
+    height: 300px;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 26px;
+}
+
+.category-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.name-badge {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    color: #0B626A;
+    font-weight: 500;
+    border: 2px solid white;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .achievers-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .category-badge {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .name-badge {
+        bottom: 0.5rem;
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+</style>
+@endpush

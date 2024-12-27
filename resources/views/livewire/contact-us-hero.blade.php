@@ -39,7 +39,6 @@
     </div>
 
     <div class="contact-info">
-        <h2>معلومات الاتصال</h2>
         <p>الهاتف: 99555564</p>
         <p>البريد الإلكتروني: injazat2040@gmail.com</p>
     </div>

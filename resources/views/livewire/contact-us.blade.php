@@ -29,25 +29,14 @@
                                 <label class="text-white" for="message">الرسالة</label>
                                 <textarea class="form-control" id="message" wire:model="message" required></textarea>
                             </div>
-                            <div class="mt-3 d-flex justify-content-end">
-                                <button type="submit" class="btn btn-md btn-primary">ارسال</button>
+                            <div class="mt-3 d-flex justify-content-start">
+                                <button type="submit" class="btn btn-md btn-primary" style="border: none; border-radius: 20px; width: 25%; background-color: #a88344;">ارسال</button>
                             </div>
                         </form>
 
-                        <div class="social-links">
-                            <h2 class="text-white">تابعنا على</h2>
-                            <a class="text-white" href="https://instagram.com/injazat_oman"
-                               target="_blank">Instagram</a>
-                            <a class="text-white" href="https://twitter.com/injazat_oman" target="_blank">Twitter</a>
-                            <a class="text-white" href="https://linkedin.com/in/injazat_oman"
-                               target="_blank">LinkedIn</a>
-                        </div>
 
-                        <div class="contact-info">
-                            <h2 class="text-white">معلومات الاتصال</h2>
-                            <p class="text-white">الهاتف: 99555564</p>
-                            <p class="text-white">البريد الإلكتروني: injazat2040@gmail.com</p>
-                        </div>
+
+                        
                     </div>
                 </div>
                 <div class="col-md-2"></div>
@@ -67,9 +56,23 @@
                                 </div>
                             </div>
                         @endforeach
+                        <div class="map-container" style="border-radius: 20px; overflow: hidden; margin-bottom: 20px; margin-top: 35px;">
+                            <img src="{{ asset('images/app/Map.png') }}" alt="Map" style="width: 100%; height: auto;">
+                        </div>
+                        <div class="contact-info" style="margin-top: 35px; font-size: 20px;">
+                            <div class="d-flex justify-content-between ">
+                                
+                                <p class="text-white d-flex align-items-center mb-3">
+                                    <img src="{{ asset('images/app/email.svg') }}" alt="Email Icon" height="16" width="16" class="me-2" style="margin-left: 10px;"> 
+                                    <a href="mailto:injazat2040@gmail.com" style="color: white; text-decoration: none;">injazat2040@gmail.com</a>
+                                </p>
 
-
-                        <div class="col-12">map</div>
+                                <p class="text-white d-flex align-items-center mb-3">
+                                    <img src="{{ asset('images/app/phone.svg') }}" alt="Phone Icon" height="16" width="16" class="me-2" style="margin-left: 10px;"> 
+                                    <a href="tel:99555564" style="color: white; text-decoration: none;">99555564</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,17 @@
+<svg id="instagram" xmlns="http://www.w3.org/2000/svg" width="30.5" height="30.501" viewBox="0 0 30.5 30.501">
+  <g id="Group_37837" data-name="Group 37837" transform="translate(0)">
+    <g id="Group_37836" data-name="Group 37836">
+      <path id="Path_33914" data-name="Path 33914" d="M22.88,0H7.63A7.648,7.648,0,0,0,0,7.625V22.876A7.649,7.649,0,0,0,7.63,30.5H22.88a7.649,7.649,0,0,0,7.625-7.625V7.625A7.648,7.648,0,0,0,22.88,0Zm5.083,22.876a5.089,5.089,0,0,1-5.083,5.083H7.63a5.09,5.09,0,0,1-5.083-5.083V7.625A5.089,5.089,0,0,1,7.63,2.542H22.88a5.088,5.088,0,0,1,5.083,5.083Z" transform="translate(-0.005 0)" fill="#096771"/>
+    </g>
+  </g>
+  <g id="Group_37839" data-name="Group 37839" transform="translate(21.606 5.083)">
+    <g id="Group_37838" data-name="Group 37838">
+      <circle id="Ellipse_21" data-name="Ellipse 21" cx="1.906" cy="1.906" r="1.906" fill="#096771"/>
+    </g>
+  </g>
+  <g id="Group_37841" data-name="Group 37841" transform="translate(7.625 7.625)">
+    <g id="Group_37840" data-name="Group 37840">
+      <path id="Path_33915" data-name="Path 33915" d="M110.03,102.4a7.625,7.625,0,1,0,7.625,7.625A7.624,7.624,0,0,0,110.03,102.4Zm0,12.709a5.084,5.084,0,1,1,5.083-5.084A5.084,5.084,0,0,1,110.03,115.109Z" transform="translate(-102.405 -102.4)" fill="#096771"/>
+    </g>
+  </g>
+</svg>
