@@ -5,16 +5,20 @@
             <div class="content-wrapper">
                 {{view("components.layouts.nav")}}
 
-                <div>
-                    <div class="container w-100">
-                        <div class="row w-100">
-                            <div class="col-md-4">
-                                <img src="{{ asset($achiever->image_path) }}" alt="" class="bg-overlay">
+                <div class="hero-content-container">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 mb-4 mb-md-0">
+                                <div class="achiever-image-container">
+                                    <img src="{{ asset($achiever->image_path) }}" alt="" class="achiever-image">
+                                </div>
                             </div>
                             <div class="col-md-8">
-                                <h1 class="hero-title">{{ $achiever->name_ar }}</h1>
-                                <p class="hero-subtitle" id="landing-english-name">{{ $achiever->name_en }}</p>
-                                <p class="hero-description" id="landing-title">{{ $achiever->name_en }}</p>
+                                <div class="hero-text">
+                                    <h1 class="hero-title">{{ $achiever->name_ar }}</h1>
+                                    <p class="hero-subtitle" id="landing-english-name">{{ $achiever->name_en }}</p>
+                                    <p class="hero-description" id="landing-title">{{ $achiever->name_en }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -177,7 +181,8 @@
                 </div>
                 <div class="achievement-date">23 May 2023</div>
                 <p class="achievement-description">حصل مشروع «إزالة الفينول باستخدام كربون نشط مصنع من مخلفات طبيعية» من
-                    جامعة السلطان قابوس على إنجازين مشرفين على.</p>
+                    جامعة السلطان قابوس على إنجازين مشرفين على المستوى الإقليمي والدولي جاء كالآتي: الميدالية الفضية
+                    …</p>
                 <button class="read-more-btn">إقرأ المزيد</button>
             </div>
             <div class="achievement-card">
@@ -287,22 +292,26 @@
         #hero-section {
             position: relative;
             width: 100%;
-            height: 530px;
+            min-height: 530px;
+            height: auto;
             overflow: hidden;
+            padding: 0;
+            margin: 0;
         }
 
         .background-container {
             position: relative;
             width: 100%;
             height: 100%;
+            margin: 0;
         }
 
         .bg-main {
             position: absolute;
             top: 0;
             left: 0;
-            width: 2409.1px;
-            height: 530px;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             z-index: 1;
         }
@@ -312,36 +321,37 @@
             width: 100%;
             height: 100%;
             z-index: 2;
+            padding-top: 0;
         }
 
-        .bg-overlay {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: auto;
-            height: 380px;
-
+        .hero-content-container {
+            padding: 1rem 0;
+            margin-top: 0;
         }
 
-        .hero-content {
-            position: absolute;
-            top: 50%;
-            left: 35%;
-            transform: translate(-50%, -50%);
+        .achiever-image-container {
+            position: relative;
             width: 100%;
-            max-width: 1200px;
-            z-index: 3;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
-        .hero-text-container {
+        .achiever-image {
+            width: 100%;
+            height: auto;
+            max-height: 380px;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-text {
             text-align: right;
-            max-width: 627px;
-            margin: clamp(50px, 10vh, 150px) 30px 0 auto; /* Responsive margin */
-            padding: 0 1rem;
+            padding: 1rem;
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             color: white;
             margin-bottom: 1rem;
             line-height: 1.2;
@@ -350,14 +360,14 @@
 
         .hero-subtitle {
             color: white;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
             margin-bottom: 0.5rem;
             opacity: 0.9;
         }
 
         .hero-description {
             color: white;
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
             opacity: 0.8;
         }
 
@@ -391,13 +401,16 @@
         }
 
         .more-library {
-            padding: 1rem;
+            padding: 2rem 1rem;
             margin: 1rem 0;
         }
 
         .more-title {
             color: #096770;
-            font-weight: bold; /* Updated color */
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
         }
 
         .media-title {
@@ -424,8 +437,9 @@
 
         .media-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
+            padding: 1rem;
         }
 
         .media-card {
@@ -477,8 +491,9 @@
 
         .achievement-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* Display 4 columns */
-            gap: 1.5rem; /* Space between cards */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
         }
 
         .achievement-card {
@@ -587,43 +602,36 @@
 
         @media (max-width: 768px) {
             #hero-section {
-                height: 300px;
+                min-height: auto;
+                padding: 0;
             }
 
-            .bg-main {
-                width: 100%;
-                height: 100%;
+            .hero-content-container {
+                padding: 1rem 0;
+                margin-top: 0;
             }
 
-            .bg-overlay {
-                width: 100%;
-                object-fit: contain;
+            .hero-text {
+                text-align: center;
+                padding: 1rem 0;
             }
 
-            .hero-title {
-                font-size: clamp(2rem, 6vw, 3rem);
+            .achiever-image-container {
+                max-width: 300px;
             }
 
-            .hero-subtitle {
-                font-size: 1.25rem;
+            .achiever-image {
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .achiever-image-container {
+                max-width: 250px;
             }
 
-            .hero-description {
-                font-size: 1rem;
-            }
-
-            .filters-section {
-                padding: 1rem 0.5rem;
-            }
-
-            .filter-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .filter-icon {
-                width: 20px;
-                height: 20px;
+            .achiever-image {
+                max-height: 250px;
             }
         }
 
@@ -631,13 +639,9 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
-            padding-bottom: 3rem;
-            padding-left: 12rem;
-            padding-right: 12rem;
-            padding-top: 3rem;
-
-            max-width: 1600px;
+            padding: 1rem;
             margin: 0 auto;
+            max-width: 1600px;
         }
 
         .achiever-card {
@@ -647,6 +651,8 @@
             aspect-ratio: 3/4;
             transition: transform 0.3s ease;
             height: 300px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .card-image {
@@ -682,25 +688,111 @@
             white-space: nowrap;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
+            .achievers-grid {
+                grid-template-columns: repeat(3, 1fr);
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .achiever-card {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 992px) {
             .achievers-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-                padding: 1rem;
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .more-library {
+                padding: 1rem 0.5rem;
+            }
+
+            .achievers-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                padding: 0.5rem;
+            }
+
+            .achiever-card {
+                height: 200px;
             }
 
             .category-badge {
-                top: 0.5rem;
-                right: 0.5rem;
-                padding: 0.4rem 0.8rem;
-                font-size: 0.9rem;
+                font-size: 0.8rem;
+                padding: 0.3rem 0.8rem;
             }
 
             .name-badge {
-                bottom: 0.5rem;
-                padding: 0.4rem 1rem;
-                font-size: 0.9rem;
+                font-size: 0.8rem;
+                padding: 0.3rem 0.8rem;
+                width: 80%;
+                text-align: center;
             }
+        }
+
+        @media (max-width: 480px) {
+            .more-library {
+                padding: 1rem 0.25rem;
+            }
+
+            .achievers-grid {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 1rem;
+                padding: 0.5rem;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .achiever-card {
+                height: 250px;
+                max-width: 100%;
+            }
+
+            .more-title {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .category-badge {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.6rem;
+            }
+
+            .name-badge {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.6rem;
+                width: 90%;
+            }
+        }
+
+        /* Add smooth transitions */
+        .hero-title, .hero-subtitle, .hero-description, 
+        .achievement-card, .media-card, .achiever-card {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Improve card responsiveness */
+        .achievement-card, .media-card {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Improve image handling */
+        .achievement-image, .media-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* Remove any top margin from the first element in the page */
+        .background-container > *:first-child {
+            margin-top: 0;
         }
     </style>
 @endpush

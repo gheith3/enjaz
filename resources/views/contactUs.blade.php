@@ -95,7 +95,7 @@
 #hero-section {
     position: relative;
     width: 100%;
-    height: 421px;
+    min-height: 300px;
     overflow: hidden;
 }
 
@@ -109,8 +109,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 2409.1px;
-    height: 421px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     z-index: 1;
 }
@@ -120,19 +120,15 @@
     width: 100%;
     height: 100%;
     z-index: 2;
+    padding: 1rem;
 }
 
 .bg-overlay {
-    position: absolute;
-    top: 45px;
-    right: -303px;
-    width: auto;
-    height: 100%;
-    z-index: 2;
+    display: none;
 }
 
 .hero-content {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -140,18 +136,19 @@
     max-width: 1200px;
     z-index: 3;
     text-align: center;
+    padding: 0 1rem;
 }
 
 .hero-title {
-    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-size: clamp(2rem, 6vw, 4rem);
     color: white;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     line-height: 1.2;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .contact-us {
-    max-width: 600px;
+    max-width: 100%;
     margin: 20px auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -159,44 +156,184 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.contact-us h1 {
-    text-align: center;
-}
-
 .contact-us form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
 .contact-us label {
     margin-bottom: 5px;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .contact-us input,
 .contact-us textarea {
-    margin-bottom: 15px;
-    padding: 10px;
+    width: 100%;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.contact-us textarea {
+    min-height: 120px;
+    resize: vertical;
 }
 
 .contact-us button {
-    padding: 10px;
+    padding: 12px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
 }
 
-.contact-us .social-links {
-    margin-top: 20px;
+.contact-us button:hover {
+    background-color: #45a049;
+}
+
+.social-links {
+    margin-top: 30px;
     text-align: center;
 }
 
-.contact-us .contact-info {
-    margin-top: 20px;
+.social-links h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.social-links a {
+    display: inline-block;
+    margin: 5px 10px;
+    padding: 8px 15px;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.contact-info {
+    margin-top: 30px;
     text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.contact-info p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #666;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .contact-us {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .social-links a {
+        display: block;
+        margin: 10px auto;
+        max-width: 200px;
+    }
+
+    .contact-info {
+        margin: 20px 10px;
+    }
+
+    .contact-us button {
+        width: 100%;
+    }
+
+    .contact-us-section .container {
+        padding: 0 15px;
+    }
+
+    .contact-us form > div {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    #hero-section {
+        min-height: 250px;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .contact-info h2,
+    .social-links h2 {
+        font-size: 1.25rem;
+    }
+
+    .contact-us input,
+    .contact-us textarea {
+        padding: 10px;
+    }
+
+    .contact-us label {
+        font-size: 0.9rem;
+    }
+
+    .contact-info p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Add smooth transitions */
+.contact-us button,
+.social-links a {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Improve touch targets */
+.contact-us input,
+.contact-us textarea,
+.contact-us button,
+.social-links a {
+    min-height: 44px;
 }
 </style>
 @endpush
