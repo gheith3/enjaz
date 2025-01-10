@@ -10,6 +10,7 @@ class NewAchievements extends Component
 {
     public Collection $achievements;
 
+    public bool $showAll = false;
     public int|null $achievementMainTypeId = null;
     public int|null $activeAchievement = null;
     public int|null $instituteId = null;
@@ -28,7 +29,9 @@ class NewAchievements extends Component
     {
         $this->achievements = Achievement::query()
             ->latest()
-            ->limit(4)
+            ->when(!$this->showAll, function ($query) {
+                return $query->limit(4);
+            })
             ->when($this->achievementMainTypeId, function ($query) {
                 return $query->where('achievement_main_type_id', $this->achievementMainTypeId);
             })

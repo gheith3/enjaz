@@ -1,7 +1,7 @@
 <div class="messages-section">
     <div class="container">
-        
-        
+
+
         <div class="row">
             @foreach($messages as $message)
             <div class="col-md-4">
@@ -90,10 +90,10 @@
     .message-card {
         margin: 10px 0;
     }
-    
+
     .card-content {
         padding: 20px;
     }
 }
 </style>
-@endpush 
+@endpush

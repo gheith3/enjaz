@@ -2,7 +2,7 @@
     <div class="container text-center text-md-left">
         <div class="row text-center text-md-left">
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo"
+                <img src="{{ asset($settings->logo) }}" alt="Logo"
                      class="footer-logo">
             </div>
 
@@ -37,7 +37,7 @@
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 d-flex align-items-center justify-content-center">
                 <p class="mb-0 text-white-50">
         <span>
-            جميع الحقوق مخفوظة
+            جميع الحقوق محفوظة
         </span>
                     <span>
             {{ now()->year }}

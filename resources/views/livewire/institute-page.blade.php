@@ -3,9 +3,6 @@
         :title="$institute->name_ar"
         :header-image="$institute->logo_path" />
 
-
-
-
     <div class="mt-5">
         <div class="container">
             <div class="card" id="statistics-card">
@@ -22,29 +19,33 @@
         </div>
     </div>
 
-    <div class="mt-5">
-        <div class="row mx-3 justify-content-center">
-            <div class="col-md-3 d-flex justify-content-center">
-                <img src="{{ asset($institute->manager_image_path) }}"
-                     alt="{{$institute->manager_name_en}}" style="width: 250px">
-            </div>
-            <div class="col-md-6 d-flex align-items-center">
-                <div>
-                    <div class="story-text" id="story-text">
-                        {!! $institute->manager_message_ar !!}
-                    </div>
+    @if(str($institute->manager_name_ar)->isNotEmpty())
+        <div class="mt-5">
+            <div class="row mx-3 justify-content-center">
+                <div class="col-md-3 d-flex justify-content-center">
+                    <img src="{{ asset($institute->manager_image_path) }}"
+                         alt="{{$institute->manager_name_en}}" style="width: 250px">
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
                     <div>
-                        <h3 style="color: #357079">
-                            {{$institute->manager_name_ar}}
-                        </h3>
+                        <div class="story-text" id="story-text">
+                            {!! $institute->manager_message_ar !!}
+                        </div>
+                        <div>
+                            <h3 style="color: #357079">
+                                {{$institute->manager_name_ar}}
+                            </h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
+
 
     <div class="mt-5">
         <livewire:new-achievements
+            :show-all="true"
             :section-title="'انجازاتنا'"
             :institute-id="$institute->id"/>
     </div>
@@ -66,6 +67,7 @@
             </div>
         </div>
     </div>
+    <br>
 </div>
 
 {{--@push('styles')--}}

@@ -1,6 +1,6 @@
 <div>
     <div class="pb-3" style="background-image: url('{{asset($backgroundImage ?? 'images/app/ABG.svg')}}');
-     height: 450px;
+     height: 350px;
     display: flex; flex-direction: column; justify-content: space-between; background-size: cover; background-repeat: no-repeat">
 
         <div>

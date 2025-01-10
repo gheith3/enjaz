@@ -20,6 +20,7 @@ class TeamSettings extends Settings
     public string $managerMessage = "";
     public string $managerName = "";
     public string $managerPosition = "";
+    public array $members = [];
 
     public static function group(): string
     {

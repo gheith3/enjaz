@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\ContactUsMessage;
+use App\Settings\CompanySettings;
 use Livewire\Component;
 
 class ContactUs extends Component
@@ -23,38 +25,25 @@ class ContactUs extends Component
         ]);
 
         // Handle the form submission (e.g., send an email, save to database, etc.)
+        ContactUsMessage::query()
+            ->create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'message' => $this->message,
+                'ip_address' => request()->ip(),
+            ]);
         // For now, we'll just reset the fields
         $this->reset();
 
         // Optionally, you can add a success message
-        session()->flash('success', 'Message sent successfully!');
+        session()->flash('success', 'تم ارسال رسالتك بنجاح');
     }
 
     public function render()
     {
         return view('livewire.contact-us')
             ->with([
-                'socialMedia' => [
-                    'x' => [
-                        'title' => 'x',
-                        'image' => asset('images/app/X.png'),
-                        'link' => 'https://www.x.com',
-                        'account' => '@some'
-                    ],
-                    'instagram' => [
-                        'title' => 'instagram',
-                        'image' => asset('images/app/IG.svg'),
-                        'link' => 'https://www.instagram.com',
-                        'account' => '@thing'
-                    ],
-                    'linkedin' => [
-                        'title' => 'linkedIn',
-                        'image' => asset('images/app/LI.png'),
-                        'link' => 'https://www.linkedin.com',
-                        'account' => '@here'
-                    ]
-                ]
-            ])
-            ->layout('components.layouts.app');
+                'settings' => app(CompanySettings::class),
+            ]);
     }
 }

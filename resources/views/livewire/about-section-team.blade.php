@@ -5,12 +5,12 @@
     </div>
 
     <div class="team-grid">
-        @foreach($teamMembers as $index => $member)
-        <div class="team-member" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+        @foreach($teemSettings->members as $member)
+        <div class="team-member" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
             <img src="{{ asset($member['image']) }}" alt="{{ $member['name'] }}" class="member-image">
             <div class="member-info">
                 <h3 class="member-name">{{ $member['name'] }}</h3>
-                <p class="member-title">{{ $member['title'] }}</p>
+                <p class="member-title">{{ $member['position'] }}</p>
             </div>
         </div>
         @endforeach
@@ -66,7 +66,7 @@
     height: 200px;
     object-fit: cover;
     margin-bottom: 1rem;
-    
+
 }
 
 .member-info {

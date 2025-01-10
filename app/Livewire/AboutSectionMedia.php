@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Settings\CompanySettings;
 use Livewire\Component;
 
 class AboutSectionMedia extends Component
@@ -41,6 +42,9 @@ class AboutSectionMedia extends Component
 
     public function render()
     {
-        return view('livewire.about-section-media');
+        return view('livewire.about-section-media')
+            ->with([
+                'settings' => app(CompanySettings::class)
+            ]);
     }
 }

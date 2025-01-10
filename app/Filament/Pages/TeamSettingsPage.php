@@ -3,7 +3,11 @@
 namespace App\Filament\Pages;
 
 use App\Settings\TeamSettings;
+use Awcodes\TableRepeater\Components\TableRepeater;
+use Awcodes\TableRepeater\Header;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
 
@@ -42,7 +46,32 @@ class TeamSettingsPage extends SettingsPage
                 ->columns(2),
                 Forms\Components\Section::make('text')
                     ->schema($textInputs)
-                ->columns(2)
+                ->columns(2),
+                Forms\Components\Section::make("members")
+                    ->schema([
+                        TableRepeater::make('members')
+                            ->label(__('member'))
+                            ->headers([
+                                Header::make('name'),
+                                Header::make('position'),
+                                Header::make('image'),
+                            ])
+                            ->orderColumn('sort_order')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('name')
+                                    ->required(),
+                                TextInput::make('position')
+                                    ->label('position')
+                                    ->required(),
+                                FileUpload::make('image')
+                                    ->previewable(false)
+                                    ->image()
+                                    ->imageEditor()
+                                    ->maxSize(1024 * 5)
+                                    ->required()
+                            ])->columns(3)
+                    ]),
             ]);
     }
 }

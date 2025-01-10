@@ -13,12 +13,14 @@
                     </div>
                 @endforeach
             </div>
-            <div class="d-flex justify-content-end mt-5">
-                <a href="{{route('achievements')}}" data-aos="fade-up" data-aos-duration="1000"
-                   class="btn app-btn px-5 mx-3">
-                    المزيد
-                </a>
-            </div>
+            @if(!$showAll)
+                <div class="d-flex justify-content-end mt-5">
+                    <a href="{{route('achievements')}}" data-aos="fade-up" data-aos-duration="1000"
+                       class="btn app-btn px-5 mx-3">
+                        المزيد
+                    </a>
+                </div>
+            @endif
         </div>
     @endif
 </div>

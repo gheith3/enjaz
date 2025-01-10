@@ -5,7 +5,12 @@ use App\Livewire\InstitutePage;
 use App\Livewire\Pages\AchievementsPage;
 use App\Livewire\Pages\AchieversPage;
 use App\Livewire\Pages\HomePage;
+use App\Livewire\Pages\ImagesAlbumPage;
+use App\Livewire\Pages\ImagesAlbumsPage;
+use App\Livewire\Pages\MediaPage;
 use App\Livewire\Pages\OrganizationsPage;
+use App\Livewire\Pages\PublicationsPage;
+use App\Livewire\Pages\VideosPage;
 use App\Livewire\SingleAchievement;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\SingleAchieverHero;
@@ -29,18 +34,26 @@ Route::get('/achievers', AchieversPage::class)
 Route::get('/achievers/{achiever}', SingleAchieverHero::class)
     ->name('achievers.show');
 
-// Alternatively, if you want to access it via /home
-Route::get('/home', function () {
-    return view('welcome');
-})->name('welcome');
+
+Route::get('/media', MediaPage::class)
+    ->name('media');
+
+Route::get('/media/publications', PublicationsPage::class)
+    ->name('media.publications');
+
+Route::get('/media/videos', VideosPage::class)
+    ->name('media.videos');
+
+Route::get('/media/images-albums', ImagesAlbumsPage::class)
+    ->name('media.images-albums');
+
+Route::get('/media/images-albums/{id}', ImagesAlbumPage::class)
+    ->name('media.images-albums.show');
 
 Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::get('/achievers', function () {
-    return view('achievers');
-})->name('achievers');
 
 Route::get('/institutes', function () {
     return view('institutes');

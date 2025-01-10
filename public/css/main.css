@@ -85,7 +85,7 @@
     color: var(--color-teal) !important;
 }
 
-.categorize-image{
+.categorize-image {
     width: 70px;
 }
 
@@ -125,8 +125,6 @@
 #public-figure {
     background: linear-gradient(268.05deg, #0c7f89, #0e4348);
 }
-
-
 
 
 #public-figure-text p {
@@ -215,7 +213,7 @@
     color: #9b865d;
 }
 
-.achievers-image-d img{
+.achievers-image-d img {
     height: 340px;
     width: 100%;
 }
@@ -256,13 +254,18 @@
     padding: 5px 15px;
 }
 
-#app-footer{
-    background: linear-gradient(268.05deg, #1b4146,#2a6169, #086e77);
+#app-footer {
+    background: linear-gradient(268.05deg, #1b4146, #2a6169, #086e77);
 }
 
-.footer-logo{
+.nav-bg {
+    background: linear-gradient(268.05deg, #1b4146, #2a6169, #086e77);
+}
+
+.footer-logo {
     width: 120px;
 }
+
 @media (max-width: 768px) {
     #landing-image {
         width: 200px;

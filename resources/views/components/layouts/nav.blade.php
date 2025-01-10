@@ -1,7 +1,11 @@
+@php
+    use App\Settings\CompanySettings;
+    $settings = app(CompanySettings::class);
+@endphp
 <nav class="navbar navbar-expand-sm navbar-dark bg-transparent">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo"
+            <img src="{{ asset($settings->logo) }}" alt="Logo"
                  class="d-inline-block align-top">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar"
@@ -27,7 +31,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">الإعلام</a>
+                    <a class="nav-link" href="{{route('media')}}">الإعلام</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('contact-us') }}">تواصل معنا</a>
@@ -39,45 +43,45 @@
 </nav>
 
 <style>
-@media (max-width: 576px) {
-    .navbar-collapse {
-        background-color: rgba(0, 0, 0, 0.9);
-        padding: 1rem;
-        border-radius: 8px;
-        margin-top: 10px;
-    }
+    @media (max-width: 576px) {
+        .navbar-collapse {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
 
-    .navbar-nav {
-        text-align: center;
-    }
+        .navbar-nav {
+            text-align: center;
+        }
 
-    .nav-item {
-        margin: 10px 0;
-    }
+        .nav-item {
+            margin: 10px 0;
+        }
 
-    .nav-link {
-        padding: 10px !important;
-        display: block;
-        width: 100%;
-    }
+        .nav-link {
+            padding: 10px !important;
+            display: block;
+            width: 100%;
+        }
 
-    .navbar-toggler {
-        border: none;
-        padding: 0.5rem;
-    }
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+        }
 
-    .navbar-toggler:focus {
-        box-shadow: none;
-        outline: none;
-    }
+        .navbar-toggler:focus {
+            box-shadow: none;
+            outline: none;
+        }
 
-    .navbar-toggler-icon {
-        width: 1.5em;
-        height: 1.5em;
-    }
+        .navbar-toggler-icon {
+            width: 1.5em;
+            height: 1.5em;
+        }
 
-    .gap-4 {
-        gap: 0.5rem !important;
+        .gap-4 {
+            gap: 0.5rem !important;
+        }
     }
-}
 </style>

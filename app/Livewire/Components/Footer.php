@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components;
 
+use App\Settings\CompanySettings;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -16,31 +17,35 @@ class Footer extends Component
             'الإنجازات' => route('achievements'),
             'المؤسسات' => route('organizations'),
             'المنجزين' => route('achievers'),
-            'الإعلام' => '#',
+            'الإعلام' => route('media'),
             'تواصل معنا' => route('contact-us'),
         ]);
     }
 
     public function getAddressDetails(): array
     {
+        $settings = app(CompanySettings::class);
         return [
             [
                 'icon' => 'fas fa-map-marker-alt',
-                'text' => '+968 93839229'
+                'text' => $settings->phone
             ],
             [
                 'icon' => 'fas fa-phone-email',
-                'text' => 'info@enjaz.com'
+                'text' => $settings->email
             ],
             [
                 'icon' => 'fas fa-map-marker-alt',
-                'text' => 'مخافظة مسقط بوشر'
+                'text' => $settings->address
             ],
         ];
     }
 
     public function render(): View
     {
-        return view('livewire.components.footer');
+        return view('livewire.components.footer')
+            ->with([
+                'settings' => app(CompanySettings::class),
+            ]);
     }
 }
