@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/institutes.css') }}">
 
     @livewireStyles
-{{--    <link href="{{asset("css/global.css")}}" rel="stylesheet">    --}}
+    {{--    <link href="{{asset("css/global.css")}}" rel="stylesheet">    --}}
     <link href="{{asset("css/main.css")}}" rel="stylesheet">
     @stack('styles')
 
@@ -19,9 +19,11 @@
 <body dir="rtl">
 
 
-
 <div id="main">
     {{$slot}}
+
+    <livewire:components.footer/>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

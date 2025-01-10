@@ -1,31 +1,9 @@
 <div>
-    <div id="hero-section">
-        <div class="background-container">
-            <img src="{{ asset('images/app/ABG.svg') }}" alt="" class="bg-main">
-            <div class="content-wrapper">
-                {{view("components.layouts.nav")}}
 
-                <div class="hero-content-container">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-md-4 mb-4 mb-md-0">
-                                <div class="achiever-image-container">
-                                    <img src="{{ asset($achiever->image_path) }}" alt="" class="achiever-image">
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="hero-text">
-                                    <h1 class="hero-title">{{ $achiever->name_ar }}</h1>
-                                    <p class="hero-subtitle" id="landing-english-name">{{ $achiever->name_en }}</p>
-                                    <p class="hero-description" id="landing-title">{{ $achiever->name_en }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <livewire:page-header
+        :title="$achiever->name_ar"
+        :header-image="$achiever->image_path" />
+
     <div class="mt-5">
         <div class="social-icons" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
             <div class="social-icon-container">
@@ -771,7 +749,7 @@
         }
 
         /* Add smooth transitions */
-        .hero-title, .hero-subtitle, .hero-description, 
+        .hero-title, .hero-subtitle, .hero-description,
         .achievement-card, .media-card, .achiever-card {
             transition: all 0.3s ease-in-out;
         }

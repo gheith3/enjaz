@@ -11,23 +11,28 @@
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto gap-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('contact-us') }}">تواصل معنا</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">الإعلام</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('institutes') }}">المؤسسات</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('achievers') }}">المنجزين</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">الإنجازات</a>
+                    <a class="nav-link" href="{{ route('home') }}">الرئيسية</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('about') }}">عنا</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('achievements')}}">الإنجازات</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('organizations') }}">المؤسسات</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('achievers') }}">المنجزين</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">الإعلام</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('contact-us') }}">تواصل معنا</a>
+                </li>
+
             </ul>
         </div>
     </div>

@@ -1,32 +1,26 @@
 <div id="landing-section">
-
-    {{view("components.layouts.nav")}}
-
-    <div id="landing-section-image" class="w-100">
-        <div class="container">
-            <div>
-                <div class="row justify-content-center">
-                    <div class="col-md-5">
-                        <div class="h-100 d-flex align-items-center justify-content-center">
-                            <div data-aos="fade-right" data-aos-duration="1500">
-                                <p id="landing-text">
+    <div>
+        {{view("components.layouts.nav")}}
+        <div class="pt-5" style="min-height: 290px; background-size: auto; background-repeat: no-repeat">
+            <div class="container">
+                <div class="row justify-content-center pt-5">
+                    <div class="col-md-4 text-center">
+                        <img data-aos="fade-in" data-aos-duration="1800"
+                             src="{{asset($image['image_path'])}}"
+                             alt="Landing Image"
+                             id="landing-image">
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center pb-3">
+                        <div data-aos="fade-in" data-aos-duration="1800">
+                            <div class="pt-3">
+                                <p id="landing-image-text" class="text-center">
                                     {{$image['description_ar']}}
                                 </p>
-                                @if($image['subtitle_ar'] != null || $image['subtitle_ar'] = "")
-                                    <div id="landing-name" class="mt-5">
-                                        <p>
-                                            {{$image['subtitle_ar']}}
-                                        </p>
-                                    </div>
-                                @endif
+                                <p id="landing-image-subtitle" class="text-center">
+                                    {{$image['subtitle_ar']}}
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <img data-aos="fade-left" data-aos-duration="1500"
-                             src="{{asset($image['image_path'])}}"
-                             alt="{{$image['image_alt']}}"
-                             style="max-width: 350px">
                     </div>
                 </div>
             </div>
@@ -38,6 +32,9 @@
     <style>
         #landing-section {
             background-image: url('{{asset("images/app/bg02.png")}}');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
         }
     </style>
 @endpush

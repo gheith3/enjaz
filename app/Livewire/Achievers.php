@@ -2,41 +2,55 @@
 
 namespace App\Livewire;
 
-use App\Models\Achievement;
+
 use App\Models\AchievementMainType;
+use App\Models\PublicFigure;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Achievers extends Component
 {
-    public Collection $publicFigures;
     public int|null $achievementMainTypeId = null;
 
     public function mount($achievementMainTypeId = null): void
     {
         $this->achievementMainTypeId = $achievementMainTypeId;
-        $this->setAchievementsList();
     }
 
-    public function setAchievementsList(): void
+
+    public function getList(): array
     {
-        //select AchievementMainType whether at list has 1 achievement
-        //and group by achievement_main_type_id use AchievementMainType model
-        //and get all achievements that has achievement_main_type_id
-
-        $this->publicFigures = AchievementMainType::has('achievements')
-//            ->where('achievements', '>', 1)
-            ->when($this->achievementMainTypeId, function ($query) {
-                return $query->where('id', $this->achievementMainTypeId);
+        $list = AchievementMainType::query()
+            ->latest()
+            ->whereHas('achievements', function ($query) {
+                $query->whereHas('publicFigures');
             })
-            ->with([
-                'achievements', 'achievements.subAchievementType',
-                'achievements.publicFigures', 'achievements.organizations'
-            ])
+            ->when($this->achievementMainTypeId, function ($query) {
+                $query->where('id', $this->achievementMainTypeId);
+            })
+            ->with('achievements.publicFigures')
             ->get();
+
+        $items = [];
+
+        foreach ($list as $entry) {
+            $item = [];
+            $item['category'] = $entry;
+            $item['achievers'] = [];
+
+            foreach ($entry->achievements as $achievement) {
+                foreach ($achievement->publicFigures as $achiever) {
+                    $item['achievers'][] = $achiever;
+                }
+            }
+            $items[] = $item;
+        }
+
+        return $items;
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.achievers');
     }
