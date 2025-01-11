@@ -17,6 +17,17 @@ class CompanySettingsPage extends SettingsPage
 
     protected static string $settings = CompanySettings::class;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('app.company_settings');
+    }
+
+    public function getTitle(): string
+    {
+        return __('app.company_settings');
+    }
+
+
     public function form(Form $form): Form
     {
         return $form
@@ -24,21 +35,21 @@ class CompanySettingsPage extends SettingsPage
                 Forms\Components\Section::make('')
                     ->schema([
                         TextInput::make('name')
-                            ->label('name')
+                            ->label(__('app.name'))
                             ->required(),
                         TextInput::make('address')
-                            ->label('address')
+                            ->label(__('app.address'))
                             ->required(),
                         TextInput::make('phone')
-                            ->label(__("phone"))
+                            ->label(__("app.phone"))
                             ->tel()
                             ->required(),
                         TextInput::make('email')
-                            ->label(__("email"))
+                            ->label(__("app.email"))
                             ->email()
                             ->required(),
                         TextInput::make('about_us_document')
-                            ->label(__("about us document url"))
+                            ->label(__("app.about_us_document"))
                             ->url()
                             ->required(),
                     ])->columns(3),
@@ -47,7 +58,7 @@ class CompanySettingsPage extends SettingsPage
                         Repeater::make('socialMediaAccounts')
                             ->schema([
                                 TextInput::make('url')
-                                    ->label('url')
+                                    ->label(__('app.url'))
                                     ->url()
                                     ->required(),
                                 FileUpload::make('icon')
@@ -61,7 +72,7 @@ class CompanySettingsPage extends SettingsPage
                 Forms\Components\Section::make('')
                     ->schema([
                         Forms\Components\FileUpload::make('logo')
-                            ->label(__("logo"))
+                            ->label(__("app.logo"))
                             ->directory('company')
                             ->image()
                             ->maxSize(1024 * 5)
@@ -71,7 +82,7 @@ class CompanySettingsPage extends SettingsPage
                 Forms\Components\Section::make('')
                     ->schema([
                         Forms\Components\FileUpload::make('map_image')
-                            ->label(__("map image"))
+                            ->label(__("app.map_image"))
                             ->directory('company')
                             ->image()
                             ->maxSize(1024 * 5)

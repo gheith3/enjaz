@@ -19,6 +19,18 @@ class AchievementResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+
+    public static function getModelLabel(): string
+    {
+        return __('app.achievement');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('app.achievements');
+    }
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -95,18 +107,20 @@ class AchievementResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('achievementScope.id')
+                Tables\Columns\TextColumn::make('achievementScope.title_ar')
+                    ->label(__('app.scope'))
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('achievementMainType.id')
+                Tables\Columns\TextColumn::make('achievementMainType.title_ar')
+                    ->label(__('app.main_type'))
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('subAchievementType.id')
+                Tables\Columns\TextColumn::make('subAchievementType.title_ar')
+                    ->label(__('app.sub_type'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('title_ar')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('title_en')
+                    ->label(__('app.title'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
