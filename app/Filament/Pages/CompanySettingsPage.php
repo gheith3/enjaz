@@ -17,6 +17,11 @@ class CompanySettingsPage extends SettingsPage
 
     protected static string $settings = CompanySettings::class;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.group.settings');
+    }
+
     public static function getNavigationLabel(): string
     {
         return __('app.company_settings');

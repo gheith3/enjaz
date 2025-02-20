@@ -2,24 +2,24 @@
 
 return [
 
-    'title' => 'إضافة :label',
+    'title' => 'إضافة :label | Add :label',
 
-    'breadcrumb' => 'إضافة',
+    'breadcrumb' => 'إضافة | Add',
 
     'form' => [
 
         'actions' => [
 
             'cancel' => [
-                'label' => 'إلغاء',
+                'label' => 'إلغاء | Cancel',
             ],
 
             'create' => [
-                'label' => 'إضافة',
+                'label' => 'إضافة | Create',
             ],
 
             'create_another' => [
-                'label' => 'إضافة وبدء إضافة المزيد',
+                'label' => 'إضافة وبدء إضافة المزيد | Create & Create Another',
             ],
 
         ],
@@ -29,7 +29,7 @@ return [
     'notifications' => [
 
         'created' => [
-            'title' => 'تمت الإضافة',
+            'title' => 'تمت الإضافة | Created Successfully',
         ],
 
     ],

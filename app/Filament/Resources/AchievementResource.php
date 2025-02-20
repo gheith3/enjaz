@@ -19,32 +19,31 @@ class AchievementResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-
+   
     public static function getModelLabel(): string
     {
-        return __('app.achievement');
+        return __('app.achievements.resource.label');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
-        return __('app.achievements');
+        return __('app.achievements.resource.plural_label');
     }
-
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('owners')
+                Forms\Components\Section::make(__('app.achievements.sections.owners'))
                     ->schema([
                         Forms\Components\Select::make('organizations')
-                            ->label('organizations')
+                            ->label(__('app.achievements.fields.organizations'))
                             ->multiple()
                             ->relationship('organizations', 'name_ar')
                             ->preload()
                             ->searchable(),
                         Forms\Components\Select::make('publicFigures')
-                            ->label('Public Figures')
+                            ->label(__('app.achievements.fields.public_figures'))
                             ->multiple()
                             ->relationship('publicFigures', 'name_ar')
                             ->preload()
@@ -52,9 +51,10 @@ class AchievementResource extends Resource
                     ])
                     ->columns(3),
 
-                Forms\Components\Section::make('categories')
+                Forms\Components\Section::make(__('app.achievements.sections.categories'))
                     ->schema([
                         Forms\Components\Select::make('achievement_scope_id')
+                            ->label(__('app.achievements.fields.achievement_scope'))
                             ->relationship('achievementScope', 'title_en')
                             ->required(),
                         Forms\Components\Select::make('achievement_main_type_id')
@@ -65,7 +65,7 @@ class AchievementResource extends Resource
                             ->required(),
                     ])
                     ->columns(3),
-                Forms\Components\Section::make('arabic details')
+                Forms\Components\Section::make(__('app.achievements.sections.arabic_details'))
                     ->schema([
                         Forms\Components\TextInput::make('title_ar')
                             ->required()
@@ -75,7 +75,7 @@ class AchievementResource extends Resource
                             ->columnSpanFull(),
                     ])
                     ->columns(3),
-                Forms\Components\Section::make('english details')
+                Forms\Components\Section::make(__('app.achievements.sections.english_details'))
                     ->schema([
                         Forms\Components\TextInput::make('title_en')
                             ->required()
@@ -85,10 +85,10 @@ class AchievementResource extends Resource
                             ->columnSpanFull(),
                     ])
                     ->columns(3),
-                Forms\Components\Section::make('media')
+                Forms\Components\Section::make(__('app.achievements.sections.media'))
                     ->schema([
                         Forms\Components\FileUpload::make('cover_image_path')
-                            ->label('cover image')
+                            ->label(__('app.achievements.fields.cover_image'))
                             ->image()
                             ->imageEditor()
                             ->columnSpanFull()
@@ -108,19 +108,19 @@ class AchievementResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('achievementScope.title_ar')
-                    ->label(__('app.scope'))
+                    ->label(__('app.achievements.table.scope'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('achievementMainType.title_ar')
-                    ->label(__('app.main_type'))
+                    ->label(__('app.achievements.table.main_type'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('subAchievementType.title_ar')
-                    ->label(__('app.sub_type'))
+                    ->label(__('app.achievements.table.sub_type'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('title_ar')
-                    ->label(__('app.title'))
+                    ->label(__('app.achievements.fields.title'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

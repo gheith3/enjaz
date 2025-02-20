@@ -2,14 +2,14 @@
 
 return [
 
-    'title' => 'عرض :label',
+    'title' => 'عرض :label | View :label',
 
-    'breadcrumb' => 'عرض',
+    'breadcrumb' => 'عرض | View',
 
     'content' => [
 
         'tab' => [
-            'label' => 'عرض',
+            'label' => 'عرض | View',
         ],
 
     ],

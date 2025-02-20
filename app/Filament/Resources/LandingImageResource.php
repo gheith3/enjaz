@@ -17,42 +17,74 @@ class LandingImageResource extends Resource
 {
     protected static ?string $model = LandingImage::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-photo';
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.group.media');
+    }
+    
+    public static function getModelLabel(): string
+    {
+        return __('app.landing_images.resource.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('app.landing_images.resource.plural_label');
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Landing Image')
+                Forms\Components\Section::make(__('app.landing_images.sections.basic_details'))
                     ->schema([
-                        Forms\Components\Textarea::make('description_ar')
-                            ->columnSpanFull(),
-                        Forms\Components\Textarea::make('description_en')
-                            ->columnSpanFull(),
-                        Forms\Components\TextInput::make('image_alt')
+                        Forms\Components\TextInput::make('title')
+                            ->label(__('app.landing_images.fields.title'))
                             ->required()
-                            ->columnSpanFull(),
+                            ->maxLength(255),
+                        Forms\Components\Select::make('position')
+                            ->label(__('app.landing_images.fields.position'))
+                            ->options([
+                                'header' => __('app.landing_images.positions.header'),
+                                'about' => __('app.landing_images.positions.about'),
+                                'services' => __('app.landing_images.positions.services'),
+                                'footer' => __('app.landing_images.positions.footer'),
+                            ])
+                            ->required(),
+                        Forms\Components\Select::make('status')
+                            ->label(__('app.landing_images.fields.status'))
+                            ->options([
+                                'draft' => __('app.landing_images.statuses.draft'),
+                                'published' => __('app.landing_images.statuses.published'),
+                                'archived' => __('app.landing_images.statuses.archived'),
+                            ])
+                            ->required(),
+                    ])
+                    ->columns(3),
 
-                        Forms\Components\TextInput::make('subtitle_ar')
-                            ->maxLength(255)
-                            ->default(null),
-                        Forms\Components\TextInput::make('subtitle_en')
-                            ->maxLength(255)
-                            ->default(null),
-
-                        Forms\Components\FileUpload::make('image_path')
-                            ->label('image')
+                Forms\Components\Section::make(__('app.landing_images.sections.media'))
+                    ->schema([
+                        Forms\Components\FileUpload::make('image')
+                            ->label(__('app.landing_images.fields.image'))
                             ->image()
                             ->imageEditor()
-                            ->columnSpanFull()
-                            ->maxSize(1024 * 5)
-                            ->nullable(),
-
-                        Forms\Components\Toggle::make('is_active')
-                            ->required(),
+                            ->required()
+                            ->columnSpanFull(),
+                        Forms\Components\TextInput::make('alt_text')
+                            ->label(__('app.landing_images.fields.alt_text'))
+                            ->maxLength(255),
                     ])
                     ->columns(2),
 
+                Forms\Components\Section::make(__('app.landing_images.sections.content'))
+                    ->schema([
+                        Forms\Components\Textarea::make('description')
+                            ->label(__('app.landing_images.fields.description'))
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
@@ -60,37 +92,41 @@ class LandingImageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('subtitle_ar')
+                Tables\Columns\TextColumn::make('title')
+                    ->label(__('app.landing_images.table.title'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('subtitle_en')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->boolean(),
+                Tables\Columns\SelectColumn::make('position')
+                    ->label(__('app.landing_images.table.position'))
+                    ->options([
+                        'header' => __('app.landing_images.positions.header'),
+                        'about' => __('app.landing_images.positions.about'),
+                        'services' => __('app.landing_images.positions.services'),
+                        'footer' => __('app.landing_images.positions.footer'),
+                    ]),
+                Tables\Columns\SelectColumn::make('status')
+                    ->label(__('app.landing_images.table.status'))
+                    ->options([
+                        'draft' => __('app.landing_images.statuses.draft'),
+                        'published' => __('app.landing_images.statuses.published'),
+                        'archived' => __('app.landing_images.statuses.archived'),
+                    ]),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
+                    ->label(__('app.landing_images.table.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                //
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ]);
     }

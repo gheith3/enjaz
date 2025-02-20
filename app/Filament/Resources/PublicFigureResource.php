@@ -17,39 +17,88 @@ class PublicFigureResource extends Resource
 {
     protected static ?string $model = PublicFigure::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
+
+    
+    public static function getModelLabel(): string
+    {
+        return __('app.public_figures.resource.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('app.public_figures.resource.plural_label');
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Public Figure Information')
+                Forms\Components\Section::make(__('app.public_figures.sections.arabic_details'))
                     ->schema([
                         Forms\Components\TextInput::make('name_ar')
+                            ->label(__('app.public_figures.fields.name_ar'))
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('name_en')
-                            ->maxLength(255)
-                            ->default(null),
-                    ])->columns(2),
-                Forms\Components\Section::make('Public Figure Description')
-                    ->schema([
+                        Forms\Components\TextInput::make('position_ar')
+                            ->label(__('app.public_figures.fields.position_ar'))
+                            ->required()
+                            ->maxLength(255),
                         Forms\Components\RichEditor::make('description_ar')
+                            ->label(__('app.public_figures.fields.description_ar'))
                             ->required()
                             ->columnSpanFull(),
-                        Forms\Components\RichEditor::make('description_en')
-                            ->columnSpanFull(),
-                    ]),
-                Forms\Components\Section::make('Public Figure Description')
+                    ])
+                    ->columns(2),
+
+                Forms\Components\Section::make(__('app.public_figures.sections.english_details'))
                     ->schema([
-                        Forms\Components\FileUpload::make('image_path')
-                            ->label('image')
+                        Forms\Components\TextInput::make('name_en')
+                            ->label(__('app.public_figures.fields.name_en'))
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('position_en')
+                            ->label(__('app.public_figures.fields.position_en'))
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\RichEditor::make('description_en')
+                            ->label(__('app.public_figures.fields.description_en'))
+                            ->required()
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2),
+
+                Forms\Components\Section::make(__('app.public_figures.sections.media'))
+                    ->schema([
+                        Forms\Components\FileUpload::make('image')
+                            ->label(__('app.public_figures.fields.image'))
                             ->image()
                             ->imageEditor()
-                            ->columnSpanFull()
-                            ->maxSize(1024 * 5)
-                            ->nullable(),
+                            ->required(),
                     ])
+                    ->columns(1),
+
+                Forms\Components\Section::make(__('app.public_figures.sections.basic_details'))
+                    ->schema([
+                        Forms\Components\TextInput::make('email')
+                            ->label(__('app.public_figures.fields.email'))
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('phone')
+                            ->label(__('app.public_figures.fields.phone'))
+                            ->tel()
+                            ->required(),
+                        Forms\Components\Select::make('status')
+                            ->label(__('app.public_figures.fields.status'))
+                            ->options([
+                                'active' => __('app.public_figures.statuses.active'),
+                                'inactive' => __('app.public_figures.statuses.inactive'),
+                            ])
+                            ->required(),
+                    ])
+                    ->columns(3),
             ]);
     }
 

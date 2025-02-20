@@ -10,6 +10,7 @@ class ContactUsMessage extends Model
         'name',
         'email',
         'message',
+        'status',
         'ip_address',
     ];
 }

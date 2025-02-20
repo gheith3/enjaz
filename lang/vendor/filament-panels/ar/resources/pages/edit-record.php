@@ -2,20 +2,20 @@
 
 return [
 
-    'title' => 'تعديل :label',
+    'title' => 'تعديل :label | Edit :label',
 
-    'breadcrumb' => 'تعديل',
+    'breadcrumb' => 'تعديل | Edit',
 
     'form' => [
 
         'actions' => [
 
             'cancel' => [
-                'label' => 'إلغاء',
+                'label' => 'إلغاء | Cancel',
             ],
 
             'save' => [
-                'label' => 'حفظ التغييرات',
+                'label' => 'حفظ التغييرات | Save Changes',
             ],
 
         ],
@@ -25,7 +25,7 @@ return [
     'content' => [
 
         'tab' => [
-            'label' => 'تعديل',
+            'label' => 'تعديل | Edit',
         ],
 
     ],
@@ -33,7 +33,7 @@ return [
     'notifications' => [
 
         'saved' => [
-            'title' => 'تم الحفظ',
+            'title' => 'تم الحفظ | Saved Successfully',
         ],
 
     ],

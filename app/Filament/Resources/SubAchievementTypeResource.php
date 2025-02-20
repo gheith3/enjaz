@@ -19,21 +19,39 @@ class SubAchievementTypeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.group.types');
+    }
+    
+    public static function getModelLabel(): string
+    {
+        return __('app.sub_achievement_types.resource.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('app.sub_achievement_types.resource.plural_label');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('')
+                Forms\Components\Section::make(__('app.sub_achievement_types.sections.basic_details'))
                     ->schema([
                         Forms\Components\Select::make('achievement_main_type_id')
+                            ->label(__('app.sub_achievement_types.fields.achievement_main_type'))
                             ->relationship(name: 'achievement_main_type', titleAttribute: 'title_ar')
                             ->searchable()
                             ->preload(),
                         Forms\Components\TextInput::make('title_ar')
+                            ->label(__('app.sub_achievement_types.fields.title_ar'))
                             ->required()
                             ->unique()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('title_en')
+                            ->label(__('app.sub_achievement_types.fields.title_en'))
                             ->required()
                             ->unique()
                             ->maxLength(255),
@@ -47,13 +65,17 @@ class SubAchievementTypeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('achievement_main_type.title_ar')
+                    ->label(__('app.sub_achievement_types.table.main_type'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('title_ar')
+                    ->label(__('app.sub_achievement_types.table.title'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('title_en')
+                    ->label(__('app.sub_achievement_types.fields.title_en'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('app.sub_achievement_types.table.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

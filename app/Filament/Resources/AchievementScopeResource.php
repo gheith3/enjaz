@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AchievementScopeResource\Pages;
-use App\Filament\Resources\AchievementScopeResource\RelationManagers;
 use App\Models\AchievementScope;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -19,21 +18,56 @@ class AchievementScopeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.group.types');
+    }
+    
+    public static function getModelLabel(): string
+    {
+        return __('app.achievement_scopes.resource.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('app.achievement_scopes.resource.plural_label');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('')
+                Forms\Components\Section::make(__('app.achievement_scopes.sections.arabic_details'))
                     ->schema([
                         Forms\Components\TextInput::make('title_ar')
+                            ->label(__('app.achievement_scopes.fields.title'))
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('title_en')
+                        Forms\Components\RichEditor::make('description_ar')
+                            ->label(__('app.achievement_scopes.fields.description'))
                             ->required()
-                            ->maxLength(255),
-                    ])->columns(2)
-            ]);
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2),
 
+                Forms\Components\Section::make(__('app.achievement_scopes.sections.english_details'))
+                    ->schema([
+                        Forms\Components\TextInput::make('title_en')
+                            ->label(__('app.achievement_scopes.fields.title'))
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\RichEditor::make('description_en')
+                            ->label(__('app.achievement_scopes.fields.description'))
+                            ->required()
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2),
+
+                Forms\Components\FileUpload::make('icon')
+                    ->label(__('app.achievement_scopes.fields.icon'))
+                    ->image()
+                    ->required(),
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -41,18 +75,15 @@ class AchievementScopeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title_ar')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('title_en')
+                    ->label(__('app.achievement_scopes.table.title'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('app.achievement_scopes.table.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
+                    ->label(__('app.achievement_scopes.table.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -85,9 +116,9 @@ class AchievementScopeResource extends Resource
     {
         return [
             'index' => Pages\ListAchievementScopes::route('/'),
-            'create' => Pages\CreateAchievementScope::route('/create'),
-            'view' => Pages\ViewAchievementScope::route('/{record}'),
-            'edit' => Pages\EditAchievementScope::route('/{record}/edit'),
+            // 'create' => Pages\CreateAchievementScope::route('/create'),
+            // 'view' => Pages\ViewAchievementScope::route('/{record}'),
+            // 'edit' => Pages\EditAchievementScope::route('/{record}/edit'),
         ];
     }
 

@@ -15,6 +15,12 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\ToggleColumn;
 
 class AchievementMainTypeResource extends Resource
 {
@@ -22,57 +28,77 @@ class AchievementMainTypeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.group.types');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('app.achievement_main_types.resource.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('app.achievement_main_types.resource.plural_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('app.achievement_main_types.resource.nav_label');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-               Forms\Components\Section::make('')
-                ->schema([
-                    Forms\Components\TextInput::make('title_ar')
-                        ->required()
-                        ->maxLength(255),
-                    Forms\Components\TextInput::make('title_en')
-                        ->required()
-                        ->maxLength(255),
-                ])->columns(2)
+                TextInput::make('name')
+                    ->label(__('app.achievement_main_types.fields.name'))
+                    ->required(),
+                TextInput::make('description')
+                    ->label(__('app.achievement_main_types.fields.description'))
+                    ->required(),
+                FileUpload::make('icon')
+                    ->label(__('app.achievement_main_types.fields.icon'))
+                    ->image()
+                    ->required(),
+                Toggle::make('status')
+                    ->label(__('app.achievement_main_types.fields.status'))
+                    ->default(true),
             ]);
     }
-
-
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title_ar')
+                TextColumn::make('name')
+                    ->label(__('app.achievement_main_types.fields.name'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('title_en')
+                TextColumn::make('description')
+                    ->label(__('app.achievement_main_types.fields.description'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                ImageColumn::make('icon')
+                    ->label(__('app.achievement_main_types.fields.icon')),
+                ToggleColumn::make('status')
+                    ->label(__('app.achievement_main_types.fields.status')),
+                TextColumn::make('created_at')
+                    ->label(__('app.achievement_main_types.fields.created_at'))
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label(__('app.achievement_main_types.actions.edit')),
+                Tables\Actions\DeleteAction::make()
+                    ->label(__('app.achievement_main_types.actions.delete')),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -101,9 +127,8 @@ class AchievementMainTypeResource extends Resource
     {
         return [
             'index' => Pages\ListAchievementMainTypes::route('/'),
-//            'create' => Pages\CreateAchievementMainType::route('/create'),
-//            'view' => Pages\ViewAchievementMainType::route('/{record}'),
-//            'edit' => Pages\EditAchievementMainType::route('/{record}/edit'),
+            // 'create' => Pages\CreateAchievementMainType::route('/create'),
+            // 'edit' => Pages\EditAchievementMainType::route('/{record}/edit'),
         ];
     }
 

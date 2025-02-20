@@ -19,22 +19,44 @@ class OrganizationTypeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.group.types');
+    }
+    
+    public static function getModelLabel(): string
+    {
+        return __('app.organization_types.resource.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('app.organization_types.resource.plural_label');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('')
-                ->schema([
-                    Forms\Components\TextInput::make('title_ar')
-                        ->required()
-                        ->unique()
-                        ->maxLength(255),
-                    Forms\Components\TextInput::make('title_en')
-                        ->required()
-                        ->unique()
-                        ->maxLength(255),
-                ])->columns(2),
+                Forms\Components\Section::make(__('app.organization_types.sections.arabic_details'))
+                    ->schema([
+                        Forms\Components\TextInput::make('title_ar')
+                            ->label(__('app.organization_types.fields.name_ar'))
+                            ->required()
+                            ->unique()
+                            ->maxLength(255),
+                    ])
+                    ->columns(1),
 
+                Forms\Components\Section::make(__('app.organization_types.sections.english_details'))
+                    ->schema([
+                        Forms\Components\TextInput::make('title_en')
+                            ->label(__('app.organization_types.fields.name_en'))
+                            ->required()
+                            ->unique()
+                            ->maxLength(255),
+                    ])
+                    ->columns(1),
             ]);
     }
 

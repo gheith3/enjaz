@@ -17,6 +17,25 @@ class TeamSettingsPage extends SettingsPage
 
     protected static string $settings = TeamSettings::class;
 
+    protected static ?string $navigationLabel = null;
+
+    protected static ?string $title = null;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('app.group.settings');
+    }
+    
+    public static function getNavigationLabel(): string
+    {
+        return __('app.team.page.nav_title');
+    }
+
+    public function getTitle(): string
+    {
+        return __('app.team.page.label');
+    }
+
     public function form(Form $form): Form
     {
         $images = ['backgroundImage', 'introImageOne', 'introImageTwo', 'introImageThree', 'introImageFour'];
@@ -24,47 +43,48 @@ class TeamSettingsPage extends SettingsPage
         $imageInputs = [];
         $textInputs = [];
 
-        foreach ($images as $image){
+        foreach ($images as $image) {
             $imageInputs[] = Forms\Components\FileUpload::make($image)
-                ->label(str($image)->title())
+                ->label(__('app.team.fields.' . $image))
                 ->image()
                 ->imageEditor()
                 ->maxSize(1024 * 5)
                 ->nullable();
         }
 
-        foreach ($texts as $text){
+        foreach ($texts as $text) {
             $textInputs[] = Forms\Components\Textarea::make($text)
-                ->label(str($text)->title())
+                ->label(__('app.team.fields.' . $text))
                 ->required();
         }
 
         return $form
             ->schema([
-                Forms\Components\Section::make('images')
-                ->schema($imageInputs)
-                ->columns(2),
-                Forms\Components\Section::make('text')
+                Forms\Components\Section::make(__('app.team.sections.images'))
+                    ->schema($imageInputs)
+                    ->columns(2),
+                Forms\Components\Section::make(__('app.team.sections.text'))
                     ->schema($textInputs)
-                ->columns(2),
-                Forms\Components\Section::make("members")
+                    ->columns(2),
+                Forms\Components\Section::make(__('app.team.sections.members'))
                     ->schema([
                         TableRepeater::make('members')
-                            ->label(__('member'))
+                            ->label(__('app.team.fields.member'))
                             ->headers([
-                                Header::make('name'),
-                                Header::make('position'),
-                                Header::make('image'),
+                                Header::make(__('app.team.fields.name')),
+                                Header::make(__('app.team.fields.position')),
+                                Header::make(__('app.team.fields.image')),
                             ])
                             ->orderColumn('sort_order')
                             ->schema([
                                 TextInput::make('name')
-                                    ->label('name')
+                                    ->label(__('app.team.fields.name'))
                                     ->required(),
                                 TextInput::make('position')
-                                    ->label('position')
+                                    ->label(__('app.team.fields.position'))
                                     ->required(),
                                 FileUpload::make('image')
+                                    ->label(__('app.team.fields.image'))
                                     ->previewable(false)
                                     ->image()
                                     ->imageEditor()
