@@ -1,0 +1,55 @@
+services:
+    app:
+        image: gheith3/enjaz:latest
+        container_name: enjaz
+        restart: unless-stopped
+        ports:
+            - "8010:80"
+        environment:
+            APP_ENV: ${APP_ENV}
+            APP_DEBUG: ${APP_DEBUG}
+            APP_URL: ${APP_URL}
+            ASSET_URL: ${ASSET_URL}
+            DB_HOST: enjaz_db
+            DB_PORT: ${DB_PORT}
+            DB_DATABASE: ${DB_DATABASE}
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            REDIS_HOST: enjaz_redis
+            CACHE_DRIVER: redis
+            SESSION_DRIVER: redis
+            QUEUE_CONNECTION: redis
+        depends_on:
+            - mariadb
+            - redis
+        volumes:
+            - /apps/enjaz/storage:/var/www/html/storage
+            - /apps/enjaz/bootstrap/cache:/var/www/html/bootstrap/cache
+        networks:
+            - enjaz_network
+
+    mariadb:
+        image: mariadb:11.6.2
+        container_name: enjaz_db
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        volumes:
+            - /apps/enjaz_db:/var/lib/mysql
+        networks:
+            - enjaz_network
+
+    redis:
+        image: redis:latest
+        container_name: enjaz_redis
+        restart: unless-stopped
+        command: redis-server --appendonly yes
+        networks:
+            - enjaz_network
+
+networks:
+    enjaz_network:
+        external: true

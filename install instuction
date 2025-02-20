@@ -1,0 +1,39 @@
+# inside server folder path run:
+sudo mkdir -p ./storage ./bootstrap/cache
+sudo chown -R 33:33 ./storage ./bootstrap/cache
+sudo chown -R www-data:www-data ./storage
+sudo chmod -R 775 ./storage ./bootstrap/cache
+
+
+
+mkdir -p ./storage/framework/sessions
+mkdir -p ./storage/framework/views
+mkdir -p ./storage/framework/cache
+
+docker exec -it enjaz bash
+
+
+php artisan migrate
+php artisan storage:link
+php artisan shield:install
+php artisan db:seed
+php artisan optimize
+
+
+if you want to reset the database
+php artisan migrate:reset
+php artisan migrate:fresh
+
+for local db
+docker run --name mariadbtest -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d docker.io/library/mariadb:10.3
+
+
+[program:laravel-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /path-to-your-laravel-app/artisan queue:work
+autostart=true
+autorestart=true
+user=your-user
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/var/log/laravel-worker.log

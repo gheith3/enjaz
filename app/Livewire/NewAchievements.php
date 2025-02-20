@@ -14,14 +14,18 @@ class NewAchievements extends Component
     public int|null $achievementMainTypeId = null;
     public int|null $activeAchievement = null;
     public int|null $instituteId = null;
+    public int|null $achieverId = null;
     public null|string $sectionTitle = null;
 
-    public function mount($achievementMainTypeId = null, $activeAchievement = null, $sectionTitle = null, $instituteId = null): void
+    public function mount($achievementMainTypeId = null, $activeAchievement = null,
+                          $sectionTitle = null, $instituteId = null,
+                          $achieverId = null): void
     {
         $this->achievementMainTypeId = $achievementMainTypeId;
         $this->activeAchievement = $activeAchievement;
         $this->sectionTitle = $sectionTitle ?? "أحدث الإنجازات";
         $this->instituteId = $instituteId;
+        $this->achieverId = $achieverId;
         $this->setAchievementsList();
     }
 
@@ -41,6 +45,11 @@ class NewAchievements extends Component
             ->when($this->instituteId, function ($query) {
                 return $query->whereHas('organizations', function ($query) {
                     $query->where('organization_id', $this->instituteId);
+                });
+            })
+            ->when($this->achieverId, function ($query) {
+                return $query->whereHas('publicFigures', function ($query) {
+                    $query->where('public_figure_id', $this->achieverId);
                 });
             })
             ->with(

@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Achievement;
+use App\Models\PublicFigure;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class SingleAchieverHero extends Component
@@ -10,9 +12,9 @@ class SingleAchieverHero extends Component
     public $achiever;
     public int $achievements = 0;
     public int $types = 0;
-    public function mount($achiever)
+    public function mount($achiever) : void
     {
-        $this->achiever = \App\Models\PublicFigure::find($achiever);
+        $this->achiever = PublicFigure::findOrFail($achiever);
         $this->setStatics();
     }
 
@@ -35,7 +37,7 @@ class SingleAchieverHero extends Component
             ->count('achievement_main_type_id');
     }
 
-    public function render()
+    public function render() : View
     {
         return view('livewire.single-achiever-hero');
     }

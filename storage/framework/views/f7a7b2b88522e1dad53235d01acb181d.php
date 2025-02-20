@@ -1,0 +1,1 @@
+<?php /**PATH E:\Projects\enjaz\resources\views\livewire\public-figure.blade.php ENDPATH**/ ?>
