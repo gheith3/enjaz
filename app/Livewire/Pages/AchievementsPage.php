@@ -7,34 +7,43 @@ use App\Models\AchievementMainType;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AchievementsPage extends Component
 {
+    use WithPagination;
+    
+    protected $paginationTheme = 'tailwind';
+
     public null|string $searchQuery = null;
     public null|int $main = null;
     public null|int $sub = null;
     public string $selected = 'all';
-    public Collection $achievements;
 
     public function mount(): void
     {
-        $this->setAchievements();
+        // Remove this since we don't need to set achievements anymore
+        // $this->setAchievements();
     }
 
     public function search(): void
     {
         $this->searchQuery = str($this->searchQuery)->isNotEmpty()
             ? $this->searchQuery : null;
-        $this->setAchievements();
+        // Remove this since we don't need to set achievements anymore
+        // $this->setAchievements();
     }
 
     public function setType($key): void
     {
+        $this->resetPage();
         $this->selected = $key;
         if ($key == 'all') {
             $this->main = null;
             $this->sub = null;
-            $this->setAchievements();
+            // Remove this since we don't need to set achievements anymore
+            // $this->setAchievements();
             return;
         }
 
@@ -48,7 +57,8 @@ class AchievementsPage extends Component
             $this->main = $keys[1];
             $this->sub = $keys[2];
         }
-        $this->setAchievements();
+        // Remove this since we don't need to set achievements anymore
+        // $this->setAchievements();
     }
 
     public function getCategories(): array
@@ -64,9 +74,16 @@ class AchievementsPage extends Component
         return $list;
     }
 
-    public function setAchievements(): void
+    
+
+    public function updatingSearchQuery(): void
     {
-        $this->achievements = Achievement::query()
+        $this->resetPage();
+    }
+
+    public function getAchievements(): LengthAwarePaginator
+    {
+        return Achievement::query()
             ->latest()
             ->when(str($this->searchQuery)->isNotEmpty(), function ($query) {
                 return $query->where('title_ar', 'like', '%' . $this->searchQuery . '%')
@@ -83,11 +100,13 @@ class AchievementsPage extends Component
                 'achievementMainType',
                 'subAchievementType',
             )
-            ->get();
+            ->paginate(25);
     }
 
     public function render(): View
     {
-        return view('livewire.pages.achievements-page');
+        return view('livewire.pages.achievements-page', [
+            'achievements' => $this->getAchievements(),
+        ]);
     }
 }

@@ -2,7 +2,7 @@
     <?php $__currentLoopData = $this->achievers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $achiever): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <a href="<?php echo e(route('achievers.show', ['achiever' => $achiever->id])); ?>">
             <div class="achiever-card">
-                <div class="card-image" style="background-image: url('<?php echo e(asset($achiever->image_path)); ?>')">
+                <div class="card-image" style="background-image: url('<?php echo e(Storage::url($achiever->image_path)); ?>')">
                     
                     <div class="name-badge"><?php echo e($achiever->name_ar); ?></div>
                 </div>

@@ -7,7 +7,7 @@
     <div class="team-grid">
         @foreach($teemSettings->members as $member)
         <div class="team-member" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-            <img src="{{ asset($member['image']) }}" alt="{{ $member['name'] }}" class="member-image">
+            <img src="{{ Storage::url($member['image']) }}" alt="{{ $member['name'] }}" class="member-image">
             <div class="member-info">
                 <h3 class="member-name">{{ $member['name'] }}</h3>
                 <p class="member-title">{{ $member['position'] }}</p>

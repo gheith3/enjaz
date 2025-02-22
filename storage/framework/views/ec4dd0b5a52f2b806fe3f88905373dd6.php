@@ -16,28 +16,28 @@
                 <div class="row">
                     <div class="col-6 mb-2">
                         <div class="app-card">
-                            <img src="<?php echo e(asset($teemSettings->introImageOne)); ?>"
+                            <img src="<?php echo e(Storage::url($teemSettings->introImageOne)); ?>"
                                  style="height: 180px; width: 100%"
                                  alt="About Us Image 1">
                         </div>
                     </div>
                     <div class="col-6 mb-2">
                         <div class="app-card">
-                            <img src="<?php echo e(asset($teemSettings->introImageTwo)); ?>"
+                            <img src="<?php echo e(Storage::url($teemSettings->introImageTwo)); ?>"
                                  style="height: 180px; width: 100%"
                                  alt="About Us Image 2">
                         </div>
                     </div>
                     <div class="col-6 mb-2">
                         <div class="app-card">
-                            <img src="<?php echo e(asset($teemSettings->introImageThree)); ?>"
+                            <img src="<?php echo e(Storage::url($teemSettings->introImageThree)); ?>"
                                  style="height: 180px; width: 100%"
                                  alt="About Us Image 3">
                         </div>
                     </div>
                     <div class="col-6 mb-2">
                         <div class="app-card">
-                            <img src="<?php echo e(asset($teemSettings->introImageFour)); ?>"
+                            <img src="<?php echo e(Storage::url($teemSettings->introImageFour)); ?>"
                                  style="height: 180px; width: 100%"
                                  alt="About Us Image 4">
                         </div>

@@ -1,9 +1,9 @@
 <div id="hero-section">
 
     <div class="background-container">
-        <img src="<?php echo e(asset($decorationImage)); ?>" alt="" class="bg-main">
+        <img src="<?php echo e(Storage::url($decorationImage)); ?>" alt="" class="bg-main">
         <div class="content-wrapper">
-            <img src="<?php echo e(asset($backgroundImage)); ?>" alt="" class="bg-overlay">
+            <img src="<?php echo e(Storage::url($backgroundImage)); ?>" alt="" class="bg-overlay">
             <?php echo e(view("components.layouts.nav")); ?>
 
 

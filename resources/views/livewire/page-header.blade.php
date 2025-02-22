@@ -1,5 +1,5 @@
 <div>
-    <div class="pb-3" style="background-image: url('{{asset($backgroundImage ?? 'images/app/ABG.svg')}}');
+    <div class="pb-0" style="background-image: url('{{$backgroundImage != null ? Storage::url($backgroundImage) : asset('images/app/ABG.svg')}}');
      height: 350px;
     display: flex; flex-direction: column; justify-content: space-between; background-size: cover; background-repeat: no-repeat">
 
@@ -11,7 +11,7 @@
                 <div class="row w-100 h-100">
                     @if($headerImage)
                         <div class="col-md-auto">
-                            <img src="{{ asset($headerImage) }}"
+                            <img src="{{ Storage::url($headerImage) }}"
                                  style="max-width: 200px; min-width: 180px"
                                  alt="logo"
                                  class="achiever-image">

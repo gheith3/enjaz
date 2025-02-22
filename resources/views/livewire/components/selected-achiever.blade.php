@@ -5,7 +5,7 @@
                 <div class="row justify-content-center pt-5">
                     <div class="col-md-4 text-center">
                         <img data-aos="fade-in" data-aos-duration="1800"
-                             src="{{asset($this->person->image_path)}}"
+                             src="{{Storage::url($this->person->image_path)}}"
                              alt="Landing Image"
                              style="width: 250px">
                     </div>
@@ -14,7 +14,7 @@
                             <p class="public-figure-card-title">{{$this->person->name_ar}}</p>
                             <a class="link-text" href="{{route('achievers.show', ['achiever' => $this->person->id])}}">
                                 <div id="public-figure-text" class="bg-white-50 rounded rounded-lg shadow-sm p-3">
-                                    {{str($this->person->description_ar)->limit(250)->toHtmlString()}}
+                                    {{str($this->person->story_ar)->limit(250)->toHtmlString()}}
                                 </div>
                             </a>
                         </div>

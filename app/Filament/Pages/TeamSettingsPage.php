@@ -10,9 +10,10 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
-
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 class TeamSettingsPage extends SettingsPage
 {
+    use HasPageShield;
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
 
     protected static string $settings = TeamSettings::class;
@@ -25,7 +26,7 @@ class TeamSettingsPage extends SettingsPage
     {
         return __('app.group.settings');
     }
-    
+
     public static function getNavigationLabel(): string
     {
         return __('app.team.page.nav_title');

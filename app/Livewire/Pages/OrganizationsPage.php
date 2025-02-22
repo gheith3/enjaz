@@ -9,36 +9,51 @@ use App\Models\OrganizationType;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrganizationsPage extends Component
 {
+    use WithPagination;
+    
+    protected $paginationTheme = 'tailwind';
+
     public null|string $searchQuery = null;
     public null|int $main = null;
     public string $selected = 'all';
-    public Collection $organizations;
 
     public function mount(): void
     {
-        $this->setOrganizations();
+        // Remove this since we don't need to set organizations anymore
+        // $this->setOrganizations();
     }
 
     public function search(): void
     {
         $this->searchQuery = str($this->searchQuery)->isNotEmpty()
             ? $this->searchQuery : null;
-        $this->setOrganizations();
+        // Remove this since we don't need to set organizations anymore
+        // $this->setOrganizations();
+    }
+
+    public function updatingSearchQuery(): void
+    {
+        $this->resetPage();
     }
 
     public function setType($key): void
     {
+        $this->resetPage();
         $this->selected = $key;
         if ($key == 'all') {
             $this->main = null;
-            $this->setOrganizations();
+            // Remove this since we don't need to set organizations anymore
+            // $this->setOrganizations();
             return;
         }
         $this->main = $key;
-        $this->setOrganizations();
+        // Remove this since we don't need to set organizations anymore
+        // $this->setOrganizations();
     }
 
     public function getCategories(): array
@@ -51,9 +66,9 @@ class OrganizationsPage extends Component
         return $list;
     }
 
-    public function setOrganizations(): void
+    public function getOrganizations(): LengthAwarePaginator
     {
-        $this->organizations = Organization::query()
+        return Organization::query()
             ->latest()
             ->when(str($this->searchQuery)->isNotEmpty(), function ($query) {
                 return $query->where('name_ar', 'like', '%' . $this->searchQuery . '%')
@@ -62,11 +77,13 @@ class OrganizationsPage extends Component
             ->when($this->main != null, function ($query) {
                 return $query->where('organization_type_id', $this->main);
             })
-            ->get();
+            ->paginate(20);
     }
 
     public function render(): View
     {
-        return view('livewire.pages.organizations-page');
+        return view('livewire.pages.organizations-page', [
+            'organizations' => $this->getOrganizations(),
+        ]);
     }
 }

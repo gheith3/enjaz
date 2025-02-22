@@ -1,6 +1,6 @@
 <div>
     <div class="app-card mb-3">
-        <img src="{{asset($achievement->cover_image_path)}}"
+        <img src="{{Storage::url($achievement->cover_image_path)}}"
              class="rounded"
              style="width: 100%; height: 210px"
              alt="">

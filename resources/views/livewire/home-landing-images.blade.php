@@ -1,12 +1,12 @@
 <div id="landing-section">
     <div>
         {{view("components.layouts.nav")}}
-        <div class="pt-5" style="min-height: 290px; background-size: auto; background-repeat: no-repeat">
+        <div style="min-height: 290px; background-size: auto; background-repeat: no-repeat">
             <div class="container">
                 <div class="row justify-content-center pt-5">
                     <div class="col-md-4 text-center">
                         <img data-aos="fade-in" data-aos-duration="1800"
-                             src="{{asset($image['image_path'])}}"
+                             src="{{Storage::url($image['image_path'])}}"
                              alt="Landing Image"
                              id="landing-image">
                     </div>

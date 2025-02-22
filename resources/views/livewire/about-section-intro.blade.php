@@ -14,28 +14,28 @@
                 <div class="row">
                     <div class="col-6 mb-2">
                         <div class="app-card">
-                            <img src="{{ asset($teemSettings->introImageOne) }}"
+                            <img src="{{ Storage::url($teemSettings->introImageOne) }}"
                                  style="height: 180px; width: 100%"
                                  alt="About Us Image 1">
                         </div>
                     </div>
                     <div class="col-6 mb-2">
                         <div class="app-card">
-                            <img src="{{ asset($teemSettings->introImageTwo) }}"
+                            <img src="{{ Storage::url($teemSettings->introImageTwo) }}"
                                  style="height: 180px; width: 100%"
                                  alt="About Us Image 2">
                         </div>
                     </div>
                     <div class="col-6 mb-2">
                         <div class="app-card">
-                            <img src="{{ asset($teemSettings->introImageThree) }}"
+                            <img src="{{ Storage::url($teemSettings->introImageThree) }}"
                                  style="height: 180px; width: 100%"
                                  alt="About Us Image 3">
                         </div>
                     </div>
                     <div class="col-6 mb-2">
                         <div class="app-card">
-                            <img src="{{ asset($teemSettings->introImageFour) }}"
+                            <img src="{{ Storage::url($teemSettings->introImageFour) }}"
                                  style="height: 180px; width: 100%"
                                  alt="About Us Image 4">
                         </div>

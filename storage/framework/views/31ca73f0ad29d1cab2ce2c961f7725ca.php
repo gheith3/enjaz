@@ -10,7 +10,7 @@
                 <div class="bg-white shadow-sm rounded rounded-lg mb-3">
                     <div class="row m-0 p-0">
                         <div class="col-md-4 m-0 p-0">
-                            <img src="<?php echo e(asset($item->images[0]['image'])); ?>"
+                            <img src="<?php echo e(Storage::url($item->images[0]['image'])); ?>"
                                  class="rounded"
                                  style="width: 100%; height: 250px"
                                  alt="">

@@ -23,7 +23,7 @@
         <div class="mt-5">
             <div class="row mx-3 justify-content-center">
                 <div class="col-md-3 d-flex justify-content-center">
-                    <img src="{{ asset($institute->manager_image_path) }}"
+                    <img src="{{ Storage::url($institute->manager_image_path) }}"
                          alt="{{$institute->manager_name_en}}" style="width: 250px">
                 </div>
                 <div class="col-md-6 d-flex align-items-center">

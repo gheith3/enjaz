@@ -66,6 +66,7 @@ return [
             'english_details' => 'التفاصيل بالإنجليزية',
             'media' => 'الوسائط',
             'basic_details' => 'التفاصيل الأساسية',
+            'story' => 'القصة',
         ],
         'fields' => [
             'name_ar' => 'الاسم بالعربية',
@@ -78,6 +79,14 @@ return [
             'email' => 'البريد الإلكتروني',
             'phone' => 'رقم الهاتف',
             'status' => 'الحالة',
+            'social_media' => 'وسائل التواصل الاجتماعي',
+            'facebook_url' => 'رابط فيسبوك',
+            'twitter_url' => 'رابط تويتر',
+            'instagram_url' => 'رابط انستغرام',
+            'linkedin_url' => 'رابط لينكد إن',
+            'whatsapp_number' => 'رقم واتساب',
+            'story_ar' => 'القصة بالعربية',
+            'story_en' => 'القصة بالإنجليزية',
         ],
         'table' => [
             'name' => 'الاسم',
@@ -213,6 +222,7 @@ return [
             'subject' => 'الموضوع',
             'message' => 'الرسالة',
             'status' => 'الحالة',
+            'ip_address' => 'عنوان الIP',
         ],
         'table' => [
             'name' => 'الاسم',
@@ -231,8 +241,8 @@ return [
     ],
     'image_media' => [
         'resource' => [
-            'label' => 'الوسائط',
-            'plural_label' => 'الوسائط',
+            'label' => 'مكتبة الصور',
+            'plural_label' => 'مكتبة الصور',
         ],
         'fields' => [
             'title' => 'العنوان',
@@ -241,6 +251,7 @@ return [
             'alt_text' => 'النص البديل',
             'type' => 'النوع',
             'status' => 'الحالة',
+            'images' => 'الصور',
         ],
         'table' => [
             'title' => 'العنوان',
@@ -277,8 +288,12 @@ return [
         'fields' => [
             'title' => 'العنوان',
             'description' => 'الوصف',
+            'description_ar' => 'العربي الوصف',
+            'description_en' => 'الوصف الإنجليزي',
             'image' => 'الصورة',
-            'alt_text' => 'النص البديل',
+            'alt_text' => 'وصف الصورة',
+            'sub_title_ar' => 'العنوان الفرعي بالعربية',
+            'sub_title_en' => 'العنوان الفرعي بالإنجليزية',
             'position' => 'الموقع',
             'status' => 'الحالة',
         ],
@@ -326,9 +341,15 @@ return [
             'instagram' => 'انستغرام',
             'linkedin' => 'لينكد إن',
             'status' => 'الحالة',
+            'manager' => 'المدير',
+            'manager_message_ar' => 'الرسالة بالعربية',
+            'manager_message_en' => 'الرسالة بالانجليزية',
+            'manager_image' => 'صورة المدير',
         ],
         'table' => [
             'name' => 'الاسم',
+            'name_ar' => 'الاسم بالعربية',
+            'name_en' => 'الاسم بالإنجليزية',
             'email' => 'البريد الإلكتروني',
             'phone' => 'رقم الهاتف',
             'status' => 'الحالة',
@@ -475,6 +496,7 @@ return [
         ],
     ],
     'nav' => [
+        'title' => 'إنجاز',
         'groups' => [
             'achievements' => 'الإنجازات',
             'media' => 'الوسائط',
@@ -492,4 +514,11 @@ return [
         'types' => 'الأنواع',
         'settings' => 'الاعدادت',
     ],
+    'title_ar' => 'العنوان بالعربية',
+    'title_en' => 'العنوان بالإنجليزية',
+    'description_ar' => 'الوصف بالعربية',
+    'description_en' => 'الوصف بالإنجليزية',
+    'video_url' => 'رابط الفيديو',
+    'type' => 'النوع',
+    'organizations_details' => 'تفاصيل المؤسسات',
 ];

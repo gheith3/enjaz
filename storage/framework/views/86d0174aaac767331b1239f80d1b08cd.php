@@ -22,7 +22,7 @@
                 <div class="row justify-content-center gallery">
                     <?php $__currentLoopData = $this->album->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="col-md-3 mb-4">
-                            <img src="<?php echo e(asset($item['image'])); ?>"
+                            <img src="<?php echo e(Storage::url($item['image'])); ?>"
                                  class="img-fluid" alt="Image 1" data-index="0">
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

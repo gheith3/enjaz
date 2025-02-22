@@ -1,8 +1,7 @@
 <div>
-    <div style="background-image: url('{{asset($backgroundImage ?? 'images/app/ABG.svg')}}')">
+    <div class="nav-bg">
         {{view("components.layouts.nav")}}
-
-        <div class="pt-5" style="background-image: url('{{ asset('images/app/AchieversBG.svg') }}'); min-height: 290px; background-size: auto; background-repeat: no-repeat">
+        <div class="pt-5" >
             <div class="container p-3 mb-3">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
@@ -40,12 +39,18 @@
 
     <div class="container mt-5">
         <div class="row justify-content-center">
-            @foreach($this->organizations as $organization)
+            @foreach($organizations as $organization)
                 <div class="col-md-2 pb-2" wire:key="{{$organization->id}}">
                     @livewire('components.organization-card', ['organization' => $organization],
                     key("card-{$organization->id}"))
                 </div>
             @endforeach
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-center">
+        <div class="pagination">
+            {{ $organizations->links('vendor.pagination.custom') }}
         </div>
     </div>
 

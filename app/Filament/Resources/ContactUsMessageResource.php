@@ -22,7 +22,7 @@ class ContactUsMessageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
-  
+
     public static function getModelLabel(): string
     {
         return __('app.contact_us_messages.resource.label');
@@ -73,6 +73,9 @@ class ContactUsMessageResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->label(__('app.contact_us_messages.table.email'))
                     ->searchable(),
+                Tables\Columns\TextColumn::make('ip_address')
+                    ->label(__("app.contact_us_messages.fields.ip_address"))
+                    ->searchable(),
                 Tables\Columns\SelectColumn::make('status')
                     ->label(__('app.contact_us_messages.table.status'))
                     ->options([
@@ -107,11 +110,14 @@ class ContactUsMessageResource extends Resource
         return $infolist
             ->schema([
                 Section::make('')
-                ->schema([
-                    TextEntry::make('name'),
-                    TextEntry::make('email'),
-                    TextEntry::make('email'),
-                ])->columns(3),
+                    ->schema([
+                        TextEntry::make('name')
+                            ->label(__("app.contact_us_messages.fields.name")),
+                        TextEntry::make('email')
+                            ->label(__("app.contact_us_messages.fields.email")),
+                        TextEntry::make('ip_address')
+                            ->label(__("app.contact_us_messages.fields.ip_address")),
+                    ])->columns(3),
                 Section::make('')
                     ->schema([
                         TextEntry::make('message'),

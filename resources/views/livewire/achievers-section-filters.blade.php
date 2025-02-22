@@ -12,7 +12,7 @@
                 wire:click="setFilter('{{ $this->getFilterId($filter->id) }}')"
                 class="filter-btn {{ $this->getFilterId($filter->id) === $selectedFilter ? 'active' : '' }}">
                 @if($filter['icon'])
-                    <img src="{{ asset($filter['icon']) }}" alt="{{ $filter['name'] }}" class="filter-icon">
+                    <img src="{{ Storage::url($filter['icon']) }}" alt="{{ $filter['name'] }}" class="filter-icon">
                 @endif
                 <span>{{ $filter->title_ar }}</span>
             </button>

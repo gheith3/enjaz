@@ -19,7 +19,7 @@ class AchievementResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-   
+
     public static function getModelLabel(): string
     {
         return __('app.achievements.resource.label');
@@ -68,6 +68,8 @@ class AchievementResource extends Resource
                 Forms\Components\Section::make(__('app.achievements.sections.arabic_details'))
                     ->schema([
                         Forms\Components\TextInput::make('title_ar')
+                            ->label(__('app.title_ar'))
+                            ->label(__('app.description_en'))
                             ->required()
                             ->maxLength(255),
                         Forms\Components\RichEditor::make('description_ar')
@@ -78,9 +80,11 @@ class AchievementResource extends Resource
                 Forms\Components\Section::make(__('app.achievements.sections.english_details'))
                     ->schema([
                         Forms\Components\TextInput::make('title_en')
+                            ->label(__('app.title_en'))
                             ->required()
                             ->maxLength(255),
                         Forms\Components\RichEditor::make('description_en')
+                            ->label(__('app.description_en'))
                             ->required()
                             ->columnSpanFull(),
                     ])
@@ -95,6 +99,7 @@ class AchievementResource extends Resource
                             ->maxSize(1024 * 5)
                             ->nullable(),
                         Forms\Components\TextInput::make('video_url')
+                            ->label(__('app.video_url'))
                             ->url()
                             ->columnSpanFull(),
                     ]),

@@ -1,9 +1,9 @@
 <div id="hero-section">
 
     <div class="background-container">
-        <img src="{{ asset($decorationImage) }}" alt="" class="bg-main">
+        <img src="{{ Storage::url($decorationImage) }}" alt="" class="bg-main">
         <div class="content-wrapper">
-            <img src="{{ asset($backgroundImage) }}" alt="" class="bg-overlay">
+            <img src="{{ Storage::url($backgroundImage) }}" alt="" class="bg-overlay">
             {{ view("components.layouts.nav") }}
 
             <div class="hero-content">

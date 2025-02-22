@@ -23,7 +23,7 @@ class LandingImageResource extends Resource
     {
         return __('app.group.media');
     }
-    
+
     public static function getModelLabel(): string
     {
         return __('app.landing_images.resource.label');
@@ -38,53 +38,45 @@ class LandingImageResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make(__('app.landing_images.sections.basic_details'))
+                Forms\Components\Section::make('')
                     ->schema([
-                        Forms\Components\TextInput::make('title')
-                            ->label(__('app.landing_images.fields.title'))
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\Select::make('position')
-                            ->label(__('app.landing_images.fields.position'))
-                            ->options([
-                                'header' => __('app.landing_images.positions.header'),
-                                'about' => __('app.landing_images.positions.about'),
-                                'services' => __('app.landing_images.positions.services'),
-                                'footer' => __('app.landing_images.positions.footer'),
-                            ])
-                            ->required(),
-                        Forms\Components\Select::make('status')
-                            ->label(__('app.landing_images.fields.status'))
-                            ->options([
-                                'draft' => __('app.landing_images.statuses.draft'),
-                                'published' => __('app.landing_images.statuses.published'),
-                                'archived' => __('app.landing_images.statuses.archived'),
-                            ])
-                            ->required(),
-                    ])
-                    ->columns(3),
+                        Forms\Components\Textarea::make('description_ar')
+                            ->label(__('app.landing_images.fields.description_ar')),
 
-                Forms\Components\Section::make(__('app.landing_images.sections.media'))
+                        Forms\Components\Textarea::make('description_en')
+                            ->label(__('app.landing_images.fields.description_en'))
+                    ])->columns(2),
+                Forms\Components\Section::make('')
                     ->schema([
-                        Forms\Components\FileUpload::make('image')
+
+                        Forms\Components\TextInput::make('image_alt')
+                            ->label(__('app.landing_images.fields.alt_text'))
+                            ->required()
+                            ->columnSpanFull(),
+
+                        Forms\Components\TextInput::make('subtitle_ar')
+                            ->label(__('app.landing_images.fields.sub_title_ar'))
+                            ->maxLength(255)
+                            ->default(null),
+                        Forms\Components\TextInput::make('subtitle_en')
+                            ->label(__('app.landing_images.fields.sub_title_en'))
+                            ->maxLength(255)
+                            ->default(null),
+
+
+                        Forms\Components\FileUpload::make('image_path')
                             ->label(__('app.landing_images.fields.image'))
                             ->image()
                             ->imageEditor()
-                            ->required()
-                            ->columnSpanFull(),
-                        Forms\Components\TextInput::make('alt_text')
-                            ->label(__('app.landing_images.fields.alt_text'))
-                            ->maxLength(255),
+                            ->columnSpanFull()
+                            ->maxSize(1024 * 5)
+                            ->nullable(),
+
+                        Forms\Components\Toggle::make('is_active')
+                            ->label(__('app.landing_images.fields.status'))
+                            ->required(),
                     ])
                     ->columns(2),
-
-                Forms\Components\Section::make(__('app.landing_images.sections.content'))
-                    ->schema([
-                        Forms\Components\Textarea::make('description')
-                            ->label(__('app.landing_images.fields.description'))
-                            ->maxLength(65535)
-                            ->columnSpanFull(),
-                    ]),
             ]);
     }
 
@@ -92,24 +84,11 @@ class LandingImageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->label(__('app.landing_images.table.title'))
+                Tables\Columns\TextColumn::make('image_alt')
+                    ->label(__('app.landing_images.fields.alt_text'))
                     ->searchable(),
-                Tables\Columns\SelectColumn::make('position')
-                    ->label(__('app.landing_images.table.position'))
-                    ->options([
-                        'header' => __('app.landing_images.positions.header'),
-                        'about' => __('app.landing_images.positions.about'),
-                        'services' => __('app.landing_images.positions.services'),
-                        'footer' => __('app.landing_images.positions.footer'),
-                    ]),
-                Tables\Columns\SelectColumn::make('status')
-                    ->label(__('app.landing_images.table.status'))
-                    ->options([
-                        'draft' => __('app.landing_images.statuses.draft'),
-                        'published' => __('app.landing_images.statuses.published'),
-                        'archived' => __('app.landing_images.statuses.archived'),
-                    ]),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->label(__('app.landing_images.table.status')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('app.landing_images.table.created_at'))
                     ->dateTime()

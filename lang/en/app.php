@@ -87,6 +87,7 @@ return [
             'subject' => 'Subject',
             'message' => 'Message',
             'status' => 'Status',
+            'ip_address' => 'IP Address',
         ],
         'table' => [
             'name' => 'Name',
@@ -121,6 +122,7 @@ return [
             'alt_text' => 'Alt Text',
             'type' => 'Type',
             'status' => 'Status',
+            'images' => 'Images',
         ],
         'table' => [
             'title' => 'Title',
@@ -153,8 +155,12 @@ return [
         'fields' => [
             'title' => 'Title',
             'description' => 'Description',
+            'description_ar' => 'Arabic Description',
+            'description_en' => 'English Description',
             'image' => 'Image',
             'alt_text' => 'Alt Text',
+            'sub_title_ar' => 'Arabic Sub Title',
+            'sub_title_en' => 'English Sub Title',
             'position' => 'Position',
             'status' => 'Status',
         ],
@@ -203,9 +209,15 @@ return [
             'instagram' => 'Instagram',
             'linkedin' => 'LinkedIn',
             'status' => 'Status',
+            'manager' => 'Manager',
+            'manager_message_ar' => 'Message Arabic',
+            'manager_message_en' => 'Message English',
+            'manager_image' => 'Manager Image',
         ],
         'table' => [
             'name' => 'Name',
+            'name_ar' => 'Arabic Name',
+            'name_en' => 'English Name',
             'email' => 'Email',
             'phone' => 'Phone',
             'status' => 'Status',
@@ -256,6 +268,7 @@ return [
             'english_details' => 'English Details',
             'media' => 'Media',
             'basic_details' => 'Basic Details',
+            'story' => 'Story',
         ],
         'fields' => [
             'name_ar' => 'Arabic Name',
@@ -268,6 +281,14 @@ return [
             'email' => 'Email',
             'phone' => 'Phone',
             'status' => 'Status',
+            'social_media' => 'Social Media',
+            'facebook_url' => 'Facebook URL',
+            'twitter_url' => 'Twitter URL',
+            'instagram_url' => 'Instagram URL',
+            'linkedin_url' => 'LinkedIn URL',
+            'whatsapp_number' => 'WhatsApp Number',
+            'story_ar' => 'Arabic Story',
+            'story_en' => 'English Story',
         ],
         'table' => [
             'name' => 'Name',
@@ -393,6 +414,7 @@ return [
     ],
 
     'nav' => [
+        'title' => 'Enjaz',
         'groups' => [
             'achievements' => 'Achievements',
             'media' => 'Media',
@@ -411,4 +433,11 @@ return [
         'types' => 'Types',
         'settings' => 'Settings',
     ],
+    'title_ar' => 'Arabic Title',
+    'title_en' => 'English Title',
+    'description_ar' => 'Arabic Description',
+    'description_en' => 'English Description',
+    'video_url' => 'Video URL',
+    'type' => 'Type',
+    'organizations_details' => 'Organization Details',
 ];

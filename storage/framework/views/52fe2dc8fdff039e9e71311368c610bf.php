@@ -12,7 +12,7 @@
                 wire:click="setFilter('<?php echo e($this->getFilterId($filter->id)); ?>')"
                 class="filter-btn <?php echo e($this->getFilterId($filter->id) === $selectedFilter ? 'active' : ''); ?>">
                 <?php if($filter['icon']): ?>
-                    <img src="<?php echo e(asset($filter['icon'])); ?>" alt="<?php echo e($filter['name']); ?>" class="filter-icon">
+                    <img src="<?php echo e(Storage::url($filter['icon'])); ?>" alt="<?php echo e($filter['name']); ?>" class="filter-icon">
                 <?php endif; ?>
                 <span><?php echo e($filter->title_ar); ?></span>
             </button>

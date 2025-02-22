@@ -23,7 +23,7 @@ class OrganizationTypeResource extends Resource
     {
         return __('app.group.types');
     }
-    
+
     public static function getModelLabel(): string
     {
         return __('app.organization_types.resource.label');
@@ -38,25 +38,21 @@ class OrganizationTypeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make(__('app.organization_types.sections.arabic_details'))
+                Forms\Components\Section::make('')
                     ->schema([
                         Forms\Components\TextInput::make('title_ar')
                             ->label(__('app.organization_types.fields.name_ar'))
                             ->required()
                             ->unique()
                             ->maxLength(255),
-                    ])
-                    ->columns(1),
 
-                Forms\Components\Section::make(__('app.organization_types.sections.english_details'))
-                    ->schema([
                         Forms\Components\TextInput::make('title_en')
                             ->label(__('app.organization_types.fields.name_en'))
                             ->required()
                             ->unique()
                             ->maxLength(255),
                     ])
-                    ->columns(1),
+                    ->columns(2),
             ]);
     }
 
@@ -108,9 +104,9 @@ class OrganizationTypeResource extends Resource
     {
         return [
             'index' => Pages\ListOrganizationTypes::route('/'),
-            'create' => Pages\CreateOrganizationType::route('/create'),
-            'view' => Pages\ViewOrganizationType::route('/{record}'),
-            'edit' => Pages\EditOrganizationType::route('/{record}/edit'),
+//            'create' => Pages\CreateOrganizationType::route('/create'),
+//            'view' => Pages\ViewOrganizationType::route('/{record}'),
+//            'edit' => Pages\EditOrganizationType::route('/{record}/edit'),
         ];
     }
 

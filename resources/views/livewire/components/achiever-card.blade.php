@@ -3,7 +3,7 @@
         <div class="app-card">
             <div class="achievers-image-d">
                 <div style="position: relative;">
-                    <img src="{{ asset($achiever->image_path) }}"
+                    <img src="{{ Storage::url($achiever->image_path) }}"
                          alt="{{$achiever->name_ar}}"/>
                     <div class="achievers-image-card-name">
                         {{ $achiever->name_ar }}

@@ -3,7 +3,7 @@
         <div class="app-card">
             <div class="achievers-image-d">
                 <div style="position: relative;">
-                    <img src="<?php echo e(asset($achiever->image_path)); ?>"
+                    <img src="<?php echo e(Storage::url($achiever->image_path)); ?>"
                          alt="<?php echo e($achiever->name_ar); ?>"/>
                     <div class="achievers-image-card-name">
                         <?php echo e($achiever->name_ar); ?>

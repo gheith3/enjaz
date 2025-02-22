@@ -2,7 +2,7 @@
     <div class="container text-center text-md-left">
         <div class="row text-center text-md-left">
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-                <img src="{{ asset($settings->logo) }}" alt="Logo"
+                <img src="{{ Storage::url($settings->logo) }}" alt="Logo"
                      class="footer-logo">
             </div>
 

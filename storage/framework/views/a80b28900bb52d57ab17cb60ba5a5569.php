@@ -1,8 +1,9 @@
 <div>
-    <div style="background-image: url('<?php echo e(asset($backgroundImage ?? 'images/app/ABG.svg')); ?>')">
-        <?php echo e(view("components.layouts.nav")); ?>
+    <div style="background-image: url('<?php echo e(Storage::url($backgroundImage ?? 'images/app/ABG.svg')); ?>')">
+        <div class="nav-bg">
+            <?php echo e(view("components.layouts.nav")); ?>
 
-
+        </div>
         <div class="pt-5" style="background-image: url('<?php echo e(asset('images/app/AchieversBG.svg')); ?>'); min-height: 290px; background-size: auto; background-repeat: no-repeat">
             <div class="container p-3 mb-3">
                 <div class="row justify-content-center">

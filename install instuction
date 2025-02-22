@@ -4,19 +4,19 @@ sudo chown -R 33:33 ./storage ./bootstrap/cache
 sudo chown -R www-data:www-data ./storage
 sudo chmod -R 775 ./storage ./bootstrap/cache
 
-
-
 mkdir -p ./storage/framework/sessions
 mkdir -p ./storage/framework/views
 mkdir -p ./storage/framework/cache
 
+
+
 docker exec -it enjaz bash
 
-
 php artisan migrate
-php artisan storage:link
 php artisan shield:install
 php artisan db:seed
+rm -rf /var/www/html/public/storage
+php artisan storage:link
 php artisan optimize
 
 

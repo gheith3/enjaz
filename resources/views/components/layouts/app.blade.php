@@ -13,6 +13,7 @@
     @livewireStyles
     {{--    <link href="{{asset("css/global.css")}}" rel="stylesheet">    --}}
     <link href="{{asset("css/main.css")}}" rel="stylesheet">
+    <link href="{{asset("css/custom-pagination.css")}}" rel="stylesheet">
     @stack('styles')
 
 </head>

@@ -10,7 +10,7 @@
 }
 
 .navbar-brand img {
-    height: 100px;
+    height: 70px;
 }
 
 .nav-link {
@@ -265,6 +265,14 @@
 .footer-logo {
     width: 120px;
 }
+
+.social-icon{
+    width: 40px;
+    height: 40px;
+    filter: invert(17%) sepia(84%) saturate(434%) hue-rotate(138deg) brightness(94%) contrast(100%);
+}
+
+
 
 @media (max-width: 768px) {
     #landing-image {

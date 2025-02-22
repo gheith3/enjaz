@@ -22,7 +22,7 @@ class AchievementScopeResource extends Resource
     {
         return __('app.group.types');
     }
-    
+
     public static function getModelLabel(): string
     {
         return __('app.achievement_scopes.resource.label');
@@ -37,36 +37,14 @@ class AchievementScopeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make(__('app.achievement_scopes.sections.arabic_details'))
-                    ->schema([
-                        Forms\Components\TextInput::make('title_ar')
-                            ->label(__('app.achievement_scopes.fields.title'))
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\RichEditor::make('description_ar')
-                            ->label(__('app.achievement_scopes.fields.description'))
-                            ->required()
-                            ->columnSpanFull(),
-                    ])
-                    ->columns(2),
-
-                Forms\Components\Section::make(__('app.achievement_scopes.sections.english_details'))
-                    ->schema([
-                        Forms\Components\TextInput::make('title_en')
-                            ->label(__('app.achievement_scopes.fields.title'))
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\RichEditor::make('description_en')
-                            ->label(__('app.achievement_scopes.fields.description'))
-                            ->required()
-                            ->columnSpanFull(),
-                    ])
-                    ->columns(2),
-
-                Forms\Components\FileUpload::make('icon')
-                    ->label(__('app.achievement_scopes.fields.icon'))
-                    ->image()
-                    ->required(),
+                Forms\Components\TextInput::make('title_ar')
+                    ->label(__('app.title_ar'))
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('title_en')
+                    ->label(__('app.title_en'))
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -75,7 +53,10 @@ class AchievementScopeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title_ar')
-                    ->label(__('app.achievement_scopes.table.title'))
+                    ->label(__('app.title_ar'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('title_en')
+                    ->label(__('app.title_en'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('app.achievement_scopes.table.created_at'))

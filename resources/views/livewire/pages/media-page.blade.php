@@ -7,7 +7,7 @@
         <div class="row m-0">
             <div class="col-md-6">
                 <div class="media-card photos-card"
-                     style="background-image: url('{{ asset('images\app\secondBookCover.png') }}')">
+                     style="background-image: url('{{ asset('images/media/m01.jpg') }}')">
                     <div class="card-overlay">
                         <img src="{{ asset('images\app\firstBookIcon.svg') }}" alt="Photos" class="card-icon">
                         <a href="{{$settings->about_us_document}}"
@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-6 pb-4">
                 <div class="media-card interviews-card"
-                     style="background-image: url('{{ asset('images\app\firstBookCover.png') }}')">
+                     style="background-image: url('{{ asset('images/media/m03.jpg') }}');">
                     <div class="card-overlay">
                         <img src="{{ asset('images\app\YTI.svg') }}" alt="Interviews" class="card-icon">
                         <a href="{{route('media.videos')}}"
@@ -31,8 +31,8 @@
                 </div>
             </div>
             <div class="col-md-6 pb-4">
-                <div class="media-card photos-card"
-                     style="background-image: url('{{ asset('images\app\secondBookCover.png') }}')">
+                    <div class="media-card photos-card"
+                     style="background-image: url('{{ asset('images/media/m02.jpg') }}');">
                     <div class="card-overlay">
                         <img src="{{ asset('images\app\firstBookIcon.svg') }}" alt="Photos" class="card-icon">
                         <a href="{{route('media.images-albums')}}"
@@ -44,7 +44,7 @@
             </div>
             <div class="col-md-6">
                 <div class="media-card photos-card"
-                     style="background-image: url('{{ asset('images\app\secondBookCover.png') }}')">
+                     style="background-image: url('{{ asset('images/media/m04.jpg') }}')">
                     <div class="card-overlay">
                         <img src="{{ asset('images\app\firstBookIcon.svg') }}" alt="Photos" class="card-icon">
                         <a href="{{route('media.publications')}}"
@@ -56,6 +56,9 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
 
 </div>
 

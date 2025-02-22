@@ -24,6 +24,7 @@ use Filament\Tables\Columns\ToggleColumn;
 
 class AchievementMainTypeResource extends Resource
 {
+
     protected static ?string $model = AchievementMainType::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -52,19 +53,17 @@ class AchievementMainTypeResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->label(__('app.achievement_main_types.fields.name'))
-                    ->required(),
-                TextInput::make('description')
-                    ->label(__('app.achievement_main_types.fields.description'))
-                    ->required(),
-                FileUpload::make('icon')
-                    ->label(__('app.achievement_main_types.fields.icon'))
-                    ->image()
-                    ->required(),
-                Toggle::make('status')
-                    ->label(__('app.achievement_main_types.fields.status'))
-                    ->default(true),
+                Forms\Components\Section::make('')
+                    ->schema([
+                        Forms\Components\TextInput::make('title_ar')
+                            ->label(__('app.title_ar'))
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('title_en')
+                            ->label(__('app.title_en'))
+                            ->required()
+                            ->maxLength(255),
+                    ])->columns(2),
             ]);
     }
 
@@ -72,16 +71,12 @@ class AchievementMainTypeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->label(__('app.achievement_main_types.fields.name'))
+                TextColumn::make('title_ar')
+                    ->label(__('app.title_ar'))
                     ->searchable(),
-                TextColumn::make('description')
-                    ->label(__('app.achievement_main_types.fields.description'))
+                TextColumn::make('title_en')
+                    ->label(__('app.title_en'))
                     ->searchable(),
-                ImageColumn::make('icon')
-                    ->label(__('app.achievement_main_types.fields.icon')),
-                ToggleColumn::make('status')
-                    ->label(__('app.achievement_main_types.fields.status')),
                 TextColumn::make('created_at')
                     ->label(__('app.achievement_main_types.fields.created_at'))
                     ->dateTime()

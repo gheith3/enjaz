@@ -1,9 +1,8 @@
 <div>
-    <div style="background-image: url('{{asset($backgroundImage ?? 'images/app/ABG.svg')}}')">
+    <div class="nav-bg">
         {{view("components.layouts.nav")}}
-
-        <div class="pt-5"
-             style="background-image: url('{{ asset('images/app/AchieversBG.svg') }}'); min-height: 290px; background-size: auto; background-repeat: no-repeat">
+   
+        <div class="pt-5" >
             <div class="container p-3 mb-3">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
@@ -40,12 +39,14 @@
 
 
     <div class="container mt-5">
-            @foreach($this->achievements as $achievement)
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                @foreach($achievements as $achievement)
 
                     <div class="bg-white shadow-sm rounded rounded-lg mb-3">
                         <div class="row m-0 p-0">
                             <div class="col-md-4 m-0 p-0">
-                                <img src="{{asset($achievement->cover_image_path)}}"
+                                <img src="{{Storage::url($achievement->cover_image_path)}}"
                                      class="rounded"
                                      style="width: 100%; height: 250px"
                                      alt="">
@@ -82,6 +83,15 @@
                 {{--                    key("card-{$achievement->id}"))--}}
                 {{--                </div>--}}
             @endforeach
+            </div>
+        </div>
+            
+    </div>
+
+    <div class="mt-4 d-flex justify-content-center">
+        <div class="pagination">
+            {{ $achievements->links('vendor.pagination.custom') }}
+        </div>
     </div>
 
     <br>

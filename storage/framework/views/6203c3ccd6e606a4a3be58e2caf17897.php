@@ -15,7 +15,7 @@
             <div class="slider-track">
                 <?php $__currentLoopData = $achievements; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $achievement): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="achievement-card">
-                    <img src="<?php echo e(asset($achievement['image'])); ?>" alt="Achievement" class="achievement-image">
+                    <img src="<?php echo e(Storage::url($achievement['image'])); ?>" alt="Achievement" class="achievement-image">
                     <div class="achievement-info">
                         <span class="achievement-date"><?php echo e($achievement['date']); ?></span>
                         <p class="achievement-text"><?php echo e($achievement['text']); ?></p>
@@ -185,7 +185,7 @@ function slideAchievements(direction) {
             currentSlide = totalSlides - 1;
         }
     }
-    
+
     const translateX = currentSlide * -(cardWidth + gap);
     track.style.transform = `translateX(${translateX}px)`;
 }
@@ -194,7 +194,7 @@ function slideAchievements(direction) {
 document.addEventListener('DOMContentLoaded', function() {
     const track = document.querySelector('.slider-track');
     const cards = track.querySelectorAll('.achievement-card');
-    
+
     // Clone cards for smooth infinite scroll
     cards.forEach(card => {
         const clone = card.cloneNode(true);
@@ -202,4 +202,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-<?php $__env->stopPush(); ?><?php /**PATH E:\Projects\enjaz\resources\views\livewire\about-section-achievements.blade.php ENDPATH**/ ?>
+<?php $__env->stopPush(); ?>
+<?php /**PATH E:\Projects\enjaz\resources\views\livewire\about-section-achievements.blade.php ENDPATH**/ ?>

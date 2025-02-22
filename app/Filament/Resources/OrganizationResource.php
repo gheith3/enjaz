@@ -19,7 +19,7 @@ class OrganizationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
 
- 
+
     public static function getModelLabel(): string
     {
         return __('app.organizations.resource.label');
@@ -34,87 +34,74 @@ class OrganizationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make(__('app.organizations.sections.arabic_details'))
+                Forms\Components\Section::make(__("app.organizations_details"))
                     ->schema([
+                        Forms\Components\Select::make('organization_type_id')
+                            ->label(__('app.type'))
+                            ->relationship('organizationType', 'title_en'),
+                        Forms\Components\TextInput::make('website_url')
+                            ->label(__('app.organizations.fields.website'))
+                            ->url()
+                            ->required(),
+
                         Forms\Components\TextInput::make('name_ar')
                             ->label(__('app.organizations.fields.name_ar'))
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\RichEditor::make('description_ar')
-                            ->label(__('app.organizations.fields.description_ar'))
-                            ->required()
-                            ->columnSpanFull(),
-                    ])
-                    ->columns(2),
 
-                Forms\Components\Section::make(__('app.organizations.sections.english_details'))
-                    ->schema([
                         Forms\Components\TextInput::make('name_en')
                             ->label(__('app.organizations.fields.name_en'))
-                            ->required()
+                            ->nullable()
                             ->maxLength(255),
-                        Forms\Components\RichEditor::make('description_en')
-                            ->label(__('app.organizations.fields.description_en'))
+
+                        Forms\Components\RichEditor::make('description_ar')
+                            ->label(__('app.description_ar'))
                             ->required()
                             ->columnSpanFull(),
-                    ])
-                    ->columns(2),
 
-                Forms\Components\Section::make(__('app.organizations.sections.media'))
-                    ->schema([
-                        Forms\Components\FileUpload::make('logo')
+                        Forms\Components\RichEditor::make('description_en')
+                            ->label(__('app.description_en'))
+                            ->nullable()
+                            ->columnSpanFull(),
+
+                        Forms\Components\FileUpload::make('logo_path')
+                            ->label('Logo')
                             ->label(__('app.organizations.fields.logo'))
                             ->image()
                             ->imageEditor()
-                            ->required(),
-                    ])
-                    ->columns(2),
-
-                Forms\Components\Section::make(__('app.organizations.sections.basic_details'))
-                    ->schema([
-                        Forms\Components\TextInput::make('website')
-                            ->label(__('app.organizations.fields.website'))
-                            ->url()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('email')
-                            ->label(__('app.organizations.fields.email'))
-                            ->email()
+                            ->columnSpanFull()
+                            ->maxSize(1024 * 5)
                             ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('phone')
-                            ->label(__('app.organizations.fields.phone'))
-                            ->tel()
-                            ->required(),
-                        Forms\Components\Select::make('status')
-                            ->label(__('app.organizations.fields.status'))
-                            ->options([
-                                'active' => __('app.organizations.statuses.active'),
-                                'inactive' => __('app.organizations.statuses.inactive'),
-                            ])
                             ->required(),
                     ])
                     ->columns(2),
 
-                Forms\Components\Section::make(__('app.organizations.sections.social_media'))
+                Forms\Components\Section::make(__('app.organizations.fields.manager'))
                     ->schema([
-                        Forms\Components\TextInput::make('facebook')
-                            ->label(__('app.organizations.fields.facebook'))
-                            ->url()
+                        Forms\Components\TextInput::make('manager_name_ar')
+                            ->label(__('app.organizations.fields.name_ar'))
+                            ->nullable()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('twitter')
-                            ->label(__('app.organizations.fields.twitter'))
-                            ->url()
+                        Forms\Components\TextInput::make('manager_name_en')
+                            ->label(__('app.organizations.fields.name_en'))
+                            ->nullable()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('instagram')
-                            ->label(__('app.organizations.fields.instagram'))
-                            ->url()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('linkedin')
-                            ->label(__('app.organizations.fields.linkedin'))
-                            ->url()
-                            ->maxLength(255),
-                    ])
-                    ->columns(2),
+                        Forms\Components\RichEditor::make('manager_message_ar')
+                            ->label(__('app.organizations.fields.manager_message_ar'))
+                            ->nullable()
+                            ->columnSpanFull(),
+                        Forms\Components\RichEditor::make('manager_message_en')
+                            ->label(__('app.organizations.fields.manager_message_en'))
+                            ->nullable()
+                            ->columnSpanFull(),
+                        Forms\Components\FileUpload::make('manager_image_path')
+                            ->label(__('app.organizations.fields.manager_image'))
+                            ->image()
+                            ->imageEditor()
+                            ->columnSpanFull()
+                            ->maxSize(1024 * 5)
+                            ->nullable(),
+                    ])->columns(2),
             ]);
     }
 
@@ -123,20 +110,11 @@ class OrganizationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name_ar')
-                    ->label(__('app.organizations.table.name'))
+                    ->label(__('app.organizations.table.name_ar'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->label(__('app.organizations.table.email'))
+                Tables\Columns\TextColumn::make('name_en')
+                    ->label(__('app.organizations.table.name_en'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->label(__('app.organizations.table.phone'))
-                    ->searchable(),
-                Tables\Columns\SelectColumn::make('status')
-                    ->label(__('app.organizations.table.status'))
-                    ->options([
-                        'active' => __('app.organizations.statuses.active'),
-                        'inactive' => __('app.organizations.statuses.inactive'),
-                    ]),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('app.organizations.table.created_at'))
                     ->dateTime()

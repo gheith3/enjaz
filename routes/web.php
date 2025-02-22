@@ -14,6 +14,7 @@ use App\Livewire\Pages\VideosPage;
 use App\Livewire\SingleAchievement;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\SingleAchieverHero;
+use App\Http\Controllers\AlbumController;
 
 Route::get('/', HomePage::class)
     ->name('home');
@@ -62,6 +63,9 @@ Route::get('/institutes', function () {
 
 
 Route::get('/contact-us', ContactUs::class)->name('contact-us');
+
+Route::get('/images-albums', App\Livewire\Pages\ImagesAlbumsPage::class)->name('images-albums');
+Route::get('/album/{album}', [AlbumController::class, 'show'])->name('album.show');
 
 
 

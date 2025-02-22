@@ -42,7 +42,7 @@
                 <div class="col-md-5 pt-5">
                     <div class="map-container mt-3"
                          style="border-radius: 20px; overflow: hidden; margin-bottom: 20px; margin-top: 35px;">
-                        <img src="<?php echo e(asset($settings->map_image)); ?>" alt="Map" style="width: 100%; height: auto;">
+                        <img src="<?php echo e(Storage::url($settings->map_image)); ?>" alt="Map" style="width: 100%; height: auto;">
                     </div>
                     <div class="mt-3">
                         <div class="d-flex justify-content-between ">

@@ -6,6 +6,8 @@ use App\Filament\Resources\PublicFigureResource\Pages;
 use App\Filament\Resources\PublicFigureResource\RelationManagers;
 use App\Models\PublicFigure;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -20,7 +22,6 @@ class PublicFigureResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
 
-    
     public static function getModelLabel(): string
     {
         return __('app.public_figures.resource.label');
@@ -35,72 +36,68 @@ class PublicFigureResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make(__('app.public_figures.sections.arabic_details'))
+                Forms\Components\Section::make('')
                     ->schema([
                         Forms\Components\TextInput::make('name_ar')
                             ->label(__('app.public_figures.fields.name_ar'))
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('position_ar')
-                            ->label(__('app.public_figures.fields.position_ar'))
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\RichEditor::make('description_ar')
+                        Forms\Components\TextInput::make('name_en')
+                            ->label(__('app.public_figures.fields.name_en'))
+                            ->maxLength(255)
+                            ->default(null),
+
+                        Forms\Components\TextInput::make('description_ar')
                             ->label(__('app.public_figures.fields.description_ar'))
                             ->required()
                             ->columnSpanFull(),
-                    ])
-                    ->columns(2),
-
-                Forms\Components\Section::make(__('app.public_figures.sections.english_details'))
-                    ->schema([
-                        Forms\Components\TextInput::make('name_en')
+                        Forms\Components\TextInput::make('description_en')
                             ->label(__('app.public_figures.fields.name_en'))
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('position_en')
-                            ->label(__('app.public_figures.fields.position_en'))
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\RichEditor::make('description_en')
-                            ->label(__('app.public_figures.fields.description_en'))
-                            ->required()
                             ->columnSpanFull(),
-                    ])
-                    ->columns(2),
-
-                Forms\Components\Section::make(__('app.public_figures.sections.media'))
+                    ])->columns(2),
+                Section::make(__('app.public_figures.sections.story'))
                     ->schema([
-                        Forms\Components\FileUpload::make('image')
+                        RichEditor::make('story_ar')
+                            ->label(__('app.public_figures.fields.story_ar'))
+                            ->required()
+                            ->columnSpan('full'),
+                        RichEditor::make('story_en')
+                            ->label(__('app.public_figures.fields.story_en'))
+                            ->columnSpan('full'),
+                    ])->columns(2),
+                Section::make(__('app.public_figures.fields.social_media'))
+                    ->schema([
+                        Forms\Components\TextInput::make('facebook_url')
+                            ->label(__('app.public_figures.fields.facebook_url')),
+                        Forms\Components\TextInput::make('twitter_url')
+                            ->label(__('app.public_figures.fields.twitter_url')),
+                        Forms\Components\TextInput::make('instagram_url')
+                            ->label(__('app.public_figures.fields.instagram_url')),
+                        Forms\Components\TextInput::make('linkedin_url')
+                            ->label(__('app.public_figures.fields.linkedin_url')),
+                        Forms\Components\TextInput::make('whatsapp_number')
+                            ->label(__('app.public_figures.fields.whatsapp_number')),
+                        Forms\Components\TextInput::make('email')
+                            ->label(__('app.public_figures.fields.email')),
+                        Forms\Components\TextInput::make('phone')
+                            ->label(__('app.public_figures.fields.phone')),
+                            
+                    ])->columns(2),
+                Forms\Components\Section::make('')
+                    ->schema([
+                        Forms\Components\FileUpload::make('image_path')
                             ->label(__('app.public_figures.fields.image'))
+                            ->directory('public_figures')
                             ->image()
                             ->imageEditor()
-                            ->required(),
+                            ->columnSpanFull()
+                            ->maxSize(1024 * 5)
+                            ->nullable(),
                     ])
-                    ->columns(1),
 
-                Forms\Components\Section::make(__('app.public_figures.sections.basic_details'))
-                    ->schema([
-                        Forms\Components\TextInput::make('email')
-                            ->label(__('app.public_figures.fields.email'))
-                            ->email()
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('phone')
-                            ->label(__('app.public_figures.fields.phone'))
-                            ->tel()
-                            ->required(),
-                        Forms\Components\Select::make('status')
-                            ->label(__('app.public_figures.fields.status'))
-                            ->options([
-                                'active' => __('app.public_figures.statuses.active'),
-                                'inactive' => __('app.public_figures.statuses.inactive'),
-                            ])
-                            ->required(),
-                    ])
-                    ->columns(3),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {

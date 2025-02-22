@@ -1,6 +1,6 @@
 <div>
     <div class="app-card mb-3">
-        <img src="<?php echo e(asset($achievement->cover_image_path)); ?>"
+        <img src="<?php echo e(Storage::url($achievement->cover_image_path)); ?>"
              class="rounded"
              style="width: 100%; height: 210px"
              alt="">

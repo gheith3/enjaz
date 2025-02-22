@@ -19,7 +19,7 @@
                 <div class="row justify-content-center gallery">
                     @foreach($this->album->images as $item)
                         <div class="col-md-3 mb-4">
-                            <img src="{{asset($item['image'])}}"
+                            <img src="{{Storage::url($item['image'])}}"
                                  class="img-fluid" alt="Image 1" data-index="0">
                         </div>
                     @endforeach

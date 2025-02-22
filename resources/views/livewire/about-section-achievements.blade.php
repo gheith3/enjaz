@@ -15,7 +15,7 @@
             <div class="slider-track">
                 @foreach($achievements as $achievement)
                 <div class="achievement-card">
-                    <img src="{{ asset($achievement['image']) }}" alt="Achievement" class="achievement-image">
+                    <img src="{{ Storage::url($achievement['image']) }}" alt="Achievement" class="achievement-image">
                     <div class="achievement-info">
                         <span class="achievement-date">{{ $achievement['date'] }}</span>
                         <p class="achievement-text">{{ $achievement['text'] }}</p>
@@ -185,7 +185,7 @@ function slideAchievements(direction) {
             currentSlide = totalSlides - 1;
         }
     }
-    
+
     const translateX = currentSlide * -(cardWidth + gap);
     track.style.transform = `translateX(${translateX}px)`;
 }
@@ -194,7 +194,7 @@ function slideAchievements(direction) {
 document.addEventListener('DOMContentLoaded', function() {
     const track = document.querySelector('.slider-track');
     const cards = track.querySelectorAll('.achievement-card');
-    
+
     // Clone cards for smooth infinite scroll
     cards.forEach(card => {
         const clone = card.cloneNode(true);

@@ -2,7 +2,7 @@
     <div class="app-card shadow-sm">
         <div style="position: relative;">
             <div class="p-2">
-                <img src="<?php echo e(asset($organization->logo_path)); ?>"
+                <img src="<?php echo e(Storage::url($organization->logo_path)); ?>"
                      style="width: 100%; height: 180px"
                      alt="<?php echo e($organization->name_ar); ?>"/>
             </div>

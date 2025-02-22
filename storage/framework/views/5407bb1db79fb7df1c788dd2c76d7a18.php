@@ -1,5 +1,5 @@
 <div>
-    <div class="pb-3" style="background-image: url('<?php echo e(asset($backgroundImage ?? 'images/app/ABG.svg')); ?>');
+    <div class="pb-0" style="background-image: url('<?php echo e($backgroundImage != null ? Storage::url($backgroundImage) : asset('images/app/ABG.svg')); ?>');
      height: 350px;
     display: flex; flex-direction: column; justify-content: space-between; background-size: cover; background-repeat: no-repeat">
 
@@ -12,7 +12,7 @@
                 <div class="row w-100 h-100">
                     <?php if($headerImage): ?>
                         <div class="col-md-auto">
-                            <img src="<?php echo e(asset($headerImage)); ?>"
+                            <img src="<?php echo e(Storage::url($headerImage)); ?>"
                                  style="max-width: 200px; min-width: 180px"
                                  alt="logo"
                                  class="achiever-image">

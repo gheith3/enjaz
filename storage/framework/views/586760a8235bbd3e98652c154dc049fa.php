@@ -5,7 +5,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-transparent">
     <div class="container">
         <a class="navbar-brand" href="<?php echo e(route('home')); ?>">
-            <img src="<?php echo e(asset($settings->logo)); ?>" alt="Logo"
+            <img src="<?php echo e(Storage::url($settings->logo)); ?>" alt="Logo"
                  class="d-inline-block align-top">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar"

@@ -5,7 +5,7 @@
                 <div class="row justify-content-center pt-5">
                     <div class="col-md-4 text-center">
                         <img data-aos="fade-in" data-aos-duration="1800"
-                             src="<?php echo e(asset($this->person->image_path)); ?>"
+                             src="<?php echo e(Storage::url($this->person->image_path)); ?>"
                              alt="Landing Image"
                              style="width: 250px">
                     </div>

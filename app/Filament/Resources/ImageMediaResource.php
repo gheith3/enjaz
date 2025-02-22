@@ -45,51 +45,32 @@ class ImageMediaResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make(__('app.image_media.sections.basic_details'))
+                Forms\Components\Section::make('')
                     ->schema([
                         Forms\Components\TextInput::make('title')
                             ->label(__('app.image_media.fields.title'))
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\Select::make('type')
-                            ->label(__('app.image_media.fields.type'))
-                            ->options([
-                                'slider' => __('app.image_media.types.slider'),
-                                'gallery' => __('app.image_media.types.gallery'),
-                                'background' => __('app.image_media.types.background'),
-                            ])
-                            ->required(),
-                        Forms\Components\Select::make('status')
-                            ->label(__('app.image_media.fields.status'))
-                            ->options([
-                                'draft' => __('app.image_media.statuses.draft'),
-                                'published' => __('app.image_media.statuses.published'),
-                                'archived' => __('app.image_media.statuses.archived'),
-                            ])
-                            ->required(),
-                    ])
-                    ->columns(3),
-
-                Forms\Components\Section::make(__('app.image_media.sections.media'))
-                    ->schema([
-                        Forms\Components\FileUpload::make('image')
-                            ->label(__('app.image_media.fields.image'))
-                            ->image()
-                            ->imageEditor()
-                            ->required()
-                            ->columnSpanFull(),
-                        Forms\Components\TextInput::make('alt_text')
-                            ->label(__('app.image_media.fields.alt_text'))
-                            ->maxLength(255),
-                    ])
-                    ->columns(2),
-
-                Forms\Components\Section::make(__('app.image_media.sections.content'))
-                    ->schema([
                         Forms\Components\Textarea::make('description')
                             ->label(__('app.image_media.fields.description'))
-                            ->maxLength(65535)
+                            ->required()
                             ->columnSpanFull(),
+                        Forms\Components\Toggle::make('is_active')
+                            ->label(__('app.image_media.fields.status'))
+                            ->required(),
+                    ]),
+                Forms\Components\Section::make("")
+                    ->schema([
+                        Repeater::make('images')
+                            ->label(__('app.image_media.fields.images'))
+                            ->schema([
+                                FileUpload::make('image')
+                                    ->label(__('app.image_media.fields.image'))
+                                    ->image()
+                                    ->imageEditor()
+                                    ->maxSize(1024 * 5)
+                                    ->required()
+                            ])
                     ]),
             ]);
     }
@@ -101,20 +82,9 @@ class ImageMediaResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('app.image_media.table.title'))
                     ->searchable(),
-                Tables\Columns\SelectColumn::make('type')
-                    ->label(__('app.image_media.table.type'))
-                    ->options([
-                        'slider' => __('app.image_media.types.slider'),
-                        'gallery' => __('app.image_media.types.gallery'),
-                        'background' => __('app.image_media.types.background'),
-                    ]),
-                Tables\Columns\SelectColumn::make('status')
+                Tables\Columns\IconColumn::make('is_active')
                     ->label(__('app.image_media.table.status'))
-                    ->options([
-                        'draft' => __('app.image_media.statuses.draft'),
-                        'published' => __('app.image_media.statuses.published'),
-                        'archived' => __('app.image_media.statuses.archived'),
-                    ]),
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('app.image_media.table.created_at'))
                     ->dateTime()

@@ -8,34 +8,48 @@ use App\Models\PublicFigure;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AchieversPage extends Component
 {
+    use WithPagination;
+    
+    protected $paginationTheme = 'tailwind';
+
     public null|string $searchQuery = null;
     public null|int $main = null;
     public null|int $sub = null;
     public string $selected = 'all';
-    public Collection $achievers;
 
     public function mount(): void
     {
-        $this->setAchievers();
+        // Remove this since we don't need to set achievers anymore
+        // $this->setAchievers();
     }
 
     public function search(): void
     {
         $this->searchQuery = str($this->searchQuery)->isNotEmpty()
             ? $this->searchQuery : null;
-        $this->setAchievers();
+        // Remove this since we don't need to set achievers anymore
+        // $this->setAchievers();
+    }
+
+    public function updatingSearchQuery(): void
+    {
+        $this->resetPage();
     }
 
     public function setType($key): void
     {
+        $this->resetPage();
         $this->selected = $key;
         if ($key == 'all') {
             $this->main = null;
             $this->sub = null;
-            $this->setAchievers();
+            // Remove this since we don't need to set achievers anymore
+            // $this->setAchievers();
             return;
         }
 
@@ -49,7 +63,8 @@ class AchieversPage extends Component
             $this->main = $keys[1];
             $this->sub = $keys[2];
         }
-        $this->setAchievers();
+        // Remove this since we don't need to set achievers anymore
+        // $this->setAchievers();
     }
 
     public function getCategories(): array
@@ -65,9 +80,9 @@ class AchieversPage extends Component
         return $list;
     }
 
-    public function setAchievers(): void
+    public function getAchievers(): LengthAwarePaginator
     {
-        $this->achievers = PublicFigure::query()
+        return PublicFigure::query()
             ->latest()
             ->when(str($this->searchQuery)->isNotEmpty(), function ($query) {
                 $query
@@ -84,11 +99,13 @@ class AchieversPage extends Component
                     $query->where('sub_achievement_type_id', $this->sub);
                 });
             })
-            ->get();
+            ->paginate(20);
     }
 
-    public function render() : View
+    public function render(): View
     {
-        return view('livewire.pages.achievers-page');
+        return view('livewire.pages.achievers-page', [
+            'achievers' => $this->getAchievers(),
+        ]);
     }
 }

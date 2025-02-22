@@ -7,7 +7,7 @@
     <div class="team-grid">
         <?php $__currentLoopData = $teemSettings->members; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $member): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="team-member" data-aos="fade-up" data-aos-delay="<?php echo e($loop->index * 100); ?>">
-            <img src="<?php echo e(asset($member['image'])); ?>" alt="<?php echo e($member['name']); ?>" class="member-image">
+            <img src="<?php echo e(Storage::url($member['image'])); ?>" alt="<?php echo e($member['name']); ?>" class="member-image">
             <div class="member-info">
                 <h3 class="member-name"><?php echo e($member['name']); ?></h3>
                 <p class="member-title"><?php echo e($member['position']); ?></p>
