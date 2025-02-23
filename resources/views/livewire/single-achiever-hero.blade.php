@@ -1,3 +1,5 @@
+@section('title', $achiever->name_ar)
+
 <div>
 
     <livewire:page-header :title="$achiever->name_ar" :description="$achiever->description_ar" :background-image="null" :header-image="$achiever->image_path" />

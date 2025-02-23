@@ -1,6 +1,8 @@
+<?php $__env->startSection('title', 'الإعلام | مكتبة الصور | ' . $this->album->title); ?>
+
 <div>
     <div class="nav-bg">
-        <?php echo e(view("components.layouts.nav")); ?>
+        <?php echo e(view('components.layouts.nav')); ?>
 
     </div>
     <div style="min-height: 80vh; margin-top: 80px">

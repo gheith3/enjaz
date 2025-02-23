@@ -14,7 +14,7 @@
                             <p class="public-figure-card-title"><?php echo e($this->person->name_ar); ?></p>
                             <a class="link-text" href="<?php echo e(route('achievers.show', ['achiever' => $this->person->id])); ?>">
                                 <div id="public-figure-text" class="bg-white-50 rounded rounded-lg shadow-sm p-3">
-                                    <?php echo e(str($this->person->description_ar)->limit(250)->toHtmlString()); ?>
+                                    <?php echo e(str($this->person->story_ar)->limit(250)->toHtmlString()); ?>
 
                                 </div>
                             </a>

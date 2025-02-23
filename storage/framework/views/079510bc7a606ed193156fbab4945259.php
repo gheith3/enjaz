@@ -1,3 +1,5 @@
+<?php $__env->startSection('title', $achiever->name_ar); ?>
+
 <div>
 
     <?php

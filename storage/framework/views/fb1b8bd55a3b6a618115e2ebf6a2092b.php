@@ -1,3 +1,5 @@
+<?php $__env->startSection('title', 'الإنجازات'); ?>
+
 <div>
     <div class="nav-bg">
         <?php echo e(view("components.layouts.nav")); ?>

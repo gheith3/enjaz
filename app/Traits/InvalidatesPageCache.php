@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Cache;
 
 trait InvalidatesPageCache
 {
+    public function rendered()
+    {
+        $this->invalidatePageCache();
+    }
+
     public function invalidatePageCache(): void
     {
         // Clear cache for the current URL
@@ -15,9 +20,8 @@ trait InvalidatesPageCache
         Cache::forget('page_cache_' . sha1($url));
     }
 
-    // Call this method when your component updates
-    protected function clearPageCache(): void
+    public function updated($property): void
     {
-        $this->invalidatePageCache();
+        $this->clearPageCache();
     }
-} 
+}

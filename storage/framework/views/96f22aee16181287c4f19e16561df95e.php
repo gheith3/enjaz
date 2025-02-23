@@ -1,11 +1,11 @@
-<div>
-    <div style="background-image: url('<?php echo e(Storage::url($backgroundImage ?? 'images/app/ABG.svg')); ?>')">
-        <div class="nav-bg">
-            <?php echo e(view("components.layouts.nav")); ?>
+<?php $__env->startSection('title', 'الإنجازات'); ?>
 
-        </div>
-        <div class="pt-5"
-             style="background-image: url('<?php echo e(asset('images/app/AchieversBG.svg')); ?>'); min-height: 290px; background-size: auto; background-repeat: no-repeat">
+<div>
+    <div class="nav-bg">
+        <?php echo e(view("components.layouts.nav")); ?>
+
+   
+        <div class="pt-5" >
             <div class="container p-3 mb-3">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
@@ -43,7 +43,9 @@
 
 
     <div class="container mt-5">
-            <?php $__currentLoopData = $this->achievements; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $achievement): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <?php $__currentLoopData = $achievements; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $achievement): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                     <div class="bg-white shadow-sm rounded rounded-lg mb-3">
                         <div class="row m-0 p-0">
@@ -89,6 +91,16 @@
                 
                 
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+        </div>
+            
+    </div>
+
+    <div class="mt-4 d-flex justify-content-center">
+        <div class="pagination">
+            <?php echo e($achievements->links('vendor.pagination.custom')); ?>
+
+        </div>
     </div>
 
     <br>

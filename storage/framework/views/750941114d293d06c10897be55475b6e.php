@@ -1,4 +1,7 @@
+<?php $__env->startSection('title', $institute->name_ar); ?>
+
 <div>
+
     <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
@@ -38,7 +41,7 @@ if (isset($__slots)) unset($__slots);
             <div class="row mx-3 justify-content-center">
                 <div class="col-md-3 d-flex justify-content-center">
                     <img src="<?php echo e(Storage::url($institute->manager_image_path)); ?>"
-                         alt="<?php echo e($institute->manager_name_en); ?>" style="width: 250px">
+                        alt="<?php echo e($institute->manager_name_en); ?>" style="width: 250px">
                 </div>
                 <div class="col-md-6 d-flex align-items-center">
                     <div>

@@ -1,1 +1,0 @@
-<livewire:filament-language-switch key='fls-outside-panels' />

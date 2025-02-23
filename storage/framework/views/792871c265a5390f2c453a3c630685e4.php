@@ -8,10 +8,10 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-    <?php $__env->startSection('title', 'Institutes'); ?>
+    <?php $__env->startSection('title', 'المؤسسات'); ?>
 
     <div>
-    <?php
+        <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };

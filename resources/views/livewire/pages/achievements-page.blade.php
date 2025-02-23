@@ -1,3 +1,5 @@
+@section('title', 'الإنجازات')
+
 <div>
     <div class="nav-bg">
         {{view("components.layouts.nav")}}

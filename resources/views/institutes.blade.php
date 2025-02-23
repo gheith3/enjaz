@@ -1,8 +1,8 @@
 <x-layouts.app>
-    @section('title', 'Institutes')
+    @section('title', 'المؤسسات')
 
     <div>
-    <livewire:institutes-section-hero />
+        <livewire:institutes-section-hero />
 
     </div>
 

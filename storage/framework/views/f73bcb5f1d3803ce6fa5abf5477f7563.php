@@ -1,6 +1,8 @@
+<?php $__env->startSection('title', 'الإعلام | الإصدارات'); ?>
+
 <div>
     <div class="bg-primary">
-        <?php echo e(view("components.layouts.nav")); ?>
+        <?php echo e(view('components.layouts.nav')); ?>
 
         <div class="py-5">
             <h1 class="text-white text-center mb-4">
@@ -10,10 +12,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input type="text" 
-                                   wire:model.live="searchQuery"
-                                   class="form-control"
-                                   placeholder="ابحث...">
+                            <input type="text" wire:model.live="searchQuery" class="form-control" placeholder="ابحث...">
                         </div>
                     </div>
                 </div>
@@ -30,8 +29,8 @@
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     <img src="<?php echo e(Storage::url($item->cover_image)); ?>"
-                                         class="img-fluid rounded-start h-100 object-fit-cover"
-                                         alt="<?php echo e($item->title); ?>">
+                                        class="img-fluid rounded-start h-100 object-fit-cover"
+                                        alt="<?php echo e($item->title); ?>">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body d-flex flex-column h-100">
@@ -44,9 +43,7 @@
 
                                         </p>
                                         <div class="text-end mt-3">
-                                            <a href="<?php echo e($item->url); ?>"
-                                               target="_blank"
-                                               class="btn btn-primary">
+                                            <a href="<?php echo e($item->url); ?>" target="_blank" class="btn btn-primary">
                                                 تحميل
                                             </a>
                                         </div>
@@ -68,12 +65,7 @@
 
 <?php $__env->startPush('styles'); ?>
     <style>
-        
-        
-        
-        
-        
-        
+             
     </style>
 <?php $__env->stopPush(); ?>
 <?php /**PATH E:\Projects\enjaz\resources\views/livewire/pages/publications-page.blade.php ENDPATH**/ ?>

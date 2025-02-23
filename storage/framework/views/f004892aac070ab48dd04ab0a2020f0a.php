@@ -1,4 +1,5 @@
 <div>
+    <?php $__env->startSection('title', $achievement->title_ar); ?>
 
     <?php
 $__split = function ($name, $params = []) {
@@ -20,36 +21,78 @@ if (isset($__slots)) unset($__slots);
 
     <div class="mt-5">
         <div class="container">
-            <div class="app-card p-3" id="statistics-card">
-                <div class="story-text" id="story-text">
-                    <?php echo $achievement->description_ar; ?>
+            <div class="row">
+                <div class="col-md-3">
+                    <?php if($achievement->organizations->count() > 0): ?>
+                        <?php $__currentLoopData = $achievement->organizations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $organization): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="pb-3" wire:key="<?php echo e($organization->id); ?>">
+                                <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('components.organization-card', ['organization' => $organization]);
 
+$__html = app('livewire')->mount($__name, $__params, "card-{$organization->id}", $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endif; ?>
+                    <?php if($achievement->publicFigures->count() > 0): ?>
+                        <?php $__currentLoopData = $achievement->publicFigures; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $achiever): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="pb-3" wire:key="<?php echo e($achiever->id); ?>">
+                                <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('components.achiever-card', ['achiever' => $achiever]);
+
+$__html = app('livewire')->mount($__name, $__params, "card-{$achiever->id}", $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endif; ?>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <div class="row">
-                        <div class="col-auto pb-2">
+
+                <div class="col-md-9">
+                    <div class="app-card p-3" id="statistics-card">
+                        <div class="d-flex gap-2">
+
                             <span class="achievement-label"><?php echo e($achievement->created_at->year); ?></span>
-                        </div>
-                        <div class="col-auto pb-2">
+
                             <span class="achievement-label"><?php echo e($achievement->achievementMainType->title_ar); ?></span>
-                        </div>
-                        <div class="col-auto pb-2">
+
                             <span class="achievement-label"><?php echo e($achievement->subAchievementType->title_ar); ?></span>
-                        </div>
-                        <div class="col-auto pb-2">
+
                             <span class="achievement-label"><?php echo e($achievement->achievementScope->title_ar); ?></span>
+
                         </div>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" width="24" height="24">
-                            <path
-                                d="M12 15.5l-4-4h3V3h2v8.5h3l-4 4zm0 5.5C6.48 21 2 16.52 2 11h2c0 4.42 3.58 8 8 8s8-3.58 8-8h2c0 5.52-4.48 10-10 10z"/>
-                        </svg>
+                        <div class="story-text mt-2" id="story-text">
+                            <?php echo $achievement->description_ar; ?>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+
 
     <div>
         <?php
@@ -75,8 +118,9 @@ if (isset($__slots)) unset($__slots);
 <?php $__env->startPush('styles'); ?>
     <style>
         .achievement-label {
-            background-color: rgba(168, 131, 68, 0.44);
-            color: white;
+            font-size: 12px;
+            border: 1px solid #1f4a50;
+            color: #1f4a50;
             border-radius: 12px;
             padding: 5px 10px;
         }

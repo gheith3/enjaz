@@ -1,6 +1,8 @@
+@section('title', 'الإعلام | مكتبة الصور | ' . $this->album->title)
+
 <div>
     <div class="nav-bg">
-        {{view("components.layouts.nav")}}
+        {{ view('components.layouts.nav') }}
     </div>
     <div style="min-height: 80vh; margin-top: 80px">
         <div class="container">

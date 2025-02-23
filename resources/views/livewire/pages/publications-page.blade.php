@@ -1,6 +1,8 @@
+@section('title', 'الإعلام | الإصدارات')
+
 <div>
     <div class="bg-primary">
-        {{view("components.layouts.nav")}}
+        {{ view('components.layouts.nav') }}
         <div class="py-5">
             <h1 class="text-white text-center mb-4">
                 الإصدارات
@@ -9,10 +11,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input type="text" 
-                                   wire:model.live="searchQuery"
-                                   class="form-control"
-                                   placeholder="ابحث...">
+                            <input type="text" wire:model.live="searchQuery" class="form-control" placeholder="ابحث...">
                         </div>
                     </div>
                 </div>
@@ -24,26 +23,24 @@
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-md-10">
-                    @foreach($publications as $item)
+                    @foreach ($publications as $item)
                         <div class="card shadow-sm mb-4">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="{{Storage::url($item->cover_image)}}"
-                                         class="img-fluid rounded-start h-100 object-fit-cover"
-                                         alt="{{$item->title}}">
+                                    <img src="{{ Storage::url($item->cover_image) }}"
+                                        class="img-fluid rounded-start h-100 object-fit-cover"
+                                        alt="{{ $item->title }}">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body d-flex flex-column h-100">
                                         <h5 class="card-title fw-bold">
-                                            {{$item->title}}
+                                            {{ $item->title }}
                                         </h5>
                                         <p class="card-text flex-grow-1">
-                                            {{str($item->description)->stripTags()}}
+                                            {{ str($item->description)->stripTags() }}
                                         </p>
                                         <div class="text-end mt-3">
-                                            <a href="{{$item->url}}"
-                                               target="_blank"
-                                               class="btn btn-primary">
+                                            <a href="{{ $item->url }}" target="_blank" class="btn btn-primary">
                                                 تحميل
                                             </a>
                                         </div>
@@ -64,11 +61,6 @@
 
 @push('styles')
     <style>
-        {{--body {--}}
-        {{--    background-image: url('{{asset("images/app/bg02.png")}}');--}}
-        {{--    background-repeat: no-repeat;--}}
-        {{--    background-size: cover;--}}
-        {{--    background-position: center;--}}
-        {{--}--}}
+        {{-- body { --}} {{--    background-image: url('{{asset("images/app/bg02.png")}}'); --}} {{--    background-repeat: no-repeat; --}} {{--    background-size: cover; --}} {{--    background-position: center; --}} {{-- } --}}
     </style>
 @endpush

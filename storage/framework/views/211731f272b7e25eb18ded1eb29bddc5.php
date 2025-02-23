@@ -8,7 +8,7 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-    <?php $__env->startSection('title', 'About'); ?>
+    <?php $__env->startSection('title', 'عنا'); ?>
 
 
     <div>
@@ -85,13 +85,13 @@ if (isset($__slots)) unset($__slots);
 ?>
     </div>
 
+    
+    
+    
 
-
-
-
-
-
-
+    
+    
+    
 
 
  <?php echo $__env->renderComponent(); ?>

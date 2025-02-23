@@ -1,19 +1,18 @@
+<?php $__env->startSection('title', 'الإعلام'); ?>
+
 <div id="media-page">
     <div class="nav-bg">
-        <?php echo e(view("components.layouts.nav")); ?>
+        <?php echo e(view('components.layouts.nav')); ?>
 
     </div>
 
     <div style="margin-top: 120px" class="container">
         <div class="row m-0">
             <div class="col-md-6">
-                <div class="media-card photos-card"
-                     style="background-image: url('<?php echo e(asset('images/media/m01.jpg')); ?>')">
+                <div class="media-card photos-card" style="background-image: url('<?php echo e(asset('images/media/m01.jpg')); ?>')">
                     <div class="card-overlay">
                         <img src="<?php echo e(asset('images\app\firstBookIcon.svg')); ?>" alt="Photos" class="card-icon">
-                        <a href="<?php echo e($settings->about_us_document); ?>"
-                           target="_blank"
-                           class="link-text d-flex">
+                        <a href="<?php echo e($settings->about_us_document); ?>" target="_blank" class="link-text d-flex">
                             <h3>عنا</h3>
                         </a>
                     </div>
@@ -21,23 +20,21 @@
             </div>
             <div class="col-md-6 pb-4">
                 <div class="media-card interviews-card"
-                     style="background-image: url('<?php echo e(asset('images/media/m03.jpg')); ?>');">
+                    style="background-image: url('<?php echo e(asset('images/media/m03.jpg')); ?>');">
                     <div class="card-overlay">
                         <img src="<?php echo e(asset('images\app\YTI.svg')); ?>" alt="Interviews" class="card-icon">
-                        <a href="<?php echo e(route('media.videos')); ?>"
-                           class="link-text">
+                        <a href="<?php echo e(route('media.videos')); ?>" class="link-text">
                             <h3>لقاءات مسجلة</h3>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 pb-4">
-                    <div class="media-card photos-card"
-                     style="background-image: url('<?php echo e(asset('images/media/m02.jpg')); ?>');">
+                <div class="media-card photos-card"
+                    style="background-image: url('<?php echo e(asset('images/media/m02.jpg')); ?>');">
                     <div class="card-overlay">
                         <img src="<?php echo e(asset('images\app\firstBookIcon.svg')); ?>" alt="Photos" class="card-icon">
-                        <a href="<?php echo e(route('media.images-albums')); ?>"
-                           class="link-text">
+                        <a href="<?php echo e(route('media.images-albums')); ?>" class="link-text">
                             <h3>مكتبة الصور</h3>
                         </a>
                     </div>
@@ -45,11 +42,10 @@
             </div>
             <div class="col-md-6">
                 <div class="media-card photos-card"
-                     style="background-image: url('<?php echo e(asset('images/media/m04.jpg')); ?>')">
+                    style="background-image: url('<?php echo e(asset('images/media/m04.jpg')); ?>')">
                     <div class="card-overlay">
                         <img src="<?php echo e(asset('images\app\firstBookIcon.svg')); ?>" alt="Photos" class="card-icon">
-                        <a href="<?php echo e(route('media.publications')); ?>"
-                           class="link-text">
+                        <a href="<?php echo e(route('media.publications')); ?>" class="link-text">
                             <h3>الإصدارات</h3>
                         </a>
                     </div>
@@ -65,8 +61,6 @@
 
 <?php $__env->startPush('styles'); ?>
     <style>
-
-
         .media-library {
             padding: 1rem;
             margin: 1rem 0;
@@ -239,6 +233,7 @@
 
         /* Touch device optimization */
         @media (hover: none) {
+
             .media-card:hover,
             .book-card:hover {
                 transform: none;
@@ -254,9 +249,11 @@
             0% {
                 opacity: 1;
             }
+
             50% {
                 opacity: 0.7;
             }
+
             100% {
                 opacity: 1;
             }

@@ -1,4 +1,5 @@
 <div>
+    @section('title', $achievement->title_ar)
 
     <livewire:page-header :background-image="$achievement->cover_image_path" :title="$achievement->title_ar" :sub-title="$achievement->achievementMainType->title_ar" />
 

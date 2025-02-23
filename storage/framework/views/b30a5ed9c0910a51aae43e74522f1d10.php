@@ -1,4 +1,5 @@
 <div>
+    <?php $__env->startSection('title', $achievement->title_ar); ?>
 
     <?php
 $__split = function ($name, $params = []) {

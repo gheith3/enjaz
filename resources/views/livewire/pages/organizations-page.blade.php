@@ -1,4 +1,6 @@
+
 <div>
+    @section('title', 'المؤسسات')
     <div class="nav-bg">
         {{view("components.layouts.nav")}}
         <div class="pt-5" >

@@ -2,20 +2,21 @@
 
 namespace App\Livewire\Pages;
 
+use Livewire\Component;
+use Illuminate\View\View;
 use App\Models\Achievement;
-use App\Models\AchievementMainType;
 use App\Models\Organization;
+use Livewire\WithPagination;
 use App\Models\OrganizationType;
 use Illuminate\Support\Collection;
-use Illuminate\View\View;
-use Livewire\Component;
-use Livewire\WithPagination;
+use App\Models\AchievementMainType;
+use App\Traits\InvalidatesPageCache;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrganizationsPage extends Component
 {
     use WithPagination;
-    
+
     protected $paginationTheme = 'tailwind';
 
     public null|string $searchQuery = null;
