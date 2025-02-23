@@ -1,24 +1,23 @@
 <div>
-    <div class="pb-0" style="background-image: url('<?php echo e($backgroundImage != null ? Storage::url($backgroundImage) : asset('images/app/ABG.svg')); ?>');
+    <div class="pb-0"
+        style="background-image: url('<?php echo e($backgroundImage != null ? Storage::url($backgroundImage) : asset('images/app/ABG.svg')); ?>');
      height: 350px;
     display: flex; flex-direction: column; justify-content: space-between; background-size: cover; background-repeat: no-repeat">
 
         <div>
-            <?php echo e(view("components.layouts.nav")); ?>
+            <?php echo e(view('components.layouts.nav')); ?>
 
         </div>
         <div class="header-content">
             <div class="container">
-                <div class="row w-100 h-100">
+                <div class="d-flex w-100 h-100 gap-3">
                     <!--[if BLOCK]><![endif]--><?php if($headerImage): ?>
-                        <div class="col-md-auto">
-                            <img src="<?php echo e(Storage::url($headerImage)); ?>"
-                                 style="max-width: 200px; min-width: 180px"
-                                 alt="logo"
-                                 class="achiever-image">
+                        <div>
+                            <img src="<?php echo e(Storage::url($headerImage)); ?>" style="max-width: 200px; min-width: 180px"
+                                alt="logo" class="achiever-image">
                         </div>
                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                    <div class="col-md-6">
+                    <div>
                         <div class="d-flex align-items-center" style="height: 100%;">
                             <div>
                                 <!--[if BLOCK]><![endif]--><?php if($subTitle): ?>

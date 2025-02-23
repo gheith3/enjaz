@@ -12,7 +12,7 @@ class SingleAchievement extends Component
 
     public function mount(Achievement $achievement) : void
     {
-        $this->achievement = $achievement;
+        $this->achievement = $achievement->load('organizations', 'publicFigures');
     }
 
     public function render() : View

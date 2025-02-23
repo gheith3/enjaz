@@ -18,21 +18,7 @@ if (isset($__slots)) unset($__slots);
 ?>
 
     <div class="mt-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $achiever->getSocialMediaLinks(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $social_media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="col-md-1 col-4 p-4 d-flex justify-content-center">
-                        <a data-aos="fade-in"
-                             data-aos-duration="<?php echo e($loop->index * 1500); ?>"
-                        target="_blank" href="<?php echo e($social_media['url']); ?>" >
-                            <img src="<?php echo e($social_media['icon']); ?>" 
-                            class="social-icon"
-                            alt="<?php echo e($social_media['account']); ?>">
-                        </a>
-                    </div>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-            </div>
-        </div>
+
 
         <div class="mt-5">
             <div class="container">
@@ -44,47 +30,63 @@ if (isset($__slots)) unset($__slots);
 
                         </div>
                     </div>
-                </div>
-                <div class="app-card" style="margin-top: 80px">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 pb-3 pt-3">
-                            <div data-aos="fade-in" data-aos-duration="1800">
-                                <div class="text-center">
-                                    <img src="<?php echo e(asset("images/badge.svg")); ?>"
-                                         class="statistics-image"
-                                         alt="achievement">
-                                </div>
-                                <div class=" mt-4">
-                                    <h5 class="text-center statistics-title text-black-50">
-                                        الإنجازات
-                                    </h5>
-                                    <h3 class="text-center statistics-data text-black-50">
-                                        <?php echo e($achievements); ?>
+                    <!--[if BLOCK]><![endif]--><?php if(count($achiever->getSocialMediaLinks()) > 0): ?>
 
-                                    </h3>
+                        <hr>
+                        <div class="row justify-content-center">
+                            <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $achiever->getSocialMediaLinks(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $social_media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="col-md-1 col-4 p-4 d-flex justify-content-center">
+                                    <a data-aos="fade-in" data-aos-duration="<?php echo e($loop->index * 1500); ?>" target="_blank"
+                                        href="<?php echo e($social_media['url']); ?>">
+                                        <img src="<?php echo e($social_media['icon']); ?>" class="social-icon"
+                                            alt="<?php echo e($social_media['account']); ?>">
+                                    </a>
+                                </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                        </div>
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                </div>
+                <!--[if BLOCK]><![endif]--><?php if($achievements != 0 || $types != 0): ?>
+                    <div class="app-card" style="margin-top: 80px">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4 pb-3 pt-3">
+                                <div data-aos="fade-in" data-aos-duration="1800">
+                                    <div class="text-center">
+                                        <img src="<?php echo e(asset('images/badge.svg')); ?>" class="statistics-image"
+                                            alt="achievement">
+                                    </div>
+                                    <div class=" mt-4">
+                                        <h5 class="text-center statistics-title text-black-50">
+                                            الإنجازات
+                                        </h5>
+                                        <h3 class="text-center statistics-data text-black-50">
+                                            <?php echo e($achievements); ?>
+
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 pb-3 pt-3">
-                            <div data-aos="fade-in" data-aos-duration="1800">
-                                <div class="text-center">
-                                    <img src="<?php echo e(asset("images/categories.svg")); ?>"
-                                         class="statistics-image"
-                                         alt="achievement">
-                                </div>
-                                <div class=" mt-4">
-                                    <h5 class="text-center statistics-title text-black-50">
-                                        المجالات
-                                    </h5>
-                                    <h3 class="text-center statistics-data text-black-50">
-                                        <?php echo e($types); ?>
+                            <div class="col-md-4 pb-3 pt-3">
+                                <div data-aos="fade-in" data-aos-duration="1800">
+                                    <div class="text-center">
+                                        <img src="<?php echo e(asset('images/categories.svg')); ?>" class="statistics-image"
+                                            alt="achievement">
+                                    </div>
+                                    <div class=" mt-4">
+                                        <h5 class="text-center statistics-title text-black-50">
+                                            المجالات
+                                        </h5>
+                                        <h3 class="text-center statistics-data text-black-50">
+                                            <?php echo e($types); ?>
 
-                                    </h3>
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
                 <div>
                     <?php
 $__split = function ($name, $params = []) {
@@ -106,6 +108,8 @@ if (isset($__slots)) unset($__slots);
             </div>
         </div>
 
+
+
         <br>
     </div>
     <?php $__env->startPush('scripts'); ?>
@@ -122,6 +126,5 @@ if (isset($__slots)) unset($__slots);
                 }
             }
         </script>
-
-<?php $__env->stopPush(); ?>
+    <?php $__env->stopPush(); ?>
 <?php /**PATH E:\Projects\enjaz\resources\views/livewire/single-achiever-hero.blade.php ENDPATH**/ ?>

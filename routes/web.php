@@ -15,6 +15,8 @@ use App\Livewire\SingleAchievement;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\SingleAchieverHero;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AchieverController;
 
 Route::get('/', HomePage::class)
     ->name('home');
@@ -65,7 +67,13 @@ Route::get('/institutes', function () {
 Route::get('/contact-us', ContactUs::class)->name('contact-us');
 
 Route::get('/images-albums', App\Livewire\Pages\ImagesAlbumsPage::class)->name('images-albums');
-Route::get('/album/{album}', [AlbumController::class, 'show'])->name('album.show');
+
+// Apply to specific routes
+Route::middleware(['cache.response'])->group(function () {
+    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/achievers/{achiever}', [AchieverController::class, 'show']);
+    // Add other routes that should be cached
+});
 
 
 

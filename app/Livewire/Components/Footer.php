@@ -28,15 +28,18 @@ class Footer extends Component
         return [
             [
                 'icon' => 'fas fa-map-marker-alt',
-                'text' => $settings->phone
+                'text' => $settings->phone,
+                'link' => 'tel:' . $settings->phone,
             ],
             [
                 'icon' => 'fas fa-phone-email',
-                'text' => $settings->email
+                'text' => $settings->email,
+                'link' => 'mailto:' . $settings->email,
             ],
             [
                 'icon' => 'fas fa-map-marker-alt',
-                'text' => $settings->address
+                'text' => $settings->address,
+                'link' => null,
             ],
         ];
     }

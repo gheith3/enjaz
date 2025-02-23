@@ -24,8 +24,7 @@
             <div class="row" id="new-achievements-boxes">
                 <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->achievements; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $achievement): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-md-3">
-                        <div data-aos="fade-in"
-                             data-aos-duration="<?php echo e($loop->index * 1500); ?>">
+                        <div data-aos="fade-in" data-aos-duration="<?php echo e($loop->index * 1500); ?>">
                             <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
@@ -49,7 +48,7 @@ if (isset($__slots)) unset($__slots);
             <!--[if BLOCK]><![endif]--><?php if(!$showAll): ?>
                 <div class="d-flex justify-content-end mt-5">
                     <a href="<?php echo e(route('achievements')); ?>" data-aos="fade-up" data-aos-duration="1000"
-                       class="btn app-btn px-5 mx-3">
+                        class="btn app-btn px-5 mx-3">
                         المزيد
                     </a>
                 </div>

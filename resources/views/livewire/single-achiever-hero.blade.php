@@ -1,27 +1,9 @@
 <div>
 
-    <livewire:page-header
-        :title="$achiever->name_ar"
-        :description="$achiever->description_ar"
-        :background-image="null"
-        :header-image="$achiever->image_path"/>
+    <livewire:page-header :title="$achiever->name_ar" :description="$achiever->description_ar" :background-image="null" :header-image="$achiever->image_path" />
 
     <div class="mt-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                @foreach ($achiever->getSocialMediaLinks() as $social_media)
-                    <div class="col-md-1 col-4 p-4 d-flex justify-content-center">
-                        <a data-aos="fade-in"
-                             data-aos-duration="{{$loop->index * 1500}}"
-                        target="_blank" href="{{ $social_media['url'] }}" >
-                            <img src="{{ $social_media['icon'] }}" 
-                            class="social-icon"
-                            alt="{{ $social_media['account'] }}">
-                        </a>
-                    </div>
-                @endforeach
-            </div>
-        </div>
+
 
         <div class="mt-5">
             <div class="container">
@@ -32,53 +14,68 @@
                             {!! $achiever->story_ar !!}
                         </div>
                     </div>
-                </div>
-                <div class="app-card" style="margin-top: 80px">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 pb-3 pt-3">
-                            <div data-aos="fade-in" data-aos-duration="1800">
-                                <div class="text-center">
-                                    <img src="{{asset("images/badge.svg")}}"
-                                         class="statistics-image"
-                                         alt="achievement">
+                    @if (count($achiever->getSocialMediaLinks()) > 0)
+
+                        <hr>
+                        <div class="row justify-content-center">
+                            @foreach ($achiever->getSocialMediaLinks() as $social_media)
+                                <div class="col-md-1 col-4 p-4 d-flex justify-content-center">
+                                    <a data-aos="fade-in" data-aos-duration="{{ $loop->index * 1500 }}" target="_blank"
+                                        href="{{ $social_media['url'] }}">
+                                        <img src="{{ $social_media['icon'] }}" class="social-icon"
+                                            alt="{{ $social_media['account'] }}">
+                                    </a>
                                 </div>
-                                <div class=" mt-4">
-                                    <h5 class="text-center statistics-title text-black-50">
-                                        الإنجازات
-                                    </h5>
-                                    <h3 class="text-center statistics-data text-black-50">
-                                        {{$achievements}}
-                                    </h3>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                @if ($achievements != 0 || $types != 0)
+                    <div class="app-card" style="margin-top: 80px">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4 pb-3 pt-3">
+                                <div data-aos="fade-in" data-aos-duration="1800">
+                                    <div class="text-center">
+                                        <img src="{{ asset('images/badge.svg') }}" class="statistics-image"
+                                            alt="achievement">
+                                    </div>
+                                    <div class=" mt-4">
+                                        <h5 class="text-center statistics-title text-black-50">
+                                            الإنجازات
+                                        </h5>
+                                        <h3 class="text-center statistics-data text-black-50">
+                                            {{ $achievements }}
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 pb-3 pt-3">
-                            <div data-aos="fade-in" data-aos-duration="1800">
-                                <div class="text-center">
-                                    <img src="{{asset("images/categories.svg")}}"
-                                         class="statistics-image"
-                                         alt="achievement">
-                                </div>
-                                <div class=" mt-4">
-                                    <h5 class="text-center statistics-title text-black-50">
-                                        المجالات
-                                    </h5>
-                                    <h3 class="text-center statistics-data text-black-50">
-                                        {{$types}}
-                                    </h3>
+                            <div class="col-md-4 pb-3 pt-3">
+                                <div data-aos="fade-in" data-aos-duration="1800">
+                                    <div class="text-center">
+                                        <img src="{{ asset('images/categories.svg') }}" class="statistics-image"
+                                            alt="achievement">
+                                    </div>
+                                    <div class=" mt-4">
+                                        <h5 class="text-center statistics-title text-black-50">
+                                            المجالات
+                                        </h5>
+                                        <h3 class="text-center statistics-data text-black-50">
+                                            {{ $types }}
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
+
                 <div>
-                    <livewire:new-achievements
-                        :section-title="'الإنجازات'"
-                        :show-all="true"
-                        :achiever-id="$achiever->id"/>
+                    <livewire:new-achievements :section-title="'الإنجازات'" :show-all="true" :achiever-id="$achiever->id" />
                 </div>
             </div>
         </div>
+
+
 
         <br>
     </div>
@@ -96,5 +93,4 @@
                 }
             }
         </script>
-
-@endpush
+    @endpush

@@ -1,14 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
+use App\Traits\InvalidatesPageCache;
+use Livewire\Component;
+use Illuminate\View\View;
 use App\Models\Achievement;
 use App\Models\PublicFigure;
-use Illuminate\View\View;
-use Livewire\Component;
+
 
 class SingleAchieverHero extends Component
 {
+    use InvalidatesPageCache;
+
     public $achiever;
     public int $achievements = 0;
     public int $types = 0;
@@ -28,6 +34,7 @@ class SingleAchieverHero extends Component
                 $query->where('public_figure_id', $this->achiever->id);
             })
             ->count();
+            
 
         $this->types = Achievement::query()
             ->whereHas('publicFigures', function ($query) {
@@ -40,5 +47,10 @@ class SingleAchieverHero extends Component
     public function render() : View
     {
         return view('livewire.single-achiever-hero');
+    }
+
+    public function updated($property): void
+    {
+        $this->clearPageCache();
     }
 }
