@@ -2,24 +2,22 @@
 
 namespace App\Providers;
 
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Support\Facades\RateLimiter;
+use App\Policies\ActivityPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Joaopaulolndev\FilamentEditProfile\Livewire\BrowserSessionsForm;
 use Joaopaulolndev\FilamentEditProfile\Livewire\EditPasswordForm;
 use Joaopaulolndev\FilamentEditProfile\Livewire\EditProfileForm;
 use Livewire\Livewire;
+use Spatie\Activitylog\Models\Activity;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
-    public function register(): void
-    {
-
-    }
+    public function register(): void {}
 
     /**
      * Bootstrap any application services.
@@ -32,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        // Gate::policy(Activity::class, ActivityPolicy::class);
+        Gate::policy(Activity::class, ActivityPolicy::class);
 
 
         // Manually register FilamentEditProfile Livewire components
