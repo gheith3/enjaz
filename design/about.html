@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنجاز | عنا</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="assets/js/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+<div class="page wash-block">
+
+<!-- ===== Hero (1920 x 979, rounded bottom-left) ===== -->
+<header class="relative lg:h-[97.9rem] pt-[18rem] pb-[8rem] lg:p-0 rounded-bl-[25rem] max-lg:rounded-bl-[8rem] bg-[linear-gradient(180deg,#0b626a_0%,#063135_100%)]" x-data="siteNav">
+  <a href="index.html" class="absolute z-20 top-[4rem] right-[4rem] lg:top-[6.2rem] lg:right-[19.8rem]" aria-label="إنجازات شباب عمان">
+    <img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-[12rem] lg:w-[11.7rem]">
+  </a>
+  <nav class="site-nav hidden lg:flex absolute z-20 top-[7.5rem] right-[96.8rem] gap-[5.05rem]">
+    <a href="about.html" class="is-active">عنا</a>
+    <a href="achievements.html">الإنجازات</a>
+    <a href="achievers.html">المنجزين</a>
+    <a href="institutions.html">المؤسسات</a>
+    <a href="media.html">الإعلام</a>
+    <a href="contact.html">تواصل معنا</a>
+  </nav>
+  <button @click="mobileOpen = !mobileOpen" class="lg:hidden absolute z-30 top-[5rem] left-[4rem] text-white p-2" aria-label="القائمة">
+    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <div x-show="mobileOpen" x-cloak x-transition class="lg:hidden absolute z-30 inset-x-[4rem] top-[18rem] rounded-[3rem] bg-[#063135]/95 p-[3rem]">
+    <nav class="site-nav flex flex-col gap-[3rem] text-right">
+      <a href="about.html" class="!text-[3rem] !text-[#91c46c]">عنا</a>
+      <a href="achievements.html" class="!text-[3rem]">الإنجازات</a>
+      <a href="achievers.html" class="!text-[3rem]">المنجزين</a>
+      <a href="institutions.html" class="!text-[3rem]">المؤسسات</a>
+      <a href="media.html" class="!text-[3rem]">الإعلام</a>
+      <a href="contact.html" class="!text-[3rem]">تواصل معنا</a>
+    </nav>
+  </div>
+
+  <div class="relative px-[4rem] lg:p-0 flex flex-col gap-[5rem] lg:block">
+    <p class="m-0 lg:absolute lg:top-[31rem] lg:right-[14rem] lg:w-[81.2rem] text-white text-[2.65rem] leading-[5.03rem]">
+      من منطلقِ الواجب الوطني، وفخرًا بهذا البلد العظيم ومُنْجِزيه، واسترشادًا بقائده الداعم الأول للشباب.<br>
+      انبثقت فكرةُ هذه المبادرةِ الوطنية التي سَعَيْنا جاهدِين فيها أن تحتضنَ إنجازاتِ شباب عُمانَ، ولنسلطَ الضَّوْءَ عليها ونخلدَها، ولتكون إرثًا ثقافيًّا ومعرفيًا للأجيال القادمة.<br>
+      نطمح بهذا المشروعِ الوطني أن نوثقَ نجاحاتِ أبناء هذا البلد المشرِّفةَ داخليًّا وخارجيًّا؛ ليكون مرجعًا معرفيًّا وقاعدةً أساسيةً لتخليد إنجازاتِ المنجزين الذين رفعوا راياتِ عُمانَ في المحافل الإقليمية والدولية، وحققوا بنجاحاتهم رُؤَى سلطانِنا المعظمِ. فهذه المبادرة ما هي إلا استجابةٌ لدعوته حفظه الله بالاهتمام بالإنسان العُماني كصانعِ حضارةٍ، وهدفًا للتنمية وأداةً للتطوير والتعمير.
+    </p>
+
+    <!-- Photo collage -->
+    <div class="relative h-[90rem] lg:h-auto lg:static grid grid-cols-2 gap-[3rem] lg:block">
+      <img src="assets/images/photos/about-1.jpg" alt="تكريم منجزين عمانيين" class="collage lg:absolute lg:top-[18.9rem] lg:left-0 lg:w-[32rem] lg:h-[39.9rem] rounded-[0_9.7rem_2.9rem_0]">
+      <img src="assets/images/photos/about-2.jpg" alt="توقيع إهداء" class="collage lg:absolute lg:top-[21.1rem] lg:left-[38.2rem] lg:w-[46.4rem] lg:h-[36.7rem] rounded-[0_9.7rem_9.7rem_9.7rem]">
+      <img src="assets/images/photos/about-3.jpg" alt="توقيع اتفاقية رعاية" class="collage lg:absolute lg:top-[61.7rem] lg:left-0 lg:w-[44.4rem] lg:h-[48.9rem] rounded-[0_9.7rem_2.9rem_0]">
+      <img src="assets/images/photos/about-4.jpg" alt="إهداء لوحة فنية" class="collage lg:absolute lg:top-[61.7rem] lg:left-[52.5rem] lg:w-[32.1rem] lg:h-[40.6rem] rounded-[0_9.7rem_2.9rem_0]">
+    </div>
+  </div>
+</header>
+
+<main class="relative overflow-hidden">
+  <img src="assets/images/brand/logo-white.png" alt="" aria-hidden="true" class="hidden lg:block absolute left-[40rem] top-[8rem] w-[110rem] brightness-0 opacity-[0.03] pointer-events-none">
+
+  <!-- Values / Mission / Vision -->
+  <section class="relative px-[4rem] lg:px-0 mt-[17.2rem] grid grid-cols-1 md:grid-cols-3 gap-[3rem] lg:flex lg:gap-[7.6rem] lg:mr-[14rem]">
+    <article class="value-card">
+      <img src="assets/images/about/icon-vision.svg" alt="" class="h-[7rem] mt-[5.6rem]">
+      <h2>الرؤية</h2>
+      <p>أن نكون المِنَصَّةَ الأساسية والمرجعَ الأولَ لتوثيق إنجازات الشباب العُماني في سلطنة عُمان</p>
+    </article>
+    <article class="value-card">
+      <img src="assets/images/about/icon-mission.svg" alt="" class="h-[10.2rem] mt-[2.4rem]">
+      <h2>الرسالة</h2>
+      <p>توثيقُ الإنجازاتِ العُمانية للأفراد والمؤسسات، وتسليطُ الضَّوْءِ على إبداعاتهم المتميزة وتجاربهم الناجحة، ونشرُ ثقافة الإنجاز والابتكار في بيئة مثالية لإلهامِ الأجيالِ القادمة</p>
+    </article>
+    <article class="value-card">
+      <img src="assets/images/about/icon-values.svg" alt="" class="h-[10.5rem] mt-[3.2rem]">
+      <h2>القيم</h2>
+      <p>انظر إلى الأشياءِ بشكل مختلف عن الآخرين حتى تصل إلى نقطة الإلهام؛ فالقليل من التفكير يولد الكثير من الشَّغَفِ، لا تكتفِ بالمشاهدة، كُن فضوليًّا، وحاوِلِ البحثَ وتعلَّمْ ما يدفعك للابتكار؛ هكذا يجب أن يكونَ تفكيرُك حتى تجد نفسَك في مراتب الإنجاز</p>
+    </article>
+  </section>
+
+  <!-- National message + founder -->
+  <section class="relative mx-[4rem] lg:mx-0 lg:mr-[14rem] lg:w-[164rem] mt-[17.5rem] rounded-[25rem_25rem_14rem_14rem] max-lg:rounded-[8rem] bg-[linear-gradient(180deg,#0b626a_0%,#063135_100%)] shadow-[0_0.3rem_0.6rem_rgba(0,0,0,0.16)] lg:h-[143.6rem] px-[4rem] py-[10rem] lg:p-0 text-white">
+    <div class="lg:absolute lg:top-[18.5rem] lg:right-[7.5rem] lg:w-[147.9rem] text-[2.9rem] leading-[5.03rem] space-y-0">
+      <p class="m-0">إن الشباب هم نهضةُ الأوطان ومحرك الحضارة وصمام الأمان، فبهم الأممُ تقوم وعلى عقولهم النيرة تعلقُ الآمال وعلى يديهم تُبنى ركائزُ الوطن. وإن اهتمام مولانا حضرةِ صاحب الجلالة السلطان هيثم بن طارق المعظم (حفظهُ الله ورعاه) بالشباب كان جليًا؛ إذ آمن جلالتهُ (أبقاهُ الله) بأهميةِ الاستثمار في طاقات شباب عُمان وتوجيهها توجيهًا صحيحًا كما وشدد على أهميةِ النهوضِ بهم علميًا وفكريًا وعمليًا وثقافيًا ورياضيًا وفنيًا، فكان الشاب العُماني منذُ البدأ شريكُا جوهريًا في عمليةِ التنميةِ الشاملة وركنًا أسياسيًا للنهوض بهذا الوطن العزيز. وعليه فإن عُمان ستصل لغاياتها المنشودة وسيتحقق لها ما تصبو إليه من مكانةٍ عاليةٍ مرموقةٍ على يد شبابنا الطموح المثابر.</p>
+      <p class="m-0">أخواني وأخواتي شباب عُمان المجيدين؛ إيمانًا مني بجهودكم الملموسة في سبيل رقي وخدمة هذا الوطن العزيز، ولأنكم حملتم راية العلمِ والعمل فأحسنتم واجتهدتم ونِعمَ الجهد الذي بذلتموه ليرفرف علم بلادنا عاليًا بين الشعوب، وسعيًا مني لحفظ إنجازاتكم النيرة وأسمائكم التي سطعت في سماءِ الإنجازِ والإبداع؛ كرس فريق العمل وقتهُ وجهدهُ بعد بتوفيقٍ من الله تعالى على مدار ٨ أعوام لتوثيق إنجازاتكم المشرفة، وقد تمثل ذلك في الإصدار الأول والثاني من كتاب إنجازات شباب عُمان، وكتاب ملهمون من عُمان، إضافة إلى الموقع الإلكتروني الذي سيضم ما بين أقسامه أكثر من ١٥٠٠ مجيدة ومجيدة.</p>
+      <p class="m-0">شباب عُمان، سيروا على بركةٍ من الله وتوفيقهِ في دروبِ العلا والمجد، فعلى يديكم سينبتُ في جبين الأفقِ ألفُ إنجازٍ وإنجاز.</p>
+    </div>
+    <img src="assets/images/about/founder.png" srcset="assets/images/about/founder.png 1x, assets/images/about/founder@2x.png 2x" alt="منذر بن إبراهيم المعمري" class="block mx-auto mt-[8rem] lg:m-0 lg:absolute lg:top-[77.3rem] lg:right-[15.4rem] w-[50.5rem] max-w-full">
+    <div class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[105.6rem] lg:right-[87.6rem] text-center lg:text-right">
+      <p class="m-0 text-[4.6rem] leading-[5.1rem] font-bold">منذر بن إبراهيم المعمري</p>
+      <p class="m-0 mt-[1.2rem] text-[4.3rem] leading-[5.1rem] font-bold">المؤسس والرئيس الفريق</p>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="relative mt-[21.2rem]" x-data="{
+      items: [
+        { img: 'quote-asaad', text: 'الشكر موصول لكل من ساهم في إخراج هذا العمل وأرشفة هذه الإنجازات النيرة لإيصالها للمجتمع المحلي والدولي بصورة تليق بحجم إنجازات شباب عمان', name: 'صاحب السمو السيد/ أسعد بن طارق آل سعيد نائب رئيس مجلس الوزراء لشؤون التعاون الخارجي والممثل الخاص لجلالة السلطان' },
+        { img: 'quote-nasr', text: 'توثيق هذه الإنجازات مطلب مهم، لتعلم الأجيال القادمة ما حققته الأجيال السابقة والحالية، عليه أبارك هذا العمل وأشكر كل من ساهم فيه متمنيا التوفيق للجميع.', name: 'معالي/ نصر بن حمود الكندي أمين عام شؤون البلاط السلطاني' },
+        { img: 'quote-asaad', text: 'الشكر والتقدير على إنجاز هذا الكتاب القيم والثناء على الجهود الواضحة فيه كسجل وطني توثيقي للإنجازات شباب عمان.', name: 'معالي الفريق أول/ سلطان بن محمد النعماني وزير المكتب السلطاني' },
+        { img: 'quote-nasr', text: 'توثيق هذه الإنجازات مطلب مهم، لتعلم الأجيال القادمة ما حققته الأجيال السابقة والحالية، عليه أبارك هذا العمل وأشكر كل من ساهم فيه متمنيا التوفيق للجميع.', name: 'معالي/ نصر بن حمود الكندي أمين عام شؤون البلاط السلطاني' }
+      ],
+      i: 0,
+      at(o) { const n = this.items.length; return this.items[(this.i + o + n) % n]; }
+    }">
+    <div class="section-title px-[4rem] lg:px-0 lg:mr-[18rem] !gap-[2.1rem]">
+      <img src="assets/images/brand/mark.svg" alt="" class="mark">
+      <h2>قالوا عن إنجازات</h2>
+    </div>
+    <div class="relative mt-[10.8rem] lg:h-[48rem] overflow-hidden">
+      <div class="quote-card max-lg:hidden lg:right-[-55.5rem]" aria-hidden="true">
+        <img :src="'assets/images/photos/' + at(-1).img + '.png'" alt="" class="quote-photo">
+        <p class="quote-text" x-text="at(-1).text"></p><p class="quote-name" x-text="at(-1).name"></p>
+      </div>
+      <div class="quote-card relative lg:absolute mx-[4rem] lg:mx-0 lg:right-[50.6rem]">
+        <img :src="'assets/images/photos/' + at(0).img + '.png'" alt="" class="quote-photo">
+        <p class="quote-text" x-text="at(0).text"></p><p class="quote-name" x-text="at(0).name"></p>
+      </div>
+      <div class="quote-card max-lg:hidden lg:right-[156.7rem]" aria-hidden="true">
+        <img :src="'assets/images/photos/' + at(1).img + '.png'" alt="" class="quote-photo">
+        <p class="quote-text" x-text="at(1).text"></p><p class="quote-name" x-text="at(1).name"></p>
+      </div>
+    </div>
+    <div class="mt-[9.3rem] flex justify-center gap-[4.6rem]" dir="ltr">
+      <template x-for="(t, k) in items" :key="k">
+        <button type="button" @click="i = items.length - 1 - k" :class="(items.length - 1 - k) === i ? 'bg-[#5f5f5f]' : 'bg-[#d5d5d5]'" class="w-[3rem] h-[3rem] rounded-full border-0 cursor-pointer p-0" :aria-label="'شهادة ' + (k + 1)"></button>
+      </template>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section x-data class="relative px-[4rem] lg:px-0 mt-[18.8rem]">
+    <div class="section-title lg:mr-[18rem] !gap-[2.1rem]">
+      <img src="assets/images/brand/mark.svg" alt="" class="mark">
+      <h2>فريق العمل</h2>
+    </div>
+    <div class="mt-[3.5rem] grid grid-cols-2 lg:grid-cols-[repeat(4,33.3rem)] gap-x-[3rem] lg:gap-x-[9.3rem] gap-y-[3.7rem] lg:gap-y-[1.1rem] lg:mr-[13.6rem]">
+      <template x-for="n in 8" :key="n">
+        <div class="text-center">
+          <img src="assets/images/about/team-member.png" srcset="assets/images/about/team-member.png 1x, assets/images/about/team-member@2x.png 2x" alt="منذر بن إبراهيم المعمري" class="w-full lg:w-[33.3rem] block">
+          <p class="mt-[3.3rem] mb-0 text-[3.3rem] leading-[4.4rem] font-bold text-[#4d4d4d]">منذر بن إبراهيم المعمري</p>
+          <p class="m-0 text-[3rem] leading-[4rem] text-[#4d4d4d]">المؤسس والرئيس الفريق</p>
+        </div>
+      </template>
+    </div>
+  </section>
+
+  <!-- Our achievements carousel -->
+  <section class="relative px-[4rem] lg:px-0 mt-[13.9rem] pb-[16.5rem]" x-data="{
+      items: [
+        {img:'about-news-launch', title:'إقامة حفل تدشين الكتاب بمجلس عُمان تحتعاية معالي أمين عام شؤون البلاط السلطاني.'},
+        {img:'about-news-gift', title:'نشر المعرفة بإهداء ) 9000 ( نسخة للمنجزين و المؤسسات التعليمية والحك والخاصة.'},
+        {img:'about-news-spotlight', title:'تسليط الضوء على أكثر من ١٥٠٠ منجز عبر مواقع التواصل الاجتماعي'},
+        {img:'about-news-hockey', title:'قرعة متكافئة لبطولة كأس العالم لخماسيات الهوكي مسقط ٢٠٢٤'}
+      ],
+      start: 0,
+      get visible() { return this.items.map((_, k) => this.items[(this.start + k) % this.items.length]); }
+    }">
+    <div class="section-title lg:mr-[18rem] !gap-[2.1rem]">
+      <img src="assets/images/brand/mark.svg" alt="" class="mark">
+      <h2>انجازاتنا</h2>
+    </div>
+    <div class="relative mt-[7.4rem]">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(4,38.1rem)] gap-[3.8rem] lg:mr-[14.1rem]">
+        <template x-for="n in visible" :key="n.img">
+          <a href="#" class="news-card">
+            <img :src="'assets/images/photos/' + n.img + '.jpg'" :alt="n.title">
+            <p class="date">23 May</p>
+            <h3 x-text="n.title"></h3>
+          </a>
+        </template>
+      </div>
+      <button type="button" @click="start = (start + 1) % items.length" class="hidden lg:flex absolute right-[5.6rem] top-[18.7rem] w-[5.1rem] h-[5.1rem] rounded-full bg-[#096770] text-white items-center justify-center border-0 cursor-pointer hover:brightness-110" aria-label="التالي">
+        <svg class="w-[2.4rem] h-[2.4rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="m9.5 6 6 6-6 6"/></svg>
+      </button>
+      <button type="button" @click="start = (start - 1 + items.length) % items.length" class="hidden lg:flex absolute left-[5.5rem] top-[18.7rem] w-[5.1rem] h-[5.1rem] rounded-full bg-[#096770] text-white items-center justify-center border-0 cursor-pointer hover:brightness-110" aria-label="السابق">
+        <svg class="w-[2.4rem] h-[2.4rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="m14.5 6-6 6 6 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Media library -->
+  <section class="bg-[#f7f7f7] lg:h-[124.5rem] px-[4rem] lg:px-0 pt-[15.6rem] pb-[8rem] lg:pb-0">
+    <div class="section-title lg:mr-[18rem] !gap-[2.1rem]">
+      <img src="assets/images/brand/mark.svg" alt="" class="mark">
+      <h2>المكتبة الإعلامية</h2>
+    </div>
+    <div class="mt-[5.8rem] grid grid-cols-1 sm:grid-cols-2 gap-[3rem] lg:grid-cols-[57.1rem_52.4rem_46.2rem] lg:grid-rows-[34.5rem_34.5rem] lg:gap-x-[4.1rem] lg:gap-y-[3.6rem] lg:mr-[14rem]">
+      <a href="#" class="lib-tile"><img src="assets/images/photos/media-book-1.jpg" alt="الإصدار الأول من كتاب إنجازات شباب عمان"><span class="lib-label"><span class="media-btn !static"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path stroke-linejoin="round" d="M6 3.5h11a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6.5A1.5 1.5 0 0 1 5 19V5a1.5 1.5 0 0 1 1-1.5Z"/><path d="M5 18.5A1.5 1.5 0 0 1 6.5 17H18"/></svg></span>الإصدار الأول</span></a>
+      <a href="#" class="lib-tile"><img src="assets/images/photos/about-4.jpg" alt="لقاءات مسجلة"><span class="lib-label"><span class="media-btn !static"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path fill="#fff" stroke="none" d="M10 9.2v5.6l4.6-2.8L10 9.2Z"/></svg></span>لقاءات مسجلة</span></a>
+      <a href="#" class="lib-tile lib-profile lg:row-span-2"><svg class="w-[6.4rem] h-[8.2rem]" viewBox="0 0 64 82" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"><path d="M10 2h34l18 18v58a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M44 2v18h18"/><rect x="16" y="14" width="16" height="20" rx="1.5"/><circle cx="24" cy="21" r="3.2"/><path d="M19 31c1-4 9-4 10 0"/><path stroke-linecap="round" d="M16 44h32M16 52h32M16 60h32M16 68h22M38 24h10"/></svg><span>الملف التعريفي</span></a>
+      <a href="#" class="lib-tile"><img src="assets/images/photos/media-book-2.jpg" alt="الإصدار الثاني - ملهمون من عمان"><span class="lib-label"><span class="media-btn !static"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path stroke-linejoin="round" d="M6 3.5h11a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6.5A1.5 1.5 0 0 1 5 19V5a1.5 1.5 0 0 1 1-1.5Z"/><path d="M5 18.5A1.5 1.5 0 0 1 6.5 17H18"/></svg></span>الاصدار الثاني</span></a>
+      <a href="#" class="lib-tile"><img src="assets/images/photos/about-2.jpg" alt="صور متنوعة"><span class="lib-label"><span class="media-btn !static"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path stroke-linejoin="round" d="m4 18 5.5-5.5 3.5 3.5 2.5-2.5L20 18"/></svg></span>صور متنوعة</span></a>
+    </div>
+  </section>
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer relative lg:h-[24.1rem] px-[4rem] py-[6rem] lg:p-0">
+  <a href="index.html" class="block w-[13rem] lg:absolute lg:top-[6rem] lg:right-[14rem]"><img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-full"></a>
+  <span class="hidden lg:block absolute top-[5.2rem] right-[34.2rem] w-px h-[14rem] bg-white/30"></span>
+  <ul class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[5.2rem] lg:right-[44.4rem] flex flex-col gap-[1.7rem] text-[1.6rem] leading-[2.2rem] tracking-[0.126rem] list-none p-0 m-0">
+    <li><a href="index.html">الصفحة الرئيسية</a></li>
+    <li><a href="about.html">عنا</a></li>
+    <li><a href="achievements.html">الإنجازات</a></li>
+    <li><a href="achievers.html">المنجزين</a></li>
+  </ul>
+  <ul class="mt-[3rem] lg:mt-0 lg:absolute lg:top-[5.2rem] lg:right-[62.3rem] flex flex-col gap-[1.7rem] text-[1.6rem] leading-[2.2rem] tracking-[0.126rem] list-none p-0 m-0">
+    <li><a href="institutions.html">المؤسسات</a></li>
+    <li><a href="media.html">الإعلام</a></li>
+    <li><a href="contact.html">تواصل معنا</a></li>
+  </ul>
+  <span class="hidden lg:block absolute top-[5.2rem] right-[84rem] w-px h-[14rem] bg-white/30"></span>
+  <ul class="mt-[3rem] lg:mt-0 lg:absolute lg:top-[5.5rem] lg:right-[94.3rem] flex flex-col gap-[1.9rem] text-[1.4rem] leading-[2rem] tracking-[0.111rem] list-none p-0 m-0">
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/phone.svg" alt="" class="w-[1.9rem]"><span dir="ltr">+968 93322212</span></li>
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/email.svg" alt="" class="w-[1.9rem]"><span>injaz@om.com</span></li>
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/location.svg" alt="" class="w-[1.9rem] h-[1.9rem] object-contain"><span>محافظة مسقط - سلطنة عمان</span></li>
+  </ul>
+  <p class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[9.9rem] lg:right-[150.4rem] m-0 text-[1.4rem] leading-[2rem] tracking-[0.111rem]">جميع الحقوق محفوظة © 2023</p>
+</footer>
+
+</div>
+</body>
+</html>

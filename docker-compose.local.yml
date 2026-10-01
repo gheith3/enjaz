@@ -1,0 +1,39 @@
+services:
+  # MariaDB Database
+  database:
+    image: postgres:16
+    container_name: enjaz-db
+    environment:
+      POSTGRES_DB: enjaz
+      POSTGRES_USER: enjaz_user
+      POSTGRES_PASSWORD: enjaz_secret
+    ports:
+      - "9042:5432"
+    volumes:
+      - enjaz_postgres_data:/var/lib/postgresql/data
+    networks:
+      - enjaz-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: enjaz-redis
+    ports:
+      - "9043:6379"
+    volumes:
+      - enjaz_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - enjaz-network
+
+volumes:
+  enjaz_postgres_data:
+  enjaz_redis_data:
+
+networks:
+  enjaz-network:
+    driver: bridge

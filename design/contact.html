@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنجاز | تواصل معنا</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="assets/js/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+<div class="page">
+
+<!-- ===== Contact (single screen, 1920 x 1079) ===== -->
+<header class="relative overflow-hidden min-h-screen lg:min-h-0 lg:h-[107.9rem] pt-[18rem] pb-[40rem] lg:p-0 bg-[linear-gradient(196deg,#0c7f89_0%,#0e4348_100%)]" x-data="siteNav">
+  <img src="assets/images/brand/mountain-flag.svg" alt="" aria-hidden="true" class="absolute left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-[56.6rem] bottom-0 lg:bottom-auto lg:top-[63.7rem] w-[90rem] lg:w-[138.2rem] max-w-none pointer-events-none">
+
+  <a href="index.html" class="absolute z-20 top-[4rem] right-[4rem] lg:top-[6.2rem] lg:right-[19.8rem]" aria-label="إنجازات شباب عمان">
+    <img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-[12rem] lg:w-[11.7rem]">
+  </a>
+  <nav class="site-nav hidden lg:flex absolute z-20 top-[7.5rem] right-[96.8rem] gap-[5.05rem]">
+    <a href="about.html">عنا</a>
+    <a href="achievements.html">الإنجازات</a>
+    <a href="achievers.html">المنجزين</a>
+    <a href="institutions.html">المؤسسات</a>
+    <a href="media.html">الإعلام</a>
+    <a href="contact.html" class="is-active">تواصل معنا</a>
+  </nav>
+  <button @click="mobileOpen = !mobileOpen" class="lg:hidden absolute z-30 top-[5rem] left-[4rem] text-white p-2" aria-label="القائمة">
+    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <div x-show="mobileOpen" x-cloak x-transition class="lg:hidden absolute z-30 inset-x-[4rem] top-[18rem] rounded-[3rem] bg-[#063135]/95 p-[3rem]">
+    <nav class="site-nav flex flex-col gap-[3rem] text-right">
+      <a href="about.html" class="!text-[3rem]">عنا</a>
+      <a href="achievements.html" class="!text-[3rem]">الإنجازات</a>
+      <a href="achievers.html" class="!text-[3rem]">المنجزين</a>
+      <a href="institutions.html" class="!text-[3rem]">المؤسسات</a>
+      <a href="media.html" class="!text-[3rem]">الإعلام</a>
+      <a href="contact.html" class="!text-[3rem] !text-[#91c46c]">تواصل معنا</a>
+    </nav>
+  </div>
+
+  <div class="relative z-10 px-[4rem] lg:p-0 flex flex-col gap-[6rem] lg:block text-white">
+    <!-- Form -->
+    <div x-data="contactForm()" class="lg:absolute lg:top-[24.2rem] lg:right-[19.6rem] lg:w-[52.7rem]">
+      <h1 class="m-0 text-[6.1rem] leading-[8rem] font-normal">تواصل معنا</h1>
+      <form x-show="!submitted" @submit.prevent="submit" class="mt-[4.4rem]">
+        <label class="contact-label" for="c-name">الاسم</label>
+        <input id="c-name" x-model="name" type="text" required class="contact-field h-[4.7rem]">
+        <label class="contact-label mt-[2.5rem]" for="c-email">البريد الإلكتروني</label>
+        <input id="c-email" x-model="email" type="email" required class="contact-field h-[4.5rem]">
+        <label class="contact-label mt-[2.5rem]" for="c-msg">الرسالة</label>
+        <textarea id="c-msg" x-model="message" required class="contact-field h-[15.5rem] resize-none !rounded-[2.6rem] py-[1.4rem]"></textarea>
+        <button type="submit" class="mt-[4.9rem] mr-[1rem] w-[19rem] h-[5.9rem] rounded-full bg-[#a88344] hover:bg-[#967339] transition-colors border-0 cursor-pointer text-white text-[2.9rem] leading-[5.9rem] font-[inherit]">ارسال</button>
+      </form>
+      <div x-show="submitted" x-cloak class="mt-[6rem] rounded-[3rem] bg-white/10 border border-white/40 p-[5rem] text-center">
+        <svg class="w-[7rem] h-[7rem] mx-auto text-[#91c46c]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="m8 12 3 3 5-6"/></svg>
+        <p class="mt-[2rem] mb-0 text-[3.2rem] leading-[4.4rem] font-bold">شكرًا لتواصلكم معنا</p>
+        <p class="mt-[1rem] mb-0 text-[2.4rem] leading-[3.4rem] text-white/80">سيقوم فريقنا بالرد عليكم في أقرب وقت ممكن.</p>
+      </div>
+    </div>
+
+    <span class="hidden lg:block absolute top-[34.2rem] left-[87.1rem] w-px h-[43.9rem] bg-white/[0.43]"></span>
+
+    <!-- Socials, map, phone/email -->
+    <div class="lg:absolute lg:top-[33.7rem] lg:left-[16.2rem] lg:w-[63.6rem]">
+      <ul class="list-none m-0 p-0 grid grid-cols-3 gap-[3.3rem]">
+        <li><a href="https://instagram.com/injazat_o" target="_blank" rel="noopener" class="social-box"><img src="assets/images/icons/instagram.svg" alt="Instagram" class="h-[2.9rem]"><span dir="ltr">@injazat_o</span></a></li>
+        <li><a href="https://twitter.com/injazat_o" target="_blank" rel="noopener" class="social-box"><img src="assets/images/icons/twitter.svg" alt="Twitter" class="h-[3.3rem]"><span dir="ltr">@injazat_o</span></a></li>
+        <li><a href="https://www.linkedin.com/company/injazat_o" target="_blank" rel="noopener" class="social-box"><img src="assets/images/icons/linkedin.svg" alt="LinkedIn" class="h-[3.3rem]"><span dir="ltr">@injazat_o</span></a></li>
+      </ul>
+      <a href="https://www.google.com/maps/search/?api=1&query=Muscat,Oman" target="_blank" rel="noopener" class="block mt-[5.5rem] h-[24.2rem] rounded-[3rem] overflow-hidden">
+        <img src="assets/images/photos/contact-map.jpg" alt="موقعنا في مسقط، سلطنة عمان" class="w-full h-full object-cover">
+      </a>
+      <div class="mt-[5.5rem] flex flex-wrap items-center gap-x-[7rem] gap-y-[3rem] pr-[7rem] text-white">
+        <div class="flex items-center gap-[2.4rem]">
+          <svg class="w-[3.5rem] h-[3.5rem]" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
+          <span dir="ltr" class="text-[1.8rem] leading-[2.4rem] text-right"><a href="tel:+96890229422" class="text-white no-underline">90229422</a><br><a href="tel:+96899555564" class="text-white no-underline">99555564</a></span>
+        </div>
+        <a href="mailto:injazat2040@gmail.com" class="flex items-center gap-[1.6rem] text-white no-underline">
+          <img src="assets/images/icons/email.svg" alt="" class="w-[3.5rem]">
+          <span dir="ltr" class="text-[2.9rem] leading-[4rem]">injazat2040@gmail.com</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+</div>
+</body>
+</html>

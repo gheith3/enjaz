@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنجاز | المؤسسات</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="assets/js/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+<div class="page">
+
+<!-- ===== Inner header (1920 x 421) ===== -->
+<header class="inner-header relative overflow-hidden lg:h-[42.1rem] pt-[18rem] pb-[6rem] lg:p-0" x-data="siteNav">
+  <a href="index.html" class="absolute z-20 top-[4rem] right-[4rem] lg:top-[6.2rem] lg:right-[19.8rem]" aria-label="إنجازات شباب عمان">
+    <img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-[12rem] lg:w-[11.7rem]">
+  </a>
+  <nav class="site-nav hidden lg:flex absolute z-20 top-[7.5rem] right-[96.8rem] gap-[5.05rem]">
+    <a href="about.html">عنا</a>
+    <a href="achievements.html">الإنجازات</a>
+    <a href="achievers.html">المنجزين</a>
+    <a href="institutions.html" class="is-active">المؤسسات</a>
+    <a href="media.html">الإعلام</a>
+    <a href="contact.html">تواصل معنا</a>
+  </nav>
+  <button @click="mobileOpen = !mobileOpen" class="lg:hidden absolute z-30 top-[5rem] left-[4rem] text-white p-2" aria-label="القائمة">
+    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <div x-show="mobileOpen" x-cloak x-transition class="lg:hidden absolute z-30 inset-x-[4rem] top-[18rem] rounded-[3rem] bg-[#063135]/95 p-[3rem]">
+    <nav class="site-nav flex flex-col gap-[3rem] text-right">
+      <a href="about.html" class="!text-[3rem]">عنا</a>
+      <a href="achievements.html" class="!text-[3rem]">الإنجازات</a>
+      <a href="achievers.html" class="!text-[3rem]">المنجزين</a>
+      <a href="institutions.html" class="!text-[3rem] !text-[#91c46c]">المؤسسات</a>
+      <a href="media.html" class="!text-[3rem]">الإعلام</a>
+      <a href="contact.html" class="!text-[3rem]">تواصل معنا</a>
+    </nav>
+  </div>
+
+  <h1 class="relative lg:absolute lg:top-[17.4rem] inset-x-0 m-0 text-center text-white text-[6.7rem] leading-[9.4rem] font-normal">المؤسسات</h1>
+  <form class="search-box relative mx-auto mt-[3rem] lg:mt-0 lg:absolute lg:top-[28.9rem] lg:right-[64.6rem] max-lg:w-[calc(100%-8rem)]" role="search" onsubmit="return false">
+    <input type="search" placeholder="ابحث بالاسم" aria-label="ابحث بالاسم">
+    <img src="assets/images/icons/search.svg" alt="">
+  </form>
+</header>
+
+<!-- ===== Filters + logo grid ===== -->
+<main class="relative px-[4rem] lg:px-0 pb-[8.9rem]" x-data="{
+    types: ['الكل', 'حكومي', 'خاص'],
+    active: 'الكل',
+    orgs: [
+      {logo:'al-wisal', name:'الوصال', w:20.9},
+      {logo:'ministry-heritage-tourism', name:'وزارة التراث والسياحة', w:28},
+      {logo:'oman-air', name:'الطيران العماني', w:20.2},
+      {logo:'ministry-culture-sports-youth', name:'وزارة الثقافة والرياضة والشباب', w:22.5}
+    ].concat(Array(8).fill({logo:'ministry-culture-sports-youth', name:'وزارة الثقافة والرياضة والشباب', w:22.5}))
+  }">
+  <img src="assets/images/brand/logo-white.png" alt="" aria-hidden="true" class="hidden lg:block absolute left-[34.6rem] top-[0.8rem] w-[77rem] brightness-0 opacity-[0.035] pointer-events-none">
+
+  <div class="relative pt-[7.7rem] flex flex-wrap gap-[2rem] lg:gap-[3.2rem] lg:mr-[16.5rem]">
+    <template x-for="t in types" :key="t">
+      <button type="button" class="filter-pill" :class="active === t && 'is-active'" @click="active = t" x-text="t"></button>
+    </template>
+  </div>
+
+  <div class="relative mt-[5.2rem] grid grid-cols-2 lg:grid-cols-[repeat(4,35.3rem)] gap-[3rem] lg:gap-x-[5.8rem] lg:gap-y-[6rem] lg:mr-[16.4rem]">
+    <template x-for="(o, i) in orgs" :key="i">
+      <a href="institution-detail.html" class="flex items-center justify-center bg-white rounded-[4.2rem] shadow-[0_0.3rem_0.6rem_rgba(0,0,0,0.16)] h-[31.6rem] max-lg:h-auto max-lg:aspect-[353/316] transition-transform hover:-translate-y-1">
+        <img :src="'assets/images/logos/' + o.logo + '.jpg'" :alt="o.name" :style="'width:' + o.w + 'rem'" class="max-w-[80%]">
+      </a>
+    </template>
+  </div>
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer relative lg:h-[24.1rem] px-[4rem] py-[6rem] lg:p-0">
+  <a href="index.html" class="block w-[13rem] lg:absolute lg:top-[6rem] lg:right-[14rem]"><img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-full"></a>
+  <span class="hidden lg:block absolute top-[5.2rem] right-[34.2rem] w-px h-[14rem] bg-white/30"></span>
+  <ul class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[5.2rem] lg:right-[44.4rem] flex flex-col gap-[1.7rem] text-[1.6rem] leading-[2.2rem] tracking-[0.126rem] list-none p-0 m-0">
+    <li><a href="index.html">الصفحة الرئيسية</a></li>
+    <li><a href="about.html">عنا</a></li>
+    <li><a href="achievements.html">الإنجازات</a></li>
+    <li><a href="achievers.html">المنجزين</a></li>
+  </ul>
+  <ul class="mt-[3rem] lg:mt-0 lg:absolute lg:top-[5.2rem] lg:right-[62.3rem] flex flex-col gap-[1.7rem] text-[1.6rem] leading-[2.2rem] tracking-[0.126rem] list-none p-0 m-0">
+    <li><a href="institutions.html">المؤسسات</a></li>
+    <li><a href="media.html">الإعلام</a></li>
+    <li><a href="contact.html">تواصل معنا</a></li>
+  </ul>
+  <span class="hidden lg:block absolute top-[5.2rem] right-[84rem] w-px h-[14rem] bg-white/30"></span>
+  <ul class="mt-[3rem] lg:mt-0 lg:absolute lg:top-[5.5rem] lg:right-[94.3rem] flex flex-col gap-[1.9rem] text-[1.4rem] leading-[2rem] tracking-[0.111rem] list-none p-0 m-0">
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/phone.svg" alt="" class="w-[1.9rem]"><span dir="ltr">+968 93322212</span></li>
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/email.svg" alt="" class="w-[1.9rem]"><span>injaz@om.com</span></li>
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/location.svg" alt="" class="w-[1.9rem] h-[1.9rem] object-contain"><span>محافظة مسقط - سلطنة عمان</span></li>
+  </ul>
+  <p class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[9.9rem] lg:right-[150.4rem] m-0 text-[1.4rem] leading-[2rem] tracking-[0.111rem]">جميع الحقوق محفوظة © 2023</p>
+</footer>
+
+</div>
+</body>
+</html>

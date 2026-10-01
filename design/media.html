@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنجاز | الإعلام</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="assets/js/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+<div class="page">
+
+<!-- ===== Inner header (1920 x 421) ===== -->
+<header class="inner-header relative overflow-hidden lg:h-[42.1rem] pt-[18rem] pb-[6rem] lg:p-0" x-data="siteNav">
+  <a href="index.html" class="absolute z-20 top-[4rem] right-[4rem] lg:top-[6.2rem] lg:right-[19.8rem]" aria-label="إنجازات شباب عمان">
+    <img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-[12rem] lg:w-[11.7rem]">
+  </a>
+  <nav class="site-nav hidden lg:flex absolute z-20 top-[7.5rem] right-[96.8rem] gap-[5.05rem]">
+    <a href="about.html">عنا</a>
+    <a href="achievements.html">الإنجازات</a>
+    <a href="achievers.html">المنجزين</a>
+    <a href="institutions.html">المؤسسات</a>
+    <a href="media.html" class="is-active">الإعلام</a>
+    <a href="contact.html">تواصل معنا</a>
+  </nav>
+  <button @click="mobileOpen = !mobileOpen" class="lg:hidden absolute z-30 top-[5rem] left-[4rem] text-white p-2" aria-label="القائمة">
+    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <div x-show="mobileOpen" x-cloak x-transition class="lg:hidden absolute z-30 inset-x-[4rem] top-[18rem] rounded-[3rem] bg-[#063135]/95 p-[3rem]">
+    <nav class="site-nav flex flex-col gap-[3rem] text-right">
+      <a href="about.html" class="!text-[3rem]">عنا</a>
+      <a href="achievements.html" class="!text-[3rem]">الإنجازات</a>
+      <a href="achievers.html" class="!text-[3rem]">المنجزين</a>
+      <a href="institutions.html" class="!text-[3rem]">المؤسسات</a>
+      <a href="media.html" class="!text-[3rem] !text-[#91c46c]">الإعلام</a>
+      <a href="contact.html" class="!text-[3rem]">تواصل معنا</a>
+    </nav>
+  </div>
+
+  <h1 class="relative lg:absolute lg:top-[17.4rem] inset-x-0 m-0 text-center text-white text-[6.7rem] leading-[9.4rem] font-normal">الإعلام</h1>
+  <form class="search-box relative mx-auto mt-[3rem] lg:mt-0 lg:absolute lg:top-[28.9rem] lg:right-[64.6rem] max-lg:w-[calc(100%-8rem)]" role="search" onsubmit="return false">
+    <input type="search" placeholder="ابحث في الأخبار" aria-label="ابحث في الأخبار">
+    <img src="assets/images/icons/search.svg" alt="">
+  </form>
+</header>
+
+<main class="wash-block relative overflow-hidden">
+  <img src="assets/images/brand/logo-white.png" alt="" aria-hidden="true" class="hidden lg:block absolute left-[34.6rem] top-[0.8rem] w-[77rem] brightness-0 opacity-[0.035] pointer-events-none">
+
+  <!-- Latest news -->
+  <section class="relative px-[4rem] lg:px-0 pt-[10rem] pb-[14rem]" x-data="{ news: [
+      {img:'about-news-launch', title:'إقامة حفل تدشين الكتاب بمجلس عُمان تحت رعاية معالي أمين عام شؤون البلاط السلطاني.'},
+      {img:'about-news-gift', title:'نشر المعرفة بإهداء 9000 نسخة للمنجزين والمؤسسات التعليمية والحكومية والخاصة.'},
+      {img:'about-news-spotlight', title:'تسليط الضوء على أكثر من ١٥٠٠ منجز عبر مواقع التواصل الاجتماعي'},
+      {img:'about-news-hockey', title:'قرعة متكافئة لبطولة كأس العالم لخماسيات الهوكي مسقط ٢٠٢٤'},
+      {img:'news-mou', title:'مذكرة تفاهم مع وزارة الثقافة بالمملكة العربية السعودية'},
+      {img:'news-bookfair', title:'سمو السيد ذي يزن يزور معرض الكتاب في الرياض'},
+      {img:'news-conference', title:'سلطنة عمان تشارك في مؤتمر وزراء الثقافة في العالم الاسلامي بالدوحة'},
+      {img:'news-hockey', title:'حضور واسع في افتتاح بطولة كأس العالم لخماسيات الهوكي'}
+    ], page: 1 }">
+    <div class="section-title lg:mr-[18rem] !gap-[2.1rem]">
+      <img src="assets/images/brand/mark.svg" alt="" class="mark">
+      <h2>آخر الأخبار</h2>
+    </div>
+    <div class="mt-[7.4rem] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(4,38.1rem)] gap-[3.8rem] lg:gap-y-[5.7rem] lg:mr-[14.1rem]">
+      <template x-for="(n, i) in news" :key="i">
+        <a href="#" class="news-card">
+          <img :src="'assets/images/photos/' + n.img + '.jpg'" :alt="n.title">
+          <p class="date">23 May 2023</p>
+          <h3 x-text="n.title"></h3>
+        </a>
+      </template>
+    </div>
+    <nav class="pager mt-[8.4rem] gap-[3.5rem]" aria-label="الصفحات">
+      <button class="arrow" @click="page = Math.min(page + 1, 3)" aria-label="الصفحة التالية">
+        <svg class="w-[2.2rem] h-[2.2rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="m14.5 6-6 6 6 6"/></svg>
+      </button>
+      <button class="num" :class="page === 3 && 'is-active'" @click="page = 3">3</button>
+      <button class="num" :class="page === 2 && 'is-active'" @click="page = 2">2</button>
+      <button class="num" :class="page === 1 && 'is-active'" @click="page = 1">1</button>
+      <button class="arrow" @click="page = Math.max(page - 1, 1)" aria-label="الصفحة السابقة">
+        <svg class="w-[2.2rem] h-[2.2rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="m9.5 6 6 6-6 6"/></svg>
+      </button>
+    </nav>
+  </section>
+
+  <!-- Media library (same component as the About page) -->
+  <section class="bg-[#f7f7f7] lg:h-[124.5rem] px-[4rem] lg:px-0 pt-[15.6rem] pb-[8rem] lg:pb-0">
+    <div class="section-title lg:mr-[18rem] !gap-[2.1rem]">
+      <img src="assets/images/brand/mark.svg" alt="" class="mark">
+      <h2>المكتبة الإعلامية</h2>
+    </div>
+    <div class="mt-[5.8rem] grid grid-cols-1 sm:grid-cols-2 gap-[3rem] lg:grid-cols-[57.1rem_52.4rem_46.2rem] lg:grid-rows-[34.5rem_34.5rem] lg:gap-x-[4.1rem] lg:gap-y-[3.6rem] lg:mr-[14rem]">
+      <a href="#" class="lib-tile"><img src="assets/images/photos/media-book-1.jpg" alt="الإصدار الأول من كتاب إنجازات شباب عمان"><span class="lib-label"><span class="media-btn !static"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path stroke-linejoin="round" d="M6 3.5h11a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6.5A1.5 1.5 0 0 1 5 19V5a1.5 1.5 0 0 1 1-1.5Z"/><path d="M5 18.5A1.5 1.5 0 0 1 6.5 17H18"/></svg></span>الإصدار الأول</span></a>
+      <a href="#" class="lib-tile"><img src="assets/images/photos/about-4.jpg" alt="لقاءات مسجلة"><span class="lib-label"><span class="media-btn !static"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path fill="#fff" stroke="none" d="M10 9.2v5.6l4.6-2.8L10 9.2Z"/></svg></span>لقاءات مسجلة</span></a>
+      <a href="#" class="lib-tile lib-profile lg:row-span-2"><svg class="w-[6.4rem] h-[8.2rem]" viewBox="0 0 64 82" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"><path d="M10 2h34l18 18v58a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M44 2v18h18"/><rect x="16" y="14" width="16" height="20" rx="1.5"/><circle cx="24" cy="21" r="3.2"/><path d="M19 31c1-4 9-4 10 0"/><path stroke-linecap="round" d="M16 44h32M16 52h32M16 60h32M16 68h22M38 24h10"/></svg><span>الملف التعريفي</span></a>
+      <a href="#" class="lib-tile"><img src="assets/images/photos/media-book-2.jpg" alt="الإصدار الثاني - ملهمون من عمان"><span class="lib-label"><span class="media-btn !static"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path stroke-linejoin="round" d="M6 3.5h11a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6.5A1.5 1.5 0 0 1 5 19V5a1.5 1.5 0 0 1 1-1.5Z"/><path d="M5 18.5A1.5 1.5 0 0 1 6.5 17H18"/></svg></span>الاصدار الثاني</span></a>
+      <a href="#" class="lib-tile"><img src="assets/images/photos/about-2.jpg" alt="صور متنوعة"><span class="lib-label"><span class="media-btn !static"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path stroke-linejoin="round" d="m4 18 5.5-5.5 3.5 3.5 2.5-2.5L20 18"/></svg></span>صور متنوعة</span></a>
+    </div>
+  </section>
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer relative lg:h-[24.1rem] px-[4rem] py-[6rem] lg:p-0">
+  <a href="index.html" class="block w-[13rem] lg:absolute lg:top-[6rem] lg:right-[14rem]"><img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-full"></a>
+  <span class="hidden lg:block absolute top-[5.2rem] right-[34.2rem] w-px h-[14rem] bg-white/30"></span>
+  <ul class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[5.2rem] lg:right-[44.4rem] flex flex-col gap-[1.7rem] text-[1.6rem] leading-[2.2rem] tracking-[0.126rem] list-none p-0 m-0">
+    <li><a href="index.html">الصفحة الرئيسية</a></li>
+    <li><a href="about.html">عنا</a></li>
+    <li><a href="achievements.html">الإنجازات</a></li>
+    <li><a href="achievers.html">المنجزين</a></li>
+  </ul>
+  <ul class="mt-[3rem] lg:mt-0 lg:absolute lg:top-[5.2rem] lg:right-[62.3rem] flex flex-col gap-[1.7rem] text-[1.6rem] leading-[2.2rem] tracking-[0.126rem] list-none p-0 m-0">
+    <li><a href="institutions.html">المؤسسات</a></li>
+    <li><a href="media.html">الإعلام</a></li>
+    <li><a href="contact.html">تواصل معنا</a></li>
+  </ul>
+  <span class="hidden lg:block absolute top-[5.2rem] right-[84rem] w-px h-[14rem] bg-white/30"></span>
+  <ul class="mt-[3rem] lg:mt-0 lg:absolute lg:top-[5.5rem] lg:right-[94.3rem] flex flex-col gap-[1.9rem] text-[1.4rem] leading-[2rem] tracking-[0.111rem] list-none p-0 m-0">
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/phone.svg" alt="" class="w-[1.9rem]"><span dir="ltr">+968 93322212</span></li>
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/email.svg" alt="" class="w-[1.9rem]"><span>injaz@om.com</span></li>
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/location.svg" alt="" class="w-[1.9rem] h-[1.9rem] object-contain"><span>محافظة مسقط - سلطنة عمان</span></li>
+  </ul>
+  <p class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[9.9rem] lg:right-[150.4rem] m-0 text-[1.4rem] leading-[2rem] tracking-[0.111rem]">جميع الحقوق محفوظة © 2023</p>
+</footer>
+
+</div>
+</body>
+</html>

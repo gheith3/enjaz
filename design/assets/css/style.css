@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+
+/*
+  Scale system: the XD artboards are 1920px wide. On desktop 1rem = 10 design px,
+  so a 49px heading in XD is 4.9rem here and the whole layout scales with the viewport.
+*/
+html {
+  font-size: 7px;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+/* --sbw (scrollbar width) is set in app.js so the page fills the visible width exactly */
+@media (min-width: 1024px) {
+  html { font-size: calc((100vw - var(--sbw, 0px)) / 192); }
+}
+
+:root {
+  --teal: #096770;
+  --teal-dark: #0e4348;
+  --teal-deep: #063135;
+  --teal-bright: #0c7f89;
+  --leaf: #91c46c;
+  --gold: #a88344;
+  --ink: #171717;
+  --muted: #7a797e;
+}
+
+body {
+  margin: 0;
+  font-family: 'Neo Sans Arabic', 'Cairo', sans-serif;
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+[x-cloak] { display: none !important; }
+
+.page { width: 100%; position: relative; overflow-x: clip; }
+
+/* ---------- Header ---------- */
+.site-nav a { font-size: 2rem; line-height: 2.8rem; font-weight: 700; color: #fff; white-space: nowrap; }
+.site-nav a.is-active { background: var(--leaf); border-radius: 2rem; padding: 0.4rem 2rem; }
+
+.hero-bg { background: linear-gradient(180deg, #0d6973 0%, #b4ced0 100%); }
+.watermark { position: absolute; pointer-events: none; opacity: 0.035; }
+
+/* ---------- Section title with brand mark ---------- */
+.section-title { display: flex; align-items: center; gap: 0.5rem; }
+.section-title h2 { margin: 0; font-size: 4.9rem; line-height: 6.9rem; font-weight: 700; color: var(--teal); }
+.section-title .mark { width: 9.6rem; height: 6rem; flex: none; }
+
+/* ---------- Buttons ---------- */
+.btn-more {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26.5rem; height: 5.9rem; border-radius: 4rem;
+  background: linear-gradient(269deg, #0c7f89 0%, #0e4348 100%);
+  color: #fff; font-size: 2.2rem; line-height: 2.5rem; text-decoration: none;
+  transition: filter .2s;
+}
+.btn-more:hover { filter: brightness(1.12); }
+
+/* ---------- Achievement card ---------- */
+.ach-card {
+  position: relative; display: flex; flex-direction: column;
+  width: 50.9rem; height: 60.5rem; padding: 1.8rem; box-sizing: border-box;
+  border-radius: 2rem; overflow: hidden;
+  background:
+    radial-gradient(60% 45% at 100% 100%, rgba(145, 196, 108, 0.32), transparent 70%),
+    radial-gradient(35% 30% at 0% 45%, rgba(12, 127, 137, 0.10), transparent 70%),
+    #fff;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.09);
+}
+.ach-card .media { width: 47.3rem; height: 28.3rem; border-radius: 1.6rem; object-fit: cover; display: block; }
+.ach-card .tags { display: flex; gap: 1.6rem; margin-top: 2rem; padding-inline-start: 1rem; }
+.ach-card .tag {
+  width: 12.7rem; height: 3.2rem; border-radius: 1.6rem; background: #d4f8f8;
+  color: var(--teal); font-size: 1.7rem; line-height: 3.2rem; text-align: center;
+}
+.ach-card .date { margin-top: 1.4rem; padding-inline-start: 1rem; font-size: 1.9rem; line-height: 3.2rem; color: var(--muted); }
+.ach-card .title { padding-inline-start: 1rem; font-size: 2.4rem; line-height: 3.4rem; font-weight: 700; color: #1b1e24; margin: 0; }
+.ach-card .desc {
+  margin: 1.2rem 0 0; padding-inline: 1rem 2rem; font-size: 1.6rem; line-height: 2.5rem; color: var(--muted);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.ach-card .read {
+  margin-top: auto; margin-bottom: 1.9rem; align-self: flex-end; margin-inline-end: 2.1rem;
+  width: 12.5rem; height: 3.1rem; border-radius: 1.6rem; background: var(--teal);
+  color: #fff; font-size: 1.8rem; line-height: 3.1rem; text-align: center; text-decoration: none;
+}
+
+/* ---------- Person tile ---------- */
+.tile {
+  position: relative; display: block; width: 35.1rem; height: 42.7rem; border-radius: 4.5rem; overflow: hidden;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.29);
+}
+.tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tile .cat {
+  position: absolute; top: 3.3rem; right: 2.8rem; min-width: 11.9rem; height: 3.9rem; padding-inline: 1.6rem; box-sizing: border-box;
+  border-radius: 2rem; background: rgba(0, 0, 0, 0.45); color: #fff; font-size: 2.4rem; line-height: 3.9rem; text-align: center;
+}
+.tile .name {
+  position: absolute; bottom: 3.7rem; left: 50%; transform: translateX(-50%);
+  min-width: 22.8rem; height: 4.5rem; padding-inline: 2rem; box-sizing: border-box; border-radius: 2.3rem;
+  background: rgba(0, 0, 0, 0.43); color: #fff; font-size: 2.4rem; line-height: 4.5rem; font-weight: 700; text-align: center; white-space: nowrap;
+}
+
+/* ---------- Footer ---------- */
+.site-footer { background: linear-gradient(205deg, #0b626a 0%, #063135 100%); color: #fff; }
+.site-footer a { color: #fff; text-decoration: none; }
+.site-footer a:hover { color: var(--leaf); }
+
+/* ---------- Soft page wash used behind the light sections ---------- */
+.wash {
+  background:
+    radial-gradient(40% 30% at 0% 20%, rgba(214, 214, 190, 0.55), transparent 70%),
+    radial-gradient(35% 30% at 100% 70%, rgba(198, 226, 178, 0.55), transparent 70%),
+    #fff;
+}
+
+/* ---------- Mobile (< 1024px): stack the desktop layouts ---------- */
+@media (max-width: 1023px) {
+  .ach-card { width: 100%; height: auto; min-height: 60.5rem; }
+  .ach-card .media { width: 100%; height: auto; aspect-ratio: 473 / 283; }
+  .ach-card .desc, .ach-card .tag, .ach-card .date { font-size: 2.2rem; line-height: 3.2rem; }
+  .ach-card .title { font-size: 3rem; line-height: 4.2rem; }
+  .ach-card .read { margin-top: 2.4rem; }
+  .tile { width: 100%; height: auto; aspect-ratio: 351 / 427; }
+}
+
+.wash-block {
+  background:
+    radial-gradient(38% 60% at 0% 25%, rgba(214, 214, 190, 0.5), transparent 72%),
+    radial-gradient(34% 62% at 100% 72%, rgba(198, 226, 178, 0.6), transparent 72%),
+    #fff;
+}
+
+/* ---------- Inner page header (421px) ---------- */
+.inner-header { background: linear-gradient(180deg, #096771 0%, #053439 100%); }
+.site-nav a { position: relative; z-index: 0; }
+.site-nav a.is-active::before {
+  content: ''; position: absolute; z-index: -1; inset: -0.9rem -3.45rem; border-radius: 2.3rem; background: var(--leaf);
+}
+.search-box {
+  display: flex; align-items: center; width: 62.7rem; height: 6.5rem; border-radius: 1.6rem; background: #f5f5f5;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.16); padding-inline: 5rem 3.7rem; box-sizing: border-box;
+}
+.search-box input {
+  flex: 1; min-width: 0; border: 0; background: transparent; outline: none; font: inherit;
+  font-size: 2.6rem; line-height: 3.6rem; color: #5a5a5a;
+}
+.search-box input::placeholder { color: #5a5a5a; opacity: 1; }
+.search-box img { width: 2.8rem; height: 2.8rem; }
+
+/* ---------- Filter pills ---------- */
+.filter-pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.8rem; white-space: nowrap; padding-inline: 0.6rem;
+  width: 16.8rem; height: 8.3rem; border: 1px solid #707070; border-radius: 1.9rem; background: #fff; box-sizing: border-box;
+  color: #525252; font-family: inherit; font-size: 2.4rem; line-height: 4.2rem; font-weight: 600; cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.filter-pill img { height: 3.3rem; width: auto; }
+.filter-pill.is-active { background: var(--teal); color: #fff; font-size: 2.3rem; }
+.filter-pill.is-active img { filter: brightness(0) invert(1); }
+
+/* ---------- Pagination ---------- */
+.pager { display: flex; align-items: center; justify-content: center; direction: ltr; }
+.pager .arrow {
+  width: 4.8rem; height: 4.8rem; border-radius: 50%; background: var(--teal); color: #fff; border: 0;
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.pager .num { font-size: 2.6rem; line-height: 5.6rem; color: #a2a2a2; background: none; border: 0; cursor: pointer; font-family: inherit; padding: 0; }
+.pager .num.is-active { color: #1b1e24; }
+
+/* ---------- Media library item ---------- */
+.media-item {
+  position: relative; display: block; height: 34.5rem; border-radius: 3.2rem; overflow: hidden;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.29);
+}
+.media-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+.media-item:hover img { transform: scale(1.04); }
+.media-btn {
+  position: absolute; left: 6.2rem; top: 23.9rem; width: 7.7rem; height: 7.7rem; border-radius: 50%;
+  background: rgba(0, 0, 0, 0.58); display: flex; align-items: center; justify-content: center;
+}
+.media-btn svg { width: 3.8rem; height: 3.8rem; }
+
+/* ---------- Small person tile ---------- */
+.tile-sm {
+  position: relative; display: block; width: 26.6rem; height: 32.3rem; border-radius: 4.5rem; overflow: hidden; flex: none;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.29);
+}
+.tile-sm img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tile-sm .cat {
+  position: absolute; top: 2.5rem; right: 3.9rem; width: 9rem; height: 3rem; border-radius: 2rem;
+  background: rgba(0, 0, 0, 0.45); color: #fff; font-size: 1.6rem; line-height: 3rem; text-align: center;
+}
+.tile-sm .name {
+  position: absolute; bottom: 2.8rem; right: 3.3rem; width: 17.3rem; height: 3.4rem; box-sizing: border-box; border-radius: 2.3rem;
+  border: 2px solid #fff; background: rgba(0, 0, 0, 0.43); color: #fff; font-size: 1.4rem; line-height: 3rem; font-weight: 700; text-align: center;
+}
+
+@media (max-width: 1023px) {
+  .media-item { height: auto; aspect-ratio: 3 / 2; }
+  .media-btn { left: 2.4rem; top: auto; bottom: 2.4rem; }
+  .tile-sm { width: 100%; height: auto; aspect-ratio: 266 / 323; }
+}
+
+/* ---------- Article body ---------- */
+.article-body p { margin: 0; }
+.article-body p + p { margin-top: 5.5rem; }
+
+/* Gold fade used on person tiles in the design (179deg, transparent -> sand -> gold) */
+.tile::after, .tile-sm::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(179deg, rgba(255,255,255,0) 0%, rgba(218,202,175,0.29) 72%, rgba(168,131,68,0.69) 100%);
+  opacity: 0.35;
+}
+.tile > span, .tile-sm > span { z-index: 1; }
+
+/* ---------- News card (381 x 436) ---------- */
+.news-card {
+  display: flex; flex-direction: column; width: 38.1rem; height: 43.6rem; padding: 2.1rem 1.8rem 0; box-sizing: border-box;
+  border-radius: 2rem; overflow: hidden; text-decoration: none;
+  background:
+    radial-gradient(60% 45% at 100% 100%, rgba(145, 196, 108, 0.32), transparent 70%),
+    radial-gradient(35% 30% at 0% 45%, rgba(12, 127, 137, 0.10), transparent 70%),
+    #fff;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.09);
+}
+.news-card img { width: 100%; height: 20.8rem; border-radius: 1.6rem; object-fit: cover; display: block; }
+.news-card .date { margin: 3.3rem 0 0; font-size: 1.9rem; line-height: 3.2rem; color: var(--muted); }
+.news-card h3 { margin: 0.6rem 0 0; font-size: 2rem; line-height: 3.5rem; font-weight: 400; color: #1b1e24; }
+@media (max-width: 1023px) {
+  .news-card { width: 100%; height: auto; padding-bottom: 3rem; }
+  .news-card img { height: auto; aspect-ratio: 345 / 208; }
+  .news-card h3 { font-size: 2.6rem; line-height: 4rem; }
+}
+
+/* Latin dates inside RTL cards keep "23 May 2023" order */
+.ach-card .date, .news-card .date { direction: ltr; text-align: right; }
+
+/* ---------- Contact page ---------- */
+.contact-label { display: block; font-size: 2.6rem; line-height: 3.6rem; margin-bottom: 1.2rem; }
+.contact-field {
+  display: block; width: 100%; box-sizing: border-box; background: #fff; border: 1px solid #707070; border-radius: 3.6rem;
+  padding-inline: 2.4rem; font: inherit; font-size: 2.2rem; color: #171717; outline: none;
+}
+.contact-field:focus { box-shadow: 0 0 0 0.3rem rgba(145, 196, 108, 0.7); }
+.social-box {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
+  height: 12.4rem; border: 1px solid #fff; border-radius: 2.5rem; color: #fff; text-decoration: none;
+  font-size: 2.6rem; line-height: 3rem; transition: background .2s;
+}
+.social-box:hover { background: rgba(255, 255, 255, 0.08); }
+
+/* ---------- About page ---------- */
+.collage { display: block; width: 100%; height: 30rem; object-fit: cover; box-shadow: 0 0.3rem 0.6rem rgba(0,0,0,0.16); }
+.value-card {
+  display: flex; flex-direction: column; align-items: center; text-align: center; box-sizing: border-box;
+  width: 48.7rem; height: 64rem; padding: 0 3.8rem; background: #fff; border-radius: 6.8rem; box-shadow: 0 0.3rem 0.6rem rgba(0,0,0,0.16);
+}
+.value-card h2 { margin: 2.4rem 0 0; font-size: 6rem; line-height: 7.6rem; font-weight: 700; color: var(--teal); }
+.value-card p { margin: 3.8rem 0 0; font-size: 2.6rem; line-height: 3.6rem; color: #171717; }
+
+.quote-card {
+  position: absolute; top: 0; box-sizing: border-box; width: 87.8rem; height: 48rem; border-radius: 7.4rem; background: #ededed;
+  padding: 7.2rem 22.4rem 0 14rem; text-align: center;
+}
+.quote-photo { position: absolute; right: -9.3rem; top: 10.9rem; width: 25.2rem; height: 25.1rem; border-radius: 50%; box-shadow: 0 0.3rem 0.6rem rgba(0,0,0,0.16); }
+.quote-text { margin: 0; font-size: 3.2rem; line-height: 4.4rem; color: #171717; }
+.quote-name { margin: 4.6rem -3.8rem 0 -3.9rem; font-size: 3.2rem; line-height: 4.4rem; font-weight: 700; color: #171717; }
+
+.lib-tile {
+  position: relative; display: block; height: 34.5rem; border-radius: 3.2rem; overflow: hidden; text-decoration: none;
+  box-shadow: 0 0.3rem 0.6rem rgba(0,0,0,0.29);
+}
+.lib-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lib-tile:not(.lib-profile)::after {
+  content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #0c7f89 0%, #0e4348 100%); mix-blend-mode: multiply; opacity: 0.54;
+}
+.lib-label {
+  position: absolute; z-index: 1; left: 3.8rem; bottom: 4.4rem; display: flex; flex-direction: row-reverse; align-items: center; gap: 3rem;
+  color: #fff; font-size: 4.9rem; line-height: 6.9rem; font-weight: 700;
+}
+.lib-profile {
+  height: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5rem;
+  background: linear-gradient(180deg, #0b626a 0%, #063135 100%); color: #fff; font-size: 4.9rem; line-height: 6.9rem; font-weight: 700;
+}
+
+@media (max-width: 1023px) {
+  .value-card { width: 100%; height: auto; padding-bottom: 5rem; }
+  .quote-card { position: relative; width: auto; height: auto; padding: 22rem 4rem 6rem; }
+  .quote-photo { right: auto; left: 50%; transform: translateX(-50%); top: -2rem; }
+  .quote-name { margin-inline: 0; }
+  .lib-profile { min-height: 34.5rem; }
+}

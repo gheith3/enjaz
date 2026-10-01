@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنجاز | المنجزين</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="assets/js/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+<div class="page">
+
+<!-- ===== Inner header (1920 x 421) ===== -->
+<header class="inner-header relative overflow-hidden lg:h-[42.1rem] pt-[18rem] pb-[6rem] lg:p-0" x-data="siteNav">
+  <img src="assets/images/brand/mountain-flag.svg" alt="" aria-hidden="true" class="hidden lg:block absolute left-[96rem] top-[4.2rem] w-[116.3rem] max-w-none pointer-events-none">
+
+  <a href="index.html" class="absolute z-20 top-[4rem] right-[4rem] lg:top-[6.2rem] lg:right-[19.8rem]" aria-label="إنجازات شباب عمان">
+    <img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-[12rem] lg:w-[11.7rem]">
+  </a>
+  <nav class="site-nav hidden lg:flex absolute z-20 top-[7.5rem] right-[96.8rem] gap-[5.05rem]">
+    <a href="about.html">عنا</a>
+    <a href="achievements.html">الإنجازات</a>
+    <a href="achievers.html" class="is-active">المنجزين</a>
+    <a href="institutions.html">المؤسسات</a>
+    <a href="media.html">الإعلام</a>
+    <a href="contact.html">تواصل معنا</a>
+  </nav>
+  <button @click="mobileOpen = !mobileOpen" class="lg:hidden absolute z-30 top-[5rem] left-[4rem] text-white p-2" aria-label="القائمة">
+    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <div x-show="mobileOpen" x-cloak x-transition class="lg:hidden absolute z-30 inset-x-[4rem] top-[18rem] rounded-[3rem] bg-[#063135]/95 p-[3rem]">
+    <nav class="site-nav flex flex-col gap-[3rem] text-right">
+      <a href="about.html" class="!text-[3rem]">عنا</a>
+      <a href="achievements.html" class="!text-[3rem]">الإنجازات</a>
+      <a href="achievers.html" class="!text-[3rem] !text-[#91c46c]">المنجزين</a>
+      <a href="institutions.html" class="!text-[3rem]">المؤسسات</a>
+      <a href="media.html" class="!text-[3rem]">الإعلام</a>
+      <a href="contact.html" class="!text-[3rem]">تواصل معنا</a>
+    </nav>
+  </div>
+
+  <h1 class="relative lg:absolute lg:top-[17.4rem] inset-x-0 m-0 text-center text-white text-[6.7rem] leading-[9.4rem] font-normal">المنجزيــــن</h1>
+  <form class="search-box relative mx-auto mt-[3rem] lg:mt-0 lg:absolute lg:top-[28.9rem] lg:right-[64.6rem] max-lg:w-[calc(100%-8rem)]" role="search" onsubmit="return false">
+    <input type="search" placeholder="ابحث بالاسم" aria-label="ابحث بالاسم">
+    <img src="assets/images/icons/search.svg" alt="">
+  </form>
+</header>
+
+<!-- ===== Filters + grid ===== -->
+<main class="relative px-[4rem] lg:px-0 pb-[8rem]" x-data="{
+    cats: [
+      {name:'الكل'}, {name:'الرياضة', icon:'sports'}, {name:'الثقافة', icon:'culture'}, {name:'العلوم', icon:'science'},
+      {name:'العسكرية', icon:'military'}, {name:'الطبي', icon:'medical'},
+      {name:'الإبتكارات', icon:'innovation'}, {name:'الأدب', icon:'literature'}, {name:'طلبة المدارس', icon:'students'},
+      {name:'الفنون', icon:'arts'}, {name:'ريادة الأعمال', icon:'business'}
+    ],
+    active: 'الكل',
+    page: 1,
+    tiles: ['tile-aisha','tile-aisha','tile-jokha','tile-aisha','tile-aisha','tile-aisha','tile-aisha','tile-aisha','tile-aisha','tile-aisha','tile-aisha','tile-aisha']
+  }">
+  <img src="assets/images/brand/logo-white.png" alt="" aria-hidden="true" class="hidden lg:block absolute left-[34.6rem] top-[0.8rem] w-[77rem] brightness-0 opacity-[0.035] pointer-events-none">
+  <div class="relative pt-[7.7rem]">
+    <div class="flex flex-wrap gap-[2rem] lg:grid lg:grid-cols-[repeat(6,16.8rem)] lg:gap-x-[2.7rem] lg:gap-y-[1.3rem] lg:mr-[62rem] lg:w-[114.3rem]">
+      <template x-for="(c, i) in cats" :key="c.name">
+        <button type="button" class="filter-pill" :class="{ 'is-active': active === c.name, 'lg:col-start-2': i === 6 }" @click="active = c.name">
+          <template x-if="c.icon"><img :src="'assets/images/icons/cat/' + c.icon + '.svg'" alt=""></template>
+          <span x-text="c.name"></span>
+        </button>
+      </template>
+    </div>
+    <button type="button" class="filter-pill mt-[2rem] lg:mt-0 lg:absolute lg:top-[17.3rem] lg:right-[15.5rem] gap-[2.8rem]">
+      <span class="flex flex-col gap-[0.5rem]"><i class="block w-[2.2rem] h-[0.3rem] rounded bg-[#5c5c5c]"></i><i class="block w-[2.2rem] h-[0.3rem] rounded bg-[#5c5c5c]"></i><i class="block w-[2.2rem] h-[0.3rem] rounded bg-[#5c5c5c]"></i></span>
+      <span>تصفية</span>
+    </button>
+  </div>
+
+  <div class="mt-[5.9rem] grid grid-cols-2 lg:grid-cols-[repeat(4,35.1rem)] gap-[3rem] lg:gap-x-[7rem] lg:gap-y-[7.1rem] lg:mr-[15.2rem]">
+    <template x-for="(t, i) in tiles" :key="i">
+      <a href="achiever-detail.html" class="tile">
+        <img :src="'assets/images/photos/' + t + '.jpg'" alt="علي الحبسي">
+        <span class="cat" x-text="active === 'الكل' ? 'الرياضة' : active"></span>
+        <span class="name">علي الحبسي</span>
+      </a>
+    </template>
+  </div>
+
+  <nav class="pager mt-[6.5rem] gap-[3.5rem]" aria-label="الصفحات">
+    <button class="arrow" @click="page = Math.min(page + 1, 5)" aria-label="الصفحة التالية">
+      <svg class="w-[2.2rem] h-[2.2rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="m14.5 6-6 6 6 6"/></svg>
+    </button>
+    <button class="num" :class="page === 5 && 'is-active'" @click="page = 5">5</button>
+    <span class="num !cursor-default text-[#1b1e24]">…</span>
+    <button class="num" :class="page === 3 && 'is-active'" @click="page = 3">3</button>
+    <button class="num" :class="page === 2 && 'is-active'" @click="page = 2">2</button>
+    <button class="num" :class="page === 1 && 'is-active'" @click="page = 1">1</button>
+    <button class="arrow" @click="page = Math.max(page - 1, 1)" aria-label="الصفحة السابقة">
+      <svg class="w-[2.2rem] h-[2.2rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="m9.5 6 6 6-6 6"/></svg>
+    </button>
+  </nav>
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer relative lg:h-[24.1rem] px-[4rem] py-[6rem] lg:p-0">
+  <a href="index.html" class="block w-[13rem] lg:absolute lg:top-[6rem] lg:right-[14rem]"><img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-full"></a>
+  <span class="hidden lg:block absolute top-[5.2rem] right-[34.2rem] w-px h-[14rem] bg-white/30"></span>
+  <ul class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[5.2rem] lg:right-[44.4rem] flex flex-col gap-[1.7rem] text-[1.6rem] leading-[2.2rem] tracking-[0.126rem] list-none p-0 m-0">
+    <li><a href="index.html">الصفحة الرئيسية</a></li>
+    <li><a href="about.html">عنا</a></li>
+    <li><a href="achievements.html">الإنجازات</a></li>
+    <li><a href="achievers.html">المنجزين</a></li>
+  </ul>
+  <ul class="mt-[3rem] lg:mt-0 lg:absolute lg:top-[5.2rem] lg:right-[62.3rem] flex flex-col gap-[1.7rem] text-[1.6rem] leading-[2.2rem] tracking-[0.126rem] list-none p-0 m-0">
+    <li><a href="institutions.html">المؤسسات</a></li>
+    <li><a href="media.html">الإعلام</a></li>
+    <li><a href="contact.html">تواصل معنا</a></li>
+  </ul>
+  <span class="hidden lg:block absolute top-[5.2rem] right-[84rem] w-px h-[14rem] bg-white/30"></span>
+  <ul class="mt-[3rem] lg:mt-0 lg:absolute lg:top-[5.5rem] lg:right-[94.3rem] flex flex-col gap-[1.9rem] text-[1.4rem] leading-[2rem] tracking-[0.111rem] list-none p-0 m-0">
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/phone.svg" alt="" class="w-[1.9rem]"><span dir="ltr">+968 93322212</span></li>
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/email.svg" alt="" class="w-[1.9rem]"><span>injaz@om.com</span></li>
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/location.svg" alt="" class="w-[1.9rem] h-[1.9rem] object-contain"><span>محافظة مسقط - سلطنة عمان</span></li>
+  </ul>
+  <p class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[9.9rem] lg:right-[150.4rem] m-0 text-[1.4rem] leading-[2rem] tracking-[0.111rem]">جميع الحقوق محفوظة © 2023</p>
+</footer>
+
+</div>
+</body>
+</html>

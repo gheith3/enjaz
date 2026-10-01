@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنجاز | الصفحة الرئيسية</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+  tailwind = { config: { corePlugins: { preflight: true } } }
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="assets/js/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+<div class="page">
+
+<!-- ===== Hero (1920 x 1080) ===== -->
+<header class="hero-bg relative overflow-hidden lg:h-[108rem]" x-data="siteNav">
+  <img src="assets/images/brand/logo-white.png" alt="" aria-hidden="true" class="watermark w-[110rem] top-[12rem] -right-[14rem]">
+
+  <!-- Logo -->
+  <a href="index.html" class="absolute z-20 top-[4rem] right-[4rem] lg:top-[6.2rem] lg:right-[19.8rem]" aria-label="إنجازات شباب عمان">
+    <img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-[12rem] lg:w-[11.7rem]">
+  </a>
+
+  <!-- Desktop nav -->
+  <nav class="site-nav hidden lg:flex absolute z-20 top-[7.5rem] right-[96.8rem] gap-[5.05rem]">
+    <a href="about.html">عنا</a>
+    <a href="achievements.html">الإنجازات</a>
+    <a href="achievers.html">المنجزين</a>
+    <a href="institutions.html">المؤسسات</a>
+    <a href="media.html">الإعلام</a>
+    <a href="contact.html">تواصل معنا</a>
+  </nav>
+
+  <!-- Mobile nav -->
+  <button @click="mobileOpen = !mobileOpen" class="lg:hidden absolute z-30 top-[5rem] left-[4rem] text-white p-2" aria-label="القائمة">
+    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <div x-show="mobileOpen" x-cloak x-transition class="lg:hidden absolute z-30 inset-x-[4rem] top-[18rem] rounded-[3rem] bg-[#063135]/95 p-[3rem]">
+    <nav class="site-nav flex flex-col gap-[3rem] text-right">
+      <a href="about.html" class="!text-[3rem]">عنا</a>
+      <a href="achievements.html" class="!text-[3rem]">الإنجازات</a>
+      <a href="achievers.html" class="!text-[3rem]">المنجزين</a>
+      <a href="institutions.html" class="!text-[3rem]">المؤسسات</a>
+      <a href="media.html" class="!text-[3rem]">الإعلام</a>
+      <a href="contact.html" class="!text-[3rem]">تواصل معنا</a>
+    </nav>
+  </div>
+
+  <!-- Portrait (photo, ring and swoosh are one image in the design) -->
+  <img src="assets/images/photos/hero-portrait.jpg" alt="حضرة صاحب الجلالة السلطان هيثم بن طارق المعظم"
+       class="relative lg:absolute lg:left-0 lg:top-[15.2rem] w-full lg:w-[101.6rem] mt-[44rem] lg:mt-0
+              [mask-image:linear-gradient(to_left,transparent_0,#000_10rem),linear-gradient(to_bottom,transparent_0,#000_5rem)]
+              [mask-composite:intersect] [-webkit-mask-composite:source-in]">
+
+  <!-- Quote -->
+  <div class="absolute top-[22rem] inset-x-[4rem] lg:inset-x-auto lg:top-[37.9rem] lg:right-[22.2rem] lg:w-[73.8rem] text-right z-10">
+    <p class="text-white text-[3.3rem] leading-[4.7rem] lg:mr-0 lg:ml-auto lg:w-[65.5rem] m-0">
+      إن الشباب هم ثروة الأمم وموردها الذي لا ينضب وسواعدها التي تبني، هم حاضر الأمة ومستقبلها، وسوف نحرص على الاستماع لهم وتلمس احتياجاتهم واهتماماتهم وتطلعاتهم ولا شك أنها ستجد العناية التي تستحق
+    </p>
+    <div class="mt-[3.6rem] lg:mt-0 lg:absolute lg:top-[27.7rem] lg:right-0 w-full lg:w-[73.8rem] h-[8rem] rounded-[4rem] flex items-center pr-[2.9rem]
+                bg-[linear-gradient(270deg,rgba(5,57,61,0.48)_0%,rgba(6,49,53,0)_100%)]">
+      <span class="text-[2.9rem] leading-[4.1rem] text-[#f4dba8]">حضرة صاحب الجلالة السلطان هيثم حفظه الله ورعاه</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Carousel + stats ===== -->
+<section class="relative bg-[linear-gradient(180deg,#c0d8db_0rem,#ddeaeb_16rem,#f3f6f2_42rem,#ffffff_60rem)]">
+  <div class="absolute inset-0 wash opacity-70 [mask-image:linear-gradient(to_bottom,transparent_0,#000_40rem)]"></div>
+
+  <!-- Photo carousel -->
+  <div class="relative pt-[3.3rem]" x-data="photoCarousel([
+      {src:'assets/images/photos/carousel-1.jpg', alt:'علي الحبسي'},
+      {src:'assets/images/photos/carousel-2.jpg', alt:'منجزة في مجال العلوم'},
+      {src:'assets/images/photos/carousel-3.jpg', alt:'باحثة عمانية'},
+      {src:'assets/images/photos/carousel-4.jpg', alt:'منجزة عمانية'},
+      {src:'assets/images/photos/carousel-5.jpg', alt:'طبيب عماني'}
+    ])">
+    <div dir="ltr" class="relative h-[39.7rem] flex items-center justify-center gap-[2.9rem]">
+      <template x-for="(p, slot) in visible" :key="p.src">
+        <a href="achiever-detail.html" class="block overflow-hidden transition-all duration-300 shrink-0"
+           :class="slot === 2 ? 'w-[28.8rem] h-[39.7rem] rounded-[5rem] shadow-[0_0.6rem_1.6rem_rgba(0,0,0,0.18)]' : 'w-[23rem] h-[31.5rem] rounded-[4.2rem] max-lg:hidden'">
+          <img :src="p.src" :alt="p.alt" class="w-full h-full object-cover">
+        </a>
+      </template>
+      <button @click="prev()" class="absolute left-[19.7rem] max-lg:left-[3rem] top-[14.1rem] w-[5.1rem] h-[5.1rem] rounded-full bg-[#096770] text-white flex items-center justify-center hover:brightness-110" aria-label="السابق">
+        <svg class="w-[2.4rem] h-[2.4rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="m14.5 6-6 6 6 6"/></svg>
+      </button>
+      <button @click="next()" class="absolute right-[19.7rem] max-lg:right-[3rem] top-[14.1rem] w-[5.1rem] h-[5.1rem] rounded-full bg-[#096770] text-white flex items-center justify-center hover:brightness-110" aria-label="التالي">
+        <svg class="w-[2.4rem] h-[2.4rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="m9.5 6 6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats card -->
+  <div class="relative mt-[8.5rem] mx-[4rem] lg:ml-0 lg:mr-[19rem] lg:w-[148.9rem] lg:h-[39.9rem] bg-white rounded-[4.9rem] shadow-[0_0.3rem_0.6rem_rgba(124,124,124,0.16)]">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-y-[5rem] py-[6rem] lg:py-0 lg:pt-[6.5rem] lg:w-[115.5rem] lg:mr-[16.35rem] text-center">
+      <div>
+        <div class="h-[9.6rem] flex items-center justify-center"><img src="assets/images/icons/stat-achievers.svg" alt="" class="w-[9.6rem]"></div>
+        <p class="mt-[3rem] text-[4.4rem] leading-[6.2rem] text-[#171717]">عدد المنجزين</p>
+        <p class="text-[7.8rem] leading-[9.3rem] font-bold text-[#096770]">٢٢1</p>
+      </div>
+      <div>
+        <div class="h-[9.6rem] flex items-center justify-center"><img src="assets/images/icons/stat-achievements.svg" alt="" class="w-[7.4rem]"></div>
+        <p class="mt-[3rem] text-[4.4rem] leading-[6.2rem] text-[#171717]">عدد الانجازات</p>
+        <p class="text-[7.8rem] leading-[9.3rem] font-bold text-[#096770]">٢٠٠٢</p>
+      </div>
+      <div>
+        <div class="h-[9.6rem] flex items-center justify-center"><img src="assets/images/icons/stat-fields.svg" alt="" class="w-[7.7rem]"></div>
+        <p class="mt-[3rem] text-[4.4rem] leading-[6.2rem] text-[#171717]">عدد المجالات</p>
+        <p class="text-[7.8rem] leading-[9.3rem] font-bold text-[#096770]">٣٥</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Latest achievements ===== -->
+  <div class="relative pt-[16rem] pb-[26.4rem] px-[4rem] lg:px-0">
+    <div class="section-title lg:mr-[15.3rem]">
+      <img src="assets/images/brand/mark.svg" alt="" class="mark">
+      <h2>أحـدث الانجـــــازات</h2>
+    </div>
+
+    <div class="mt-[10rem] grid grid-cols-1 md:grid-cols-2 lg:flex lg:justify-start gap-[5.7rem] lg:mr-[13.9rem]">
+      <article class="ach-card">
+        <img class="media" src="assets/images/photos/ach-booker.jpg" alt="تكريم مجلس التعاون">
+        <div class="tags"><span class="tag">الثقافة</span><span class="tag">الأدب</span></div>
+        <p class="date">23 May 2023</p>
+        <h3 class="title">تكريم مجلس التعاون</h3>
+        <p class="desc">حصل مشروع «إزالة الفينول باستخدام كربون نشط مصنع من مخلفات طبيعية » من جامعة السلطان قابوس على إنجازين مشرفين على المستوى الإقليمي والدولي جاء كالآتي: الميدالية الفضية …</p>
+        <a class="read" href="achievement-detail.html">اقرأ المزيد</a>
+      </article>
+      <article class="ach-card">
+        <img class="media" src="assets/images/photos/ach-red-award.jpg" alt="جائزة الأدب العربي">
+        <div class="tags"><span class="tag">الثقافة</span><span class="tag">الأدب</span></div>
+        <p class="date">23 May 2023</p>
+        <h3 class="title">جائزة الأدب العربي</h3>
+        <p class="desc">حصل مشروع «إزالة الفينول باستخدام كربون نشط مصنع من مخلفات طبيعية » من جامعة السلطان قابوس على إنجازين مشرفين على المستوى الإقليمي والدولي جاء كالآتي: الميدالية الفضية …</p>
+        <a class="read" href="achievement-detail.html">اقرأ المزيد</a>
+      </article>
+      <article class="ach-card">
+        <img class="media" src="assets/images/photos/ach-itex.jpg" alt="جائزة الأدب العربي">
+        <div class="tags"><span class="tag">الرياضة</span><span class="tag">كرة القدم</span></div>
+        <p class="date">23 May 2023</p>
+        <h3 class="title">جائزة الأدب العربي</h3>
+        <p class="desc">حصل مشروع «إزالة الفينول باستخدام كربون نشط مصنع من مخلفات طبيعية » من جامعة السلطان قابوس على إنجازين مشرفين على المستوى الإقليمي والدولي جاء كالآتي: الميدالية الفضية …</p>
+        <a class="read" href="achievement-detail.html">اقرأ المزيد</a>
+      </article>
+    </div>
+
+    <div class="mt-[7rem] lg:ml-[14.9rem] text-left"><a href="achievements.html" class="btn-more">المزيد</a></div>
+  </div>
+</section>
+
+<!-- ===== Featured achiever (background is the exported XD image) ===== -->
+<section class="relative lg:h-[83.4rem] bg-[#0c5a62] bg-cover bg-center"
+         style="background-image: image-set(url('assets/images/hero/featured-banner.jpg') 1x, url('assets/images/hero/featured-banner@2x.jpg') 2x);">
+  <div class="relative px-[4rem] py-[8rem] lg:p-0 lg:absolute lg:inset-0">
+    <h2 class="lg:absolute lg:top-[8.2rem] lg:right-[87.7rem] m-0 text-white text-[5.2rem] leading-[5.4rem] font-bold">د. جوخة الحارثية</h2>
+    <div class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[17.9rem] lg:right-[87.7rem] lg:w-[90.3rem] lg:h-[56.9rem] rounded-[3.3rem] bg-white/[0.77] pr-[5rem] pl-[5rem] lg:pl-0 pt-[6.5rem] pb-[5rem] lg:pb-0">
+      <p class="m-0 lg:w-[68.8rem] text-[2.6rem] leading-[5.4rem] text-black">
+        جوخة الحارثي كاتبة وأكاديمية عمانية. تعلمت في عمان والمملكة المتحدة. حصلت علي درجة الدكتوراه في الأدب العربي الكلاسيكي في جامعة إدنبرة. هي حاليًا أستاذ مشارك بقسم اللغة العربية بجامعة السلطان قابوس. وهي أول كاتبة أو كاتب عربي يفوز بجائزة المان بوكر العالمية. نشرت جوخة الحارثي ثلاث مجموعات من القصص القصيرة (مقاطع من سيرة لبنى إذ آن الرحيل، وصبي على السطح، وفي مديح الحب)، وأربع روايات (منامات - سيدات القمر - نارنجة - حرير الغزالة)......
+        <a href="achiever-detail.html" class="text-black hover:text-[#096770]">إقرأ المزيد</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Category sections ===== -->
+<section class="relative" x-data="{ sections: [
+    { title: 'الرياضة', tiles: [
+      { img: 'tile-ali', cat: 'الرياضة', name: 'علي الحبسي' }, { img: 'tile-ali', cat: 'الرياضة', name: 'علي الحبسي' },
+      { img: 'tile-ali', cat: 'الرياضة', name: 'علي الحبسي' }, { img: 'tile-ali', cat: 'الرياضة', name: 'علي الحبسي' } ] },
+    { title: 'الثقافة', tiles: [
+      { img: 'tile-aisha', cat: 'الأدب', name: 'عائشة السيفي' }, { img: 'tile-aisha', cat: 'الأدب', name: 'عائشة السيفي' },
+      { img: 'tile-jokha', cat: 'الأدب', name: 'جوخة الحارثي' }, { img: 'tile-jokha', cat: 'الأدب', name: 'جوخة الحارثي' } ] },
+    { title: 'الإبتكارات', tiles: [
+      { img: 'tile-aisha', cat: 'الرياضة', name: 'علي الحبسي' }, { img: 'tile-aisha', cat: 'الرياضة', name: 'علي الحبسي' },
+      { img: 'tile-jokha', cat: 'الرياضة', name: 'علي الحبسي' }, { img: 'tile-aisha', cat: 'الرياضة', name: 'علي الحبسي' } ] }
+  ] }">
+  <template x-for="(s, i) in sections" :key="s.title">
+    <div class="wash-block px-[4rem] lg:px-0" :class="[i === 0 ? 'pt-[20.3rem]' : 'pt-[2.85rem]', i === sections.length - 1 ? 'pb-[32.2rem]' : '']">
+      <div class="section-title lg:mr-[15.3rem]">
+        <img src="assets/images/brand/mark.svg" alt="" class="mark">
+        <h2 x-text="s.title"></h2>
+      </div>
+      <div class="mt-[8.85rem] grid grid-cols-2 lg:flex gap-[3rem] lg:gap-[6.9rem] lg:mr-[15.6rem]">
+        <template x-for="(t, j) in s.tiles" :key="j">
+          <a href="achiever-detail.html" class="tile">
+            <img :src="'assets/images/photos/' + t.img + '.jpg'" :alt="t.name">
+            <span class="cat" x-text="t.cat"></span>
+            <span class="name" x-text="t.name"></span>
+          </a>
+        </template>
+      </div>
+      <div class="mt-[6.7rem] lg:ml-[16rem] text-left"><a href="achievers.html" class="btn-more">المزيد</a></div>
+    </div>
+  </template>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer relative lg:h-[24.1rem] px-[4rem] py-[6rem] lg:p-0">
+  <a href="index.html" class="block w-[13rem] lg:absolute lg:top-[6rem] lg:right-[14rem]"><img src="assets/images/brand/logo-white.png" alt="إنجازات شباب عمان" class="w-full"></a>
+  <span class="hidden lg:block absolute top-[5.2rem] right-[34.2rem] w-px h-[14rem] bg-white/30"></span>
+  <ul class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[5.2rem] lg:right-[44.4rem] flex flex-col gap-[1.7rem] text-[1.6rem] leading-[2.2rem] tracking-[0.126rem] list-none p-0 m-0">
+    <li><a href="index.html">الصفحة الرئيسية</a></li>
+    <li><a href="about.html">عنا</a></li>
+    <li><a href="achievements.html">الإنجازات</a></li>
+    <li><a href="achievers.html">المنجزين</a></li>
+  </ul>
+  <ul class="mt-[3rem] lg:mt-0 lg:absolute lg:top-[5.2rem] lg:right-[62.3rem] flex flex-col gap-[1.7rem] text-[1.6rem] leading-[2.2rem] tracking-[0.126rem] list-none p-0 m-0">
+    <li><a href="institutions.html">المؤسسات</a></li>
+    <li><a href="media.html">الإعلام</a></li>
+    <li><a href="contact.html">تواصل معنا</a></li>
+  </ul>
+  <span class="hidden lg:block absolute top-[5.2rem] right-[84rem] w-px h-[14rem] bg-white/30"></span>
+  <ul class="mt-[3rem] lg:mt-0 lg:absolute lg:top-[5.5rem] lg:right-[94.3rem] flex flex-col gap-[1.9rem] text-[1.4rem] leading-[2rem] tracking-[0.111rem] list-none p-0 m-0">
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/phone.svg" alt="" class="w-[1.9rem]"><span dir="ltr">+968 93322212</span></li>
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/email.svg" alt="" class="w-[1.9rem]"><span>injaz@om.com</span></li>
+    <li class="flex items-center gap-[2.2rem]"><img src="assets/images/icons/location.svg" alt="" class="w-[1.9rem] h-[1.9rem] object-contain"><span>محافظة مسقط - سلطنة عمان</span></li>
+  </ul>
+  <p class="mt-[4rem] lg:mt-0 lg:absolute lg:top-[9.9rem] lg:right-[150.4rem] m-0 text-[1.4rem] leading-[2rem] tracking-[0.111rem]">جميع الحقوق محفوظة © 2023</p>
+</footer>
+
+</div>
+</body>
+</html>
