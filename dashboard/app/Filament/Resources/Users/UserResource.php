@@ -36,7 +36,7 @@ class UserResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $recordTitleAttribute = 'full_name';
+    protected static ?string $recordTitleAttribute = 'name';
 
     /**
      * Get the navigation badge count.
@@ -110,7 +110,7 @@ class UserResource extends Resource
      */
     public static function getGloballySearchableAttributes(): array
     {
-        return ['full_name', 'email', 'phone'];
+        return ['name', 'email', 'phone_number'];
     }
 
     /**

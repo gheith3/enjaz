@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             PoliciesAndPermissions::class,
             UserSeeder::class,
+            AchievementScopeSeeder::class,
+            OrganizationTypeSeeder::class,
+            AchievementMainTypeSeeder::class,
         ];
 
         $this->call($seeders);

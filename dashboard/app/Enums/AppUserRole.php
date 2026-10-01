@@ -10,7 +10,7 @@ enum AppUserRole: string implements HasColor, HasDescription, HasLabel
 {
     case SuperAdmin = 'super_admin';
     case Admin = 'admin';
-
+    case Editor = 'editor';
 
     public function getLabel(): string
     {
@@ -22,6 +22,7 @@ enum AppUserRole: string implements HasColor, HasDescription, HasLabel
         return match ($this) {
             self::SuperAdmin => 'Super Admin',
             self::Admin => 'Admin',
+            self::Editor => 'Editor',
         };
     }
 
@@ -30,6 +31,7 @@ enum AppUserRole: string implements HasColor, HasDescription, HasLabel
         return match ($this) {
             self::SuperAdmin => 'danger',
             self::Admin => 'danger',
+            self::Editor => 'info',
         };
     }
 
@@ -38,6 +40,7 @@ enum AppUserRole: string implements HasColor, HasDescription, HasLabel
         return [
             self::SuperAdmin->value,
             self::Admin->value,
+            self::Editor->value,
         ];
     }
 }

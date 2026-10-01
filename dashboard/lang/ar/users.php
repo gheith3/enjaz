@@ -103,6 +103,7 @@ return [
     'roles' => [
         'super_admin' => 'المشرف العام',
         'admin' => 'المشرف',
+        'editor' => 'محرر',
         'content_manager' => 'مدير المحتوى',
         'judge' => 'المحكم',
         'reviewer' => 'المراجع',

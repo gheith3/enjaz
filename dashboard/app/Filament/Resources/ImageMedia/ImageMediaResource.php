@@ -1,0 +1,105 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Filament\Resources\ImageMedia;
+
+use App\Filament\Resources\ImageMedia\Pages\CreateImageMedia;
+use App\Filament\Resources\ImageMedia\Pages\EditImageMedia;
+use App\Filament\Resources\ImageMedia\Pages\ListImageMedia;
+use App\Filament\Resources\ImageMedia\Pages\ViewImageMedia;
+use App\Filament\Resources\ImageMedia\Schemas\ImageMediaForm;
+use App\Filament\Resources\ImageMedia\Schemas\ImageMediaInfolist;
+use App\Filament\Resources\ImageMedia\Tables\ImageMediaTable;
+use App\Models\ImageMedia;
+use BackedEnum;
+use Filament\Resources\Pages\PageRegistration;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
+
+class ImageMediaResource extends Resource
+{
+    protected static ?string $model = ImageMedia::class;
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('common.nav_groups.media');
+    }
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $recordTitleAttribute = 'title_ar';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return 'primary';
+    }
+
+    public static function form(Schema $schema): Schema
+    {
+        return ImageMediaForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return ImageMediaInfolist::configure($schema);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return ImageMediaTable::configure($table);
+    }
+
+    /**
+     * @return array<class-string>
+     */
+    public static function getRelations(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<string, PageRegistration>
+     */
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListImageMedia::route('/'),
+            'create' => CreateImageMedia::route('/create'),
+            'view' => ViewImageMedia::route('/{record}'),
+            'edit' => EditImageMedia::route('/{record}/edit'),
+        ];
+    }
+
+    /**
+     * @return array<string>
+     */
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['title_ar', 'title_en'];
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('image_media.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('image_media.model_label_plural');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('image_media.model_label_plural');
+    }
+}

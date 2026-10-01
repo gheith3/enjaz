@@ -102,6 +102,7 @@ return [
     'roles' => [
         'super_admin' => 'Super Admin',
         'admin' => 'Admin',
+        'editor' => 'Editor',
         'content_manager' => 'Content Manager',
         'judge' => 'Judge',
         'reviewer' => 'Reviewer',

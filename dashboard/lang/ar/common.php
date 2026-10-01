@@ -52,6 +52,11 @@ return [
 
     'nav_groups' => [
         'content_management' => 'إدارة المحتوى',
+        'achievements' => 'الإنجازات',
+        'people' => 'الأشخاص',
+        'organizations' => 'المؤسسات',
+        'media' => 'الإعلام',
+        'classifications' => 'التصنيفات',
         'awards' => 'الجوائز',
         'operations' => 'العمليات',
         'administration' => 'الإدارة',

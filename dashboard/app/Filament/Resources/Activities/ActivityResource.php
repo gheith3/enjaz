@@ -72,7 +72,7 @@ class ActivityResource extends Resource
     public static function table(Table $table): Table
     {
         return ActivitiesTable::configure(
-            $table->modifyQueryUsing(fn($query) => $query->with(['causer', 'subject'])->latest())
+            $table->modifyQueryUsing(fn ($query) => $query->with(['causer', 'subject'])->latest())
         );
     }
 

@@ -50,7 +50,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
 
     protected function getFullPhoneNumberAttribute(): ?string
     {
-        return $this->country_code . ' ' . $this->phone_number;
+        return $this->country_code.' '.$this->phone_number;
     }
 
     public function getFilamentAvatarUrl(): ?string

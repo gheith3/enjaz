@@ -81,7 +81,7 @@ class UserInfolist
                         TextEntry::make('status')
                             ->label(__('users.infolist.fields.status'))
                             ->badge(),
-                            
+
                         IconEntry::make('email_verified_at')
                             ->label(__('users.infolist.fields.email_verified'))
                             ->boolean()

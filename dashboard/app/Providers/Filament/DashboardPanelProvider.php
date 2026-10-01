@@ -3,7 +3,6 @@
 namespace App\Providers\Filament;
 
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
-use Filafly\Themes\Prizm\PrizmTheme;
 use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -37,7 +36,7 @@ class DashboardPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->databaseNotifications()
             ->colors([
-                'primary' => Color::hex('#7B2D3E'),
+                'primary' => Color::hex('#214046'),
                 'danger' => Color::hex('#E53935'),
                 'gray' => Color::Slate,
                 'info' => Color::hex('#42A5F5'),
@@ -69,7 +68,7 @@ class DashboardPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make()
-                    ->navigationGroup(fn(): string => __('common.nav_groups.administration')),
+                    ->navigationGroup(fn (): string => __('common.nav_groups.administration')),
                 FilamentEditProfilePlugin::make()
                     ->slug('my-profile')
                     ->shouldShowDeleteAccountForm(false)
@@ -80,8 +79,8 @@ class DashboardPanelProvider extends PanelProvider
             ])
             ->userMenuItems([
                 'profile' => Action::make('profile')
-                    ->label(fn() => auth()->user()->name)
-                    ->url(fn(): string => EditProfilePage::getUrl())
+                    ->label(fn () => auth()->user()->name)
+                    ->url(fn (): string => EditProfilePage::getUrl())
                     ->icon(Heroicon::UserCircle),
             ]);
     }

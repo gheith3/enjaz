@@ -32,7 +32,6 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::policy(Activity::class, ActivityPolicy::class);
 
-
         // Manually register FilamentEditProfile Livewire components
         Livewire::component('edit_password_form', EditPasswordForm::class);
         Livewire::component('edit_profile_form', EditProfileForm::class);

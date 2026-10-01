@@ -52,6 +52,11 @@ return [
 
     'nav_groups' => [
         'content_management' => 'Content Management',
+        'achievements' => 'Achievements',
+        'people' => 'People',
+        'organizations' => 'Organizations',
+        'media' => 'Media',
+        'classifications' => 'Classifications',
         'awards' => 'Awards',
         'operations' => 'Operations',
         'administration' => 'Administration',

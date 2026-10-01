@@ -3,8 +3,8 @@
 namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 trait HasUuidWithlog
 {
