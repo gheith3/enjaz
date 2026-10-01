@@ -59,12 +59,14 @@ class Achievement extends Model
     public function publicFigures(): BelongsToMany
     {
         return $this->belongsToMany(PublicFigure::class, 'achievement_public_figure')
+            ->using(Pivots\AchievementPublicFigure::class)
             ->withTimestamps();
     }
 
     public function organizations(): BelongsToMany
     {
         return $this->belongsToMany(Organization::class, 'achievement_organization')
+            ->using(Pivots\AchievementOrganization::class)
             ->withTimestamps();
     }
 }

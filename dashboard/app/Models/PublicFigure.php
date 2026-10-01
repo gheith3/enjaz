@@ -59,6 +59,7 @@ class PublicFigure extends Model
     public function achievements(): BelongsToMany
     {
         return $this->belongsToMany(Achievement::class, 'achievement_public_figure')
+            ->using(Pivots\AchievementPublicFigure::class)
             ->withTimestamps();
     }
 

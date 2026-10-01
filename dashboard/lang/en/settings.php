@@ -15,7 +15,6 @@ return [
         'home' => 'Home Settings',
         'about' => 'About Settings',
         'media' => 'Media Settings',
-        'contact' => 'Contact Settings',
     ],
 
     'sections' => [
@@ -23,7 +22,6 @@ return [
         'identity_description' => 'Site name and address in both languages',
         'contact_information' => 'Contact Information',
         'contact_information_description' => 'Phone numbers and email displayed across the site',
-        'contact_page_description' => 'Phone numbers, email and map link shown on the contact page',
         'branding' => 'Branding',
         'branding_description' => 'Logo used across the site',
         'social_media' => 'Social Media',
@@ -54,7 +52,6 @@ return [
         'address_ar' => 'Address (Arabic)',
         'address_en' => 'Address (English)',
         'phone' => 'Phone',
-        'phone_primary' => 'Primary Phone',
         'phone_secondary' => 'Secondary Phone',
         'email' => 'Email',
         'social_media_accounts' => 'Social Media Accounts',
@@ -88,9 +85,6 @@ return [
         'founder_position_en' => 'Founder Position (English)',
         'founder_photo' => 'Founder Photo',
         'profile_document' => 'Profile Document',
-        'instagram_url' => 'Instagram URL',
-        'twitter_url' => 'Twitter / X URL',
-        'linkedin_url' => 'LinkedIn URL',
     ],
 
     'placeholders' => [

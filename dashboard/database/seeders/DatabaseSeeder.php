@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             AchievementScopeSeeder::class,
             OrganizationTypeSeeder::class,
             AchievementMainTypeSeeder::class,
+            DesignContentSeeder::class,
         ];
 
         $this->call($seeders);

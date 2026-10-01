@@ -8,15 +8,15 @@ use Spatie\LaravelSettings\Settings;
 
 class HomeSettings extends Settings
 {
-    public string $hero_image = '';
+    public ?string $hero_image = null;
 
-    public string $quote_ar = '';
+    public ?string $quote_ar = null;
 
-    public string $quote_en = '';
+    public ?string $quote_en = null;
 
-    public string $quote_author_ar = '';
+    public ?string $quote_author_ar = null;
 
-    public string $quote_author_en = '';
+    public ?string $quote_author_en = null;
 
     public static function group(): string
     {

@@ -48,6 +48,7 @@ class Organization extends Model
     public function achievements(): BelongsToMany
     {
         return $this->belongsToMany(Achievement::class, 'achievement_organization')
+            ->using(Pivots\AchievementOrganization::class)
             ->withTimestamps();
     }
 

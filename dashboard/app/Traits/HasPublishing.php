@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\Builder;
 trait HasPublishing
 {
     #[Scope]
-    public function published(Builder $query): Builder
+    protected function published(Builder $query): Builder
     {
         return $query->where('is_published', true);
     }
 
     #[Scope]
-    public function ordered(Builder $query): Builder
+    protected function ordered(Builder $query): Builder
     {
         return $query->orderBy('sort_order');
     }

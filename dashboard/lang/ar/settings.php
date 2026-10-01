@@ -15,7 +15,6 @@ return [
         'home' => 'إعدادات الرئيسية',
         'about' => 'إعدادات عن إنجازات',
         'media' => 'إعدادات الإعلام',
-        'contact' => 'إعدادات التواصل',
     ],
 
     'sections' => [
@@ -23,7 +22,6 @@ return [
         'identity_description' => 'اسم الموقع وعنوانه باللغتين',
         'contact_information' => 'معلومات التواصل',
         'contact_information_description' => 'أرقام الهواتف والبريد الإلكتروني المعروضة في الموقع',
-        'contact_page_description' => 'أرقام الهواتف والبريد الإلكتروني ورابط الخريطة المعروضة في صفحة التواصل',
         'branding' => 'الهوية البصرية',
         'branding_description' => 'الشعار المستخدم في الموقع',
         'social_media' => 'وسائل التواصل الاجتماعي',
@@ -54,7 +52,6 @@ return [
         'address_ar' => 'العنوان (بالعربية)',
         'address_en' => 'العنوان (بالإنجليزية)',
         'phone' => 'الهاتف',
-        'phone_primary' => 'الهاتف الرئيسي',
         'phone_secondary' => 'الهاتف الثانوي',
         'email' => 'البريد الإلكتروني',
         'social_media_accounts' => 'حسابات التواصل الاجتماعي',
@@ -88,9 +85,6 @@ return [
         'founder_position_en' => 'منصب المؤسس (بالإنجليزية)',
         'founder_photo' => 'صورة المؤسس',
         'profile_document' => 'الملف التعريفي',
-        'instagram_url' => 'رابط إنستغرام',
-        'twitter_url' => 'رابط تويتر / إكس',
-        'linkedin_url' => 'رابط لينكدإن',
     ],
 
     'placeholders' => [

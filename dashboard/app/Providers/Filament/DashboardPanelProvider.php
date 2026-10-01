@@ -37,11 +37,11 @@ class DashboardPanelProvider extends PanelProvider
             ->databaseNotifications()
             ->colors([
                 'primary' => Color::hex('#214046'),
-                'danger' => Color::hex('#E53935'),
-                'gray' => Color::Slate,
-                'info' => Color::hex('#42A5F5'),
-                'success' => Color::hex('#4CAF50'),
-                'warning' => Color::hex('#FFA726'),
+                // 'danger' => Color::hex('#E53935'),
+                // 'gray' => Color::Slate,
+                // 'info' => Color::hex('#42A5F5'),
+                // 'success' => Color::hex('#4CAF50'),
+                // 'warning' => Color::hex('#FFA726'),
             ])
             ->maxContentWidth(Width::Full)
             ->viteTheme('resources/css/filament/dashboard/theme.css')
