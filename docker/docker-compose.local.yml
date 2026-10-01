@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: enjaz_user
       POSTGRES_PASSWORD: enjaz_secret
     ports:
-      - "9042:5432"
+      - "5992:5432"
     volumes:
       - enjaz_postgres_data:/var/lib/postgresql/data
     networks:
@@ -19,7 +19,7 @@ services:
     image: redis:7-alpine
     container_name: enjaz-redis
     ports:
-      - "9043:6379"
+      - "5993:6379"
     volumes:
       - enjaz_redis_data:/data
     healthcheck:
@@ -30,9 +30,33 @@ services:
     networks:
       - enjaz-network
 
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: enjaz-s3
+    restart: always
+    ports:
+      - "5994:9001"
+      - "5995:9000"
+    environment:
+      RUSTFS_ACCESS_KEY: 0Fcn8zl2ge5T
+      RUSTFS_SECRET_KEY: dytge5-niMcik-gyvxir
+    volumes:
+      - enjaz_rustfs_data:/data
+    command: >
+      /data
+      --address :9000
+      --console-enable
+      --console-address :9001
+      --access-key 0Fcn8zl2ge5T
+      --secret-key dytge5-niMcik-gyvxir
+      --server-domains enjaz.test
+    networks:
+      - enjaz-network
+
 volumes:
   enjaz_postgres_data:
   enjaz_redis_data:
+  enjaz_rustfs_data:
 
 networks:
   enjaz-network:
