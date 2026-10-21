@@ -3,7 +3,7 @@
 <div>
 <x-inner-header :title="__('site.media.videos_title')" />
 
-<main class="wash-block relative overflow-hidden">
+<main class="wash-block relative">
   <section class="relative px-[4rem] lg:px-0 lg:mx-[14rem] pt-[10rem] pb-[14rem]">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[3rem]">
       @foreach ($videos as $video)

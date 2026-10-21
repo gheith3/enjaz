@@ -2,6 +2,7 @@
 
 use App\Livewire\Pages;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,11 @@ Route::get('/media/images-albums/{imageMedia:slug}', Pages\MediaImageAlbumShow::
 Route::get('/news/{news:slug}', Pages\NewsShow::class)->name('news.show');
 
 Route::get('/contact', Pages\Contact::class)->name('contact');
+
+// Serve media from the default disk (S3/MinIO) through the app origin, so
+// pages loaded over https://enjaz.test don't hit mixed-content blocking.
+Route::get('/cdn/{path}', function (string $path) {
+    abort_unless(Storage::exists($path), 404);
+
+    return Storage::response($path);
+})->where('path', '.*')->name('cdn');

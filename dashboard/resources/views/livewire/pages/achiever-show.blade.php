@@ -32,9 +32,9 @@
 
 <div>
 <!-- ===== Profile header (1920 x 621) ===== -->
-<header class="relative overflow-hidden lg:h-[62.1rem] pt-[18rem] lg:p-0 bg-[linear-gradient(211deg,#0c7f89_0%,#0e4348_100%)]">
+<header class="bleed relative lg:h-[62.1rem] pt-[18rem] lg:p-0 bg-[linear-gradient(211deg,#0c7f89_0%,#0e4348_100%)]">
   <div class="relative z-10 px-[4rem] lg:p-0 text-white">
-    <h1 class="lg:absolute lg:top-[28.6rem] lg:right-[69.2rem] m-0 text-[5.2rem] leading-[5.4rem] font-bold whitespace-nowrap">{{ $name }}</h1>
+    <h1 class="lg:absolute lg:top-[28.6rem] lg:right-[69.2rem] m-0 text-[5.2rem] leading-[5.4rem] font-bold lg:whitespace-nowrap">{{ $name }}</h1>
     @if ($figure->name_en)
       <p class="lg:absolute lg:top-[36.2rem] lg:right-[69.2rem] mt-[1.5rem] lg:mt-0 mb-0 text-[3.7rem] leading-[5.4rem] whitespace-nowrap" dir="ltr">{{ $figure->name_en }}</p>
     @endif
@@ -48,11 +48,12 @@
 
   @if ($portrait)
     <img src="{{ \Illuminate\Support\Facades\Storage::url($portrait) }}"
-         alt="{{ $name }}" class="relative block mt-[4rem] lg:mt-0 lg:absolute lg:left-[118.3rem] lg:top-[14.4rem] w-full lg:w-[84.8rem] max-w-none">
+         alt="{{ $name }}" class="relative block mt-[4rem] lg:mt-0 lg:absolute lg:left-[118.3rem] lg:top-[14.4rem] w-full lg:w-[84.8rem] lg:h-[47.7rem] lg:object-cover lg:object-top max-w-none
+                lg:[mask-image:linear-gradient(to_right,transparent_0,#000_12rem)]">
   @endif
 </header>
 
-<main class="wash-block relative overflow-hidden">
+<main class="wash-block relative">
   <img src="{{ asset('images/brand/logo-white.png') }}" alt="" aria-hidden="true" class="hidden lg:block absolute left-[46rem] top-[60rem] w-[100rem] brightness-0 opacity-[0.03] pointer-events-none">
 
   <!-- Social links -->
@@ -136,7 +137,7 @@
 
   <!-- More achievers band -->
   @if ($related->isNotEmpty())
-    <section class="mt-[24.3rem] bg-[#f7f7f7] lg:h-[53.4rem] px-[4rem] lg:px-0 pt-[3.1rem] pb-[6rem] lg:pb-0">
+    <section class="bleed relative mt-[24.3rem] bg-[#f7f7f7] lg:h-[53.4rem] px-[4rem] lg:px-0 pt-[3.1rem] pb-[6rem] lg:pb-0">
       <h2 class="m-0 lg:mr-[14rem] text-[3.2rem] leading-[4.4rem] font-bold text-black">{{ __('site.more') }}</h2>
       <div class="mt-[4.6rem] grid grid-cols-2 sm:grid-cols-3 lg:flex gap-[3rem] lg:gap-[4.9rem] lg:mr-[19.6rem]">
         @foreach ($related as $relatedFigure)

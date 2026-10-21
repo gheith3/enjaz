@@ -86,7 +86,30 @@ function contactForm() {
   };
 }
 
-document.addEventListener('alpine:init', () => {
+// About-page testimonial cards: shows the previous/current/next quote around index.
+function quoteCarousel(items) {
+  return {
+    index: 0,
+    items: items,
+    at(o) {
+      const n = this.items.length;
+      return this.items[(this.index + o + n) % n];
+    },
+  };
+}
+
+// About-page news strip: all items rendered in rotated order starting at index.
+function rotatingCarousel(items) {
+  return {
+    index: 0,
+    items: items,
+    get visible() {
+      return this.items.map((_, k) => this.items[(this.index + k) % this.items.length]);
+    },
+  };
+}
+
+function registerSiteComponents(Alpine) {
   Alpine.data('siteNav', siteNav);
   Alpine.data('categoryFilter', categoryFilter);
   Alpine.data('scopeTabs', scopeTabs);
@@ -94,4 +117,15 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('carousel', carousel);
   Alpine.data('contactForm', contactForm);
   Alpine.data('photoCarousel', photoCarousel);
-});
+  Alpine.data('quoteCarousel', quoteCarousel);
+  Alpine.data('rotatingCarousel', rotatingCarousel);
+}
+
+// Livewire's Alpine may already have started by the time this module executes
+// (script order differs between the Vite dev server and the built assets), so
+// register immediately when possible instead of missing the alpine:init event.
+if (window.Alpine) {
+  registerSiteComponents(window.Alpine);
+} else {
+  document.addEventListener('alpine:init', () => registerSiteComponents(window.Alpine));
+}

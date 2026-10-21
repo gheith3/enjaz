@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
 @import 'tailwindcss';
-@import './site.css';
+/* The design's custom classes live in the components layer so Tailwind
+   utilities (layer utilities) can override them — e.g. lg: sizes on
+   .collage images. */
+@import './site.css' layer(components);
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';

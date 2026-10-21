@@ -2,6 +2,7 @@
     'title',
     'searchPlaceholder' => null,
     'showSearch' => true,
+    'withIllustration' => false,
 ])
 
 @php
@@ -9,8 +10,10 @@
 @endphp
 
 <!-- ===== Inner header (1920 x 421) ===== -->
-<header class="inner-header relative overflow-hidden lg:h-[42.1rem] pt-[18rem] pb-[6rem] lg:p-0">
-  <img src="{{ asset('images/brand/mountain-flag.svg') }}" alt="" aria-hidden="true" class="hidden lg:block absolute left-[96rem] top-[4.2rem] w-[116.3rem] max-w-none pointer-events-none">
+<header class="inner-header relative lg:h-[42.1rem] pt-[18rem] pb-[6rem] lg:p-0">
+  @if ($withIllustration)
+    <img src="{{ asset('images/brand/mountain-flag.svg') }}" alt="" aria-hidden="true" class="hidden lg:block absolute left-[96rem] top-[4.2rem] w-[116.3rem] max-w-none pointer-events-none">
+  @endif
 
   <h1 class="relative lg:absolute lg:top-[17.4rem] inset-x-0 m-0 text-center text-white text-[6.7rem] leading-[9.4rem] font-normal">{{ $title }}</h1>
   @if ($showSearch)

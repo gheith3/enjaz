@@ -28,7 +28,7 @@
 @endphp
 
 <!-- ===== Contact (single screen, 1920 x 1079, no footer) ===== -->
-<header class="relative overflow-hidden min-h-screen lg:min-h-0 lg:h-[107.9rem] pt-[18rem] pb-[40rem] lg:p-0 bg-[linear-gradient(196deg,#0c7f89_0%,#0e4348_100%)]">
+<header class="bleed relative max-lg:overflow-hidden min-h-screen lg:min-h-0 lg:h-[107.9rem] pt-[18rem] pb-[40rem] lg:p-0 bg-[linear-gradient(196deg,#0c7f89_0%,#0e4348_100%)]">
   <img src="{{ asset('images/brand/mountain-flag.svg') }}" alt="" aria-hidden="true" class="absolute left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-[56.6rem] bottom-0 lg:bottom-auto lg:top-[63.7rem] w-[90rem] lg:w-[138.2rem] max-w-none pointer-events-none">
 
   <div class="relative z-10 px-[4rem] lg:p-0 flex flex-col gap-[6rem] lg:block text-white">

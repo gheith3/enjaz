@@ -3,7 +3,7 @@
 <div>
 <x-inner-header :title="$imageMedia->t('title')" :show-search="false" />
 
-<main class="wash-block relative overflow-hidden">
+<main class="wash-block relative">
   <section class="relative px-[4rem] lg:px-0 lg:mx-[14rem] pt-[10rem] pb-[14rem]">
     @if ($imageMedia->t('description'))
       <p class="m-0 mb-[5rem] text-[2.6rem] leading-[3.6rem] text-[#171717]">{{ $imageMedia->t('description') }}</p>

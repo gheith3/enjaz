@@ -234,7 +234,7 @@ class ContentImportSeeder extends Seeder
         }
 
         $target = 'content/'.$path;
-        Storage::disk('public')->put($target, File::get($source));
+        Storage::disk((string) config('filesystems.default'))->put($target, File::get($source));
 
         return $target;
     }

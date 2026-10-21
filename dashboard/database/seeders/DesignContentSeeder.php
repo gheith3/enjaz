@@ -79,7 +79,7 @@ class DesignContentSeeder extends Seeder
 
         foreach (['photos', 'logos', 'hero'] as $dir) {
             foreach (File::files("{$source}/{$dir}") as $file) {
-                Storage::disk('public')->put("seed/{$dir}/".$file->getFilename(), File::get($file->getPathname()));
+                Storage::disk((string) config('filesystems.default'))->put("seed/{$dir}/".$file->getFilename(), File::get($file->getPathname()));
                 $copied++;
             }
         }
@@ -90,7 +90,7 @@ class DesignContentSeeder extends Seeder
                 continue;
             }
 
-            Storage::disk('public')->put("{$this->about}/".$file->getFilename(), File::get($file->getPathname()));
+            Storage::disk((string) config('filesystems.default'))->put("{$this->about}/".$file->getFilename(), File::get($file->getPathname()));
             $copied++;
         }
 
@@ -110,8 +110,8 @@ class DesignContentSeeder extends Seeder
         foreach (['publication-1.pdf', 'publication-2.pdf', 'profile.pdf'] as $name) {
             $path = "{$this->documents}/{$name}";
 
-            if (! Storage::disk('public')->exists($path)) {
-                Storage::disk('public')->put($path, $pdf);
+            if (! Storage::disk((string) config('filesystems.default'))->exists($path)) {
+                Storage::disk((string) config('filesystems.default'))->put($path, $pdf);
             }
         }
     }

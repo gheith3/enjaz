@@ -22,7 +22,7 @@
 
 <div>
 <!-- ===== Hero (1920 x 979, rounded bottom-left) ===== -->
-<header class="relative lg:h-[97.9rem] pt-[18rem] pb-[8rem] lg:p-0 rounded-bl-[25rem] max-lg:rounded-bl-[8rem] bg-[linear-gradient(180deg,#0b626a_0%,#063135_100%)]">
+<header class="bleed relative lg:h-[97.9rem] pt-[18rem] pb-[8rem] lg:p-0 rounded-bl-[25rem] max-lg:rounded-bl-[8rem] bg-[linear-gradient(180deg,#0b626a_0%,#063135_100%)]">
   <div class="relative px-[4rem] lg:p-0 flex flex-col gap-[5rem] lg:block">
     @if ($introParagraphs)
       <p class="m-0 lg:absolute lg:top-[31rem] lg:right-[14rem] lg:w-[81.2rem] text-white text-[2.65rem] leading-[5.03rem]">
@@ -43,7 +43,7 @@
   </div>
 </header>
 
-<main class="wash-block relative overflow-hidden">
+<main class="wash-block relative">
   <img src="{{ asset('images/brand/logo-white.png') }}" alt="" aria-hidden="true" class="hidden lg:block absolute left-[40rem] top-[8rem] w-[110rem] brightness-0 opacity-[0.03] pointer-events-none">
 
   <!-- Values / Mission / Vision -->
@@ -83,7 +83,7 @@
 
   <!-- Testimonials -->
   @if ($testimonials->isNotEmpty())
-    <section class="relative mt-[21.2rem]" x-data='{ ...carousel(@js($testimonials->count())), items: @js($testimonials), at(o) { const n = this.items.length; return this.items[(this.index + o + n) % n]; } }'>
+    <section class="relative mt-[21.2rem]" x-data="quoteCarousel(@js($testimonials))">
       <x-section-title :title="__('site.about.testimonials')" class="px-[4rem] lg:px-0 lg:mr-[18rem] !gap-[2.1rem]" />
       <div class="relative mt-[10.8rem] lg:h-[48rem] overflow-hidden">
         <div class="quote-card max-lg:hidden lg:right-[-55.5rem]" aria-hidden="true">
@@ -125,7 +125,7 @@
 
   <!-- Our achievements carousel -->
   @if ($newsItems->isNotEmpty())
-    <section class="relative px-[4rem] lg:px-0 mt-[13.9rem] pb-[16.5rem]" x-data='{ ...carousel(@js($newsItems->count())), items: @js($newsItems), get visible() { return this.items.map((_, k) => this.items[(this.index + k) % this.items.length]); } }'>
+    <section class="relative px-[4rem] lg:px-0 mt-[13.9rem] pb-[16.5rem]" x-data="rotatingCarousel(@js($newsItems))">
       <x-section-title :title="__('site.about.achievements')" class="lg:mr-[18rem] !gap-[2.1rem]" />
       <div class="relative mt-[7.4rem]">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(4,38.1rem)] gap-[3.8rem] lg:mr-[14.1rem]">

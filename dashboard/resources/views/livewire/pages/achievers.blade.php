@@ -1,7 +1,7 @@
 @section('title', __('site.achievers.meta_title'))
 
 <div>
-<x-inner-header :title="__('site.achievers.title')" />
+<x-inner-header :title="__('site.achievers.title')" :with-illustration="true" />
 
 <!-- ===== Filters + grid ===== -->
 <main class="relative px-[4rem] lg:px-0 pb-[8rem]">

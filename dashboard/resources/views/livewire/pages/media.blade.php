@@ -3,7 +3,7 @@
 <div>
 <x-inner-header :title="__('site.media.heading')" :search-placeholder="__('site.media.search_placeholder')" />
 
-<main class="wash-block relative overflow-hidden">
+<main class="wash-block relative">
   <img src="{{ asset('images/brand/logo-white.png') }}" alt="" aria-hidden="true" class="hidden lg:block absolute left-[34.6rem] top-[0.8rem] w-[77rem] brightness-0 opacity-[0.035] pointer-events-none">
 
   <!-- Latest news -->

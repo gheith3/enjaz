@@ -12,7 +12,7 @@
 
 <div>
 <!-- ===== Hero (1920 x 1080) ===== -->
-<header class="hero-bg relative overflow-hidden lg:h-[108rem]">
+<header class="hero-bg bleed relative lg:h-[108rem]">
   <img src="{{ asset('images/brand/logo-white.png') }}" alt="" aria-hidden="true" class="watermark w-[110rem] top-[12rem] -right-[14rem]">
 
   <!-- Portrait (photo, ring and swoosh are one image in the design) -->
@@ -38,7 +38,7 @@
 </header>
 
 <!-- ===== Carousel + stats ===== -->
-<section class="relative bg-[linear-gradient(180deg,#c0d8db_0rem,#ddeaeb_16rem,#f3f6f2_42rem,#ffffff_60rem)]">
+<section class="bleed relative bg-[linear-gradient(180deg,#c0d8db_0rem,#ddeaeb_16rem,#f3f6f2_42rem,#ffffff_60rem)]">
   <div class="absolute inset-0 wash opacity-70 [mask-image:linear-gradient(to_bottom,transparent_0,#000_40rem)]"></div>
 
   <!-- Photo carousel -->
@@ -102,7 +102,7 @@
 
 <!-- ===== Featured achiever ===== -->
 @if ($featuredFigure)
-  <section class="relative lg:h-[83.4rem] bg-[#0c5a62] bg-cover bg-center"
+  <section class="bleed relative lg:h-[83.4rem] bg-[#0c5a62] bg-cover bg-center"
            @if ($featuredBannerUrl) style="background-image: url('{{ $featuredBannerUrl }}');" @endif>
     <div class="relative px-[4rem] py-[8rem] lg:p-0 lg:absolute lg:inset-0">
       <h2 class="lg:absolute lg:top-[8.2rem] lg:right-[87.7rem] m-0 text-white text-[5.2rem] leading-[5.4rem] font-bold">{{ $featuredFigure->t('name') }}</h2>
@@ -120,7 +120,7 @@
 @if ($categoryRows->isNotEmpty())
   <section class="relative">
     @foreach ($categoryRows as $i => $type)
-      <div class="wash-block px-[4rem] lg:px-0 {{ $i === 0 ? 'pt-[20.3rem]' : 'pt-[2.85rem]' }} {{ $loop->last ? 'pb-[32.2rem]' : '' }}">
+      <div class="wash-block relative px-[4rem] lg:px-0 {{ $i === 0 ? 'pt-[20.3rem]' : 'pt-[2.85rem]' }} {{ $loop->last ? 'pb-[32.2rem]' : '' }}">
         <x-section-title :title="$type->t('title')" class="lg:mr-[15.3rem]" />
         <div class="mt-[8.85rem] grid grid-cols-2 lg:flex gap-[3rem] lg:gap-[6.9rem] lg:mr-[15.6rem]">
           @foreach ($type->publicFigures as $figure)

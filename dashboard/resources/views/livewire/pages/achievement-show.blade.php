@@ -19,10 +19,10 @@
 
 <div>
   <!-- ===== Article header (1920 x 854) ===== -->
-  <header class="relative z-10 lg:h-[85.4rem] pt-[18rem] pb-[6rem] lg:p-0 bg-[#3d6563] bg-cover bg-center" @if ($coverUrl) style="background-image:url('{{ $coverUrl }}')" @endif>
+  <header class="bleed relative z-10 lg:h-[85.4rem] pt-[18rem] pb-[6rem] lg:p-0 bg-[#3d6563] bg-cover bg-center" @if ($coverUrl) style="background-image:url('{{ $coverUrl }}')" @endif>
     <div class="relative px-[4rem] lg:p-0">
       <img src="{{ asset('images/brand/mark.svg') }}" alt="" aria-hidden="true" class="lg:absolute lg:top-[57.5rem] lg:right-[68.4rem] w-[12.5rem] h-[7.8rem]">
-      <h1 class="lg:absolute lg:top-[68.1rem] lg:right-[67.9rem] mt-[2rem] lg:mt-0 mb-0 text-white text-[4rem] leading-[4.8rem] font-bold lg:whitespace-nowrap">{{ $title }}</h1>
+      <h1 class="lg:absolute lg:top-[68.1rem] lg:right-[67.9rem] lg:max-w-[124rem] mt-[2rem] lg:mt-0 mb-0 text-white text-[4rem] leading-[4.8rem] font-bold">{{ $title }}</h1>
     </div>
 
     @if ($achiever)
@@ -64,7 +64,7 @@
 
     <!-- More achievements band -->
     @if ($related->count())
-      <section class="mt-[15.7rem] bg-[#f7f7f7] lg:h-[99rem] px-[4rem] lg:px-0 pt-[6.8rem] pb-[6rem] lg:pb-0">
+      <section class="bleed relative mt-[15.7rem] bg-[#f7f7f7] lg:h-[99rem] px-[4rem] lg:px-0 pt-[6.8rem] pb-[6rem] lg:pb-0">
         <h2 class="m-0 lg:mr-[14rem] text-[3.2rem] leading-[4.4rem] font-bold text-black">{{ __('site.more') }}</h2>
         <div class="mt-[8rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(3,50.9rem)] gap-[5.7rem] lg:mr-[17.3rem]">
           @foreach ($related as $item)

@@ -18,12 +18,12 @@
 
 <div>
   <!-- ===== Institution header (1920 x 650) ===== -->
-  <header class="relative overflow-hidden lg:h-[65rem] pt-[18rem] pb-[14rem] lg:p-0 bg-[linear-gradient(210deg,#0c7f89_0%,#0e4348_100%)]">
+  <header class="bleed relative lg:h-[65rem] pt-[18rem] pb-[14rem] lg:p-0 bg-[linear-gradient(210deg,#0c7f89_0%,#0e4348_100%)]">
     <div class="relative px-[4rem] lg:p-0 flex flex-col items-start gap-[3rem] lg:block">
       @if ($organization->logo_white_path || $organization->logo_path)
         <img src="{{ \Illuminate\Support\Facades\Storage::url($organization->logo_white_path ?: $organization->logo_path) }}" alt="{{ $organization->t('name') }}" class="w-[20rem] lg:absolute lg:top-[22.5rem] lg:right-[20.4rem] lg:w-[26.1rem]">
       @endif
-      <div class="text-white lg:absolute lg:top-[31.9rem] lg:right-[56.2rem] whitespace-nowrap">
+      <div class="text-white lg:absolute lg:top-[31.9rem] lg:right-[56.2rem] lg:whitespace-nowrap">
         @if ($organization->organizationType)
           <p class="m-0 text-[3.5rem] leading-[7rem]">{{ $organization->organizationType->t('title') }}</p>
         @endif
@@ -32,7 +32,7 @@
     </div>
   </header>
 
-  <main class="wash-block relative overflow-hidden">
+  <main class="wash-block relative">
     <img src="{{ asset('images/brand/logo-white.png') }}" alt="" aria-hidden="true" class="hidden lg:block absolute left-[44rem] top-[66rem] w-[100rem] brightness-0 opacity-[0.03] pointer-events-none">
 
     <!-- About card (overlaps the header) -->
@@ -60,7 +60,7 @@
         @if ($organization->manager_image_path)
           <div class="relative mx-auto lg:mx-0 w-[59.2rem] max-w-full h-[51rem] lg:absolute lg:top-[9rem] lg:right-[20.4rem]">
             <span class="absolute bottom-0 inset-x-0 h-[36.7rem] rounded-[4.6rem] border border-[#707070] bg-[linear-gradient(180deg,#0c7f89_0%,#0e4348_100%)]"></span>
-            <img src="{{ \Illuminate\Support\Facades\Storage::url($organization->manager_image_path) }}" alt="{{ $managerName }}" class="absolute bottom-0 right-[2.2rem] w-[52.9rem] max-w-[96%]">
+            <img src="{{ \Illuminate\Support\Facades\Storage::url($organization->manager_image_path) }}" alt="{{ $managerName }}" class="absolute bottom-0 right-[2.2rem] w-[52.9rem] max-w-[96%] max-h-[51rem] object-cover object-top">
           </div>
         @endif
       </section>
@@ -96,7 +96,7 @@
 
     <!-- More institutions band -->
     @if ($more->isNotEmpty())
-      <section class="bg-[#f7f7f7] lg:h-[53.4rem] px-[4rem] lg:px-0 pt-[5.2rem] pb-[6rem] lg:pb-0">
+      <section class="bleed relative bg-[#f7f7f7] lg:h-[53.4rem] px-[4rem] lg:px-0 pt-[5.2rem] pb-[6rem] lg:pb-0">
         <h2 class="m-0 lg:mr-[14rem] text-[3.2rem] leading-[4.4rem] font-bold text-black">{{ __('site.more') }}</h2>
         <div class="mt-[3.2rem] grid grid-cols-2 lg:grid-cols-[repeat(4,35.3rem)] gap-[3rem] lg:gap-x-[5.8rem] lg:mr-[16.4rem]">
           @foreach ($more as $other)
