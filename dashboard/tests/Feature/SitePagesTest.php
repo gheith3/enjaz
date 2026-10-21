@@ -24,6 +24,9 @@ use Livewire\Livewire;
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
+    // The suite asserts Arabic copy; CI boots with APP_LOCALE=en from .env.example.
+    app()->setLocale('ar');
+
     AboutSettings::fake([
         'intro_text_ar' => 'نص تعريفي تجريبي',
         'vision_ar' => 'رؤية تجريبية',
