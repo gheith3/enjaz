@@ -11,7 +11,11 @@ html {
 }
 /* --sbw (scrollbar width) is set in app.js so the page fills the visible width exactly */
 @media (min-width: 1024px) {
-  html { font-size: calc((100vw - var(--sbw, 0px)) / 192); }
+  /* Content band: the site renders inside an 80%-of-viewport band (max 2400px),
+     centered. All design rem measurements map to this band (192rem = band width).
+     The .page width override lives at the end of this file (source order). */
+  :root { --sitew: min((100vw - var(--sbw, 0px)) * 0.8, 2400px); }
+  html { font-size: calc(var(--sitew) / 192); }
 }
 
 :root {
@@ -293,4 +297,9 @@ body {
   .quote-photo { right: auto; left: 50%; transform: translateX(-50%); top: -2rem; }
   .quote-name { margin-inline: 0; }
   .lib-profile { min-height: 34.5rem; }
+}
+
+/* Desktop content band (see the scale-system @media block above) */
+@media (min-width: 1024px) {
+  .page { width: var(--sitew, 100%); margin-inline: auto; }
 }
