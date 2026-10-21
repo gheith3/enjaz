@@ -1,0 +1,52 @@
+# Secrets — never bake these into an image layer
+.env
+.env.*
+!.env.example
+storage/.app_key
+auth.json
+
+# VCS / IDE
+.git
+.gitignore
+.gitattributes
+.idea
+.vscode
+.nova
+.zed
+.cursor
+.codex
+
+# Dependencies (installed fresh inside the image)
+/vendor
+/node_modules
+
+# Build output (compiled in the frontend stage, not needed from context)
+/public/build
+/public/hot
+/public/storage
+
+# Runtime/local state that shouldn't ship in the image
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/pail
+!/storage/framework/cache/.gitignore
+!/storage/framework/sessions/.gitignore
+!/storage/framework/views/.gitignore
+
+# Tests / dev tooling
+/tests
+.phpunit.result.cache
+.phpunit.cache
+phpunit.xml
+.editorconfig
+.phpactor.json
+_ide_helper.php
+
+# Docs and misc
+README.md
+*.log
+Thumbs.db
+.DS_Store

@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Reused by build-and-push.yml so tagged images are only built from passing commits.
+  workflow_call:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: dashboard
+
+jobs:
+  pint:
+    name: Code style (Pint)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: bcmath, gd, intl, zip, pdo_sqlite, pdo_pgsql
+          coverage: none
+
+      - uses: ramsey/composer-install@v4
+        with:
+          working-directory: dashboard
+
+      - name: Check formatting
+        run: vendor/bin/pint --test
+
+  tests:
+    name: Tests (${{ matrix.database }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        database: [sqlite, pgsql]
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: enjaz_testing
+          POSTGRES_USER: enjaz
+          POSTGRES_PASSWORD: secret
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U enjaz"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: bcmath, gd, intl, zip, pdo_sqlite, pdo_pgsql
+          coverage: none
+
+      - uses: ramsey/composer-install@v4
+        with:
+          working-directory: dashboard
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+
+      # Page tests render the Filament theme and site pages, which need the Vite manifest.
+      - name: Build the frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Prepare the application
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Run tests on SQLite
+        if: matrix.database == 'sqlite'
+        run: php artisan test --compact
+
+      # PostgreSQL matches production and catches bugs SQLite does not (UUID columns, jsonb).
+      - name: Run tests on PostgreSQL
+        if: matrix.database == 'pgsql'
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: enjaz_testing
+          DB_USERNAME: enjaz
+          DB_PASSWORD: secret
+        run: php artisan test --compact
