@@ -11,6 +11,7 @@ enum AppUserRole: string implements HasColor, HasDescription, HasLabel
     case SuperAdmin = 'super_admin';
     case Admin = 'admin';
     case Editor = 'editor';
+    case FullMcp = 'full_mcp';
 
     public function getLabel(): string
     {
@@ -23,6 +24,7 @@ enum AppUserRole: string implements HasColor, HasDescription, HasLabel
             self::SuperAdmin => 'Super Admin',
             self::Admin => 'Admin',
             self::Editor => 'Editor',
+            self::FullMcp => 'Full MCP access: manage achievements and achievers through the AI assistant',
         };
     }
 
@@ -32,6 +34,7 @@ enum AppUserRole: string implements HasColor, HasDescription, HasLabel
             self::SuperAdmin => 'danger',
             self::Admin => 'danger',
             self::Editor => 'info',
+            self::FullMcp => 'warning',
         };
     }
 
@@ -41,6 +44,7 @@ enum AppUserRole: string implements HasColor, HasDescription, HasLabel
             self::SuperAdmin->value,
             self::Admin->value,
             self::Editor->value,
+            self::FullMcp->value,
         ];
     }
 }

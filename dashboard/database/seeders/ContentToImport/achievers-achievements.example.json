@@ -1,0 +1,65 @@
+{
+  "_instructions": {
+    "en": "Fill this file with real content, then send it back together with the images folder. Do not rename keys. Arabic fields are required; English fields may be null. Delete the example entries and add your own. See README.md in this folder for full field documentation.",
+    "ar": "عبّئ هذا الملف بالمحتوى الحقيقي ثم أرسله مع مجلد الصور. لا تغيّر أسماء الحقول. الحقول العربية إلزامية والإنجليزية اختيارية (null). احذف الأمثلة وأضف بياناتك. راجع README.md في نفس المجلد لشرح الحقول."
+  },
+
+  "achievers": [
+    {
+      "slug": "example-achiever",
+      "name_ar": "جوخة الحارثية",
+      "name_en": "Jokha Alharthi",
+      "headline_ar": "أكاديمية بجامعة السلطان قابوس - كاتبة وروائية - فائزة بجائزة البوكر العالمية",
+      "headline_en": "Academic at Sultan Qaboos University - Writer and novelist - Booker Prize winner",
+      "description_ar": "نبذة تعريفية عن المنجز تظهر في صفحته الشخصية وفي البانر المميز.",
+      "description_en": null,
+      "story_ar": "قصة المنجز الكاملة (قصتي).",
+      "story_en": null,
+      "main_type": "literature",
+      "is_featured": true,
+      "in_home_carousel": true,
+      "is_published": true,
+      "sort_order": 1,
+      "images": {
+        "image": "photos/jokha.jpg",
+        "tile": "photos/jokha-tile.jpg",
+        "cutout": "photos/jokha-cutout.png",
+        "banner": "photos/jokha-banner.jpg"
+      },
+      "social": {
+        "linkedin_url": null,
+        "twitter_url": "https://twitter.com/example",
+        "instagram_url": null,
+        "facebook_url": null,
+        "whatsapp_number": null,
+        "email": "example@email.com",
+        "phone": null
+      },
+      "achievements": ["example-achievement"]
+    }
+  ],
+
+  "achievements": [
+    {
+      "slug": "example-achievement",
+      "title_ar": "الفوز بجائزة مان بوكر العالمية 2019",
+      "title_en": "Winning the Man Booker International Prize 2019",
+      "excerpt_ar": "مقتطف قصير يظهر في بطاقة الإنجاز (سطرين أو ثلاثة).",
+      "excerpt_en": null,
+      "description_ar": "نص المقال الكامل الذي يظهر في صفحة الإنجاز.",
+      "description_en": null,
+      "scope": "international",
+      "main_type": "culture",
+      "sub_type": null,
+      "achieved_at": "2019-05-21",
+      "country_ar": "سلطنة عمان",
+      "country_en": "Oman",
+      "cover_image": "photos/booker-cover.jpg",
+      "video_url": null,
+      "is_published": true,
+      "sort_order": 1,
+      "achievers": ["example-achiever"],
+      "organizations": []
+    }
+  ]
+}

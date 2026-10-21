@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use App\Policies\ActivityPolicy;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Joaopaulolndev\FilamentEditProfile\Livewire\BrowserSessionsForm;
@@ -31,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Gate::policy(Activity::class, ActivityPolicy::class);
+
+        // AI agents make bursts of calls; keep a generous but finite per-user bucket.
+        RateLimiter::for('mcp', fn (Request $request): Limit => Limit::perMinute(120)
+            ->by('mcp:'.($request->user()?->getAuthIdentifier() ?? $request->ip())));
 
         // Manually register FilamentEditProfile Livewire components
         Livewire::component('edit_password_form', EditPasswordForm::class);

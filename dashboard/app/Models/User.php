@@ -13,11 +13,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser, HasAvatar
 {
-    use HasFactory, HasRoles, HasUuidWithlog, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, HasRoles, HasUuidWithlog, Notifiable, SoftDeletes;
+
+    /**
+     * Pin spatie permission checks to the web guard so `can()` stays correct
+     * when the request is authenticated through the Passport `api` guard (MCP).
+     */
+    protected string $guard_name = 'web';
 
     protected $fillable = [
         'name',

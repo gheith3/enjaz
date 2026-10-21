@@ -13,14 +13,16 @@ class PoliciesAndPermissions extends Seeder
 {
     /**
      * Resource subjects the editor role must never receive: user, role and
-     * activity-log management stay reserved for admins.
+     * activity-log management stay reserved for admins, and MCP (AI assistant)
+     * access is a deliberate grant seeded in RolesSeeder.
      */
-    private const EDITOR_EXCLUDED_SUBJECTS = [':User', ':Role', ':Activity'];
+    private const EDITOR_EXCLUDED_SUBJECTS = [':User', ':Role', ':Activity', ':Mcp'];
 
     public function run(): void
     {
         $this->generatePoliciesAndPermissions();
         $this->syncEditorPermissions();
+        $this->syncFullMcpPermissions();
     }
 
     private function generatePoliciesAndPermissions(): void
@@ -62,5 +64,30 @@ class PoliciesAndPermissions extends Seeder
         $subject = Str::of($permission)->after(':');
 
         return $subject->startsWith('Manage') && $subject->endsWith('Settings');
+    }
+
+    /**
+     * The full_mcp role can do everything the MCP server exposes: MCP access
+     * itself plus every generated permission on the Achievement and
+     * PublicFigure subjects (exact match, so taxonomy subjects are excluded).
+     */
+    private function syncFullMcpPermissions(): void
+    {
+        $fullMcp = Role::where('name', AppUserRole::FullMcp->value)
+            ->where('guard_name', 'web')
+            ->first();
+
+        if (! $fullMcp) {
+            return;
+        }
+
+        $permissions = Permission::where('guard_name', 'web')
+            ->get()
+            ->filter(
+                fn (Permission $permission) => $permission->name === 'Use:Mcp'
+                    || Str::endsWith($permission->name, [':Achievement', ':PublicFigure'])
+            );
+
+        $fullMcp->syncPermissions($permissions);
     }
 }

@@ -104,6 +104,7 @@ return [
         'super_admin' => 'المشرف العام',
         'admin' => 'المشرف',
         'editor' => 'محرر',
+        'full_mcp' => 'وصول MCP كامل',
         'content_manager' => 'مدير المحتوى',
         'judge' => 'المحكم',
         'reviewer' => 'المراجع',

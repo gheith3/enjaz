@@ -103,6 +103,7 @@ return [
         'super_admin' => 'Super Admin',
         'admin' => 'Admin',
         'editor' => 'Editor',
+        'full_mcp' => 'Full MCP',
         'content_manager' => 'Content Manager',
         'judge' => 'Judge',
         'reviewer' => 'Reviewer',

@@ -21,15 +21,15 @@ class Home extends Component
     {
         $locale = app()->getLocale();
 
-        $quote = $locale === 'en' && $settings->quote_en !== ''
+        $quote = $locale === 'en' && filled($settings->quote_en)
             ? $settings->quote_en
             : $settings->quote_ar;
 
-        $quoteAuthor = $locale === 'en' && $settings->quote_author_en !== ''
+        $quoteAuthor = $locale === 'en' && filled($settings->quote_author_en)
             ? $settings->quote_author_en
             : $settings->quote_author_ar;
 
-        $heroImageUrl = $settings->hero_image !== ''
+        $heroImageUrl = filled($settings->hero_image)
             ? Storage::url($settings->hero_image)
             : null;
 
@@ -37,6 +37,7 @@ class Home extends Component
             ->where('in_home_carousel', true)
             ->ordered()
             ->get()
+            ->filter(fn (PublicFigure $figure) => filled($figure->tile_image_path ?: $figure->image_path))
             ->map(fn (PublicFigure $figure) => [
                 'src' => Storage::url($figure->tile_image_path ?: $figure->image_path),
                 'alt' => $figure->t('name'),
@@ -89,7 +90,7 @@ class Home extends Component
             'featuredBannerUrl' => $featuredBannerUrl,
             'featuredExcerpt' => $featuredExcerpt,
             'categoryRows' => $categoryRows,
-            'metaDescription' => $quote !== '' ? Str::limit($quote, 160) : __('site.meta.description'),
+            'metaDescription' => filled($quote) ? Str::limit($quote, 160) : __('site.meta.description'),
         ]);
     }
 }
