@@ -1,0 +1,192 @@
+services:
+  app:
+    image: ghcr.io/gheith3/enjaz:latest
+    container_name: enjaz-app
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rustfs:
+        condition: service_started
+    environment:
+      # ============================================
+      # Application (REQUIRED)
+      # ============================================
+      APP_NAME: ${APP_NAME:-enjaz}
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_URL: ${APP_URL:?APP_URL is required}
+      ASSET_URL: ${APP_URL:?APP_URL is required}
+      APP_KEY: ${APP_KEY:?APP_KEY is required}
+      APP_LOCALE: ${APP_LOCALE:-ar}
+      APP_FALLBACK_LOCALE: ${APP_FALLBACK_LOCALE:-ar}
+      APP_FAKER_LOCALE: ${APP_FAKER_LOCALE:-ar_SA}
+      APP_MAINTENANCE_DRIVER: ${APP_MAINTENANCE_DRIVER:-file}
+      BCRYPT_ROUNDS: ${BCRYPT_ROUNDS:-12}
+
+      # ============================================
+      # Logging
+      # ============================================
+      LOG_CHANNEL: ${LOG_CHANNEL:-stack}
+      LOG_STACK: ${LOG_STACK:-single}
+      LOG_DEPRECATIONS_CHANNEL: ${LOG_DEPRECATIONS_CHANNEL:-null}
+      LOG_LEVEL: ${LOG_LEVEL:-warning}
+
+      # ============================================
+      # Database
+      # ============================================
+      DB_CONNECTION: pgsql
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_DATABASE: ${POSTGRES_DB:-enjaz}
+      DB_USERNAME: ${POSTGRES_USER:-enjaz_user}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+
+      # ============================================
+      # Redis
+      # ============================================
+      REDIS_CLIENT: phpredis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-null}
+
+      # ============================================
+      # Cache, Session, Queue & Broadcast
+      # ============================================
+      BROADCAST_CONNECTION: ${BROADCAST_CONNECTION:-log}
+      CACHE_STORE: redis
+      SESSION_DRIVER: redis
+      SESSION_LIFETIME: 120
+      SESSION_ENCRYPT: "false"
+      SESSION_PATH: /
+      SESSION_DOMAIN: ${SESSION_DOMAIN:-}
+      QUEUE_CONNECTION: redis
+      QUEUE_FAILED_DRIVER: database-uuids
+
+      # ============================================
+      # Mail
+      # ============================================
+      MAIL_MAILER: ${MAIL_MAILER:-log}
+      MAIL_SCHEME: ${MAIL_SCHEME:-null}
+      MAIL_HOST: ${MAIL_HOST:-127.0.0.1}
+      MAIL_PORT: ${MAIL_PORT:-2525}
+      MAIL_USERNAME: ${MAIL_USERNAME:-null}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-null}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-hello@example.com}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-Enjaz}
+
+      # ============================================
+      # Filesystem (S3-compatible)
+      # ============================================
+      # Bundled RustFS (S3-compatible) service below. The app talks to it over
+      # the internal network; S3_URL is the public URL browsers use to fetch
+      # files (nginx -> enjaz-s3:9000, the S3 API port, not the console).
+      FILESYSTEM_DISK: s3
+      FILAMENT_FILESYSTEM_DISK: s3
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:?AWS_ACCESS_KEY_ID is required}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:?AWS_SECRET_ACCESS_KEY is required}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-us-east-1}
+      AWS_BUCKET: ${AWS_BUCKET:-enjaz}
+      AWS_USE_PATH_STYLE_ENDPOINT: "true"
+      AWS_ENDPOINT: http://rustfs:9000
+      AWS_URL: ${S3_URL:?S3_URL is required}/${AWS_BUCKET:-enjaz}
+
+      # ============================================
+      # Backups
+      # ============================================
+      # Keep backups off the app's storage volume (s3 = the RustFS bucket above).
+      BACKUP_DISK: ${BACKUP_DISK:-s3}
+
+      # ============================================
+      # AI assistant (MCP) — off unless enabled (docs/mcp-setup.md)
+      # ============================================
+      ENJAZ_MCP_ENABLED: ${ENJAZ_MCP_ENABLED:-false}
+      ENJAZ_MCP_ALLOWED_IPS: ${ENJAZ_MCP_ALLOWED_IPS:-}
+      ENJAZ_MCP_PERSONAL_TOKENS: ${ENJAZ_MCP_PERSONAL_TOKENS:-true}
+      DB_MCP_USERNAME: ${DB_MCP_USERNAME:-enjaz_mcp_reader}
+      DB_MCP_PASSWORD: ${DB_MCP_PASSWORD:-}
+
+      # ============================================
+      # Migration
+      # ============================================
+      RUN_MIGRATIONS: ${RUN_MIGRATIONS:-true}
+    volumes:
+      - enjaz_app_storage:/var/www/html/storage
+    networks:
+      - enjaz-network
+      - proxy
+
+  database:
+    image: postgres:16
+    container_name: enjaz-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-enjaz}
+      POSTGRES_USER: ${POSTGRES_USER:-enjaz_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    volumes:
+      - enjaz_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-enjaz_user} -d ${POSTGRES_DB:-enjaz}",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - enjaz-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: enjaz-redis
+    command: redis-server --appendonly yes ${REDIS_PASSWORD:+--requirepass $REDIS_PASSWORD}
+    restart: unless-stopped
+    volumes:
+      - enjaz_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - enjaz-network
+
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: enjaz-s3
+    restart: unless-stopped
+    ports:
+      - "${S3_CONSOLE_PORT:-5664}:9001"
+      - "${S3_API_PORT:-5665}:9000"
+    environment:
+      RUSTFS_ACCESS_KEY: ${AWS_ACCESS_KEY_ID:?AWS_ACCESS_KEY_ID is required}
+      RUSTFS_SECRET_KEY: ${AWS_SECRET_ACCESS_KEY:?AWS_SECRET_ACCESS_KEY is required}
+    volumes:
+      - enjaz_rustfs_data:/data
+    command: >
+      /data
+      --address :9000
+      --console-enable
+      --console-address :9001
+    networks:
+      - enjaz-network
+      - proxy
+
+networks:
+  enjaz-network:
+    driver: bridge
+  # Shared network the server's nginx reverse proxy is attached to.
+  proxy:
+    external: true
+
+volumes:
+  enjaz_app_storage:
+  enjaz_postgres_data:
+  enjaz_redis_data:
+  enjaz_rustfs_data:
