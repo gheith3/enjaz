@@ -1,7 +1,7 @@
 # ==========================================
 # STAGE 1: Base PHP Environment
 # ==========================================
-FROM php:8.4-fpm-alpine AS base
+FROM php:8.4.27-fpm-alpine AS base
 
 # Runtime packages and the shared libraries the PHP extensions link against.
 RUN apk add --no-cache \
