@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# CAMS Docker entrypoint
-echo "🚀 Starting CAMS ${APP_VERSION:-dev} (${GIT_COMMIT:-unknown})..."
+# Injazat Docker entrypoint
+echo "🚀 Starting Injazat ${APP_VERSION:-dev} (${GIT_COMMIT:-unknown})..."
 
 # Create storage directories FIRST (required for artisan commands)
 echo "📁 Setting up storage directories..."
@@ -118,35 +118,24 @@ case "$RUN_MIGRATIONS" in
         ;;
 esac
 
-# A migration that re-creates the mcp views drops the AI reader's grants; re-apply them
-# (idempotent) whenever free SQL is configured. A failure must not stop the app.
-if [ -n "$DB_MCP_PASSWORD" ] && [ "$DB_CONNECTION" = "pgsql" ]; then
-    echo "🔐 Applying AI free-SQL reader grants..."
-    php artisan cams:mcp-sql-setup --no-interaction || echo "⚠️ cams:mcp-sql-setup failed; AI free SQL may be unavailable"
-fi
-
 # Roles and permissions must exist; both steps only add what is missing. Permissions only:
 # the policy files are committed, and regenerating them would overwrite custom methods.
-# Default role permissions (RolePermissionsSeeder) are NOT re-synced on start, so changes
-# made under Administration → Roles survive restarts; run it by hand after releases that
-# add permissions (see docs/deployment.md).
 echo "⚡ Seeding roles and generating permissions..."
 php artisan db:seed --class=RolesSeeder --force --no-interaction
 php artisan shield:generate --all --panel=dashboard --option=permissions --no-interaction
 
-# API docs (/docs): generated, not committed.
-echo "📚 Generating API docs..."
-php artisan scribe:generate --force --no-interaction >/dev/null 2>&1 || echo "⚠️ API docs generation failed; /docs may be unstyled"
+# Passport personal access client: required for personal access tokens (MCP debug and
+# script access). Idempotent — only created when none exists.
+if ! php artisan tinker --execute="echo \Illuminate\Support\Facades\DB::table('oauth_clients')->whereJsonContains('grant_types', 'personal_access')->exists() ? 'yes' : '';" 2>/dev/null | grep -q yes; then
+    echo "🔑 Creating Passport personal access client..."
+    php artisan passport:client --personal --name="Personal Access" --no-interaction || echo "⚠️ Could not create the Passport personal access client"
+fi
 
 echo "⚡ Optimizing application..."
 php artisan optimize:clear
 php artisan livewire:publish --assets
 php artisan optimize
 php artisan filament:optimize
-
-# Sync schedule monitor (tracks scheduled tasks)
-echo "📊 Syncing schedule monitor..."
-php artisan schedule-monitor:sync --no-interaction 2>/dev/null || true
 
 echo "✅ Laravel initialization complete!"
 
