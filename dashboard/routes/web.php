@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Storage;
 
 Route::get('/', Pages\Home::class)->name('home');
 
+// Guests hitting /oauth/authorize (MCP connect) are sent here by the auth
+// middleware; forward to the Filament panel login.
+Route::get('/login', fn () => redirect()->route('filament.dashboard.auth.login'))->name('login');
+
 Route::get('/about', Pages\About::class)->name('about');
 
 Route::get('/achievers', Pages\Achievers::class)->name('achievers.index');
