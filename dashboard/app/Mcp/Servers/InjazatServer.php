@@ -15,6 +15,7 @@ use App\Mcp\Tools\SearchAchievements;
 use App\Mcp\Tools\SearchAchievers;
 use App\Mcp\Tools\UpdateAchievement;
 use App\Mcp\Tools\UpdateAchiever;
+use App\Mcp\Tools\UploadImage;
 use Laravel\Mcp\Server;
 use Laravel\Mcp\Server\Attributes\Instructions;
 use Laravel\Mcp\Server\Attributes\Name;
@@ -28,6 +29,8 @@ You manage Injazat (إنجازات شباب عمان), the Oman youth achievemen
 Content is bilingual: most fields come in Arabic (`*_ar`) and English (`*_en`) variants. Achievements belong to a scope, a main type and optionally a sub type; achievers belong to a main type. All of these are referenced by slug — call list-taxonomies first to discover valid slugs before creating or updating records.
 
 Achievements link to achievers and organizations by slug arrays; achievers link back to their achievements. Records are never hard-deleted through these tools: delete soft-deletes, and soft-deleted records stay hidden from every tool.
+
+Images are attached with upload-image (base64): achievement → cover; achiever → image, tile, cutout, banner; organization → logo, logo_white, manager_image. After an upload, confirm with the matching get-* tool.
 
 Answer in the user's language, Arabic or English. When a write succeeds, confirm with the record's slug. If a returned list is truncated, say that the answer covers only part of the results.
 TEXT)]
@@ -47,5 +50,6 @@ class InjazatServer extends Server
         CreateAchiever::class,
         UpdateAchiever::class,
         DeleteAchiever::class,
+        UploadImage::class,
     ];
 }

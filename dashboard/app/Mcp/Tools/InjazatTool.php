@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Mcp\Tools;
 
 use App\Models\Achievement;
+use App\Models\Organization;
 use App\Models\PublicFigure;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +60,14 @@ abstract class InjazatTool extends Tool
     protected function findAchiever(string $identifier): ?PublicFigure
     {
         return PublicFigure::query()
+            ->where('slug', $identifier)
+            ->when(Str::isUuid($identifier), fn ($query) => $query->orWhere('id', $identifier))
+            ->first();
+    }
+
+    protected function findOrganization(string $identifier): ?Organization
+    {
+        return Organization::query()
             ->where('slug', $identifier)
             ->when(Str::isUuid($identifier), fn ($query) => $query->orWhere('id', $identifier))
             ->first();

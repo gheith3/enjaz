@@ -42,5 +42,6 @@ Every JSON-RPC message is audited in `mcp_usages` (method, tool, truncated argum
 | `create-achiever` | `Create:PublicFigure` | `name_ar` required; flags `is_featured`/`in_home_carousel`; `achievements` slug array |
 | `update-achiever` | `Update:PublicFigure` | by slug; partial |
 | `delete-achiever` | `Delete:PublicFigure` | soft delete |
+| `upload-image` | `Update:Achievement` / `Update:PublicFigure` / `Update:Organization` by `type` | base64 image (optional `data:` prefix) to achievement `cover`, achiever `image`/`tile`/`cutout`/`banner`, or organization `logo`/`logo_white`/`manager_image`; max 10 MB, jpeg/png/webp/gif; replaces the previous file |
 
 Server class: `app/Mcp/Servers/InjazatServer.php`; tools under `app/Mcp/Tools/` extending `InjazatTool` (auth, permission checks, structured responses). Record UUIDs are never accepted from input; slug conflicts fail validation.
