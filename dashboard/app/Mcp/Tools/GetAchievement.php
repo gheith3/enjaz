@@ -14,7 +14,7 @@ use Laravel\Mcp\Server\Attributes\Name;
 use Laravel\Mcp\Server\Tools\Annotations\IsReadOnly;
 
 #[Name('get-achievement')]
-#[Description('Get one achievement by slug or id: the full bilingual record with its scope, main and sub type, linked achiever slugs and organization slugs.')]
+#[Description('Get one achievement by slug or id: the full bilingual record with its scope, main and sub type, linked achiever slugs and organization slugs, plus per-image-slot url and verified metadata (sha256, bytes, width, height, mime) — use it to confirm an upload by comparing sha256.')]
 #[IsReadOnly]
 class GetAchievement extends InjazatTool
 {

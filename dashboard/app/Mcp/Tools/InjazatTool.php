@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Mcp\Tools;
 
+use App\Mcp\ImageUploader;
 use App\Models\Achievement;
 use App\Models\Organization;
 use App\Models\PublicFigure;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -71,6 +73,16 @@ abstract class InjazatTool extends Tool
             ->where('slug', $identifier)
             ->when(Str::isUuid($identifier), fn ($query) => $query->orWhere('id', $identifier))
             ->first();
+    }
+
+    /** Resolve the record an image upload targets (type is validated upstream). */
+    protected function findImageTarget(string $type, string $identifier): ?Model
+    {
+        return match ($type) {
+            'achievement' => $this->findAchievement($identifier),
+            'achiever' => $this->findAchiever($identifier),
+            'organization' => $this->findOrganization($identifier),
+        };
     }
 
     /** Resolve a taxonomy slug to its id (existence is validated by the tool). */
@@ -141,6 +153,9 @@ abstract class InjazatTool extends Tool
             'country_en' => $achievement->country_en,
             'video_url' => $achievement->video_url,
             'achieved_at' => $achievement->achieved_at?->toDateString(),
+            'images' => [
+                'cover' => ImageUploader::describe($achievement->cover_image_path),
+            ],
             'is_published' => $achievement->is_published,
             'sort_order' => $achievement->sort_order,
             'achievers' => $achievement->publicFigures->pluck('slug')->all(),
@@ -175,6 +190,12 @@ abstract class InjazatTool extends Tool
             'whatsapp_number' => $figure->whatsapp_number,
             'email' => $figure->email,
             'phone' => $figure->phone,
+            'images' => [
+                'image' => ImageUploader::describe($figure->image_path),
+                'tile' => ImageUploader::describe($figure->tile_image_path),
+                'cutout' => ImageUploader::describe($figure->cutout_image_path),
+                'banner' => ImageUploader::describe($figure->banner_image_path),
+            ],
             'achievements' => $figure->achievements->pluck('slug')->all(),
         ];
     }

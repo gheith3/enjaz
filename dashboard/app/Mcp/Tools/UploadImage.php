@@ -4,134 +4,96 @@ declare(strict_types=1);
 
 namespace App\Mcp\Tools;
 
-use App\Enums\FileStoragePath;
+use App\Mcp\ImageUploader;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Illuminate\JsonSchema\Types\Type;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\ResponseFactory;
 use Laravel\Mcp\Server\Attributes\Description;
 use Laravel\Mcp\Server\Attributes\Name;
-use Throwable;
 
 #[Name('upload-image')]
-#[Description('Attach an image (base64) to a content record: an achievement cover, an achiever photo slot, or an organization logo/manager slot. Fields per type — achievement: cover; achiever: image, tile, cutout, banner; organization: logo, logo_white, manager_image. Replaces any previous file. Max 10 MB, jpeg/png/webp/gif.')]
+#[Description('Attach an image (base64) to a content record: an achievement cover, an achiever photo slot, or an organization logo/manager slot. Fields per type — achievement: cover; achiever: image, tile, cutout, banner; organization: logo, logo_white, manager_image. Pass one slot as `field` or several as `fields` to attach the same image to multiple slots at once. Always pass `sha256` (hex SHA-256 of the decoded bytes) so corruption is caught before anything is written. Replaces any previous file. Max 10 MB decoded, jpeg/png/webp/gif. For payloads longer than ~8,000 base64 chars use begin-image-upload / append-image-chunk / finish-image-upload instead.')]
 class UploadImage extends InjazatTool
 {
-    private const int MAX_BYTES = 10 * 1024 * 1024;
-
-    /** @var array<string, array<string, array{column: string, dir: FileStoragePath}>> */
-    private const array FIELDS = [
-        'achievement' => [
-            'cover' => ['column' => 'cover_image_path', 'dir' => FileStoragePath::AchievementCover],
-        ],
-        'achiever' => [
-            'image' => ['column' => 'image_path', 'dir' => FileStoragePath::PublicFigureImage],
-            'tile' => ['column' => 'tile_image_path', 'dir' => FileStoragePath::PublicFigureTile],
-            'cutout' => ['column' => 'cutout_image_path', 'dir' => FileStoragePath::PublicFigureCutout],
-            'banner' => ['column' => 'banner_image_path', 'dir' => FileStoragePath::PublicFigureBanner],
-        ],
-        'organization' => [
-            'logo' => ['column' => 'logo_path', 'dir' => FileStoragePath::OrganizationLogo],
-            'logo_white' => ['column' => 'logo_white_path', 'dir' => FileStoragePath::OrganizationLogoWhite],
-            'manager_image' => ['column' => 'manager_image_path', 'dir' => FileStoragePath::OrganizationManagerImage],
-        ],
-    ];
-
-    /** @var array<string, string> */
-    private const array PERMISSIONS = [
-        'achievement' => 'Update:Achievement',
-        'achiever' => 'Update:PublicFigure',
-        'organization' => 'Update:Organization',
-    ];
-
-    /** @var array<string, string> */
-    private const array MIME_EXTENSIONS = [
-        'image/jpeg' => 'jpg',
-        'image/png' => 'png',
-        'image/webp' => 'webp',
-        'image/gif' => 'gif',
-    ];
-
     public function handle(Request $request): Response|ResponseFactory
     {
         $validated = $request->validate([
-            'type' => ['required', 'string', Rule::in(array_keys(self::FIELDS))],
+            'type' => ['required', 'string', Rule::in(array_keys(ImageUploader::FIELDS))],
             'slug' => ['required', 'string'],
-            'field' => ['required', 'string'],
+            'field' => ['required_without:fields', 'prohibits:fields', 'string'],
+            'fields' => ['required_without:field', 'prohibits:field', 'array', 'min:1'],
+            'fields.*' => ['string'],
             'image' => ['required', 'string'],
+            'sha256' => ['nullable', 'string', 'regex:/^[0-9a-f]{64}$/'],
         ]);
 
         $type = $validated['type'];
-        $fields = self::FIELDS[$type];
+        $slots = isset($validated['fields'])
+            ? array_values(array_unique($validated['fields']))
+            : [$validated['field']];
 
-        if (! array_key_exists($validated['field'], $fields)) {
+        $invalid = array_diff($slots, array_keys(ImageUploader::FIELDS[$type]));
+
+        if ($invalid !== []) {
             return Response::error(
-                "Field [{$validated['field']}] is not valid for type [{$type}]; allowed: ".implode(', ', array_keys($fields)).'.'
+                'Field(s) ['.implode(', ', $invalid)."] not valid for type [{$type}]; allowed: "
+                .implode(', ', array_keys(ImageUploader::FIELDS[$type])).'.'
             );
         }
 
-        if (! $this->can(self::PERMISSIONS[$type])) {
+        if (! $this->can(ImageUploader::PERMISSIONS[$type])) {
             return Response::error("You are not allowed to update {$type} records.");
         }
 
-        $record = match ($type) {
-            'achievement' => $this->findAchievement($validated['slug']),
-            'achiever' => $this->findAchiever($validated['slug']),
-            'organization' => $this->findOrganization($validated['slug']),
-        };
+        $record = $this->findImageTarget($type, $validated['slug']);
 
         if ($record === null) {
             return Response::error("No {$type} matches [{$validated['slug']}].");
         }
 
-        $base64 = preg_replace('/^data:image\/[a-zA-Z0-9.+-]+;base64,/', '', $validated['image']) ?? '';
-        $bytes = base64_decode($base64, true);
+        $decoded = ImageUploader::decode($validated['image']);
 
-        if ($bytes === false || $bytes === '') {
+        if ($decoded === null) {
             return Response::error('The image payload is not valid base64.');
         }
 
-        if (strlen($bytes) > self::MAX_BYTES) {
-            return Response::error('The image exceeds the 10 MB limit.');
-        }
+        $bytes = $decoded['bytes'];
 
-        $mime = finfo_buffer(new \finfo(FILEINFO_MIME_TYPE), $bytes);
-        $extension = self::MIME_EXTENSIONS[$mime] ?? null;
+        if (isset($validated['sha256'])) {
+            $actual = hash('sha256', $bytes);
 
-        if ($extension === null) {
-            return Response::error("Unsupported image type [{$mime}]; allowed: jpeg, png, webp, gif.");
-        }
-
-        $field = $fields[$validated['field']];
-        $disk = Storage::disk((string) config('filesystems.default'));
-        $previous = $record->{$field['column']};
-        $path = $field['dir']->value.'/'.Str::uuid().'.'.$extension;
-
-        try {
-            $disk->put($path, $bytes, 'public');
-
-            $record->update([$field['column'] => $path]);
-
-            if (is_string($previous) && $previous !== '' && $previous !== $path && $disk->exists($previous)) {
-                $disk->delete($previous);
+            if (! hash_equals($validated['sha256'], $actual)) {
+                return Response::error('Checksum mismatch: '.json_encode([
+                    'expected_sha256' => $validated['sha256'],
+                    'actual_sha256' => $actual,
+                    'decoded_bytes' => strlen($bytes),
+                    'base64_length' => $decoded['base64_length'],
+                ]));
             }
-        } catch (Throwable $exception) {
-            return Response::error('Failed to store the image: '.$exception->getMessage());
         }
 
-        return $this->structured([
-            'uploaded' => true,
-            'type' => $type,
-            'slug' => $record->slug,
-            'field' => $validated['field'],
-            'path' => $path,
-            'url' => $disk->url($path),
-            'size' => strlen($bytes),
-        ]);
+        $meta = ImageUploader::inspect($bytes);
+
+        if (is_string($meta)) {
+            return Response::error($meta);
+        }
+
+        $result = ImageUploader::attach($record, $type, $slots, $bytes, $meta);
+
+        $payload = ImageUploader::payload($type, $record->slug, $result);
+
+        if (! isset($validated['fields']) && count($result['files']) === 1) {
+            $file = $result['files'][0];
+            $payload['field'] = $file['field'];
+            $payload['path'] = $file['path'];
+            $payload['url'] = $file['url'];
+            $payload['size'] = $file['bytes'];
+        }
+
+        return $this->structured($payload);
     }
 
     /**
@@ -142,8 +104,10 @@ class UploadImage extends InjazatTool
         return [
             'type' => $schema->string()->enum(['achievement', 'achiever', 'organization'])->required()->description('Record type the image belongs to.'),
             'slug' => $schema->string()->required()->description('Slug (or UUID id) of the record to attach the image to.'),
-            'field' => $schema->string()->required()->description('Image slot: achievement → cover; achiever → image, tile, cutout, banner; organization → logo, logo_white, manager_image.'),
-            'image' => $schema->string()->required()->description('Base64-encoded image (a data:image/...;base64, prefix is fine). Max 10 MB decoded; jpeg, png, webp or gif.'),
+            'field' => $schema->string()->description('Single image slot (use either field or fields): achievement → cover; achiever → image, tile, cutout, banner; organization → logo, logo_white, manager_image.'),
+            'fields' => $schema->array()->description('Several image slots to attach the same image to in one call (use either field or fields).'),
+            'image' => $schema->string()->required()->description('Base64-encoded image (a data:image/...;base64, prefix and line breaks are fine). Max 10 MB decoded; jpeg, png, webp or gif. Longer than ~8,000 chars? Use the chunked begin-image-upload tools instead.'),
+            'sha256' => $schema->string()->description('Hex SHA-256 of the decoded bytes — always send it; the upload is refused on mismatch and nothing is stored.'),
         ];
     }
 }
