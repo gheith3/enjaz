@@ -90,19 +90,15 @@ services:
       AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-us-east-1}
       AWS_BUCKET: ${AWS_BUCKET:-enjaz}
       AWS_USE_PATH_STYLE_ENDPOINT: "true"
-      AWS_ENDPOINT: http://rustfs:9000
+      AWS_ENDPOINT: ${S3_URL:?S3_URL is required}
       AWS_URL: ${S3_URL:?S3_URL is required}/${AWS_BUCKET:-enjaz}
-
-      # ============================================
-      # Backups
-      # ============================================
-      # Keep backups off the app's storage volume (s3 = the RustFS bucket above).
+      # Database backups go to their own path on the bucket (config/filesystems.php "backup").
       BACKUP_DISK: ${BACKUP_DISK:-s3}
 
       # ============================================
       # AI assistant (MCP) — off unless enabled (docs/mcp-setup.md)
       # ============================================
-      ENJAZ_MCP_ENABLED: ${ENJAZ_MCP_ENABLED:-false}
+      ENJAZ_MCP_ENABLED: ${ENJAZ_MCP_ENABLED:-true}
       ENJAZ_MCP_ALLOWED_IPS: ${ENJAZ_MCP_ALLOWED_IPS:-}
       ENJAZ_MCP_PERSONAL_TOKENS: ${ENJAZ_MCP_PERSONAL_TOKENS:-true}
       DB_MCP_USERNAME: ${DB_MCP_USERNAME:-enjaz_mcp_reader}
