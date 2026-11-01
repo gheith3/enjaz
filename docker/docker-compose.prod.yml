@@ -8,8 +8,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-      rustfs:
-        condition: service_started
     environment:
       # ============================================
       # Application (REQUIRED)
@@ -78,11 +76,14 @@ services:
       MAIL_FROM_NAME: ${MAIL_FROM_NAME:-Enjaz}
 
       # ============================================
-      # Filesystem (S3-compatible)
+      # Filesystem (external S3 / RustFS container)
       # ============================================
-      # Bundled RustFS (S3-compatible) service below. The app talks to it over
-      # the internal network; S3_URL is the public URL browsers use to fetch
-      # files (nginx -> enjaz-s3:9000, the S3 API port, not the console).
+      # RustFS runs as its own container outside this stack. Two addresses:
+      #   S3_URL      — PUBLIC URL browsers use to fetch files (e.g. https://files.injazat.om)
+      #   S3_ENDPOINT — how THIS container reaches RustFS server-side (optional; falls back
+      #                 to S3_URL). If RustFS joins the enjaz-network, use its internal name,
+      #                 e.g. http://rustfs:9000 (the S3 API port, not the console port 9001).
+      # The bucket (AWS_BUCKET) must exist on that RustFS before the app boots.
       FILESYSTEM_DISK: s3
       FILAMENT_FILESYSTEM_DISK: s3
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:?AWS_ACCESS_KEY_ID is required}
@@ -90,7 +91,7 @@ services:
       AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-us-east-1}
       AWS_BUCKET: ${AWS_BUCKET:-enjaz}
       AWS_USE_PATH_STYLE_ENDPOINT: "true"
-      AWS_ENDPOINT: ${S3_URL:?S3_URL is required}
+      AWS_ENDPOINT: ${S3_ENDPOINT:-${S3_URL:?S3_URL is required}}
       AWS_URL: ${S3_URL:?S3_URL is required}/${AWS_BUCKET:-enjaz}
       # Database backups go to their own path on the bucket (config/filesystems.php "backup").
       BACKUP_DISK: ${BACKUP_DISK:-s3}
@@ -153,27 +154,6 @@ services:
     networks:
       - enjaz-network
 
-  rustfs:
-    image: rustfs/rustfs:latest
-    container_name: enjaz-s3
-    restart: unless-stopped
-    ports:
-      - "${S3_CONSOLE_PORT:-5664}:9001"
-      - "${S3_API_PORT:-5665}:9000"
-    environment:
-      RUSTFS_ACCESS_KEY: ${AWS_ACCESS_KEY_ID:?AWS_ACCESS_KEY_ID is required}
-      RUSTFS_SECRET_KEY: ${AWS_SECRET_ACCESS_KEY:?AWS_SECRET_ACCESS_KEY is required}
-    volumes:
-      - enjaz_rustfs_data:/data
-    command: >
-      /data
-      --address :9000
-      --console-enable
-      --console-address :9001
-    networks:
-      - enjaz-network
-      - proxy
-
 networks:
   enjaz-network:
     driver: bridge
@@ -185,4 +165,3 @@ volumes:
   enjaz_app_storage:
   enjaz_postgres_data:
   enjaz_redis_data:
-  enjaz_rustfs_data:
