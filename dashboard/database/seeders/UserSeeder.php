@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
                     'email' => 'ghak992@gmail.com',
                     'phone_number' => '93839229',
                     'country_code' => '968',
+                    'password' => 'P@ssw0rd',
                 ],
             ];
             foreach ($mainAdmin as $userData) {

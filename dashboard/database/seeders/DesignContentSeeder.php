@@ -23,6 +23,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Throwable;
 
 /**
  * Seeds the exact sample content shown in design/ so a fresh install renders
@@ -77,24 +78,30 @@ class DesignContentSeeder extends Seeder
 
         $copied = 0;
 
-        foreach (['photos', 'logos', 'hero'] as $dir) {
-            foreach (File::files("{$source}/{$dir}") as $file) {
-                Storage::disk((string) config('filesystems.default'))->put("seed/{$dir}/".$file->getFilename(), File::get($file->getPathname()));
+        try {
+            foreach (['photos', 'logos', 'hero'] as $dir) {
+                foreach (File::files("{$source}/{$dir}") as $file) {
+                    Storage::disk((string) config('filesystems.default'))->put("seed/{$dir}/".$file->getFilename(), File::get($file->getPathname()));
+                    $copied++;
+                }
+            }
+
+            // Only the about photos (founder, team member) are seed data; icon-*.svg are static assets.
+            foreach (File::files("{$source}/about") as $file) {
+                if ($file->getExtension() !== 'png') {
+                    continue;
+                }
+
+                Storage::disk((string) config('filesystems.default'))->put("{$this->about}/".$file->getFilename(), File::get($file->getPathname()));
                 $copied++;
             }
+        } catch (Throwable $exception) {
+            $this->command?->warn("  Could not copy design images to the default disk: {$exception->getMessage()}");
+
+            return;
         }
 
-        // Only the about photos (founder, team member) are seed data; icon-*.svg are static assets.
-        foreach (File::files("{$source}/about") as $file) {
-            if ($file->getExtension() !== 'png') {
-                continue;
-            }
-
-            Storage::disk((string) config('filesystems.default'))->put("{$this->about}/".$file->getFilename(), File::get($file->getPathname()));
-            $copied++;
-        }
-
-        $this->command?->info("  Copied {$copied} design images to storage/app/public/seed/ (run `php artisan storage:link`).");
+        $this->command?->info("  Copied {$copied} design images to the default disk.");
     }
 
     /**
@@ -110,8 +117,12 @@ class DesignContentSeeder extends Seeder
         foreach (['publication-1.pdf', 'publication-2.pdf', 'profile.pdf'] as $name) {
             $path = "{$this->documents}/{$name}";
 
-            if (! Storage::disk((string) config('filesystems.default'))->exists($path)) {
-                Storage::disk((string) config('filesystems.default'))->put($path, $pdf);
+            try {
+                if (! Storage::disk((string) config('filesystems.default'))->exists($path)) {
+                    Storage::disk((string) config('filesystems.default'))->put($path, $pdf);
+                }
+            } catch (Throwable $exception) {
+                $this->command?->warn("  Could not write {$path} to the default disk: {$exception->getMessage()}");
             }
         }
     }
