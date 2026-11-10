@@ -1,16 +1,16 @@
-# myapp LIVE on ghaklab (behind Cloudflare Tunnel). Run from the LIVE checkout ~/live/myapp.
+# injazat LIVE on ghaklab (behind Cloudflare Tunnel). Run from the LIVE checkout ~/live/injazat.
 #
 #   - The app image is built from ../backend.
-#   - No public host ports: the tunnel reaches `myapp-app:80` over the external network web-tunnel-net.
+#   - No public host ports: the tunnel reaches `injazat-app:80` over the external network web-tunnel-net.
 #     DB / Redis are bound to 127.0.0.1 only.
-#   - Files: OneBox S3 (https://onebox.fahim.om), bucket `myapp` with its own bucket-scoped keys.
+#   - Files: OneBox S3 (https://onebox.fahim.om), bucket `injazat` with its own bucket-scoped keys.
 #
-# Usage (from the repo root of ~/live/myapp):
+# Usage (from the repo root of ~/live/injazat):
 #   cp docker/.env.ghaklab.example docker/.env.ghaklab   # fill in, chmod 600 (git-ignored)
 #   docker compose -f docker/docker-compose.ghaklab.yml --env-file docker/.env.ghaklab up -d --build
 #   docker compose -f docker/docker-compose.ghaklab.yml --env-file docker/.env.ghaklab logs -f app
 
-name: myapp
+name: injazat
 
 services:
   app:
@@ -20,8 +20,8 @@ services:
       args:
         APP_VERSION: ${APP_VERSION:-ghaklab}
         GIT_COMMIT: ${GIT_COMMIT:-local}
-    image: myapp:ghaklab
-    container_name: myapp-app
+    image: injazat:ghaklab
+    container_name: injazat-app
     restart: unless-stopped
     depends_on:
       database:
@@ -30,7 +30,7 @@ services:
         condition: service_healthy
     environment:
       # Application
-      APP_NAME: ${APP_NAME:-myapp}
+      APP_NAME: ${APP_NAME:-injazat}
       APP_ENV: ${APP_ENV:-production}
       APP_DEBUG: ${APP_DEBUG:-false}
       APP_URL: ${APP_URL:?APP_URL is required}
@@ -46,8 +46,8 @@ services:
       DB_CONNECTION: pgsql
       DB_HOST: database
       DB_PORT: 5432
-      DB_DATABASE: ${POSTGRES_DB:-myapp}
-      DB_USERNAME: ${POSTGRES_USER:-myapp_user}
+      DB_DATABASE: ${POSTGRES_DB:-injazat}
+      DB_USERNAME: ${POSTGRES_USER:-injazat_user}
       DB_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
 
       # Redis
@@ -74,10 +74,10 @@ services:
       AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY:?S3_ACCESS_KEY is required}
       AWS_SECRET_ACCESS_KEY: ${S3_SECRET_KEY:?S3_SECRET_KEY is required}
       AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-us-east-1}
-      AWS_BUCKET: ${AWS_BUCKET:-myapp}
+      AWS_BUCKET: ${AWS_BUCKET:-injazat}
       AWS_USE_PATH_STYLE_ENDPOINT: "true"
       AWS_ENDPOINT: ${S3_URL:-https://onebox.fahim.om}
-      AWS_URL: ${S3_URL:-https://onebox.fahim.om}/${AWS_BUCKET:-myapp}
+      AWS_URL: ${S3_URL:-https://onebox.fahim.om}/${AWS_BUCKET:-injazat}
 
       # Mail, alerts and backups
       MAIL_MAILER: ${MAIL_MAILER:-log}
@@ -85,7 +85,7 @@ services:
       MAIL_PORT: ${MAIL_PORT:-587}
       MAIL_USERNAME: ${MAIL_USERNAME:-}
       MAIL_PASSWORD: ${MAIL_PASSWORD:-}
-      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-myapp@example.com}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-injazat@example.com}
 
 
       # Startup behaviour
@@ -93,35 +93,35 @@ services:
       ADMIN_EMAIL: ${ADMIN_EMAIL:-}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
     volumes:
-      - myapp_app_storage:/var/www/html/storage
+      - injazat_app_storage:/var/www/html/storage
     networks:
-      - myapp-network
+      - injazat-network
       - web-tunnel-net
 
   database:
     image: postgres:16.15-alpine
-    container_name: myapp-db
+    container_name: injazat-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-myapp}
-      POSTGRES_USER: ${POSTGRES_USER:-myapp_user}
+      POSTGRES_DB: ${POSTGRES_DB:-injazat}
+      POSTGRES_USER: ${POSTGRES_USER:-injazat_user}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
     ports:
       - "127.0.0.1:${DB_HOST_PORT:-5790}:5432"
     volumes:
-      - myapp_postgres_data:/var/lib/postgresql/data
+      - injazat_postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-myapp_user} -d ${POSTGRES_DB:-myapp}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-injazat_user} -d ${POSTGRES_DB:-injazat}"]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 20s
     networks:
-      - myapp-network
+      - injazat-network
 
   redis:
     image: redis:7.4.11-alpine
-    container_name: myapp-redis
+    container_name: injazat-redis
     restart: unless-stopped
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:?REDIS_PASSWORD is required}
     environment:
@@ -129,23 +129,23 @@ services:
     ports:
       - "127.0.0.1:${REDIS_HOST_PORT:-5791}:6379"
     volumes:
-      - myapp_redis_data:/data
+      - injazat_redis_data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - myapp-network
+      - injazat-network
 
 
 networks:
-  myapp-network:
+  injazat-network:
     driver: bridge
   web-tunnel-net:
     external: true
 
 volumes:
-  myapp_app_storage:
-  myapp_postgres_data:
-  myapp_redis_data:
+  injazat_app_storage:
+  injazat_postgres_data:
+  injazat_redis_data:

@@ -1,18 +1,18 @@
-# myapp: full stack in Docker on any machine (alternative to Flock). App on http://localhost:8000.
-# Files still go to OneBox, bucket `myapp-demo` (demo keys) - same as the Flock setup.
+# injazat: full stack in Docker on any machine (alternative to Flock). App on http://localhost:8000.
+# Files still go to OneBox, bucket `injazat-demo` (demo keys) - same as the Flock setup.
 #
 #   cp docker/.env.local.example docker/.env.local      # fill in the OneBox demo keys
 #   docker compose -f docker/docker-compose.local.yml --env-file docker/.env.local up -d --build
 
-name: myapp-local
+name: injazat-local
 
 services:
   app:
     build:
       context: ../backend
       dockerfile: Dockerfile
-    image: myapp:local
-    container_name: myapp-local-app
+    image: injazat:local
+    container_name: injazat-local-app
     restart: unless-stopped
     depends_on:
       database: { condition: service_healthy }
@@ -20,7 +20,7 @@ services:
     ports:
       - "127.0.0.1:${APP_PORT:-8000}:80"
     environment:
-      APP_NAME: myapp
+      APP_NAME: injazat
       APP_ENV: local
       APP_DEBUG: "true"
       APP_URL: http://localhost:${APP_PORT:-8000}
@@ -29,9 +29,9 @@ services:
       DB_CONNECTION: pgsql
       DB_HOST: database
       DB_PORT: 5432
-      DB_DATABASE: myapp
-      DB_USERNAME: myapp_user
-      DB_PASSWORD: myapp_local
+      DB_DATABASE: injazat
+      DB_USERNAME: injazat_user
+      DB_PASSWORD: injazat_local
       REDIS_CLIENT: phpredis
       REDIS_HOST: redis
       REDIS_PORT: 6379
@@ -42,10 +42,10 @@ services:
       AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY:-}
       AWS_SECRET_ACCESS_KEY: ${S3_SECRET_KEY:-}
       AWS_DEFAULT_REGION: us-east-1
-      AWS_BUCKET: ${AWS_BUCKET:-myapp-demo}
+      AWS_BUCKET: ${AWS_BUCKET:-injazat-demo}
       AWS_USE_PATH_STYLE_ENDPOINT: "true"
       AWS_ENDPOINT: ${S3_URL:-https://onebox.fahim.om}
-      AWS_URL: ${S3_URL:-https://onebox.fahim.om}/${AWS_BUCKET:-myapp-demo}
+      AWS_URL: ${S3_URL:-https://onebox.fahim.om}/${AWS_BUCKET:-injazat-demo}
       MAIL_MAILER: log
       RUN_MIGRATIONS: ${RUN_MIGRATIONS:-seed}
     volumes:
@@ -53,23 +53,23 @@ services:
 
   database:
     image: postgres:16.15-alpine
-    container_name: myapp-local-db
+    container_name: injazat-local-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: myapp
-      POSTGRES_USER: myapp_user
-      POSTGRES_PASSWORD: myapp_local
+      POSTGRES_DB: injazat
+      POSTGRES_USER: injazat_user
+      POSTGRES_PASSWORD: injazat_local
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U myapp_user -d myapp"]
+      test: ["CMD-SHELL", "pg_isready -U injazat_user -d injazat"]
       interval: 10s
       timeout: 5s
       retries: 10
 
   redis:
     image: redis:7.4.11-alpine
-    container_name: myapp-local-redis
+    container_name: injazat-local-redis
     restart: unless-stopped
     volumes:
       - redis_data:/data

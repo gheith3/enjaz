@@ -1,4 +1,4 @@
-# myapp - documents
+# injazat - documents
 
 Put the project's documents here: requirements, decisions, user guides, API notes, meeting notes.
 

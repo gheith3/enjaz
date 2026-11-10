@@ -102,8 +102,8 @@ ARG APP_VERSION=dev
 ARG GIT_COMMIT=unknown
 ENV APP_VERSION=${APP_VERSION} \
     GIT_COMMIT=${GIT_COMMIT}
-LABEL org.opencontainers.image.title="myapp" \
-      org.opencontainers.image.description="myapp (ghaklab Laravel template)" \
+LABEL org.opencontainers.image.title="injazat" \
+      org.opencontainers.image.description="injazat (ghaklab Laravel template)" \
       org.opencontainers.image.version="${APP_VERSION}" \
       org.opencontainers.image.revision="${GIT_COMMIT}"
 

@@ -1,4 +1,4 @@
-# myapp
+# injazat
 
 Laravel project on the **ghaklab** stack (from the `ghaklab-template-laravel` template).
 
@@ -6,7 +6,7 @@ Laravel project on the **ghaklab** stack (from the `ghaklab-template-laravel` te
 |---|---|
 | Backend | Laravel 13, PHP 8.4, Filament 5 (admin panel at `/admin`), Horizon (`/horizon`) |
 | Data | PostgreSQL 16, Redis 7 (cache, sessions, queues) |
-| Files | OneBox S3 (`https://onebox.fahim.om`): bucket `myapp-demo` (demo), `myapp` (live) |
+| Files | OneBox S3 (`https://onebox.fahim.om`): bucket `injazat-demo` (demo), `injazat` (live) |
 | Image | `backend/Dockerfile`: nginx + php-fpm + Horizon + scheduler under supervisor |
 
 ## Layout
@@ -21,8 +21,8 @@ scripts/   init.sh (rename the template, run once)
 ## Two copies on ghaklab
 | Copy | Folder | Runs as | URL |
 |---|---|---|---|
-| demo (dev) | `~/projects/myapp` | Flock site `myapp.test` | https://demo.fahim.om (`demo myapp`) |
-| live | `~/live/myapp` | `docker/docker-compose.ghaklab.yml` | e.g. https://myapp.fahim.om |
+| demo (dev) | `~/projects/injazat` | Flock site `injazat.test` | https://demo.fahim.om (`demo injazat`) |
+| live | `~/live/injazat` | `docker/docker-compose.ghaklab.yml` | e.g. https://injazat.fahim.om |
 
 Work, commit and push in the demo copy; the live copy only pulls and rebuilds. See `docs/deployment.md`.
 
@@ -33,8 +33,8 @@ cp .env.example .env            # DB password + OneBox demo keys (ghaklab-new fi
 composer install && php artisan key:generate
 php artisan migrate --seed      # admin@example.com / password (local only)
 npm ci && npm run build
-flock link myapp && flock secure myapp && flock isolate php 8.4
-demo myapp                      # show it at https://demo.fahim.om
+flock link injazat && flock secure injazat && flock isolate php 8.4
+demo injazat                      # show it at https://demo.fahim.om
 ```
 
 ## Local dev (Docker, any machine)
