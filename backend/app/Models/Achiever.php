@@ -19,8 +19,8 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\Translatable\HasTranslations;
 
 /**
- * المنجزون. Images: portrait (cards), cutout (profile hero, week card, ID card), avatar (small round),
- * journey (the "مسيرتي" photo), gallery (المكتبة المرئية).
+ * المنجزون. Images: portrait (cards), cutout (profile hero, ID card), avatar (small round), journey (the "مسيرتي"
+ * photo), week (the "منجز الأسبوع" card; falls back to the cutout), gallery (المكتبة المرئية).
  */
 class Achiever extends Model implements HasMedia
 {
@@ -54,6 +54,7 @@ class Achiever extends Model implements HasMedia
         $this->addMediaCollection('cutout')->singleFile();
         $this->addMediaCollection('avatar')->singleFile();
         $this->addMediaCollection('journey')->singleFile();
+        $this->addMediaCollection('week')->singleFile();
         $this->addMediaCollection('gallery');
     }
 

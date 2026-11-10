@@ -261,7 +261,7 @@ class AchievementsStep implements ImportStep
             $achiever->week_from = today();
             $achiever->setTranslation('week_teaser', 'ar', DesignSource::text($card->filter('q')));
             $achiever->save();
-            $this->attach($achiever, 'cutout', $card->filter('img.week-cut')->attr('src', ''));
+            $this->attach($achiever, 'week', $card->filter('img.week-cut')->attr('src', ''));
         });
     }
 

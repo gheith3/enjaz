@@ -50,9 +50,10 @@ class AchieverForm
                 ]),
                 Tab::make('الصور')->icon('heroicon-o-photo')->schema([
                     MediaSlot::make('portrait', 'صورة البطاقة (مربعة)', 'تظهر في قوائم المنجزين والشرائط.'),
-                    MediaSlot::make('cutout', 'صورة مفرّغة (PNG شفاف)', 'أعلى الصفحة الشخصية، وبطاقة منجز الأسبوع، والبطاقة التعريفية.', focal: false),
+                    MediaSlot::make('cutout', 'صورة مفرّغة (PNG شفاف)', 'أعلى الصفحة الشخصية والبطاقة التعريفية.', focal: false),
                     MediaSlot::make('avatar', 'صورة صغيرة دائرية', 'بجانب الاسم في الشريط العلوي وصفحة الإنجاز.', focal: false),
                     MediaSlot::make('journey', 'صورة قسم «مسيرتي» (PNG شفاف)', focal: false),
+                    MediaSlot::make('week', 'صورة بطاقة «منجز الأسبوع» (PNG شفاف، اختيارية)', 'فارغة = الصورة المفرّغة.', focal: false),
                     Textarea::make('portrait_trace')->label('مسار الخط الذهبي حول الصورة المفرّغة (SVG path، اختياري)')->rows(2)
                         ->extraInputAttributes(['dir' => 'ltr']),
                 ]),
