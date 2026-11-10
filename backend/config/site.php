@@ -35,7 +35,7 @@ return [
         'achievements' => ['label' => 'الإنجازات', 'route' => 'achievements.index', 'sections' => []],
         'achievers' => ['label' => 'المنجزين', 'route' => 'achievers.index', 'sections' => []],
         'inspiring' => ['label' => 'ملهمون من عُمان', 'sections' => []],
-        'awards' => ['label' => 'جوائز السلطان قابوس', 'sections' => []],
+        'awards' => ['label' => 'جوائز السلطان قابوس', 'route' => 'awards.index', 'sections' => []],
         'organizations' => ['label' => 'المؤسسات', 'route' => 'organizations.index', 'features' => ['hero_slides', 'letter'], 'sections' => []],
         'universities' => ['label' => 'الجامعات والكليات', 'route' => 'universities.index', 'sections' => []],
         'lab' => ['label' => 'الاختراعات والابتكارات والمنشورات العلمية', 'sections' => []],
@@ -90,6 +90,22 @@ return [
         'federation' => [
             'before' => ['federation'],
             'after' => [],
+        ],
+        'awards' => [
+            'before' => ['award-volunteer'],
+            'after' => ['awards-hero', 'scroll-cue', 'desktop-hero-height', 'awards-cards-desktop', 'awards-hero-words', 'phone-port-awards'],
+        ],
+        'award-culture' => [
+            'before' => ['home-aisha', 'leader-word', 'minister-design-5', 'award'],
+            'after' => ['award-details-desktop'],
+        ],
+        'award-volunteer' => [
+            'before' => ['award-volunteer', 'award-volunteer-media'],
+            'after' => ['award-volunteer-desktop', 'phone-port-volunteer'],
+        ],
+        'award-architecture' => [
+            'before' => ['bha-concepts-base', 'bha-c2', 'bha-final'],
+            'after' => ['scroll-cue', 'desktop-hero-height', 'bha-hero-motion', 'bha-hero-intro', 'phone-port-bilarab', 'phone-arc-motion'],
         ],
         'org-news' => [
             'before' => ['institutions-page', 'org-news', 'article-page'],

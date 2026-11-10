@@ -77,6 +77,8 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
 | `/organizations/{slug}/achievements` | institution: `institution-achievements`; others: `livewire/site/organization-achievements` | institution-achievements / uni-achievements.html |
 | `/organizations/{slug}/people` | `livewire/site/organization-people` (universities, federations) | uni-people.html |
 | `/news/{slug}` | `site/pages/news` | org-news.html |
+| `/awards` | `site/pages/awards` (awards with a card style) | awards.html |
+| `/awards/{slug}` | `site/awards/{culture,volunteer,architecture}` (the award's kind) | award / award-volunteer / bilarab-award.html |
 
 - Shared cards: `components/site/cards/achievement` (variants grid / row / profile) and `cards/person`.
 - Design scripts that only animate or handle UI are ported almost verbatim to `resources/site/js/sections/design/`
@@ -90,6 +92,10 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
 - Big "library" widgets that are pure UI over a data set (university album + screening room, federation gallery) keep the
   ported design script; the server prints their data as JSON (`window.INJAZ_LIBRARY`, `window.INJAZ_FED_GALLERY`) from
   the organization's gallery media (custom properties: title, year, note, chapter/era, kind photo|doc, credit, credit_url) and videos.
+- Awards: editions hold winners (`award_editions`, `award_winners`); branches/prizes/categories/fields are `award_categories`;
+  goals/who/path/criteria are polymorphic `facts`; extra sections are `award_features`; small design texts live in
+  `awards.extra` ({key: {ar, en}}, edited in the dashboard tab «نصوص التصميم»). Interactive parts (medal filter and
+  preview, volunteer tabs and winner card) read a winners JSON printed by the view; all text is in the HTML.
 - A page under another menu section sets `request()->attributes->set('menu_section', '/universities')` (menu highlight).
 - Lists filter on the server; search ignores hamza, ta marbuta, alif maqsura and diacritics (`ArabicSearch`), counts
   use the design's Arabic agreement (`ArabicCount`), dates the design's format (`ArabicDate`).
