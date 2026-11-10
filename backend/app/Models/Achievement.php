@@ -74,6 +74,12 @@ class Achievement extends Model implements HasMedia
             ->orderByPivot('is_primary', 'desc')->orderByPivot('sort_order');
     }
 
+    /** Organizations the achievement belongs to (a university's own achievement, a federation's ...). */
+    public function organizations(): BelongsToMany
+    {
+        return $this->belongsToMany(Organization::class);
+    }
+
     /** Pivot rows, edited as a sortable list in the dashboard. */
     public function achieverLinks(): HasMany
     {

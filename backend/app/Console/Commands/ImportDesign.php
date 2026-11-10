@@ -7,6 +7,7 @@ use App\Support\DesignImport\ImportReport;
 use App\Support\DesignImport\Steps\AchievementsStep;
 use App\Support\DesignImport\Steps\ImportStep;
 use App\Support\DesignImport\Steps\MenusStep;
+use App\Support\DesignImport\Steps\OrganizationsStep;
 use App\Support\DesignImport\Steps\PagesStep;
 use App\Support\DesignImport\Steps\RedirectsStep;
 use App\Support\DesignImport\Steps\SiteStep;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\File;
  * Safe to re-run: without --force it only fills what is empty and never overwrites editors' changes.
  * Each content phase adds its step to STEPS.
  */
-#[Signature('injazat:import-design {--only=* : Run only these steps (site, menus, pages, redirects, achievements)} {--force : Overwrite values that already exist} {--path= : Design folder (default: ../design)}')]
+#[Signature('injazat:import-design {--only=* : Run only these steps (site, menus, pages, redirects, achievements, organizations)} {--force : Overwrite values that already exist} {--path= : Design folder (default: ../design)}')]
 #[Description('Import the design\'s content into the database')]
 class ImportDesign extends Command
 {
@@ -31,6 +32,7 @@ class ImportDesign extends Command
         PagesStep::class,
         RedirectsStep::class,
         AchievementsStep::class,
+        OrganizationsStep::class,
     ];
 
     public function handle(): int

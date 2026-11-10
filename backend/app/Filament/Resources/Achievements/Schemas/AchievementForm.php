@@ -32,13 +32,17 @@ class AchievementForm
                     TextInput::make('slug')->label('المعرّف في الرابط')->required()->unique(ignoreRecord: true)
                         ->alphaDash()->maxLength(100)->extraInputAttributes(['dir' => 'ltr']),
                     Repeater::make('achieverLinks')->label('صاحب / أصحاب الإنجاز')->relationship()->orderColumn('sort_order')
-                        ->columnSpanFull()->columns(2)->minItems(1)->defaultItems(1)->addActionLabel('إضافة منجز')
+                        ->columnSpanFull()->columns(2)->defaultItems(request()->integer('organization') ? 0 : 1)->addActionLabel('إضافة منجز')
                         ->default(fn () => request()->integer('achiever') ? [['achiever_id' => request()->integer('achiever'), 'is_primary' => true]] : [])
                         ->schema([
                             Select::make('achiever_id')->label('المنجز')->relationship('achiever', 'name')->getOptionLabelFromRecordUsing(fn ($record) => $record->name)->searchable()->preload()->required()
                                 ->distinct()->disableOptionsWhenSelectedInSiblingRepeaterItems(),
                             Toggle::make('is_primary')->label('أساسي (يظهر اسمه على الإنجاز)')->default(true)->inline(false),
                         ]),
+                    Select::make('organizations')->label('المؤسسات (لإنجاز المؤسسة نفسها أو لربطه بها)')->relationship('organizations', 'name')
+                        ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)->multiple()->preload()->searchable()->columnSpanFull()
+                        ->default(fn () => request()->integer('organization') ? [request()->integer('organization')] : [])
+                        ->requiredWithout('achieverLinks')->validationMessages(['required_without' => 'اختر منجزًا أو مؤسسة على الأقل.']),
                     Select::make('field_id')->label('المجال')->relationship('field', 'name')->getOptionLabelFromRecordUsing(fn ($record) => $record->name)->preload()->required(),
                     Select::make('scope_id')->label('المستوى')->relationship('scope', 'name')->getOptionLabelFromRecordUsing(fn ($record) => $record->name)->preload()->required(),
                     Translatable::text('discipline', 'التخصص (مثل: كرة القدم، الرواية). فارغ = اسم المجال', required: false),
