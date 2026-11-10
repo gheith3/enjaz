@@ -68,9 +68,12 @@ organisations extracted from the design; our import (§5) regenerates that from 
 5. **Server-side filtering and pagination (Livewire)** with the filter state in the URL (`#[Url]`), so the
    design's chips, popover filters, search and pager keep their look but work on the whole database and are
    shareable/indexable.
-6. **Truly responsive.** Keep the design's CSS and its 699/700/1100 breakpoints, delete `vp-lock`, make the
-   phone layout fluid between 360 and 699 px with `clamp()`/percentages, fill the tablet gap. Verify with
-   `lab-shot ... --all` at 360/390/430/768/1024/1280/1536 before every merge.
+6. **Responsive exactly as the design is.** The design's own screen-size behaviour is kept unchanged: the
+   `vp-lock` script (phones render the 390 px layout scaled to the screen), the phone CSS (`main.css`,
+   `phone-port-*.css`, `max-width: 699px`), the tablet band (700–1099 px) and the desktop layouts
+   (`desktop.css` and per-page `*-desktop.css`, `min-width: 1100px` / 1500 px), with the same breakpoints.
+   We do not redesign or re-flow anything. Verify with `lab-shot ... --all` against the matching
+   `design/*.html` at the same widths before every merge.
 7. **Assets through Vite.** Design CSS → `resources/css/site/**`, JS motion → `resources/js/site/**` as
    modules that (re)initialise on `livewire:navigated`. JS that *builds content from data* (`university.js`,
    `award.js`, `bha-final.js`, `lab-list.js`, `federations.js`, `org-links.js` …) is replaced by Blade.
@@ -250,7 +253,7 @@ resources/views/
   livewire/site/                    Livewire 4 components where state is needed
     achievers-index, achievements-index, organizations-index, lab-index, magazine-index (filters, search, pager)
     organization-people, organization-achievements, award-winners (edition tabs), contact-form, site-search
-resources/css/site/{tokens,base,header,footer,home/*,pages/*}.css   (design CSS, de-duplicated, fluid)
+resources/css/site/{tokens,base,header,footer,home/*,pages/*}.css   (design CSS as is, same breakpoints)
 resources/js/site/{motion/*,share,idcard,acard,menu}.js             (design motion kept; re-init on livewire:navigated)
 ```
 
@@ -319,7 +322,7 @@ after review. The design folder stays in the repo as the visual reference.
 | # | Question | Decision |
 |---|---|---|
 | 1 | Language | **Arabic UI now, translatable columns from day one** (spatie/laravel-translatable, `{"ar": …}`). English UI (`/en`, language switch, `dir="ltr"`, English fonts) is phase 7; English text can be entered in the dashboard any time before that. |
-| 2 | `vp-lock` scaling | **Removed.** Fluid phone layout 360–699 px with the design's 390 px as reference; tablet 700–1099; desktop ≥ 1100 as designed. |
+| 2 | Screen sizes / responsive | **Exactly as the design**: `vp-lock` phone scaling kept, same phone / tablet / desktop CSS and breakpoints. Dynamic content (longer names, more cards) must fit the existing layouts without changing them. |
 | 3 | Image delivery | **OneBox bucket `injazat` public-read**, direct URLs (`https://onebox.fahim.om/injazat/...`), cached by Cloudflare. Bucket `injazat-demo` the same for the dev copy. `/cdn` only for private contact attachments. |
 | 4 | Achievers per achievement | **Many**, pivot `achievement_achiever` with `is_primary`. |
 | 5 | URL slugs | English, editable, automatic redirects on change. |
@@ -454,7 +457,7 @@ favicon `ornament.svg`, logo `logo.svg`, Cairo font, tokens.
 
 | Phase | Scope | Output |
 |---|---|---|
-| 0 Foundation | packages, media (OneBox), translatable, settings, roles, menu/footer/header components, layout, Vite pipeline for design CSS/JS, fluid base CSS without `vp-lock`, redirects, response cache | empty site with real header/footer; dashboard with settings + menu |
+| 0 Foundation | packages, media (OneBox), translatable, settings, roles, menu/footer/header components, layout, Vite pipeline for design CSS/JS, design CSS + `vp-lock` unchanged, redirects, response cache | empty site with real header/footer; dashboard with settings + menu |
 | 1 Achievers + achievements | taxonomies, achievers, achievements, lists (Livewire filters), profile, detail, share/ID card/acard JS | the core of the site, with imported real achievers |
 | 2 Organizations | organizations + children, list, universities map, one organization template, people/achievements subpages, org news | institutions section complete |
 | 3 Awards | awards, editions, winners, features, three visual kinds | awards section complete |
@@ -469,8 +472,9 @@ Estimate: phases 0–1 are the largest (they set every pattern); 2–5 reuse the
 
 * Migrations + models + factories + Filament resources for every table in the phase; the editor can create,
   edit, publish, reorder and delete each record type, and sees the "Preview" action.
-* Public pages of the phase render from the database only (rule 6b.1), match the design at 390 and 1280 px
-  (screenshots in the PR), and work at 360/430/768/1024/1536 without horizontal overflow.
+* Public pages of the phase render from the database only (rule 6b.1), look the same as the matching
+  `design/*.html` at phone (390), tablet (768, 1024) and desktop (1280, 1536) widths (side-by-side screenshots in
+  the PR), with no horizontal overflow, also with long real content.
 * Pest tests: routes, drafts hidden, filters, resource pages render. `pint --dirty`, `php artisan test`,
   `npm run build` green locally and in CI.
 * Imported design data for the phase's tables (the importer grows with each phase), placeholders as drafts.
@@ -488,7 +492,8 @@ Estimate: phases 0–1 are the largest (they set every pattern); 2–5 reuse the
 4. Layout `layouts/site`: head meta from page/model + settings, Cairo via Vite, `x-site.header`, `x-site.menu`
    (Livewire search), `x-site.footer`, `@stack` for page CSS/JS, `livewire:navigate`.
 5. Asset pipeline: design CSS moved to `resources/css/site/` grouped by page, tokens extracted, duplicates
-   merged, `vp-lock` removed, fluid base (`clamp()` type scale, `%`/`vw` widths) verified on home skeleton.
+   merged without changing any rule's effect; `vp-lock` and the design breakpoints kept as they are; a side-by-side
+   screenshot check (design page vs Laravel page) on the home skeleton at phone, tablet and desktop widths.
    Design motion JS moved to `resources/js/site/` as modules with `init(root)` and `livewire:navigated` hooks.
 6. Dashboard shell: panel branding (logo, colours from tokens, RTL, Arabic labels), navigation groups,
    roles seeded (super_admin, admin, editor), user resource, settings pages, menu items resource with
