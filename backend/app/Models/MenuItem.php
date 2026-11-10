@@ -79,6 +79,11 @@ class MenuItem extends Model
 
         $path = trim($this->url, '/');
 
+        // A page can say which menu section it belongs to (a university lives under /organizations/...).
+        if ($section = request()->attributes->get('menu_section')) {
+            return $path !== '' && trim($section, '/') === $path;
+        }
+
         return $path === '' ? request()->is('/') : request()->is($path, $path.'/*');
     }
 

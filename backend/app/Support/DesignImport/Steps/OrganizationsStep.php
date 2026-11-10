@@ -8,6 +8,7 @@ use App\Models\Field;
 use App\Models\News;
 use App\Models\Organization;
 use App\Models\OrganizationType;
+use App\Models\Page;
 use App\Models\Redirect;
 use App\Models\Scope;
 use App\Support\DesignImport\DesignSource;
@@ -82,6 +83,7 @@ class OrganizationsStep implements ImportStep
         $federations = $this->importFederations();
         $institutions = $this->importInstitutions();
         $this->importMinistryPage();
+        $this->importPages();
         $news = $this->importNews();
         $links = $this->importLinks();
         $this->importRedirects();
@@ -102,6 +104,11 @@ class OrganizationsStep implements ImportStep
                 'group_label' => ['ar' => $group->count() ? DesignSource::text($group) : $name],
                 'template' => $template, 'css_class' => $css, 'sort_order' => ++$i,
             ]);
+        }
+        foreach (self::TYPES as $name => [$slug]) {
+            $chip = $page->filter(".orgs-chips .chip[data-filter=\"$name\"] span");
+            OrganizationType::query()->where('slug', $slug)->whereNull('chip_label')
+                ->update(['chip_label' => $chip->count() ? json_encode(['ar' => DesignSource::text($chip)], JSON_UNESCAPED_UNICODE) : null]);
         }
         $this->types = OrganizationType::all()->keyBy('slug')->all();
     }
@@ -181,7 +188,7 @@ class OrganizationsStep implements ImportStep
                 $this->attach($org, 'gallery', $photo['src'], null, $photo['title'] ?? null, always: true, properties: array_filter([
                     'caption' => isset($photo['title']) ? ['ar' => $photo['title']] : null, 'title' => $photo['title'] ?? null,
                     'chapter' => $photo['chapter'] ?? null, 'year' => $photo['year'] ?? null, 'note' => $photo['note'] ?? null,
-                    'credit' => isset($photo['credit']) ? implode(' — ', (array) $photo['credit']) : null, 'kind' => 'photo',
+                    'credit' => ((array) ($photo['credit'] ?? []))[0] ?? null, 'credit_url' => ((array) ($photo['credit'] ?? []))[1] ?? null, 'kind' => empty($photo['doc']) ? 'photo' : 'doc',
                 ]));
             }
             foreach ($u['library']['videos'] ?? [] as $j => $v) {
@@ -232,7 +239,7 @@ class OrganizationsStep implements ImportStep
                 $this->attach($org, 'gallery', $photo['src'], null, $photo['title'] ?? null, always: true, properties: array_filter([
                     'caption' => isset($photo['title']) ? ['ar' => $photo['title']] : null, 'title' => $photo['title'] ?? null,
                     'era' => $photo['era'] ?? null, 'kind' => $photo['kind'] ?? 'photo', 'year' => $photo['year'] ?? null, 'note' => $photo['note'] ?? null,
-                    'credit' => isset($photo['credit']) ? implode(' — ', (array) $photo['credit']) : null,
+                    'credit' => ((array) ($photo['credit'] ?? []))[0] ?? null, 'credit_url' => ((array) ($photo['credit'] ?? []))[1] ?? null,
                 ]));
             }
             foreach ($f['gallery']['videos'] ?? [] as $j => $v) {
@@ -295,6 +302,57 @@ class OrganizationsStep implements ImportStep
             ]);
             $this->attach($letter, 'photo', $word->filter('img.aisha-portrait')->attr('src', ''));
             $this->report->note('Ministry: the minister\'s word in the design is placeholder text ("نص تجريبي"); imported hidden. Replace it and switch it on in the dashboard.');
+        }
+    }
+
+    /**
+     * The organizations page (hero slides, His Majesty's letter), the universities page hero, and the featured
+     * organization of institutions.html.
+     */
+    private function importPages(): void
+    {
+        $page = Page::query()->where('key', 'organizations')->first();
+        $html = $this->design->page('institutions.html');
+        if ($page && ($this->force || ! $page->hero_title)) {
+            $page->setTranslation('hero_title', 'ar', DesignSource::text($html->filter('.fh-text h1')));
+            $page->setTranslation('hero_lead', 'ar', DesignSource::text($html->filter('.fh-text p')));
+            $page->save();
+            $page->clearMediaCollection('hero');
+            $html->filter('.fh-slide img')->each(fn (Crawler $img) => $this->attach($page, 'hero', $img->attr('src', ''), null, $img->attr('alt', '') ?: null, always: true));
+
+            $dialog = $html->filter('dialog.ol-dialog');
+            $paragraphs = $dialog->filter('.ol-txt > p')->reduce(fn (Crawler $p) => ! in_array($p->attr('class'), ['ol-meta', 'ol-sign'], true))
+                ->each(fn (Crawler $p) => DesignSource::text($p));
+            $sign = $dialog->filter('.ol-sign');
+            $letter = $page->letter()->updateOrCreate([], [
+                'title' => ['ar' => DesignSource::text($dialog->filter('h2'))],
+                'meta' => ['ar' => DesignSource::text($dialog->filter('.ol-meta'))],
+                'quote' => ['ar' => DesignSource::text($html->filter('.ol-cap span')->first())],
+                'body' => ['ar' => implode("\n\n", $paragraphs)],
+                'name' => ['ar' => trim(strip_tags(explode('<br', $sign->html())[0]))],
+                'role' => ['ar' => DesignSource::text($sign->filter('span'))],
+                'is_published' => true,
+            ]);
+            $letter->clearMediaCollection('photo');
+            $this->attach($letter, 'photo', $dialog->filter('img')->attr('src', ''), null, $dialog->filter('img')->attr('alt', '') ?: null);
+        }
+
+        $featured = $html->filter('a.orgs-featured');
+        $ministry = Organization::query()->where('slug', self::MINISTRY)->first();
+        if ($featured->count() && $ministry && ($this->force || ! $ministry->is_featured)) {
+            $ministry->is_featured = true;
+            $ministry->setTranslation('tagline', 'ar', DesignSource::text($featured->filter('.of-txt > span')));
+            $ministry->save();
+            $this->attach($ministry, 'logo_white', $featured->filter('.of-logo img')->attr('src', ''));
+        }
+
+        $universities = Page::query()->where('key', 'universities')->first();
+        $uh = $this->design->page('universities.html')->filter('.uh-text');
+        if ($universities && $uh->count() && ($this->force || ! $universities->hero_title)) {
+            $universities->setTranslation('hero_eyebrow', 'ar', DesignSource::text($uh->filter('.uh-eyebrow')));
+            $universities->setTranslation('hero_title', 'ar', trim(strip_tags(preg_replace('#</?span>#', '*', $uh->filter('h1')->html()))));
+            $universities->setTranslation('hero_lead', 'ar', DesignSource::text($uh->filter('p')->first()));
+            $universities->save();
         }
     }
 

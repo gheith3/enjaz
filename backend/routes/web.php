@@ -3,6 +3,8 @@
 use App\Http\Controllers\Site\AchievementController;
 use App\Http\Controllers\Site\AchieverController;
 use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\NewsController;
+use App\Http\Controllers\Site\OrganizationController;
 use App\Http\Controllers\Site\RedirectController;
 use App\Http\Controllers\Site\RobotsController;
 use App\Http\Controllers\Site\SitemapController;
@@ -22,6 +24,14 @@ Route::middleware(CacheResponse::class)->group(function () {
 
     Route::get('/achievers', [AchieverController::class, 'index'])->name('achievers.index');
     Route::get('/achievers/{achiever:slug}', [AchieverController::class, 'show'])->name('achievers.show');
+
+    Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
+    Route::get('/universities', [OrganizationController::class, 'universities'])->name('universities.index');
+    Route::get('/organizations/{organization:slug}', [OrganizationController::class, 'show'])->name('organizations.show');
+    Route::get('/organizations/{organization:slug}/achievements', [OrganizationController::class, 'achievements'])->name('organizations.achievements');
+    Route::get('/organizations/{organization:slug}/people', [OrganizationController::class, 'people'])->name('organizations.people');
+
+    Route::get('/news/{news:slug}', [NewsController::class, 'show'])->name('news.show');
 });
 
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');

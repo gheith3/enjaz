@@ -36,8 +36,8 @@ return [
         'achievers' => ['label' => 'المنجزين', 'route' => 'achievers.index', 'sections' => []],
         'inspiring' => ['label' => 'ملهمون من عُمان', 'sections' => []],
         'awards' => ['label' => 'جوائز السلطان قابوس', 'sections' => []],
-        'organizations' => ['label' => 'المؤسسات', 'sections' => []],
-        'universities' => ['label' => 'الجامعات والكليات', 'sections' => []],
+        'organizations' => ['label' => 'المؤسسات', 'route' => 'organizations.index', 'features' => ['hero_slides', 'letter'], 'sections' => []],
+        'universities' => ['label' => 'الجامعات والكليات', 'route' => 'universities.index', 'sections' => []],
         'lab' => ['label' => 'الاختراعات والابتكارات والمنشورات العلمية', 'sections' => []],
         'news' => ['label' => 'الأخبار', 'sections' => []],
         'magazine' => ['label' => 'المقالات', 'sections' => []],
@@ -61,6 +61,38 @@ return [
         ],
         'achiever' => [
             'before' => ['profile-socials', 'profile-achievements', 'profile-portrait', 'profile-idcard', 'profile-medal-stats', 'profile-enhance', 'profile-journey', 'profile-said', 'profile-hero-map'],
+            'after' => [],
+        ],
+        'organizations' => [
+            'before' => ['institutions-page', 'frame-hero'],
+            'after' => ['orgs-letter'],
+        ],
+        'universities' => [
+            'before' => ['universities', 'universities-hero'],
+            'after' => [],
+        ],
+        'institution' => [
+            'before' => ['home-aisha', 'institutions-page', 'minister-design-5'],
+            'after' => [],
+        ],
+        'university' => [
+            'before' => ['home-aisha', 'leader-word', 'minister-design-5', 'universities'],
+            'after' => ['university-layout-fixes'],
+        ],
+        'uni-achievements' => [
+            'before' => ['universities'],
+            'after' => [],
+        ],
+        'uni-people' => [
+            'before' => ['achievements-page', 'achievers-page', 'universities'],
+            'after' => [],
+        ],
+        'federation' => [
+            'before' => ['federation'],
+            'after' => [],
+        ],
+        'org-news' => [
+            'before' => ['institutions-page', 'org-news', 'article-page'],
             'after' => [],
         ],
         'achievement' => [

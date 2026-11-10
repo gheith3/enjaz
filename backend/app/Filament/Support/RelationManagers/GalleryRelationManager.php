@@ -44,7 +44,7 @@ abstract class GalleryRelationManager extends RelationManager
     /** @return list<string> */
     private function propertyKeys(): array
     {
-        return ['caption', 'focal', 'credit', ...array_map(fn ($field) => $field->getName(), $this->extraFields())];
+        return ['caption', 'focal', 'credit', 'credit_url', ...array_map(fn ($field) => $field->getName(), $this->extraFields())];
     }
 
     public function form(Schema $schema): Schema
@@ -55,6 +55,7 @@ abstract class GalleryRelationManager extends RelationManager
                 TextInput::make('caption.en')->label('التعليق (English)')->extraInputAttributes(['dir' => 'ltr']),
                 TextInput::make('focal')->label('نقطة التركيز')->placeholder('50% 50%')->rule('nullable|regex:/^\d{1,3}%\s+\d{1,3}%$/')->extraInputAttributes(['dir' => 'ltr']),
                 TextInput::make('credit')->label('المصدر / الحقوق'),
+                TextInput::make('credit_url')->label('رابط المصدر')->url()->extraInputAttributes(['dir' => 'ltr']),
                 ...$this->extraFields(),
             ]),
         ]);
