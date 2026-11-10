@@ -314,19 +314,83 @@ released ≥ 2 weeks ago.
 The import runs on the demo copy first; the live copy is seeded once from a dump of the demo database
 after review. The design folder stays in the repo as the visual reference.
 
-## 6. Decisions to make before coding
+## 6. Decisions (agreed with the owner, 2026-11-10)
 
-| # | Question | Recommendation |
+| # | Question | Decision |
 |---|---|---|
-| 1 | Arabic only, or bilingual (AR/EN) from day one? | Arabic UI now, **translatable columns from day one**; add the English UI (`/en`, language switch, `dir="ltr"`) as a later phase. English text can be filled in the dashboard any time. |
-| 2 | Drop the `vp-lock` scaling and make the phone layout fluid? | Yes. Scaling breaks text zoom, accessibility and Livewire positioning. Keep the design's 390 px as the reference width. |
-| 3 | Image delivery: OneBox bucket `injazat` public-read with direct URLs, or private bucket behind `/cdn/{path}`? | Public-read bucket + direct URLs (fast, cacheable at Cloudflare). `/cdn` only for private attachments. |
-| 4 | Can an achievement have several achievers (teams)? | Yes, pivot with `is_primary`; the design shows one author, the UI shows the primary and lists the rest. |
-| 5 | URL language: English slugs (`/achievers/ali-alhabsi`) or Arabic? | English slugs, editable, with redirects on change. |
-| 6 | Keep the MCP server (Claude connector "injazat") in the new project? | Yes, phase 7, same tools, ported to the new schema. |
-| 7 | Magazine / writers / news: real sections at launch, or planned (hidden until content exists)? | Build them (they are small tables) but keep `page_sections` disabled until real content exists. |
-| 8 | `about-journey-1.html` (saved variant) | Not implemented; it is an archived alternative. |
-| 9 | Footer vs contact page disagree on phone/email | Single source: `GeneralSettings`. Confirm the real values. |
+| 1 | Language | **Arabic UI now, translatable columns from day one** (spatie/laravel-translatable, `{"ar": …}`). English UI (`/en`, language switch, `dir="ltr"`, English fonts) is phase 7; English text can be entered in the dashboard any time before that. |
+| 2 | `vp-lock` scaling | **Removed.** Fluid phone layout 360–699 px with the design's 390 px as reference; tablet 700–1099; desktop ≥ 1100 as designed. |
+| 3 | Image delivery | **OneBox bucket `injazat` public-read**, direct URLs (`https://onebox.fahim.om/injazat/...`), cached by Cloudflare. Bucket `injazat-demo` the same for the dev copy. `/cdn` only for private contact attachments. |
+| 4 | Achievers per achievement | **Many**, pivot `achievement_achiever` with `is_primary`. |
+| 5 | URL slugs | English, editable, automatic redirects on change. |
+| 6 | MCP server | **Kept**, ported to the new schema in phase 7 (same tool names so the Claude connector keeps working). |
+| 7 | Magazine / writers / news | **Built now**, their home sections and menu items disabled until real content exists. |
+| 8 | `about-journey-1.html` | Not implemented (archived variant). |
+| 9 | Contact details (footer vs contact page disagree) | One source, `GeneralSettings`; the owner enters the real phone/email in the dashboard (imported values are marked "to confirm"). |
+
+## 6b. Working rules for the build (apply to every PR)
+
+1. **No page is copied as a whole.** A design HTML file is read for its structure and classes, then rebuilt as
+   components. If a Blade file contains a person's name, a date, a quote, a stat number or an image path as a
+   literal, the PR is not ready. The only literals allowed in views are UI labels (Arabic strings in
+   `lang/ar/site.php`, so the English UI can come later) and decorative SVG.
+2. **Every record type has a Filament resource; every repeated element on the site is a record.** If the
+   editor cannot add a new one (new achiever, new award edition, new partner logo, new menu item, new leader
+   quote), it is a bug.
+3. **Section = component.** Each `<section>` in the design maps to exactly one Blade or Livewire component
+   (§7b). Components receive models/collections, never HTML. Cards (`achievement-card`, `person-card`,
+   `org-card`, `article-row`) are shared components used by home, lists and related blocks alike.
+4. **Livewire where there is state**: list filters/search/pagination, organisation people/achievements tabs,
+   award edition tabs, gallery filters, contact form, site search, menu search. Everything else is Blade
+   (cached). Livewire components bind their state to the URL (`#[Url]`) so filtered views are shareable.
+5. **Filament packages before custom code**: spatie settings plugin for settings pages, medialibrary plugin
+   for images, Shield for roles, translatable plugin for AR/EN fields, activitylog. Custom Filament
+   components only for things the packages lack (focal-point picker, blocks builder presets).
+6. **Design fidelity is checked with screenshots**, not by eye: `lab-shot https://injazat.test/<page> --both --all`
+   next to the matching `design/*.html` at 390 and 1280 px, attached to the PR. Motion scripts are kept,
+   imported as modules, and re-initialised on `livewire:navigated`.
+7. **Derived numbers are computed**, never typed: counters, medal stats, tallies, "most read", read time.
+   Settings may override a counter only with an explicit "manual" switch.
+8. **Imported placeholders are drafts.** The public site shows only `is_published = true` records whose
+   `published_at` has passed.
+9. **Tests per phase**: Pest feature tests for every public route (200, correct records, drafts hidden),
+   Livewire tests for filters, a smoke test that every Filament resource index/create/edit page renders.
+   CI must be green before merge; `ghaklab-deploy injazat` after merge.
+
+## 7b. Section → component → data map (the contract for phases 1–5)
+
+| Design section (page) | Component | Reads |
+|---|---|---|
+| `site-header`, `#menu`, `site-footer` (all) | `x-site.header`, `x-site.menu` (Livewire search), `x-site.footer` | `menu_items`, `GeneralSettings`, `social_links` (site) |
+| `home-hero hero-majlis` | `x-home.hero-quotes` | `leader_quotes` active, ordered |
+| `home-achievers[data-strip]` | `x-home.achiever-strip` | achievers `show_in_home_strip` |
+| `home-statistics .hs-gold` | `x-home.stats` | `HomeSettings` (auto counts or manual) |
+| `home-latest` | `x-home.latest-achievements` | achievements `show_on_home` by `home_slot` |
+| `aisha-feature` | `x-home.spotlight` | `HomeSettings.spotlight_achiever_id` |
+| `home-awards` | `x-home.awards` | awards (2 squares + 1 banner by `kind`) + computed tallies |
+| `home-inspiring` | `x-home.inspiring` | achievers `is_inspiring` (4) |
+| `home-articles` | `x-home.articles` | articles `show_on_home` (1 lead + 2) |
+| `home-sports`, `home-culture` | `x-home.people-row` (×2, `field` setting) | achievers by `field_id` |
+| `science-editorial` | `x-home.science` | lab_items + news (science) latest |
+| `home-partners` | `x-home.partners` | organizations `is_partner` grouped by `partner_group` |
+| `ap-hero`, `week-duo`, `ach-filters`, results (achievers.html) | `x-achievers.hero-wall`, `x-achievers.week-pair`, `lw:achievers-index` | achievers, `achiever_of_week`, fields, organizations (type رياضي) |
+| `ah2-hero`, `honor`, filters, results (achievements.html) | `x-achievements.hero-wall`, `x-achievements.honor`, `lw:achievements-index` | achievements, fields, scopes |
+| `profile-hero … related` (profile*.html) | `x-achiever.hero`, `.contact`, `.story`, `.medal-stats`, `.journey`, `lw:achiever-achievements`, `.said`, `.quote`, `.gallery`, `.related`, `.idcard` | achiever + relations |
+| `story-hero … acard` (achievement*.html) | `x-achievement.hero`, `.facts`, `.author`, `.career-path`, `.highlights`, `.body`, `.sources`, `.others`, `.share-sheet`, `.acard` | achievement + achiever + siblings |
+| `institutions.html` sections | `x-organizations.sultan-hero`, `.letter-dialog`, `.rings`, `.featured`, `lw:organizations-index` | organizations, types, counts |
+| `universities.html` | `x-organizations.map-hero`, `lw:organizations-index` (group chips) | organizations academic |
+| `university.html` / `federation.html` / `institution.html` | `x-organization.hero`, `.about`, `.leaders`, `.letter`, `lw:organization-achievements`, `.units`, `.rankings`, `.milestones`, `lw:organization-people`, `.gallery` (variant by type), `.memberships`, `.fields`, `.same-type-rail`, `.sources`, `.news` | organization + relations |
+| `org-news.html` | `x-news.show` (org variant) | news + organization |
+| `awards.html` | `x-awards.hero-words`, `x-awards.cards` | awards + tallies |
+| `award*.html` | `x-award.hero`, `.about`, `.word`, `lw:award-winners` (timeline / podiums / cycles by `kind`), `.how`, `.current`, `.features`, `.sources`, `.sheet` | award + editions + winners |
+| `science.html`, `lab-all.html`, `lab-item.html` | `x-lab.hero`, `.showcase`, `.table`, `lw:lab-index`, `x-lab.item` | lab_items |
+| `news.html` | `lw:news-index`, `x-news.himam` | news |
+| `articles.html`, `article.html`, `writers.html` | `x-magazine.hero-wall`, `.mast`, `.lead`, `lw:magazine-index`, `.most-read`, `.writers`, `x-article.*`, `lw:writers-index` | issues, articles, writers |
+| `about.html` | `x-about.hero`, `.vmv`, `.fields-ring`, `.roadmap`, `.founder`, `.testimonials`, `.team`, `.our-achievements`, `.media-kit`, `.explore` | `AboutSettings`, fields, milestones/quotes/media (Site), team_members |
+| `inspiring.html` | `x-inspiring.strip`, `lw:inspiring-wall`, `x-inspiring.himam`, `.nominate` | achievers `is_inspiring`, news `show_in_himam` |
+| `contact.html` | `x-contact.intro`, `.methods`, `lw:contact-form`, `.location` | `ContactSettings`, `contact_topics`, `contact_messages` |
+
+`x-` = Blade component in `resources/views/components/site/…`; `lw:` = Livewire component in `app/Livewire/Site/…`.
 
 ## 7. Appendix: design inventory (what each page needs)
 
@@ -400,3 +464,43 @@ favicon `ornament.svg`, logo `logo.svg`, Cairo font, tokens.
 | 7 Later | MCP server port, English UI, newsletter/share counters | |
 
 Estimate: phases 0–1 are the largest (they set every pattern); 2–5 reuse them.
+
+### 8b. Definition of done (every phase)
+
+* Migrations + models + factories + Filament resources for every table in the phase; the editor can create,
+  edit, publish, reorder and delete each record type, and sees the "Preview" action.
+* Public pages of the phase render from the database only (rule 6b.1), match the design at 390 and 1280 px
+  (screenshots in the PR), and work at 360/430/768/1024/1536 without horizontal overflow.
+* Pest tests: routes, drafts hidden, filters, resource pages render. `pint --dirty`, `php artisan test`,
+  `npm run build` green locally and in CI.
+* Imported design data for the phase's tables (the importer grows with each phase), placeholders as drafts.
+* `docs/` updated (content model, editor how-to for the new resources), then `ghaklab-deploy injazat` and a
+  check of the live URL.
+
+### 8c. Phase 0 checklist (foundation)
+
+1. Packages: medialibrary (+ Filament plugin), translatable (+ Filament plugin), settings (+ plugin), Shield +
+   permission, activitylog, responsecache, sitemap, dom-crawler (dev, for the importer). Pin versions.
+2. OneBox: public-read policy on buckets `injazat` and `injazat-demo`; medialibrary disk `s3`, URL generator
+   returning direct bucket URLs; queued conversions (`webp`, widths 390/780/1200/1600) on Horizon.
+3. Base tables: `pages`, `page_sections`, `menu_items`, `social_links`, `media`, `redirects`, settings
+   groups (General, Home, About, Contact, Seo) with seeders holding the design's texts.
+4. Layout `layouts/site`: head meta from page/model + settings, Cairo via Vite, `x-site.header`, `x-site.menu`
+   (Livewire search), `x-site.footer`, `@stack` for page CSS/JS, `livewire:navigate`.
+5. Asset pipeline: design CSS moved to `resources/css/site/` grouped by page, tokens extracted, duplicates
+   merged, `vp-lock` removed, fluid base (`clamp()` type scale, `%`/`vw` widths) verified on home skeleton.
+   Design motion JS moved to `resources/js/site/` as modules with `init(root)` and `livewire:navigated` hooks.
+6. Dashboard shell: panel branding (logo, colours from tokens, RTL, Arabic labels), navigation groups,
+   roles seeded (super_admin, admin, editor), user resource, settings pages, menu items resource with
+   drag-and-drop ordering, pages + sections resource (sortable, toggles).
+7. Legacy redirects (`/{slug}.html` → route), sitemap route, response cache middleware with model
+   observers, `robots.txt`, 404/500 pages in the design's style.
+8. Importer skeleton (`injazat:import-design`), `scripts/design-data-to-json.mjs`, checked-in JSON output.
+9. Tests + CI, screenshots of header/menu/footer at all widths, deploy.
+
+### 8d. Phase 7 (English UI) in advance
+
+Translatable columns exist from phase 0, so the English UI is: `lang/en/site.php`, `/en` route prefix with
+locale middleware, `<html lang dir>` from locale, a language switch in the menu, LTR adjustments in CSS
+(logical properties `margin-inline-start` etc. are used from the start to keep this small), and a "missing
+English" filter in the dashboard. No schema changes.
