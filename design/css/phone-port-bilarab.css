@@ -1,0 +1,50 @@
+/* جائزة بلعرب على الهاتف: صورة زوّار الجناح في أعلى الهيدر تذوب في لونه — نسخة المراجعة فقط */
+@media (max-width: 1099px) {
+  [data-bf] .c-hero { padding-top: 0; }
+  [data-bf] .bf-hero-img { display: block; position: absolute; z-index: 0; top: 0; left: 0; width: 100%; height: 300px; object-fit: cover; object-position: 30% 40%; pointer-events: none;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 45%, rgba(0,0,0,.5) 72%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 45%, rgba(0,0,0,.5) 72%, transparent 100%); }
+  [data-bf] .c-hero-in { padding-top: calc(280px + .75cm) !important; }
+  [data-bf] .c-mark { position: relative; z-index: 1; padding: 0; background: none !important; border: 0; box-shadow: none !important; filter: none !important; }
+}
+
+/* تخفيف ظهور نقش النجمة في الهيدر بنسبة ٤٠٪ إضافية. */
+@media (max-width: 1099px) {
+  [data-bf][data-c="2"] .c-hero .h-mash { opacity: .08976; }
+}
+
+/* الحفاظ على الصورة والتدرّج السابقين، مع مساحة إضافية أسفل المحتوى. */
+@media (max-width: 699px) {
+  [data-bf] .c-hero { min-height: calc(100svh - 64px); }
+  [data-bf] .c-hero-in {
+    min-height: calc(100svh - 64px); box-sizing: border-box;
+    padding-bottom: 110px !important; align-content: start;
+  }
+}
+
+/* نفس إشارة النزول في آخر نسخة الكمبيوتر. */
+@media (max-width: 699px) {
+  [data-bf] .c-hero .scroll-cue {
+    position: absolute; z-index: 6; left: 50%; bottom: 12px;
+    translate: -50% 0; display: grid; justify-items: center; gap: 0;
+    min-width: 44px; min-height: 44px; padding: 6px 14px;
+    border: 0; background: none; cursor: pointer; color: #9C7330;
+    font: 700 13px/1 Cairo, Tahoma, sans-serif;
+    transition: opacity .45s ease, translate .45s ease;
+  }
+  [data-bf] .scroll-cue.gone { opacity: 0; translate: -50% 12px; pointer-events: none; }
+  [data-bf] .scroll-cue .sc-w { display: grid; place-items: center; min-width: 70px; height: auto; gap: 0; }
+  [data-bf] .scroll-cue .sc-w span { grid-area: auto; line-height: 17px; opacity: 0; white-space: nowrap; }
+  [data-bf] .scroll-cue .sc-w span:nth-child(3) { color: #6E4E17; }
+  [data-bf] .scroll-cue .sc-a { width: 24px; height: 22px; margin-top: 2px; opacity: 0; }
+  [data-bf] .scroll-cue .sc-a path { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  [data-bf] .scroll-cue:focus-visible { outline: 2px solid #9C7330; outline-offset: 4px; border-radius: 10px; }
+}
+@media (max-width: 699px) and (prefers-reduced-motion: no-preference) {
+  [data-bf] .scroll-cue .sc-w span { animation: sc-fade 2s ease-out .8s infinite; }
+  [data-bf] .scroll-cue .sc-w span:nth-child(2) { animation-delay: 1.3s; }
+  [data-bf] .scroll-cue .sc-w span:nth-child(3) { animation-delay: 1.8s; }
+  [data-bf] .scroll-cue .sc-a { animation: sc-fade 2s ease-out 2.3s infinite; }
+}
+@media (max-width: 699px) and (prefers-reduced-motion: reduce) {
+  [data-bf] .scroll-cue .sc-w span, [data-bf] .scroll-cue .sc-a { opacity: 1; }
+}

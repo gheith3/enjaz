@@ -1,0 +1,66 @@
+/* Five portraits with a stronger gold frame on the central achiever. */
+.home-achievers { margin-top: 10px; padding-inline: 8px; }
+.home-achievers .strip-frame { display: grid; grid-template-columns: 30px minmax(0,1fr) 30px; align-items: center; gap: 2px; }
+.home-achievers .strip { --strip-gap: 5px; --side-photo-height: clamp(72px, 24vw, 112px); --active-photo-height: clamp(95px, 31vw, 144px); position: relative; display: grid; grid-template-columns: .9fr 1fr 1.4fr 1fr .9fr; align-items: end; gap: var(--strip-gap); }
+.home-achievers .strip button, .home-achievers .strip button.center { display: flex; flex-direction: column; align-items: stretch; width: auto; min-width: 0; aspect-ratio: auto; border-radius: 0; overflow: visible; box-shadow: none; transition: none; transform-origin: top left; }
+.home-achievers .strip-photo { position: relative; display: block; height: var(--side-photo-height); overflow: hidden; border: 1px solid var(--green); border-radius: 11px; background: #edf3ed; }
+.home-achievers .strip button.edge .strip-photo { height: calc(var(--side-photo-height) * .9); }
+.home-achievers .strip button.center .strip-photo { height: var(--active-photo-height); border: 0; padding: 0; border-radius: 14px; background: #edf3ed; box-shadow: 0 4px 12px rgba(6,49,53,.13); }
+.home-achievers .strip img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 8px; transform: scale(1.12); transform-origin: 50% 0%; }
+.home-achievers .strip img[src$="achiever-04.jpg"] { transform: scale(2); transform-origin: 50% 28%; }
+.home-achievers .strip-name { display: -webkit-box; min-height: 31px; margin-top: 6px; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; text-align: center; font-size: 10px; font-weight: 500; line-height: 1.45; color: #435f5c; overflow-wrap: anywhere; visibility: hidden; }
+.home-achievers .center .strip-name { color: var(--dark); font-weight: 700; font-size: 10.5px; visibility: visible; }
+.home-achievers .strip-arrow { display: grid; place-items: center; position: relative; width: 30px; height: 44px; color: #fff; }
+.home-achievers .strip-arrow::before { content: ""; position: absolute; width: 22px; height: 22px; border-radius: 50%; background: var(--primary); }
+.home-achievers .strip-arrow svg { position: relative; width: 13px; height: 13px; }
+.home-achievers .strip-arrow:hover::before { background: var(--dark); }
+.home-achievers .strip-nav { position: relative; z-index: 3; display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: -30px; }
+.home-achievers .strip-discover { display: inline-flex; align-items: center; justify-content: flex-end; gap: 7px; min-height: 40px; padding: 4px 5px; color: var(--primary); font-size: 11px; font-weight: 600; text-align: left; }
+.home-achievers .strip-discover:hover { text-decoration: underline; }
+.home-achievers :is(button, a) { -webkit-tap-highlight-color: transparent; }
+.home-achievers :is(button, a):focus:not(:focus-visible) { outline: none; }
+.home-achievers :is(button, a):focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.home-achievers .strip button { cursor: pointer; }
+@media (max-width: 350px) {
+  .home-achievers .strip-frame { grid-template-columns: 28px minmax(0,1fr) 28px; gap: 2px; }
+  .home-achievers .strip-arrow { width: 28px; }
+  .home-achievers .strip { --strip-gap: 3px; }
+  .home-achievers .strip-name { font-size: 10px; }
+}
+@media (min-width: 700px) {
+  .home-achievers { max-width: 750px; margin-inline: auto; }
+  .home-achievers .strip { --side-photo-height: 135px; --active-photo-height: 165px; }
+  .home-achievers .strip-name { font-size: 12px; }
+}
+
+/* Frames belong to the portraits and travel with them. */
+.home-achievers .strip-photo { border: 0; }
+.home-achievers .strip-photo::after {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  border: 1px solid var(--green); border-radius: inherit; pointer-events: none;
+}
+.home-achievers .center .strip-photo::after {
+  border: 0; padding: 2px;
+  background: linear-gradient(135deg, #fff2ac, #f0cb68 40%, #d6a231 72%, #ffeaa2);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: achiever-gold-reveal 650ms ease-out;
+}
+@keyframes achiever-gold-reveal {
+  0% { opacity: .25; filter: brightness(1.6); }
+  45% { opacity: 1; filter: brightness(1.25); }
+  100% { opacity: 1; filter: brightness(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-achievers .center .strip-photo::after { animation: none; }
+}
+
+.home-achievers .strip { overflow: hidden; }
+.home-achievers .strip button[hidden] { display: none; }
+.home-achievers .strip .strip-ghost { position: absolute; pointer-events: none; z-index: 2; }
+
+/* ٦ نوفمبر: صور الشريط أكبر قليلًا (نحو ١٥٪) بالتنسيق نفسه */
+.home-achievers .strip { --side-photo-height: clamp(84px, 27.5vw, 130px); --active-photo-height: clamp(110px, 35.5vw, 166px); }
+@media (min-width: 700px) { .home-achievers .strip { --side-photo-height: 155px; --active-photo-height: 190px; } }

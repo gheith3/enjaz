@@ -1,0 +1,91 @@
+/* تواصل معنا — هيدر الكمبيوتر (٨ نوفمبر): نفس فكرة المحادثة، بنافذة دردشة أنيقة (رأس بشعار إنجازات و«متصل الآن»،
+   فقاعات بأوقات وعلامات قراءة، وأيقونات تواصل تطفو حولها)، وأزرار تواصل سريعة تحت النص. الهاتف لا يتأثر (.ct-dk مخفية). */
+.ct-dk { display: none !important; }
+@media (min-width: 1100px) {
+  .contact-intro { width: 100vw; max-width: none; margin-inline: calc(50% - 50vw); min-height: 520px; padding: 64px max(40px, calc(50vw - 580px)) 70px !important; border-radius: 0 0 44px 44px;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) !important; gap: 70px !important;
+    background: radial-gradient(ellipse 40% 70% at 22% 50%, rgba(230, 201, 138, .16), transparent 70%), linear-gradient(rgba(230, 201, 138, .05) 1px, transparent 1px) 0 0 / 32px 32px,
+      linear-gradient(90deg, rgba(230, 201, 138, .05) 1px, transparent 1px) 0 0 / 32px 32px, linear-gradient(150deg, #0C7F89 0%, #0A5C63 50%, #063135 100%) !important; }
+  .contact-intro h1 { font-size: clamp(46px, 4.4vw, 66px) !important; line-height: 1.35 !important; }
+  .contact-intro h1 span { background: linear-gradient(180deg, #FBEFCF, #D9B262); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .ct-dk { display: revert !important; }
+  .ct-acts { display: flex !important; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 28px; }
+  .ct-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 99px; background: linear-gradient(135deg, #F1D99F, #C9A35C); color: #063135; font-size: 16px; font-weight: 800; text-decoration: none;
+    box-shadow: 0 14px 26px -14px rgba(0, 0, 0, .6); transition: transform .25s; }
+  .ct-btn:hover { transform: translateY(-2px); }
+  .ct-btn svg, .ct-chip svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ct-chip { display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border: 1px solid rgba(230, 201, 138, .45); border-radius: 99px; background: rgba(255, 255, 255, .06); color: #F4E6C4; font-size: 14.5px; font-weight: 700; text-decoration: none; transition: background .2s; }
+  .ct-chip:hover { background: rgba(255, 255, 255, .14); }
+  .ct-btn:focus-visible, .ct-chip:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+  /* نافذة الدردشة */
+  .ct-chat { position: relative; width: 100%; max-width: 480px; justify-self: center; }
+  .ct-chat::before { content: ""; position: absolute; inset: 30px -26px -26px 26px; z-index: 0; border-radius: 30px; border: 1.5px dashed rgba(230, 201, 138, .35); }
+  .ct-head { position: relative; z-index: 1; display: flex !important; align-items: center; gap: 12px; padding: 16px 20px; border-radius: 28px 28px 0 0; background: #fff; box-shadow: 0 1px 0 #EEF1F0; }
+  .ct-head img { width: 46px; height: 46px; padding: 6px; border-radius: 50%; background: linear-gradient(150deg, #0C7F89, #063135); }
+  .ct-head b { display: block; color: #07383B; font-size: 17px; }
+  .ct-head small { display: inline-flex; align-items: center; gap: 6px; color: #2E8B57; font-size: 13px; font-weight: 700; }
+  .ct-head small i { width: 8px; height: 8px; border-radius: 50%; background: #34C46C; box-shadow: 0 0 0 4px rgba(52, 196, 108, .18); animation: ct-live 2s ease-in-out infinite; }
+  .ct-dots { display: flex !important; gap: 4px; margin-inline-start: auto; } .ct-dots i { width: 5px; height: 5px; border-radius: 50%; background: #C5CFCD; }
+  .contact-intro .ct-chat .cv-demo { position: relative; z-index: 1; max-width: none !important; min-height: 300px; margin: 0 !important; padding: 26px 22px 30px !important; gap: 14px !important; border: 0 !important; border-radius: 0 0 28px 28px !important;
+    background: radial-gradient(circle at 1px 1px, rgba(10, 92, 99, .08) 1px, transparent 0) 0 0 / 16px 16px, #F6F3EC !important; box-shadow: 0 40px 70px -40px rgba(0, 0, 0, .7) !important; }
+  .contact-intro .ct-chat .cv-b { font-size: 16.5px !important; padding: 13px 18px 9px !important; }
+  .contact-intro .ct-chat .cv-b.them { background: #fff; box-shadow: 0 6px 14px -8px rgba(0, 0, 0, .25); }
+  .cv-b time { display: block !important; margin-top: 2px; font-size: 11px; opacity: .6; text-align: left; }
+  .cv-b.me time { color: #fff; opacity: .85; }
+  /* أيقونات تطفو حول النافذة */
+  .ct-fl { position: absolute; z-index: 2; display: grid !important; place-items: center; width: 54px; height: 54px; border-radius: 18px; background: rgba(255, 255, 255, .1); color: #F1D99F;
+    border: 1px solid rgba(230, 201, 138, .4); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); box-shadow: 0 14px 26px -16px rgba(0, 0, 0, .6); }
+  .ct-fl svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ct-fl.f1 { top: 40px; left: -46px; } .ct-fl.f2 { bottom: 70px; left: -64px; rotate: -8deg; } .ct-fl.f3 { top: -24px; right: 40px; rotate: 8deg; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ct-fl { animation: ct-float 5s ease-in-out infinite; } .ct-fl.f2 { animation-delay: -1.6s; } .ct-fl.f3 { animation-delay: -3.2s; }
+    .ct-chat { animation: ct-rise 1s cubic-bezier(.16, 1, .3, 1) both; }
+  }
+}
+@keyframes ct-live { 50% { box-shadow: 0 0 0 7px rgba(52, 196, 108, .05); } }
+@keyframes ct-float { 50% { translate: 0 -10px; } }
+@keyframes ct-rise { from { opacity: 0; transform: translateY(26px); } }
+
+/* ===== تعديل: خلفية الهيدر بنقش له دلالة (فقاعات حوار ونقاط اتصال) بدل خطوط الشبكة ===== */
+@media (min-width: 1100px) {
+  .contact-intro { background: radial-gradient(ellipse 40% 70% at 22% 50%, rgba(230, 201, 138, .16), transparent 70%), url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22180%22%20height%3D%22150%22%20viewBox%3D%220%200%20180%20150%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23E6C98A%22%20stroke-opacity%3D%22.1%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M18%2022h40a8%208%200%200%201%208%208v16a8%208%200%200%201-8%208H34l-10%208v-8h-6a8%208%200%200%201-8-8V30a8%208%200%200%201%208-8z%22/%3E%3Cpath%20d%3D%22M118%2088h36a7%207%200%200%201%207%207v13a7%207%200%200%201-7%207h-6v7l-9-7h-21a7%207%200%200%201-7-7V95a7%207%200%200%201%207-7z%22/%3E%3Cpath%20d%3D%22M66%2040c20%204%2034%2018%2044%2044%22%20stroke-dasharray%3D%222%206%22/%3E%3C/g%3E%3Cg%20fill%3D%22%23E6C98A%22%20fill-opacity%3D%22.16%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2238%22%20r%3D%222%22/%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2238%22%20r%3D%222%22/%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%2238%22%20r%3D%222%22/%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%2230%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%22120%22%20r%3D%221.6%22/%3E%3Ccircle%20cx%3D%2296%22%20cy%3D%2214%22%20r%3D%221.2%22/%3E%3C/g%3E%3C/svg%3E") 0 0 / 180px 150px,
+      linear-gradient(150deg, #0C7F89 0%, #0A5C63 50%, #063135 100%) !important; }
+}
+
+/* ===== أسفل الصفحة على الكمبيوتر: خلفية موحّدة بلا حواف بيضاء، النموذج في المساحة الرئيسية، وبجانبه بطاقات التواصل وموقع عُمان ===== */
+@media (min-width: 1100px) {
+  body.contact-page, .contact-page #main { background: #F7F4EC; }
+  .contact-layout { max-width: 1160px; margin: 0 auto; padding: 56px 20px 72px !important; grid-template-columns: minmax(0, .85fr) minmax(0, 1.25fr) !important; gap: 30px 34px !important; background: none; }
+  .contact-methods > h2, .cv-sec-title { font-size: 22px; margin-bottom: 16px; }
+  .contact-methods > h2 b, .cv-sec-title b { font-size: 13px; }
+  /* بطاقة القنوات */
+  .cv-channels { padding: 8px 22px !important; border-radius: 24px; background: #fff; box-shadow: inset 0 0 0 1px #ECE3D2, 0 20px 40px -32px rgba(6, 49, 53, .4); }
+  .cv-ch { padding-block: 18px !important; }
+  .cv-ch .contact-icon { width: 48px; height: 48px; border-radius: 15px; background: linear-gradient(150deg, #0C7F89, #063135); color: #F1D99F; }
+  .cv-ch .contact-icon svg { width: 21px; height: 21px; }
+  .cv-ch-text small { font-size: 13px; }
+  .cv-nums a { padding: 8px 14px; font-size: 16px; font-weight: 800; }
+  .cv-ch-text strong { font-size: 16px; }
+  .contact-social { width: 46px; height: 46px; }
+  .contact-social img { width: 20px; height: 20px; }
+  /* موقع عُمان */
+  .contact-location .cv-place { display: none; }
+  .ct-oman { display: grid !important; grid-template-columns: 150px minmax(0, 1fr); align-items: center; gap: 22px; padding: 22px 26px; border-radius: 24px; color: #fff; overflow: hidden; position: relative;
+    background: radial-gradient(ellipse 60% 90% at 15% 50%, rgba(230, 201, 138, .18), transparent 70%), linear-gradient(150deg, #0C7F89, #063135); box-shadow: 0 24px 44px -30px rgba(6, 49, 53, .8); }
+  .ct-oman svg { width: 150px; height: auto; overflow: visible; }
+  .ct-oman small { color: #E6C98A; font-size: 13px; font-weight: 800; }
+  .ct-oman b { display: block; margin-top: 4px; font-size: 24px; }
+  .ct-oman span { color: #D7E8E3; font-size: 15px; font-weight: 700; }
+  .ct-oman p { margin: 10px 0 0; color: #CFE3DD; font-size: 14px; line-height: 1.8; }
+  .ct-pulse { transform-box: fill-box; transform-origin: center; }
+  @media (prefers-reduced-motion: no-preference) { .ct-pulse { animation: ct-pulse 2.2s ease-out infinite; } }
+  /* نموذج الرسالة */
+  .contact-message .cv-chat { border-radius: 26px; box-shadow: 0 30px 60px -40px rgba(6, 49, 53, .55), inset 0 0 0 1px #ECE3D2; }
+}
+@keyframes ct-pulse { from { transform: scale(1); opacity: 1; } to { transform: scale(3.4); opacity: 0; } }
+@media (min-width: 1100px) {
+  .contact-page .ct-oman svg { width: 150px; height: auto; fill: initial; stroke: none; }
+  .contact-page .ct-oman { grid-template-columns: 130px minmax(0, 1fr); }
+  .contact-page .ct-oman svg { width: 130px; }
+}

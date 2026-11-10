@@ -1,0 +1,250 @@
+/* صفحة المنجز — الاقتباس، مسيرتي، التصفية، منجزون في نفس المجال، الهيدر المصغّر، معرض الصور */
+
+/* ---------- الاقتباس ---------- */
+.pq { position: relative; isolation: isolate; overflow: hidden; margin: 0; padding: 22px 20px 18px; border-radius: 20px; color: #fff;
+  background: radial-gradient(60% 80% at 90% 0%, rgba(217, 185, 119, .28), transparent 70%), linear-gradient(150deg, #0C7F89 0%, #075A62 55%, #063135 100%);
+  box-shadow: 0 16px 30px -18px rgba(4, 38, 42, .8); }
+.pq::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .07; background: url("../assets/svg/watermark.svg") left -40px center/220px no-repeat; }
+.pq-mark { position: absolute; top: -18px; left: 14px; font-size: 120px; line-height: 1; font-family: Georgia, serif; color: rgba(240, 217, 165, .35); }
+.pq blockquote { position: relative; margin: 0; font-size: 19px; font-weight: 700; line-height: 1.7; }
+.pq figcaption { display: grid; gap: 1px; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(240, 217, 165, .3); font-size: 12px; color: #CFE3E1; }
+.pq figcaption b { color: #F0D9A5; font-size: 13px; }
+.pq figcaption small { font-size: 10px; opacity: .7; }
+
+/* ---------- مسيرتي: خيط ذهبي يمتلئ مع التمرير ---------- */
+.jr-intro { margin: -4px 0 12px; font-size: 12px; color: var(--muted); }
+.jr { --fill: 0; position: relative; list-style: none; margin: 0; padding: 0 0 0 0; padding-inline-start: 26px; }
+.jr::before, .jr::after { content: ""; position: absolute; top: 8px; bottom: 8px; inset-inline-start: 9px; width: 2px; border-radius: 2px; }
+.jr::before { background: repeating-linear-gradient(180deg, #e3d6b8 0 4px, transparent 4px 9px); }
+.jr::after { background: linear-gradient(180deg, #F4DFAE, #C9A35C 60%, #9C7638); transform-origin: top; transform: scaleY(var(--fill)); box-shadow: 0 0 6px rgba(201, 163, 92, .6); }
+.jr li { position: relative; opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+.jr li.in { opacity: 1; transform: none; }
+.jr-year { margin: 14px 0 6px; }
+.jr-year:first-child { margin-top: 0; }
+.jr-year b { position: relative; display: inline-block; padding: 1px 12px; border-radius: 999px; font-size: 13px; font-weight: 800;
+  background: linear-gradient(90deg, #F4DFAE, #C9A35C); color: #2F230C; box-shadow: 0 3px 10px -4px rgba(169, 131, 68, .7); }
+.jr-year b::before { content: ""; position: absolute; top: 50%; inset-inline-start: -23px; width: 12px; height: 12px; margin-top: -6px; border-radius: 50%;
+  background: #C9A35C; box-shadow: 0 0 0 3px #fff, 0 0 0 4px #e3d6b8; }
+.jr-item { margin-bottom: 6px; }
+.jr-item button { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 2px 8px; width: 100%; padding: 9px 12px; text-align: start;
+  border: 1px solid #dfe8e5; border-radius: 14px; background: #fff; font: inherit; color: inherit; cursor: pointer;
+  box-shadow: 0 3px 10px rgba(6, 49, 53, .04); transition: border-color .2s ease, transform .2s ease; }
+.jr-item button:hover { border-color: #C9A35C; }
+.jr-item button:active { transform: scale(.98); }
+.jr-item button:focus-visible { outline: 2px solid #C9A35C; outline-offset: 2px; }
+.jr-dot { grid-row: span 2; width: 9px; height: 9px; border-radius: 50%; }
+.jr-item.international .jr-dot { background: linear-gradient(135deg, #F4DFAE, #C9A35C); }
+.jr-item.local .jr-dot { background: var(--green); }
+.jr-t { font-size: 13px; font-weight: 700; line-height: 1.5; color: #1B1E24; }
+.jr-item small { grid-column: 2; font-size: 11px; color: var(--muted); }
+.jr-end { display: flex; align-items: center; gap: 8px; margin-top: 10px; color: #A88344; font-size: 12px; }
+.jr-end span { position: relative; inset-inline-start: -27px; margin-inline-end: -27px; width: 22px; text-align: center; font-size: 16px; }
+
+/* ---------- الإنجازات: وسم النطاق، والإبراز عند القدوم من المسيرة ---------- */
+.ach .tag.scope-international { background: #FBF2E1; color: #8A6A2F; }
+.ach .tag.scope-local { background: #EFF7E6; color: #4C7A2E; }
+.ach .date { direction: rtl; text-align: start; }
+.ach.flash { animation: ach-flash 1.6s ease; }
+@keyframes ach-flash { 0%, 40% { box-shadow: 0 0 0 3px #C9A35C, 0 10px 24px -10px rgba(169, 131, 68, .8); } 100% { box-shadow: none; } }
+.ach-empty { margin: 16px 0 0; text-align: center; color: var(--muted); font-size: 13px; }
+
+/* ---------- منجزون في نفس المجال ---------- */
+.rel { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 24px) / 4); gap: 8px; overflow-x: auto; padding: 2px 2px 10px;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+.rel::-webkit-scrollbar { display: none; }
+.rel-card { scroll-snap-align: start; display: grid; justify-items: center; align-content: start; gap: 3px; padding: 12px 4px 10px; text-align: center;
+  border: 1px solid #dfe8e5; border-radius: 16px; background: #fff; box-shadow: 0 4px 14px rgba(6, 49, 53, .05); transition: transform .2s ease, border-color .2s ease; }
+.rel-card:hover { border-color: #C9A35C; transform: translateY(-2px); }
+.rel-mono { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 4px; border-radius: 50%; font-size: 20px; font-weight: 800; color: #F0D9A5;
+  background: radial-gradient(circle at 50% 30%, #0E8790, #063135); box-shadow: inset 0 0 0 2px rgba(240, 217, 165, .6), 0 0 0 4px rgba(201, 163, 92, .12); }
+.rel-card b { font-size: 12px; line-height: 1.4; color: var(--dark); }
+.rel-card small { font-size: 9.5px; line-height: 1.5; color: var(--muted); }
+.rel-all { display: inline-flex; gap: 6px; margin-top: 6px; font-size: 13px; font-weight: 700; color: var(--primary); }
+
+/* ---------- الهيدر المصغّر: صورة المنجز تظهر عند التمرير ---------- */
+/* إطار دائري ذهبي، والصورة (بدون خلفية مثل صورة العرض) تجلس على خط الإطار السفلي ويخرج رأسها من أعلاه.
+   القص مضبوط على صورة العرض: الوجه عند ٦١٪ من العرض، والكتفان عند ٥٢٪ من الارتفاع. */
+.crumb-avatar { position: relative; flex: none; height: 64px; width: 0; margin-inline-end: -14px; opacity: 0;
+  transition: width .35s ease, opacity .35s ease, margin .35s ease; }
+.crumb-avatar::before { content: ""; position: absolute; left: 50%; top: 14px; width: 38px; height: 38px; margin-left: -19px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, rgba(240, 217, 165, .45), rgba(6, 49, 53, .6) 75%);
+  box-shadow: inset 0 0 0 1.5px #D9B977, 0 0 0 3px rgba(217, 185, 119, .15); }
+.crumb-avatar img { position: absolute; top: 7px; left: 50%; width: 92px; height: 85px; max-width: none; margin-left: -57px;
+  clip-path: inset(-20px 16px 40px 38px round 0 0 19px 19px);
+  transform: translateY(10px); transition: transform .45s cubic-bezier(.3, 1.4, .4, 1) .05s; }
+.site-header.is-compact .crumb-avatar { width: 40px; opacity: 1; margin-inline-end: 0; }
+.site-header.is-compact .crumb-avatar img { transform: none; }
+.site-header.is-compact .logo img { height: 36px; transition: height .3s ease; }
+
+/* ---------- معرض الصور ---------- */
+.media3 a { position: relative; }
+.pg-box { width: 100%; max-width: 100%; height: 100%; max-height: 100%; margin: 0; padding: 16px; border: 0; background: transparent; }
+.pg-box[open] { display: grid; place-items: center; }
+.pg-box::backdrop { background: rgba(3, 26, 29, .88); }
+.pg-box figure { margin: 0; text-align: center; }
+.pg-box img { max-width: 100%; max-height: 74vh; border-radius: 14px; box-shadow: 0 20px 40px rgba(0, 0, 0, .5); }
+.pg-box figcaption { margin-top: 10px; color: #F0D9A5; font-size: 13px; }
+.pg-close, .pg-nav { position: fixed; display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 50%;
+  background: rgba(255, 255, 255, .14); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; }
+.pg-close { top: 14px; left: 14px; }
+.pg-nav { top: 50%; transform: translateY(-50%); }
+.pg-prev { right: 10px; }
+.pg-next { left: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .jr li, .jr::after, .crumb-avatar, .crumb-avatar img, .rel-card { transition: none; }
+  .ach.flash { animation: none; }
+}
+
+/* Square portraits, one continuous row. */
+.rel { display: block; direction: ltr; overflow: hidden; scroll-snap-type: none; padding: 4px 0 12px; }
+.rel-track { display: flex; width: max-content; animation: related-loop 35s linear infinite; }
+.rel-group { display: flex; flex: none; gap: 14px; padding-right: 14px; }
+.rel .rel-card { display: flex; flex-direction: column; align-items: center; flex: 0 0 112px; width: 112px; padding: 0; gap: 9px; border: 0; border-radius: 0; background: transparent; box-shadow: none; direction: rtl; }
+.rel-photo { display: block; width: 112px; height: 112px; object-fit: cover; border-radius: 6px; border: 1px solid #d8e3dd; }
+.rel-card b { width: 100%; font-size: 12px; line-height: 1.6; }
+.rel:hover .rel-track, .rel:focus-within .rel-track { animation-play-state: paused; }
+@keyframes related-loop { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.related-person { text-align: center; padding-block: 30px; }
+.related-person-photo { display: block; width: 200px; height: 200px; border-radius: 8px; margin: 24px auto 16px; }
+.related-person h1 { color: var(--dark); font-size: 26px; }
+.related-person p { margin: 12px 0; color: var(--muted); }
+@media(prefers-reduced-motion: reduce) { .rel { overflow-x: auto; } .rel-track { animation: none; } }
+
+/* =========================================================
+   «مسيرتي» — قرص دوّار بتدريجات ومؤشر ذهبي + بطاقة مؤطّرة
+   ========================================================= */
+.jd { position: relative; outline: none; -webkit-tap-highlight-color: transparent; }
+.jd-stage { position: relative; height: 116px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }
+.jd-ring, .jd-glow { position: absolute; left: 50%; top: 30px; width: 300px; height: 300px; margin-left: -150px; }
+.jd-ring { transition: transform .9s cubic-bezier(.65, 0, .25, 1); }
+.jd-ring svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.jd-line { fill: none; stroke: #E2D3B0; stroke-width: 1.2; }
+.jd-inner { fill: rgba(12, 127, 137, .045); stroke: rgba(12, 127, 137, .14); stroke-width: 1; stroke-dasharray: 2 5; }
+.jd-ring line { stroke: #CDBB94; stroke-width: 1; stroke-linecap: round; }
+.jd-ring line.mj { stroke: #A88344; stroke-width: 2; }
+.jd-glow { pointer-events: none; overflow: visible; }
+.jd-glow path { fill: none; stroke: url(#jdg); stroke-width: 3.5; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(201, 163, 92, .7)); }
+.jd-pin { position: absolute; left: 50%; top: 35px; width: 9px; height: 9px; margin-left: -4.5px; transform: rotate(45deg);
+  background: linear-gradient(135deg, #F4DFAE, #A88344); box-shadow: 0 0 0 3px #fff, 0 0 12px 2px rgba(201, 163, 92, .65); pointer-events: none; }
+.jd-yr { position: absolute; left: 50%; top: -26px; width: 56px; height: 26px; margin-left: -28px; padding: 0; border: 0; background: none;
+  font: inherit; cursor: pointer; transform-origin: 28px 176px; transition: opacity .6s ease; }
+.jd-yr span { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #8A8478; line-height: 1.5;
+  transition: transform .9s cubic-bezier(.65, 0, .25, 1), background .4s, color .4s, box-shadow .4s, font-size .4s; }
+.jd-yr.on span { font-size: 14px; font-weight: 800; color: #fff; background: linear-gradient(135deg, #C9A35C, #A88344);
+  box-shadow: 0 6px 14px -6px rgba(168, 131, 68, .9); }
+.jd-yr:focus-visible span { outline: 2px solid #0C7F89; outline-offset: 2px; }
+
+/* البطاقة المؤطّرة */
+.jd-card { position: relative; z-index: 1; margin-top: -30px; padding: 20px 44px 22px; border-radius: 20px; text-align: center; overflow: hidden;
+  background: linear-gradient(180deg, #fff, #FBF8F1); border: 1px solid #E8DCC0;
+  box-shadow: 0 18px 34px -22px rgba(6, 49, 53, .45), inset 0 0 0 5px #fff, inset 0 0 0 6px rgba(201, 163, 92, .35); }
+.jd-c { position: absolute; width: 16px; height: 16px; border: 2px solid #C9A35C; pointer-events: none; }
+.jd-c.tl { top: 10px; left: 10px; border-width: 2px 0 0 2px; border-radius: 6px 0 0 0; }
+.jd-c.tr { top: 10px; right: 10px; border-width: 2px 2px 0 0; border-radius: 0 6px 0 0; }
+.jd-c.bl { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; border-radius: 0 0 0 6px; }
+.jd-c.br { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; border-radius: 0 0 6px 0; }
+.jd-wm { position: absolute; left: 50%; bottom: -30px; translate: -50% 0; font-size: 96px; font-weight: 800; line-height: 1; letter-spacing: -2px;
+  color: transparent; -webkit-text-stroke: 1px rgba(168, 131, 68, .1); pointer-events: none; }
+.jd-body { position: relative; min-height: 138px; display: grid; align-items: center; }
+.jd-in { display: flex; flex-direction: column; align-items: center; gap: 8px; animation: jd-in .6s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes jd-in { from { opacity: 0; translate: 0 8px; filter: blur(3px); } }
+.jd-kick { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; color: #0C7F89; letter-spacing: .2px; }
+.jd-kick em { font-style: normal; color: #B5AC9A; margin-inline-start: -4px; }
+.jd-kick span { position: relative; padding-inline-start: 9px; color: #A88344; font-weight: 700; }
+.jd-kick span::before { content: ""; position: absolute; inset-inline-start: 0; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%; background: #C9A35C; }
+.jd-t { font-size: 15.5px; font-weight: 800; line-height: 1.6; color: #063135; max-width: 26ch; }
+.jd-meta { display: flex; gap: 6px; }
+.jd-tag { padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #F4EEDF; color: #8A6A35; }
+.jd-tag.international { background: #E2F4F2; color: #096770; }
+.jd-tag.local { background: #EEF6E6; color: #4D7A2E; }
+.jd-go { margin-top: 2px; display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px; border-radius: 999px; border: 1px solid #0C7F89;
+  background: none; color: #096770; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .25s, color .25s; }
+.jd-go::after { content: "←"; font-size: 13px; transition: translate .25s; }
+.jd-go:hover, .jd-go:active { background: #0C7F89; color: #fff; }
+.jd-go:hover::after { translate: -3px 0; }
+.jd-nav { position: absolute; top: 50%; z-index: 2; width: 30px; height: 30px; margin-top: -15px; border-radius: 50%; border: 1px solid #E8DCC0; padding: 0;
+  background: #fff; cursor: pointer; box-shadow: 0 4px 10px -6px rgba(6, 49, 53, .4); transition: background .25s, border-color .25s; }
+.jd-nav::before { content: ""; position: absolute; inset: 0; margin: auto; width: 7px; height: 7px; border: solid #A88344; border-width: 2px 2px 0 0; }
+.jd-nav.next { left: 8px; } .jd-nav.next::before { transform: translateX(1px) rotate(-135deg); }
+.jd-nav.prev { right: 8px; } .jd-nav.prev::before { transform: translateX(-1px) rotate(45deg); }
+.jd-nav:active { background: #F7F2E8; border-color: #C9A35C; }
+.jd-bar { position: absolute; left: 34px; right: 34px; bottom: 0; height: 2px; background: #F1E9D6; border-radius: 2px; overflow: hidden; }
+.jd-bar i { display: block; height: 100%; width: 100%; transform-origin: right; transform: scaleX(0); background: linear-gradient(270deg, #F4DFAE, #C9A35C); }
+.jd-card.play .jd-bar i { animation: jd-bar var(--dur, 4200ms) linear both; }
+@keyframes jd-bar { to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .jd-ring, .jd-yr span { transition: none; } .jd-in { animation: none; } }
+
+/* =========================================================
+   «مسيرتي» — كل المحطات ظاهرة: عمود ذهبي في المنتصف وبطاقات متعاشقة
+   ========================================================= */
+.zj { --row: 34px; --gap: 6px; --col: 30px; position: relative; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--col);
+  grid-auto-rows: var(--row); row-gap: var(--gap); padding-bottom: 4px; }
+.zj-spine { position: absolute; left: 50%; top: 6px; bottom: 6px; width: 2px; margin-left: -1px; border-radius: 2px;
+  background: repeating-linear-gradient(180deg, #E5D6B4 0 4px, transparent 4px 8px); transform-origin: top; transform: scaleY(0); }
+.zj-spine i { position: absolute; top: 0; left: 0; width: 100%; height: 0; border-radius: 2px;
+  background: linear-gradient(180deg, #F4DFAE, #C9A35C 50%, #A88344); box-shadow: 0 0 6px rgba(201, 163, 92, .7);
+  transition: height .9s cubic-bezier(.65, 0, .25, 1); }
+.zj-bead { position: absolute; left: 50%; top: 40px; z-index: 3; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle at 35% 35%, #FFF6DD, #C9A35C 60%, #A88344); box-shadow: 0 0 0 3px rgba(255, 255, 255, .9), 0 0 16px 4px rgba(201, 163, 92, .75);
+  transition: top .9s cubic-bezier(.65, 0, .25, 1), opacity .4s; pointer-events: none; }
+.zj-bead::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1.5px solid rgba(201, 163, 92, .7); animation: zj-ping 1.6s ease-out infinite; }
+@keyframes zj-ping { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.9); opacity: 0; } }
+.zj-st { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; gap: 3px; min-width: 0; padding: 7px 10px;
+  border-radius: 14px; border: 1px solid #ECE2CB; background: #fff; text-align: start; font: inherit; color: inherit; cursor: pointer;
+  box-shadow: 0 8px 18px -14px rgba(6, 49, 53, .35); -webkit-tap-highlight-color: transparent;
+  opacity: 0; transition: border-color .5s, box-shadow .5s, background .5s, scale .5s cubic-bezier(.16, 1, .3, 1); }
+.zj-st.r { grid-column: 1; translate: -18px 0; }
+.zj-st.l { grid-column: 2; translate: 18px 0; }
+/* الوصلة بين البطاقة والعمود + النقطة على العمود */
+.zj-st::before { content: ""; position: absolute; top: 50%; width: calc(var(--col) / 2); height: 1.5px; background: #E5D6B4; transition: background .5s; }
+.zj-st.r::before { inset-inline-end: calc(var(--col) / -2 - 1px); }
+.zj-st.l::before { inset-inline-start: calc(var(--col) / -2 - 1px); }
+.zj-dot { position: absolute; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: #fff; border: 2px solid #D7C49B; transition: background .5s, border-color .5s, scale .5s; }
+.zj-st.r .zj-dot { inset-inline-end: calc(var(--col) / -2 - 5.5px); }
+.zj-st.l .zj-dot { inset-inline-start: calc(var(--col) / -2 - 5.5px); }
+.zj-y { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 800; color: #A88344; line-height: 1.2; }
+.zj-y small { font-size: 10px; font-weight: 700; color: #9C9686; }
+.zj-y em { margin-inline-start: auto; padding: 1px 6px; border-radius: 999px; font-style: normal; font-size: 9px; font-weight: 700; }
+.zj-y em.i { background: #E2F4F2; color: #096770; }
+.zj-y em.lo { background: #EEF6E6; color: #4D7A2E; }
+.zj-t { font-size: 11.5px; font-weight: 700; line-height: 1.55; color: #063135;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+/* المحطات التي مرّ بها الضوء */
+.zj-st.past .zj-dot { background: #C9A35C; border-color: #C9A35C; }
+.zj-st.past::before { background: #D9C08A; }
+/* المحطة النشطة */
+.zj-st.on { scale: 1.04; z-index: 2; border-color: #C9A35C; background: linear-gradient(180deg, #FFFDF8, #FBF4E3);
+  box-shadow: 0 12px 24px -12px rgba(168, 131, 68, .65), inset 0 0 0 1px rgba(201, 163, 92, .35); }
+.zj-st.on::before { background: linear-gradient(90deg, #C9A35C, #F4DFAE); height: 2px; }
+.zj-st.on .zj-dot { background: #C9A35C; border-color: #fff; scale: 1.3; box-shadow: 0 0 0 2px #C9A35C; }
+.zj-st.on .zj-y { color: #0C7F89; }
+/* الدخول: العمود يُرسم ثم تنبثق البطاقات منه تباعًا */
+.zj.in .zj-spine { transform: scaleY(1); transition: transform .8s cubic-bezier(.65, 0, .25, 1); }
+.zj.in .zj-st { opacity: 1; translate: 0 0; transition: opacity .6s ease calc(.35s + var(--i) * 90ms), translate .7s cubic-bezier(.16, 1, .3, 1) calc(.35s + var(--i) * 90ms),
+  border-color .5s, box-shadow .5s, background .5s, scale .5s cubic-bezier(.16, 1, .3, 1); }
+.zj.in .zj-bead { opacity: 1; transition-delay: 0s, calc(.4s + var(--n) * 90ms); }
+.zj-st:active { scale: .98; }
+.zj-st:focus-visible { outline: 2px solid #0C7F89; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .zj *, .zj-st { transition: none !important; animation: none !important; } }
+
+/* Original related-achiever cards on Jokha's page. */
+.rel.rel-original { display: grid; direction: rtl; grid-auto-flow: column; grid-auto-columns: calc((100% - 24px) / 4); gap: 8px; overflow-x: auto; padding: 2px var(--gutter) 10px; scroll-snap-type: x mandatory; }
+.rel-original .rel-card { display: grid; justify-items: center; align-content: start; width: auto; gap: 3px; padding: 12px 4px 10px; border: 1px solid #dfe8e5; border-radius: 16px; background: #fff; box-shadow: 0 4px 14px rgba(6,49,53,.05); }
+.rel-original .rel-card:hover { border-color: #C9A35C; }
+.rel-original .rel-card b { width: auto; font-size: 12px; line-height: 1.4; white-space: nowrap; }
+.rel.rel-original { grid-auto-columns: minmax(116px, calc((100% - 24px) / 4)); }
+
+/* Actual author portraits inside square frames. */
+.rel-original .rel-card { padding: 5px 5px 9px; border-radius: 7px; gap: 6px; }
+.rel-original .rel-real-photo { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; object-position: center 20%; border: 1px solid #c9d8d0; border-radius: 3px; }
+.rel-original .rel-real-photo[src$="saif.jpg"] { object-position: 28% center; }
+
+/* Continuous loop using the current square-photo cards. */
+.rel.rel-original.rel-moving { display: block; direction: ltr; overflow: hidden; scroll-snap-type: none; padding-inline: 0; }
+.rel-moving .rel-group { align-items: stretch; }
+.rel-moving .rel-track { animation-direction: reverse; }
+.rel-moving .rel-card { flex: 0 0 116px; width: 116px; min-width: 116px; direction: rtl; }
+@media(prefers-reduced-motion: reduce) { .rel.rel-original.rel-moving { overflow-x: auto; } }

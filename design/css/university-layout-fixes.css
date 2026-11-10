@@ -1,0 +1,47 @@
+/* جامعة السلطان قابوس: احتواء العناصر داخل مساحاتها وتنسيق المحتوى. */
+[data-uni-page][data-org="squ"] .uh-top { min-width: 0; padding-bottom: 18px; }
+[data-uni-page][data-org="squ"] .uh-emb { min-width: 0; min-height: 0; align-self: center; }
+[data-uni-page][data-org="squ"] .uh-emb img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+[data-uni-page][data-org="squ"] .u-hero .uh-stats { margin-top: 20px; }
+[data-uni-page][data-org="squ"] .u-word .lw { width: 100%; max-width: 100%; margin-inline: 0; box-sizing: border-box; border-radius: 22px; overflow: hidden; }
+[data-uni-page][data-org="squ"] .u-word { min-width: 0; }
+/* قائمة حقيقية للمنجزين وزر مستقل بحجم مناسب. */
+[data-uni-page] [data-u-people] { display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
+[data-uni-page] .us-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 180px)); justify-content: start; padding: 18px; gap: 18px; }
+[data-uni-page] .us { padding: 8px; align-content: start; }
+[data-uni-page] .us b { white-space: normal; overflow: visible; text-overflow: clip; }
+[data-uni-page] .us small { line-height: 1.6; }
+[data-uni-page] .us-more { align-self: flex-end; width: auto; max-width: 100%; min-height: 44px; margin: 0; padding: 10px 18px; gap: 12px; border: 1px solid #D8C6A0; background: #FBF7EE; color: #063135; border-radius: 12px; }
+[data-uni-page] .us-more b { background: #E8DED0; color: #7B5A24; }
+[data-uni-page] .us-more:hover { background: #F2E8D4; }
+[data-uni-page] .us-more:focus-visible { outline: 2px solid #0C7F89; outline-offset: 3px; }
+/* مراحل نمو الكليات: السنة والعدد في الأعلى، والكليات في محتوى البطاقة. */
+[data-org="squ"] .ug { gap: 12px; }
+[data-org="squ"] .ug li { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr; align-items: start; gap: 12px; padding: 16px; border: 1px solid #E4D6B9; box-shadow: none; background: linear-gradient(145deg, #fff, #FCFAF5); }
+[data-org="squ"] .ug-y { grid-column: 1; grid-row: 1; justify-self: start; min-width: 62px; padding: 6px 12px; }
+[data-org="squ"] .ug-n { grid-column: 2; grid-row: 1; gap: 3px; align-self: center; }
+[data-org="squ"] .ug-body { grid-column: 1 / -1; grid-row: 2; min-width: 0; gap: 10px; }
+[data-org="squ"] .ug-chips { gap: 6px; }
+[data-org="squ"] .ug-chips span { padding: 5px 9px; line-height: 1.6; }
+@media (min-width: 700px) {
+  [data-org="squ"] .lib-wall { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 18px; }
+  [data-org="squ"] .ug { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  [data-org="squ"] .ug li:first-child { grid-column: 1 / -1; }
+}
+@media (min-width: 1100px) {
+  [data-org="squ"] .ug { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  [data-org="squ"] .ug li:first-child { grid-column: span 2; }
+}
+
+/* جامعة صحار: احتواء الشعار وفصله عن بطاقات الأرقام. */
+[data-uni-page][data-org="sohar"] .uh-top { min-width: 0; padding-bottom: 18px; }
+[data-uni-page][data-org="sohar"] .uh-emb { min-width: 0; min-height: 0; align-self: center; padding: 8px; box-sizing: border-box; }
+[data-uni-page][data-org="sohar"] .uh-emb img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+[data-uni-page][data-org="sohar"] .u-hero .uh-stats { margin-top: 20px; }
+
+/* محاذاة كلمة الرئيس داخل الصفحة في جامعات صحار وظفار ونزوى. */
+[data-uni-page]:is([data-org="sohar"], [data-org="dhofar"], [data-org="unizwa"]) .u-word { min-width: 0; }
+[data-uni-page]:is([data-org="sohar"], [data-org="dhofar"], [data-org="unizwa"]) .u-word .lw {
+  width: 100%; max-width: 100%; margin-inline: 0; box-sizing: border-box;
+  border-radius: 22px; overflow: hidden;
+}

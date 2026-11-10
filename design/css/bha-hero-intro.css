@@ -1,0 +1,19 @@
+/* هيدر جائزة بلعرب — دخول الكلام على الكمبيوتر (٨ نوفمبر ٢٠٢٦)، مع الحفاظ على كل ما في الهيدر:
+   الشعار يُبنى من الأسفل، ثم السطر الصغير ينزلق، والعنوان الذهبي يُكشف بمسحة من اليمين، ثم «للتصميم المعماري»،
+   ثم الشعار النصي، ثم الأرقام الثلاثة واحدًا بعد الآخر. تبدأ لحظة ظهور الصفحة. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-bf] .c-mark { animation: bhi-build 1s cubic-bezier(.7, 0, .2, 1) .05s both; }
+  [data-bf] .c-eyebrow { animation: bhi-slide .7s cubic-bezier(.2, .8, .2, 1) .15s both; }
+  [data-bf] .c-hero h1 > span:first-child { display: inline-block; animation: bhi-wipe .95s cubic-bezier(.2, .8, .2, 1) .25s both; }
+  [data-bf] .c-hero h1 small { animation: bhi-up .7s cubic-bezier(.2, .8, .2, 1) .6s both; }
+  [data-bf] .c-motto { animation: bhi-up .7s cubic-bezier(.2, .8, .2, 1) .8s both; }
+  [data-bf] .c-stats { animation: bhi-line .8s cubic-bezier(.2, .8, .2, 1) .95s both; }
+  [data-bf] .c-stats > div { animation: bhi-pop .6s cubic-bezier(.3, 1.4, .5, 1) calc(1.05s + var(--n, 0) * .12s) both; }
+  [data-bf] .c-stats > div:nth-child(2) { --n: 1; } [data-bf] .c-stats > div:nth-child(3) { --n: 2; }
+}
+@keyframes bhi-build { from { clip-path: inset(100% 0 0 0); transform: translateY(16px); } to { clip-path: inset(0 0 0 0); transform: none; } }
+@keyframes bhi-slide { from { opacity: 0; transform: translateX(-26px); } }
+@keyframes bhi-wipe { from { opacity: 0; clip-path: inset(0 0 0 100%); transform: translateX(-24px); filter: blur(6px); } to { opacity: 1; clip-path: inset(-20% -4% -20% -4%); transform: none; filter: none; } }
+@keyframes bhi-up { from { opacity: 0; transform: translateY(14px); } }
+@keyframes bhi-line { from { border-top-color: transparent; } }
+@keyframes bhi-pop { from { opacity: 0; transform: translateY(10px) scale(.85); } }

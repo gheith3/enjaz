@@ -1,0 +1,60 @@
+/* هيدر صفحة المنجزين: عنوان ذهبي بلمعة، سطر تعريفي، وجوه المنجزين بحلقات ذهبية متراكبة، وبحث زجاجي بزر ذهبي. */
+.ap-hero {
+  padding: calc(14px + .5cm) var(--gutter, 16px) calc(18px + .5cm); text-align: center;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23F4DFAE' stroke-opacity='.0504' stroke-width='1'%3E%3Cpath d='M28 6l6.4 15.6L50 28l-15.6 6.4L28 50l-6.4-15.6L6 28l15.6-6.4z'/%3E%3Crect x='17' y='17' width='22' height='22' transform='rotate(45 28 28)'/%3E%3C/g%3E%3C/svg%3E") center top / 56px 56px,
+    radial-gradient(70% 55% at 50% 0%, rgba(244, 223, 174, .2), transparent 70%),
+    linear-gradient(175deg, #0C7F89 0%, #0A5C63 50%, #063135 100%);
+}
+/* خط ذهبي رفيع أسفل الهيدر */
+.ap-hero::after { content: ""; position: absolute; inset: auto 12% 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(230, 201, 138, .7), transparent); }
+.ap-hero .hero-text { position: relative; z-index: 1; }
+
+.ap-hero .ap-title { margin: 0; font-size: 30px; font-weight: 800; line-height: 1.25; }
+.ap-shine { position: relative; display: inline-block;
+  background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 30%, #E6C177 55%, #F8E3AA 78%, #EFD08A 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 2px 10px rgba(0, 0, 0, .25)); }
+.ap-shine::after { content: attr(data-t); position: absolute; inset: 0; pointer-events: none; color: transparent;
+  background: linear-gradient(100deg, transparent 44%, rgba(255, 252, 240, .2) 47%, rgba(255, 255, 255, .95) 50%, rgba(255, 252, 240, .2) 53%, transparent 56%) no-repeat;
+  background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; opacity: 0; }
+.ap-sub { margin: 2px auto 0; max-width: 350px; color: rgba(255, 255, 255, .82); font-size: 12.5px; line-height: 1.8; }
+
+/* الوجوه */
+.ap-faces { display: flex; justify-content: center; align-items: center; margin: 10px 0 0; direction: rtl; }
+.ap-faces img, .ap-more { width: 38px; height: 38px; border-radius: 50%; flex: none; }
+.ap-faces img { object-fit: cover; background: #063135;
+  border: 2px solid #E6C98A; box-shadow: 0 6px 14px -6px rgba(0, 0, 0, .6), 0 0 0 3px rgba(6, 49, 53, .9); }
+.ap-faces > * + * { margin-inline-start: -10px; }
+.ap-more { display: grid; place-items: center; color: #063135;
+  background: linear-gradient(175deg, #FFF4D2, #E6C177 60%, #EFD08A); box-shadow: 0 0 0 3px rgba(6, 49, 53, .9); }
+.ap-more svg { width: 15px; height: 15px; }
+
+/* البحث */
+.page-hero.ap-hero .ap-search { max-width: 280px; margin: 12px auto 0; }
+.page-hero.ap-hero .ap-search input { height: 42px; padding: 0 14px 0 46px; border: 1px solid rgba(244, 223, 174, .45); border-radius: 999px;
+  background: rgba(255, 255, 255, .96); color: #063135; font-size: 13px;
+  box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .6), 0 0 0 5px rgba(255, 255, 255, .06); }
+.ap-search input::placeholder { color: #6B7B7C; }
+.page-hero.ap-hero .ap-search input:focus { outline: none; border-color: #D9B262; box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .6), 0 0 0 4px rgba(230, 201, 138, .35); }
+.page-hero.ap-hero .ap-search button { left: 4px; top: 4px; width: 34px; height: 34px; border: 0; border-radius: 50%;
+  background: linear-gradient(175deg, #F6E3B4, #D9B262); box-shadow: 0 4px 10px -4px rgba(110, 80, 30, .6); cursor: pointer; }
+.ap-search button img { filter: brightness(0) saturate(100%) invert(14%) sepia(30%) saturate(1500%) hue-rotate(145deg); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .ap-shine::after { animation: ap-shine 6.5s cubic-bezier(.45, .05, .25, 1) .9s infinite; }
+  .ap-faces img, .ap-more { animation: ap-in .6s cubic-bezier(.2, .8, .2, 1) both; }
+  .ap-faces > :nth-child(2) { animation-delay: .08s; } .ap-faces > :nth-child(3) { animation-delay: .16s; }
+  .ap-faces > :nth-child(4) { animation-delay: .24s; } .ap-faces > :nth-child(5) { animation-delay: .32s; } .ap-faces > :nth-child(6) { animation-delay: .4s; }
+}
+@keyframes ap-shine { 0% { opacity: 1; background-position: 0% 0; } 26% { opacity: 1; background-position: 100% 0; } 27%, 100% { opacity: 0; background-position: 100% 0; } }
+@keyframes ap-in { from { opacity: 0; transform: translateY(8px) scale(.85); } }
+
+@media (min-width: 768px) {
+  .ap-hero { padding-block: calc(26px + .5cm) calc(28px + .5cm); }
+  .ap-hero .ap-title { font-size: 42px; }
+  .ap-sub { max-width: 460px; font-size: 15px; }
+  .ap-faces img, .ap-more { width: 48px; height: 48px; }
+  .page-hero.ap-hero .ap-search { max-width: 420px; }
+  .page-hero.ap-hero .ap-search input { height: 48px; font-size: 14px; }
+  .page-hero.ap-hero .ap-search button { top: 5px; left: 5px; width: 38px; height: 38px; }
+}

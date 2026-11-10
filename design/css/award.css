@@ -1,0 +1,219 @@
+/* صفحة «جائزة السلطان قابوس للثقافة والفنون والآداب» (award.html)
+   الفكرة: الجائزة وسام؛ فالرأس وسامٌ ذهبي تدور حوله الفروع الثلاثة، والفروع أشرطة أوسمة معلّقة،
+   والفائزون أوسمة تتدلّى من خيط ذهبي يمر بالدورات. ألوان الموقع: التركوازي والذهبي. */
+.aw-page { --ink: #063135; --teal: #0C7F89; --deep: #0A4B50; --gold: #C6A15A; --gold2: #F4DFAE; --ivory: #FBF7EE; --line: #ECE3CE;
+  --c-culture: #0C7F89; --c-arts: #4E8F5A; --c-lit: #B0873C; padding-bottom: 34px; background: #fff; }
+.b-culture { --c: var(--c-culture); } .b-arts { --c: var(--c-arts); } .b-lit { --c: var(--c-lit); }
+
+/* ---------- الرأس: الشعار الذهبي على الخلفية التركوازية ---------- */
+.aw-hero { position:relative; overflow:hidden; padding:28px var(--gutter) 20px; text-align:center; color:#fff; background:radial-gradient(120% 70% at 50% 18%,#13959F 0%,#0C7F89 30%,#0A5359 70%,#073A3E 100%); border-bottom:1px solid #c6a15a45; }
+.aw-signature { display:grid; justify-items:center; gap:8px; margin:0 auto 6px; }
+.aw-signature img { display:block; width:auto; height:184px; max-width:100%; object-fit:contain; }
+.aw-signature-fields { display:flex; justify-content:center; align-items:center; gap:13px; margin:0; color:#F4DFAE; font-size:12px; font-weight:700; line-height:1.8; }
+.aw-signature-fields span { color:#C6A15A; }
+@keyframes aw-signature-enter { from { opacity:0; transform:translateY(9px); } to { opacity:1; transform:translateY(0); } }
+@media(prefers-reduced-motion:no-preference) { .aw-signature { animation:aw-signature-enter .9s cubic-bezier(.22,1,.36,1) both; } }
+.aw-eyebrow { display: inline-block; color: var(--gold2); font-size: 11px; font-weight: 700; letter-spacing: .3px; }
+.aw-hero h1 { margin: 4px 0 6px; font-size: 25px; line-height: 1.35; font-weight: 800; color: #fff; }
+.aw-hero h1 small { display: block; margin-top: 2px; font-size: 15px; font-weight: 600; color: var(--gold2); }
+.aw-decree { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 0 14px; font-size: 11.5px; color: rgba(255, 255, 255, .82); }
+.aw-decree b { color: #fff; font-weight: 800; }
+.aw-decree i { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+.aw-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-bottom: 12px; }
+.aw-stats span { display: grid; justify-items: center; align-content: center; gap: 2px; min-height: 62px; padding: 6px 2px; border-radius: 12px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(244, 223, 174, .28); }
+.aw-stats b { font-size: 20px; line-height: 1.1; color: var(--gold2); }
+.aw-stats small { font-size: 9.5px; line-height: 1.35; color: rgba(255, 255, 255, .86); text-align: center; }
+.aw-jump { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; }
+.aw-jump a { display: grid; place-items: center; min-height: 34px; padding: 0 2px; border-radius: 999px; background: rgba(255, 255, 255, .1); color: #fff; font-size: 10.5px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.aw-jump a:active { background: rgba(244, 223, 174, .3); }
+
+/* ---------- العناوين ---------- */
+.aw-sec { margin-top: 30px; scroll-margin-top: 80px; }
+.aw-sec[hidden] { display: none; }
+.aw-h { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; color: var(--ink); font-size: 18px; font-weight: 800; }
+.aw-h::before { content: ""; width: 4px; height: 18px; border-radius: 3px; background: linear-gradient(var(--gold2), var(--gold)); }
+.aw-lead { margin: 0 0 14px; color: #33585C; font-size: 13px; line-height: 2; }
+.aw-sub { margin: 18px 0 10px; color: var(--ink); font-size: 14px; font-weight: 800; }
+
+/* ---------- الأهداف ---------- */
+.aw-goals { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.aw-goals li { display: grid; grid-template-columns: 28px 1fr; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--ivory); border: 1px solid var(--line); color: #2A4B4F; font-size: 12px; line-height: 1.75; }
+.aw-goals b { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1.5px solid var(--gold); color: #8A6A2E; font-size: 13px; }
+
+/* ---------- الفروع: أشرطة أوسمة معلّقة ---------- */
+.aw-pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.aw-pil { position: relative; display: grid; justify-items: center; align-content: start; gap: 5px; min-height: 222px; padding: 16px 8px 46px; border: 0; border-radius: 12px 12px 0 0; color: #fff; text-align: center; cursor: pointer; font: inherit;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 82%, #fff), var(--c) 40%, color-mix(in srgb, var(--c) 70%, #000));
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 26px), 0 100%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .15); }
+.aw-pil::before { content: ""; position: absolute; inset: 0 auto 0 50%; width: 30%; transform: translateX(-50%); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .14) 20% 80%, transparent); pointer-events: none; }
+.aw-pil-ic { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: #fff; color: var(--c); box-shadow: 0 0 0 3px rgba(244, 223, 174, .7); }
+.aw-pil-ic svg { width: 22px; height: 22px; }
+.aw-pil b { font-size: 15px; font-weight: 800; }
+.aw-pil small { font-size: 10px; line-height: 1.7; color: rgba(255, 255, 255, .9); }
+.aw-pil em { margin-top: auto; font-style: normal; font-size: 10px; color: var(--gold2); }
+.aw-pil em strong { display: block; font-size: 22px; line-height: 1.1; color: #fff; }
+.aw-pil:active { filter: brightness(1.08); }
+
+/* ---------- كلمة رئيس مجلس الأمناء (بعرض الشاشة) ---------- */
+.aw-word .lw { margin-inline: calc(-1 * var(--gutter, 16px)); }
+
+/* ---------- سجل الأوسمة ---------- */
+.aw-win-head { text-align: center; }
+.aw-win-head .aw-eyebrow { color: #A88344; }
+.aw-win-head h2 { margin: 2px 0 4px; color: var(--ink); font-size: 20px; font-weight: 800; }
+.aw-win-head h2 small { display: block; color: #8A6A2E; font-size: 12px; font-weight: 700; }
+.aw-win-head p { margin: 0 0 12px; color: #5B7477; font-size: 11.5px; }
+.aw-filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-bottom: 16px; }
+.aw-filters button { display: flex; align-items: center; justify-content: center; gap: 4px; min-height: 38px; padding: 0 4px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.aw-filters button svg { width: 15px; height: 15px; color: var(--c, var(--teal)); }
+.aw-filters button[aria-pressed="true"] { background: var(--c, var(--ink)); border-color: var(--c, var(--ink)); color: #fff; }
+.aw-filters button[aria-pressed="true"] svg { color: #fff; }
+
+.aw-tl { position: relative; margin: 0; padding: 0; list-style: none; }
+/* الخيط الذهبي */
+.aw-tl::before { content: ""; position: absolute; top: 18px; bottom: 30px; right: 27px; width: 2px; background: linear-gradient(180deg, var(--gold2), var(--gold) 20%, var(--gold) 80%, transparent); }
+.aw-ed { position: relative; padding-right: 66px; padding-bottom: 22px; }
+.aw-knot { position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%;
+  background: conic-gradient(from 210deg, #F4DFAE, #C6A15A, #8E6A2C, #E9CF96, #F4DFAE); box-shadow: 0 8px 16px -8px rgba(110, 80, 25, .7); }
+.aw-knot::before { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--deep); }
+.aw-knot b { position: relative; color: var(--gold2); font-size: 14px; font-weight: 800; letter-spacing: .3px; }
+.aw-ed.is-arab .aw-knot::before { background: #fff; }
+.aw-ed.is-arab .aw-knot b { color: #8A6A2E; }
+.aw-ed-h { display: grid; gap: 1px; min-height: 56px; align-content: center; margin-bottom: 8px; }
+.aw-ed-h strong { color: var(--ink); font-size: 14.5px; font-weight: 800; }
+.aw-type { color: #0C7F89; font-size: 11px; font-weight: 700; }
+.aw-ed.is-arab .aw-type { color: #A88344; }
+.aw-ed-h small { color: #7B8E90; font-size: 10.5px; }
+/* الأوسمة المتدلية */
+.aw-ms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 6px; margin: 0; padding: 0; list-style: none; }
+.aw-m button { position: relative; display: grid; justify-items: center; gap: 3px; width: 100%; padding: 0 2px 6px; border: 0; background: none; font: inherit; color: inherit; text-align: center; cursor: pointer; }
+.aw-rib { width: 34px; height: 26px; background: linear-gradient(90deg, color-mix(in srgb, var(--c) 75%, #000) 0 22%, var(--c) 22% 40%, var(--gold2) 40% 60%, var(--c) 60% 78%, color-mix(in srgb, var(--c) 75%, #000) 78%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%); margin-bottom: -10px; position: relative; z-index: 0; }
+.aw-m.is-arab .aw-rib { background: repeating-linear-gradient(90deg, var(--gold) 0 4px, #fff 4px 6px, var(--c) 6px 11px); }
+.aw-disc { position: relative; z-index: 1; display: block; width: 76px; height: 76px; padding: 3px; border-radius: 50%;
+  background: conic-gradient(from 200deg, #F4DFAE, #C6A15A, #8E6A2C, #E9CF96, #F4DFAE); box-shadow: 0 10px 18px -10px rgba(6, 49, 53, .65); transition: transform .35s cubic-bezier(.3, .7, .2, 1.3); }
+.aw-disc img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #fff; border: 2px solid #fff; }
+.aw-disc img.is-group { object-fit: contain; }
+.aw-m button:hover .aw-disc, .aw-m button:focus-visible .aw-disc { transform: translateY(-3px) rotate(-4deg); }
+.aw-m b { margin-top: 3px; color: var(--ink); font-size: 11.5px; font-weight: 800; line-height: 1.5; text-wrap: balance; }
+.aw-m small { color: #5B7477; font-size: 10px; line-height: 1.5; text-wrap: balance; }
+.aw-chip { margin-top: 2px; padding: 1px 8px; border-radius: 999px; background: color-mix(in srgb, var(--c) 12%, #fff); color: var(--c); font-style: normal; font-size: 9.5px; font-weight: 800; }
+@media (prefers-reduced-motion: no-preference) {
+  .aw-m { animation: aw-swing .8s cubic-bezier(.3, .7, .2, 1.4) both; transform-origin: 50% 0; }
+  .aw-m:nth-child(2) { animation-delay: .08s; } .aw-m:nth-child(3) { animation-delay: .16s; }
+}
+@keyframes aw-swing { from { opacity: 0; transform: rotate(9deg) translateY(-8px); } 60% { opacity: 1; transform: rotate(-3deg); } to { transform: none; } }
+
+/* ---------- بطاقة الفائز ---------- */
+.aw-sheet { position: fixed; inset: 0; z-index: 90; display: grid; align-items: end; background: rgba(4, 30, 33, 0); transition: background .3s ease; }
+.aw-sheet[hidden] { display: none; }
+.aw-sheet.on { background: rgba(4, 30, 33, .55); }
+.aw-card { position: relative; display: grid; justify-items: center; max-height: 86vh; overflow: auto; padding: 0 20px calc(22px + env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; background: #fff; text-align: center;
+  transform: translateY(100%); transition: transform .38s cubic-bezier(.2, .8, .2, 1); }
+.aw-sheet.on .aw-card { transform: none; }
+.aw-card-rib { width: 70px; height: 54px; margin-bottom: -22px; background: linear-gradient(90deg, color-mix(in srgb, var(--c) 75%, #000) 0 22%, var(--c) 22% 40%, var(--gold2) 40% 60%, var(--c) 60% 78%, color-mix(in srgb, var(--c) 75%, #000) 78%); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%); }
+.aw-disc.big { width: 132px; height: 132px; padding: 4px; }
+.aw-x { position: absolute; top: 10px; left: 10px; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--ivory); color: var(--ink); cursor: pointer; }
+.aw-x svg { width: 18px; height: 18px; }
+.aw-card h3 { margin: 12px 0 4px; color: var(--ink); font-size: 19px; font-weight: 800; }
+.aw-card-k { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 0 0 14px; color: var(--c); font-size: 12.5px; font-weight: 700; }
+.aw-card-k svg { width: 17px; height: 17px; }
+.aw-card dl { display: grid; gap: 8px; width: 100%; margin: 0; text-align: right; }
+.aw-card dl div { padding: 10px 12px; border-radius: 12px; background: var(--ivory); border: 1px solid var(--line); }
+.aw-card dt { color: #A88344; font-size: 10.5px; font-weight: 700; }
+.aw-card dd { margin: 2px 0 0; color: var(--ink); font-size: 13px; line-height: 1.7; }
+.aw-card-go { display: grid; place-items: center; width: 100%; min-height: 46px; margin-top: 12px; border-radius: 999px; background: var(--teal); color: #fff; font-weight: 800; text-decoration: none; }
+
+/* ---------- آلية المنح: شريط التناوب والوسامان ---------- */
+.aw-alt { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin: 0 0 14px; padding: 0; list-style: none; }
+.aw-alt li { display: grid; justify-items: center; align-content: center; gap: 1px; min-height: 46px; border-radius: 10px; font-size: 10px; }
+.aw-alt li b { font-size: 11.5px; font-weight: 800; letter-spacing: .2px; }
+.aw-alt li small { font-size: 8.5px; font-weight: 700; }
+.aw-alt .t-oman { background: var(--teal); color: #fff; } .aw-alt .t-oman small { color: var(--gold2); }
+.aw-alt .t-arab { background: #fff; border: 1.5px solid var(--gold); color: #8A6A2E; }
+.aw-alt .t-pause { background: repeating-linear-gradient(135deg, #F2F2EE 0 5px, #fff 5px 10px); color: #8A9A9B; border: 1px dashed #C9D2D2; }
+.aw-alt .is-now { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--gold); }
+.aw-prizes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.aw-prize { position: relative; display: grid; justify-items: center; gap: 4px; padding: 16px 10px 14px; border-radius: 16px; text-align: center; overflow: hidden; }
+.aw-prize.p-oman { background: linear-gradient(160deg, #0C7F89, #0A4B50); color: #fff; }
+.aw-prize.p-arab { background: linear-gradient(160deg, #FBF3E1, #F1DFB4); color: var(--ink); }
+.aw-seal { position: relative; width: 44px; height: 44px; border-radius: 50%; background: conic-gradient(from 200deg, #F4DFAE, #C6A15A, #8E6A2C, #E9CF96, #F4DFAE); }
+.aw-seal i { position: absolute; inset: -6px; border-radius: 50%; border: 1.5px dashed rgba(198, 161, 90, .9); animation: aw-spin 24s linear infinite; }
+.aw-prize b { font-size: 13px; font-weight: 800; }
+.aw-prize strong { font-size: 22px; font-weight: 800; letter-spacing: .3px; }
+.aw-prize strong small { font-size: 11px; }
+.aw-prize.p-oman strong { color: var(--gold2); } .aw-prize.p-arab strong { color: #8A6A2E; }
+.aw-prize p { margin: 0; font-size: 10.5px; line-height: 1.7; }
+.aw-prize em { font-style: normal; font-size: 9.5px; opacity: .8; }
+
+/* ---------- الدورة الجارية ---------- */
+.aw-now > div { padding: 16px 14px; border-radius: 18px; background: var(--ivory); border: 1px solid var(--line); }
+.aw-now-h { text-align: center; margin-bottom: 12px; }
+.aw-live { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: #fff; border: 1px solid var(--gold); color: #8A6A2E; font-size: 11px; font-weight: 800; }
+.aw-live i { width: 8px; height: 8px; border-radius: 50%; background: #D9534F; animation: aw-pulse 1.6s ease-in-out infinite; }
+@keyframes aw-pulse { 50% { box-shadow: 0 0 0 6px rgba(217, 83, 79, 0); opacity: .5; } }
+.aw-now-h h3 { margin: 8px 0 0; color: var(--ink); font-size: 17px; font-weight: 800; }
+.aw-now-h small { color: var(--teal); font-size: 11.5px; font-weight: 700; }
+.aw-now ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+.aw-now li { display: grid; justify-items: center; align-content: start; gap: 4px; padding: 12px 6px; border-radius: 14px; background: #fff; border-top: 3px solid var(--c); text-align: center; }
+.aw-now li .aw-pil-ic { width: 36px; height: 36px; box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 25%, #fff); }
+.aw-now li .aw-pil-ic svg { width: 19px; height: 19px; }
+.aw-now li small { color: var(--c); font-size: 10px; font-weight: 800; }
+.aw-now li b { color: var(--ink); font-size: 11.5px; line-height: 1.6; }
+.aw-now-s { margin: 12px 0 0; text-align: center; color: #5B7477; font-size: 11.5px; }
+
+/* ---------- المصادر ---------- */
+.aw-src ul { margin: 0; padding: 0 18px 0 0; color: #5B7477; font-size: 12px; line-height: 2; }
+.aw-src a { color: var(--teal); }
+
+@media (min-width: 700px) {
+  .aw-hero { padding-top: 40px; }
+  .aw-hero h1 { font-size: 34px; }
+  .aw-signature img { height:210px; }
+  .aw-ms { grid-template-columns: repeat(3, 150px); }
+  .aw-alt { grid-template-columns: repeat(14, minmax(0, 1fr)); }
+  .aw-card { max-width: 520px; margin: 0 auto; }
+}
+
+/* «نظير ماذا؟» في بطاقة الفائز */
+.aw-why { position: relative; width: 100%; margin: 0 0 10px; padding: 14px 14px 12px; border-radius: 14px; text-align: right;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 9%, #fff), #fff); border: 1px solid color-mix(in srgb, var(--c) 30%, #fff); }
+.aw-why span { position: absolute; top: -10px; right: 14px; padding: 1px 10px; border-radius: 999px; background: var(--c); color: #fff; font-size: 10.5px; font-weight: 800; }
+.aw-why p { margin: 0; color: #20484C; font-size: 13px; line-height: 2; }
+.aw-card-k { margin-bottom: 18px; }
+/* بطاقتا الوسامين بلا مبالغ */
+.aw-prize p { font-size: 12px; font-weight: 700; }
+
+/* Header controls retain the original teal and gold palette. */
+.aw-hero .aw-stats { max-width:760px; margin-inline:auto; }
+.aw-hero .aw-jump { max-width:760px; margin-inline:auto; }
+.aw-hero .aw-jump a:hover { background:rgba(244,223,174,.2); }
+.aw-hero .aw-jump a:focus-visible { outline:2px solid var(--gold2); outline-offset:3px; }
+
+/* ===== شعار الجائزة في الرأس: خط عربي بذهب معدني، هالة، خط ذهبي رفيع وانعكاس (مثل بطاقات awards.html) ===== */
+.aw-signature { position: relative; gap: 0; }
+.aw-signature::before { content: ""; position: absolute; left: 50%; top: 4px; width: 260px; height: 230px; transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+  background: radial-gradient(closest-side, rgba(244, 223, 174, .26), rgba(19, 149, 159, .16) 62%, transparent); }
+.aw-emblem { position: relative; z-index: 1; display: block; width: 142px; height: 184px; filter: drop-shadow(0 10px 16px rgba(0, 24, 26, .5));
+  -webkit-box-reflect: below 4px linear-gradient(transparent 80%, rgba(255, 255, 255, .2)); }
+.aw-gold, .aw-emblem::after { position: absolute; inset: 0;
+  -webkit-mask: url("../assets/img/award/logo.png") center / contain no-repeat;
+          mask: url("../assets/img/award/logo.png") center / contain no-repeat; }
+.aw-gold { background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 30%, #E6C177 55%, #F8E3AA 78%, #EFD08A 100%); }
+.aw-emblem::after { content: ""; pointer-events: none; opacity: 0;
+  background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, .6) 50%, transparent 58%) no-repeat; background-size: 260% 100%; background-position: 160% 0; }
+.aw-floor { position: relative; z-index: 1; display: block; width: 190px; height: 1px; margin: 3px auto 30px;
+  background: linear-gradient(90deg, transparent, rgba(255, 233, 190, .85) 30%, #FFF3D6 50%, rgba(255, 233, 190, .85) 70%, transparent); box-shadow: 0 0 10px rgba(255, 228, 170, .55); }
+.aw-signature-fields { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .aw-signature { animation: none; }
+  .aw-emblem { animation: aw-emblem-in 1.3s cubic-bezier(.2, .8, .2, 1) both; }
+  .aw-emblem::after { animation: aw-emblem-gleam 7s ease-in-out 1.5s infinite; }
+  .aw-floor, .aw-signature::before { animation: aw-fade-in 1.6s ease .4s both; }
+  .aw-signature-fields { animation: aw-fade-in 1s ease .7s both; }
+}
+@keyframes aw-emblem-in { from { opacity: 0; filter: blur(8px) drop-shadow(0 10px 16px rgba(0, 24, 26, .5)); transform: translateY(16px); } to { opacity: 1; filter: blur(0) drop-shadow(0 10px 16px rgba(0, 24, 26, .5)); transform: none; } }
+@keyframes aw-emblem-gleam { 0% { opacity: 0; background-position: 160% 0; } 10% { opacity: 1; } 30% { opacity: 1; background-position: -60% 0; } 36%, 100% { opacity: 0; background-position: -60% 0; } }
+@keyframes aw-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@media (min-width: 768px) { .aw-emblem { width: 162px; height: 210px; } .aw-floor { width: 220px; } }
+

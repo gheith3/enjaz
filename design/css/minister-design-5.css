@@ -1,0 +1,115 @@
+/* تصميم الوزير ٥ — «الختم» */
+.d5 { --e5: cubic-bezier(.65, 0, .25, 1); --y0: 0px; --tx: 0px; --ty: 0px; --s: 1; }
+.d5 .of-stand { display: none; }
+/* الرسم يتحرك بالتحويل فقط، من أعلاه يساراً */
+.d5 .aisha-art, .d5.open .aisha-art { inset: 0 0 auto auto; bottom: auto; height: 222px; transform-origin: 0 0;
+  transform: translate(0, var(--y0)) scale(1); transition: transform 1.05s var(--e5); }
+.d5.open .aisha-art { z-index: 4; transform: translate(var(--tx), var(--ty)) scale(var(--s)); }
+/* الصورة تُقصّ تدريجياً إلى دائرة حول الوجه */
+.d5 .aisha-art { clip-path: circle(900px at var(--cx, 50%) var(--cy, 50%)); }
+.d5 .aisha-art, .d5.open .aisha-art { transition: transform 1.05s var(--e5), clip-path 1.05s var(--e5); }
+.d5.open .aisha-art { clip-path: circle(var(--cr, 60px) at var(--cx, 50%) var(--cy, 50%)); }
+.d5 .aisha-lines { transition: opacity .45s ease; }
+.d5.open .aisha-lines { opacity: 0; }
+/* خلفية الختم وحلقته الذهبية */
+.d5-seal { position: absolute; z-index: 3; top: 36px; right: 34px; width: 72px; height: 72px; border-radius: 50%; opacity: 0; transform: scale(.4);
+  background: radial-gradient(circle at 50% 35%, #14A0AB, #075A62 70%); box-shadow: 0 0 0 2px #C9A35C, 0 0 0 6px rgba(201, 163, 92, .22), 0 10px 22px -8px rgba(6, 49, 53, .6);
+  transition: opacity .4s ease, transform .7s cubic-bezier(.3, .7, .2, 1.3); }
+.d5-seal i { position: absolute; inset: -11px; border-radius: 50%; border: 1.5px dashed rgba(201, 163, 92, .85); animation: d5-spin 22s linear infinite; }
+@keyframes d5-spin { to { transform: rotate(360deg); } }
+.d5.open .d5-seal { opacity: 1; transform: none; transition-delay: .55s; }
+/* الكلمة بعرض كامل، وفي رأسها الاسم بجانب الختم وتحته خط ذهبي */
+.d5 .aisha-copy { transition: width 1s var(--e5); }
+.d5.open .aisha-copy { width: 100%; max-width: none; }
+.d5.open .aisha-copy h2, .d5.open .of-role { opacity: 0; max-height: 0; margin: 0; overflow: hidden; }
+.d5-head { display: grid; align-content: center; gap: 2px; max-height: 0; overflow: hidden; opacity: 0; padding-right: 92px; border-bottom: 1px solid transparent;
+  transition: max-height .8s var(--e5), opacity .5s ease, margin .8s var(--e5), border-color .5s ease; }
+.d5-head b { color: #063135; font-size: 15px; font-weight: 800; line-height: 1.5; }
+.d5-head small { color: #A88344; font-size: 11.5px; font-weight: 700; }
+.d5.open .d5-head { max-height: 90px; min-height: 76px; opacity: 1; margin-bottom: 12px; border-color: rgba(201, 163, 92, .6); transition-delay: 0s, .6s, 0s, .6s; position: relative; }
+.d5.open .d5-head::after { content: ""; position: absolute; right: 0; bottom: -1px; width: 100%; height: 2px; background: linear-gradient(270deg, #C9A35C, #F4DFAE 40%, transparent); transform-origin: right; animation: d5-line .9s var(--e5) .7s both; }
+@keyframes d5-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.d5.open .aisha-bio { padding: 16px 16px 4px; }
+.d5.open .wc-text p { font-size: 12.5px; line-height: 2; }
+@media (prefers-reduced-motion: reduce) { .d5 .aisha-art, .d5 .aisha-portrait, .d5-seal, .d5-head { transition: none; } .d5-seal i { animation: none; } }
+/* الصورة ظاهرة دائماً داخل الختم */
+.d5.open .aisha-portrait { opacity: 1 !important; animation: none !important; filter: none !important; -webkit-mask-image: none; mask-image: none; }
+
+/* (معدّل) الصورة مقصوصة كما هي، تقف على خط رأس الكلمة بدل الختم الدائري */
+.d5 .aisha-art, .d5.open .aisha-art { clip-path: none !important; transition: transform 1.05s var(--e5); }
+.d5-seal { display: none; }
+.d5.open .aisha-portrait { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%); mask-image: linear-gradient(90deg, transparent 0%, #000 14%); }
+.d5.open .d5-head { min-height: 104px; max-height: 120px; padding-right: calc(var(--pw, 100px) + 10px); align-content: end; padding-bottom: 12px; }
+.d5.open .d5-head { padding-right: calc(var(--pw, 100px) + 26px); }
+.d5.open .d5-head { box-sizing: border-box; height: 112px; min-height: 112px; max-height: 112px; }
+
+/* ===== حركة محسّنة: دخول نظيف، وانتقال على مراحل بلا إعادة تدفّق ظاهرة للنص ===== */
+.d5 { --eo: cubic-bezier(.22, 1, .36, 1); }
+.d5 .wc-text p:nth-child(2), .d5 .d5-head small { --i: 1; }
+.d5 .wc-text p:nth-child(3) { --i: 2; }
+.d5 .wc-text p:nth-child(4) { --i: 3; }
+.d5 .wc-more { --i: 4; }
+@keyframes d5-portrait-in { from { opacity: 0; transform: translate3d(0, 24px, 0); clip-path: inset(100% 0 0 0); } 40% { opacity: 1; } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); } }
+@keyframes d5-slide-in { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+@keyframes d5-card-in { from { clip-path: inset(0 0 100% 0 round 12px); transform: translateY(10px); } to { clip-path: inset(0 0 0 0 round 12px); transform: none; } }
+@keyframes d5-in-a { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
+@keyframes d5-in-b { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
+@keyframes d5-out-a { to { opacity: 0; } }
+@keyframes d5-out-b { to { opacity: 0; } }
+
+/* ١) الدخول: الصورة تصعد من القاعدة بلا ضبابية، ثم الاسم، ثم البطاقة تنفتح معتمة، ثم الأسطر */
+@media (prefers-reduced-motion: no-preference) {
+  .d5.is-visible .aisha-portrait { animation: d5-portrait-in 1.15s var(--eo) .1s both; }
+  .d5.is-visible .aisha-copy > h2 { animation: d5-slide-in .7s var(--eo) .45s both; }
+  .d5.is-visible .aisha-copy > .of-role { animation: d5-slide-in .7s var(--eo) .58s both; }
+  .d5.is-visible .aisha-copy > .aisha-bio { animation: d5-card-in .85s var(--e5) .75s both; }
+  .d5.is-visible .wc-text p, .d5.is-visible .wc-more { animation: d5-in-a .6s var(--eo) calc(1.2s + var(--i, 0) * .09s) both; }
+}
+
+/* ٢) بعد أول ضغطة: تُلغى حركات الدخول وتتولى حركات الانتقال */
+.d5.settled .aisha-portrait, .d5.settled .aisha-copy > .aisha-bio { animation: none !important; opacity: 1; }
+.d5.settled .aisha-copy > h2, .d5.settled .of-role { transition: max-height .7s var(--e5) .12s, margin .7s var(--e5) .12s; }
+.d5.settled .aisha-copy { transition: width .95s var(--e5) .12s; }
+.d5.settled .aisha-art, .d5.settled.open .aisha-art { transition: transform 1s var(--e5) .12s; }
+.d5.settled .aisha-bio { transition: padding .9s var(--e5) .12s; }
+/* حجم الخط يتبدّل والنص مخفي، فلا يظهر انكسار الأسطر */
+.d5 .wc-text p { transition: font-size 0s linear .24s, line-height 0s linear .24s; }
+.d5.settled .wc-text { transition: max-height .95s var(--e5) .12s; }
+.d5 .aisha-lines { transition: opacity .3s ease; }
+.d5.settled:not(.open) .aisha-lines { transition: opacity .6s ease .9s; }
+
+/* الفتح: يختفي النص سريعاً، تتسع البطاقة وتصعد الصورة، ثم يُكتب الرأس والفقرات تباعاً */
+.d5.settled.open .wc-text p, .d5.settled.open .wc-more { animation: d5-in-a .6s var(--eo) calc(.92s + var(--i, 0) * .08s) both, d5-out-a .2s ease; }
+.d5.settled.open .aisha-copy > h2, .d5.settled.open .of-role { animation: d5-out-a .2s ease both; }
+.d5.open .d5-head { transition: max-height .8s var(--e5) .12s, margin .8s var(--e5) .12s, opacity 0s, border-color .5s ease .7s; }
+.d5.open .d5-head b, .d5.open .d5-head small { animation: d5-slide-in .65s var(--eo) calc(.72s + var(--i, 0) * .1s) both; }
+.d5.open .d5-head::after { animation-delay: .72s; }
+
+/* الإغلاق: نفس الترتيب معكوساً */
+.d5.settled:not(.open) .wc-text p, .d5.settled:not(.open) .wc-more { animation: d5-in-b .6s var(--eo) calc(.95s + var(--i, 0) * .07s) both, d5-out-b .2s ease; }
+.d5.settled:not(.open) .aisha-copy > h2 { animation: d5-in-b .6s var(--eo) .85s both; }
+.d5.settled:not(.open) .of-role { animation: d5-in-b .6s var(--eo) .93s both; }
+.d5.settled:not(.open) .d5-head { transition: opacity .2s ease, max-height .8s var(--e5) .12s, margin .8s var(--e5) .12s, border-color .2s ease; }
+
+/* الصورة أثناء الطيران: حافتها السفلية تذوب بدل القصّ الحاد */
+.d5.open .aisha-portrait { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%), linear-gradient(0deg, transparent 0, #000 9%); mask-image: linear-gradient(90deg, transparent 0%, #000 14%), linear-gradient(0deg, transparent 0, #000 9%); -webkit-mask-composite: source-in; mask-composite: intersect; }
+.d5-measure, .d5-measure * { transition: none !important; animation: none !important; }
+
+@media (prefers-reduced-motion: reduce) { .d5 *, .d5 *::after { animation: none !important; transition: none !important; } }
+/* الرأس ينمو مع اتساع البطاقة بدل أن يقفز إلى ارتفاعه الكامل */
+.d5.open .d5-head { min-height: 0; }
+
+/* الدخول (معدّل): الوزير يصعد من خلف الحافة السفلية للوحة، فلا يظهر أن الصورة مقصوصة من الأسفل */
+@keyframes d5-portrait-rise { from { opacity: 0; transform: translate3d(0, 58%, 0) scale(.97); } 30% { opacity: 1; } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .d5.is-visible .aisha-portrait { animation: d5-portrait-rise 1.35s var(--eo) .1s both; }
+}
+
+/* إصلاح الظهور المزدوج:
+   ١) موضع الرسم يُضبط بالسكربت عند التحميل؛ كان الانتقال يحرّكه من أعلى اللوحة إلى أسفلها فتظهر الصورة مقصوصة.
+      الانتقال الآن يعمل فقط بعد الضغط على «اقرأ المزيد».
+   ٢) الصورة والكلمة مخفيتان من أول رسم للصفحة حتى تبدأ حركة الدخول، فلا تومض قبلها. */
+.d5:not(.settled) .aisha-art { transition: none !important; }
+@media (prefers-reduced-motion: no-preference) {
+  .d5:not(.is-visible) .aisha-portrait, .d5:not(.is-visible) .aisha-lines, .d5:not(.is-visible) .aisha-copy > * { opacity: 0; }
+}

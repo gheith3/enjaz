@@ -1,0 +1,25 @@
+/* بطاقتا جوائز السلطان قابوس — الكمبيوتر فقط. */
+@media (min-width: 1100px) {
+  .aws-page { background: #F3EFE6; padding-bottom: 0; }
+  .aws-page .aws-list { width: var(--layout-width, 100vw); max-width: none; box-sizing: border-box; margin: 0; margin-inline: calc(50% - var(--layout-width, 100vw) / 2); padding: 56px max(40px, calc((var(--layout-width, 100vw) - 1280px) / 2)) 64px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; background: #F3EFE6; }
+  .aws-page .aws-card.has-podium { grid-template-columns: minmax(140px, .7fr) minmax(0, 1.3fr); align-items: stretch; min-height: 410px; gap: 22px; padding: 30px 28px; border: 1px solid rgba(222, 191, 131, .5); border-radius: 28px; box-shadow: 0 22px 36px -26px rgba(3, 41, 39, .55); transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+  .aws-page .aws-card.is-culture { background: radial-gradient(ellipse at 85% 30%, #176973, transparent 70%), linear-gradient(150deg, #0C464D, #062F35); }
+  .aws-page .aws-card.is-vol { background: radial-gradient(ellipse at 85% 30%, #377866, transparent 70%), linear-gradient(150deg, #20574B, #103F37); }
+  .aws-page .aws-card::before { content: ""; position: absolute; pointer-events: none; inset: 13px; border: 1px solid rgba(233, 207, 150, .15); border-radius: 18px; z-index: -1; }
+  .aws-page .aws-card::after { content: ""; position: absolute; pointer-events: none; width: 280px; height: 280px; border: 1px solid rgba(233, 207, 150, .12); border-radius: 50%; right: -125px; bottom: -125px; z-index: -1; }
+  .aws-page .aws-card:hover { transform: translateY(-5px); border-color: #DFC38B; box-shadow: 0 30px 44px -25px rgba(3, 41, 39, .6); }
+  .aws-page .aws-card:focus-visible { outline: 3px solid #9E772F; outline-offset: 5px; }
+  .aws-page .aws-podium { width: 100%; min-height: 340px; align-self: stretch; }
+  .aws-page .aws-podium .aws-trophy { width: min(100%, 160px); height: 242px; bottom: 62px; }
+  .aws-page .aws-podium .aws-emblem { width: min(100%, 154px); height: 230px; bottom: 68px; }
+  .aws-page .aws-podium .aws-trophy img { -webkit-box-reflect: below 2px linear-gradient(transparent 80%, rgba(255,255,255,.12)); }
+  .aws-page .aws-podium .aws-emblem { -webkit-box-reflect: below 2px linear-gradient(transparent 80%, rgba(255,255,255,.12)); }
+  .aws-page .aws-floor { width: 100%; bottom: 60px; }
+  .aws-page .aws-halo { width: 210px; height: 280px; background: radial-gradient(ellipse, rgba(255, 231, 176, .2), transparent 68%); }
+  .aws-page .aws-txt { min-width: 0; align-self: stretch; align-content: center; gap: 18px; padding-block: 12px; }
+  .aws-page .aws-txt small { font-size: 12px; line-height: 1.9; color: #C6DDD6; }
+  .aws-page .aws-txt b { font-size: clamp(23px, 1.8vw, 29px); line-height: 1.55; color: #F4DFAE; text-wrap: balance; }
+  .aws-page .aws-txt em { font-size: 15px; line-height: 1.95; color: #EAF2ED; }
+  .aws-page .aws-go { display: inline-flex; justify-content: center; align-items: center; justify-self: start; min-height: 46px; padding: 10px 20px; margin-top: 6px; border-radius: 10px; background: linear-gradient(135deg, #F4E1B6, #D8B66E); color: #123E3D; font-size: 14px; font-weight: 800; box-shadow: 0 8px 16px -12px #000; }
+  @media (prefers-reduced-motion: reduce) { .aws-page .aws-card { transition: none; } .aws-page .aws-card:hover { transform: none; } }
+}

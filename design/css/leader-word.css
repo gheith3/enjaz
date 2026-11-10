@@ -1,0 +1,116 @@
+/* كلمة المسؤول (تصميم الوزير): منسوخة من css/institutions-page.css لتُستخدم في صفحات أخرى (الجامعات، جائزة السلطان قابوس).
+   تُحمَّل مع css/home-aisha.css و css/minister-design-5.css. */
+
+
+
+
+/* ---------- كلمة المسؤول: نفس تصميم قسم عائشة السيفي ---------- */
+.official-feature { margin-top: var(--section); }
+/* الرسم بارتفاع ثابت أعلى اللوحة، فلا يكبر عند التوسّع */
+.official-feature .aisha-art { inset: 0 0 auto auto; height: 230px; }
+.official-feature .aisha-portrait { transition: transform 1s cubic-bezier(.16, 1, .3, 1); }
+.official-feature.open .aisha-portrait { transform: scale(1.05); }
+.official-feature .aisha-copy { width: 54%; }
+.official-feature .aisha-copy h2 { font-size: 16px; }
+.official-feature .aisha-bio { position: relative; padding-bottom: 2px; }
+.official-feature .wc-text { position: relative; max-height: 118px; overflow: hidden; transition: max-height .7s cubic-bezier(.3, .7, .2, 1); }
+.official-feature .wc-text::after { content: ""; position: absolute; inset: auto 0 0; height: 36px; background: linear-gradient(0deg, #FAFDFA, rgba(250, 253, 250, 0)); transition: opacity .3s ease; }
+.official-feature.open .wc-text::after { opacity: 0; }
+.official-feature .wc-text p { margin: 0; font-size: 11px; line-height: 1.85; color: #214448; }
+.official-feature .wc-text p + p { margin-top: 6px; }
+.official-feature .wc-more { display: inline-flex; align-items: center; gap: 4px; min-height: 36px; color: var(--primary); font-size: 10.5px; font-weight: 700; }
+.official-feature .wc-more svg { width: 14px; height: 14px; transition: transform .3s ease; }
+.official-feature.open .wc-more svg { transform: rotate(180deg); }
+.of-frame { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.of-frame rect { width: calc(100% - 2px); height: calc(100% - 2px); fill: none; stroke: #C9A35C; stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.2s cubic-bezier(.4, 0, .2, 1) .2s; }
+.official-feature.open .of-frame rect { stroke-dashoffset: 0; }
+@media (min-width: 700px) { .official-feature .aisha-art { height: 280px; } .official-feature .wc-text p { font-size: 14px; } }
+/* الصورة لا تدخل تحت الكلمة، والتلاشي من النص نفسه */
+.official-feature .aisha-portrait { height: 94%; bottom: -1%; right: -18px; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%); mask-image: linear-gradient(90deg, transparent 0%, #000 18%); }
+.official-feature .aisha-copy { width: 52%; }
+.official-feature .wc-text::after { display: none; }
+.official-feature .wc-text { -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent); mask-image: linear-gradient(180deg, #000 62%, transparent); }
+.official-feature.open .wc-text { -webkit-mask-image: none; mask-image: none; }
+.official-feature .aisha-art { inset: auto 0 0 auto; height: 236px; transition: height .7s cubic-bezier(.3, .7, .2, 1); }
+.official-feature.open .aisha-art { height: 290px; }
+@media (min-width: 700px) { .official-feature .aisha-art { height: 280px; } .official-feature.open .aisha-art { height: 340px; } }
+
+/* ---------- تصميم الوزير ٢: عند التوسّع تقف الصورة على خط ذهبي، وتحته الاسم والمسمى ---------- */
+.official-feature .aisha-copy { width: 54%; transition: width .7s cubic-bezier(.3, .7, .2, 1); }
+.official-feature .aisha-copy h2 { margin-bottom: 2px; }
+.of-role { margin: 0 0 10px; color: #E9D6A5; font-size: 11px; font-weight: 600; line-height: 1.6; max-height: 40px; transition: opacity .4s ease, max-height .6s ease, margin .6s ease; }
+.official-feature .aisha-copy h2 { max-height: 80px; transition: opacity .4s ease, max-height .6s ease, margin .6s ease; }
+.official-feature .aisha-art { bottom: 0; transition: height .8s cubic-bezier(.3, .7, .2, 1), bottom .8s cubic-bezier(.3, .7, .2, 1); }
+.official-feature.open .aisha-portrait { transform: none; }
+/* الاسم تحت الخط */
+.of-id { position: absolute; z-index: 3; right: 0; top: 66%; width: 42%; display: grid; justify-items: center; gap: 2px; padding-top: 12px; text-align: center; opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .6s ease; pointer-events: none; }
+.of-id::before { content: ""; position: absolute; top: 0; left: 6%; right: 6%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, #E6C98A 18%, #FFF1D2 50%, #E6C98A 82%, transparent); box-shadow: 0 0 10px rgba(244, 223, 174, .7); transform: scaleX(0); transition: transform .8s cubic-bezier(.3, .7, .2, 1) .3s; }
+.of-id b { color: #fff; font-size: 13px; font-weight: 800; line-height: 1.5; }
+.of-id small { color: #E9D6A5; font-size: 10.5px; line-height: 1.5; }
+/* الحالة الموسّعة */
+.official-feature.open .aisha-copy { width: 60%; }
+.official-feature.open .aisha-copy h2, .official-feature.open .of-role { opacity: 0; max-height: 0; margin: 0; overflow: hidden; }
+.official-feature.open .aisha-art { height: 180px; bottom: 34%; }
+.official-feature.open .of-id { opacity: 1; transform: none; transition-delay: .45s; }
+.official-feature.open .of-id::before { transform: scaleX(1); }
+@media (min-width: 700px) { .official-feature.open .aisha-art { height: 240px; } }
+
+/* ---------- تصميم الوزير ٣: حركة إسناد متصلة وصورة أصغر ---------- */
+.official-feature { --lift: 0px; --ease: cubic-bezier(.45, .05, .25, 1); }
+.official-feature .aisha-art, .official-feature.open .aisha-art { height: 222px; bottom: 0; transform-origin: 100% 100%; will-change: transform;
+  transform: translateY(var(--lift)) scale(1); transition: transform .9s var(--ease); }
+.official-feature.open .aisha-art { transform: translateY(var(--lift)) scale(.74); }
+.official-feature .wc-text { transition: max-height .9s var(--ease); }
+.official-feature .aisha-copy { transition: width .9s var(--ease); }
+/* الخط الذهبي يُرسم من المنتصف بعد وصول الصورة، ثم يظهر الاسم */
+.of-id { top: 66%; width: 40%; transition: opacity .5s ease, transform .6s var(--ease); }
+.of-id::before { transition: transform .7s var(--ease); }
+.official-feature.open .of-id { transition-delay: .7s; }
+.official-feature.open .of-id::before { transition-delay: .6s; }
+.official-feature:not(.open) .of-id { transition-delay: 0s; }
+@media (min-width: 700px) { .official-feature .aisha-art, .official-feature.open .aisha-art { height: 270px; } }
+.official-feature .of-id { top: calc(66% - 15px); }
+
+/* ---------- تصميم ٣ (معدّل): الخط الذهبي قاعدة ملتصقة بالصورة ---------- */
+/* القاعدة داخل الرسم نفسه، فتتحرك وتصغر مع الصورة ولا تنفصل عنها */
+.of-stand { position: absolute; z-index: 3; right: -18px; bottom: -1%; width: 46%; height: 0; pointer-events: none; }
+.of-base { position: absolute; left: -6%; right: -2%; top: -2px; height: 4px; border-radius: 4px; transform: scaleX(0); transform-origin: 60% 50%;
+  background: linear-gradient(90deg, rgba(201, 163, 92, 0), #C9A35C 14%, #FFF1D2 52%, #E6C98A 80%, rgba(201, 163, 92, 0));
+  box-shadow: 0 0 12px rgba(244, 223, 174, .8); transition: transform .8s var(--ease); }
+/* ظلّ ضوئي خفيف تحت القاعدة يوحي بأن الصورة تستند عليها */
+.of-base::after { content: ""; position: absolute; left: 12%; right: 12%; top: 3px; height: 18px; border-radius: 50%; background: radial-gradient(closest-side, rgba(244, 223, 174, .45), transparent); }
+.of-stand .of-id { position: absolute; top: 14px; left: 0; right: 0; width: auto; padding: 0; display: grid; justify-items: center; gap: 2px; text-align: center; opacity: 0; transform: translateY(8px); transition: opacity .5s ease, transform .6s var(--ease); }
+.of-stand .of-id::before { display: none; }
+/* الرسم يصغر إلى ٠٫٧٤، فنكبّر الخط ليظهر بحجمه الطبيعي */
+.of-stand .of-id b { color: #fff; font-size: 17.5px; font-weight: 800; line-height: 1.45; white-space: nowrap; }
+.of-stand .of-id small { color: #E9D6A5; font-size: 14px; line-height: 1.5; white-space: nowrap; }
+.official-feature.open .of-base { transform: scaleX(1); transition-delay: .55s; }
+.official-feature.open .of-stand .of-id { opacity: 1; transform: none; transition-delay: .8s; }
+/* إلغاء الكتلة القديمة المنفصلة */
+.official-feature > .of-id { display: none; }
+.of-stand .of-id { left: -34%; right: 26px; }
+
+/* حركة الخط الساند مثل تصميم ٢: يُرسم من المنتصف بخط رفيع لامع */
+.of-base { left: 4%; right: 4%; top: -1px; height: 2.7px; border-radius: 2px; transform-origin: 50% 50%;
+  background: linear-gradient(90deg, transparent, #E6C98A 18%, #FFF1D2 50%, #E6C98A 82%, transparent); box-shadow: 0 0 13px rgba(244, 223, 174, .7);
+  transition: transform .8s cubic-bezier(.3, .7, .2, 1); }
+.of-base::after { display: none; }
+.official-feature.open .of-base { transition-delay: .3s; }
+.of-stand .of-id { transition: opacity .5s ease, transform .6s ease; }
+.official-feature.open .of-stand .of-id { transition-delay: .45s; }
+/* الاسم والمسمى داخل عرض الصورة فقط، فلا يقتربان من بطاقة الكلمة */
+.of-stand .of-id { left: 0; right: 26px; }
+.of-stand .of-id b, .of-stand .of-id small { white-space: normal; text-wrap: balance; }
+.of-stand .of-id b { font-size: 16.5px; }
+.of-stand .of-id small { font-size: 13.5px; }
+.official-feature.open .aisha-copy { width: 57%; }
+
+/* إضافات للنسخة المشتركة */
+.lw.official-feature { margin-top: 0; }
+.lw .wc-text .lw-src { margin-top: 10px; padding-top: 8px; border-top: 1px dashed rgba(201, 163, 92, .5); color: #7A6A4A; font-size: 10.5px; }
+.lw .wc-text .lw-src a { color: #8A6A2E; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.lw .aisha-copy h2 { text-wrap: balance; }
+.lw .aisha-copy h2 .lw-title { display: block; margin-bottom: 1px; color: #E9D6A5; font-size: 10.5px; font-weight: 600; line-height: 1.5; }
+/* داخل صفحة الجامعة: اللوحة بعرض الشاشة مثل صفحة المؤسسة */
+.u-word .lw { margin-inline: calc(-1 * var(--gutter, 16px)); }
+.u-word .u-h { margin-bottom: 12px; }

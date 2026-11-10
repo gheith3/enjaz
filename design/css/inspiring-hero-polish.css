@@ -1,0 +1,78 @@
+/* هيدر «ملهمون من عُمان» — تحسينات خفيفة فقط (٨ نوفمبر ٢٠٢٦). التصميم والفكرة كما هما تمامًا
+   (جدار الصور بلونه الفيروزي، علامة الاقتباس، التخطيط). المعدَّل: نعومة التدرّج، والعناوين، والشارات، والزر. الكمبيوتر فقط. */
+@media (min-width: 1100px) {
+  /* الخلفية: نفس الألوان مع إضاءة خفيفة خلف النص وهالة ذهبية في الأعلى */
+  .page-hero.ins-strip { background:
+    radial-gradient(40% 70% at 78% 45%, rgba(30, 170, 180, .22) 0%, transparent 70%),
+    radial-gradient(40% 50% at 85% 8%, rgba(233, 201, 135, .1) 0%, transparent 70%),
+    linear-gradient(175deg, #0C7F89 0%, #0A5C63 55%, #063135 100%); }
+
+  /* التدرّج فوق الجدار: نفس اللون، لكن انتقال أنعم بلا حدود ظاهرة */
+  .ins-strip .is-photo-media {
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 22%, rgba(0,0,0,.92) 34%, rgba(0,0,0,.78) 46%, rgba(0,0,0,.58) 58%, rgba(0,0,0,.36) 72%, rgba(0,0,0,.16) 86%, rgba(0,0,0,.05) 100%);
+            mask-image: linear-gradient(90deg, #000 0%, #000 22%, rgba(0,0,0,.92) 34%, rgba(0,0,0,.78) 46%, rgba(0,0,0,.58) 58%, rgba(0,0,0,.36) 72%, rgba(0,0,0,.16) 86%, rgba(0,0,0,.05) 100%); }
+  .ins-strip .is-photo-media::after { background:
+    linear-gradient(90deg, rgba(8,70,76,.38) 0%, rgba(8,70,76,.44) 25%, rgba(8,70,76,.52) 50%, rgba(8,70,76,.62) 75%, rgba(8,70,76,.7) 100%),
+    linear-gradient(0deg, rgba(4,40,44,.6) 0%, rgba(4,40,44,.25) 18%, rgba(4,40,44,0) 38%),
+    linear-gradient(180deg, rgba(4,40,44,.4) 0%, rgba(4,40,44,0) 24%); }
+
+  /* العناوين */
+  .ins-strip .is-eyebrow { letter-spacing: .2px; }
+  .ins-strip .is-eyebrow::before { background: linear-gradient(270deg, #E9C987, rgba(233, 201, 135, .2)); }
+  .page-hero.ins-strip .is-title .is-gold { background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 30%, #E6C177 55%, #F8E3AA 78%, #EFD08A 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .3)); }
+  .ins-strip .is-intro { text-wrap: balance; }
+
+  /* الشارات: نجمة ذهبية صغيرة */
+  .ins-strip .is-fields li { display: inline-flex; align-items: center; gap: 8px; }
+  .ins-strip .is-fields li::before { content: ""; width: 7px; height: 7px; flex: none; background: #F3D995;
+    clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); }
+
+  /* الزر: ذهب أغنى ولمعة علوية خفيفة */
+  .ins-strip .is-discover { background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 35%, #E6C177 70%, #D9B262 100%); box-shadow: 0 14px 28px -14px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .6); }
+}
+
+/* ===== «لحظة كل ملهم» — الجدار يتحرك كما هو، وكل ٣ ثوانٍ صورة ظاهرة تأخذ لحظتها (اسم الملهم ومجاله على الصورة) ===== */
+@media (min-width: 1100px) {
+  /* الطبقة الفيروزية نفسها داخل الجدار (الشكل لا يتغيّر)، حتى تعلو الصورة المختارة فوقها بألوانها */
+  .ins-strip .is-photo-media::after { background: none !important; }
+  .ins-strip .is-photo-wall { z-index: 2; }
+  .ins-strip .is-photo-wall::after { content: ""; position: absolute; inset: -20%; z-index: 1; pointer-events: none; transform: rotate(12deg); background:
+    linear-gradient(90deg, rgba(8,70,76,.38) 0%, rgba(8,70,76,.44) 25%, rgba(8,70,76,.52) 50%, rgba(8,70,76,.62) 75%, rgba(8,70,76,.7) 100%),
+    linear-gradient(0deg, rgba(4,40,44,.6) 0%, rgba(4,40,44,.25) 18%, rgba(4,40,44,0) 38%),
+    linear-gradient(180deg, rgba(4,40,44,.4) 0%, rgba(4,40,44,0) 24%); }
+  .ins-strip .is-photo-tile { transition: transform .9s cubic-bezier(.2, .8, .2, 1), box-shadow .9s ease; }
+  .ins-strip .is-photo-tile img { transition: filter .9s ease; }
+  .ins-strip .is-photo-tile::after { transition: opacity .9s ease; }
+  .ins-strip .is-photo-tile.is-live { z-index: 2; transform: scale(1.08); box-shadow: 0 0 0 2px #F3D995, 0 0 34px rgba(243, 217, 149, .45), 0 24px 40px -18px rgba(0, 0, 0, .8); }
+  .ins-strip .is-photo-tile.is-live img { filter: none !important; }
+  .ins-strip .is-photo-tile.is-live::after { opacity: 0 !important; }
+  .ins-strip .is-photo-column:has(.is-live) { overflow: visible; position: relative; z-index: 3; }
+  .is-live-cap { position: absolute; z-index: 3; inset: auto 8px 8px; padding: 6px 10px; border-radius: 10px; background: rgba(2, 30, 34, .78); backdrop-filter: blur(4px);
+    border: 1px solid rgba(243, 217, 149, .5); text-align: right; opacity: 0; transform: translateY(8px); transition: opacity .5s ease .35s, transform .5s ease .35s; }
+  .is-live .is-live-cap { opacity: 1; transform: none; }
+  .is-live-cap b { display: block; font-size: 13px; line-height: 1.4; color: #F3D995; }
+  .is-live-cap span { font-size: 11px; color: #e1eeeb; }
+  /* شارة المجال المقابل تضيء */
+  .ins-strip .is-fields li { transition: background .5s ease, color .5s ease, border-color .5s ease; }
+  .ins-strip .is-fields li.is-on { background: linear-gradient(175deg, #FFF4D2, #E6C177 70%, #D9B262); color: #063135; border-color: transparent; }
+  .ins-strip .is-fields li.is-on::before { background: #063135; }
+}
+
+/* ظهور الصور يبدأ بنسبة ١٪ من اليمين ويتدرج نحو وضوحها الحالي يسارًا. */
+@media (min-width: 1100px) {
+  .ins-strip .is-photo-wall {
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,.01) 0%, rgba(0,0,0,.16) 18%, rgba(0,0,0,.4) 38%, rgba(0,0,0,.72) 60%, #000 82%, #000 100%);
+    mask-image: linear-gradient(to left, rgba(0,0,0,.01) 0%, rgba(0,0,0,.16) 18%, rgba(0,0,0,.4) 38%, rgba(0,0,0,.72) 60%, #000 82%, #000 100%);
+  }
+}
+
+.is-photo-repeat { display: none; }
+@media (min-width: 1100px) {
+  .ins-strip .is-photo-repeat { display: block; }
+  .ins-strip .is-photo-wall { width: 116%; grid-template-columns: repeat(8,minmax(0,1fr)); -webkit-mask-image: none; mask-image: none; }
+  .ins-strip .is-photo-media {
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,.01) 0%, rgba(0,0,0,.06) 18%, rgba(0,0,0,.2) 38%, rgba(0,0,0,.58) 60%, #000 82%, #000 100%);
+    mask-image: linear-gradient(to left, rgba(0,0,0,.01) 0%, rgba(0,0,0,.06) 18%, rgba(0,0,0,.2) 38%, rgba(0,0,0,.58) 60%, #000 82%, #000 100%);
+  }
+}

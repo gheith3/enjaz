@@ -1,0 +1,106 @@
+/* إشارة النزول أسفل الهيدر (الكمبيوتر فقط): ثلاث كلمات صغيرة في نفس المكان تظهر واحدة بعد الأخرى وتختفي، ثم يظهر السهم أسفلها.
+   الدورة ٨ ثوانٍ: كلمة ١ ← كلمة ٢ ← كلمة ٣ ← السهم. الكلمات لكل هيدر في js/scroll-cue.js:
+   الرئيسية (بانر جلالة السلطان هيثم): حلم · عزيمة · إنجاز — جوائز السلطان قابوس: إبداع · عطاء · تكريم — جائزة بلعرب: فكرة · تصميم · تنفيذ */
+.scroll-cue { display: none; }
+@media (min-width: 1100px) {
+  .scroll-cue { position: absolute; z-index: 6; left: 50%; bottom: 16px; translate: -50% 0; display: grid; justify-items: center; gap: 4px;
+    padding: 6px 14px; border: 0; background: none; cursor: pointer; color: var(--sc-c, #E6C98A); font: 700 13px/1 "Cairo", Tahoma, sans-serif; letter-spacing: .3px;
+    transition: opacity .45s ease, translate .45s ease; }
+  .scroll-cue.gone { opacity: 0; translate: -50% 12px; pointer-events: none; }
+  .scroll-cue .sc-w { display: grid; place-items: center; min-width: 70px; height: 20px; }
+  .scroll-cue .sc-w span { grid-area: 1 / 1; opacity: 0; white-space: nowrap; text-shadow: 0 1px 6px rgba(0, 0, 0, .3); }
+  .scroll-cue .sc-w span:nth-child(3) { color: var(--sc-hi, #FFF1CC); }
+  .scroll-cue .sc-a { width: 14px; height: 20px; opacity: 0; }
+  .scroll-cue .sc-a path { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .scroll-cue:focus-visible { outline: 2px solid var(--sc-c, #E6C98A); outline-offset: 4px; border-radius: 10px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-cue { animation: sc-in .9s ease 1.4s both; }
+    .scroll-cue .sc-w span { animation: sc-word 8s cubic-bezier(.4, 0, .2, 1) 1.4s infinite; }
+    .scroll-cue .sc-w span:nth-child(2) { animation-delay: 3.4s; }
+    .scroll-cue .sc-w span:nth-child(3) { animation-delay: 5.4s; }
+    .scroll-cue .sc-a { animation: sc-arrow 8s ease-in-out 7.4s infinite; }
+  }
+  @media (prefers-reduced-motion: reduce) { .scroll-cue .sc-w span:nth-child(3), .scroll-cue .sc-a { opacity: 1; } }
+  /* على خلفية بلعرب الفاتحة: ذهبي أغمق */
+  [data-bf] .scroll-cue { --sc-c: #9C7330; --sc-hi: #6E4E17; }
+  [data-bf] .scroll-cue .sc-w span { text-shadow: none; }
+}
+@keyframes sc-in { from { opacity: 0; } }
+@keyframes sc-word {
+  0% { opacity: 0; transform: translateY(8px); filter: blur(3px); }
+  5%, 20% { opacity: 1; transform: none; filter: blur(0); }
+  25%, 100% { opacity: 0; transform: translateY(-8px); filter: blur(3px); }
+}
+@keyframes sc-arrow {
+  0% { opacity: 0; transform: translateY(-6px); }
+  5% { opacity: 1; transform: translateY(0); }
+  12% { opacity: 1; transform: translateY(5px); }
+  19% { opacity: 1; transform: translateY(0); }
+  25%, 100% { opacity: 0; transform: translateY(4px); }
+}
+
+/* الرئيسية فقط — «الدرج»: كل كلمة تظهر أسفل التي قبلها وبإزاحة بسيطة كدرجة سلم،
+   والكلمة السابقة لا تتلاشى إلا بعد ظهور التالية: حلم ← عزيمة ← إنجاز ← السهم */
+@media (min-width: 1100px) {
+  .home .scroll-cue { gap: 2px; bottom: 10px; }
+  .home .scroll-cue .sc-w { display: grid; height: auto; gap: 2px; justify-items: center; }
+  .home .scroll-cue .sc-w span { grid-area: auto; line-height: 20px; }
+  .home .scroll-cue .sc-w span:nth-child(1) { translate: 22px 0; }
+  .home .scroll-cue .sc-w span:nth-child(3) { translate: -22px 0; }
+  .home .scroll-cue .sc-a { translate: -44px 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .home .scroll-cue .sc-w span, .home .scroll-cue .sc-a { animation-name: sc-stair; }
+  }
+  @media (prefers-reduced-motion: reduce) { .home .scroll-cue .sc-w span { opacity: 1; } }
+}
+@keyframes sc-stair {
+  0% { opacity: 0; transform: translateY(6px); filter: blur(3px); }
+  5%, 25% { opacity: 1; transform: none; filter: blur(0); }
+  33%, 100% { opacity: 0; transform: none; filter: blur(2px); }
+}
+
+/* الرئيسية — تعديل: الكلمات في خط مستقيم متقاربة، الدورة كاملة ثانيتان، وتبدأ مباشرة بعد ظهور اسم جلالة السلطان (~١.٨ث) */
+@media (min-width: 1100px) {
+  .home .scroll-cue { gap: 0; animation-delay: 1.7s; }
+  .home .scroll-cue .sc-w { gap: 0; }
+  .home .scroll-cue .sc-w span { line-height: 17px; }
+  .home .scroll-cue .sc-w span:nth-child(1), .home .scroll-cue .sc-w span:nth-child(3), .home .scroll-cue .sc-a { translate: none; }
+  .home .scroll-cue .sc-a { height: 16px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .home .scroll-cue .sc-w span, .home .scroll-cue .sc-a { animation-duration: 2s; animation-delay: 1.8s; }
+    .home .scroll-cue .sc-w span:nth-child(2) { animation-delay: 2.3s; }
+    .home .scroll-cue .sc-w span:nth-child(3) { animation-delay: 2.8s; }
+    .home .scroll-cue .sc-a { animation-delay: 3.3s; }
+  }
+}
+
+/* الرئيسية — تعديل ٢: تبدأ مباشرة بعد ظهور صورة جلالة السلطان (~٠.٨ث)،
+   والكلمة السابقة تتلاشى تدريجيًا بعد ظهور التالية (لا تختفي فجأة)، والسهم أكبر وأعرض */
+@keyframes sc-fade { 0% { opacity: 0; transform: translateY(5px); } 6%, 25% { opacity: 1; transform: none; } 55%, 100% { opacity: 0; transform: none; } }
+@media (min-width: 1100px) {
+  .home .scroll-cue { animation-delay: .7s; }
+  .home .scroll-cue .sc-a { width: 24px; height: 22px; margin-top: 2px; }
+  .home .scroll-cue .sc-a path { stroke-width: 2.2; }
+  @media (prefers-reduced-motion: no-preference) {
+    .home .scroll-cue .sc-w span, .home .scroll-cue .sc-a { animation-name: sc-fade; animation-timing-function: ease-out; animation-delay: .8s; }
+    .home .scroll-cue .sc-w span:nth-child(2) { animation-delay: 1.3s; }
+    .home .scroll-cue .sc-w span:nth-child(3) { animation-delay: 1.8s; }
+    .home .scroll-cue .sc-a { animation-delay: 2.3s; }
+  }
+}
+
+/* جوائز السلطان قابوس وجائزة بلعرب — نفس إشارة الرئيسية: كلمات في خط مستقيم متقاربة، تظهر تباعًا وتتلاشى تدريجيًا، ثم سهم أكبر */
+@media (min-width: 1100px) {
+  .aws-page .scroll-cue, [data-bf] .scroll-cue { gap: 0; bottom: 10px; animation-delay: .7s; }
+  .aws-page .scroll-cue .sc-w, [data-bf] .scroll-cue .sc-w { display: grid; height: auto; gap: 0; justify-items: center; }
+  .aws-page .scroll-cue .sc-w span, [data-bf] .scroll-cue .sc-w span { grid-area: auto; line-height: 17px; }
+  .aws-page .scroll-cue .sc-a, [data-bf] .scroll-cue .sc-a { width: 24px; height: 22px; margin-top: 2px; }
+  .aws-page .scroll-cue .sc-a path, [data-bf] .scroll-cue .sc-a path { stroke-width: 2.2; }
+  @media (prefers-reduced-motion: no-preference) {
+    .aws-page .scroll-cue .sc-w span, .aws-page .scroll-cue .sc-a, [data-bf] .scroll-cue .sc-w span, [data-bf] .scroll-cue .sc-a { animation: sc-fade 2s ease-out .8s infinite; }
+    .aws-page .scroll-cue .sc-w span:nth-child(2), [data-bf] .scroll-cue .sc-w span:nth-child(2) { animation-delay: 1.3s; }
+    .aws-page .scroll-cue .sc-w span:nth-child(3), [data-bf] .scroll-cue .sc-w span:nth-child(3) { animation-delay: 1.8s; }
+    .aws-page .scroll-cue .sc-a, [data-bf] .scroll-cue .sc-a { animation-delay: 2.3s; }
+  }
+  @media (prefers-reduced-motion: reduce) { .aws-page .scroll-cue .sc-w span, [data-bf] .scroll-cue .sc-w span { opacity: 1; } }
+}

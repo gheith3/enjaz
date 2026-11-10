@@ -1,0 +1,69 @@
+/* عرض المختبر للكمبيوتر: مجموعتان ظاهرتان معًا. */
+.lab-desktop-sections { display: none; }
+@media (min-width: 1100px) {
+  .lab-mobile-sections { display: none; }
+  .lab-desktop-sections { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr); gap: 24px; align-items: stretch; max-width: 1500px; margin: 40px auto 0; }
+  .lab-collection { min-width: 0; padding: 28px; border: 1px solid #ded7c6; border-radius: 24px; background: #f8f8f3; box-shadow: 0 14px 36px -30px rgba(6,49,53,.42); }
+  .lab-collection-pubs { background: linear-gradient(150deg,#eaf3f0,#f8f7ee); border-color: #d1e2db; }
+  .lab-collection-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+  .lab-collection-kicker { color: #967237; font-size: 13px; font-weight: 800; }
+  .lab-collection-head h2 { margin: 4px 0; color: #07383b; font-size: clamp(22px, 2vw, 30px); line-height: 1.4; }
+  .lab-collection-head p { margin: 0; color: #526b6b; font-size: 15px; line-height: 1.7; }
+  .lab-collection-mark { display: grid; place-items: center; flex: none; width: 52px; height: 52px; border: 1px solid #d5bb80; border-radius: 16px; color: #b18b48; background: #fffaf0; font-size: 28px; }
+  .lab-collection .lb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .lab-collection-inv .lb-card { display: grid; grid-template-columns: minmax(110px, 38%) minmax(0, 1fr); min-height: 150px; }
+  .lab-collection-inv .lb-img { height: 100%; min-height: 150px; aspect-ratio: auto; }
+  .lab-collection-inv .lb-body { align-content: center; gap: 5px; padding: 14px; }
+  .lab-collection .lb-card b { font-size: 15px; }
+  .lab-collection .lb-who { font-size: 13px; }
+  .lab-collection .lb-ev, .lab-collection .lb-date, .lab-collection .lb-field { font-size: 12px; }
+  .lab-collection-pubs .lb-grid { grid-template-columns: 1fr; }
+  .lab-collection-pubs .lb-pub { padding: 15px 18px; gap: 6px; border: 1px solid #dfe9e2; box-shadow: none; background: #fff; }
+  .lab-collection-pubs .lb-num { font-size: 20px; }
+  .lab-collection .lb-more { margin: 18px 0 0; padding: 13px; font-size: 14px; }
+  .lab-achievements-link { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; padding: 18px 20px; border-radius: 16px; color: #fff; text-decoration: none; background: linear-gradient(120deg, #075b60, #07383b); }
+  .lab-achievements-link strong, .lab-achievements-link small { display: block; }
+  .lab-achievements-link strong { font-size: 16px; }
+  .lab-achievements-link small { margin-top: 3px; color: #d5e7df; font-size: 12px; }
+  .lab-achievements-link > span:last-child { color: #f0d493; font-size: 24px; }
+  .lab-achievements-link:focus-visible, .lab-collection a:focus-visible { outline: 3px solid #bc9146; outline-offset: 3px; }
+  .lab-page > .wrap > .lab-cta { max-width: 1500px; margin-inline: auto; }
+}
+
+/* ٨ نوفمبر — إعادة ترتيب: مستطيل الابتكارات بعرض الصفحة (٣ بطاقات في السطر + بطاقة «اكتشف المزيد» تنقل لصفحة الإنجازات)،
+   ثم مستطيل المنشورات العلمية بعرض الصفحة (٤ في سطر). لا مساحات بيضاء فارغة. */
+@media (min-width: 1100px) {
+  .lab-desktop-sections { grid-template-columns: minmax(0, 1fr); gap: 28px; max-width: 1120px; }
+  .lab-collection { padding: 30px 32px 32px; }
+  .lab-collection-head { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #E6DFCD; }
+  .lab-collection-head > div { flex: 1; }
+  .lab-collection-mark { order: -1; }
+  .lb-head-all { display: inline-flex; align-items: center; gap: 8px; flex: none; padding: 10px 18px; border: 1.5px solid #C9A35C; border-radius: 99px; color: #07383b; font-size: 14px; font-weight: 800; text-decoration: none; transition: background .2s, color .2s; }
+  .lb-head-all small { display: inline-grid; place-items: center; min-width: 22px; height: 22px; border-radius: 99px; background: #F3E6C8; color: #7A5A22; font-size: 12px; }
+  .lb-head-all:hover { background: #07383b; color: #fff; }
+  /* الابتكارات: بطاقات عمودية موحّدة */
+  .lab-collection-inv .lb-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .lab-collection-inv .lb-card { display: flex; flex-direction: column; min-height: 0; overflow: hidden; border: 1px solid #E3DED0; border-radius: 16px; background: #fff; box-shadow: none; transition: transform .25s, box-shadow .25s; }
+  .lab-collection-inv .lb-card:hover { transform: translateY(-4px); box-shadow: 0 18px 30px -20px rgba(6, 49, 53, .5); }
+  .lab-collection-inv .lb-img { position: relative; display: block; height: auto; min-height: 0; aspect-ratio: 16 / 10; overflow: hidden; }
+  .lab-collection-inv .lb-img img { width: 100%; height: 100%; object-fit: cover; }
+  .lab-collection-inv .lb-body { display: flex; flex-direction: column; flex: 1; gap: 6px; padding: 16px 18px 18px; }
+  .lab-collection-inv .lb-card b { font-size: 17px; line-height: 1.55; }
+  .lab-collection-inv .lb-date { margin-top: auto; padding-top: 10px; border-top: 1px solid #EEF1F0; }
+  /* بطاقة «اكتشف المزيد» */
+  .lb-tile-more { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 28px; border-radius: 16px; overflow: hidden; color: #fff; text-decoration: none;
+    background: url("../assets/svg/watermark.svg") left -30px bottom -40px / 200px no-repeat, linear-gradient(150deg, #0C7F89, #063135); box-shadow: inset 0 0 0 1px rgba(201, 163, 92, .5); transition: transform .25s; }
+  .lb-tile-more:hover { transform: translateY(-4px); }
+  .lb-tile-more b { font-size: 22px; line-height: 1.5; }
+  .lb-tile-more small { color: #D5E7DF; font-size: 14px; line-height: 1.8; }
+  .lb-tm-ic { color: #E6C98A; font-size: 30px; }
+  .lb-tm-go { display: grid; place-items: center; width: 48px; height: 48px; margin-top: 8px; border-radius: 50%; background: #E6C98A; color: #063135; font-size: 22px; font-weight: 800; transition: translate .25s; }
+  .lb-tile-more:hover .lb-tm-go { translate: -6px 0; }
+  /* المنشورات: ٤ في سطر */
+  .lab-collection-pubs .lb-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .lab-collection-pubs .lb-pub { display: flex; flex-direction: column; padding: 20px; border-radius: 16px; }
+  .lab-collection-pubs .lb-num { font-size: 26px; margin: 6px 0 2px; }
+  .lab-collection-pubs .lb-pub b { font-size: 15px; line-height: 1.7; }
+  .lab-collection-pubs .lb-who { margin-top: auto; padding-top: 10px; border-top: 1px solid #EEF1F0; }
+  .lab-collection .lb-more { display: none; }
+}

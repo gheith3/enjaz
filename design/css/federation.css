@@ -1,0 +1,179 @@
+/* صفحة الاتحاد الرياضي (federation.html) */
+
+/* ---------- الرأس ---------- */
+.fp-hero { position: relative; overflow: hidden; display: grid; justify-items: center; gap: 6px; padding: 26px 16px 18px; text-align: center; color: #fff;
+  background: radial-gradient(80% 60% at 50% 0%, rgba(241, 221, 174, .16), transparent 70%), linear-gradient(180deg, #0C7F89, #063135); }
+.fp-logo { display: grid; place-items: center; width: 108px; height: 108px; padding: 12px; border-radius: 26px; background: #fff;
+  box-shadow: 0 0 0 4px rgba(241, 221, 174, .35), 0 16px 30px -14px rgba(0, 0, 0, .5); }
+.fp-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.fp-type { margin-top: 6px; color: #E9CF96; font-size: 11.5px; font-weight: 700; }
+.fp-hero h1 { margin: 0; font-size: 22px; line-height: 1.4; }
+.fp-en { margin: 0; font-size: 11.5px; opacity: .78; }
+.fp-en a { color: #fff; }
+.fp-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-top: 6px; }
+.fp-chips b { color: #F1DDAE; font-weight: 800; }
+.fp-chips span { padding: 2px 10px; border-radius: 99px; background: rgba(255, 255, 255, .1); box-shadow: inset 0 0 0 1px rgba(241, 221, 174, .35); font-size: 10.5px; }
+.fp-jump { display: flex; gap: 4px; margin-top: 12px; padding: 4px; border-radius: 99px; background: rgba(0, 0, 0, .18); }
+.fp-jump a { padding: 4px 11px; border-radius: 99px; color: #fff; font-size: 11.5px; font-weight: 600; text-decoration: none; }
+.fp-jump a:hover { background: rgba(255, 255, 255, .14); }
+
+/* ---------- عناوين الأقسام ---------- */
+.fp-sec { margin-top: 26px; scroll-margin-top: 80px; }
+.fp-h { display: flex; align-items: baseline; gap: 8px; margin: 0 0 12px; color: var(--dark, #063135); font-size: 17px; font-weight: 800; }
+.fp-h::before { content: ""; align-self: center; width: 4px; height: 16px; border-radius: 4px; background: var(--gold); }
+.fp-h small { color: var(--muted); font-size: 11.5px; font-weight: 600; }
+.fp-soon { margin: 0; padding: 14px; border-radius: 12px; background: #F6F7F7; color: var(--muted); font-size: 12px; text-align: center; }
+
+/* ---------- عن الاتحاد ---------- */
+.fp-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin: 0 0 12px; }
+.fp-facts div { padding: 9px 10px; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px #ECE3CE; }
+.fp-facts dt { color: var(--muted); font-size: 10.5px; }
+.fp-facts dd { margin: 2px 0 0; color: var(--dark, #063135); font-size: 13px; font-weight: 800; line-height: 1.4; }
+.fp-text { margin: 0; font-size: 13px; line-height: 2; color: #333; }
+.fp-members { list-style: none; display: grid; gap: 5px; margin: 12px 0 0; padding: 0; }
+.fp-members li { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #333; }
+.fp-members b { flex: none; min-width: 42px; padding: 1px 0; border-radius: 6px; background: #E8F3F3; color: var(--primary); font-size: 11px; text-align: center; }
+.fp-site { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; color: var(--primary); font-size: 12px; font-weight: 700; }
+
+/* ---------- الرؤساء: خط زمني ---------- */
+.fp-tl { list-style: none; margin: 0; padding: 0 18px 0 0; position: relative; display: grid; gap: 10px; }
+.fp-tl::before { content: ""; position: absolute; right: 5px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, var(--gold), #E6DCC6); }
+.fp-tl li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 12px 8px 8px; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px #ECE3CE; }
+.fp-tl li::before { content: ""; position: absolute; right: -18px; top: 15px; width: 10px; height: 10px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px var(--gold); }
+.fp-tl li.is-now { background: #F2F8F8; box-shadow: inset 0 0 0 1.5px var(--primary); }
+.fp-tl li.is-now::before { background: var(--primary); box-shadow: 0 0 0 2px var(--primary), 0 0 0 5px rgba(9, 103, 112, .18); }
+.fp-yrs { color: var(--gold); font-size: 11px; font-weight: 800; }
+.fp-tl b { color: var(--dark, #063135); font-size: 13.5px; }
+.fp-note { color: var(--muted); font-size: 11px; }
+.fp-now { justify-self: start; margin-top: 3px; padding: 0 8px; border-radius: 99px; background: var(--primary); color: #fff; font-size: 10px; font-weight: 700; }
+.fp-pt { display: grid; gap: 1px; min-width: 0; }
+/* صورة الرئيس: مربع على الطرف الأيسر داخل البطاقة */
+.fp-pp { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 10px; overflow: hidden; background: #F3EEE2; box-shadow: inset 0 0 0 1px #E6DCC6; }
+.fp-pp img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
+.fp-pp.is-empty svg { width: 30px; height: 30px; fill: #D9CDB2; }
+.fp-tl li.is-now .fp-pp { box-shadow: 0 0 0 2px var(--primary); }
+.fp-tl li.fp-gap { background: none; box-shadow: none; border: 1.5px dashed #D6D6D6; }
+.fp-tl li.fp-gap::before { box-shadow: 0 0 0 2px #CFCFCF; }
+
+/* ---------- أبرز المحطات ---------- */
+.fp-ms { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.fp-ms li { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; background: linear-gradient(90deg, #fff, #FBF6EC); box-shadow: inset 0 0 0 1px #ECE3CE; }
+.fp-y { flex: none; width: 46px; padding: 3px 0; border-radius: 8px; background: var(--dark, #063135); color: #F1DDAE; font-size: 12px; font-weight: 800; text-align: center; }
+.fp-ms b { display: block; color: var(--dark, #063135); font-size: 12.5px; }
+.fp-ms small { color: var(--muted); font-size: 10.5px; }
+
+/* ---------- إنجازات الاتحاد ---------- */
+.fp-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.fp-card { display: grid; align-content: start; gap: 6px; padding: 4px 4px 8px; border-radius: 12px; background: #fff; box-shadow: 0 2px 10px rgba(0, 0, 0, .07); color: inherit; text-decoration: none; }
+.fp-img { display: block; aspect-ratio: 1 / .78; border-radius: 9px; overflow: hidden; background: #EEF2F2; }
+.fp-img img { width: 100%; height: 100%; object-fit: cover; }
+.fp-cb { display: grid; gap: 2px; padding: 0 4px; }
+.fp-cb b { font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.fp-cb small { color: var(--muted); font-size: 10.5px; }
+.fp-more { display: flex; justify-content: center; align-items: center; gap: 6px; width: max-content; margin: 14px auto 0; height: 36px; padding: 0 18px; border-radius: 99px;
+  background: var(--primary); color: #fff; font-size: 12.5px; font-weight: 700; text-decoration: none; }
+.fp-more[hidden] { display: none; }
+
+/* ---------- منجزو الاتحاد ---------- */
+.fp-people { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.fp-person { display: grid; justify-items: center; gap: 3px; text-align: center; color: inherit; text-decoration: none; }
+.fp-ph { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: #EEF2F2; box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--gold); }
+.fp-ph img { width: 100%; height: 100%; object-fit: cover; }
+.fp-person b { margin-top: 5px; font-size: 12px; }
+.fp-person small { color: var(--muted); font-size: 10px; line-height: 1.5; }
+
+.fp-src { margin: 26px 0 0; padding-top: 12px; border-top: 1px solid #EEE; color: var(--muted); font-size: 10.5px; line-height: 1.9; }
+.fp-src a { color: var(--primary); }
+.fp-page { padding-bottom: 32px; }
+
+/* ---------- التابلت والكمبيوتر ---------- */
+@media (min-width: 700px) {
+  .fp-hero { padding: 44px 24px 26px; gap: 8px; border-radius: 0 0 28px 28px; }
+  .fp-logo { width: 140px; height: 140px; border-radius: 32px; padding: 16px; }
+  .fp-hero h1 { font-size: 32px; }
+  .fp-type, .fp-en { font-size: 13px; }
+  .fp-chips span { font-size: 12px; padding: 3px 12px; }
+  .fp-jump a { font-size: 13px; padding: 5px 14px; }
+  .fp-sec { margin-top: 40px; }
+  .fp-h { font-size: 22px; }
+  .fp-h small { font-size: 13px; }
+  .fp-top { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+  .fp-top .fp-sec { margin-top: 40px; }
+  .fp-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .fp-text { font-size: 14.5px; }
+  .fp-tl b { font-size: 15px; }
+  .fp-pp { width: 60px; height: 60px; border-radius: 12px; }
+  .fp-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .fp-cb b { font-size: 14px; }
+  .fp-people { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 18px; }
+  .fp-person b { font-size: 13.5px; }
+}
+
+/* ---------- رواق الاتحاد: المكتبة المرئية (js/fed-gallery.js) ----------
+   لوح داكن كقاعة عرض، والصور بلون أرشيفي دافئ يعود لونها الطبيعي عند اللمس */
+.fp-gal { margin-inline: calc(var(--gutter, 16px) * -0.5); padding: 22px 14px 18px; color: #fff; border-radius: 22px;
+  background: radial-gradient(90% 50% at 50% 0%, rgba(233, 207, 150, .14), transparent 70%), linear-gradient(180deg, #08454B, #052A2E); }
+.gal-head { display: grid; justify-items: center; gap: 3px; text-align: center; }
+.gal-eyebrow { padding: 1px 10px; border-radius: 99px; box-shadow: inset 0 0 0 1px rgba(233, 207, 150, .5); color: #E9CF96; font-size: 10.5px; font-weight: 700; letter-spacing: .5px; }
+.gal-head h2 { margin: 4px 0 0; font-size: 21px; font-weight: 800; }
+.gal-head p { margin: 0; max-width: 34em; font-size: 12px; line-height: 1.8; opacity: .8; }
+.gal-sum { color: #E9CF96; font-size: 11px; font-weight: 700; }
+.gal-tabs { display: flex; justify-content: center; gap: 3px; width: max-content; max-width: 100%; margin: 14px auto 0; padding: 3px; border-radius: 99px; background: rgba(0, 0, 0, .25); overflow-x: auto; scrollbar-width: none; }
+.gal-tabs button { flex: none; padding: 5px 12px; border: 0; border-radius: 99px; background: none; color: rgba(255, 255, 255, .78); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.gal-tabs button[aria-selected="true"] { background: #E9CF96; color: #052A2E; }
+.gal-eras { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-top: 9px; }
+.gal-eras:empty { display: none; }
+.gal-eras button { padding: 2px 10px; border: 0; border-radius: 99px; background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16); color: #fff; font: inherit; font-size: 11px; cursor: pointer; }
+.gal-eras button[aria-pressed="true"] { background: rgba(233, 207, 150, .18); box-shadow: inset 0 0 0 1.5px #E9CF96; color: #F1DDAE; font-weight: 700; }
+.gal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.gal-it { position: relative; display: block; padding: 0; border: 0; border-radius: 12px; overflow: hidden; background: #0A3A3F; color: #fff; font: inherit; text-align: start; cursor: zoom-in;
+  box-shadow: 0 0 0 1px rgba(233, 207, 150, .22), 0 10px 20px -12px rgba(0, 0, 0, .6); }
+.gal-it.is-big { grid-column: 1 / -1; }
+.gal-img { display: block; aspect-ratio: 1; background: #F3EAD6; }
+.gal-it.is-big .gal-img { aspect-ratio: 16 / 9; }
+.gal-img img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.45) contrast(1.04); transition: filter .35s, transform .5s; }
+.gal-doc .gal-img img { object-fit: contain; padding: 6px; filter: sepia(.2); }
+.gal-video { cursor: pointer; }
+.gal-video .gal-img { aspect-ratio: 16 / 10; }
+.gal-video .gal-img img { filter: none; }
+.gal-it:hover .gal-img img, .gal-it:focus-visible .gal-img img { filter: none; transform: scale(1.04); }
+.gal-play { position: absolute; inset: 0; display: grid; place-items: center; }
+.gal-play svg { width: 40px; height: 40px; padding: 9px 8px 9px 10px; border-radius: 50%; background: rgba(5, 42, 46, .78); fill: #E9CF96; box-shadow: 0 0 0 2px #E9CF96; }
+.gal-yr { position: absolute; top: 7px; right: 7px; padding: 1px 8px; border-radius: 99px; background: #E9CF96; color: #052A2E; font-size: 10.5px; font-weight: 800; }
+.gal-cap { position: absolute; inset: auto 0 0; display: grid; gap: 1px; padding: 22px 9px 8px; font-size: 11px; font-weight: 700; line-height: 1.5;
+  background: linear-gradient(transparent, rgba(3, 26, 29, .92)); }
+.gal-cap small { display: block; color: #E9CF96; font-size: 9.5px; font-weight: 700; }
+.gal-it:not(.is-big) .gal-cap { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.gal-it.is-big .gal-cap { font-size: 13px; padding: 30px 12px 10px; }
+
+/* العارض المكبّر */
+.gal-lock, .gal-lock body { overflow: hidden; }
+.gal-box { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 50px 12px 16px; background: rgba(2, 20, 22, .94); }
+.gal-box[hidden] { display: none; }
+.gal-box figure { display: grid; gap: 10px; width: min(100%, 980px); margin: 0; }
+.gal-stage { display: grid; place-items: center; }
+.gal-stage img { max-width: 100%; max-height: 70vh; border-radius: 8px; background: #F3EAD6; }
+.gal-stage iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 10px; background: #000; }
+.gal-box figcaption { display: grid; gap: 3px; color: #fff; text-align: center; }
+.gal-box figcaption b { font-size: 14px; line-height: 1.6; }
+.gal-box figcaption span { color: #E9CF96; font-size: 12px; }
+.gal-box figcaption small { font-size: 11px; opacity: .7; }
+.gal-box figcaption a { color: #F1DDAE; }
+.gal-x { position: absolute; top: 10px; left: 12px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .12); color: #fff; font-size: 16px; cursor: pointer; }
+.gal-nav { position: absolute; top: 50%; width: 38px; height: 38px; margin-top: -19px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .12); color: #fff; font-size: 24px; line-height: 1; cursor: pointer; z-index: 1; }
+.gal-prev { right: 8px; } .gal-next { left: 8px; }
+.gal-box.is-single .gal-nav { display: none; }
+
+@media (min-width: 700px) {
+  .fp-gal { margin-inline: 0; padding: 34px 28px 28px; border-radius: 28px; }
+  .gal-head h2 { font-size: 28px; }
+  .gal-head p { font-size: 14px; }
+  .gal-tabs button { font-size: 13.5px; padding: 6px 16px; }
+  .gal-eras button { font-size: 12.5px; padding: 3px 13px; }
+  .gal-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .gal-it.is-big { grid-column: span 2; grid-row: span 2; }
+  .gal-it.is-big .gal-img { aspect-ratio: auto; height: 100%; }
+  .gal-cap { font-size: 12.5px; }
+  .gal-nav { width: 46px; height: 46px; margin-top: -23px; }
+  .gal-prev { right: 20px; } .gal-next { left: 20px; }
+}

@@ -1,0 +1,55 @@
+/* هيدر جائزة بلعرب — الحركة المعتمدة (٨ نوفمبر ٢٠٢٦): الإطار البرونزي + ضوء الشمس + كتل الشعار تنبثق وتصعد بشفافية ١٠٪.
+   النماذج الأخرى تبقى للمقارنة عبر ?fx=1..5 (صفحة bha-hero-options.html) */
+
+[data-bf] .c-hero-in { z-index: 3; }
+.bm { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+@media (min-width: 1100px) { .bm.right { left: 40%; } }
+
+/* ١) بريق الشعار: لمعة معدنية تعبر الشعار كل بضع ثوانٍ */
+.bm-glint { position: absolute; z-index: 4; pointer-events: none; -webkit-mask: url("../assets/img/bilarab/mark.png") center / contain no-repeat; mask: url("../assets/img/bilarab/mark.png") center / contain no-repeat; }
+
+/* ٢) الكتل: مربعات برونزية شفافة تصعد ببطء كأنها تُبنى */
+.bm-block { position: absolute; bottom: -80px; width: var(--s); height: var(--h); border: 1.5px solid rgba(168, 121, 62, .45); background: rgba(201, 154, 78, .08); border-radius: 3px; opacity: 0; }
+
+/* ٣) الخط: خط برونزي واحد يرسم إطارًا أنيقًا حول المحتوى */
+.bm-frame { position: absolute; inset: 0; width: 100%; height: 100%; }
+.bm-frame rect { fill: none; stroke: #B98E48; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.bm-frame circle { fill: #B98E48; }
+
+/* ٤) ضوء الشمس: ضوء دافئ يعبر الهيدر ببطء */
+.bm-sun { position: absolute; top: -40%; width: 60%; height: 180%; left: 100%;
+  background: radial-gradient(closest-side, rgba(255, 226, 170, .55), rgba(255, 226, 170, 0)); filter: blur(10px); }
+
+/* كتل الشعار المتطايرة */
+.bm-piece { position: absolute; bottom: -60px; opacity: 0; }
+.bm-piece svg { display: block; width: 100%; height: 100%; }
+
+/* ٥) الأقواس العُمانية: ثلاثة أقواس متتالية تظهر خلف المحتوى */
+.bm-arches { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: min(560px, 110%); height: auto; }
+@media (min-width: 1100px) { .bm-arches { left: auto; right: max(10px, calc((100vw - 1120px) / 2 - 60px)); translate: 0 -50%; width: 520px; } }
+.bm-arches path { fill: none; stroke: #C9A15E; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .bm-glint { background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, .85) 50%, transparent 60%) no-repeat; background-size: 250% 100%; animation: bm-glint 4s ease-in-out .8s infinite; }
+
+  .bm-block { animation: bm-rise var(--d) linear var(--dl) infinite; }
+
+  .bm-frame rect { stroke-dasharray: 1; stroke-dashoffset: 1; animation: bm-draw 2.6s cubic-bezier(.6, 0, .25, 1) .4s forwards; }
+  .bm-frame circle { opacity: 0; animation: bm-in .5s ease 2.8s forwards, bm-pulse 2.4s ease-in-out 3.3s infinite; transform-box: fill-box; transform-origin: center; }
+
+  .bm-piece { animation: bm-piece var(--d) cubic-bezier(.3, 0, .6, 1) var(--dl) infinite; }
+  .bm-sun { animation: bm-sun 9s ease-in-out .4s infinite; }
+
+  .bm-arches path { stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .7; animation: bm-draw 1.8s cubic-bezier(.6, 0, .25, 1) var(--dl) forwards; }
+  .bm-arches { animation: bm-breathe 7s ease-in-out 3s infinite; }
+}
+@media (prefers-reduced-motion: reduce) { .bm-piece { opacity: .1; bottom: var(--y); rotate: var(--r0); } .bm-block { opacity: .4; bottom: var(--y); } .bm-arches path { opacity: .7; } }
+@keyframes bm-float { 50% { transform: translateY(-6px); } }
+@keyframes bm-glint { 0% { background-position: 100% 0; } 45%, 100% { background-position: -50% 0; } }
+@keyframes bm-rise { 0% { opacity: 0; transform: translateY(0); } 15%, 75% { opacity: var(--o); } 100% { opacity: 0; transform: translateY(calc(var(--fy, 700px) * -1)) rotate(var(--r)); } }
+@keyframes bm-draw { to { stroke-dashoffset: 0; } }
+@keyframes bm-in { to { opacity: 1; } }
+@keyframes bm-pulse { 50% { transform: scale(1.6); } }
+@keyframes bm-sun { 0% { left: 100%; } 100% { left: -60%; } }
+@keyframes bm-breathe { 50% { scale: 1.03; } }
+@keyframes bm-piece { 0% { opacity: 0; transform: translate(0, 0) rotate(var(--r0)) scale(.6); } 12% { opacity: .1; transform: translate(0, -40px) rotate(var(--r0)) scale(1); } 85% { opacity: .1; } 100% { opacity: 0; transform: translate(var(--x), calc(var(--fy, 700px) * -1)) rotate(var(--r)) scale(1); } }

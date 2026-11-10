@@ -1,0 +1,78 @@
+/* =========================================================
+   وسام الإنجاز — إحصاءات صفحة المنجز (بنفس مقاس الصندوق السابق)
+   العمود الجانبي: نجمة ثمانية عُمانية حولها خرزة لكل إنجاز.
+   الصفوف: بدل الشريط، خيط عليه خرزة لكل إنجاز تمتلئ بلون الفئة.
+   الأرقام تُقرأ من data-total / data-intl / data-local.
+   ========================================================= */
+.medal-stats{
+  --ms-gold:#C9A35C; --ms-gold-2:#F0D9A5; --ms-green:#91C46C;
+  display:grid; grid-template-columns:29% minmax(0,1fr); overflow:hidden;
+  margin-top:16px; background:#fff; border:1px solid #dfe8e5; border-radius:17px;
+  box-shadow:0 4px 16px rgba(6,49,53,.055); color:var(--primary);
+}
+.achiever-profile .medal-stats{margin-top:8px}
+
+/* العمود الجانبي: الوسام */
+.ms-medal{position:relative; isolation:isolate; display:grid; place-items:center; align-content:center; gap:1px; padding:4px;
+  background:radial-gradient(80% 60% at 50% 0%,rgba(217,185,119,.28),transparent 70%),linear-gradient(160deg,#0C7F89 0%,#075A62 55%,#063135 100%)}
+.ms-medal::before{content:""; position:absolute; inset:0; z-index:-1; opacity:.08;
+  background:url("../assets/svg/watermark.svg") center/170% no-repeat}
+.ms-badge{position:relative; width:70px; max-width:100%; aspect-ratio:1; display:grid; place-items:center}
+.ms-svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+.ms-thread-bg{fill:none; stroke:rgba(240,217,165,.25); stroke-width:2; stroke-dasharray:2 7; stroke-linecap:round}
+.ms-thread{fill:none; stroke:url(#ms-gold-grad); stroke-width:3.5; stroke-linecap:round;
+  filter:drop-shadow(0 0 4px rgba(255,214,140,.8)); transform:rotate(-90deg); transform-origin:100px 100px;
+  stroke-dasharray:var(--len); stroke-dashoffset:var(--len); transition:stroke-dashoffset 1.6s cubic-bezier(.2,.7,.2,1)}
+.ms-star{transform-origin:100px 100px; transform:scale(.6) rotate(-45deg); opacity:0;
+  transition:transform .9s cubic-bezier(.3,1.4,.4,1), opacity .5s ease}
+.ms-star-inner{fill:none; stroke:rgba(240,217,165,.45); stroke-width:1.5}
+.ms-bead{transform-box:fill-box; transform-origin:center; transform:scale(0);
+  transition:transform .45s cubic-bezier(.3,1.6,.4,1), opacity .3s ease}
+.ms-bead.intl{fill:url(#ms-gold-grad)}
+.ms-bead.local{fill:var(--ms-green)}
+.ms-spark{opacity:0; transition:opacity .4s ease .9s}
+.ms-core{position:relative; text-align:center; line-height:1}
+.ms-core strong{display:block; font-size:25px; font-weight:700; color:var(--ms-gold-2); text-shadow:0 0 14px rgba(240,217,165,.35)}
+.ms-label{display:block; font-size:11px; line-height:1.4; color:#fff; text-align:center; white-space:nowrap}
+
+/* الصفوف */
+.ms-legend{padding:0 13px; display:grid; align-content:center}
+.ms-row{display:block; width:100%; padding:6px 0 5px; border:0; background:none; font:inherit; color:inherit; text-align:start; cursor:pointer; transition:opacity .25s ease}
+.ms-row+.ms-row{border-top:1px solid #e9eeeb}
+.ms-row:focus-visible{outline:2px solid var(--ms-gold); outline-offset:2px; border-radius:6px}
+.ms-head{display:flex; align-items:center; gap:7px; line-height:1.4; white-space:nowrap}
+.ms-ico{display:block; width:21px; height:23px; object-fit:contain; flex-shrink:0}
+.ms-num{font-size:25px; font-weight:500; line-height:1}
+.ms-txt{font-size:13px}
+.ms-pct{margin-inline-start:auto; font-size:11px; color:#7c8a87}
+.ms-row[data-kind="intl"] .ms-head{color:#987334}
+.ms-row[data-kind="local"] .ms-num{color:var(--green)}
+
+/* خيط الخرز بدل الشريط */
+.ms-beads{position:relative; display:flex; align-items:center; justify-content:space-between; height:8px; margin-top:5px}
+.ms-beads::before{content:""; position:absolute; inset-inline:0; top:50%; border-top:1.5px dashed #dfe5e3}
+.ms-beads i{position:relative; width:7px; height:7px; border-radius:50%; background:#fff; border:1px solid #d6dedc;
+  transform:scale(.6); transition:transform .4s cubic-bezier(.3,1.6,.4,1), background .3s ease, border-color .3s ease}
+.medal-stats.is-on .ms-beads i{transform:none}
+.medal-stats.is-on .ms-row[data-kind="intl"] .ms-beads i.on{background:linear-gradient(135deg,#F4DFAE,#C9A35C); border-color:#B8914D}
+.medal-stats.is-on .ms-row[data-kind="local"] .ms-beads i.on{background:var(--ms-green); border-color:#7aae57}
+
+/* حالة الظهور */
+.medal-stats.is-on .ms-thread{stroke-dashoffset:0}
+.medal-stats.is-on .ms-star{transform:none; opacity:1}
+.medal-stats.is-on .ms-bead{transform:scale(1)}
+.medal-stats.is-on .ms-spark{opacity:1}
+
+/* الضغط على صف يبرز خرزاته في الوسام */
+.medal-stats[data-focus="intl"] .ms-bead.local,
+.medal-stats[data-focus="local"] .ms-bead.intl{opacity:.15}
+.medal-stats[data-focus="intl"] .ms-row[data-kind="local"],
+.medal-stats[data-focus="local"] .ms-row[data-kind="intl"]{opacity:.45}
+
+@media (max-width:340px){
+  .ms-legend{padding-inline:10px} .ms-head{gap:5px} .ms-txt{font-size:11px} .ms-label{font-size:10px}
+  .ms-ico{width:19px; height:21px}
+}
+@media (prefers-reduced-motion:reduce){
+  .medal-stats *{transition:none!important; animation:none!important}
+}

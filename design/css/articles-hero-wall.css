@@ -1,0 +1,28 @@
+/* المقالات — هيدر «جدار الصور» على الكمبيوتر (js/articles-hero-wall.js). الهاتف لا يتأثر. */
+@media (min-width: 1100px) {
+  .page-hero.mag-hero { position: relative; display: grid !important; grid-template-columns: 1fr !important; place-items: center; min-height: 500px !important; height: 500px; padding: 0 !important; overflow: hidden; background: #052E2F !important; }
+  .page-hero.mag-hero::before { display: none !important; }
+  .mag-hero-art.aw-on { position: absolute !important; inset: 0; z-index: 0; display: block !important; min-height: 0; margin: 0; padding: 0; border: 0 !important; background: none !important; box-shadow: none !important; border-radius: 0 !important; overflow: hidden; }
+  .mag-hero-art.aw-on::before, .mag-hero-art.aw-on::after { display: none !important; }
+  .aw-grid { position: absolute; inset: -16px; display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(3, 1fr); gap: 8px; transform: rotate(-3deg) scale(1.08); }
+  .aw-tile { position: relative; overflow: hidden; border-radius: 12px; color: #fff; text-decoration: none; }
+  .aw-tile img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.85) brightness(.55); transition: filter .5s, transform .8s; }
+  .aw-tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(150deg, rgba(12, 127, 137, .55), rgba(6, 49, 53, .75)); transition: opacity .5s; }
+  .aw-tile b { position: absolute; z-index: 2; right: 14px; left: 14px; bottom: 12px; font-size: 15px; line-height: 1.5; text-shadow: 0 2px 8px rgba(0, 0, 0, .6); opacity: 0; transform: translateY(8px); transition: .4s; }
+  .aw-tile:hover img, .aw-tile.lit img { filter: none; transform: scale(1.06); }
+  .aw-tile:hover::after, .aw-tile.lit::after { opacity: .25; }
+  .aw-tile:hover b, .aw-tile.lit b { opacity: 1; transform: none; }
+  .aw-tile.w2 { grid-column: span 2; } .aw-tile.h2 { grid-row: span 2; }
+  /* اللوح الزجاجي */
+  .page-hero.mag-hero .mag-hero-copy { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 580px; max-width: calc(100% - 48px); padding: 34px 42px 30px; border-radius: 26px; text-align: center;
+    background: rgba(5, 46, 47, .58); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: inset 0 0 0 1px rgba(230, 201, 138, .4), 0 30px 60px -30px rgba(0, 0, 0, .8); }
+  .page-hero.mag-hero .mag-hero-kicker { justify-content: center; margin: 0; }
+  .page-hero.mag-hero .mag-hero-kicker::after { content: ""; width: 38px; height: 2px; background: #d4af6d; }
+  .page-hero.mag-hero h1 { margin: 0 !important; font-size: 80px !important; line-height: 1.15 !important; }
+  .page-hero.mag-hero .mag-hero-intro { margin: 0 !important; text-align: center; font-size: 18px !important; }
+  .page-hero.mag-hero .search { width: 100%; max-width: 440px; margin: 10px auto 0 !important; }
+  .page-hero.mag-hero .mag-hero-link { margin-top: 6px; }
+}
+@media (min-width: 1100px) { .mag-hero-art.aw-on { width: auto !important; height: auto !important; max-width: none !important; aspect-ratio: auto !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important; transform: none !important; grid-area: auto !important; } }
+@media (min-width: 1100px) { .mag-hero-art.aw-on { justify-self: stretch !important; align-self: stretch !important; width: 100% !important; height: 100% !important; } }
+@media (min-width: 1100px) { .aw-tile b { right: 40px; left: 40px; bottom: 26px; text-align: center; } }

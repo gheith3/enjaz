@@ -1,0 +1,35 @@
+/* رأس صفحة المؤسسات: صور جلالة السلطان كاملة غير مقصوصة داخل إطار ذهبي رفيع،
+   وأشرطة ذهبية للتنقل، والعنوان بالذهبي. الفراغ حول الصورة (إن اختلفت نسبتها) يُملأ بنسخة ضبابية منها. */
+.frame-hero { position: relative; overflow: hidden; padding: 18px var(--gutter, 16px) 42px; text-align: center; color: #fff;
+  background: radial-gradient(70% 38% at 50% 30%, rgba(244, 223, 174, .16), transparent 72%), linear-gradient(175deg, #0C7F89 0%, #0A5C63 46%, #063135 100%); }
+.fh-eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #E6C98A; font-size: 12px; font-weight: 700; }
+.fh-eyebrow::before, .fh-eyebrow::after { content: ""; width: 30px; height: 1.5px; border-radius: 2px; background: linear-gradient(90deg, transparent, #E6C98A); }
+.fh-eyebrow::after { transform: scaleX(-1); }
+
+.fh-frame { position: relative; width: 100%; max-width: 760px; aspect-ratio: 3 / 2; margin: 4px auto 0; overflow: hidden; border-radius: 18px; background: #063135;
+  box-shadow: 0 0 0 1px rgba(230, 201, 138, .75), 0 0 0 5px rgba(230, 201, 138, .12), 0 22px 40px -18px rgba(0, 0, 0, .7); }
+.fh-slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1.2s ease; }
+.fh-slide::before { content: ""; position: absolute; inset: -20px; background: var(--bg) center / cover; filter: blur(18px) brightness(.55); }
+.fh-slide img { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
+.fh-slide.on { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .fh-slide img { transform: scale(1.02); transition: transform 6s ease-out; }
+  .fh-slide.on img { transform: scale(1); }
+}
+
+.fh-bars { display: flex; justify-content: center; gap: 6px; margin: 14px auto 0; }
+.fh-bar { position: relative; width: 34px; height: 14px; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.fh-bar::before, .fh-bar i { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2.5px; border-radius: 2px; }
+.fh-bar::before { background: rgba(255, 255, 255, .28); }
+.fh-bar i { right: auto; width: 0; background: linear-gradient(90deg, #F7E7B4, #C9A053); }
+.fh-bar.on i { animation: fhFill 5.5s linear forwards; }
+.fh-bar:focus-visible { outline: 2px solid #F4DFAE; outline-offset: 2px; border-radius: 4px; }
+[dir="rtl"] .fh-bar i { left: auto; right: 0; }
+@keyframes fhFill { to { width: 100%; } }
+
+.fh-text { margin-top: 14px; }
+.fh-text h1 { margin: 0 0 6px; font-size: 28px; font-weight: 800; line-height: 1.35;
+  background: linear-gradient(135deg, #C9A053, #F7E7B4 45%, #D7B266 72%, #F1DDAE); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.fh-text p { max-width: 320px; margin: 0 auto; color: rgba(255, 255, 255, .86); font-size: 13px; line-height: 1.85; }
+@media (min-width: 768px) { .fh-text h1 { font-size: 36px; } .fh-text p { max-width: 460px; font-size: 15px; } .fh-bar { width: 46px; } }
+@media (prefers-reduced-motion: reduce) { .fh-bar.on i { animation: none; width: 100%; } .fh-slide { transition: none; } }
