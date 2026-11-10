@@ -4,3 +4,6 @@
 /* Achievement card scope badge: the design writes the label in CSS for three scopes
    (phone-port-achievements.css / desktop.css). Read it from the card so every scope has its label. */
 .cards-ov .ach:not(.person-card)[data-scope-label]::before { content: "● " attr(data-scope-label); }
+
+/* Awards: items hidden by the filters (the design re-rendered the lists; here they are hidden). */
+[data-award] .aw-tl [hidden] { display: none !important; }

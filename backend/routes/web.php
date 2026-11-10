@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Site\AchievementController;
 use App\Http\Controllers\Site\AchieverController;
+use App\Http\Controllers\Site\AwardController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\NewsController;
 use App\Http\Controllers\Site\OrganizationController;
@@ -31,6 +32,8 @@ Route::middleware(CacheResponse::class)->group(function () {
     Route::get('/organizations/{organization:slug}/achievements', [OrganizationController::class, 'achievements'])->name('organizations.achievements');
     Route::get('/organizations/{organization:slug}/people', [OrganizationController::class, 'people'])->name('organizations.people');
 
+    Route::get('/awards', [AwardController::class, 'index'])->name('awards.index');
+    Route::get('/awards/{award:slug}', [AwardController::class, 'show'])->name('awards.show');
     Route::get('/news/{news:slug}', [NewsController::class, 'show'])->name('news.show');
 });
 
