@@ -103,6 +103,12 @@ class AchievementsStep implements ImportStep
             ]);
         });
 
+        // Card accent colours of the design (css/desktop.css: .ach[data-cat="..."] { --c }).
+        preg_match_all('/\[data-cat="([^"]+)"\][^{]*\{\s*--c:\s*(#[0-9A-Fa-f]{3,8})/u', $this->design->read('css/desktop.css'), $colors, PREG_SET_ORDER);
+        foreach ($colors as [, $name, $color]) {
+            Field::query()->where('name->ar', $name)->whereNull('color')->update(['color' => $color]);
+        }
+
         $this->fields = Field::all()->keyBy(fn (Field $f) => $f->getTranslation('name', 'ar'))->all();
     }
 
@@ -188,6 +194,8 @@ class AchievementsStep implements ImportStep
                     ->setTranslation('personal_quote_context', 'ar', $pq->filter('figcaption span')->count() ? DesignSource::text($pq->filter('figcaption span')) : '')
                     ->setTranslation('personal_quote_source', 'ar', $pq->filter('figcaption small')->count() ? DesignSource::text($pq->filter('figcaption small')) : '');
             }
+            $note = $page->filter('.said-note');
+            $achiever->setTranslation('quotes_note', 'ar', $note->count() ? DesignSource::text($note) : '');
             $achiever->portrait_trace = $trace;
             $achiever->is_featured = $achiever->is_featured || $hero->filter('.featured-mark')->count() > 0;
             $achiever->save();

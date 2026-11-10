@@ -1,5 +1,5 @@
 @props(['crumb', 'logo', 'items'])
-@php($desktopItems = $items->where('show_in_desktop_nav', true))
+@php $desktopItems = $items->where('show_in_desktop_nav', true); @endphp
 <header class="site-header{{ $desktopItems->isNotEmpty() ? ' has-desktop-nav' : '' }}">
   <div class="brand">
     <a class="logo" href="{{ url('/') }}" aria-label="{{ __('site.home') }}"><img src="{{ $logo }}" alt="{{ app(\App\Settings\GeneralSettings::class)->t('site_name') }}" width="117" height="94"></a>

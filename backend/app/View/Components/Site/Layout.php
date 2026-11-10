@@ -48,6 +48,7 @@ class Layout extends Component
         public array $crumb = [],
         public string $bodyClass = '',
         public bool $noindex = false,
+        public string $htmlClass = '',
     ) {
         $this->general = app(GeneralSettings::class);
         $seo = app(SeoSettings::class);
@@ -71,7 +72,8 @@ class Layout extends Component
     }
 
     /**
-     * The design's order: main, site-menu, <page before>, desktop, <page after>, phone-footer.
+     * The design's order: main, site-menu, <page before>, desktop, <page after>, phone-footer; then the site's
+     * small overrides (resources/site/css-site/overrides.css).
      *
      * @return list<string>
      */
@@ -79,10 +81,13 @@ class Layout extends Component
     {
         $page = $key ? config("site.styles.$key", []) : [];
 
-        return array_map(
-            fn (string $name) => "resources/site/css/$name.css",
-            ['main', 'site-menu', ...($page['before'] ?? []), 'desktop', ...($page['after'] ?? []), 'phone-footer'],
-        );
+        return [
+            ...array_map(
+                fn (string $name) => "resources/site/css/$name.css",
+                ['main', 'site-menu', ...($page['before'] ?? []), 'desktop', ...($page['after'] ?? []), 'phone-footer'],
+            ),
+            'resources/site/css-site/overrides.css',
+        ];
     }
 
     public function logoUrl(): string

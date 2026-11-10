@@ -1,5 +1,5 @@
 @props(['general', 'logo', 'socials', 'columns'])
-@php($phone = $general->phones[0] ?? null)
+@php $phone = $general->phones[0] ?? null; @endphp
 <footer class="site-footer footer-redesign">
   <div class="footer-layout">
     <nav class="footer-navigation" aria-label="{{ __('site.site_links') }}"><div class="footer-link-columns">

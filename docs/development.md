@@ -63,6 +63,27 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
 - Sitemap: add published records in `SitemapController`.
 - Tests: route 200 + drafts hidden + filters + dashboard pages render.
 
+## Public pages built so far
+
+| URL | View / component | Design |
+|---|---|---|
+| `/achievements` | `livewire/site/achievements-index` (`App\Livewire\Site\AchievementsIndex`) | achievements.html |
+| `/achievements/{slug}` | `site/pages/achievement` + `components/site/achievement/*` | achievement*.html |
+| `/achievers` | `livewire/site/achievers-index` (`AchieversIndex`) | achievers.html |
+| `/achievers/{slug}` | `site/pages/achiever` | profile*.html |
+
+- Shared cards: `components/site/cards/achievement` (variants grid / row / profile) and `cards/person`.
+- Design scripts that only animate or handle UI are ported almost verbatim to `resources/site/js/sections/design/`
+  (only asset paths and data sources changed). Content they used to build from data is rendered by Blade.
+- `resources/site/css-site/overrides.css` (loaded last) holds the few rules that make design CSS data-driven
+  (e.g. scope badge label from `data-scope-label`). The design CSS itself is never edited.
+- Livewire gotchas: put `wire:ignore` / `wire:ignore.self` on sections whose DOM or classes JS changes
+  (hero walls), or a Livewire re-render will undo the JS. In Blade, never use the inline `@php(...)` form in a view
+  that also has `@php ... @endphp` (the compiler mixes them up), and build JSON blobs in `@php` blocks then
+  `{!! json_encode(..., JSON_HEX_TAG) !!}` (multi-line `@json` breaks).
+- Lists filter on the server; search ignores hamza, ta marbuta, alif maqsura and diacritics (`ArabicSearch`), counts
+  use the design's Arabic agreement (`ArabicCount`), dates the design's format (`ArabicDate`).
+
 ## Database rules learned the hard way
 
 - Translatable columns are **`jsonb`** (`$table->jsonb(...)`), never `json`: PostgreSQL cannot sort or compare `json`,

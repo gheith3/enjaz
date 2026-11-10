@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}"@if ($htmlClass) class="{{ $htmlClass }}"@endif>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -40,6 +40,7 @@
 {{ $head ?? '' }}
 </head>
 <body class="{{ $bodyClass }}">
+<a class="sr-only" href="#main">{{ __('site.skip_to_content') }}</a>
 
 <x-site.header :crumb="$crumb" :logo="$logoUrl()" :items="$menus->get('header', collect())" />
 <x-site.menu :logo="$logoUrl()" :items="$menus->get('header', collect())" />
@@ -62,6 +63,7 @@
 <x-site.footer :general="$general" :logo="$logoUrl()" :socials="$socials"
     :columns="[$menus->get('footer_1', collect()), $menus->get('footer_2', collect())]" />
 
+<script type="application/json" id="site-labels">@json(__('site.js'))</script>
 @vite('resources/site/js/site.js')
 {{ $scripts ?? '' }}
 </body>

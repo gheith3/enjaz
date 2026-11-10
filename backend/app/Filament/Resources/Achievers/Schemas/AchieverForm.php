@@ -41,6 +41,7 @@ class AchieverForm
                         Translatable::text('journey_kicker', 'العنوان الصغير (مثل: أبرز محطات)', required: false),
                         Translatable::text('journey_title', 'العنوان (ضع الكلمات المميزة بين نجمتين: رحلتي *في الملاعب*)', required: false),
                     ]),
+                    Translatable::text('quotes_note', 'ملاحظة تحت «قالوا عنه» (مثل: الأقوال مترجمة عن الإنجليزية)', required: false),
                     Section::make('اقتباس شخصي')->schema([
                         Translatable::textarea('personal_quote', 'الاقتباس'),
                         Translatable::text('personal_quote_context', 'المناسبة والتاريخ', required: false),
