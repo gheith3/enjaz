@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Pages\Tables;
 
+use App\Filament\Support\TranslatableColumn;
 use App\Models\Page;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
@@ -16,7 +17,7 @@ class PagesTable
         return $table
             ->defaultSort('id')
             ->columns([
-                TextColumn::make('title')->label('الصفحة')->searchable(),
+                TextColumn::make('title')->label('الصفحة')->searchable(query: TranslatableColumn::search('title')),
                 TextColumn::make('key')->label('المعرّف')->badge()->color('gray'),
                 TextColumn::make('sections_count')->counts('sections')->label('الأقسام'),
                 IconColumn::make('noindex')->label('مخفية عن البحث')->boolean(),

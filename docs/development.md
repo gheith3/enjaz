@@ -63,6 +63,19 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
 - Sitemap: add published records in `SitemapController`.
 - Tests: route 200 + drafts hidden + filters + dashboard pages render.
 
+## Database rules learned the hard way
+
+- Translatable columns are **`jsonb`** (`$table->jsonb(...)`), never `json`: PostgreSQL cannot sort or compare `json`,
+  and the dashboard sorts/searches them.
+- Tables: search and sort translatable columns with `TranslatableColumn::search('name')` / `::sort('name')`
+  (they query `name->ar` / `name->en`). Relationship selects on a translatable title need
+  `->getOptionLabelFromRecordUsing(fn ($record) => $record->name)` (otherwise the raw JSON shows).
+- Tests run on **PostgreSQL** (`injazat_test` locally, a postgres:16 service in CI), never SQLite, so these bugs fail CI.
+- Records with a slug use it as route key: dashboard URLs are `/admin/achievers/<slug>/edit`.
+- Images in forms: `MediaSlot::make('cover', 'label')` (upload + focal point + alt); galleries: a relation manager
+  extending `App\Filament\Support\RelationManagers\GalleryRelationManager` (captions, focal, credit, order).
+- Lists in a record (highlights): a `Repeater` stored as a JSON array of `{key: {ar, en}}`, read with `Localized::get()`.
+
 ## Commands
 
 ```bash

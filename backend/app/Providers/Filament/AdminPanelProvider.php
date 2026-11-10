@@ -40,9 +40,11 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Cairo')
             ->sidebarCollapsibleOnDesktop()
+            ->globalSearch(false) // titles are translatable jsonb; each table has its own search
             ->maxContentWidth('full')
             ->navigationGroups([
                 NavigationGroup::make('المحتوى'),
+                NavigationGroup::make('التصنيفات'),
                 NavigationGroup::make('الصفحات والقوائم'),
                 NavigationGroup::make('الإعدادات'),
                 NavigationGroup::make('النظام')->collapsed(),
