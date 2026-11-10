@@ -2,12 +2,15 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Achievement;
+use App\Models\Achiever;
 use App\Models\MenuItem;
 use App\Models\Page;
 use App\Models\Redirect;
 use App\Models\SocialLink;
 use App\Settings\GeneralSettings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -22,6 +25,7 @@ class ImportDesignTest extends TestCase
     {
         parent::setUp();
         Storage::fake(config('media-library.disk_name'));
+        Queue::fake(); // image conversions are queued jobs: not needed here
     }
 
     public function test_it_imports_the_site_structure_from_the_design(): void
@@ -42,6 +46,26 @@ class ImportDesignTest extends TestCase
         $this->assertSame(6, SocialLink::query()->whereNull('linkable_type')->count());
         $this->assertSame('/achievers', Redirect::query()->where('from_path', '/achievers.html')->value('to_path'));
         $this->assertNotEmpty(Page::query()->where('key', 'about')->first()->meta_description);
+    }
+
+    public function test_it_imports_achievers_and_achievements(): void
+    {
+        $this->artisan('injazat:import-design', ['--only' => ['achievements']])->assertSuccessful();
+
+        $this->assertSame(6, Achiever::count());                     // sample duplicates skipped
+        $ali = Achiever::query()->where('slug', 'ali-alhabsi')->firstOrFail();
+        $this->assertSame('Ali Al-Habsi', $ali->getTranslation('name', 'en'));
+        $this->assertSame(['total' => 11, 'international' => 6, 'local' => 5], $ali->medalStats()); // as the design's profile
+        $this->assertSame(10, $ali->journeyItems()->count());
+        $this->assertTrue($ali->hasMedia('cutout'));
+
+        $booker = Achievement::query()->where('slug', 'man-booker-2019')->firstOrFail();
+        $this->assertSame('٢١ مايو ٢٠١٩', $booker->dateLabel());
+        $this->assertCount(4, $booker->sources);
+        $this->assertCount(2, $booker->highlightItems());
+        $this->assertNotEmpty($booker->pull_quote);
+        $this->assertSame('/achievements/aly-alhbsy-01', Redirect::query()->where('from_path', '/achievement-aly-alhbsy-01.html')->value('to_path'));
+        $this->assertTrue(Achievement::query()->where('is_featured', true)->exists());
     }
 
     public function test_running_it_again_keeps_editors_changes(): void

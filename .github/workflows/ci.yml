@@ -15,6 +15,23 @@ jobs:
   backend:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    # Tests run on PostgreSQL like production (jsonb, ilike, ordering differ from SQLite).
+    services:
+      postgres:
+        image: postgres:16.15-alpine
+        env:
+          POSTGRES_DB: injazat_test
+          POSTGRES_USER: injazat_user
+          POSTGRES_PASSWORD: ci-only-password
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U injazat_user -d injazat_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_USERNAME: injazat_user
+      DB_PASSWORD: ci-only-password
     defaults:
       run:
         working-directory: backend
