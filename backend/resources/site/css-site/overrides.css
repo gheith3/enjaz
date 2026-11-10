@@ -1,0 +1,6 @@
+/* Site additions on top of the design CSS (resources/site/css is the design, unchanged).
+   Loaded last on every page. Keep this file small: only what makes design rules data-driven. */
+
+/* Achievement card scope badge: the design writes the label in CSS for three scopes
+   (phone-port-achievements.css / desktop.css). Read it from the card so every scope has its label. */
+.cards-ov .ach:not(.person-card)[data-scope-label]::before { content: "● " attr(data-scope-label); }

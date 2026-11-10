@@ -9,6 +9,7 @@ use App\Models\Field;
 use BackedEnum;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -44,6 +45,7 @@ class FieldResource extends Resource
             TextInput::make('slug')->label('المعرّف في الرابط')->required()->unique(ignoreRecord: true)
                 ->alphaDash()->maxLength(60)->extraInputAttributes(['dir' => 'ltr']),
             Select::make('icon')->label('الأيقونة')->options(array_combine(Field::ICONS, Field::ICONS)),
+            ColorPicker::make('color')->label('لون بطاقات الإنجاز')->helperText('فارغ = لون الموقع الأساسي.'),
             Select::make('card_tone')->label('لون البطاقة التعريفية')->options(['sports' => 'رياضي', 'culture' => 'ثقافي'])->required()->default('culture'),
             Toggle::make('is_active')->label('ظاهر في التصنيفات')->default(true),
             Translatable::textarea('description', 'الوصف (صفحة من نحن)'),

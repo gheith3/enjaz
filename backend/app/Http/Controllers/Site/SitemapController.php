@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Achievement;
+use App\Models\Achiever;
 use App\Models\Page;
 use Illuminate\Http\Response;
 use Spatie\Sitemap\Sitemap;
@@ -23,6 +25,11 @@ class SitemapController extends Controller
                     $sitemap->add(Url::create($url)->setLastModificationDate($page->updated_at));
                 }
             });
+
+        Achiever::query()->published()->get(['id', 'slug', 'updated_at'])
+            ->each(fn (Achiever $a) => $sitemap->add(Url::create($a->url())->setLastModificationDate($a->updated_at)));
+        Achievement::query()->published()->get(['id', 'slug', 'updated_at'])
+            ->each(fn (Achievement $a) => $sitemap->add(Url::create($a->url())->setLastModificationDate($a->updated_at)));
 
         return response($sitemap->render(), 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
     }

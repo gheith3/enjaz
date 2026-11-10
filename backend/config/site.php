@@ -32,8 +32,8 @@ return [
                 'home.partners' => 'شركاء النجاح',
             ],
         ],
-        'achievements' => ['label' => 'الإنجازات', 'sections' => []],
-        'achievers' => ['label' => 'المنجزين', 'sections' => []],
+        'achievements' => ['label' => 'الإنجازات', 'route' => 'achievements.index', 'sections' => []],
+        'achievers' => ['label' => 'المنجزين', 'route' => 'achievers.index', 'sections' => []],
         'inspiring' => ['label' => 'ملهمون من عُمان', 'sections' => []],
         'awards' => ['label' => 'جوائز السلطان قابوس', 'sections' => []],
         'organizations' => ['label' => 'المؤسسات', 'sections' => []],
@@ -51,6 +51,22 @@ return [
      * main, site-menu, <before>, desktop, <after>, phone-footer.
      */
     'styles' => [
+        'achievements' => [
+            'before' => ['achievements-page', 'federations', 'achievements-hero', 'achievements-hero-intro'],
+            'after' => ['phone-port-achievements'],
+        ],
+        'achievers' => [
+            'before' => ['achievements-page', 'achievers-page', 'federations', 'achievers-hero'],
+            'after' => ['achievers-hero-cards', 'achievers-hero-intro', 'achievers-hero-wall', 'phone-port-achievers'],
+        ],
+        'achiever' => [
+            'before' => ['profile-socials', 'profile-achievements', 'profile-portrait', 'profile-idcard', 'profile-medal-stats', 'profile-enhance', 'profile-journey', 'profile-said', 'profile-hero-map'],
+            'after' => [],
+        ],
+        'achievement' => [
+            'before' => ['achievement-detail', 'profile-idcard', 'profile-enhance', 'achievement-enhance'],
+            'after' => [],
+        ],
         'home' => [
             'before' => ['home-banner', 'home-achievers', 'home-stats-gold', 'home-latest', 'home-aisha', 'home-awards', 'home-inspiring', 'home-articles', 'home-science', 'home-partners', 'home-sports', 'home-upgrade', 'home-hero-cinema'],
             'after' => ['scroll-cue', 'desktop-hero-height', 'home-hero-majlis', 'phone-port-home', 'phone-hero-design', 'phone-arc-motion'],

@@ -21,7 +21,7 @@ class Field extends Model
     /** Category icons bundled from the design (resources/site/assets/svg/<icon>.svg). */
     public const ICONS = ['cat-sports', 'cat-culture', 'cat-science', 'cat-military', 'cat-medical', 'cat-innovation', 'cat-literature', 'cat-students', 'cat-arts', 'cat-business'];
 
-    protected $fillable = ['slug', 'name', 'description', 'icon', 'card_tone', 'is_active', 'sort_order'];
+    protected $fillable = ['slug', 'name', 'description', 'icon', 'color', 'card_tone', 'is_active', 'sort_order'];
 
     /** @var list<string> */
     public array $translatable = ['name', 'description'];

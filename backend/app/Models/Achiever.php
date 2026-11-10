@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Translatable\HasTranslations;
 
@@ -29,14 +30,14 @@ class Achiever extends Model implements HasMedia
 
     protected $fillable = [
         'slug', 'name', 'gender', 'field_id', 'headline', 'hero_lines', 'short_bio', 'story', 'journey_kicker', 'journey_title',
-        'personal_quote', 'personal_quote_context', 'personal_quote_source', 'portrait_trace', 'is_featured', 'is_inspiring',
+        'personal_quote', 'personal_quote_context', 'personal_quote_source', 'quotes_note', 'portrait_trace', 'is_featured', 'is_inspiring',
         'inspiring_tagline', 'show_in_home_strip', 'week_from', 'week_teaser', 'is_published', 'published_at', 'sort_order',
     ];
 
     /** @var list<string> */
     public array $translatable = [
         'name', 'headline', 'hero_lines', 'short_bio', 'story', 'journey_kicker', 'journey_title', 'personal_quote',
-        'personal_quote_context', 'personal_quote_source', 'inspiring_tagline', 'week_teaser',
+        'personal_quote_context', 'personal_quote_source', 'quotes_note', 'inspiring_tagline', 'week_teaser',
     ];
 
     protected function casts(): array
@@ -143,5 +144,19 @@ class Achiever extends Model implements HasMedia
     public function url(): string
     {
         return route('achievers.show', $this);
+    }
+
+    /**
+     * Achievers of the same field (profile "منجزون في نفس المجال").
+     *
+     * @return Collection<int, Achiever>
+     */
+    public function related(int $limit = 12): Collection
+    {
+        if (! $this->field_id) {
+            return collect();
+        }
+
+        return static::query()->listed()->with('media')->where('field_id', $this->field_id)->whereKeyNot($this->getKey())->limit($limit)->get();
     }
 }
