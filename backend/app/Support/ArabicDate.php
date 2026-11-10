@@ -20,6 +20,7 @@ class ArabicDate
             return match ($precision) {
                 'year' => $date->format('Y'),
                 'month' => $date->format('F Y'),
+                'daymonth' => $date->format('j F'),
                 default => $date->format('j F Y'),
             };
         }
@@ -29,6 +30,7 @@ class ArabicDate
         return self::digits(match ($precision) {
             'year' => (string) $date->year,
             'month' => "$month {$date->year}",
+            'daymonth' => "{$date->day} $month",
             default => "{$date->day} $month {$date->year}",
         });
     }

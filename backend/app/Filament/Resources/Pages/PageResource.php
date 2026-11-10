@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Pages;
 
 use App\Filament\Resources\Pages\Pages\EditPage;
 use App\Filament\Resources\Pages\Pages\ListPages;
+use App\Filament\Resources\Pages\RelationManagers\HeroSlidesRelationManager;
 use App\Filament\Resources\Pages\RelationManagers\SectionsRelationManager;
 use App\Filament\Resources\Pages\Schemas\PageForm;
 use App\Filament\Resources\Pages\Tables\PagesTable;
@@ -47,7 +48,7 @@ class PageResource extends Resource
 
     public static function getRelations(): array
     {
-        return [SectionsRelationManager::class];
+        return [SectionsRelationManager::class, HeroSlidesRelationManager::class];
     }
 
     public static function canCreate(): bool

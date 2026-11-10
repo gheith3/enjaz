@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
 use Spatie\MediaLibrary\HasMedia;
@@ -38,6 +40,25 @@ class Page extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('og_image')->singleFile();
+        $this->addMediaCollection('hero');
+    }
+
+    /** A letter shown on the page (e.g. His Majesty's handwritten letter on the organizations page). */
+    public function letter(): MorphOne
+    {
+        return $this->morphOne(Letter::class, 'letterable');
+    }
+
+    /** Hero slider images (relation manager in the dashboard). */
+    public function heroMedia(): MorphMany
+    {
+        return $this->media()->where('collection_name', 'hero');
+    }
+
+    /** Optional parts of this page's design (config/site.php "features"). */
+    public function hasFeature(string $feature): bool
+    {
+        return in_array($feature, config("site.pages.{$this->key}.features", []), true);
     }
 
     public function sections(): HasMany

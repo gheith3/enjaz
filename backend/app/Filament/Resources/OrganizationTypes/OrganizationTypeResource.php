@@ -39,6 +39,7 @@ class OrganizationTypeResource extends Resource
             Translatable::text('name', 'الاسم (مثل: حكومي)'),
             Translatable::text('label', 'الوسم على البطاقة (مثل: مؤسسة حكومية)'),
             Translatable::text('group_label', 'عنوان المجموعة في القائمة (مثل: المؤسسات الحكومية)'),
+            Translatable::text('chip_label', 'الاسم المختصر على الأزرار والعدّادات (مثل: حكومية)', required: false),
             TextInput::make('slug')->label('المعرّف')->required()->unique(ignoreRecord: true)->alphaDash()->extraInputAttributes(['dir' => 'ltr']),
             Select::make('template')->label('تصميم صفحة المؤسسة')->options(OrganizationType::TEMPLATES)->required(),
             Select::make('css_class')->label('لون الوسم')->options(['t-gov' => 'حكومي', 't-mil' => 'عسكري', 't-pvt' => 'خاص', 't-edu' => 'أكاديمي', 't-sport' => 'رياضي']),

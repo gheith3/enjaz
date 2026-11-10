@@ -2,10 +2,13 @@
 
 namespace App\Filament\Resources\Pages\Schemas;
 
+use App\Filament\Support\MediaSlot;
 use App\Filament\Support\Translatable;
+use App\Models\Page;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Toggle as LetterToggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -29,6 +32,19 @@ class PageForm
                     Translatable::text('hero_cta_label', 'نص الزر', required: false),
                     TextInput::make('hero_cta_url')->label('رابط الزر')->maxLength(255)
                         ->extraInputAttributes(['dir' => 'ltr']),
+                ]),
+            Section::make('رسالة في رأس الصفحة')->description('مثل رسالة جلالة السلطان بخط يده في صفحة المؤسسات.')
+                ->columnSpanFull()->collapsible()->relationship('letter')
+                ->visible(fn (?Page $record) => $record?->hasFeature('letter'))
+                ->schema([
+                    Translatable::text('title', 'العنوان', required: false),
+                    Translatable::text('quote', 'الاقتباس على البطاقة', required: false, maxLength: 500),
+                    Translatable::text('meta', 'سطر التاريخ والمناسبة', required: false, maxLength: 500),
+                    Translatable::textarea('body', 'النص (افصل الفقرات بسطر فارغ)', rows: 8),
+                    Translatable::text('name', 'التوقيع: الاسم', required: false),
+                    Translatable::text('role', 'التوقيع: الصفة', required: false),
+                    LetterToggle::make('is_published')->label('ظاهرة')->default(true),
+                    MediaSlot::make('photo', 'صورة الرسالة', focal: false),
                 ]),
         ]);
     }

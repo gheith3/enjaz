@@ -17,12 +17,13 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Vite;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Translatable\HasTranslations;
 
 /**
  * المؤسسات: ministries, military, companies, universities/colleges and sports federations.
- * Images: logo, logo_wide (horizontal plate), cover, gallery (photos and documents: custom properties
+ * Images: logo, logo_wide (horizontal plate), logo_white (on dark backgrounds), cover, gallery (photos and documents: custom properties
  * title, year, note, era, chapter, kind photo|doc, credit).
  */
 class Organization extends Model implements HasMedia
@@ -56,6 +57,7 @@ class Organization extends Model implements HasMedia
     {
         $this->addMediaCollection('logo')->singleFile();
         $this->addMediaCollection('logo_wide')->singleFile();
+        $this->addMediaCollection('logo_white')->singleFile();
         $this->addMediaCollection('cover')->singleFile();
         $this->addMediaCollection('gallery');
     }
@@ -156,6 +158,50 @@ class Organization extends Model implements HasMedia
 
         return $own->concat($people)->unique(fn ($row) => $row['achievement']->id)
             ->sortByDesc(fn ($row) => $row['achievement']->achieved_at)->values();
+    }
+
+    /** The list page this organization belongs to (crumb and back links). */
+    public function listUrl(): string
+    {
+        return route($this->template() === 'university' ? 'universities.index' : 'organizations.index');
+    }
+
+    /** Logo URL (original file: logos are often SVG/transparent PNG); military without a logo get the design's icon. */
+    public function logoUrl(): ?string
+    {
+        $logo = $this->image('logo');
+        if ($logo) {
+            return $logo->getUrl();
+        }
+
+        return $this->type?->slug === 'military' ? Vite::asset('resources/site/assets/svg/cat-military.svg') : null;
+    }
+
+    /** "الجامعة" or "الكلية" (design: the page's wording follows the institution kind). */
+    public function kindLabel(): string
+    {
+        return __('site.university.kind_'.($this->academic_group === 'college' ? 'college' : 'uni'));
+    }
+
+    /** Achievement source shown on university pages: org | staff | student (alumni and members count as students). */
+    public static function displayType(string $type): string
+    {
+        return match ($type) {
+            'org' => 'org', 'staff' => 'staff', default => 'student',
+        };
+    }
+
+    /** Label of an achiever's link with the organization (design js/org-links.js kindLabel()). */
+    public static function affiliationLabel(?string $kind, ?string $gender): string
+    {
+        $suffix = $gender === 'f' ? '_f' : '_m';
+
+        return match ($kind) {
+            'staff' => __('site.university.kind_staff'),
+            'alum' => __('site.university.kind_alum'.$suffix),
+            'student' => __('site.university.kind_student'.$suffix),
+            default => __('site.university.kind_member'),
+        };
     }
 
     public function template(): string

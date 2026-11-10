@@ -71,6 +71,12 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
 | `/achievements/{slug}` | `site/pages/achievement` + `components/site/achievement/*` | achievement*.html |
 | `/achievers` | `livewire/site/achievers-index` (`AchieversIndex`) | achievers.html |
 | `/achievers/{slug}` | `site/pages/achiever` | profile*.html |
+| `/organizations` | `livewire/site/organizations-index` + `site/pages/organizations` (hero slides, letter) | institutions.html |
+| `/universities` | `livewire/site/universities-index` + `site/pages/universities` | universities.html |
+| `/organizations/{slug}` | `site/organizations/{institution,university,federation}` (the type's template) | institution / university / federation.html |
+| `/organizations/{slug}/achievements` | institution: `institution-achievements`; others: `livewire/site/organization-achievements` | institution-achievements / uni-achievements.html |
+| `/organizations/{slug}/people` | `livewire/site/organization-people` (universities, federations) | uni-people.html |
+| `/news/{slug}` | `site/pages/news` | org-news.html |
 
 - Shared cards: `components/site/cards/achievement` (variants grid / row / profile) and `cards/person`.
 - Design scripts that only animate or handle UI are ported almost verbatim to `resources/site/js/sections/design/`
@@ -81,6 +87,10 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
   (hero walls), or a Livewire re-render will undo the JS. In Blade, never use the inline `@php(...)` form in a view
   that also has `@php ... @endphp` (the compiler mixes them up), and build JSON blobs in `@php` blocks then
   `{!! json_encode(..., JSON_HEX_TAG) !!}` (multi-line `@json` breaks).
+- Big "library" widgets that are pure UI over a data set (university album + screening room, federation gallery) keep the
+  ported design script; the server prints their data as JSON (`window.INJAZ_LIBRARY`, `window.INJAZ_FED_GALLERY`) from
+  the organization's gallery media (custom properties: title, year, note, chapter/era, kind photo|doc, credit, credit_url) and videos.
+- A page under another menu section sets `request()->attributes->set('menu_section', '/universities')` (menu highlight).
 - Lists filter on the server; search ignores hamza, ta marbuta, alif maqsura and diacritics (`ArabicSearch`), counts
   use the design's Arabic agreement (`ArabicCount`), dates the design's format (`ArabicDate`).
 

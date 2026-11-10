@@ -14,10 +14,10 @@ class Letter extends Model implements HasMedia
 {
     use ClearsResponseCache, HasSiteMedia, HasTranslations;
 
-    protected $fillable = ['title', 'name', 'role', 'body', 'source_text', 'source_url', 'is_published'];
+    protected $fillable = ['title', 'name', 'role', 'body', 'quote', 'meta', 'source_text', 'source_url', 'is_published'];
 
     /** @var list<string> */
-    public array $translatable = ['title', 'name', 'role', 'body'];
+    public array $translatable = ['title', 'name', 'role', 'body', 'quote', 'meta'];
 
     protected function casts(): array
     {
