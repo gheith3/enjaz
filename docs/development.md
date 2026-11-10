@@ -1,0 +1,101 @@
+# Development guide (how the site is built)
+
+Read `architecture.md` first (data model, rules, phases). This file is the practical "how" for every phase.
+
+## Golden rules (from architecture.md §6b)
+
+1. **No design page is copied.** Views contain no names, dates, quotes, numbers or image paths of content.
+   UI labels go in `lang/ar/site.php` (+ `lang/en/site.php`), content comes from the database.
+2. Every repeated thing on the site is a record with a Filament resource. If an editor can't add one, it's a bug.
+3. One design `<section>` = one Blade component (or Livewire component when it has state).
+4. Responsive exactly as the design: same CSS, same breakpoints, `vp-lock` phone scaling kept.
+5. Check with screenshots next to the design before every merge.
+
+## Where things live
+
+| What | Where |
+|---|---|
+| Design reference (never edited) | `/design` |
+| Design data as JSON (from `scripts/design-data-to-json.mjs`) | `backend/database/data/design/` |
+| Design CSS, fonts, icons (as in the design, same file names) | `backend/resources/site/css`, `resources/site/assets` |
+| Site JS (menu, crumb, later: section motion) | `backend/resources/site/js` (entry `site.js`, modules in `core/`, later `sections/`) |
+| Page shell (head, header, menu, footer) | `app/View/Components/Site/Layout.php`, `resources/views/components/site/*` |
+| Page views | `resources/views/site/pages/<page>.blade.php` |
+| Page sections | `resources/views/site/sections/<page>/<name>.blade.php` (key `<page>.<name>`) |
+| Which pages/sections exist, stylesheets per page | `config/site.php` |
+| Dashboard | `app/Filament` (resources, settings pages in `Pages/`, `Support/Translatable.php`) |
+| Design import | `php artisan injazat:import-design`, steps in `app/Support/DesignImport/Steps` |
+
+## The page shell
+
+```blade
+<x-site.layout :page="$page" styles="home" body-class="home" :crumb="['title' => ..., 'url' => ..., 'sub' => ...]">
+  @include('site.partials.sections')   {{-- the page's enabled sections in the editors' order --}}
+</x-site.layout>
+```
+
+- `styles` picks `config('site.styles.<key>')`; the layout loads `main, site-menu, <before>, desktop, <after>,
+  phone-footer`, which is the design's order. Copy the list from the design page's `<link>` tags.
+- Title = `<page or record title><separator><site name>`; description/OG image fall back to SEO settings.
+- Named slots: `<x-slot:head>` (extra `<head>` tags, JSON-LD) and `<x-slot:scripts>` (page scripts).
+
+## Adding a page section (phases 1–5)
+
+1. Add the key to `config/site.pages.<page>.sections` (label in Arabic). `php artisan site:sync` (also run on
+   every deploy) creates the row; editors order/toggle it in صفحات الموقع -> أقسام الصفحة.
+2. Create `resources/views/site/sections/<page>/<name>.blade.php`. It receives `$section` (`$section->setting('limit', 6)`).
+   Rebuild the design markup with the same classes, fed by models. Shared cards go in `components/site/cards/`.
+3. If the design section has motion JS, port it to `resources/site/js/sections/<name>.js` as a module that
+   finds its root (`document.querySelectorAll('[data-...]')`) and does nothing when absent; import it in `site.js`.
+   JS that **builds content from data** is not ported; that content is rendered by Blade.
+4. Lists with filters/search/pagination are Livewire components (`app/Livewire/Site`), state in the URL (`#[Url]`).
+
+## Adding a content type (record)
+
+- Migration with translatable JSON columns, `slug`, `is_published`, `published_at`, `sort_order`, soft deletes.
+- Model: `HasTranslations`, `ClearsResponseCache`, `LogsContentActivity`, `InteractsWithMedia` (collections per
+  image slot; files land in OneBox `media/<uuid>/`, publicly readable), factory.
+- Filament resource: forms with `Translatable::text()/textarea()`, `SpatieMediaLibraryFileUpload`, relation managers
+  for children; then `php artisan shield:generate --all --panel=admin --option=policies_and_permissions` and
+  `php artisan site:sync` (adds the new permissions to admin/editor).
+- Importer step in `app/Support/DesignImport/Steps` + registered in `ImportDesign::STEPS`; placeholders as drafts;
+  redirects for the design's record pages (`profile.html` -> `/achievers/<slug>`).
+- Sitemap: add published records in `SitemapController`.
+- Tests: route 200 + drafts hidden + filters + dashboard pages render.
+
+## Commands
+
+```bash
+cd backend
+php artisan site:sync                       # roles/permissions, pages/sections, first super admin (idempotent)
+php artisan injazat:import-design           # fill from /design (only empty values; --force overwrites; --only=menus)
+node ../scripts/design-data-to-json.mjs     # after the design's JS data files change
+npm run build                               # no hot reload through Flock/demo
+php artisan test --compact && vendor/bin/pint --dirty
+```
+
+Visual check against the design (serve the design on a local port; lab-shot uses the host network):
+
+```bash
+(cd ../design && python3 -m http.server 8777 --bind 127.0.0.1) &
+lab-shot http://127.0.0.1:8777/index.html --size 390x844 --full --out /tmp/shots/design
+lab-shot https://injazat.test/ --size 390x844 --full --out /tmp/shots/new     # also 768x1024, 1280x800, 1536x864
+LAB_BROWSE_PASSWORD=password lab-browse https://injazat.test --login /admin/login --user admin@example.com /admin/...
+```
+
+## Images and OneBox
+
+- Media library disk `s3` (OneBox), every file under `media/` (`App\Support\Media\MediaPathGenerator`).
+  Only `media/*` is publicly readable (no listing); private files (contact attachments) go elsewhere.
+- Image URLs are direct: `https://onebox.fahim.om/<bucket>/media/...`, cached by Cloudflare. A Cloudflare response
+  header rule adds `Access-Control-Allow-Origin: *` on those paths (needed by the dashboard previews and the
+  canvas cards). Bucket CORS rules exist too but Cloudflare's cache does not vary by Origin.
+- Dev: conversions run during upload (`QUEUE_CONVERSIONS_BY_DEFAULT=false`); live: Horizon.
+- Tests: `MEDIA_DISK=media_test` (local) or `Storage::fake(config('media-library.disk_name'))`.
+
+## Caching
+
+- Public pages: full-response cache (`spatie/laravel-responsecache`) on live; off in dev (`RESPONSE_CACHE_ENABLED=false`).
+  Models with `ClearsResponseCache` and saving settings clear it.
+- Menus: cached raw rows (`MenuItem::grouped()`); Laravel 13 refuses to unserialize models from the cache, so
+  cache arrays/ids, never models.

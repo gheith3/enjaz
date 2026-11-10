@@ -1,0 +1,51 @@
+/* هيدر «ملهمون» — نماذج تطوير قسم الكلام (٨ نوفمبر ٢٠٢٦). تعمل فقط مع ?tx=1..3 حتى يُختار أحدها.
+   الجدار المتحرك في اليسار لا يتغيّر. صفحة المقارنة: inspiring-text-options.html. الكمبيوتر فقط. */
+@media (min-width: 1100px) {
+  /* وجوه الملهمين (مشتركة بين ١ و٣) */
+  .tx-faces { display: flex; align-items: center; gap: 12px; }
+  .tx-faces .f { display: flex; direction: rtl; }
+  .tx-faces img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #E6C98A; box-shadow: 0 0 0 3px rgba(6, 49, 53, .9); }
+  .tx-faces img + img { margin-inline-start: -12px; }
+  .tx-faces span { color: #e1eeeb; font-size: 14px; line-height: 1.5; }
+  .tx-faces b { color: #F3D995; }
+
+  /* ===== ١) اللوح الزجاجي ===== */
+  .tx1 .is-head { padding: 40px 44px 38px; border-radius: 28px; background: linear-gradient(160deg, rgba(255, 255, 255, .09), rgba(2, 30, 34, .35)); backdrop-filter: blur(12px);
+    border: 1px solid rgba(243, 217, 149, .28); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .8), inset 0 1px 0 rgba(255, 255, 255, .12); gap: 16px; }
+  .tx1 .is-head::before, .tx1 .is-head::after { content: ""; position: absolute; width: 26px; height: 26px; border: 2px solid #E6C98A; pointer-events: none; }
+  .tx1 .is-head::before { top: 14px; right: 14px; border-width: 2px 2px 0 0; border-radius: 0 10px 0 0; }
+  .tx1 .is-head::after { bottom: 14px; left: 14px; border-width: 0 0 2px 2px; border-radius: 0 0 0 10px; }
+  .tx1 .is-title .is-gold { font-size: 84px !important; }
+  .tx1 .tx-faces { padding-top: 14px; border-top: 1px solid rgba(243, 217, 149, .2); width: 100%; }
+  .tx1 .is-discover { margin-top: 2px; }
+
+  /* ===== ٢) التحريري ===== */
+  .tx2 .is-head { padding-inline-start: 34px; border-inline-start: 2px solid transparent; border-image: linear-gradient(180deg, transparent, #E6C98A 20%, #E6C98A 80%, transparent) 1; gap: 14px; }
+  .tx2 .is-eyebrow { font-size: 14px; letter-spacing: 2px; }
+  .tx2 .is-eyebrow::before { display: none; }
+  .tx2 .is-eyebrow::after { content: "٠١"; margin-inline-start: 12px; padding-inline-start: 12px; border-inline-start: 1px solid rgba(243, 217, 149, .5); color: rgba(243, 217, 149, .7); }
+  .tx2 .is-title { flex-direction: row !important; align-items: baseline; gap: 18px; }
+  .tx2 .is-title .is-gold { font-size: 104px !important; }
+  .tx2 .is-from { white-space: nowrap; padding: 4px 14px; border: 1px solid rgba(255, 255, 255, .5); border-radius: 999px; font-size: 22px; font-weight: 700; color: #fff; translate: 0 -20px; }
+  .tx2 .is-intro { font-size: 26px; font-weight: 300; line-height: 1.7; color: #fff; }
+  .tx2 .is-fields { gap: 0; }
+  .tx2 .is-fields li { padding: 0; border: 0; background: none; font-size: 17px; color: #F3D995; }
+  .tx2 .is-fields li::before { margin-inline: 14px; }
+  .tx2 .is-fields li:first-child::before { display: none; }
+  .tx2 .is-discover { padding: 6px 0; border-radius: 0; background: none; box-shadow: none; color: #F3D995; font-size: 18px; gap: 14px; }
+  .tx2 .is-discover span { display: inline-block; width: 70px; height: 1.5px; background: #F3D995; color: transparent; overflow: hidden; position: relative; }
+  .tx2 .is-discover span::after { content: ""; position: absolute; left: 0; top: -4px; width: 9px; height: 9px; border: solid #F3D995; border-width: 0 0 1.5px 1.5px; transform: rotate(45deg); }
+  .tx2 .is-discover:hover { background: none; color: #fff; }
+  .tx2 .is-discover:hover span { width: 96px; }
+
+  /* ===== ٣) الكلمة المتبدّلة ===== */
+  .tx3 .is-head { gap: 16px; }
+  .tx3 .is-fields { display: none; }
+  .tx-rot { display: flex; align-items: baseline; gap: 14px; font-size: 34px; font-weight: 700; color: #fff; }
+  .tx-rot .win { position: relative; display: inline-block; height: 1.5em; overflow: hidden; min-width: 7em; }
+  .tx-rot .win i { position: absolute; top: 0; right: 0; left: auto; font-style: normal; font-weight: 800; white-space: nowrap; color: transparent;
+    background: linear-gradient(175deg, #FFF4D2, #F3D995 40%, #E6C177 75%); -webkit-background-clip: text; background-clip: text; transform: translateY(110%); transition: transform .7s cubic-bezier(.2, .8, .2, 1); }
+  .tx-rot .win i.on { transform: none; }
+  .tx-rot .win i.out { transform: translateY(-110%); }
+  .tx-rot .win::after { content: ""; position: absolute; right: 0; bottom: 2px; height: 3px; width: var(--uw, 60%); border-radius: 3px; background: linear-gradient(270deg, #E6C177, rgba(230, 193, 119, 0)); transition: width .6s ease; }
+}

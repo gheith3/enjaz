@@ -1,0 +1,128 @@
+{
+  "title": "حسب الاتحاد",
+  "hideEmpty": false,
+  "groups": {
+    "الرياضة": [
+      {
+        "slug": "oman-athletics",
+        "short": "ألعاب القوى",
+        "name": "الاتحاد العُماني لألعاب القوى",
+        "logo": "assets/img/federations/official/athletics.webp",
+        "r": 2.2,
+        "url": "federation.html?org=oman-athletics"
+      },
+      {
+        "slug": "oman-fa",
+        "short": "كرة القدم",
+        "name": "الاتحاد العُماني لكرة القدم",
+        "logo": "assets/img/federations/official/football.webp",
+        "r": 0.9,
+        "url": "federation.html?org=oman-fa"
+      },
+      {
+        "slug": "oman-hockey",
+        "short": "الهوكي",
+        "name": "الاتحاد العُماني للهوكي",
+        "logo": "assets/img/federations/official/hockey.webp",
+        "r": 2.57,
+        "url": "federation.html?org=oman-hockey"
+      },
+      {
+        "slug": "oman-handball",
+        "short": "كرة اليد",
+        "name": "الاتحاد العُماني لكرة اليد",
+        "logo": "assets/img/federations/official/handball.webp",
+        "r": 0.75,
+        "url": "federation.html?org=oman-handball"
+      },
+      {
+        "slug": "oman-basketball",
+        "short": "كرة السلة",
+        "name": "الاتحاد العُماني لكرة السلة",
+        "logo": "assets/img/federations/official/basketball.webp?v=2",
+        "r": 1,
+        "url": "federation.html?org=oman-basketball"
+      },
+      {
+        "slug": "oman-volleyball",
+        "short": "الكرة الطائرة",
+        "name": "الاتحاد العُماني للكرة الطائرة",
+        "logo": "assets/img/federations/official/volleyball.webp",
+        "r": 1,
+        "url": "federation.html?org=oman-volleyball"
+      },
+      {
+        "slug": "oman-shooting",
+        "short": "الرماية",
+        "name": "الاتحاد العُماني للرماية",
+        "logo": "assets/img/federations/official/shooting.webp",
+        "r": 0.86,
+        "url": "federation.html?org=oman-shooting"
+      },
+      {
+        "slug": "oman-tennis",
+        "short": "التنس الأرضي",
+        "name": "الاتحاد العُماني للتنس الأرضي",
+        "logo": "assets/img/federations/official/tennis.webp",
+        "r": 1,
+        "url": "federation.html?org=oman-tennis"
+      },
+      {
+        "slug": "oman-swimming",
+        "short": "السباحة",
+        "name": "الاتحاد العُماني للسباحة",
+        "logo": "assets/img/federations/official/swimming.webp",
+        "r": 1.07,
+        "url": "federation.html?org=oman-swimming"
+      },
+      {
+        "slug": "oman-equestrian",
+        "short": "الفروسية",
+        "name": "الاتحاد العُماني للفروسية",
+        "logo": "assets/img/federations/official/equestrian.webp",
+        "r": 1.38,
+        "url": "federation.html?org=oman-equestrian"
+      },
+      {
+        "slug": "oman-school-sports",
+        "short": "الرياضة المدرسية",
+        "name": "الاتحاد العُماني للرياضة المدرسية",
+        "logo": "assets/img/federations/official/school-sports.webp",
+        "r": 0.91,
+        "url": "federation.html?org=oman-school-sports"
+      },
+      {
+        "slug": "oman-cycling",
+        "short": "الدراجات الهوائية",
+        "name": "الاتحاد العُماني للدراجات الهوائية",
+        "logo": "assets/img/federations/official/cycling.webp",
+        "r": 0.78,
+        "url": "federation.html?org=oman-cycling"
+      },
+      {
+        "slug": "oman-table-tennis",
+        "short": "كرة الطاولة",
+        "name": "الاتحاد العُماني لكرة الطاولة",
+        "logo": "assets/img/federations/official/table-tennis.webp",
+        "r": 0.92,
+        "url": "federation.html?org=oman-table-tennis"
+      },
+      {
+        "slug": "oman-golf",
+        "short": "الجولف",
+        "name": "الاتحاد العُماني للجولف",
+        "logo": "assets/img/federations/official/golf.webp",
+        "r": 3.67,
+        "url": "federation.html?org=oman-golf"
+      },
+      {
+        "slug": "oman-automobile",
+        "short": "السيارات",
+        "name": "الجمعية العُمانية للسيارات",
+        "logo": "assets/img/federations/official/automobile.webp",
+        "r": 0.92,
+        "url": "federation.html?org=oman-automobile"
+      }
+    ]
+  }
+}

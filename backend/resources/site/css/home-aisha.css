@@ -1,0 +1,58 @@
+.aisha-feature { position: relative; isolation: isolate; overflow: hidden; min-height: 220px; padding: 18px 16px; color: #fff; background: linear-gradient(270deg, #0c7f89, #0e4348); }
+.aisha-art { position: absolute; z-index: -1; inset: auto 0 0 auto; height: 100%; width: auto; aspect-ratio: 1339 / 612; max-width: none; pointer-events: none; }
+.aisha-copy { position: relative; width: 53%; max-width: 310px; margin-right: auto; direction: rtl; text-align: right; }
+.aisha-label { display: block; margin-bottom: 4px; color: #e9d6a5; font-size: 9px; }
+.aisha-copy h2 { margin: 0 0 10px; color: #fff; font-size: 17px; line-height: 1.5; }
+.aisha-bio { padding: 11px 12px 6px; border: 1px solid rgba(255,255,255,.5); border-radius: 12px; background: rgba(250,253,250,.92); color: #214448; }
+.aisha-bio p { margin: 0; font-size: 11px; line-height: 1.85; }
+.aisha-bio a { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; font-size: 10px; font-weight: 700; color: var(--primary); }
+.aisha-bio a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+@media (max-width: 350px) { .aisha-feature { padding-inline: 12px; } .aisha-copy { width: 55%; } .aisha-bio p { font-size: 10px; } }
+@media (min-width: 700px) { .aisha-feature { min-height: 280px; padding: 32px; } .aisha-copy { width: 48%; } .aisha-copy h2 { font-size: 24px; } .aisha-bio p { font-size: 14px; } }
+
+/* Independent portrait and ribbon layers, animated once on entering the viewport. */
+/* Extend the transparent cutout below the clipped panel edge for a flush base. */
+.aisha-portrait { position:absolute; right:0; bottom:-6%; height:106%; width:auto; max-width:none; transform-origin:75% 100%; }
+.aisha-lines { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.aisha-orbit { fill:none; stroke:var(--green); stroke-width:12; stroke-linecap:round; }
+@media (prefers-reduced-motion: no-preference) {
+  .aisha-feature.motion-ready:not(.is-visible) .aisha-portrait,
+  .aisha-feature.motion-ready:not(.is-visible) .aisha-copy > * { opacity:0; }
+  .aisha-feature.motion-ready:not(.is-visible) .aisha-orbit { stroke-dasharray:1; stroke-dashoffset:1; opacity:0; }
+  .aisha-feature.is-visible .aisha-portrait { animation:aisha-portrait-enter 1.35s cubic-bezier(.16,1,.3,1) both; }
+  .aisha-feature.is-visible .aisha-orbit { stroke-dasharray:1; animation:aisha-line-draw 1.8s cubic-bezier(.4,0,.2,1) .35s both; }
+  .aisha-feature.is-visible .aisha-copy > * { animation:aisha-copy-enter .8s cubic-bezier(.16,1,.3,1) both; }
+  .aisha-feature.is-visible .aisha-label { animation-delay:.5s; }
+  .aisha-feature.is-visible h2 { animation-delay:.65s; }
+  .aisha-feature.is-visible .aisha-bio { animation-delay:.85s; }
+}
+@keyframes aisha-portrait-enter {
+  from { opacity:0; transform:translate3d(24px,35px,0) scale(.94); filter:blur(5px); }
+  to { opacity:1; transform:translate3d(0,0,0) scale(1); filter:blur(0); }
+}
+@keyframes aisha-line-draw {
+  from { opacity:0; stroke-dashoffset:1; }
+  12% { opacity:1; }
+  to { opacity:1; stroke-dashoffset:0; }
+}
+@keyframes aisha-copy-enter {
+  from { opacity:0; transform:translateY(14px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* The white ribbon passes behind the portrait, then continues in front. */
+.aisha-lines-back { z-index:0; }
+.aisha-portrait { z-index:1; }
+.aisha-lines:not(.aisha-lines-back) { z-index:2; }
+.aisha-orbit-white { stroke:#fff; stroke-width:9; }
+@media (prefers-reduced-motion: no-preference) {
+  .aisha-feature.is-visible .aisha-orbit-back { animation-duration:.75s; animation-delay:.2s; }
+  .aisha-feature.is-visible .aisha-orbit-front { animation-duration:1.15s; animation-delay:.85s; }
+}
+
+/* Draw the green start behind the face before continuing in the foreground. */
+@media (prefers-reduced-motion: no-preference) {
+  .aisha-feature.is-visible .aisha-green-back { animation-duration:.45s; animation-delay:.35s; }
+  .aisha-feature.is-visible .aisha-green-front { animation-duration:1.65s; animation-delay:.8s; }
+  .aisha-feature.is-visible .aisha-orbit-front { animation-duration:1.7s; }
+}

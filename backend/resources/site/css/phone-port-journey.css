@@ -1,0 +1,91 @@
+/* خارطة العمل الجديدة على الهاتف — نسخة المراجعة. */
+@media (max-width:1099px) {
+/* ===== خارطة العمل على الكمبيوتر — رحلتنا ٢ (js/about-journey-desktop.js): رحلة رأسية كاملة تنتهي بالرؤية ===== */
+.jv { display: none; }
+@media (min-width: 0px) {
+  #journey .rm-tl, #journey .journey-note { display: none; }
+  #journey.wrap { max-width: 1160px; }
+  .jv { display: block; position: relative; padding: 40px 40px 56px; border-radius: 30px; color: #fff; overflow: hidden;
+    background: radial-gradient(ellipse 60% 30% at 50% 100%, rgba(230, 201, 138, .22), transparent 70%), radial-gradient(ellipse 60% 20% at 50% 0%, rgba(230, 201, 138, .12), transparent 70%), linear-gradient(180deg, #0A5C63, #052E2F 85%); }
+  .jv-lead { margin: 0 0 30px; text-align: center; color: #D7E8E3; font-size: 18px; font-weight: 700; }
+  .jv-track { position: relative; }
+  .jv-line { position: absolute; top: 0; bottom: 70px; left: 50%; width: 3px; translate: -50% 0; border-radius: 3px; background: rgba(230, 201, 138, .18); }
+  .jv-line i { position: absolute; top: 0; left: 0; right: 0; height: 0; border-radius: inherit; background: linear-gradient(180deg, #C9A35C, #F6E3B4); box-shadow: 0 0 14px rgba(246, 227, 180, .7); }
+  .jv-list { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr); margin: 0; padding: 0; list-style: none; }
+  .jv-year { grid-column: 1 / -1; display: flex; justify-content: center; margin: 10px 0 18px; }
+  .jv-year span { position: relative; z-index: 1; padding: 7px 22px; border-radius: 99px; background: linear-gradient(135deg, #F1D99F, #C9A35C); color: #063135; font-size: 18px; font-weight: 900; box-shadow: 0 0 0 6px #0A5560, 0 10px 24px -10px rgba(0, 0, 0, .6); }
+  .jv-item { position: relative; display: contents; }
+  .jv-item .jv-card { margin-bottom: -46px; }
+  .jv-r .jv-card { grid-column: 1; } .jv-l .jv-card { grid-column: 3; margin-top: 46px; margin-bottom: 0; }
+  .jv-item + .jv-year { margin-top: 64px; }
+  .jv-dot { display: none; }
+  .jv-card { position: relative; display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 14px; align-items: center; margin-bottom: 18px; padding: 10px; border-radius: 18px;
+    background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px rgba(230, 201, 138, .25); }
+  .jv-card::after { content: ""; position: absolute; top: 50%; width: 35px; height: 2px; background: rgba(230, 201, 138, .45); }
+  .jv-r .jv-card::after { left: -35px; } .jv-l .jv-card::after { right: -35px; }
+  .jv-card::before { content: ""; position: absolute; z-index: 1; top: calc(50% - 7px); width: 14px; height: 14px; border-radius: 50%; background: #E6C98A; box-shadow: 0 0 0 4px #0A5560, 0 0 12px rgba(246, 227, 180, .8); }
+  .jv-r .jv-card::before { left: -42px; } .jv-l .jv-card::before { right: -42px; }
+  .jv-img { display: block; width: 116px; height: 84px; border-radius: 12px; overflow: hidden; }
+  .jv-img img { width: 100%; height: 100%; object-fit: cover; }
+  .jv-card small { color: #E6C98A; font-size: 12.5px; font-weight: 800; }
+  .jv-card p { margin: 3px 0 0; color: #F1F7F5; font-size: 15px; font-weight: 700; line-height: 1.75; }
+  .jv-end { grid-column: 1 / -1; display: grid; justify-items: center; gap: 14px; margin-top: 96px; text-align: center; }
+  .jv-star { position: relative; z-index: 1; display: grid; place-items: center; width: 78px; height: 78px; border-radius: 50%; background: radial-gradient(circle, #0E6E73, #063135); box-shadow: 0 0 0 2px #E6C98A, 0 0 0 10px rgba(230, 201, 138, .12), 0 0 50px rgba(246, 227, 180, .55); }
+  .jv-star svg { width: 40px; height: 40px; fill: #F6E3B4; filter: drop-shadow(0 0 8px #FFF3D0); }
+  .jv-vision { max-width: 640px; }
+  .jv-vision small { color: #E6C98A; font-size: 15px; font-weight: 800; }
+  .jv-vision b { display: block; margin: 8px 0 10px; font-size: 26px; line-height: 1.7; background: linear-gradient(180deg, #FFF6DF, #E0BC72); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .jv-vision span { color: #CFE3DD; font-size: 15px; }
+  /* الظهور مع التمرير */
+  .jv-anim .jv-year, .jv-anim .jv-end, .jv-anim .jv-item .jv-card { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.16, 1, .3, 1); }
+  .jv-anim .jv-r .jv-card { transform: translateX(30px); } .jv-anim .jv-l .jv-card { transform: translateX(-30px); }
+  .jv-anim .in.jv-year, .jv-anim .in.jv-end, .jv-anim .jv-item.in .jv-card { opacity: 1; transform: none; }
+  .jv-anim .jv-end.in .jv-star { animation: jv-pop 1s cubic-bezier(.3, 1.6, .5, 1) .2s both, jv-glow 3s ease-in-out 1.2s infinite; }
+}
+@keyframes jv-pop { from { transform: scale(.3) rotate(-45deg); } }
+@keyframes jv-glow { 50% { box-shadow: 0 0 0 2px #E6C98A, 0 0 0 16px rgba(230, 201, 138, .08), 0 0 70px rgba(246, 227, 180, .8); } }
+@media (min-width: 0px) {
+  .jv-list { grid-auto-rows: minmax(56px, auto); row-gap: 0; }
+  .jv-item .jv-card, .jv-l .jv-card { margin: 6px 0; align-self: center; }
+  .jv-item + .jv-year { margin-top: 0; }
+  .jv-year { margin: 26px 0 14px; align-self: center; }
+  .jv-end { margin-top: 70px; }
+}
+/* إطار الرؤية الذهبي الفخم: يُرسم بعد وصول الضوء إلى النجمة */
+@media (min-width: 0px) {
+  .jv-end { gap: 0; }
+  .jv-vision { position: relative; margin-top: 40px; padding: 4px 10px; }
+  .jv-frame { position: absolute; left: 50%; top: -66px; translate: -50% 0; overflow: visible; pointer-events: none; }
+  .jv-frame path { fill: none; stroke: url(#jvGold); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; filter: url(#jvGlow); stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+  .jv-reached .jv-end.in .jv-f0 { animation: jv-draw .5s ease-in .5s forwards; }
+  .jv-reached .jv-end.in .jv-f1 { animation: jv-draw 1.8s cubic-bezier(.45, 0, .2, 1) 1s forwards; }
+  .jv-vision small, .jv-vision b, .jv-vision span { position: relative; z-index: 1; }
+}
+@media (min-width: 0px) and (prefers-reduced-motion: reduce) { .jv-frame path { stroke-dashoffset: 0; } }
+@keyframes jv-draw { to { stroke-dashoffset: 0; } }
+@media (min-width: 0px) { .jv-vision { margin-top: 58px; } }
+
+/* خط الرحلة الأساسي أوضح قليلًا */
+@media (min-width: 0px) { .jv-line { background: rgba(230, 201, 138, .32); } }
+
+.jv { padding: 22px 16px 48px; border-radius: 22px; }
+.jv-lead { font-size: 14px; margin-bottom: 20px; }
+.jv-list { display: flex; flex-direction: column; gap: 16px; }
+.jv-item { display: block; padding-inline-start: 20px; }
+.jv-line { left: auto; right: 6px; translate: 0; }
+.jv-year { justify-content: flex-start; margin: 12px 0; }
+.jv-year span { font-size: 15px; padding: 5px 16px; }
+.jv-item .jv-card, .jv-l .jv-card { margin: 0; grid-template-columns: 76px minmax(0,1fr); padding: 9px; gap: 10px; }
+.jv-img { width: 76px; height: 76px; border-radius: 9px; }
+.jv-card p { font-size: 12px; line-height: 1.8; }
+.jv-card small { font-size: 11px; }
+.jv-r .jv-card::before, .jv-l .jv-card::before { right: -19px; left: auto; width: 10px; height: 10px; top: calc(50% - 5px); }
+.jv-r .jv-card::after, .jv-l .jv-card::after { right: -12px; left: auto; width: 12px; }
+.jv-end { margin-top: 32px; padding: 0 14px; }
+.jv-star { width: 58px; height: 58px; }
+.jv-vision { max-width: 100%; margin-top: 48px; padding: 4px; }
+.jv-vision b { font-size: 19px; }
+.jv-vision small, .jv-vision span { font-size: 12px; }
+.jv-anim .jv-r .jv-card, .jv-anim .jv-l .jv-card { transform: translateY(18px); }
+.jv-anim .jv-item.in .jv-card { transform: none; }
+}

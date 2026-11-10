@@ -1,0 +1,46 @@
+/* صفحة جائزة الثقافة والفنون والآداب: تنسيق التفاصيل والمجالات والكلمة للكمبيوتر. */
+@media (min-width: 1100px) {
+  [data-award] .aw-lead { max-width: 100%; font-size: 17px; line-height: 2; margin-bottom: 24px; }
+  [data-award] .aw-goals { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  [data-award] .aw-goals li { grid-template-columns: 44px minmax(0, 1fr); align-items: start; gap: 16px; min-width: 0; min-height: 116px; padding: 22px; border-radius: 18px; border: 1px solid #E4D5B7; background: linear-gradient(135deg, #FCF9F1, #F5F0E5); font-size: 17px; line-height: 1.9; color: #24494B; }
+  [data-award] .aw-goals b { width: 44px; height: 44px; font-size: 19px; border-radius: 13px; color: #F4DFAE; background: #0A4B4D; border: 1px solid #BB995A; }
+  [data-award] .aw-sub { margin: 36px 0 18px; font-size: 21px; line-height: 1.6; }
+  [data-award] .aw-pillars { gap: 20px; align-items: stretch; }
+  [data-award] .aw-pillars .aw-pil { grid-template-rows: auto auto 1fr auto; gap: 16px; min-height: 330px; padding: 28px 24px 24px; border-radius: 20px; clip-path: none; border: 1px solid color-mix(in srgb, var(--c) 55%, #DCC38D); background: linear-gradient(155deg, color-mix(in srgb, var(--c) 85%, #183D3F), color-mix(in srgb, var(--c) 62%, #102C2D)); box-shadow: 0 12px 22px -18px rgba(6,49,53,.4); }
+  [data-award] .aw-pillars .aw-pil::before { display: none; }
+  [data-award] .aw-pillars .aw-pil-ic { width: 54px; height: 54px; }
+  [data-award] .aw-pillars .aw-pil-ic svg { width: 28px; height: 28px; }
+  [data-award] .aw-pillars .aw-pil b { font-size: 26px; line-height: 1.4; }
+  [data-award] .aw-pillars .aw-pil small { max-width: 30ch; font-size: 16px; line-height: 1.9; color: #fff; }
+  [data-award] .aw-pillars .aw-pil em { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; width: 100%; padding-top: 16px; border-top: 1px solid rgba(244,223,174,.35); font-size: 14px; color: #F4DFAE; }
+  [data-award] .aw-pillars .aw-pil em strong { font-size: 32px; }
+  [data-award] .aw-pillars .aw-pil:focus-visible { outline: 3px solid #B68C3F; outline-offset: 5px; }
+  [data-award] .aw-word { min-width: 0; }
+  [data-award] .aw-word .lw { width: 100%; max-width: 100%; margin-inline: 0; box-sizing: border-box; border-radius: 22px; overflow: hidden; }
+}
+
+/* السجل الأصلي يمينًا، وتفاصيل الوسام المختار في المساحة اليسرى. */
+.aw-winner-preview { display: none; }
+@media (min-width: 1100px) {
+  [data-award] .aw-winners-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr); gap: 48px; align-items: start; }
+  [data-award] .aw-winner-preview { display: grid; position: sticky; top: 80px; align-self: start; min-width: 0; max-height: none; overflow: visible; overflow-wrap: anywhere; padding: 16px; border: 1px solid #DDC89D; border-radius: 22px; background: linear-gradient(160deg, #FFFDFA, #F7F1E4); box-shadow: 0 20px 36px -28px rgba(6,49,53,.4); text-align: center; justify-items: center; gap: 12px; }
+  [data-award] .aw-preview-content { display: grid; gap: 14px; min-width: 0; }
+  [data-award] .aw-preview-heading { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: center; gap: 4px 14px; text-align: right; }
+  [data-award] .aw-preview-heading .aw-preview-label { grid-column: 1 / -1; }
+  [data-award] .aw-preview-heading .aw-disc.big { width: 76px; height: 76px; }
+  [data-award] .aw-preview-identity { min-width: 0; }
+  [data-award] .aw-winner-preview .aw-preview-label { color: #8A6A2E; font-size: 14px; font-weight: 700; }
+  [data-award] .aw-winner-preview h3 { margin: 0; color: var(--ink); font-size: 22px; line-height: 1.4; }
+  [data-award] .aw-winner-preview .aw-card-k { margin: 4px 0 0; justify-content: flex-start; font-size: 14px; }
+  [data-award] .aw-winner-preview .aw-why { width: 100%; margin: 0; text-align: right; }
+  [data-award] .aw-winner-preview .aw-why { padding: 12px 14px; }
+  [data-award] .aw-winner-preview .aw-why span { position: static; display: inline-block; margin-bottom: 8px; font-size: 12px; }
+  [data-award] .aw-winner-preview .aw-why p { font-size: 14px; line-height: 1.7; }
+  [data-award] .aw-winner-preview dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; margin: 0; gap: 8px; text-align: right; }
+  [data-award] .aw-winner-preview dl div { padding: 8px 10px; border: 1px solid #E5D8BC; border-radius: 12px; background: rgba(255,255,255,.75); }
+  [data-award] .aw-winner-preview dt { font-size: 13px; color: #8A6A2E; font-weight: 700; }
+  [data-award] .aw-winner-preview dd { margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: #24494B; }
+  [data-award] .aw-winner-preview .aw-card-go { margin-top: 0; min-height: 40px; }
+  [data-award] .aw-m button[aria-pressed="true"] .aw-disc { outline: 3px solid #0C7F89; outline-offset: 4px; }
+  [data-award] .aw-m button:focus-visible { outline: 2px solid #0C7F89; outline-offset: 4px; border-radius: 12px; }
+}

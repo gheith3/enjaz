@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'home' => 'Home',
+    'open_menu' => 'Open menu',
+    'close_menu' => 'Close menu',
+    'main_menu' => 'Main menu',
+    'site_sections' => 'Site sections',
+    'search_site' => 'Search the site',
+    'search' => 'Search',
+    'search_and_menu' => 'Search and full menu',
+    'back_to' => 'Back to :section',
+    'site_links' => 'Site links',
+    'social_accounts' => 'Social media',
+    'link_unavailable' => ':platform — link not available',
+    'not_found_title' => 'Page not found',
+    'not_found_text' => 'The page may have moved or its address changed.',
+    'server_error_title' => 'Something went wrong',
+    'server_error_text' => 'We are fixing it, please try again shortly.',
+    'back_home' => 'Back to home',
+    'social' => [
+        'instagram' => 'Instagram',
+        'whatsapp' => 'WhatsApp',
+        'x' => 'X (Twitter)',
+        'facebook' => 'Facebook',
+        'linkedin' => 'LinkedIn',
+        'youtube' => 'YouTube',
+        'snapchat' => 'Snapchat',
+        'tiktok' => 'TikTok',
+        'website' => 'Website',
+    ],
+];

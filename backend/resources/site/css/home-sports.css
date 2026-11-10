@@ -1,0 +1,77 @@
+/* Individual portrait artwork with the ribbons composited behind each athlete. */
+.sports-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; align-items:start; }
+.sports-person { display:block; min-width:0; border-radius:12px; }
+.sports-photo { overflow:hidden; aspect-ratio:4 / 5; border-radius:12px; background:var(--dark); }
+.sports-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:center top; }
+.sports-caption { padding-top:8px; text-align:center; }
+.sports-caption h3 { margin:0; color:var(--dark); font-size:13px; line-height:1.7; font-weight:700; }
+.sports-field { display:block; margin-top:2px; color:var(--primary); font-size:10px; line-height:1.8; }
+.sports-more { display:flex; justify-content:center; margin-top:14px; }
+.home-sports a:focus-visible { outline:2px solid var(--primary); outline-offset:4px; }
+.sports-person:hover h3 { color:var(--teal); }
+@media (min-width:700px) {
+  .sports-grid { gap:20px; }
+  .sports-photo { border-radius:16px; }
+  .sports-caption { padding-top:10px; }
+  .sports-caption h3 { font-size:17px; }
+  .sports-field { font-size:12px; }
+}
+@media (max-width:350px) {
+  .sports-grid { gap:9px; }
+  .sports-caption h3 { font-size:12px; }
+}
+
+/* Clean alpha portraits in front of real, independently drawn vector ribbons. */
+.sports-photo { position:relative; isolation:isolate; background:radial-gradient(ellipse at 45% 25%,#126b70 0%,#063c43 58%,#02292f 100%); }
+.sports-ribbons { position:absolute; inset:0; width:100%; height:100%; z-index:0; }
+.sports-photo .sports-cutout { position:relative; z-index:1; object-fit:fill; transform-origin:50% 100%; }
+.sports-ribbon-float { transform-origin:50% 45%; }
+@media (prefers-reduced-motion:no-preference) {
+  .sports-motion-ready:not(.is-visible) .sports-cutout { opacity:0; }
+  .sports-motion-ready:not(.is-visible) .sports-ribbon-reveal { stroke-dasharray:1; stroke-dashoffset:1; }
+  .sports-motion-ready.is-visible .sports-cutout { animation:sports-person-bottom 1.5s cubic-bezier(.22,1,.36,1) both; }
+  .sports-motion-ready.is-visible .sports-motion-ali .sports-cutout { animation-name:sports-person-right; }
+  .sports-motion-ready.is-visible .sports-motion-mohammed .sports-cutout { animation-name:sports-person-left; }
+  .sports-motion-ready.is-visible .sports-ribbon-reveal { stroke-dasharray:1; animation:sports-ribbon-draw 1.8s cubic-bezier(.4,0,.2,1) .25s both; }
+  .sports-motion-ready.is-visible .sports-ribbon-1.sports-ribbon-reveal { animation-delay:.8s; animation-duration:1.9s; }
+  .sports-motion-ready.is-visible .sports-motion-ali .sports-ribbon-float { animation:sports-orbit-left 3.2s cubic-bezier(.22,1,.36,1) both; }
+  .sports-motion-ready.is-visible .sports-motion-hamed .sports-ribbon-float,
+  .sports-motion-ready.is-visible .sports-motion-ghulam .sports-ribbon-float { animation:sports-diagonal-flow 3.2s cubic-bezier(.22,1,.36,1) both; }
+  .sports-motion-ready.is-visible .sports-motion-mohammed .sports-ribbon-float { animation:sports-halo-flow 3.4s cubic-bezier(.22,1,.36,1) both; }
+  .sports-motion-ready.is-visible .sports-ribbon-1.sports-ribbon-float { animation-delay:.2s; }
+}
+@keyframes sports-person-right { from { opacity:0; transform:translateX(100%); } to { opacity:1; transform:translateX(0); } }
+@keyframes sports-person-bottom { from { opacity:0; transform:translateY(100%); } to { opacity:1; transform:translateY(0); } }
+@keyframes sports-person-left { from { opacity:0; transform:translateX(-100%); } to { opacity:1; transform:translateX(0); } }
+@keyframes sports-ribbon-draw { from { stroke-dashoffset:1; } to { stroke-dashoffset:0; } }
+@keyframes sports-orbit-left { from { transform:rotate(-14deg) scale(.94); } to { transform:rotate(0) scale(1); } }
+@keyframes sports-diagonal-flow { from { transform:translate(-55px,70px); } to { transform:translate(0,0); } }
+@keyframes sports-halo-flow { from { transform:rotate(22deg) scale(.85); } to { transform:rotate(0) scale(1); } }
+
+/* Captions follow the portrait entrance with a gentle upward reveal. */
+@media (prefers-reduced-motion:no-preference) {
+  .sports-motion-ready:not(.is-visible) .sports-caption h3,
+  .sports-motion-ready:not(.is-visible) .sports-field { opacity:0; }
+  .sports-motion-ready.is-visible .sports-caption h3 {
+    animation:sports-name-rise .85s cubic-bezier(.22,1,.36,1) .75s both;
+  }
+  .sports-motion-ready.is-visible .sports-field {
+    animation:sports-name-rise .75s cubic-bezier(.22,1,.36,1) .95s both;
+  }
+}
+@keyframes sports-name-rise {
+  from { opacity:0; transform:translateY(16px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* A soft neutral frame groups the sports portraits and their action. */
+.home-sports { background:#f7f7f7; border:1px solid #eaeaea; border-radius:18px; padding:22px 16px; }
+@media (min-width:700px) { .home-sports { padding:28px 24px; border-radius:22px; } }
+
+@media (max-width:480px) {
+  .sports-grid { gap:6px; }
+  .sports-photo { border-radius:9px; }
+  .sports-caption { padding-top:6px; }
+  .sports-caption h3 { font-size:10px; line-height:1.5; }
+  .sports-field { font-size:9px; line-height:1.5; }
+}

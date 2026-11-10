@@ -1,0 +1,39 @@
+/* هيدر «ملهمون من عُمان» على الكمبيوتر (٨ نوفمبر ٢٠٢٦): العنوان كاملًا بالذهبي في سطر واحد، وظهور احترافي عند فتح الصفحة:
+   أعمدة الصور تنساب إلى أماكنها من الأعلى والأسفل بالتناوب وتتضح من الضباب، ثم الكلام يتتابع: السطر الصغير، العنوان بمسحة ذهبية،
+   التعريف، شارات المجالات واحدة بعد الأخرى، ثم الزر. الحركة الدائمة للجدار كما هي. */
+@media (min-width: 1100px) {
+  .page-hero.ins-strip .is-title { display: block !important; white-space: nowrap; font-size: clamp(52px, 4.6vw, 68px) !important; line-height: 1.25 !important;
+    background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 30%, #E6C177 55%, #F8E3AA 78%, #EFD08A 100%); -webkit-background-clip: text; background-clip: text; color: transparent !important;
+    -webkit-text-fill-color: transparent; filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .3)); }
+  .page-hero.ins-strip .is-title .is-gold { display: inline !important; font-size: inherit !important; line-height: inherit !important; filter: none !important; }
+}
+@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) {
+  .ins-strip .is-photo-column { animation: is-col-in 1s cubic-bezier(.2, .8, .2, 1) both; }
+  .ins-strip .is-photo-column:nth-child(1) { --cy: -140px; animation-delay: 0s; } .ins-strip .is-photo-column:nth-child(2) { --cy: 140px; animation-delay: .07s; }
+  .ins-strip .is-photo-column:nth-child(3) { --cy: -140px; animation-delay: .14s; } .ins-strip .is-photo-column:nth-child(4) { --cy: 140px; animation-delay: .21s; }
+  .ins-strip .is-head > * { animation: none !important; }
+  .ins-strip .is-eyebrow { animation: is-fade-r .7s cubic-bezier(.2, .8, .2, 1) .08s both !important; }
+  .page-hero.ins-strip .is-title { animation: is-title-in .9s cubic-bezier(.2, .8, .2, 1) .15s both !important; }
+  .ins-strip .is-intro { animation: is-up .8s cubic-bezier(.2, .8, .2, 1) .45s both !important; }
+  .ins-strip .is-fields li { animation: is-pop .6s cubic-bezier(.3, 1.4, .5, 1) calc(.65s + var(--n, 0) * .08s) both; }
+  .ins-strip .is-fields li:nth-child(2) { --n: 1; } .ins-strip .is-fields li:nth-child(3) { --n: 2; } .ins-strip .is-fields li:nth-child(4) { --n: 3; }
+  .ins-strip .is-discover { animation: is-up .7s cubic-bezier(.2, .8, .2, 1) 1s both !important; }
+}
+@keyframes is-col-in { from { opacity: 0; transform: translateY(var(--cy, 120px)); filter: blur(10px) brightness(1.4); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes is-fade-r { from { opacity: 0; transform: translateX(-30px); } }
+@keyframes is-title-in { from { opacity: 0; clip-path: inset(0 0 0 100%); transform: translateX(-28px); } to { opacity: 1; clip-path: inset(-20% -5% -20% -5%); transform: none; } }
+@keyframes is-up { from { opacity: 0; transform: translateY(16px); } }
+@keyframes is-pop { from { opacity: 0; transform: scale(.6) translateY(8px); } }
+/* الهاتف: الحركة نفسها */
+@media (max-width: 1099px) and (prefers-reduced-motion: no-preference) {
+  .ins-strip .is-photo-column { animation: is-col-in 1s cubic-bezier(.2, .8, .2, 1) both; }
+  .ins-strip .is-photo-column:nth-child(1) { --cy: -140px; animation-delay: 0s; } .ins-strip .is-photo-column:nth-child(2) { --cy: 140px; animation-delay: .07s; }
+  .ins-strip .is-photo-column:nth-child(3) { --cy: -140px; animation-delay: .14s; } .ins-strip .is-photo-column:nth-child(4) { --cy: 140px; animation-delay: .21s; }
+  .ins-strip .is-head > * { animation: none !important; }
+  .ins-strip .is-eyebrow { animation: is-fade-r .7s cubic-bezier(.2, .8, .2, 1) .08s both !important; }
+  .page-hero.ins-strip .is-title { animation: is-title-in .9s cubic-bezier(.2, .8, .2, 1) .15s both !important; }
+  .ins-strip .is-intro { animation: is-up .8s cubic-bezier(.2, .8, .2, 1) .45s both !important; }
+  .ins-strip .is-fields li { animation: is-pop .6s cubic-bezier(.3, 1.4, .5, 1) calc(.65s + var(--n, 0) * .08s) both; }
+  .ins-strip .is-fields li:nth-child(2) { --n: 1; } .ins-strip .is-fields li:nth-child(3) { --n: 2; } .ins-strip .is-fields li:nth-child(4) { --n: 3; }
+  .ins-strip .is-discover { animation: is-up .7s cubic-bezier(.2, .8, .2, 1) 1s both !important; }
+}

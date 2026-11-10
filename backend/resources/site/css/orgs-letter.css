@@ -1,0 +1,49 @@
+/* رسالة جلالة السلطان بخط يده في هيدر المؤسسات (٨ نوفمبر ٢٠٢٦).
+   الكمبيوتر: ورقة مائلة بجانب إطار الصور، يتكشّف خطها كأنه يُكتب، وتعتدل عند الوقوف عليها.
+   الهاتف: بطاقة مصغّرة تحت العنوان. الضغط يفتح الرسالة كاملة مع نصها مطبوعًا. للرجوع: institutions.before-letter.html */
+.ol-card { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 420px; margin: 16px auto 0; padding: 10px 12px; border: 1px solid rgba(230, 201, 138, .45); border-radius: 16px;
+  background: rgba(2, 30, 34, .35); color: #fff; font: inherit; text-align: right; cursor: pointer; }
+.ol-paper { position: relative; flex: none; width: 54px; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 4px; background: #FDF9F0; box-shadow: 0 8px 18px -8px rgba(0, 0, 0, .7); }
+.ol-paper img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ol-cap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ol-cap b { font-size: 14px; color: #F3D995; }
+.ol-cap span { font-size: 12px; line-height: 1.6; color: rgba(255, 255, 255, .88); }
+.ol-cap em { font-style: normal; font-size: 12px; font-weight: 700; color: #F3D995; text-decoration: underline; text-underline-offset: 4px; }
+.ol-card:focus-visible { outline: 2px solid #F3D995; outline-offset: 3px; }
+
+@media (min-width: 1300px) {
+  /* الورقة يمين إطار الصور (في منتصف المساحة الجانبية) */
+  .ol-card { position: absolute; z-index: 3; top: 50%; right: max(24px, calc((50% - 380px - 230px) / 2)); translate: 0 -62%; flex-direction: column; align-items: stretch; gap: 14px;
+    width: 230px; max-width: none; margin: 0; padding: 0; border: 0; background: none; }
+  .ol-paper { width: 100%; border-radius: 6px; rotate: 4deg; transition: rotate .6s cubic-bezier(.2, .8, .2, 1), scale .6s cubic-bezier(.2, .8, .2, 1), box-shadow .6s;
+    box-shadow: 0 30px 50px -24px rgba(0, 0, 0, .85), 0 0 0 1px rgba(230, 201, 138, .5), 0 0 0 7px rgba(230, 201, 138, .08); }
+  .ol-paper::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(255, 255, 255, .35), transparent 35%, transparent 70%, rgba(120, 90, 40, .12)); }
+  .ol-card:hover .ol-paper, .ol-card:focus-visible .ol-paper { rotate: 0deg; scale: 1.04; box-shadow: 0 36px 60px -24px rgba(0, 0, 0, .9), 0 0 0 1.5px #E6C98A, 0 0 30px rgba(243, 217, 149, .25); }
+  .ol-cap { text-align: center; align-items: center; }
+  .ol-cap b { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; }
+  .ol-cap b::before, .ol-cap b::after { content: ""; width: 22px; height: 1px; background: #E6C98A; }
+  .ol-cap span { font-size: 13px; }
+}
+
+/* الخط يتكشّف كأنه يُكتب (من الأعلى إلى الأسفل)، والتوقيع آخرًا */
+@property --rv { syntax: '<percentage>'; initial-value: 106%; inherits: false; }
+@media (min-width: 1300px) and (prefers-reduced-motion: no-preference) {
+  .ol-paper img { -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 var(--rv), transparent calc(var(--rv) + 6%)); mask-image: linear-gradient(180deg, #000 0%, #000 var(--rv), transparent calc(var(--rv) + 6%));
+    animation: ol-write 4.2s cubic-bezier(.45, 0, .55, 1) 1.2s both; }
+  .ol-card { animation: ol-in 1s cubic-bezier(.2, .8, .2, 1) .4s both; }
+}
+@keyframes ol-write { from { --rv: 0%; } to { --rv: 106%; } }
+@keyframes ol-in { from { opacity: 0; translate: 40px -62%; } }
+
+/* نافذة الرسالة */
+.ol-dialog { width: min(1000px, 94vw); max-height: 92vh; padding: 0; border: 0; border-radius: 20px; background: #FDF9F0; color: #2B1E10; overflow: auto; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .8); }
+.ol-dialog::backdrop { background: rgba(2, 24, 27, .78); backdrop-filter: blur(4px); }
+.ol-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; padding: 28px; align-items: start; }
+.ol-in img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 30px -14px rgba(0, 0, 0, .5); }
+.ol-txt h2 { margin: 0 0 6px; font-size: 24px; color: #8A5E2E; }
+.ol-meta { margin: 0 0 16px; font-size: 13px; color: #8a7458; }
+.ol-txt p { margin: 0 0 12px; font-size: 16px; line-height: 2; }
+.ol-sign { margin-top: 18px !important; font-weight: 800; color: #8A5E2E; }
+.ol-sign span { font-weight: 600; font-size: 14px; }
+.ol-x { position: sticky; top: 10px; float: left; margin: 10px; width: 38px; height: 38px; border: 0; border-radius: 50%; background: #063135; color: #fff; font-size: 22px; line-height: 1; cursor: pointer; z-index: 2; }
+@media (max-width: 760px) { .ol-in { grid-template-columns: 1fr; padding: 16px; gap: 16px; } .ol-txt p { font-size: 15px; } }

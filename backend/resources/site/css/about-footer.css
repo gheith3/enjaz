@@ -1,0 +1,47 @@
+.site-footer { margin-top: 40px; color: #fff; font-family: "Cairo", Tahoma, sans-serif; font-weight: 400; }
+.site-footer ul { margin: 0; padding: 0; }
+.site-footer .footer-logo { display: flex; justify-content: center; }
+/* تذييل الموقع — مدمج: شريط الشعار والحسابات، روابط منسابة، شريط بيانات التواصل */
+.footer-redesign { position: relative; overflow: hidden; padding: 24px 18px 14px;
+  background: url(../assets/svg/watermark.svg) no-repeat -70px 50% / 230px, radial-gradient(60% 80% at 100% 0%, rgba(168,131,68,.22), transparent 70%), linear-gradient(155deg, #0a7379 0%, #07555a 53%, #06383c 100%); }
+.footer-redesign::before { content: ""; position: absolute; inset-inline: 0; top: 0; height: 3px; background: linear-gradient(90deg, transparent, #c9a15a 30%, #e3c88f 50%, #c9a15a 70%, transparent); }
+.footer-redesign .footer-layout { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); width: min(100%, 760px); margin: auto; }
+.footer-redesign .footer-brand { grid-row: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid rgba(220,236,225,.16); }
+.footer-redesign .footer-logo { width: auto; margin: 0; flex-shrink: 0; }
+.footer-redesign .footer-logo img { width: auto; height: 54px; }
+.footer-redesign .footer-socials { display: flex; align-items: center; gap: 6px; direction: rtl; }
+.footer-redesign .footer-socials a, .footer-redesign .footer-socials span { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); color: #fff; transition: background .2s, border-color .2s, color .2s; }
+.footer-redesign .footer-socials a:hover { background: #e3c88f; border-color: #e3c88f; color: #063135; }
+.footer-redesign .footer-socials svg { display: block; width: 16px; height: 16px; stroke-width: 1.9; }
+.footer-redesign .footer-social-unavailable { opacity: .6; }
+.footer-redesign .footer-navigation { grid-row: 2; margin: 12px 0 0; }
+.footer-redesign .footer-link-columns { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; column-gap: 14px; }
+.footer-redesign .footer-link-columns ul { display: contents; list-style: none; }
+.footer-redesign .footer-navigation a { display: flex; align-items: center; min-height: 30px; padding: 0 2px; color: rgba(255,255,255,.9); font-size: 12px; line-height: 1.4; white-space: nowrap; }
+.footer-redesign .footer-details { grid-row: 3; margin-top: 12px; }
+.footer-redesign .footer-details ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; padding: 4px 6px; margin: 0; border-radius: 999px; background: rgba(4,32,35,.35); border: 1px solid rgba(255,255,255,.1); }
+.footer-redesign .footer-details li { display: flex; align-items: center; }
+.footer-redesign .footer-details li + li::before { content: ""; width: 1px; height: 14px; background: rgba(255,255,255,.2); }
+.footer-redesign .footer-details a, .footer-redesign .footer-details li > span { display: flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 10px; font-size: 11px; color: #e2eeea; line-height: 1.4; white-space: nowrap; }
+.footer-redesign .footer-details img { width: 13px; height: 13px; object-fit: contain; flex: 0 0 auto; opacity: .85; }
+.footer-redesign a:hover { color: #f1ddb1; }
+.footer-redesign a:focus-visible { outline: 2px solid #e3c47c; outline-offset: 3px; border-radius: 3px; }
+.footer-redesign .copy { position: relative; width: min(100%, 760px); margin: 12px auto 0; padding: 0; border: 0; color: #cfe0da; text-align: center; font-size: 10.5px; opacity: .8; }
+@media (max-width: 380px) {
+  .footer-redesign { padding-inline: 12px; }
+  .footer-redesign .footer-logo img { height: 46px; }
+  .footer-redesign .footer-socials { gap: 4px; }
+  .footer-redesign .footer-socials a, .footer-redesign .footer-socials span { width: 30px; height: 30px; }
+  .footer-redesign .footer-link-columns { column-gap: 10px; }
+  .footer-redesign .footer-navigation a { font-size: 11px; }
+  .footer-redesign .footer-details ul { border-radius: 16px; }
+  .footer-redesign .footer-details a, .footer-redesign .footer-details li > span { padding: 0 7px; font-size: 10.5px; }
+}
+@media (min-width: 900px) {
+  .footer-redesign { padding: 30px 36px 18px; }
+  .footer-redesign .footer-layout { width: min(100%, 1100px); grid-template-columns: auto 1fr auto; align-items: center; column-gap: 28px; }
+  .footer-redesign .footer-brand { grid-row: 1; grid-column: 1; border: 0; padding: 0; }
+  .footer-redesign .footer-navigation { grid-row: 1; grid-column: 2; margin: 0; }
+  .footer-redesign .footer-details { grid-row: 1; grid-column: 3; margin: 0; }
+  .footer-redesign .copy { width: min(100%, 1100px); margin-top: 18px; padding-top: 12px; border-top: 1px solid rgba(220,236,225,.12); }
+}

@@ -1,0 +1,65 @@
+/* جوائز السلطان قابوس على الهاتف — نسخة المراجعة فقط */
+@media (max-width: 1099px) {
+  /* الكلمات المتصاعدة في جهة الصورة فقط، بلا طبقة أمامية فوق النص */
+  /* توزيع الكلمات على الهيدر كله كالكمبيوتر، بأحجام وشفافية أخفّ حتى لا تزاحم النص */
+  .aws-words .awf-w { scale: .8; }
+  .aws-words .awf:not(.front) .awf-w { --o: .16 !important; }
+  .aws-words .awf.front .awf-w { --o: .2 !important; }
+  /* سطر «منذ…» في البطاقات في سطر واحد */
+  .aws-txt small { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 8.4px; letter-spacing: -.2px; }
+}
+
+/* ارتفاع العرض الرئيسي نفسه، مع توزيع النص والصورة رأسيًا. */
+@media (max-width: 699px) {
+  .aws-page .aws-hero { padding-inline: 22px; }
+  .aws-page .aws-hero-inner {
+    height: 560px; grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr); gap: 12px;
+    padding-top: 22px; align-items: stretch;
+  }
+  .aws-page .aws-hero-copy { padding: 0; }
+  .aws-page .aws-hero h1 { font-size: 32px; line-height: 1.4; margin-bottom: 10px; }
+  .aws-page .aws-hero p { font-size: 14px; line-height: 1.9; max-width: none; }
+  .aws-page .aws-hero-fields li { font-size: 11px; padding: 3px 9px; }
+  .aws-page .aws-hero-tribute { font-size: 11px; margin-top: 10px; }
+  .aws-page .aws-hero-portrait { height: 100%; min-height: 0; }
+  .aws-page .aws-hero-portrait img { height: 100%; width: auto; max-height: 100%; max-width: 100%; object-fit: contain; }
+}
+@media (max-width: 359px) {
+  .aws-page .aws-hero { padding-inline: 16px; }
+  .aws-page .aws-hero-inner { height: 580px; }
+  .aws-page .aws-hero h1 { font-size: 29px; }
+  .aws-page .aws-hero p { font-size: 13px; }
+}
+
+/* افتتاحية بملء شاشة الهاتف وإشارة النزول المعتمدة في الكمبيوتر. */
+@media (max-width: 699px) {
+  .aws-page .aws-hero-inner {
+    height: calc(100svh - 64px); min-height: 500px;
+    padding-bottom: 108px;
+  }
+  .aws-page .aws-hero .scroll-cue {
+    position: absolute; z-index: 6; left: 50%; bottom: 12px;
+    translate: -50% 0; display: grid; justify-items: center; gap: 0;
+    min-width: 44px; min-height: 44px; padding: 6px 14px;
+    border: 0; background: none; cursor: pointer; color: #E6C98A;
+    font: 700 13px/1 Cairo, Tahoma, sans-serif;
+    transition: opacity .45s ease, translate .45s ease;
+  }
+  .aws-page .scroll-cue.gone { opacity: 0; translate: -50% 12px; pointer-events: none; }
+  .aws-page .scroll-cue .sc-w { display: grid; place-items: center; min-width: 70px; height: auto; gap: 0; }
+  .aws-page .scroll-cue .sc-w span { grid-area: auto; line-height: 17px; opacity: 0; white-space: nowrap; }
+  .aws-page .scroll-cue .sc-w span:nth-child(3) { color: #FFF1CC; }
+  .aws-page .scroll-cue .sc-a { width: 24px; height: 22px; margin-top: 2px; opacity: 0; }
+  .aws-page .scroll-cue .sc-a path { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .aws-page .scroll-cue:focus-visible { outline: 2px solid #E6C98A; outline-offset: 4px; border-radius: 10px; }
+}
+@media (max-width: 699px) and (prefers-reduced-motion: no-preference) {
+  .aws-page .scroll-cue .sc-w span { animation: sc-fade 2s ease-out .8s infinite; }
+  .aws-page .scroll-cue .sc-w span:nth-child(2) { animation-delay: 1.3s; }
+  .aws-page .scroll-cue .sc-w span:nth-child(3) { animation-delay: 1.8s; }
+  .aws-page .scroll-cue .sc-a { animation: sc-fade 2s ease-out 2.3s infinite; }
+}
+@media (max-width: 699px) and (prefers-reduced-motion: reduce) {
+  .aws-page .scroll-cue .sc-w span, .aws-page .scroll-cue .sc-a { opacity: 1; }
+}

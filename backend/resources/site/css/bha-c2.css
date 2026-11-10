@@ -1,0 +1,59 @@
+/* التصميم ٢ — «الضوء والمشربية»: عاجي دافئ وذهب، نقشة مشربية يمرّ منها الضوء، والصورة تنكشف من خلف المشربية قطعةً قطعة. */
+.cx[data-c="2"] { --bg: #F8F2E7; --panel: #FFFDF8; --ink: #2A2013; --text: #4B4031; --muted: #8B7C64; --hair: #E7DAC0;
+  --mash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23B8893E' stroke-width='1.1'%3E%3Cpath d='M28 4 34 22 52 28 34 34 28 52 22 34 4 28 22 22Z'/%3E%3Cpath d='M28 14 31 25 42 28 31 31 28 42 25 31 14 28 25 25Z'/%3E%3Cpath d='M0 0 10 10M56 0 46 10M0 56 10 46M56 56 46 46'/%3E%3C/g%3E%3C/svg%3E"); }
+[data-c="2"] .c-hero { background: linear-gradient(180deg, #FBF6EC, #F3E9D6); border-bottom: 1px solid var(--hair); }
+[data-c="2"] .h-mash { position: absolute; inset: 0; background: var(--mash) 0 0 / 56px 56px; opacity: .22; -webkit-mask: radial-gradient(70% 60% at 50% 40%, #000 30%, transparent 75%); mask: radial-gradient(70% 60% at 50% 40%, #000 30%, transparent 75%); }
+[data-c="2"] .h-rays { position: absolute; inset: -40% -20% auto; height: 120%; pointer-events: none; }
+[data-c="2"] .h-rays i { position: absolute; top: 0; left: 50%; width: 28%; height: 100%; transform-origin: 50% 0; background: linear-gradient(180deg, rgba(255, 236, 190, .75), transparent 80%); filter: blur(8px); opacity: .55; }
+[data-c="2"] .h-rays i:nth-child(1) { transform: translateX(-50%) rotate(-24deg); } [data-c="2"] .h-rays i:nth-child(2) { transform: translateX(-50%) rotate(2deg); } [data-c="2"] .h-rays i:nth-child(3) { transform: translateX(-50%) rotate(28deg); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-c="2"] .h-rays { animation: c2-sway 12s ease-in-out infinite alternate; }
+  [data-c="2"] .h-mash { animation: c2-drift 40s linear infinite; }
+}
+@keyframes c2-sway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+@keyframes c2-drift { to { background-position: 56px 56px; } }
+[data-c="2"] .c-mark { filter: drop-shadow(0 12px 22px rgba(140, 100, 40, .3)); }
+[data-c="2"] .c-hero h1 small { color: var(--gold1); }
+[data-c="2"] .c-jump { background: #F3E9D6; border-bottom: 1px solid var(--hair); }
+[data-c="2"] .c-jump a { color: #6E5222; background: #FFFDF8; box-shadow: inset 0 0 0 1px var(--hair); }
+[data-c="2"] .c-first { background: #2A2013; color: #F0E6D2; }
+
+/* الكلمة: مشربية تغطي الصورة ثم تتفكك من المنتصف إلى الأطراف، ويبقى ظل النقشة يتحرك عليها */
+[data-c="2"] .c-word { padding-top: 36px; background: linear-gradient(180deg, #EFE3CB, #F8F2E7 70%); }
+[data-c="2"] .c-word::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--mash) 0 0 / 56px 56px; opacity: .12; }
+[data-c="2"] .w-stage { width: min(80%, 300px); }
+[data-c="2"] .w-stage::after { content: ""; position: absolute; inset: auto 8% -2px; height: 2px; background: var(--gold); border-radius: 2px; }
+[data-c="2"] .w-img { transform: translateY(calc((var(--p) - .5) * -18px)); filter: drop-shadow(0 18px 24px rgba(90, 60, 20, .22)); }
+[data-c="2"] .w-mash { position: absolute; inset: 0; z-index: 2; display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(8, 1fr); }
+[data-c="2"] .w-mash i { background: #EFE3CB var(--mash) center / 100% auto; box-shadow: inset 0 0 0 .5px rgba(184, 137, 62, .35); }
+[data-c="2"] .w-shine { z-index: 1; background: var(--mash) 0 0 / 42px 42px; opacity: 0; mix-blend-mode: multiply;
+  -webkit-mask: linear-gradient(180deg, transparent 5%, #000 40%, transparent 95%); mask: linear-gradient(180deg, transparent 5%, #000 40%, transparent 95%); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-c="2"] .w-mash i { transition: opacity .7s ease var(--d), transform .9s cubic-bezier(.2, .7, .2, 1) var(--d); }
+  [data-c="2"] .c-word.in .w-mash i { opacity: 0; transform: scale(.4) rotate(45deg); }
+  [data-c="2"] .c-word.in .w-shine { opacity: .2; animation: c2-shadow 14s linear 1.6s infinite; }
+  [data-c="2"].js .w-copy > * { opacity: 0; transform: translateY(12px); transition: opacity .8s ease 1.3s, transform .8s ease 1.3s; }
+  [data-c="2"] .c-word.in .w-copy > * { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { [data-c="2"] .w-mash { display: none; } }
+@keyframes c2-shadow { to { background-position: 42px 84px; } }
+[data-c="2"] .w-copy { text-align: center; }
+[data-c="2"] .w-full summary { color: #fff; background: #2A2013; }
+[data-c="2"] .w-full > div { text-align: right; }
+
+[data-c="2"] .c-tabs { background: #EFE3CB; }
+[data-c="2"] .c-tabs button { color: #8B7C64; }
+[data-c="2"] .c-tabs button[aria-selected="true"] { background: #2A2013; color: var(--gold3); }
+[data-c="2"] .c-year { background: #2A2013; color: #fff; }
+[data-c="2"] .c-team span { background: #F1E6D0; color: #5A4520; }
+[data-c="2"] .c-win.r1 { background: #2A2013; color: #E8DCC4; box-shadow: 0 16px 34px rgba(60, 40, 10, .25); }
+[data-c="2"] .c-win.r1 h4 { color: #fff; } [data-c="2"] .c-win.r1 small { color: var(--gold3); }
+[data-c="2"] .c-win.r1 .c-team span { background: rgba(255, 255, 255, .1); color: #fff; }
+[data-c="2"] .c-card { background: #FFFDF8; box-shadow: inset 0 0 0 1px var(--hair); }
+[data-c="2"] .c-expo { background: #2A2013; color: #E8DCC4; box-shadow: none; }
+[data-c="2"] .c-expo h3 { color: #fff; } [data-c="2"] .c-expo .c-team span { background: rgba(255, 255, 255, .1); color: #fff; }
+[data-c="2"] .c-chip { background: #F1E6D0; color: #6E5222; }
+[data-c="2"] .c-expo .c-chip { background: rgba(244, 226, 178, .16); color: var(--gold3); }
+[data-c="2"] .c-next { background: #F1E6D0; color: var(--ink); }
+/* ذهب أعمق ليقرأ جيدًا على الخلفية العاجية */
+.cx[data-c="2"] { --gold: linear-gradient(135deg, #5E4314 0%, #9C7330 30%, #C99A45 50%, #8E6A2C 72%, #5A3F12 100%); --gold1: #8E6A2C; --gold2: #A57B35; }

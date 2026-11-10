@@ -1,0 +1,48 @@
+{
+  "current": "man-booker-2019",
+  "profile": "profile.html",
+  "items": [
+    {
+      "slug": "squ-culture-award",
+      "year": "2016",
+      "title": "جائزة السلطان قابوس للرواية عن «نارنجة»",
+      "scope": "local"
+    },
+    {
+      "slug": "celestial-bodies-translation",
+      "year": "2018",
+      "title": "صدور الترجمة الإنجليزية لـ«سيدات القمر»",
+      "scope": "international"
+    },
+    {
+      "slug": "man-booker-2019",
+      "year": "2019",
+      "title": "جائزة مان بوكر الدولية عن «سيدات القمر»",
+      "scope": "international"
+    },
+    {
+      "slug": "muscat-bookfair-honor",
+      "year": "2020",
+      "title": "تكريم في معرض مسقط الدولي للكتاب",
+      "scope": "local"
+    },
+    {
+      "slug": "arab-literature-award",
+      "year": "2021",
+      "title": "جائزة الأدب العربي في فرنسا",
+      "scope": "international"
+    },
+    {
+      "slug": "writers-association-honor",
+      "year": "2021",
+      "title": "تكريم جمعية الكتّاب والأدباء العُمانية",
+      "scope": "local"
+    },
+    {
+      "slug": "gcc-honor",
+      "year": "2023",
+      "title": "تكريم مجلس التعاون",
+      "scope": "international"
+    }
+  ]
+}

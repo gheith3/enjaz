@@ -27,7 +27,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
      */
     protected function gate(): void
     {
-        // Any signed-in user (same users as the Filament panel).
-        Gate::define('viewHorizon', fn ($user = null) => $user !== null);
+        // Super admins only (same users as the dashboard).
+        Gate::define('viewHorizon', fn ($user = null) => $user?->hasRole('super_admin') ?? false);
     }
 }

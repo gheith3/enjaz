@@ -1,0 +1,34 @@
+/* جدار صور متحرك لهيدر ملهمون في نسخة الكمبيوتر. */
+.is-eyebrow, .is-discover, .is-photo-media { display: none; }
+@media (min-width: 1100px) {
+  .page-hero.ins-strip { position: relative; display: flex; align-items: center; min-height: 620px; padding: 70px 6%; overflow: hidden; isolation: isolate; background: linear-gradient(175deg, #0C7F89 0%, #0A5C63 55%, #063135 100%); }
+  .page-hero.ins-strip::before { content: none; }
+  /* نفس تركيب صفحة الإنجازات: الصور والتدرج داخل طبقة خلفية واحدة. */
+  .ins-strip .is-photo-media { position: absolute; inset: 0; z-index: 0; display: block; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 25%, rgba(0,0,0,.85) 45%, rgba(0,0,0,.55) 70%, rgba(0,0,0,.2) 100%);
+    mask-image: linear-gradient(90deg, #000 0%, #000 25%, rgba(0,0,0,.85) 45%, rgba(0,0,0,.55) 70%, rgba(0,0,0,.2) 100%); }
+  .ins-strip .is-photo-media::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, rgba(8,70,76,.42) 0%, rgba(8,70,76,.48) 30%, rgba(8,70,76,.56) 60%, rgba(8,70,76,.65) 100%),
+      linear-gradient(0deg, rgba(6,49,53,.5) 0%, rgba(6,49,53,0) 35%),
+      linear-gradient(180deg, rgba(6,49,53,.35) 0%, rgba(6,49,53,0) 25%); }
+  .ins-strip .is-head { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; width: 50%; max-width: 720px; margin: 0; padding-inline-end: 35px; }
+  .ins-strip .is-eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #e9ce90; font-size: 16px; font-weight: 800; }
+  .ins-strip .is-eyebrow::before { content: ""; width: 38px; height: 2px; background: #d3b16e; }
+  .page-hero.ins-strip .is-title { max-width: none; font-size: clamp(48px, 4.8vw, 88px); line-height: 1.3; white-space: nowrap; }
+  .ins-strip .is-intro { max-width: 510px; color: #e1eeeb; font-size: clamp(21px, 1.9vw, 28px); line-height: 1.9; }
+  .ins-strip .is-discover { display: inline-flex; align-items: center; gap: 28px; margin-top: 9px; padding: 13px 22px; border: 1px solid rgba(237,212,154,.7); border-radius: 999px; color: #f5dfae; font-size: 16px; font-weight: 800; text-decoration: none; transition: background .25s, color .25s; }
+  .ins-strip .is-discover:hover { background: #f1d79e; color: #06383a; }
+  .ins-strip .is-discover:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+  .ins-strip .is-panels { display: none; }
+  .ins-strip .is-photo-wall { position: absolute; inset: -24% auto -24% -1%; z-index: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; width: 41%; padding-inline: 12px; overflow: hidden; direction: ltr; transform: rotate(-14deg); transform-origin: center; -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 32%, rgba(0,0,0,.9) 55%, rgba(0,0,0,.62) 78%, transparent 100%); mask-image: linear-gradient(90deg, #000 0%, #000 32%, rgba(0,0,0,.9) 55%, rgba(0,0,0,.62) 78%, transparent 100%); }
+  .ins-strip .is-photo-column { min-width: 0; overflow: hidden; }
+  .ins-strip .is-photo-track { display: flex; flex-direction: column; width: 100%; will-change: transform; animation: is-wall-up 52s linear infinite; }
+  .ins-strip .is-photo-column:nth-child(even) .is-photo-track { animation-name: is-wall-down; animation-duration: 60s; }
+  .ins-strip .is-photo-column:nth-child(3) .is-photo-track { animation-duration: 56s; }
+  .ins-strip .is-photo-column:nth-child(4) .is-photo-track { animation-duration: 64s; }
+  .ins-strip .is-photo-tile { position: relative; display: block; flex: none; width: 100%; aspect-ratio: 1; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(235,216,169,.35); border-radius: 14px; background: #0a5c63; }
+  .ins-strip .is-photo-tile img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+}
+@keyframes is-wall-up { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+@keyframes is-wall-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .ins-strip .is-photo-track { animation: none !important; } .ins-strip .is-discover { transition: none; } }

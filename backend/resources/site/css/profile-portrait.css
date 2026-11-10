@@ -1,0 +1,43 @@
+/* One-time portrait reveal from beneath a horizontal line. */
+.profile-hero .top { grid-template-columns: minmax(0, 46%) minmax(0, 1fr); gap: 12px; }
+/* The bottom edge is the reveal line; the portrait rises from behind it. */
+.profile-portrait { position: relative; isolation: isolate; align-self: end; width: 100%; padding-top: 16px; overflow: hidden; }
+.profile-portrait::after {
+  content: ""; position: absolute; z-index: 2; inset: auto 0 0;
+  height: 2px; background: linear-gradient(90deg, rgba(217,185,119,.15), #e5c886 22%, #e5c886 78%, rgba(217,185,119,.15));
+  pointer-events: none;
+}
+.profile-hero .profile-portrait .photo {
+  position: relative; display: block; width: 100%; height: auto; margin: 0;
+  scale: none; transition: none;
+}
+.profile-portrait.motion-pending .photo { transform: translateY(102%); }
+.profile-portrait.motion-reveal .photo { animation: portrait-rise 1450ms cubic-bezier(.22,.7,.24,1) both; }
+@keyframes portrait-rise {
+  from { transform: translateY(102%); }
+  to { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-portrait.motion-pending .photo { transform: none; }
+  .profile-portrait.motion-reveal .photo { animation: none; }
+}
+.profile-hero .who { position: relative; display: inline-block; max-width: 100%; text-align: right; }
+.profile-hero h1 { margin: 0; }
+.featured-mark {
+  position: absolute; top: 6px; inset-inline-end: calc(100% + 4px);
+  width: 18px; height: 18px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .2));
+}
+.featured-mark svg { width: 100%; height: 100%; display: block; }
+.profile-hero .txt { min-width: 0; }
+@media (min-width: 700px) {
+  .profile-hero .top { max-width: 750px; margin: auto; grid-template-columns: minmax(0, 310px) minmax(0, 1fr); gap: 34px; }
+  .profile-hero .profile-portrait { padding-top: 20px; }
+  .profile-hero h1 { font-size: 30px; }
+  .profile-hero .about { max-width: 390px; font-size: 13px; }
+}
+@media (max-width: 350px) {
+  .profile-hero .top { gap: 6px; }
+  .profile-hero h1 { font-size: 19px; }
+  .profile-hero .en { font-size: 12px; }
+}

@@ -19,6 +19,7 @@ RUN apk add --no-cache \
     sqlite-libs \
     libpng \
     libjpeg-turbo \
+    libwebp \
     freetype \
     libzip \
     icu-libs \
@@ -33,16 +34,18 @@ RUN apk add --no-cache --virtual .build-deps \
         sqlite-dev \
         libpng-dev \
         libjpeg-turbo-dev \
+        libwebp-dev \
         freetype-dev \
         libzip-dev \
         icu-dev \
         oniguruma-dev \
         linux-headers \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j"$(nproc)" \
         pdo_pgsql \
         pdo_sqlite \
         gd \
+        exif \
         zip \
         intl \
         mbstring \
