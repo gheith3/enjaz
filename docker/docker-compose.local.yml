@@ -1,0 +1,85 @@
+# myapp: full stack in Docker on any machine (alternative to Flock). App on http://localhost:8000.
+# Files still go to OneBox, bucket `myapp-demo` (demo keys) - same as the Flock setup.
+#
+#   cp docker/.env.local.example docker/.env.local      # fill in the OneBox demo keys
+#   docker compose -f docker/docker-compose.local.yml --env-file docker/.env.local up -d --build
+
+name: myapp-local
+
+services:
+  app:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    image: myapp:local
+    container_name: myapp-local-app
+    restart: unless-stopped
+    depends_on:
+      database: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    ports:
+      - "127.0.0.1:${APP_PORT:-8000}:80"
+    environment:
+      APP_NAME: myapp
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:${APP_PORT:-8000}
+      APP_KEY: ${APP_KEY:-}
+      LOG_CHANNEL: stderr
+      DB_CONNECTION: pgsql
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_DATABASE: myapp
+      DB_USERNAME: myapp_user
+      DB_PASSWORD: myapp_local
+      REDIS_CLIENT: phpredis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      CACHE_STORE: redis
+      SESSION_DRIVER: redis
+      QUEUE_CONNECTION: redis
+      FILESYSTEM_DISK: s3
+      AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY:-}
+      AWS_SECRET_ACCESS_KEY: ${S3_SECRET_KEY:-}
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_BUCKET: ${AWS_BUCKET:-myapp-demo}
+      AWS_USE_PATH_STYLE_ENDPOINT: "true"
+      AWS_ENDPOINT: ${S3_URL:-https://onebox.fahim.om}
+      AWS_URL: ${S3_URL:-https://onebox.fahim.om}/${AWS_BUCKET:-myapp-demo}
+      MAIL_MAILER: log
+      RUN_MIGRATIONS: ${RUN_MIGRATIONS:-seed}
+    volumes:
+      - app_storage:/var/www/html/storage
+
+  database:
+    image: postgres:16.15-alpine
+    container_name: myapp-local-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: myapp
+      POSTGRES_USER: myapp_user
+      POSTGRES_PASSWORD: myapp_local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myapp_user -d myapp"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7.4.11-alpine
+    container_name: myapp-local-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  app_storage:
+  postgres_data:
+  redis_data:

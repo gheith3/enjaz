@@ -1,0 +1,151 @@
+# myapp LIVE on ghaklab (behind Cloudflare Tunnel). Run from the LIVE checkout ~/live/myapp.
+#
+#   - The app image is built from ../backend.
+#   - No public host ports: the tunnel reaches `myapp-app:80` over the external network web-tunnel-net.
+#     DB / Redis are bound to 127.0.0.1 only.
+#   - Files: OneBox S3 (https://onebox.fahim.om), bucket `myapp` with its own bucket-scoped keys.
+#
+# Usage (from the repo root of ~/live/myapp):
+#   cp docker/.env.ghaklab.example docker/.env.ghaklab   # fill in, chmod 600 (git-ignored)
+#   docker compose -f docker/docker-compose.ghaklab.yml --env-file docker/.env.ghaklab up -d --build
+#   docker compose -f docker/docker-compose.ghaklab.yml --env-file docker/.env.ghaklab logs -f app
+
+name: myapp
+
+services:
+  app:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      args:
+        APP_VERSION: ${APP_VERSION:-ghaklab}
+        GIT_COMMIT: ${GIT_COMMIT:-local}
+    image: myapp:ghaklab
+    container_name: myapp-app
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      # Application
+      APP_NAME: ${APP_NAME:-myapp}
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_URL: ${APP_URL:?APP_URL is required}
+      ASSET_URL: ${APP_URL:?APP_URL is required}
+      APP_KEY: ${APP_KEY:?APP_KEY is required}
+
+      # Logging
+      LOG_CHANNEL: ${LOG_CHANNEL:-stack}
+      LOG_STACK: ${LOG_STACK:-single}
+      LOG_LEVEL: ${LOG_LEVEL:-warning}
+
+      # Database
+      DB_CONNECTION: pgsql
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_DATABASE: ${POSTGRES_DB:-myapp}
+      DB_USERNAME: ${POSTGRES_USER:-myapp_user}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+
+      # Redis
+      REDIS_CLIENT: phpredis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?REDIS_PASSWORD is required}
+
+
+      # Cache, session, queue
+      CACHE_STORE: redis
+      SESSION_DRIVER: redis
+      SESSION_LIFETIME: 120
+      SESSION_ENCRYPT: "false"
+      SESSION_PATH: /
+      SESSION_DOMAIN: ${SESSION_DOMAIN:-}
+      SESSION_SECURE_COOKIE: "true"
+      QUEUE_CONNECTION: redis
+      QUEUE_FAILED_DRIVER: database-uuids
+
+      # Filesystem: OneBox S3 (shared RustFS). Browsers download files from S3_URL directly via
+      # signed URLs, so the app uses the same public URL as its endpoint.
+      FILESYSTEM_DISK: s3
+      AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY:?S3_ACCESS_KEY is required}
+      AWS_SECRET_ACCESS_KEY: ${S3_SECRET_KEY:?S3_SECRET_KEY is required}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-us-east-1}
+      AWS_BUCKET: ${AWS_BUCKET:-myapp}
+      AWS_USE_PATH_STYLE_ENDPOINT: "true"
+      AWS_ENDPOINT: ${S3_URL:-https://onebox.fahim.om}
+      AWS_URL: ${S3_URL:-https://onebox.fahim.om}/${AWS_BUCKET:-myapp}
+
+      # Mail, alerts and backups
+      MAIL_MAILER: ${MAIL_MAILER:-log}
+      MAIL_HOST: ${MAIL_HOST:-}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-myapp@example.com}
+
+
+      # Startup behaviour
+      RUN_MIGRATIONS: ${RUN_MIGRATIONS:-true}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+    volumes:
+      - myapp_app_storage:/var/www/html/storage
+    networks:
+      - myapp-network
+      - web-tunnel-net
+
+  database:
+    image: postgres:16.15-alpine
+    container_name: myapp-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-myapp}
+      POSTGRES_USER: ${POSTGRES_USER:-myapp_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    ports:
+      - "127.0.0.1:${DB_HOST_PORT:-5790}:5432"
+    volumes:
+      - myapp_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-myapp_user} -d ${POSTGRES_DB:-myapp}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - myapp-network
+
+  redis:
+    image: redis:7.4.11-alpine
+    container_name: myapp-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:?REDIS_PASSWORD is required}
+    environment:
+      REDISCLI_AUTH: ${REDIS_PASSWORD}
+    ports:
+      - "127.0.0.1:${REDIS_HOST_PORT:-5791}:6379"
+    volumes:
+      - myapp_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - myapp-network
+
+
+networks:
+  myapp-network:
+    driver: bridge
+  web-tunnel-net:
+    external: true
+
+volumes:
+  myapp_app_storage:
+  myapp_postgres_data:
+  myapp_redis_data:
