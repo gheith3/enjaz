@@ -49,6 +49,12 @@ case "$RUN_MIGRATIONS" in
     *)    echo "⏭️ Skipping migrations (RUN_MIGRATIONS=$RUN_MIGRATIONS)" ;;
 esac
 
+# Roles/permissions, fixed pages and sections, first super admin (idempotent, keeps dashboard edits).
+if [ "$RUN_MIGRATIONS" = "true" ] || [ "$RUN_MIGRATIONS" = "seed" ]; then
+    echo "🧭 Syncing site structure..."
+    php artisan site:sync --no-interaction
+fi
+
 echo "⚡ Optimizing..."
 php artisan optimize:clear
 php artisan optimize

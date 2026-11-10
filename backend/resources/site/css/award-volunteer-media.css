@@ -1,0 +1,25 @@
+/* صور الفائزين وشعارات الجهات (نموذج ٦ نوفمبر) — تُحمَّل بعد css/award-volunteer.css */
+.vp-av.has-img { overflow: hidden; padding: 0; background: #fff; box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--rc, #C9A35C), 0 6px 14px rgba(0, 0, 0, .14); }
+.vp-av.has-img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block; }
+.vp-av.has-img.is-logo img { object-fit: contain; padding: 6px; }
+.vp-s.r1 .vp-av.has-img { --rc: var(--r1); } .vp-s.r2 .vp-av.has-img { --rc: var(--r2); } .vp-s.r3 .vp-av.has-img { --rc: var(--r3); }
+.vp-none, .ve-partial { margin: 8px 0 0; padding: 10px 12px; border-radius: 12px; background: #F4F7F7; color: #5E6E72; font-size: 12px; line-height: 1.8; }
+.ve-partial { background: #FFF6E8; color: #7A5A22; }
+.ve-cover { margin: 12px 0 4px; }
+.ve-cover img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 16px; }
+.ve-cover figcaption { display: grid; gap: 2px; padding: 8px 2px 0; color: #5E6E72; font-size: 11.5px; line-height: 1.7; }
+.ve-cover figcaption span { color: #8A9799; font-size: 10.5px; }
+.vs-photo { position: relative; width: 100%; margin: 6px 0 0; }
+.vs-photo img { display: block; width: 100%; max-height: 300px; object-fit: cover; object-position: 50% 25%; border-radius: 18px; box-shadow: 0 12px 26px rgba(0, 0, 0, .16); }
+.vs-photo figcaption { padding-top: 6px; color: #8A9799; font-size: 10.5px; text-align: center; }
+.vp-av.big.has-img { width: 110px; height: 110px; }
+.vs-facts { width: 100%; margin: 14px 0 0; padding: 0; text-align: right; }
+.vs-facts div { display: grid; grid-template-columns: 74px 1fr; gap: 10px; padding: 10px 2px; border-bottom: 1px solid var(--line, #E5ECEC); }
+.vs-facts dt { color: #A55A2A; font-size: 11.5px; font-weight: 800; }
+.vs-facts dd { margin: 0; color: var(--ink); font-size: 12.5px; line-height: 1.8; }
+.vs-gal { display: flex; gap: 8px; width: calc(100% + 40px); margin: 16px -20px 0; padding: 0 20px 4px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.vs-gal figure { flex: 0 0 70%; margin: 0; scroll-snap-align: center; }
+.vs-gal img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px; }
+.vs-gal figcaption { padding-top: 5px; color: #5E6E72; font-size: 11px; text-align: right; }
+.vs-src { margin: 12px 0 0; font-size: 11.5px; color: #5E6E72; }
+.vs-src a { color: var(--ink); text-underline-offset: 3px; }

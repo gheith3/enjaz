@@ -1,0 +1,59 @@
+/* «مسيرتي» — الصفّان الصاعدان: بطاقات بيضاء بشريط سنة أخضر، والمحطة الحالية بالذهبي المتوهّج
+   (النسخ السابقة: profile-journey.photo.css · profile-journey.art.css) */
+.gj { --gold-card: linear-gradient(180deg, #E2B067 0%, #C28D48 12%, #A97A3B 28%, #86602A 50%, #7A5622 62%, #93682C 80%, #C08236 92%, #EBAE5F 100%);
+  --gold-band: linear-gradient(180deg, #9A6B2B, #7A5622);
+  --gold-glow: 0 0 0 1px #F3D49A, 0 14px 30px -10px rgba(168, 110, 40, .75), 0 0 28px rgba(235, 174, 95, .55);
+  position: relative; height: 504px; border-radius: 22px; overflow: hidden;
+  background: radial-gradient(70% 40% at 15% 0%, #EDF5F4, transparent 70%), #FCFBF8; box-shadow: inset 0 0 0 1px #F0EADC; }
+.gj-ph { position: absolute; left: -2px; top: 6px; width: 32%; height: auto; max-width: none;
+  -webkit-mask-image: linear-gradient(to top, transparent 0, #000 18%); mask-image: linear-gradient(to top, transparent 0, #000 18%); }
+.gj-halo { position: absolute; left: 8px; top: 14px; width: 104px; height: 104px; border-radius: 50%; border: 1.5px solid rgba(199, 144, 73, .45); }
+.gj-head { position: absolute; right: 16px; top: 24px; width: 58%; }
+/* عنوان القسم: سطر صغير ذهبي، ثم سطر كبير تنتهي كلماته الأخيرة بتدرّج ذهبي */
+.gj-lead { margin: 0; }
+.gj-lead small { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: .6px; color: #A88344; }
+.gj-lead strong { display: block; margin-top: 3px; font-size: 20px; font-weight: 800; line-height: 1.35; color: #063135; letter-spacing: -.2px; }
+.gj-lead em { font-style: normal; background: linear-gradient(90deg, #B8893F, #D9B977 55%, #A88344); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gj-list { list-style: none; margin: 0; padding: 0; }
+.gj-row { position: absolute; left: 12px; right: 12px; display: flex; align-items: flex-end; gap: 6px; direction: ltr; list-style: none; margin: 0; padding: 0; }
+.gj-line { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.gj-line path { fill: none; stroke: #C79049; stroke: url(#gjLn) #C79049; stroke-width: 2.4; stroke-linecap: round; }
+.gj-line circle { fill: #fff; stroke: #E8C891; stroke-width: 1.5; transition: fill .4s; }
+.gj-line circle.on { fill: #F7DFA0; filter: drop-shadow(0 0 4px rgba(235, 174, 95, .9)); }
+
+/* البطاقة */
+.gj-row li { position: relative; flex: 1; min-width: 0; height: var(--h); direction: rtl; display: flex; flex-direction: column; align-items: center; text-align: center;
+  border-radius: 14px 14px 10px 10px; overflow: hidden; cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent;
+  background: linear-gradient(180deg, #FFFFFF, #F3F1EC); box-shadow: 0 10px 20px -14px rgba(6, 49, 53, .5), inset 0 0 0 1px rgba(6, 49, 53, .06);
+  opacity: 0; translate: 0 12px;
+  transition: opacity .6s ease var(--d, 0s), translate .6s cubic-bezier(.16, 1, .3, 1), scale .5s cubic-bezier(.16, 1, .3, 1), box-shadow .5s; }
+.gj-row li::before { content: ""; position: absolute; inset: 0; background: var(--gold-card); opacity: 0; transition: opacity .5s; }
+.gj-row li > * { position: relative; z-index: 1; }
+.gj-ic { width: 18px; height: 18px; margin-top: 9px; color: #C79049; transition: color .4s; }
+.gj-ic svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.gj-t { flex: 1; display: flex; align-items: center; padding: 4px 4px 6px; font-size: 9.5px; font-weight: 800; line-height: 1.5; color: #063135; transition: color .4s; }
+.gj-y { width: 100%; padding: 4px 0 5px; background: linear-gradient(180deg, #125A5C, #0B3D3B); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .3px; }
+.gj-row li.past .gj-y { background: linear-gradient(180deg, #14696B, #0E4A4C); }
+.gj.in .gj-row li { opacity: 1; translate: 0 0; }
+/* المحطة الحالية: الذهبي المتوهّج */
+.gj-row li.on { scale: 1.04; box-shadow: var(--gold-glow); z-index: 3; }
+.gj.in .gj-row li.on { translate: 0 -8px; }
+.gj-row li.on::before { opacity: 1; }
+.gj-row li.on .gj-ic, .gj-row li.on .gj-t { color: #fff; }
+.gj-row li.on .gj-t { text-shadow: 0 1px 2px rgba(60, 35, 5, .35); }
+.gj-row li.on .gj-y { background: var(--gold-band); box-shadow: inset 0 1px 0 rgba(255, 220, 150, .35); }
+.gj-row li:focus-visible { box-shadow: 0 0 0 2px #0C7F89; }
+/* دخول الصورة والعنوان */
+/* الصورة تنبثق من يسار المربع إلى مكانها، والدائرة تتّسع خلفها */
+/* الصورة تنبثق من خارج الحافة اليسرى للمربع، وتتكرر الحركة كلما وصل الزائر إلى القسم */
+.gj-ph { opacity: 0; }
+.gj.ph-go .gj-ph { -webkit-animation: gj-ph-in 1.8s cubic-bezier(.22, 1, .36, 1) .2s both; animation: gj-ph-in 1.8s cubic-bezier(.22, 1, .36, 1) .2s both; }
+@-webkit-keyframes gj-ph-in { from { opacity: 0; -webkit-transform: translateX(-190%); } 25% { opacity: 1; } to { opacity: 1; -webkit-transform: none; } }
+@keyframes gj-ph-in { from { opacity: 0; transform: translateX(-190%); } 25% { opacity: 1; } to { opacity: 1; transform: none; } }  /* تنبثق من الحافة اليسرى للمربع */
+.gj-halo { opacity: 0; scale: .6; transition: opacity .8s ease .5s, scale 1.2s cubic-bezier(.16, 1, .3, 1) .5s; }
+.gj-head { opacity: 0; translate: 0 10px; transition: opacity .7s ease .35s, translate .8s cubic-bezier(.16, 1, .3, 1) .35s; }
+.gj.in .gj-head { opacity: 1; translate: 0 0; }
+.gj.in .gj-halo { opacity: 1; scale: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .gj *, .gj-row li { transition: none !important; }
+}

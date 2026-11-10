@@ -294,6 +294,7 @@ resources/js/site/{motion/*,share,idcard,acard,menu}.js             (design moti
 `filament/spatie-laravel-media-library-plugin`, `spatie/laravel-medialibrary`, `spatie/laravel-translatable`
 (+ Filament translatable plugin), `filament/spatie-laravel-settings-plugin`, `spatie/laravel-settings`,
 `bezhansalleh/filament-shield`, `spatie/laravel-permission`, `spatie/laravel-activitylog`,
+(no Filament translatable plugin: forms edit `field.ar` / `field.en` directly, see `App\Filament\Support\Translatable`),
 `spatie/laravel-responsecache`, `spatie/laravel-sitemap`, `laravel/mcp` (phase 7). All pinned to versions
 released ≥ 2 weeks ago.
 
@@ -356,7 +357,7 @@ after review. The design folder stays in the repo as the visual reference.
    Settings may override a counter only with an explicit "manual" switch.
 8. **Imported placeholders are drafts.** The public site shows only `is_published = true` records whose
    `published_at` has passed.
-9. **Tests per phase**: Pest feature tests for every public route (200, correct records, drafts hidden),
+9. **Tests per phase**: PHPUnit feature tests for every public route (200, correct records, drafts hidden),
    Livewire tests for filters, a smoke test that every Filament resource index/create/edit page renders.
    CI must be green before merge; `ghaklab-deploy injazat` after merge.
 
@@ -475,7 +476,7 @@ Estimate: phases 0–1 are the largest (they set every pattern); 2–5 reuse the
 * Public pages of the phase render from the database only (rule 6b.1), look the same as the matching
   `design/*.html` at phone (390), tablet (768, 1024) and desktop (1280, 1536) widths (side-by-side screenshots in
   the PR), with no horizontal overflow, also with long real content.
-* Pest tests: routes, drafts hidden, filters, resource pages render. `pint --dirty`, `php artisan test`,
+* PHPUnit tests: routes, drafts hidden, filters, resource pages render. `pint --dirty`, `php artisan test`,
   `npm run build` green locally and in CI.
 * Imported design data for the phase's tables (the importer grows with each phase), placeholders as drafts.
 * `docs/` updated (content model, editor how-to for the new resources), then `ghaklab-deploy injazat` and a

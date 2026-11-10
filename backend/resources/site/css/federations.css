@@ -1,0 +1,177 @@
+/* صفحة الإنجازات فقط: لوحة الشرف (أقصر)، المجالات في سطرين، مستطيل الاتحادات العرضي، وشريط الاتحاد المختار فوق النتائج */
+
+/* ---------- لوحة الشرف: أقصر من السابق ---------- */
+.honor-card { aspect-ratio: auto; height: 190px; min-height: 0; }
+.honor-body { padding: 12px 14px; gap: 3px; }
+.honor-kicker { font-size: 11px; }
+.honor-title { font-size: 15.5px; line-height: 1.4; }
+.honor-meta { font-size: 10.5px; }
+.honor-cta { height: 26px; margin-top: 4px; padding-inline: 12px; font-size: 11px; }
+
+/* ---------- المجالات: مربعات بأيقونات في سطرين ----------
+   الرقائق تصبح عناصر في سطر مرن واحد (display: contents) فتتوزع على سطرين */
+.honor + .ach-filters, .week + .ach-filters { margin-top: 14px; }
+/* الصور تبدأ قريبًا من المجالات */
+.ach-filters + .section { margin-top: 16px; }
+.ach-filters { display: flex; flex-wrap: wrap; align-items: stretch; gap: 6px 3px; }
+.ach-filters > .cats-wrap,
+.ach-filters .chips-flow { display: contents; }
+.ach-filters .chips-flow .chip {
+  order: 1; flex: 1 1 auto; position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 3px;
+  min-height: 34px; height: auto; margin: 0; padding: 0 5px; border: 1.5px solid #D2D2D2; border-radius: 10px; background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .07); color: #2F2F2F; font-size: 10px; font-weight: 600; letter-spacing: 0; white-space: nowrap;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.ach-filters .chips-flow .chip::before { content: ""; position: absolute; inset: -4px 0; }
+.ach-filters .chips-flow .chip img { display: block; width: 11px; height: 11px; }
+.ach-filters .chips-flow .chip[data-filter="*"] { padding-inline: 9px; }
+.ach-filters .chips-flow .chip.active { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 6px 12px -8px rgba(6, 49, 53, .7); }
+.ach-filters > .fed-panel { order: 3; flex: 0 0 100%; }
+/* مجال له فروع مختار: تبقى «الكل» والمجال المختار فقط، وعلى المختار علامة ✕ للرجوع */
+.ach-filters.fed-open .chips-flow .chip:not(.active):not([data-filter="*"]) { display: none; }
+.ach-filters.fed-open .chips-flow .chip { flex: 0 0 auto; padding-inline: 16px; font-size: 12px; }
+.ach-filters.fed-open .chips-flow .chip.active::after { content: "✕"; margin-inline-start: 6px; font-size: 11px; opacity: .85; }
+
+
+/* ---------- مستطيل الاتحادات العرضي: سطران ---------- */
+.fed-panel { display: grid; grid-template-rows: 0fr; opacity: 0; margin-top: 0; transition: grid-template-rows .45s cubic-bezier(.2, .7, .2, 1), opacity .3s ease, margin-top .45s ease; }
+.fed-panel.open { grid-template-rows: 1fr; opacity: 1; margin-top: 4px; }
+.fed-panel[hidden] { display: none; }
+.fed-inner { min-height: 0; overflow: hidden; border-radius: 14px; background: #F8F6F1; box-shadow: inset 0 0 0 1px #E6DCC6; }
+.fed-head { display: flex; align-items: baseline; gap: 6px; padding: 7px 9px 0; }
+.fed-head b { color: var(--dark, #063135); font-size: 12px; font-weight: 800; }
+.fed-head span { color: var(--muted, #6b7f7d); font-size: 10px; }
+
+/* الشعارات الرسمية: بطاقات بيضاء صغيرة متساوية، وكل شعار بمساحة متقاربة داخلها (المقاس يحسبه js/federations.js).
+   ٨ في السطر، فتظهر الخمسة عشر في سطرين بلا سحب على الهاتف والكمبيوتر. الاسم المختصر ظاهر تحت كل شعار */
+.fed-track { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; padding: 6px 7px 7px; }
+.fed { position: relative; display: grid; place-items: center; grid-template-rows: minmax(0, 1fr) 28px; min-width: 0; aspect-ratio: auto; min-height: 72px; padding: 4px 1px; border: 0; border-radius: 6px;
+  background: #fff; box-shadow: 0 2px 6px -2px rgba(0, 0, 0, .2); cursor: pointer; font: inherit; color: var(--dark, #063135);
+  transition: transform .2s ease, box-shadow .2s ease; }
+.fed .fed-logo { display: block; }
+.fed img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.fed .fed-name { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 28px; font-size: 9px; font-weight: 700; line-height: 1.35; text-align: center; white-space: normal; }
+/* شعار تجريبي بلا اسم مكتوب: الاسم صغير تحته */
+.fed.fed-ph { grid-template-rows: 1fr auto; padding-bottom: 3px; }
+.fed.fed-ph .fed-logo { width: 34% !important; height: auto !important; aspect-ratio: 1; align-self: end; }
+.fed.fed-ph .fed-name { display: block; max-width: 100%; font-size: 9px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fed .fed-count { position: absolute; top: -3px; left: -3px; min-width: 13px; height: 13px; padding: 0 3px; border-radius: 99px; display: grid; place-items: center;
+  background: var(--gold); color: #fff; font-size: 8px; font-weight: 800; line-height: 1; box-shadow: 0 0 0 1.5px #fff; }
+/* الشعارات الرسمية تبقى بألوانها حتى لو لا إنجازات بعد؛ العدد يظهر فقط حين يوجد */
+.fed:hover { transform: translateY(-1px); }
+.fed[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--gold), 0 6px 12px -6px rgba(0, 0, 0, .3); }
+.fed:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ---------- سطر النتائج: العدد + زر «فلترة» ---------- */
+.res-bar { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.res-count { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--dark, #063135); white-space: nowrap; }
+.flt-btn { display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 11px; border: 1px solid #D2D2D2; border-radius: 8px; background: #fff;
+  font: inherit; font-size: 12px; font-weight: 600; color: #333; cursor: pointer; }
+.flt-btn svg { width: 13px; height: 13px; }
+.flt-btn.on, .flt-btn[aria-expanded="true"] { border-color: var(--primary); color: var(--primary); }
+.flt-n { min-width: 16px; height: 16px; padding: 0 4px; border-radius: 99px; display: grid; place-items: center; background: var(--primary); color: #fff; font-size: 10px; line-height: 1; }
+.flt-n[hidden] { display: none; }
+
+/* المربع: صغير وبسيط، يفتح تحت الزر */
+.flt-box { position: absolute; z-index: 30; top: calc(100% + 6px); inset-inline: 0; display: grid; gap: 10px; padding: 12px; border-radius: 12px; background: #fff;
+  border: 1px solid #E3E3E3; box-shadow: 0 12px 28px -12px rgba(0, 0, 0, .25); animation: flt-in .18s ease both; }
+.flt-box[hidden] { display: none; }
+@keyframes flt-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.flt-row { display: grid; gap: 5px; }
+.flt-l { font-size: 11px; font-weight: 700; color: #6b6b6b; }
+.flt-seg { display: flex; flex-wrap: wrap; gap: 4px; }
+.flt-seg button { height: 26px; padding: 0 10px; border: 1px solid #DDD; border-radius: 99px; background: #fff; font: inherit; font-size: 11.5px; color: #333; cursor: pointer; }
+.flt-seg button[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: #fff; }
+.flt-years { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #888; }
+.flt-years select { height: 28px; min-width: 76px; padding: 0 8px; border: 1px solid #DDD; border-radius: 8px; background: #fff; font: inherit; font-size: 11.5px; color: #333; cursor: pointer; }
+.flt-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid #F0F0F0; }
+.flt-clear { border: 0; background: none; padding: 0; font: inherit; font-size: 11.5px; color: var(--primary); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.flt-done { height: 28px; padding: 0 16px; border: 0; border-radius: 8px; background: var(--primary); color: #fff; font: inherit; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+.flt-seg button:focus-visible, .flt-years select:focus-visible, .flt-btn:focus-visible, .flt-done:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+
+/* الاختيارات المفعّلة تحت السطر */
+.flt-chips { display: flex; flex-wrap: wrap; gap: 5px; margin: -2px 0 12px; }
+.flt-chips[hidden] { display: none; }
+.flt-chip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 9px; border: 0; border-radius: 99px; background: #E8F3F3; color: var(--primary);
+  font: inherit; font-size: 11px; font-weight: 600; cursor: pointer; }
+.flt-chip span { font-size: 9.5px; opacity: .75; }
+
+/* ---------- شريط الاتحاد المختار ---------- */
+.fed-spot { position: relative; display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding: 12px 14px; border-radius: 16px; color: #fff; overflow: hidden;
+  background: radial-gradient(70% 120% at 85% 0%, rgba(241, 221, 174, .18), transparent 60%), linear-gradient(135deg, #0C7F89, #063135);
+  box-shadow: 0 14px 26px -20px rgba(6, 49, 53, .7); animation: fed-in .45s cubic-bezier(.2, .7, .2, 1) both; }
+.fed-spot[hidden] { display: none; }
+.fed-spot .spot-logo { flex: none; width: 56px; height: 56px; display: grid; place-items: center; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 1px rgba(201, 163, 92, .6); }
+.fed-spot .spot-logo img { width: 44px; height: 44px; object-fit: contain; }
+.fed-spot .spot-txt { flex: 1; min-width: 0; display: grid; gap: 1px; padding-left: 26px; }
+.fed-spot .spot-eyebrow { font-size: 10.5px; color: #E9CF96; font-weight: 700; }
+.fed-spot .spot-name { font-size: 14.5px; font-weight: 800; line-height: 1.4; }
+.fed-spot .spot-count { font-size: 11.5px; opacity: .85; }
+.fed-spot .spot-link { justify-self: start; margin-top: 5px; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding-inline: 12px; border-radius: 99px;
+  background: #F1DDAE; color: #063135; font-size: 11.5px; font-weight: 800; text-decoration: none; }
+.fed-spot .spot-close { position: absolute; top: 8px; left: 8px; width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 50%;
+  background: rgba(255, 255, 255, .12); color: #fff; cursor: pointer; }
+.fed-spot .spot-close:hover { background: rgba(255, 255, 255, .22); }
+.fed-spot .spot-close svg { width: 13px; height: 13px; }
+@keyframes fed-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* هواتف أضيق (iPhone SE وما دونه): أصغر قليلًا ليبقى سطران */
+@media (max-width: 379px) {
+  .ach-filters { gap: 5px 3px; }
+  .ach-filters .chips-flow .chip { padding-inline: 3px; font-size: 9px; gap: 2px; }
+  .ach-filters .chips-flow .chip[data-filter="*"] { padding-inline: 7px; }
+  .ach-filters .chips-flow .chip img { width: 10px; height: 10px; }
+}
+
+@media (max-width: 339px) {
+  .ach-filters .chips-flow .chip { padding-inline: 2px; font-size: 8px; }
+  .ach-filters .chips-flow .chip img { width: 9px; height: 9px; }
+}
+
+/* ---------- التابلت والكمبيوتر: ستة مجالات في السطر ---------- */
+@media (min-width: 700px) {
+  .honor-card { height: 300px; }
+  .honor-body { padding: 22px 24px; }
+  .honor-kicker { font-size: 12.5px; }
+  .honor-title { font-size: 22px; }
+  .honor-meta { font-size: 12.5px; }
+  .honor-cta { height: 32px; font-size: 12.5px; padding-inline: 16px; }
+  .honor + .ach-filters, .week + .ach-filters { margin-top: 20px; }
+  .ach-filters + .section { margin-top: 22px; }
+  .ach-filters { gap: 12px; }
+  /* ستة مجالات في السطر: ٦ + ٥ */
+  .ach-filters .chips-flow .chip { flex: 0 0 calc((100% - 60px) / 6); min-width: 0; min-height: 46px; padding-inline: 6px; gap: 7px; border-radius: 12px; font-size: 14px; font-weight: 700; }
+  .ach-filters .chips-flow .chip img { width: 17px; height: 17px; }
+  .ach-filters.fed-open .chips-flow .chip { flex: 0 0 calc((100% - 60px) / 6); font-size: 14px; }
+  .fed-panel.open { margin-top: 0; }
+  .fed-head { padding: 10px 14px 0; }
+  .fed-head b { font-size: 14px; }
+  .fed-head span { font-size: 12px; }
+  .res-bar { margin-bottom: 14px; }
+  .res-count { font-size: 15px; }
+  .flt-btn { height: 34px; font-size: 13px; padding: 0 14px; }
+  /* على الكمبيوتر: صندوق صغير تحت الزر بدل عرض الصفحة */
+  .flt { position: relative; }
+  .flt-box { inset-inline: auto 0; left: 0; right: auto; width: 320px; }
+  .flt-chips { margin-bottom: 16px; }
+  .fed-track { gap: 8px; padding: 10px 14px 12px; }
+  .fed { aspect-ratio: auto; height: 92px; border-radius: 10px; }
+  .fed .fed-name { font-size: 12px; }
+  .fed.fed-ph .fed-name { font-size: 11px; }
+  .fed .fed-count { top: 4px; left: 4px; min-width: 17px; height: 17px; font-size: 10px; box-shadow: none; }
+  .fed-spot { gap: 20px; padding: 18px 24px; margin-bottom: 20px; }
+  .fed-spot .spot-logo { width: 84px; height: 84px; border-radius: 18px; }
+  .fed-spot .spot-logo img { width: 66px; height: 66px; }
+  .fed-spot .spot-eyebrow { font-size: 12px; }
+  .fed-spot .spot-name { font-size: 20px; }
+  .fed-spot .spot-count { font-size: 13.5px; }
+  .fed-spot .spot-link { height: 34px; font-size: 13px; padding-inline: 16px; }
+  .fed-spot .spot-close { top: 12px; left: 12px; }
+}
+@media (min-width: 1000px) {
+  .honor-card { height: 340px; }
+  .honor-title { font-size: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fed-panel, .fed, .fed-spot, .flt-box { transition: none; animation: none; }
+}

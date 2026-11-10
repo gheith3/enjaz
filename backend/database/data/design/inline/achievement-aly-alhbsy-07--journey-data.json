@@ -1,0 +1,83 @@
+{
+  "current": "aly-alhbsy-07",
+  "profile": "profile-ali-alhabsi.html",
+  "items": [
+    {
+      "slug": "aly-alhbsy-01",
+      "year": "2002",
+      "title": "كأس السلطان قابوس مع نادي النصر",
+      "scope": "local",
+      "href": "achievement-aly-alhbsy-01.html"
+    },
+    {
+      "slug": "aly-alhbsy-06",
+      "year": "2004",
+      "title": "حارس الموسم في النرويج في استفتاء VG",
+      "scope": "international",
+      "href": "achievement-aly-alhbsy-06.html"
+    },
+    {
+      "slug": "aly-alhbsy-02",
+      "year": "2008",
+      "title": "وسام عُمان المدني من الدرجة الرابعة",
+      "scope": "local",
+      "href": "achievement-aly-alhbsy-02.html"
+    },
+    {
+      "slug": "aly-alhbsy-07",
+      "year": "2009",
+      "title": "لقب كأس الخليج ١٩ مع المنتخب العُماني",
+      "scope": "international",
+      "href": "achievement-aly-alhbsy-07.html"
+    },
+    {
+      "slug": "aly-alhbsy-08",
+      "year": "2011",
+      "title": "أفضل لاعب في ويغان أتلتيك لموسم ٢٠١٠–٢٠١١",
+      "scope": "international",
+      "href": "achievement-aly-alhbsy-08.html"
+    },
+    {
+      "slug": "aly-alhbsy-09",
+      "year": "2013",
+      "title": "كأس الاتحاد الإنجليزي مع ويغان أتلتيك",
+      "scope": "international",
+      "href": "achievement-aly-alhbsy-09.html"
+    },
+    {
+      "slug": "asia-best-goalkeeper",
+      "year": "2016",
+      "title": "ضمن قائمة أفضل حراس القارة الآسيوية",
+      "scope": "international",
+      "href": "achievement-asia-best-goalkeeper.html"
+    },
+    {
+      "slug": "aly-alhbsy-10",
+      "year": "2017",
+      "title": "أفضل لاعب في ريدينغ لموسمين متتاليين",
+      "scope": "international",
+      "href": "achievement-aly-alhbsy-10.html"
+    },
+    {
+      "slug": "aly-alhbsy-03",
+      "year": "2020",
+      "title": "تكريم اللجنة الأولمبية العُمانية عند الاعتزال",
+      "scope": "local",
+      "href": "achievement-aly-alhbsy-03.html"
+    },
+    {
+      "slug": "aly-alhbsy-04",
+      "year": "2020",
+      "title": "تكريم محافظ شمال الشرقية بعد الاعتزال",
+      "scope": "local",
+      "href": "achievement-aly-alhbsy-04.html"
+    },
+    {
+      "slug": "aly-alhbsy-05",
+      "year": "2024",
+      "title": "تدشين ركن مقتنياته في المتحف الوطني",
+      "scope": "local",
+      "href": "achievement-aly-alhbsy-05.html"
+    }
+  ]
+}

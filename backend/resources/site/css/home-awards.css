@@ -1,0 +1,62 @@
+/* قسم «جوائز وطنية» في الرئيسية (تحت قسم عائشة): جوائز السلطان قابوس، وجائزة بلعرب */
+.home-awards .ha-lead { margin: -6px 0 16px; color: #5E7072; font-size: 13px; line-height: 1.8; }
+.ha-grid { display: grid; gap: 14px; }
+/* جوائز السلطان قابوس */
+.ha-sq { position: relative; overflow: hidden; padding: 18px 16px 16px; border-radius: 22px; color: #fff; background: radial-gradient(120% 90% at 100% 0%, #13858E 0%, #0A5C63 45%, #063135 100%); box-shadow: 0 18px 36px -20px rgba(6, 49, 53, .7); isolation: isolate; }
+.ha-sq::before { content: ""; position: absolute; inset: auto -60px -80px auto; z-index: -1; width: 220px; height: 220px; border-radius: 50%; border: 1px solid rgba(241, 221, 174, .22); box-shadow: 0 0 0 26px rgba(241, 221, 174, .05); }
+.ha-sq-h { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.ha-logo { display: grid; place-items: center; width: 58px; height: 58px; flex: none; border-radius: 16px; background: #fff; padding: 6px; box-shadow: 0 0 0 2px rgba(241, 221, 174, .55); }
+.ha-logo img { width: 100%; height: 100%; object-fit: contain; }
+.ha-sq-h small { color: #EBD39C; font-size: 11px; font-weight: 700; }
+.ha-sq-h h3 { margin: 1px 0 0; font-size: 19px; font-weight: 800; line-height: 1.4; }
+.ha-row { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 10px 12px; margin-top: 8px; border-radius: 16px; background: rgba(255, 255, 255, .08); color: #fff; text-decoration: none; box-shadow: inset 0 0 0 1px rgba(241, 221, 174, .18); transition: background .25s; }
+.ha-row:hover { background: rgba(255, 255, 255, .14); }
+.ha-ic { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 12px; background: linear-gradient(135deg, #F1DDAE, #C9A35C); color: #063135; }
+.ha-ic svg { width: 20px; height: 20px; }
+.ha-t { flex: 1; min-width: 0; display: grid; gap: 1px; }
+.ha-t b { font-size: 14.5px; font-weight: 800; } .ha-t small { color: rgba(255, 255, 255, .72); font-size: 11.5px; }
+.ha-go { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: rgba(255, 255, 255, .12); color: #F1DDAE; }
+.ha-go svg { width: 15px; height: 15px; }
+.ha-faces { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(241, 221, 174, .2); color: #EBD39C; text-decoration: none; }
+.ha-stack { display: flex; }
+.ha-stack img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; border: 2px solid #0A5C63; background: #DDE9E9; }
+.ha-stack img + img { margin-inline-start: -10px; }
+.ha-faces small { font-size: 11.5px; font-weight: 700; }
+/* جائزة بلعرب */
+.ha-bh { position: relative; display: block; min-height: 300px; overflow: hidden; border-radius: 22px; color: #fff; text-decoration: none; isolation: isolate; background: #111; box-shadow: 0 18px 36px -20px rgba(0, 0, 0, .7); }
+.ha-bh-bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(.2, .7, .2, 1); }
+.ha-bh:hover .ha-bh-bg { transform: scale(1.05); }
+.ha-bh::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(13, 14, 16, .35) 0%, rgba(13, 14, 16, .55) 40%, rgba(13, 14, 16, .94) 100%); }
+.ha-bh::before { content: ""; position: absolute; inset: 10px; z-index: 1; border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(247, 231, 180, .35); pointer-events: none; }
+.ha-bh-in { position: absolute; inset: auto 0 0; display: grid; justify-items: start; gap: 4px; padding: 22px 22px 22px; }
+.ha-bh-mark { width: 52px; height: auto; margin-bottom: 6px; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .5)); }
+.ha-bh-in small { color: #EBD39C; font-size: 11.5px; font-weight: 700; }
+.ha-bh-in b { font-size: 21px; font-weight: 800; line-height: 1.45; background: linear-gradient(135deg, #C9A053, #F7E7B4 45%, #D7B266 70%, #F1DDAE); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ha-bh-in em { color: rgba(255, 255, 255, .85); font-size: 12.5px; font-style: normal; line-height: 1.8; }
+.ha-bh-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.ha-bh-meta span { padding: 3px 10px; border-radius: 999px; background: rgba(247, 231, 180, .14); color: #F4E2B2; font-size: 11px; font-weight: 700; }
+.ha-bh-cta { margin-top: 12px; display: inline-flex; gap: 8px; align-items: center; padding: 8px 16px; border-radius: 999px; background: linear-gradient(135deg, #C9A053, #F7E7B4 50%, #D7B266); color: #1E1505; font-size: 12.5px; font-weight: 800; }
+
+
+/* جائزتا السلطان قابوس: مربعان متجاوران، وجائزة بلعرب تحتهما */
+.ha-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ha-pair .ha-sq { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-height: 210px; padding: 14px 13px 13px; color: #fff; text-decoration: none; transition: transform .25s ease; }
+.ha-pair .ha-sq:hover { transform: translateY(-3px); }
+.ha-pair .ha-sq::before { width: 160px; height: 160px; inset: auto -50px -60px auto; }
+.ha-pair .ha-logo { width: 50px; height: 50px; border-radius: 14px; padding: 5px; margin-bottom: 8px; }
+.ha-kick { color: #EBD39C; font-size: 11px; font-weight: 700; }
+.ha-name { font-size: 15.5px; font-weight: 800; line-height: 1.45; }
+.ha-meta { color: rgba(255, 255, 255, .72); font-size: 11px; line-height: 1.6; }
+.ha-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 100%; margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(241, 221, 174, .2); }
+.ha-foot .ha-stack img { width: 28px; height: 28px; }
+.ha-foot .ha-stack img + img { margin-inline-start: -9px; }
+.ha-foot .ha-go { flex: none; }
+@media (max-width: 359px) { .ha-foot .ha-stack img:nth-child(n+4) { display: none; } }
+@media (min-width: 700px) {
+  .ha-pair { gap: 16px; }
+  .ha-pair .ha-sq { min-height: 260px; padding: 20px 18px 18px; }
+  .ha-pair .ha-logo { width: 62px; height: 62px; }
+  .ha-name { font-size: 20px; } .ha-kick, .ha-meta { font-size: 12.5px; }
+  .ha-foot .ha-stack img { width: 36px; height: 36px; }
+  .ha-bh { min-height: 340px; }
+}

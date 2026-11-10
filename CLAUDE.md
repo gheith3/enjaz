@@ -18,3 +18,11 @@ Project created from `gheith3/ghaklab-template-laravel`. Lab conventions: ghakla
 - UI changes: check them with `lab-shot https://injazat.test --both --all` and look at the screenshots.
   Light/dark theme: `<x-theme-script />` in `<head>` + `<x-theme-toggle />`; use `dark:` classes.
 - Deploy live with `ghaklab-deploy injazat` (see docs/deployment.md), never by editing ~/live.
+
+## Injazat rebuild (read before any change)
+- Plan: `docs/architecture.md`. How-to: `docs/development.md`. The static design in `/design` is the visual
+  reference only: never copy a page into a view; rebuild each section as a component fed by models.
+- Every piece of content is editable in `/admin`; UI labels in `backend/lang/{ar,en}/site.php`.
+- Responsive exactly as the design (same CSS files in `backend/resources/site/css`, same breakpoints, `vp-lock`).
+- After adding resources or page sections: `php artisan site:sync` (also runs on every container start).
+- Tests are PHPUnit (`tests/Feature/...`); every public route and dashboard screen has one.

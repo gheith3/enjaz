@@ -1,0 +1,45 @@
+/* ترتيب روابط وتواصل الشريط السفلي على الهاتف. */
+@media (max-width: 699px) {
+  .footer-redesign { padding: 26px 20px 18px; }
+  .footer-redesign .footer-brand { flex-direction: column; justify-content: center; gap: 16px; padding-bottom: 20px; }
+  .footer-redesign .footer-logo img { height: 64px; }
+  .footer-redesign .footer-socials { justify-content: center; flex-wrap: wrap; gap: 10px; }
+  .footer-redesign .footer-socials a, .footer-redesign .footer-socials span { width: 34px; height: 34px; }
+  .footer-redesign .footer-navigation { margin-top: 16px; }
+  .footer-redesign .footer-link-columns { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 20px; align-items: stretch; }
+  .footer-redesign .footer-link-columns ul { display: contents; }
+  .footer-redesign .footer-link-columns li { min-width: 0; list-style: none; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .footer-redesign .footer-navigation a { min-height: 46px; height: 100%; padding: 9px 0; font-size: 12px; line-height: 1.7; white-space: normal; text-align: right; }
+  .footer-redesign .footer-details { margin-top: 20px; }
+  .footer-redesign .footer-details ul { display: grid; justify-content: stretch; gap: 4px; border-radius: 14px; padding: 10px 14px; }
+  .footer-redesign .footer-details li { justify-content: center; }
+  .footer-redesign .footer-details li + li::before { display: none; }
+  .footer-redesign .footer-details a, .footer-redesign .footer-details li > span { justify-content: center; min-height: 32px; padding: 0; font-size: 12px; }
+  .footer-redesign .copy { margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.12); font-size: 10.5px; }
+}
+
+/* توزيع الشريط السفلي للشاشات الواسعة. */
+@media (min-width: 700px) {
+  .footer-redesign { padding: 40px max(28px,calc((100vw - 1180px)/2)) 22px; }
+  .footer-redesign .footer-layout { width: 100%; max-width: 1180px; grid-template-columns: minmax(0,1.6fr) minmax(220px,1fr) minmax(200px,.9fr); gap: 36px; align-items: center; }
+  .footer-redesign .footer-navigation { grid-column: 1; grid-row: 1; margin: 0; }
+  .footer-redesign .footer-link-columns { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 22px; align-items: stretch; }
+  .footer-redesign .footer-link-columns ul { display: contents; }
+  .footer-redesign .footer-link-columns li { min-width: 0; list-style: none; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .footer-redesign .footer-navigation a { height: 100%; min-height: 43px; padding: 8px 0; font-size: 13px; line-height: 1.7; white-space: normal; text-align: right; }
+  .footer-redesign .footer-brand { grid-column: 2; grid-row: 1; flex-direction: column; justify-content: center; gap: 22px; padding: 0; border: 0; }
+  .footer-redesign .footer-logo img { height: 88px; }
+  .footer-redesign .footer-socials { justify-content: center; flex-wrap: wrap; gap: 8px; max-width: 250px; }
+  .footer-redesign .footer-socials a, .footer-redesign .footer-socials span { width: 32px; height: 32px; }
+  .footer-redesign .footer-details { grid-column: 3; grid-row: 1; margin: 0; justify-self: stretch; }
+  .footer-redesign .footer-details ul { display: grid; justify-content: stretch; gap: 10px; padding: 18px 14px; border-radius: 16px; }
+  .footer-redesign .footer-details li { justify-content: center; }
+  .footer-redesign .footer-details li + li::before { display: none; }
+  .footer-redesign .footer-details a, .footer-redesign .footer-details li > span { min-height: 34px; padding: 0; font-size: 13px; }
+  .footer-redesign .copy { width: 100%; max-width: 1180px; margin: 28px auto 0; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.14); text-align: center; }
+}
+@media (min-width: 700px) and (max-width: 999px) {
+  .footer-redesign .footer-layout { grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: 24px; }
+  .footer-redesign .footer-details { grid-column: 1 / -1; grid-row: 2; }
+  .footer-redesign .footer-details ul { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 28px; }
+}

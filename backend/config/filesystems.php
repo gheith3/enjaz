@@ -47,6 +47,15 @@ return [
             'report' => false,
         ],
 
+        // Tests only (phpunit.xml MEDIA_DISK=media_test): media library writes here instead of OneBox.
+        'media_test' => [
+            'driver' => 'local',
+            'root' => storage_path('framework/testing/media'),
+            'url' => '/media-test',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

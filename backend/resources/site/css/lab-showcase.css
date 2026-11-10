@@ -1,0 +1,136 @@
+/* المختبر على الكمبيوتر — «قاعة العرض» للابتكارات و«جدول المعرفة» للمنشورات. السكربت: js/lab-showcase.js
+   الهاتف لا يتأثر (يبقى شريط الاختيار كما هو). */
+.lab-dk { display: none; }
+@media (min-width: 1100px) {
+  .lab-mobile-sections, .lab-desktop-sections { display: none !important; }
+  .lab-dk { display: grid; gap: 64px; max-width: 1120px; margin: 56px auto 8px; }
+
+  /* عنوان كل قسم */
+  .lx-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 22px; }
+  .lx-tag { padding: 4px 12px; border: 1px solid #C9A35C; border-radius: 99px; color: #8A6A2F; font-size: 13px; font-weight: 800; letter-spacing: .3px; }
+  .lx-head h2 { margin: 0; color: #07383B; font-size: 32px; font-weight: 900; }
+  .lx-all { margin-inline-start: auto; color: #0A5C63; font-size: 15px; font-weight: 800; text-decoration: none; }
+  .lx-all span { display: inline-block; transition: translate .25s; }
+  .lx-all:hover span { translate: -5px 0; }
+
+  /* ===== ١. قاعة العرض ===== */
+  .lx-stage { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); height: 470px; border-radius: 28px; overflow: hidden; isolation: isolate;
+    background: radial-gradient(ellipse 60% 90% at 85% 40%, #0F6F70, transparent 70%), linear-gradient(135deg, #0B4D49, #052E2F);
+    box-shadow: 0 30px 60px -40px rgba(4, 40, 40, .8), inset 0 0 0 1px rgba(201, 163, 92, .35); }
+  .lx-stage::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: linear-gradient(rgba(230, 201, 138, .06) 1px, transparent 1px) 0 0 / 28px 28px, linear-gradient(90deg, rgba(230, 201, 138, .06) 1px, transparent 1px) 0 0 / 28px 28px; }
+  .lx-info { grid-column: 1; grid-row: 1; position: relative; z-index: 2; }
+  .lx-pics { grid-column: 2; grid-row: 1; position: relative; z-index: 1; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, #000 62%, transparent 98%); mask-image: linear-gradient(90deg, #000 62%, transparent 98%); }
+  .lx-pics img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity .9s ease, transform 6.5s ease; }
+  .lx-pics img.on { opacity: 1; transform: scale(1); }
+  /* إطار «عدسة» في زوايا الصورة وخط مسح ذهبي */
+  .lx-pics::before, .lx-pics::after { content: ""; position: absolute; z-index: 3; width: 34px; height: 34px; border: 2px solid #E6C98A; pointer-events: none; }
+  .lx-pics::before { top: 22px; left: 22px; border-width: 2px 0 0 2px; border-radius: 8px 0 0 0; }
+  .lx-pics::after { bottom: 22px; left: 22px; border-width: 0 0 2px 2px; border-radius: 0 0 0 8px; }
+  .lx-scan { position: absolute; z-index: 2; left: 0; right: 0; top: 0; height: 2px; background: linear-gradient(90deg, transparent, #F6E3B4, transparent); box-shadow: 0 0 14px #F6E3B4; opacity: 0; }
+  .lx-show.run .lx-scan { animation: lx-scan var(--dur, 6s) linear infinite; }
+
+  .lx-item { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 40px 44px 40px 24px; color: #fff;
+    opacity: 0; visibility: hidden; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease, visibility 0s .6s; }
+  .lx-item.on { opacity: 1; visibility: visible; transform: none; transition-delay: .15s, .15s, 0s; }
+  .lx-count { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
+  .lx-count b { color: #E6C98A; font-size: 54px; font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums; }
+  .lx-count span { color: rgba(255, 255, 255, .5); font-size: 16px; font-weight: 700; }
+  .lx-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; color: #CFE3DD; font-size: 13px; font-weight: 700; }
+  .lx-meta span + span::before { content: "•"; margin-inline-end: 14px; color: #E6C98A; }
+  .lx-medal { padding: 3px 12px; border-radius: 99px; color: #3D2A08; font-weight: 800; }
+  .lx-medal.gold { background: linear-gradient(135deg, #F6E3B4, #D9B262); }
+  .lx-medal.silver { background: linear-gradient(135deg, #F2F4F5, #B9C2C6); color: #2B3438; }
+  .lx-medal.bronze { background: linear-gradient(135deg, #F0C9A4, #B9784A); }
+  .lx-meta .lx-medal + span::before { content: none; }
+  .lx-item h3 { margin: 14px 0 10px; font-size: 32px; font-weight: 900; line-height: 1.4; }
+  .lx-item p { margin: 0; color: #D7E8E3; font-size: 15px; line-height: 30px; max-height: 60px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .lx-who { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(230, 201, 138, .25); }
+  .lx-who b { display: block; font-size: 16px; }
+  .lx-who span { color: #B9D3CC; font-size: 13px; }
+  .lx-go { align-self: flex-start; margin-top: 18px; padding: 11px 22px; border-radius: 99px; background: #E6C98A; color: #063135; font-size: 14px; font-weight: 800; text-decoration: none; transition: background .2s; }
+  .lx-go:hover { background: #F6E3B4; }
+
+  /* شرائح العيّنات */
+  .lx-slides { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+  .lx-slide { position: relative; display: grid; grid-template-columns: auto 52px minmax(0, 1fr); align-items: center; gap: 10px; padding: 10px 12px 14px; overflow: hidden; border: 1px solid #E3DED0; border-radius: 14px;
+    background: #fff; color: #14282A; font: inherit; text-align: right; cursor: pointer; transition: border-color .25s, transform .25s, box-shadow .25s; }
+  .lx-slide:hover { transform: translateY(-3px); }
+  .lx-slide.on { border-color: #C9A35C; box-shadow: 0 12px 24px -18px rgba(6, 49, 53, .6); }
+  .lx-sn { color: #B9A57A; font-size: 13px; font-weight: 900; }
+  .lx-slide.on .lx-sn { color: #A88344; }
+  .lx-slide img { width: 52px; height: 52px; border-radius: 10px; object-fit: cover; filter: grayscale(1); opacity: .7; transition: filter .3s, opacity .3s; }
+  .lx-slide.on img, .lx-slide:hover img { filter: none; opacity: 1; }
+  .lx-st { font-size: 13px; font-weight: 800; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .lx-st small { display: block; color: #6B7A7B; font-size: 11.5px; font-weight: 600; }
+  .lx-bar { position: absolute; right: 0; bottom: 0; height: 3px; width: 0; background: linear-gradient(270deg, #E6C98A, #A88344); }
+  .lx-slide.on .lx-bar { width: 100%; }
+  .lx-show.run .lx-slide.on .lx-bar { animation: lx-bar var(--dur, 6s) linear both; }
+
+  /* ===== ٢. جدول المعرفة ===== */
+  .lx-table { position: relative; }
+  .lx-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1.5px solid #07383B; border-radius: 22px; overflow: hidden; background: #fff; }
+  .lx-el { --f: #0A5C63; position: relative; display: flex; flex-direction: column; min-height: 330px; padding: 22px 22px 20px; color: #14282A; text-decoration: none; transition: background .35s, color .35s; }
+  .lx-el + .lx-el { border-inline-start: 1.5px solid #07383B; }
+  .lx-el[data-f="الطبي"], .lx-el[data-f="الطب"] { --f: #B0413E; }
+  .lx-el[data-f="الهندسة"] { --f: #2B6CB0; }
+  .lx-el[data-f="البيئة"], .lx-el[data-f="الزراعة"] { --f: #2E8B57; }
+  .lx-no, .lx-yr { position: absolute; top: 16px; font-size: 13px; font-weight: 800; color: #6B7A7B; font-variant-numeric: tabular-nums; }
+  .lx-no { right: 20px; } .lx-yr { left: 20px; }
+  .lx-sym { margin-top: 26px; color: var(--f); font-size: 56px; font-weight: 900; line-height: 1; transition: color .35s; }
+  .lx-fd { margin-top: 6px; color: #6B7A7B; font-size: 13px; font-weight: 700; }
+  .lx-num { margin-top: 18px; padding-top: 14px; border-top: 1px dashed #CFD8D6; color: #A88344; font-size: 24px; font-weight: 900; line-height: 1.3; }
+  .lx-el b { margin-top: 8px; font-size: 15px; line-height: 1.75; }
+  .lx-by { margin-top: auto; padding-top: 14px; font-size: 13px; font-weight: 700; }
+  .lx-by small { display: block; color: #6B7A7B; font-size: 11.5px; font-weight: 600; }
+  .lx-el:hover { background: var(--f); color: #fff; }
+  .lx-el:hover .lx-sym, .lx-el:hover .lx-num { color: #F6E3B4; }
+  .lx-el:hover .lx-no, .lx-el:hover .lx-yr, .lx-el:hover .lx-fd, .lx-el:hover .lx-by small { color: rgba(255, 255, 255, .75); }
+  .lx-el:hover .lx-num { border-color: rgba(255, 255, 255, .35); }
+
+  .lab-dk a:focus-visible, .lx-slide:focus-visible { outline: 3px solid #C9A35C; outline-offset: 3px; }
+  .lab-page > .wrap > .lab-cta { max-width: 1120px; margin-inline: auto; margin-top: 56px; }
+  @media (prefers-reduced-motion: reduce) { .lx-pics img, .lx-item { transition: none; } }
+}
+@keyframes lx-scan { 0% { top: 0; opacity: 0; } 10% { opacity: .9; } 90% { opacity: .9; } 100% { top: 100%; opacity: 0; } }
+@keyframes lx-bar { from { width: 0; } to { width: 100%; } }
+
+/* تعديل: بلا نص الوصف، زر كبير متحرك «كل الابتكارات/كل المنشورات» أسفل كل قسم، فاصل زخرفي، وصور تعبيرية للمنشورات */
+@media (min-width: 1100px) {
+  .lab-dk { gap: 0; }
+  .lx-item h3 { font-size: 36px; margin: 16px 0 6px; }
+  .lx-who { margin-top: 20px; }
+  .lx-big-all { position: relative; display: flex; align-items: center; justify-content: center; gap: 14px; width: min(460px, 100%); margin: 28px auto 0; padding: 18px 30px; border-radius: 18px; overflow: hidden; isolation: isolate;
+    color: #fff; text-decoration: none; background: linear-gradient(135deg, #0C7F89, #063135); box-shadow: 0 16px 30px -18px rgba(6, 49, 53, .8); transition: transform .25s; }
+  .lx-big-all::before { content: ""; position: absolute; inset: -2px; z-index: -2; border-radius: inherit;
+    background: conic-gradient(from var(--a, 0deg), #E6C98A, transparent 25%, #F6E3B4 50%, transparent 75%, #E6C98A); animation: lx-ring 4s linear infinite; }
+  .lx-big-all::after { content: ""; position: absolute; inset: 2px; z-index: -1; border-radius: 16px; background: linear-gradient(135deg, #0C7F89, #063135); }
+  .lx-big-all span { font-size: 20px; font-weight: 900; }
+  .lx-big-all small { padding: 3px 12px; border-radius: 99px; background: rgba(230, 201, 138, .18); color: #F6E3B4; font-size: 13px; font-weight: 700; }
+  .lx-big-all i { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #E6C98A; color: #063135; font-style: normal; font-size: 20px; font-weight: 900; animation: lx-nudge 1.6s ease-in-out infinite; }
+  .lx-big-all:hover { transform: translateY(-3px); }
+  /* الفاصل بين القسمين */
+  .lx-sep { display: flex; align-items: center; gap: 16px; margin: 72px 0 64px; }
+  .lx-sep span { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #C9A35C); }
+  .lx-sep span:last-child { background: linear-gradient(270deg, transparent, #C9A35C); }
+  .lx-sep svg { width: 60px; height: 24px; fill: #C9A35C; }
+  /* صور تعبيرية للمنشورات */
+  .lx-el { padding-top: 0; }
+  .lx-pic { position: relative; display: block; margin: 0 -22px 0; height: 150px; overflow: hidden; border-bottom: 1.5px solid #07383B; }
+  .lx-pic img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  .lx-el:hover .lx-pic img { transform: scale(1.06); }
+  .lx-pic em { position: absolute; bottom: 8px; left: 10px; padding: 2px 8px; border-radius: 99px; background: rgba(5, 46, 47, .6); color: #E6EFEC; font-size: 10.5px; font-style: normal; }
+  .lx-no, .lx-yr { top: 164px; }
+  .lx-sym { margin-top: 40px; font-size: 40px; }
+  .lx-el { min-height: 470px; }
+}
+@property --a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes lx-ring { to { --a: 360deg; } }
+@keyframes lx-nudge { 50% { translate: -6px 0; } }
+@media (prefers-reduced-motion: reduce) { .lx-big-all::before, .lx-big-all i { animation: none; } }
+/* بعد حذف رمز المجال: النتيجة البارزة تحت الصورة مباشرة */
+@media (min-width: 1100px) {
+  .lx-el { min-height: 400px; }
+  .lx-num { margin-top: 42px; padding-top: 0; border-top: 0; font-size: 26px; }
+}

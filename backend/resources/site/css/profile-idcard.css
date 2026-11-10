@@ -1,0 +1,167 @@
+/* صف البطاقة التعريفية والحسابات — شريط رفيع واحد:
+   يمينًا زر البطاقة (بطاقة مصغّرة + نص)، ثم فاصل ذهبي، ثم الحسابات والمشاركة. */
+.profile-contact { margin-top: 6px; }
+.profile-contact-row {
+  display: flex; align-items: center; gap: 4px;
+  height: 44px; padding: 0 5px; border: 1px solid #dfe8e5; border-radius: 14px; background: #fff;
+  box-shadow: 0 3px 12px rgba(6, 49, 53, .05);
+}
+.id-launch {
+  display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto;
+  height: 34px; padding: 0 6px 0 10px; border: 0; border-radius: 10px; background: transparent;
+  color: #063135; font: inherit; font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer;
+  transition: background .2s ease;
+}
+.id-launch:hover { background: rgba(12, 127, 137, .06); }
+/* بطاقة مصغّرة: صورة دائرية وسطران وخط ذهبي */
+.id-mini {
+  position: relative; width: 30px; height: 21px; flex-shrink: 0; overflow: hidden; border-radius: 4px;
+  background: linear-gradient(160deg, #0C7F89 0%, #075A62 55%, #063135 100%);
+  box-shadow: 0 3px 8px -3px rgba(6, 49, 53, .6);
+  transition: transform .3s cubic-bezier(.3, 1.5, .4, 1);
+}
+.id-mini::before { content: ""; position: absolute; top: 5px; right: 4px; width: 8px; height: 8px; border-radius: 50%; background: #F0D9A5; }
+.id-mini::after {
+  content: ""; position: absolute; top: 6px; left: 4px; width: 10px; height: 2px; border-radius: 2px; background: rgba(255, 255, 255, .8);
+  box-shadow: 0 4px 0 -0px rgba(255, 255, 255, .45);
+}
+.id-mini i { position: absolute; inset-inline: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, #C9A35C, #F4DFAE, #C9A35C); }
+.id-launch:hover .id-mini { transform: rotate(-6deg) translateY(-1px); }
+.id-launch .id-arrow { color: #C9A35C; font-size: 13px; line-height: 1; }
+.profile-contact .profile-socials {
+  position: relative; display: flex; align-items: center; justify-content: flex-end; gap: 0;
+  width: auto; margin-inline-start: auto; padding-inline-start: 8px;
+}
+.profile-contact .profile-socials::before {
+  content: ""; position: absolute; inset-inline-start: 0; top: 50%; width: 1px; height: 20px; transform: translateY(-50%);
+  background: linear-gradient(180deg, transparent, #D9B977, transparent);
+}
+.profile-contact .profile-social,
+.profile-share {
+  display: inline-flex; flex-direction: row; align-items: center; justify-content: center; gap: 6px;
+  min-width: 32px; height: 32px; min-height: 0; padding: 0; border: 0; border-radius: 9px;
+  background: transparent; color: #096770; cursor: pointer; transition: background .2s ease;
+}
+.profile-contact .profile-social:hover,
+.profile-share:hover { background: rgba(12, 127, 137, .08); }
+.profile-contact .profile-social-icon { width: auto; height: auto; background: none; border-radius: 0; }
+.profile-contact .profile-social-icon img { width: 15px; height: 15px; }
+.profile-contact .profile-social-handle { display: none; }
+.profile-share { flex: 0 0 auto; }
+.profile-share svg { width: 16px; height: 16px; }
+.profile-contact a:focus-visible, .profile-share:focus-visible, .id-launch:focus-visible { outline: 2px solid #C9A35C; outline-offset: 2px; }
+@media (min-width: 640px) {
+  .profile-contact .profile-social { padding: 0 10px; }
+  .profile-contact .profile-social-handle { display: inline; font-size: 11.5px; color: #3f5553; }
+}
+@media (prefers-reduced-motion: reduce) { .id-mini { transition: none; } }
+
+/* =========================================================
+   البطاقة التعريفية — بطاقة منجز عمودية بثيمة الموقع
+   تنبثق عند الفتح، وتحتها أزرار: PDF، صورة، مشاركة، إغلاق.
+   ========================================================= */
+.idcard-dialog {
+  width: 100%; max-width: 100%; height: 100%; max-height: 100%; margin: 0; padding: 16px;
+  border: 0; background: transparent; overflow: auto;
+}
+.idcard-dialog[open] { display: grid; place-items: center; }
+.idcard-dialog::backdrop { background: rgba(3, 26, 29, .62); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); animation: idc-fade .3s ease both; }
+.idcard-dialog.is-closing::backdrop { animation: idc-fade .22s ease reverse both; }
+.idcard-stage { display: grid; justify-items: center; gap: 16px; width: min(520px, 100%); perspective: 1000px; }
+
+/* البطاقة — عرضية بنسبة بطاقة الهوية، والمقاسات بنسبة عرضها (cqw) فتبقى متناسقة على كل الشاشات */
+.idcard {
+  --gold: #D9B977; --gold-2: #F0D9A5;
+  container-type: inline-size;
+  position: relative; isolation: isolate; overflow: hidden; width: 100%;
+  border-radius: 20px; color: #fff;
+  background:
+    radial-gradient(45% 70% at 84% 45%, rgba(217, 185, 119, .30), transparent 70%),
+    linear-gradient(150deg, #0C7F89 0%, #075A62 55%, #063135 100%);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .65), inset 0 0 0 1px rgba(240, 217, 165, .28);
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  transform-origin: 50% 80%;
+}
+.idcard-dialog[open] .idcard { animation: idc-pop .75s cubic-bezier(.2, 1.1, .3, 1) both; }
+.idcard-dialog.is-closing .idcard { animation: idc-out .22s ease-in both; }
+.idc-pattern { position: absolute; inset: 0; z-index: -1; opacity: .07; pointer-events: none;
+  background: url("../assets/svg/watermark.svg") left -8% center/62% no-repeat; }
+.idc-shine { position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 244, 214, .26) 48%, transparent 60%);
+  transform: translateX(-120%); }
+.idcard-dialog[open] .idc-shine { animation: idc-shine 1.3s ease .55s both; }
+
+.idc-top { display: flex; align-items: center; justify-content: space-between; padding: 3.4cqw 4.5cqw 0; }
+.idc-logo { height: 8.5cqw; width: auto; }
+.idc-kind { display: grid; justify-items: end; line-height: 1.2; text-align: end; }
+.idc-kind b { font-size: 3.2cqw; font-weight: 700; color: var(--gold-2); }
+.idc-kind small { font-size: 2.1cqw; letter-spacing: .5cqw; color: rgba(255, 255, 255, .55); direction: ltr; }
+
+.idc-body { display: grid; grid-template-columns: 27cqw minmax(0, 1fr); gap: 4.5cqw; align-items: center; padding: 2.4cqw 4.5cqw 0; }
+.idc-photo { position: relative; width: 27cqw; height: 31cqw; margin: 0; }
+.idc-photo::before { content: ""; position: absolute; inset: 0; border-radius: 13.5cqw 13.5cqw 3.5cqw 3.5cqw;
+  background: radial-gradient(circle at 50% 40%, rgba(240, 217, 165, .35), rgba(6, 49, 53, .35) 72%);
+  box-shadow: inset 0 0 0 .4cqw rgba(240, 217, 165, .75), 0 0 0 1.4cqw rgba(240, 217, 165, .10); }
+.idc-photo img { position: relative; width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%;
+  border-radius: 13.5cqw 13.5cqw 3.5cqw 3.5cqw; }
+.idc-photo .idc-badge { position: absolute; bottom: -2.4cqw; left: 50%; transform: translateX(-50%); z-index: 2;
+  width: 6.6cqw; height: 6.6cqw; filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .35)); }
+
+.idc-info { min-width: 0; text-align: start; }
+.idc-id h2 { margin: 0; font-size: 5.4cqw; font-weight: 800; line-height: 1.3; }
+.idc-en { margin: 0; font-size: 2.8cqw; color: rgba(255, 255, 255, .7); direction: ltr; text-align: end; }
+.idc-field { display: inline-block; margin-top: 1.6cqw; padding: .3cqw 3.4cqw; border-radius: 999px;
+  background: linear-gradient(135deg, #F4DFAE, #C9A35C); color: #2F230C; font-size: 2.9cqw; font-weight: 700; }
+.idc-bio { margin: 2cqw 0 0; font-size: 2.75cqw; line-height: 1.8; color: #D7EAE7;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+.idc-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 4.2cqw 4.5cqw 0; padding: 0; list-style: none;
+  border-radius: 3cqw; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .10); }
+.idc-stats li { display: flex; align-items: baseline; justify-content: center; gap: 1.6cqw; padding: 1.7cqw 1cqw; }
+.idc-stats li + li { border-inline-start: 1px solid rgba(255, 255, 255, .12); }
+.idc-stats strong { font-size: 5.4cqw; font-weight: 800; line-height: 1.1; color: var(--gold-2); }
+.idc-stats span { font-size: 2.8cqw; color: #CFE3E1; }
+
+.idc-foot { position: relative; display: flex; align-items: center; justify-content: center; gap: 2cqw;
+  padding: 2.4cqw 3cqw 3.4cqw; font-size: 2.5cqw; color: rgba(255, 255, 255, .75); }
+.idc-foot b { color: var(--gold); font-weight: 400; }
+.idc-foot::after { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1.1cqw;
+  background: linear-gradient(90deg, #9C7638, #F4DFAE, #C9A35C, #F4DFAE, #9C7638); }
+
+/* الأزرار */
+.idcard-side { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; width: 100%; }
+.idcard-dialog[open] .idcard-side { animation: idc-up .45s ease .35s both; }
+.idcard-side button { display: grid; justify-items: center; gap: 5px; padding: 0; border: 0; background: none;
+  color: #fff; font: inherit; font-size: 11px; font-weight: 600; cursor: pointer; }
+.idcard-side button span { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(255, 255, 255, .12); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18);
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); transition: background .2s ease, transform .2s ease; }
+.idcard-side button svg { width: 20px; height: 20px; }
+.idcard-side button:hover span { background: rgba(255, 255, 255, .2); }
+.idcard-side button:active span { transform: scale(.92); }
+.idcard-side [data-idcard-pdf] span { background: linear-gradient(135deg, #F4DFAE, #C9A35C); color: #2F230C; box-shadow: none; }
+.idcard-side button:focus-visible { outline: none; }
+.idcard-side button:focus-visible span { outline: 2px solid #F0D9A5; outline-offset: 2px; }
+.idcard-note { grid-column: 1 / -1; margin: 0; color: #F0D9A5; font-size: 11px; text-align: center; }
+
+@keyframes idc-fade { from { opacity: 0; } }
+@keyframes idc-pop {
+  0% { opacity: 0; transform: translateY(60px) rotateX(40deg) scale(.7); }
+  60% { opacity: 1; transform: translateY(-6px) rotateX(-6deg) scale(1.02); }
+  100% { transform: none; }
+}
+@keyframes idc-out { to { opacity: 0; transform: translateY(30px) scale(.9); } }
+@keyframes idc-up { from { opacity: 0; transform: translateY(14px); } }
+@keyframes idc-shine { to { transform: translateX(120%); } }
+@media (prefers-reduced-motion: reduce) {
+  .idcard-dialog *, .idcard-dialog::backdrop { animation: none !important; }
+}
+
+@media print {
+  body.printing-idcard > *:not(.idcard-dialog) { display: none !important; }
+  body.printing-idcard { background: #fff; }
+  body.printing-idcard .idcard-dialog { display: block; position: static; width: auto; height: auto; padding: 0; }
+  body.printing-idcard .idcard-stage { display: block; width: 150mm; margin: 0 auto; }
+  body.printing-idcard .idcard { box-shadow: none; animation: none; }
+  body.printing-idcard .idc-shine, body.printing-idcard .idcard-side { display: none !important; }
+}

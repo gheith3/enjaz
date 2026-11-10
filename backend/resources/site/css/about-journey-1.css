@@ -1,0 +1,37 @@
+/* «رحلتنا ١» — نسخة محفوظة من تصميم خارطة العمل (طريق المحطات واختيار السنة)، ٨ نوفمبر. تُستخدم في about-journey-1.html فقط. */
+/* ===== خارطة العمل على الكمبيوتر (js/about-journey-desktop.js): طريق ذهبي بمحطات السنوات + بطاقات المحطات ===== */
+.jd { display: none; }
+@media (min-width: 1100px) {
+  #journey .rm-tl, #journey .journey-note { display: none; }
+  #journey.wrap { max-width: 1160px; }
+  .jd { display: block; position: relative; padding: 34px 40px 40px; border-radius: 30px; color: #fff; overflow: hidden;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(230, 201, 138, .18), transparent 70%), linear-gradient(160deg, #0A5C63, #052E2F); box-shadow: 0 30px 60px -40px rgba(6, 49, 53, .8); }
+  .jd-lead { margin: 0 0 26px; text-align: center; color: #D7E8E3; font-size: 17px; }
+  .jd-road { position: relative; display: flex; justify-content: space-between; margin: 0 20px 30px; }
+  .jd-line { position: absolute; top: 15px; left: 40px; right: 40px; height: 3px; border-radius: 3px; background: rgba(230, 201, 138, .22); }
+  .jd-line i { position: absolute; top: 0; right: 0; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(270deg, #F6E3B4, #C9A35C); box-shadow: 0 0 12px rgba(246, 227, 180, .7); transition: width .8s cubic-bezier(.65, 0, .35, 1); }
+  .jd-st { position: relative; z-index: 1; display: grid; justify-items: center; gap: 4px; min-width: 120px; padding: 0 6px 10px; border: 0; background: none; color: #fff; font: inherit; cursor: pointer; }
+  .jd-dot { width: 32px; height: 32px; border-radius: 50%; background: #0A4C50; box-shadow: inset 0 0 0 2px rgba(230, 201, 138, .5); transition: .3s; }
+  .jd-st b { margin-top: 6px; font-size: 22px; font-weight: 900; color: #CFE3DD; transition: color .3s; }
+  .jd-st small { color: #9FBFB8; font-size: 13px; }
+  .jd-st.done .jd-dot { background: #C9A35C; box-shadow: none; }
+  .jd-st[aria-selected="true"] .jd-dot { background: radial-gradient(circle, #FFF6DC 0 30%, #E6C98A 32% 100%); box-shadow: 0 0 0 6px rgba(230, 201, 138, .2), 0 0 22px rgba(246, 227, 180, .8); }
+  .jd-st[aria-selected="true"] b { color: #F6E3B4; }
+  .jd-st:hover b { color: #fff; }
+  .jd-st:focus-visible { outline: 3px solid #E6C98A; outline-offset: 4px; border-radius: 14px; }
+  .jd-bar { position: absolute; bottom: 0; left: 30%; right: 30%; height: 2px; border-radius: 2px; background: #E6C98A; transform: scaleX(0); transform-origin: right; }
+  .jd.run .jd-st[aria-selected="true"] .jd-bar { animation: jd-bar var(--dur, 7s) linear both; }
+  .jd-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .jd-grid.n1 { grid-template-columns: minmax(0, 420px); justify-content: center; }
+  .jd-grid.n2 { grid-template-columns: repeat(2, minmax(0, 360px)); justify-content: center; }
+  .jd-grid.n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .jd-card { overflow: hidden; border-radius: 18px; background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(230, 201, 138, .25); animation: jd-in .6s cubic-bezier(.16, 1, .3, 1) var(--d) both; transition: transform .25s, box-shadow .25s; }
+  .jd-card:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px rgba(230, 201, 138, .6); }
+  .jd-img { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; }
+  .jd-img img { width: 100%; height: 100%; object-fit: cover; }
+  .jd-img em { position: absolute; bottom: 10px; right: 10px; padding: 3px 11px; border-radius: 99px; background: rgba(5, 46, 47, .78); color: #F6E3B4; font-size: 12.5px; font-style: normal; font-weight: 800; }
+  .jd-card p { margin: 0; padding: 14px 16px 18px; color: #EAF3F1; font-size: 15px; font-weight: 700; line-height: 1.8; }
+  @media (prefers-reduced-motion: reduce) { .jd-card { animation: none; } .jd-line i { transition: none; } }
+}
+@keyframes jd-in { from { opacity: 0; transform: translateY(16px); } }
+@keyframes jd-bar { to { transform: scaleX(1); } }

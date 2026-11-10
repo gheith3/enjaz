@@ -11,21 +11,21 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, HasRoles, Notifiable;
 
-    /**
-     * Every user may use the admin panel (there is no public sign-up).
-     * Add roles (e.g. bezhansalleh/filament-shield) when the project needs them.
-     */
+    /** Roles that may sign in to the dashboard (permissions per role: Shield, "الأدوار"). */
+    public const PANEL_ROLES = ['super_admin', 'admin', 'editor'];
+
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->hasAnyRole(self::PANEL_ROLES);
     }
 
     /**

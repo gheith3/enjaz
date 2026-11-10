@@ -1,0 +1,102 @@
+/* ================= ملهمون من عُمان: هيدر «الألواح» =================
+   العنوان في سطر واحد، وتحته أربعة ألواح عمودية متجاورة لكل ملهم: اللوح النشط يتّسع ويظهر بألوانه مع اسمه ومجاله،
+   والبقية شرائح ضيّقة بلون الثيمة واسمها مكتوب عموديًا. يتبدّل تلقائيًا أو بالضغط. السكربت: js/inspiring-strip.js
+   الصور: assets/img/inspiring-strip/*.jpg (مقصوصة من أغلفة «ملهمون من عُمان») */
+.page-hero.ins-strip {
+  padding: 14px var(--gutter, 16px) 18px; isolation: isolate;
+  background: linear-gradient(175deg, #0C7F89 0%, #0A5C63 55%, #063135 100%);
+}
+.page-hero.ins-strip::after { content: ""; position: absolute; inset: auto 0 0; height: 1px;
+  background: linear-gradient(90deg, rgba(230, 201, 138, .1), rgba(230, 201, 138, .8) 60%, rgba(230, 201, 138, .15)); }
+
+/* العنوان */
+.is-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.page-hero .is-title { margin: 0; color: #fff; font-size: 24px; font-weight: 800; line-height: 1.3; }
+.is-gold { background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 32%, #E0B867 58%, #F8E3AA 82%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.is-intro { margin: 0; color: rgba(255, 255, 255, .75); font-size: 11.5px; }
+
+/* الألواح */
+.is-panels { display: flex; gap: 6px; height: 178px; margin-top: 10px; }
+.is-panel { position: relative; flex: 1 1 0; min-width: 0; padding: 0; border: 0; border-radius: 16px; overflow: hidden; cursor: pointer;
+  background: #0A5C63; color: #fff; text-align: start; font: inherit;
+  box-shadow: 0 12px 24px -14px rgba(2, 20, 22, .9), inset 0 0 0 1px rgba(230, 201, 138, .35);
+  transition: flex-grow .7s cubic-bezier(.65, 0, .25, 1), box-shadow .4s ease; }
+.is-panel.is-on { flex-grow: 5.2; box-shadow: 0 16px 30px -14px rgba(2, 20, 22, .95), inset 0 0 0 1.5px #E6C98A; }
+.is-panel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(1) contrast(1.05) brightness(.8); transform: scale(1.08);
+  transition: filter .7s ease, transform 6s ease; }
+.is-panel.is-on img { filter: none; transform: scale(1); }
+/* طبقة فيروزية على الألواح المغلقة، وتدرّج داكن أسفل اللوح النشط للنص */
+.is-panel::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(12, 127, 137, .55), rgba(6, 49, 53, .85)); mix-blend-mode: multiply; transition: opacity .6s ease; }
+.is-panel.is-on::before { opacity: 0; }
+.is-panel::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .6s ease;
+  background: linear-gradient(0deg, rgba(4, 30, 33, .92) 0%, rgba(4, 30, 33, .55) 30%, rgba(4, 30, 33, 0) 58%); }
+.is-panel.is-on::after { opacity: 1; }
+
+/* الاسم العمودي في الألواح المغلقة */
+.is-v { position: absolute; z-index: 2; inset-inline: 0; bottom: 12px; margin-inline: auto; width: max-content; max-height: calc(100% - 24px);
+  writing-mode: vertical-rl; color: #F3D995; font-size: 12.5px; font-weight: 800; white-space: nowrap; text-shadow: 0 1px 6px rgba(0, 0, 0, .6);
+  transition: opacity .35s ease .25s; }
+.is-panel.is-on .is-v { opacity: 0; transition-delay: 0s; }
+
+/* تعليق اللوح النشط */
+.is-cap { position: absolute; z-index: 2; inset-inline: 0; bottom: 0; display: grid; justify-items: start; gap: 2px; padding: 12px 14px 14px;
+  opacity: 0; translate: 0 10px; transition: opacity .3s ease, translate .3s ease; pointer-events: none; }
+.is-panel.is-on .is-cap { opacity: 1; translate: 0 0; transition: opacity .45s ease .45s, translate .45s ease .45s; }
+.is-field { padding: 0 9px; border-radius: 999px; background: #FBF2E1; color: #8A6A2F; font-size: 10px; font-weight: 800; line-height: 1.9; }
+.is-name { margin-top: 2px; font-size: 18px; font-weight: 800; line-height: 1.3; white-space: nowrap; }
+.is-line { color: rgba(255, 255, 255, .85); font-size: 11.5px; line-height: 1.6; white-space: nowrap; }
+
+/* شريط الوقت أسفل اللوح النشط */
+.is-bar { position: absolute; z-index: 3; inset-inline: 14px; bottom: 6px; height: 2px; border-radius: 2px; background: rgba(255, 255, 255, .2); opacity: 0; }
+.is-bar::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: #E6C98A; transform: scaleX(0); transform-origin: right; }
+.is-panel.is-on .is-bar { opacity: 1; }
+.is-panel.is-on.run .is-bar::after { animation: is-fill var(--is-dur, 4.5s) linear both; }
+.ins-strip.paused .is-bar::after { animation-play-state: paused !important; }
+@keyframes is-fill { to { transform: scaleX(1); } }
+
+.is-panel:focus-visible { outline: 3px solid #E6C98A; outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .is-panel, .is-panel img, .is-cap, .is-v, .is-panel::before, .is-panel::after { transition: none !important; }
+  .is-bar { display: none; }
+}
+
+@media (min-width: 768px) {
+  .page-hero.ins-strip { padding-block: 26px 30px; }
+  .page-hero .is-title { font-size: 40px; }
+  .is-intro { font-size: 15px; }
+  .is-panels { height: 300px; gap: 10px; margin-top: 18px; }
+  .is-panel { border-radius: 20px; }
+  .is-panel.is-on { flex-grow: 4; }
+  .is-v { font-size: 16px; bottom: 18px; }
+  .is-cap { padding: 18px 22px 22px; }
+  .is-field { font-size: 12px; }
+  .is-name { font-size: 28px; }
+  .is-line { font-size: 15px; }
+}
+
+/* ---------- الكمبيوتر (١١٠٠ بكسل فأعلى): أربع بطاقات كاملة متجاورة بدل الألواح ----------
+   كان اللوح النشط عريضًا وقصيرًا فيُقطع الرأس، والألواح الضيقة لا تُظهر أصحابها. الآن كل الوجوه كاملة وبألوانها،
+   ومع كل بطاقة اسمها ومجالها وعبارتها، ويبقى التمييز المتنقل (رفع خفيف وإطار ذهبي وشريط وقت) والضغط على أي بطاقة. الهاتف لا يتغير. */
+@media (min-width: 1100px) {
+  .page-hero.ins-strip { padding: 34px 40px 40px; }
+  .ins-strip .is-head, .ins-strip .is-panels { max-width: 1120px; margin-inline: auto; }
+  .ins-strip .is-panels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; height: auto; margin-top: 22px; }
+  .ins-strip .is-panel { aspect-ratio: 540 / 604; flex: none; border-radius: 20px;
+    transition: transform .5s cubic-bezier(.2, .8, .2, 1), box-shadow .5s ease; }
+  .ins-strip .is-panel img { filter: none; transform: none; transition: transform .8s ease; }
+  .ins-strip .is-panel:hover img { transform: scale(1.04); }
+  .ins-strip .is-panel::before { opacity: 0; }
+  .ins-strip .is-panel::after { opacity: 1; background: linear-gradient(0deg, rgba(4, 30, 33, .95) 0%, rgba(4, 30, 33, .6) 30%, rgba(4, 30, 33, 0) 55%); }
+  .ins-strip .is-v { display: none; }
+  .ins-strip .is-cap { opacity: 1; translate: 0 0; transition: none; padding: 16px 18px 20px; }
+  .ins-strip .is-name { font-size: 20px; white-space: normal; }
+  .ins-strip .is-line { font-size: 13px; white-space: normal; }
+  .ins-strip .is-field { font-size: 11.5px; }
+  .ins-strip .is-panel.is-on { transform: translateY(-8px); box-shadow: 0 22px 36px -16px rgba(2, 20, 22, .95), inset 0 0 0 2px #E6C98A; }
+  .ins-strip .is-panel:not(.is-on) { box-shadow: 0 12px 24px -16px rgba(2, 20, 22, .9), inset 0 0 0 1px rgba(230, 201, 138, .4); }
+  .ins-strip .is-bar { inset-inline: 18px; bottom: 9px; }
+}

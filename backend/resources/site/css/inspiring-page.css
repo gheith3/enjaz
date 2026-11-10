@@ -1,0 +1,126 @@
+/* ================= ملهمون من عُمان: «مسرح الأغلفة» ================= */
+.ins-intro { margin: 0; color: rgba(255, 255, 255, .82); font-size: 13px; }
+
+/* ---- المسرح ---- */
+.cf-stage {
+  position: relative; isolation: isolate; padding: 18px 0 46px; overflow: hidden; color: #fff;
+  /* بنفس ثيمة الموقع: تدرّج الهيدر الفيروزي، علامة الموقع المائية، خطوط ذهبية منحنية، وموجة ذهبية في الأسفل */
+  background:
+    url("../assets/svg/watermark.svg") left -50px bottom 20px / 230px no-repeat,
+    url("../assets/svg/watermark.svg") right -70px top -30px / 200px no-repeat,
+    radial-gradient(55% 40% at 50% 34%, rgba(244, 223, 174, .2), transparent 70%),
+    linear-gradient(180deg, #0A6C75 0%, #085E66 55%, #064A50 100%);
+}
+/* أرضية لامعة تحت الأغلفة */
+.cf-stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 38%; z-index: -1; background: linear-gradient(180deg, transparent, rgba(6, 49, 53, .35)); pointer-events: none; }
+/* الهيدر والمسرح كتلة واحدة متصلة بلون هيدر الموقع */
+.ins-hero { background: linear-gradient(180deg, #0A737C 0%, #0A6C75 100%); padding-bottom: 4px; }
+/* خطوط ذهبية منحنية تنساب ببطء كما في بانر الصفحة الرئيسية */
+.ins-swoosh { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+.ins-swoosh path { fill: none; stroke: url(#insGold); stroke-width: 1.2; opacity: .55; vector-effect: non-scaling-stroke; stroke-dasharray: 2 0; }
+.ins-swoosh .s2 { opacity: .35; stroke-dasharray: 3 6; animation: ins-flow 6s linear infinite; }
+@keyframes ins-flow { to { stroke-dashoffset: -90; } }
+/* الموجة الذهبية تفصل المسرح عن بقية الصفحة البيضاء */
+.ins-wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 30px; z-index: 2; pointer-events: none; overflow: visible; }
+.ins-wave-fill { fill: #fff; }
+.ins-wave-line { fill: none; stroke: url(#insGold); stroke-width: 1.6; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 4px rgba(244, 223, 174, .6)); }
+.cf-track {
+  position: relative; z-index: 1; display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+  padding: 10px calc(50% - var(--cw) / 2) 70px; perspective: 900px; --cw: min(60vw, 250px);
+}
+.cf-track::-webkit-scrollbar { display: none; }
+.cf-item {
+  flex: 0 0 var(--cw); scroll-snap-align: center; padding: 0; border: 0; background: none; cursor: pointer;
+  transform-style: preserve-3d; transition: transform .15s linear, opacity .15s linear, filter .15s linear; will-change: transform;
+}
+.cf-item img {
+  display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, .45), 0 0 0 1px rgba(230, 201, 138, .55);
+  -webkit-box-reflect: below 6px linear-gradient(transparent 72%, rgba(255, 255, 255, .22));
+}
+.cf-item:focus-visible { outline: none; }
+.cf-item:focus-visible img { box-shadow: 0 0 0 3px #E6C98A; }
+
+/* ---- التعليق تحت المسرح ---- */
+.cf-cap { position: relative; z-index: 2; margin-top: -48px; text-align: center; }
+.cf-field { display: inline-block; padding: 1px 12px; border-radius: 999px; background: #FBF2E1; color: #8A6A2F; font-size: 11px; font-weight: 800; }
+.cf-name { margin: 6px 0 2px; font-size: 24px; font-weight: 900; }
+.cf-line { margin: 0 auto; max-width: 300px; color: rgba(255, 255, 255, .8); font-size: 13px; min-height: 1.8em; }
+.cf-cap > * { transition: opacity .25s ease, translate .25s ease; }
+.cf-cap.swap > * { opacity: 0; translate: 0 6px; }
+.cf-ctrl { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; }
+.cf-arrow { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(230, 201, 138, .6); background: rgba(255, 255, 255, .08); color: #E6C98A; cursor: pointer; }
+.cf-arrow svg { width: 18px; height: 18px; }
+.cf-dots { display: flex; gap: 6px; }
+.cf-dots button { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .3); cursor: pointer; transition: width .3s ease, background .3s ease; }
+.cf-dots button[aria-current="true"] { width: 22px; background: #E6C98A; }
+
+/* ---- ما الذي يجمعهم ---- */
+.ins-sec { margin-top: 28px; }
+.ins-h { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; color: var(--dark); font-size: 18px; font-weight: 800; }
+.ins-h::after { content: ""; flex: 1; height: 1px; background: linear-gradient(270deg, transparent, var(--gold)); }
+.ins-h img { width: 18px; height: 18px; }
+.values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.value { padding: 14px 8px 12px; border-radius: 14px; background: #fff; text-align: center; box-shadow: 0 3px 10px rgba(6, 49, 53, .08); }
+.value svg { width: 30px; height: 30px; stroke: #C9A35C; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.value b { display: block; margin-top: 4px; color: var(--dark); font-size: 13.5px; }
+.value small { display: block; color: var(--muted); font-size: 10.5px; line-height: 1.6; }
+
+/* ---- جدار الإلهام (فسيفساء) ---- */
+.wall { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 110px; grid-auto-flow: dense; gap: 8px; }
+.tile { position: relative; overflow: hidden; border-radius: 14px; background: #EEF3F3; box-shadow: 0 4px 12px rgba(6, 49, 53, .14), inset 0 0 0 1px #C9A35C; }
+.tile.tall { grid-row: span 2; }
+.tile.wide { grid-column: span 2; }
+.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(6, 49, 53, .92), rgba(6, 49, 53, .4) 30%, transparent 55%); }
+.tile::before { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; box-shadow: inset 0 0 0 1px #C9A35C; pointer-events: none; }
+.tile-b { position: absolute; inset-inline: 0; bottom: 0; z-index: 2; display: grid; justify-items: center; gap: 3px; padding: 8px; text-align: center; color: #fff; }
+.tile-b span { padding: 0 8px; border-radius: 999px; background: #FBF2E1; color: #8A6A2F; font-size: 9.5px; font-weight: 800; }
+.tile-b b { font-size: 13px; }
+.tile:hover img { transform: scale(1.05); }
+
+/* ---- رشّح ملهماً ---- */
+.nominate {
+  display: grid; justify-items: center; gap: 6px; margin: 28px 0 8px; padding: 22px 16px; text-align: center; color: var(--dark);
+  border: 1.5px dashed rgba(168, 131, 68, .65); border-radius: 18px; background: #FFFCF5;
+}
+.nominate .plus { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(160deg, #0C7F89, #063135); color: #E6C98A; font-size: 30px; line-height: 1; box-shadow: 0 0 0 4px rgba(201, 163, 92, .2); }
+.nominate b { font-size: 16px; }
+.nominate small { color: var(--muted); font-size: 12.5px; max-width: 300px; }
+.nominate .btn { margin-top: 4px; height: 36px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; background: linear-gradient(180deg, #F6E3B4, #D9B262); color: #063135; font-size: 12.5px; font-weight: 800; }
+
+@media (min-width: 700px) {
+  .cf-track { --cw: 300px; }
+  .cf-name { font-size: 32px; }
+  .wall { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 150px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cf-item, .tile img, .cf-cap > * { transition: none; }
+  .ins-swoosh .s2 { animation: none; }
+}
+
+/* فرز المجالات في جدار الإلهام */
+.wall-filter { display: flex; gap: 8px; margin: 0 calc(var(--gutter) * -1) 12px; padding: 2px var(--gutter); overflow-x: auto; scrollbar-width: none; }
+.wall-filter::-webkit-scrollbar { display: none; }
+.wall-filter .chip { flex: none; width: auto; padding-inline: 16px; white-space: nowrap; }
+.wall.is-filtered .tile.tall { grid-row: auto; }
+.wall.is-filtered .tile.wide { grid-column: auto; }
+.tile[hidden] { display: none; }
+
+/* ما الذي يجمعهم؟ — لوحة في الأسفل */
+.values-panel { position: relative; overflow: hidden; padding: 26px 16px 22px; border-radius: 24px; text-align: center; color: #fff;
+  background: radial-gradient(70% 60% at 85% 0%, rgba(230, 201, 138, .22), transparent 70%), linear-gradient(160deg, #0C7F89, #063135);
+  box-shadow: 0 14px 30px -14px rgba(6, 49, 53, .6), inset 0 0 0 1px rgba(201, 163, 92, .55); }
+.values-panel::before { content: ""; position: absolute; inset: 0; background: url("../assets/svg/watermark.svg") left -50px bottom -60px / 240px no-repeat; opacity: .08; pointer-events: none; }
+.values-panel > * { position: relative; }
+.values-eyebrow { display: block; color: #E6C98A; font-size: 12px; font-weight: 700; letter-spacing: .3px; }
+.values-panel h2 { margin: 4px 0 10px; font-size: 21px; font-weight: 800; color: #fff; }
+.values-line { display: block; width: 120px; height: 1px; margin: 0 auto 20px; background: linear-gradient(90deg, transparent, #E6C98A, transparent); }
+.values-panel .values { gap: 0; }
+.values-panel .value { padding: 0 8px; background: none; box-shadow: none; border-radius: 0; }
+.values-panel .value + .value { border-inline-start: 1px solid rgba(230, 201, 138, .35); }
+.value-ico { display: grid; place-items: center; width: 52px; height: 52px; margin: 0 auto 10px; border-radius: 50%;
+  background: linear-gradient(160deg, #F6E3B4, #C9A35C); box-shadow: 0 0 0 4px rgba(230, 201, 138, .18), 0 8px 16px -8px rgba(0, 0, 0, .5); }
+.values-panel .value svg { width: 28px; height: 28px; stroke: #063135; }
+.values-panel .value b { margin-top: 0; color: #fff; font-size: 14.5px; }
+.values-panel .value small { margin-top: 4px; color: rgba(255, 255, 255, .78); font-size: 11px; }

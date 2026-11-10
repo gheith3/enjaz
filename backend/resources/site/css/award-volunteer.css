@@ -1,0 +1,186 @@
+/* صفحة «جائزة السلطان قابوس للعمل التطوعي» (award-volunteer.html)
+   تختلف عن جائزة الثقافة (الوسام الذهبي): هنا «موجات العطاء» — دفء العنبر والمرجاني فوق تركوازي الموقع وأخضره،
+   والفائزون على منصّات تتويج. */
+.v-page { --ink: #063135; --teal: #0C7F89; --deep: #0A4B50; --green: #5FA352; --amber: #E59A4B; --coral: #D9735A; --sand: #FFF7EC; --line: #F1E2CC;
+  --r1: #E0A43A; --r2: #7FA9AB; --r3: #C98457; padding-bottom: 34px; background: #fff; }
+
+/* ---------- الرأس: موجات العطاء ---------- */
+.v-hero { position: relative; overflow: hidden; isolation: isolate; padding: 24px var(--gutter) 18px; text-align: center; color: #fff;
+  background: radial-gradient(110% 70% at 50% 16%, #F2B66E 0%, #DE8A55 18%, #1D8C86 50%, #0A4B50 100%); }
+.v-hero::after { content: ""; position: absolute; inset: auto -10% -40px; height: 90px; z-index: -1; background: radial-gradient(60% 100% at 50% 100%, rgba(95, 163, 82, .55), transparent 70%); }
+.v-ripple { position: relative; width: 188px; height: 188px; margin: 0 auto 12px; }
+.v-ripple i { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(255, 247, 236, .75); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .v-ripple i { animation: v-wave 4.8s cubic-bezier(.2, .6, .3, 1) infinite; }
+  .v-ripple i:nth-child(2) { animation-delay: 1.2s; } .v-ripple i:nth-child(3) { animation-delay: 2.4s; } .v-ripple i:nth-child(4) { animation-delay: 3.6s; }
+}
+@media (prefers-reduced-motion: reduce) { .v-ripple i { opacity: .35; } .v-ripple i:nth-child(2) { inset: 16px; } .v-ripple i:nth-child(3) { inset: 32px; } }
+@keyframes v-wave { from { transform: scale(.42); opacity: .95; } to { transform: scale(1); opacity: 0; } }
+.v-core { position: absolute; inset: 50px; display: grid; place-items: center; border-radius: 50%; color: #fff;
+  background: radial-gradient(circle at 50% 30%, #F3B46C, #D9735A 75%); box-shadow: 0 0 0 6px rgba(255, 247, 236, .25), 0 14px 30px -10px rgba(80, 30, 10, .6); }
+.v-core svg { width: 58%; height: 58%; }
+.v-eyebrow { display: inline-block; color: #FFE7C7; font-size: 12px; font-weight: 800; letter-spacing: .3px; }
+.v-hero h1 { margin: 4px 0 6px; font-size: 25px; line-height: 1.35; font-weight: 800; }
+.v-hero h1 small { display: block; font-size: 17px; font-weight: 700; color: #FFE7C7; }
+.v-date { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 0 14px; font-size: 11.5px; color: rgba(255, 255, 255, .88); }
+.v-date b { color: #fff; } .v-date i { width: 4px; height: 4px; border-radius: 50%; background: #FFE7C7; }
+.v-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-bottom: 12px; }
+.v-stats span { display: grid; justify-items: center; align-content: center; gap: 2px; min-height: 62px; padding: 6px 2px; border-radius: 16px 16px 16px 4px; background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 231, 199, .35); }
+.v-stats b { font-size: 20px; line-height: 1.1; color: #FFE7C7; }
+.v-stats small { font-size: 9.5px; line-height: 1.35; text-align: center; color: rgba(255, 255, 255, .9); }
+.v-jump { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; }
+.v-jump a { display: grid; place-items: center; min-height: 34px; border-radius: 999px; background: rgba(255, 255, 255, .14); color: #fff; font-size: 11px; font-weight: 700; text-decoration: none; }
+
+/* ---------- العناوين والنبذة ---------- */
+.v-sec { margin-top: 30px; scroll-margin-top: 80px; }
+.v-h { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; color: var(--ink); font-size: 18px; font-weight: 800; }
+.v-h::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle, var(--amber) 35%, transparent 38%), radial-gradient(circle, transparent 55%, rgba(229, 154, 75, .5) 58%, transparent 66%); }
+.v-sub { margin: 20px 0 10px; color: var(--ink); font-size: 14px; font-weight: 800; }
+.v-lead { margin: 0 0 12px; color: #33585C; font-size: 13px; line-height: 2; }
+.v-vision { position: relative; padding: 16px 14px 12px; border-radius: 18px; background: linear-gradient(135deg, var(--sand), #fff); border: 1px solid var(--line); }
+.v-vision span { position: absolute; top: -10px; right: 14px; padding: 1px 10px; border-radius: 999px; background: var(--coral); color: #fff; font-size: 10.5px; font-weight: 800; }
+.v-vision p { margin: 0; color: var(--ink); font-size: 15px; font-weight: 800; line-height: 1.8; }
+.v-goals { display: grid; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+.v-goals li { position: relative; padding: 9px 34px 9px 12px; border-radius: 12px; background: #fff; border: 1px solid var(--line); color: #2A4B4F; font-size: 12px; line-height: 1.8; }
+.v-goals li::before { content: ""; position: absolute; right: 12px; top: 50%; width: 12px; height: 12px; margin-top: -6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(95, 163, 82, .18); }
+
+/* ---------- الفئتان والمجالات والمعايير ---------- */
+.v-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.vc { display: grid; justify-items: start; gap: 4px; padding: 14px 12px; border-radius: 18px 18px 18px 4px; color: #fff; }
+.vc-ind { background: linear-gradient(150deg, #E59A4B, #C9603F); }
+.vc-org { background: linear-gradient(150deg, #1D8C86, #0A4B50); }
+.vc-ic { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, .2); }
+.vc-ic svg { width: 21px; height: 21px; }
+.vc b { font-size: 14px; font-weight: 800; line-height: 1.5; }
+.vc small { font-size: 10.5px; line-height: 1.7; opacity: .92; }
+.vc em { margin-top: 2px; padding: 1px 9px; border-radius: 999px; background: rgba(255, 255, 255, .22); font-style: normal; font-size: 10px; font-weight: 800; }
+.v-honor { grid-column: 1 / -1; margin: 2px 0 0; color: #6B7E80; font-size: 11.5px; line-height: 1.8; }
+.v-fields { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.v-fields li { padding: 6px 12px; border-radius: 999px; font-size: 11.5px; font-weight: 700; color: var(--ink);
+  background: color-mix(in srgb, var(--amber) calc(8% + var(--i) * 1%), #fff); border: 1px solid color-mix(in srgb, var(--amber) 30%, #fff); }
+.v-fields li:nth-child(3n+2) { background: color-mix(in srgb, var(--teal) 9%, #fff); border-color: color-mix(in srgb, var(--teal) 28%, #fff); }
+.v-fields li:nth-child(3n) { background: color-mix(in srgb, var(--green) 11%, #fff); border-color: color-mix(in srgb, var(--green) 30%, #fff); }
+.v-crit { position: relative; display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.v-crit::before { content: ""; position: absolute; top: 14px; bottom: 14px; right: 17px; width: 2px; background: linear-gradient(var(--amber), var(--coral), var(--teal)); }
+.v-crit li { position: relative; display: grid; grid-template-columns: 36px 1fr; column-gap: 10px; align-items: center; }
+.v-crit span { grid-row: span 2; position: relative; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #fff; border: 2px solid var(--amber); color: #A55A2A; font-weight: 800; }
+.v-crit b { color: var(--ink); font-size: 13px; font-weight: 800; }
+.v-crit small { color: #5B7477; font-size: 11.5px; line-height: 1.7; }
+
+/* ---------- منصّات التتويج ---------- */
+.v-win-head { text-align: center; }
+.v-win-head .v-eyebrow { color: var(--coral); }
+.v-win-head h2 { margin: 2px 0 4px; color: var(--ink); font-size: 20px; font-weight: 800; }
+.v-win-head p { margin: 0 0 14px; color: #5B7477; font-size: 11.5px; }
+.v-eds { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; }
+.ve { padding: 14px 12px 12px; border-radius: 22px; background: linear-gradient(180deg, var(--sand), #fff 60%); border: 1px solid var(--line); }
+.ve-h { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.ve-year { display: grid; place-items: center; width: 56px; height: 56px; flex: none; border-radius: 50%; color: #fff; font-weight: 800; font-size: 15px;
+  background: radial-gradient(circle at 50% 30%, #F3B46C, #D9735A 80%); box-shadow: 0 0 0 4px #fff, 0 0 0 5px rgba(217, 115, 90, .35); }
+.ve-h b { display: block; color: var(--ink); font-size: 15px; font-weight: 800; }
+.ve-h small { color: #8A6A4E; font-size: 11px; font-weight: 700; }
+.vp { margin-top: 10px; }
+.vp h4 { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; color: var(--ink); font-size: 12.5px; font-weight: 800; }
+.vp h4 svg { width: 17px; height: 17px; color: var(--coral); }
+.vp-org h4 svg { color: var(--teal); }
+.vp-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.vp-s button { display: grid; width: 100%; padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; text-align: center; }
+.vp-who { display: grid; justify-items: center; gap: 2px; padding-bottom: 6px; text-align: center; }
+.vp-av { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; font-style: normal; font-size: 19px; font-weight: 800; color: #fff;
+  background: var(--rc); box-shadow: 0 0 0 3px #fff, 0 0 0 4px color-mix(in srgb, var(--rc) 45%, #fff); transition: transform .3s cubic-bezier(.3, .7, .2, 1.4); }
+.vp-av svg { width: 22px; height: 22px; }
+.vp-who b { margin-top: 4px; color: var(--ink); font-size: 11px; font-weight: 800; line-height: 1.5; text-wrap: balance; }
+.vp-who small { color: #A55A2A; font-size: 10px; font-weight: 700; line-height: 1.5; text-wrap: balance; }
+.vp-blk { display: grid; place-items: center; border-radius: 12px 12px 4px 4px; background: linear-gradient(180deg, color-mix(in srgb, var(--rc) 85%, #fff), var(--rc)); color: #fff; }
+.vp-blk strong { font-size: 22px; font-weight: 800; line-height: 1; text-shadow: 0 1px 2px rgba(0, 0, 0, .2); }
+.vp-s.r1 { --rc: var(--r1); } .vp-s.r2 { --rc: var(--r2); } .vp-s.r3 { --rc: var(--r3); }
+.vp-s.r1 .vp-blk { height: 78px; } .vp-s.r2 .vp-blk { height: 56px; } .vp-s.r3 .vp-blk { height: 40px; }
+.vp-s.r1 .vp-av { width: 54px; height: 54px; font-size: 22px; }
+.vp-s button:hover .vp-av, .vp-s button:focus-visible .vp-av { transform: translateY(-4px); }
+.vp-s.is-off { --rc: #C9D2D2; }
+.vp-s.is-off .vp-blk { background: repeating-linear-gradient(135deg, #EEF1F1 0 6px, #fff 6px 12px); border: 1.5px dashed #C9D2D2; color: #9AA7A8; }
+.vp-s.is-off .vp-blk strong { text-shadow: none; }
+.vp-s.is-off .vp-av { background: #EEF1F1; color: #9AA7A8; }
+.vp-s.is-off .vp-who b, .vp-s.is-off .vp-who small { color: #9AA7A8; }
+.ve-note { margin: 12px 0 0; padding-top: 10px; border-top: 1px dashed var(--line); color: #6B7E80; font-size: 11px; line-height: 1.8; }
+@media (prefers-reduced-motion: no-preference) {
+  .vp-blk { animation: v-rise .8s cubic-bezier(.2, .8, .2, 1) both; transform-origin: bottom; }
+  .vp-s.r1 .vp-blk { animation-delay: .15s; } .vp-s.r3 .vp-blk { animation-delay: .3s; }
+}
+@keyframes v-rise { from { transform: scaleY(0); } to { transform: none; } }
+.v-early { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.v-early li { display: grid; justify-items: start; gap: 2px; padding: 12px; border-radius: 16px; background: #fff; border: 1px dashed #E3CBA8; }
+.v-early .ve-year { width: 44px; height: 44px; font-size: 12.5px; margin-bottom: 4px; box-shadow: none; opacity: .85; }
+.v-early b { color: var(--ink); font-size: 13px; }
+.v-early small { color: #8A6A4E; font-size: 11px; }
+.v-early em { font-style: normal; color: #9AA7A8; font-size: 10.5px; }
+
+/* ---------- بطاقة الفائز ---------- */
+.v-sheet { position: fixed; inset: 0; z-index: 90; display: grid; align-items: end; background: rgba(4, 30, 33, 0); transition: background .3s ease; }
+.v-sheet[hidden] { display: none; }
+.v-sheet.on { background: rgba(4, 30, 33, .55); }
+.vs-card { position: relative; display: grid; justify-items: center; max-height: 86vh; overflow: auto; padding: 28px 20px calc(22px + env(safe-area-inset-bottom)); border-radius: 26px 26px 0 0; text-align: center;
+  background: linear-gradient(180deg, var(--sand), #fff 45%); transform: translateY(100%); transition: transform .38s cubic-bezier(.2, .8, .2, 1); }
+.v-sheet.on .vs-card { transform: none; }
+.vs-card.r1 { --rc: var(--r1); } .vs-card.r2 { --rc: var(--r2); } .vs-card.r3 { --rc: var(--r3); }
+.vs-x { position: absolute; top: 10px; left: 10px; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: #fff; color: var(--ink); cursor: pointer; box-shadow: 0 2px 8px rgba(0, 0, 0, .08); }
+.vs-x svg { width: 18px; height: 18px; }
+.vs-rings { position: absolute; top: 4px; left: 50%; width: 150px; height: 150px; margin-left: -75px; pointer-events: none; }
+.vs-rings i { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--rc) 60%, #fff); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) { .vs-rings i { animation: v-wave 3.6s ease-out infinite; } .vs-rings i:nth-child(2) { animation-delay: 1.2s; } .vs-rings i:nth-child(3) { animation-delay: 2.4s; } }
+.vp-av.big { position: relative; width: 96px; height: 96px; margin-top: 4px; font-size: 38px; }
+.vp-av.big svg { width: 44px; height: 44px; }
+.vs-rank { margin-top: 12px; padding: 2px 12px; border-radius: 999px; background: var(--rc); color: #fff; font-size: 11px; font-weight: 800; }
+.vs-card h3 { margin: 8px 0 2px; color: var(--ink); font-size: 19px; font-weight: 800; }
+.vs-proj { margin: 0 0 16px; color: #A55A2A; font-size: 13.5px; font-weight: 800; }
+.vs-why { position: relative; width: 100%; padding: 16px 14px 12px; border-radius: 16px; background: #fff; border: 1px solid var(--line); text-align: right; }
+.vs-why span { position: absolute; top: -10px; right: 14px; padding: 1px 10px; border-radius: 999px; background: var(--coral); color: #fff; font-size: 10.5px; font-weight: 800; }
+.vs-why p { margin: 0; color: #20484C; font-size: 13px; line-height: 2; }
+.vs-none { margin: 0; color: #8A9A9B; font-size: 12px; }
+.vs-ed { margin: 12px 0 0; color: #6B7E80; font-size: 11.5px; }
+
+.v-src ul { margin: 0; padding: 0 18px 0 0; color: #5B7477; font-size: 12px; line-height: 2; }
+.v-src a { color: var(--teal); }
+@media (min-width: 700px) { .v-hero h1 { font-size: 34px; } .v-eds { grid-template-columns: 1fr 1fr; } .vs-card { max-width: 520px; margin: 0 auto; } .v-early { grid-template-columns: repeat(4, 1fr); } }
+
+/* ===================== صفحة «جوائز السلطان قابوس» (awards.html) ===================== */
+.aws-page { --ink: #063135; padding-bottom: 34px; background: #fff; }
+.aws-hero { padding: 26px var(--gutter) 20px; text-align: center; color: #fff; background: linear-gradient(160deg, #0C7F89, #0A4B50 70%); }
+.aws-eyebrow { color: #F4DFAE; font-size: 11.5px; font-weight: 700; }
+.aws-hero h1 { margin: 6px 0 8px; font-size: 26px; font-weight: 800; }
+.aws-hero p { max-width: 520px; margin: 0 auto; color: rgba(255, 255, 255, .88); font-size: 12.5px; line-height: 1.9; }
+.aws-list { display: grid; gap: 14px; margin-top: -2px; padding-top: 18px; }
+.aws-card { position: relative; display: grid; grid-template-columns: 112px 1fr; gap: 12px; align-items: center; min-height: 150px; padding: 14px; overflow: hidden; border-radius: 22px; text-decoration: none; color: #fff; isolation: isolate; box-shadow: 0 14px 30px -18px rgba(6, 49, 53, .7); }
+.aws-card.is-culture { background: radial-gradient(120% 120% at 100% 0%, #13959F, #0A5359 55%, #073A3E); }
+.aws-card.is-vol { background: radial-gradient(120% 120% at 100% 0%, #F2B66E, #D9735A 40%, #0E6A6A 100%); }
+.aws-art { position: relative; width: 112px; height: 112px; }
+.aws-art i { position: absolute; inset: 0; border-radius: 50%; }
+.is-culture .aws-art .r1 { border: 1.5px dashed rgba(244, 223, 174, .8); }
+.is-culture .aws-art .r2 { inset: 9px; background: conic-gradient(from 200deg, #F4DFAE, #C6A15A, #8E6A2C, #E9CF96, #F4DFAE); }
+.aws-medal { position: absolute; inset: 14px; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 50% 30%, #12919B, #0A4B50 75%); }
+.aws-medal img { height: 80%; width: auto; }
+.is-vol .aws-art i { border: 1.5px solid rgba(255, 247, 236, .7); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .is-vol .aws-art i { animation: v-wave 4.2s ease-out infinite; } .is-vol .aws-art .r2 { animation-delay: 1.4s; } .is-vol .aws-art .r3 { animation-delay: 2.8s; }
+  .is-culture .aws-art .r1 { animation: aws-spin 30s linear infinite; }
+}
+@media (prefers-reduced-motion: reduce) { .is-vol .aws-art i { opacity: .4; } }
+@keyframes aws-spin { to { transform: rotate(360deg); } }
+.aws-heart { position: absolute; inset: 26px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: radial-gradient(circle at 50% 30%, #F3B46C, #D9735A 75%); box-shadow: 0 0 0 5px rgba(255, 247, 236, .25); }
+.aws-heart svg { width: 62%; height: 62%; }
+.aws-txt { display: grid; gap: 4px; }
+.aws-txt small { color: rgba(255, 255, 255, .78); font-size: 10px; line-height: 1.6; }
+.aws-txt b { font-size: 16px; font-weight: 800; line-height: 1.5; }
+.aws-txt em { font-style: normal; font-size: 11.5px; line-height: 1.7; color: rgba(255, 255, 255, .9); }
+.is-culture .aws-txt b { color: #F4DFAE; } .is-vol .aws-txt b { color: #FFF3E0; }
+.aws-go { justify-self: start; margin-top: 4px; padding: 5px 12px; border-radius: 999px; background: rgba(255, 255, 255, .16); font-size: 11.5px; font-weight: 800; }
+.aws-card:active { transform: scale(.99); }
+@media (min-width: 700px) { .aws-list { grid-template-columns: 1fr 1fr; } }
+
+/* Photo cutout of the volunteer award supplied by the user. */
+.aws-trophy { position:absolute; inset:0; display:grid; place-items:center; border-radius:50%; background:radial-gradient(circle,#fff0bd33,transparent 70%); }
+.aws-trophy img { display:block; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 5px 5px #432b2938); transform-origin:50% 90%; }
+@media(prefers-reduced-motion:no-preference) {
+ .aws-trophy img { animation:aws-cup-float 5s ease-in-out infinite; }
+}
+@keyframes aws-cup-float { 0%,100% { transform:translateY(1px) rotate(-1deg); } 50% { transform:translateY(-3px) rotate(1deg); } }

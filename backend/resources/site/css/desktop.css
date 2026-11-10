@@ -1,0 +1,580 @@
+/* ==========================================================
+   إنجازات شباب عمان — تنسيق الكمبيوتر والتابلت
+   يُحمَّل آخر ملف في كل صفحة. كل القواعد داخل نقاط تحوّل للشاشات الأعرض،
+   فتصميم الهاتف لا يتغيّر.
+   ========================================================== */
+
+/* ---------- الهيدر: قائمة أفقية على الكمبيوتر ---------- */
+.dnav, .dsearch { display: none; }
+@media (min-width: 1100px) {
+  :root { --gutter: 40px; --section: 64px; --fs-section: 30px; --dw: 1200px; }
+  .site-header { height: 78px; padding-inline: max(40px, calc((100% - var(--dw)) / 2)); gap: 24px;
+    background: linear-gradient(180deg, #0C7F89, #0A737C); box-shadow: 0 1px 0 rgba(233, 205, 142, .35); transition: height .3s ease, box-shadow .3s ease; }
+  .site-header.is-scrolled { height: 66px; box-shadow: 0 1px 0 rgba(233, 205, 142, .35), 0 10px 30px -12px rgba(4, 40, 44, .45); }
+  .site-header .logo img { height: 52px; transition: height .3s ease; }
+  .site-header.is-scrolled .logo img { height: 44px; }
+  .site-header .crumb { display: none; }
+  .site-header.has-desktop-nav .menu-btn { display: none; }
+  .dnav { display: block; flex: 1; min-width: 0; }
+  .dnav ul { display: flex; align-items: center; justify-content: center; gap: 2px; margin: 0; padding: 0; list-style: none; }
+  .dnav a { position: relative; display: block; padding: 8px 11px; border-radius: 10px; color: rgba(255, 255, 255, .9); font-size: 14px; font-weight: 600; white-space: nowrap; transition: color .2s, background .2s; }
+  .dnav a::after { content: ""; position: absolute; left: 50%; right: 50%; bottom: 2px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #C9A35C, #F1DDAE, #C9A35C); transition: left .3s cubic-bezier(.16, 1, .3, 1), right .3s cubic-bezier(.16, 1, .3, 1); }
+  .dnav a:hover { color: #fff; background: rgba(255, 255, 255, .07); }
+  .dnav a:hover::after, .dnav a[aria-current="page"]::after { left: 11px; right: 11px; }
+  .dnav a[aria-current="page"] { color: #F1DDAE; }
+  .dsearch { display: grid; place-items: center; flex: none; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(241, 221, 174, .45); background: rgba(255, 255, 255, .06); color: #fff; transition: background .2s, transform .2s; }
+  .dsearch:hover { background: rgba(255, 255, 255, .16); transform: scale(1.05); }
+  .dsearch svg { width: 18px; height: 18px; }
+  main { max-width: var(--dw); margin-inline: auto; }
+  .sec-title { gap: 12px; margin-bottom: 22px; }
+  .sec-title img { width: 50px; height: 31px; }
+  .btn-more { height: 42px; min-width: 150px; padding-inline: 28px; font-size: 14px; transition: transform .25s ease, box-shadow .25s ease; }
+  .btn-more:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px rgba(6, 49, 53, .55); }
+}
+@media (min-width: 1100px) and (max-width: 1240px) { .dnav a { padding-inline: 8px; font-size: 13px; } }
+
+/* شرائط بعرض الشاشة كاملة مع محتوى داخل الحاوية */
+@media (min-width: 1100px) {
+  .bleed { width: var(--layout-width, 100vw); max-width: none; margin-inline: calc(50% - (var(--layout-width, 100vw) / 2)); padding-inline: max(40px, calc((var(--layout-width, 100vw) / 2) - 560px)); }
+}
+
+/* ==========================================================
+   الصفحة الرئيسية
+   ========================================================== */
+
+/* ---------- ١. بانر جلالة السلطان ---------- */
+@media (min-width: 1100px) {
+  .home .hero-cinema { width: var(--layout-width, 100vw); margin-inline: calc(50% - (var(--layout-width, 100vw) / 2)); aspect-ratio: auto; height: clamp(500px, 40vw, 640px);
+    background: radial-gradient(40% 70% at 30% 55%, rgba(14, 140, 150, .55) 0%, transparent 70%), linear-gradient(175deg, #0C7F89 0%, #0A5C63 55%, #063135 100%); }
+  .home .hero-cinema::before { display: block; content: ""; position: absolute; inset: 0; z-index: 0; opacity: .05;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cg fill='none' stroke='%23E2C489' stroke-width='.7'%3E%3Crect x='12' y='12' width='20' height='20'/%3E%3Crect x='12' y='12' width='20' height='20' transform='rotate(45 22 22)'/%3E%3C/g%3E%3C/svg%3E");
+    -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000 75%); mask-image: linear-gradient(90deg, transparent 30%, #000 75%); }
+  .home .hero-cinema .grid { max-width: 1120px; margin-inline: auto; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); padding-inline: 0; }
+  .home .hero-cinema .quote { padding-inline-start: 44px; max-width: 600px; }
+  .home .hero-cinema .quote::before { width: 2px; top: 18%; bottom: 18%; }
+  .home .hero-cinema .hc-lead { font-size: 50px; line-height: 1.3; margin-bottom: 14px; }
+  .home .hero-cinema .hc-body { font-size: 20px; line-height: 1.9; }
+  .home .hero-cinema .by { margin-top: 28px; }
+  .home .hero-cinema .by b { font-size: 18px; }
+  .home .hero-cinema .by span { font-size: 15px; }
+  .home .hero-cinema .hc-pic { margin-left: 0; }
+  .home .hero-cinema .hc-pic::before { background: radial-gradient(50% 62% at 50% 48%, rgba(18, 150, 160, .6) 0%, transparent 72%); }
+  .home .hero-cinema .portrait { -webkit-mask-image: linear-gradient(0deg, transparent 0%, #000 16%); mask-image: linear-gradient(0deg, transparent 0%, #000 16%); }
+  .home .hero-cinema .portrait { padding-top: 26px; }
+}
+@media (min-width: 700px) and (max-width: 1099px) {
+  .home .hero-cinema { aspect-ratio: auto; height: clamp(380px, 52vw, 520px); }
+  .home .hero-cinema .grid { padding-inline: 32px 0; }
+  .home .hero-cinema .hc-lead { font-size: clamp(28px, 4vw, 38px); }
+  .home .hero-cinema .hc-body { font-size: clamp(14px, 1.9vw, 17px); }
+  .home .hero-cinema .by b { font-size: 15px; } .home .hero-cinema .by span { font-size: 13px; }
+}
+
+/* ---------- المنجزون (الشريط) ---------- */
+@media (min-width: 1100px) {
+  .home-achievers { max-width: 1000px; margin-top: 44px; }
+  .home-achievers .strip { --strip-gap: 14px; --side-photo-height: 190px; --active-photo-height: 236px; }
+  .home-achievers .strip-frame { grid-template-columns: 52px minmax(0, 1fr) 52px; gap: 10px; }
+  .home-achievers .strip-arrow { width: 52px; height: 52px; }
+  .home-achievers .strip-arrow::before { width: 44px; height: 44px; transition: transform .25s, background .25s; }
+  .home-achievers .strip-arrow:hover::before { transform: scale(1.08); }
+  .home-achievers .strip-arrow svg { width: 20px; height: 20px; }
+  .home-achievers .strip-photo { border-radius: 16px; }
+  .home-achievers .strip button.center .strip-photo { border-radius: 20px; box-shadow: 0 18px 36px -18px rgba(6, 49, 53, .55); }
+  .home-achievers .strip-name { font-size: 14px; min-height: 40px; margin-top: 10px; }
+  .home-achievers .center .strip-name { font-size: 16px; }
+  .home-achievers .strip-nav { margin-top: 0; justify-content: center; }
+  .home-achievers .strip-discover { font-size: 14px; gap: 10px; padding: 6px 18px; border-radius: 999px; border: 1px solid #D9C08E; color: var(--primary); transition: background .2s; }
+  .home-achievers .strip-discover:hover { background: #F7F1E4; text-decoration: none; }
+}
+
+/* ---------- ٢. الإحصائيات ---------- */
+@media (min-width: 1100px) {
+  .home .home-statistics { margin-top: 48px; }
+  .home .stats { max-width: 1040px; margin-inline: auto; padding: 34px 20px; border-radius: 24px; }
+  .home .stats .stat-item { flex-direction: row; justify-content: center; gap: 18px; padding: 0 20px; text-align: right; }
+  .home .stats svg { width: 30px; height: 30px; box-shadow: 0 0 0 14px #F5EDDC; margin-inline: 14px 10px; }
+  .home .stats strong { font-size: 44px; line-height: 1.1; margin: 0; }
+  .home .stats span { font-size: 15px; }
+  .home .stats .stat-item > strong + span { margin-top: 0; }
+  .home .stats .stat-item { display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; justify-content: center; align-items: center; column-gap: 24px; row-gap: 2px; }
+  .home .stats svg { grid-row: 1 / 3; }
+  .home .stats strong { align-self: end; }
+  .home .stats span { align-self: start; text-align: right; }
+}
+
+/* ---------- ٣. أحدث الإنجازات ---------- */
+@media (min-width: 1100px) {
+  .home-latest { margin-top: 72px; }
+  .latest-layout { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); grid-template-rows: auto auto; gap: 20px; }
+  .latest-feature { grid-column: 1; grid-row: 1 / 3; height: auto; min-height: 520px; border-radius: 20px; }
+  .latest-feature-content { width: 54%; padding: 40px; gap: 14px; }
+  .latest-feature strong { font-size: 30px; line-height: 1.5; }
+  .latest-feature .latest-action { height: 36px; padding-inline: 16px; font-size: 14px; }
+  .latest-pair { grid-column: 2; grid-row: 1; gap: 20px; }
+  .latest-card { border-radius: 18px; }
+  .latest-card > img { height: 170px; }
+  .latest-card-content { min-height: 96px; padding: 14px 16px; gap: 6px; }
+  .latest-card strong { font-size: 16px; }
+  .latest-rows { grid-column: 2; grid-row: 2; gap: 20px; }
+  .latest-row { min-height: 120px; border-radius: 18px; }
+  .latest-row-content { padding: 14px 22px; gap: 6px; }
+  .latest-row strong { font-size: 17px; }
+  .home-latest .latest-action { font-size: 13px; }
+  .home-latest .latest-action > span { width: 20px; height: 20px; font-size: 11px; }
+  .home-latest .center { margin-top: 36px !important; }
+}
+
+/* ---------- ٤. عائشة السيفي ---------- */
+@media (min-width: 1100px) {
+  .aisha-feature { width: var(--layout-width, 100vw); margin-inline: calc(50% - (var(--layout-width, 100vw) / 2)); min-height: 460px; margin-top: 80px; padding: 70px max(40px, calc((var(--layout-width, 100vw) / 2) - 560px)); display: flex; align-items: center; }
+  .aisha-art { inset: auto calc((var(--layout-width, 100vw) / 2) - 600px) 0 auto; }
+  .aisha-copy { width: 44%; max-width: 500px; margin-right: auto; }
+  .aisha-label { font-size: 15px; margin-bottom: 8px; }
+  .aisha-label::before { width: 30px; }
+  .aisha-copy h2 { font-size: 46px; margin-bottom: 22px; }
+  .aisha-copy h2::after { width: 60px; height: 3px; margin-top: 8px; }
+  .aisha-bio { padding: 22px 26px 12px; border-radius: 20px; }
+  .aisha-bio p { font-size: 17px; line-height: 2; }
+  .aisha-bio a { font-size: 14px; min-height: 48px; }
+  .aisha-bio a span { width: 24px; height: 24px; font-size: 12px; }
+}
+@media (min-width: 1500px) { .aisha-art { inset-inline-end: calc((var(--layout-width, 100vw) / 2) - 700px); } }
+
+/* ---------- ٥. ملهمون من عُمان ---------- */
+@media (min-width: 1100px) {
+  .home-inspiring { width: var(--layout-width, 100vw); margin-inline: calc(50% - (var(--layout-width, 100vw) / 2)); padding: 80px max(40px, calc((var(--layout-width, 100vw) / 2) - 560px)); }
+  .inspiring-heading { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; }
+  .inspiring-heading .sec-title { margin-bottom: 0; }
+  .home-inspiring .sec-title h2 { font-size: 30px; }
+  .inspiring-heading p { font-size: 16px; }
+  .inspiring-covers { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+  .inspiring-cover-art { border-radius: 22px; transition: transform .45s cubic-bezier(.16, 1, .3, 1), box-shadow .45s; }
+  .inspiring-cover:hover .inspiring-cover-art { transform: translateY(-6px); box-shadow: 0 26px 40px -22px rgba(41, 38, 30, .6); }
+  .inspiring-cover-art::after { width: 32px; height: 32px; font-size: 14px; top: 14px; inset-inline-start: 14px; }
+  .inspiring-cover figcaption { padding-top: 14px; }
+  .inspiring-cover h3 { font-size: 18px; }
+  .inspiring-cover figcaption span { font-size: 12px; padding: 3px 12px; }
+}
+
+/* ---------- ٦. المقالات ---------- */
+@media (min-width: 1100px) {
+  .home-articles { padding-block: 0 10px; margin-top: 80px; }
+  .articles-board { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+  .article-lead { border-inline-end: 0; padding-inline-end: 0; gap: 14px; }
+  .article-lead::after { display: none; }
+  .article-lead img:not(.article-av) { border-radius: 22px; aspect-ratio: 16 / 9; }
+  .article-lead h3 { font-size: 28px; padding-inline-start: 34px; }
+  .article-lead h3::before { font-size: 54px; top: -10px; }
+  .article-lead > p:last-of-type { font-size: 16px; }
+  .article-by { font-size: 15px; gap: 10px; }
+  .article-lead .article-av { width: 40px; height: 40px; }
+  .article-lead .article-read { height: 40px; padding-inline: 20px 12px; font-size: 14px; }
+  .article-side { gap: 22px; align-content: start; }
+  .article-mini-link { grid-template-columns: 170px minmax(0, 1fr); gap: 16px; align-items: stretch; }
+  .article-mini-link img:not(.article-av) { height: 100%; min-height: 176px; border-radius: 18px; }
+  .article-mini-copy { height: auto; min-height: 176px; padding: 16px 20px 14px; border-radius: 18px; }
+  .article-mini-copy .article-by { font-size: 13px; }
+  .article-mini-copy .article-av { width: 28px; height: 28px; }
+  .article-mini-copy h3 { font-size: 17px; margin: 6px 0; }
+  .article-mini-copy p:last-of-type { font-size: 14px; line-height: 1.8; }
+  .article-mini-copy .article-read { font-size: 13px; }
+  .article-read::after { width: 20px; height: 20px; font-size: 11px; }
+}
+
+/* ---------- ٧. الرياضة ---------- */
+@media (min-width: 1100px) {
+  .home-sports { margin-top: 80px; padding: 56px 56px 48px; border-radius: 32px; }
+  .home-sports .sec-title { margin-bottom: 32px; }
+  .sports-grid { gap: 28px; }
+  .sports-photo { border-radius: 22px; }
+  .sports-caption { padding-top: 16px; }
+  .sports-caption h3 { font-size: 20px; }
+  .sports-field { font-size: 14px; }
+  .sports-more { margin-top: 34px; }
+}
+
+/* ---------- ٨. الثقافة ---------- */
+@media (min-width: 1100px) {
+  .home-culture { margin-top: 80px; display: grid; grid-template-columns: 300px minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 56px; padding: 56px; border-radius: 32px; }
+  .home-culture .sec-title { grid-column: 1; grid-row: 1; margin-bottom: 10px; }
+  .home-culture .culture-sub { grid-column: 1; grid-row: 2; font-size: 16px; line-height: 1.9; align-items: flex-start; }
+  .home-culture .culture-sub::before { margin-top: 15px; flex: none; }
+  .home-culture .row-more { grid-column: 2; grid-row: 1 / 4; gap: 22px; }
+  .home-culture .people { gap: 22px; }
+  .home-culture .person.sm { border-radius: 22px; aspect-ratio: 4 / 5; }
+  .home-culture .person.sm .badge { top: auto; bottom: 48px; left: 50%; right: auto; inset-inline-start: auto; transform: translateX(-50%); height: 26px; line-height: 26px; font-size: 13px; padding-inline: 12px; }
+  .home-culture .person.sm .name { bottom: 16px; font-size: 16px; }
+  .home-culture .more-round .btn-round { width: 48px; height: 48px; }
+  .home-culture .more-round .btn-round svg { width: 20px; height: 20px; }
+  .home-culture .more-round .lbl { font-size: 14px; }
+  .home-culture .person.sm:hover { transform: translateY(-6px); }
+}
+
+/* ---------- ٩. القسم العلمي ---------- */
+@media (min-width: 1100px) {
+  .science-editorial { width: var(--layout-width, 100vw); margin-inline: calc(50% - (var(--layout-width, 100vw) / 2)); margin-top: 80px; padding: 80px max(40px, calc((var(--layout-width, 100vw) / 2) - 560px)) 64px; }
+  .science-heading { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; }
+  .science-heading .sec-title { margin-bottom: 0; }
+  .science-subtitle { font-size: 16px; }
+  .science-editorial-layout { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 32px; }
+  .science-lead { border-radius: 24px; }
+  .science-lead-copy { padding: 28px 32px 30px; }
+  .science-lead h3 { font-size: 28px; }
+  .science-lead-copy p { font-size: 16px; }
+  .science-lead .science-read { height: 40px; padding-inline: 20px; font-size: 14px; }
+  .science-briefs { gap: 20px; padding-top: 0; }
+  .science-brief-link { grid-template-columns: 170px minmax(0, 1fr); gap: 22px; padding: 14px; border-radius: 20px; align-items: center; }
+  .science-brief-link > img { width: 170px; border-radius: 14px; }
+  .science-brief h3 { font-size: 19px; line-height: 1.75; }
+  .science-story-category { font-size: 12px; padding-inline: 12px; }
+  .science-brief .science-read { font-size: 13px; }
+  .science-bottom { margin-top: 40px; }
+  .science-bottom .btn-more { font-size: 14px; }
+}
+
+/* ---------- ١٠. المؤسسات ---------- */
+@media (min-width: 1100px) {
+  .home-partners { margin-top: 80px; padding: 56px 48px 48px; border-radius: 32px; }
+  .partners-eyebrow { font-size: 15px; }
+  .partners-head h2 { font-size: 34px; margin-bottom: 14px; }
+  .partners-line { width: 160px; margin-bottom: 26px; }
+  .partners-row { display: grid; grid-template-columns: 200px minmax(0, 1fr); align-items: center; gap: 20px; margin-top: 18px; }
+  .partners-row h3 { margin: 0; justify-self: start; font-size: 14px; padding: 6px 16px; }
+  .partners-marquee { margin-inline: 0; }
+  .partners-group { min-width: 0; justify-content: flex-start; gap: 20px; padding-right: 20px; }
+  .partners-row .partner { width: 150px; height: 86px; padding: 12px; border-radius: 16px; }
+  .partners-row .partner img { height: 58px; }
+  .partners-all { margin-top: 34px; height: 44px; padding-inline: 26px; font-size: 15px; }
+}
+
+/* ---------- تابلت (٧٠٠–١٠٩٩) للرئيسية ---------- */
+@media (min-width: 700px) and (max-width: 1099px) {
+  .latest-layout { grid-template-columns: 1fr 1fr; }
+  .latest-feature { grid-column: 1 / -1; height: 340px; }
+  .latest-pair { grid-column: 1 / -1; }
+  .latest-rows { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
+  .home-culture { padding: 32px; }
+  .home-culture .person.sm { aspect-ratio: 4 / 5; }
+  .partners-group { min-width: 0; justify-content: flex-start; gap: 14px; padding-right: 14px; }
+}
+
+/* ---------- الفوتر ---------- */
+@media (min-width: 1100px) {
+  .footer-redesign { margin-top: 90px; padding: 48px max(40px, calc((var(--layout-width, 100vw) / 2) - 560px)) 22px; }
+  .footer-redesign .footer-layout { width: 100%; max-width: 1120px; column-gap: 48px; }
+  .footer-redesign .footer-logo img { height: 78px; }
+  .footer-redesign .footer-socials { gap: 8px; }
+  .footer-redesign .footer-socials a, .footer-redesign .footer-socials span { width: 40px; height: 40px; transition: transform .2s, background .2s; }
+  .footer-redesign .footer-socials a:hover { transform: translateY(-2px); background: rgba(255, 255, 255, .16); }
+  .footer-redesign .footer-navigation a { font-size: 14.5px; transition: color .2s; }
+  .footer-redesign .footer-navigation a:hover { color: #F1DDAE; }
+  .footer-redesign .footer-link-columns { row-gap: 6px; column-gap: 26px; }
+  .footer-redesign .footer-details a, .footer-redesign .footer-details li > span { font-size: 13.5px; }
+  .footer-redesign .copy { max-width: 1120px; width: 100%; font-size: 13px; margin-top: 30px; padding-top: 18px; }
+}
+@media (min-width: 1100px) {
+  .footer-redesign .footer-layout { grid-template-columns: auto minmax(0, 1fr); row-gap: 26px; }
+  .footer-redesign .footer-navigation { grid-column: 2; }
+  .footer-redesign .footer-link-columns { justify-content: flex-end; column-gap: 30px; row-gap: 10px; }
+  .footer-redesign .footer-details { grid-column: 1 / -1; grid-row: 2; justify-self: stretch; }
+  .footer-redesign .footer-details ul { justify-content: center; }
+}
+@media (min-width: 700px) and (max-width: 1099px) {
+  .articles-board { grid-template-columns: 1fr; }
+  .article-lead { border-inline-end: 0; padding-inline-end: 0; }
+  .article-side { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .article-mini-link { grid-template-columns: 120px minmax(0, 1fr); align-items: stretch; }
+  .article-mini-link img:not(.article-av) { height: 100%; min-height: 130px; }
+  .article-mini-copy { height: auto; min-height: 130px; }
+}
+
+/* ==========================================================
+   الصفحات الداخلية
+   ========================================================== */
+@media (min-width: 1100px) {
+  /* واجهات الصفحات بعرض الشاشة كاملة */
+  .page-hero, .orgs-hero, .lab-hero, .wr-hero, .profile-hero, .oi-hero, .org-hero2, .story-hero, .nw-mast {
+    width: var(--layout-width, 100vw); max-width: none; margin-inline: calc(50% - (var(--layout-width, 100vw) / 2)); padding-inline: max(40px, calc((var(--layout-width, 100vw) / 2) - 560px)); }
+  .lab-hero .wrap, .wr-hero .wrap, .nw-mast .wrap { padding-inline: 0; }
+  .page-hero { padding-block: 44px 40px; }
+  .page-hero h1 { font-size: 44px; font-weight: 700; }
+  .page-hero .search { max-width: 620px; margin-top: 20px; }
+  .page-hero .search input { height: 52px; font-size: 15px; }
+
+  /* بطاقات القوائم: أعمدة أكثر بدل بطاقات ضخمة */
+  .grid-2.cards-ov { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
+  .grid-2 { gap: 22px; }
+}
+
+/* Responsive completion — 2026-11-05. Mobile rules remain in the original files. */
+@media (min-width: 700px) {
+  .home-partners .partners-marquee { margin-inline: 0; min-width: 0; }
+  .about-page .page { max-width: 1200px; }
+  .about-page { --gut: 32px; }
+  .about-page .hero { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: 32px; }
+  .about-page .hero-lead { max-width: 32ch; font-size: clamp(18px, 2.1vw, 27px); line-height: 1.9; }
+  .about-page .hero-art { margin: 0; width: 100%; max-width: 500px; justify-self: center; }
+  .about-page .chips-nav ul { justify-content: center; flex-wrap: wrap; }
+  .about-page .vmv-deck { max-width: 1000px; margin-inline: auto; gap: 36px 24px; padding-inline: 32px; }
+  .about-page .vmv-card { padding-inline: 24px; }
+  .about-page .vmv-card h3 { font-size: 24px; }
+  .about-page #vmv-mission .lead, .about-page #vmv-vision .lead { font-size: 16px; }
+  .about-page .v-tx, .about-page .v-tag { font-size: 14px; }
+  .about-page .team { gap: 24px; }
+  .about-page .media { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .about-page .media button:first-child { grid-column: auto; aspect-ratio: 1; }
+  .about-page .founder { max-width: 960px; margin-inline: auto; }
+  .about-page .founder-body { padding: 28px 32px 8px; }
+}
+@media (min-width: 1100px) {
+  .about-page { --gut: 48px; }
+  .about-page .header { height: 78px; }
+  .about-page .hero { padding-block: 48px; }
+  .about-page .sec { padding-block: 56px; }
+  .about-page .sec-head h2 { font-size: 30px; }
+  .about-page .team { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .about-page .founder-text { font-size: 17px; }
+  .profile-hero .top { max-width: 1000px; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 64px; }
+  .profile-hero h1 { font-size: 38px; }
+  .profile-hero .about { max-width: 520px; font-size: 16px; }
+  .achiever-profile .profile-story-section { max-width: 1040px; margin-inline: auto; }
+  .orgs-list, .mil-list, .oi-grid { gap: 22px; }
+  .grid-2.cards-ov .ach-body { padding: 14px 10px; }
+  .grid-2.cards-ov .ach-title { font-size: 17px; }
+  .grid-2.cards-ov .ach-meta { font-size: 13px; }
+}
+
+/* ==========================================================
+   «من نحن» — استكمال (مراجعة ٥ نوفمبر)
+   ========================================================== */
+/* المكتبة الإعلامية: ٥ عناصر بلا فراغ — عنصران في الصف الأول وثلاثة في الثاني */
+@media (min-width: 700px) {
+  .about-page .media { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .about-page .media button { grid-column: span 2; aspect-ratio: 1; }
+  .about-page .media button:nth-child(-n+2) { grid-column: span 3; aspect-ratio: 16 / 9; }
+}
+/* التابلت: شريط الأقسام يبقى سطرًا واحدًا قابلًا للسحب كما في الهاتف، بدل التفاف عنصر منفرد */
+@media (min-width: 700px) and (max-width: 1099px) {
+  .about-page .chips-nav ul { flex-wrap: nowrap; justify-content: flex-start; }
+}
+@media (min-width: 1100px) {
+  /* الأشرطة الملوّنة بعرض الشاشة، والمحتوى داخل ١٢٠٠ بكسل كبقية الصفحات */
+  .about-page .page, .about-page main { max-width: none; }
+  .about-page .wrap { max-width: 1200px; margin-inline: auto; }
+  .about-page .explore { max-width: calc(1200px - var(--gut) * 2); margin-inline: auto; margin-bottom: 48px; }
+  /* هيدر الكمبيوتر بقائمة أفقية مثل بقية الصفحات */
+  .about-page .header.has-desktop-nav { gap: 24px; padding-inline: max(40px, calc((var(--layout-width, 100vw) - 1200px) / 2)); }
+  .about-page .header.has-desktop-nav .crumb, .about-page .header.has-desktop-nav .icon-btn { display: none; }
+  .about-page .header .logo img { height: 52px; }
+  /* شريط الأقسام يلتصق تحت الهيدر الجديد (٧٨ بكسل) بدل أن يختفي جزء منه خلفه */
+  .about-page .chips-nav { top: 78px; }
+  /* المعرض الدوّار وبطاقات الفريق بحجم يناسب الشاشة الكبيرة */
+  .about-page .stage { height: 440px; }
+  .about-page .carousel { scale: 1.5; }
+  .about-page .tdeck { zoom: 1.35; }
+}
+
+/* =====================================================================
+   الصفحة الرئيسية — تحسينات الكمبيوتر فقط (١١٠٠ بكسل فأعلى؛ الهاتف لا يتأثر) — ٧ نوفمبر
+   ===================================================================== */
+@media (min-width: 1100px) {
+  /* الشريط العلوي: مسافة بين الروابط والشعار وأداة البحث */
+  .site-header { gap: 44px; }
+  .dnav a { padding-inline: 9px; font-size: 13.5px; }
+  .dnav a:hover::after, .dnav a[aria-current="page"]::after { left: 9px; right: 9px; }
+
+  /* شريط صور المنجزين المتحرك: أعرض وصور أكبر بنحو ١٥٪ (كان بهامش واسع يمينًا ويسارًا) */
+  .home .home-achievers { max-width: 1200px; }
+  .home .home-achievers .strip { --strip-gap: 16px; --side-photo-height: 222px; --active-photo-height: 272px; }
+
+  /* أحدث الإنجازات: بلا خط تحت «اكتشف المزيد» عند مرور الماوس */
+  .home-latest :is(.latest-feature, .latest-card, .latest-row):hover .latest-action { text-decoration: none; }
+
+  /* عائشة السيفي: حُذف الخط تحت الاسم */
+  .home .aisha-copy h2::after { display: none; }
+
+  /* جوائز وطنية: ثلاث بطاقات متجاورة بالارتفاع نفسه (جائزتا السلطان قابوس + جائزة بلعرب) وخط أكبر، بلا فراغات */
+  .home-awards { margin-top: 72px; }
+  .home-awards .ha-lead { margin: 0 0 22px; font-size: 16px; }
+  .home-awards .ha-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 22px; align-items: stretch; }
+  .home-awards .ha-pair { gap: 22px; }
+  .home-awards .ha-pair .ha-sq { min-height: 400px; padding: 30px 28px 24px; gap: 6px; border-radius: 26px; }
+  .home-awards .ha-pair .ha-logo { width: 84px; height: 84px; border-radius: 20px; padding: 8px; margin-bottom: 18px; }
+  .home-awards .ha-kick { font-size: 15px; }
+  .home-awards .ha-name { font-size: 28px; line-height: 1.4; }
+  .home-awards .ha-meta { font-size: 15px; }
+  .home-awards .ha-foot { padding-top: 16px; }
+  .home-awards .ha-foot .ha-stack img { width: 44px; height: 44px; }
+  .home-awards .ha-foot .ha-stack img + img { margin-inline-start: -12px; }
+  .home-awards .ha-foot .ha-go { width: 40px; height: 40px; }
+  .home-awards .ha-bh { min-height: 400px; height: 100%; border-radius: 26px; }
+  .home-awards .ha-bh::before { inset: 12px; border-radius: 18px; }
+  .home-awards .ha-bh-in { padding: 30px 28px; gap: 6px; }
+  .home-awards .ha-bh-mark { width: 64px; margin-bottom: 10px; }
+  .home-awards .ha-bh-in small { font-size: 14px; }
+  .home-awards .ha-bh-in b { font-size: 27px; line-height: 1.4; }
+  .home-awards .ha-bh-in em { font-size: 15px; }
+  .home-awards .ha-bh-meta span { font-size: 13px; padding: 4px 12px; }
+  .home-awards .ha-bh-cta { font-size: 14.5px; padding: 10px 20px; margin-top: 14px; }
+
+  /* المقالات: مقال بدر بارتفاع المقالين الجانبيين معًا؛ الصورة خلفية والكلام فوقها في الأسفل */
+  .home .articles-board { align-items: stretch; }
+  .home .article-lead { position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 10px;
+    min-height: 374px; padding: 30px 32px; overflow: hidden; border-radius: 22px; isolation: isolate; box-shadow: 0 14px 30px -18px rgba(6, 49, 53, .6); }
+  .home .article-lead img:not(.article-av) { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; aspect-ratio: auto; border-radius: 0; box-shadow: none; transition: transform 6s ease; }
+  .home .article-lead:hover img:not(.article-av) { transform: scale(1.05); }
+  .home .article-lead::after { display: block; content: ""; inset: 0; z-index: -1; height: auto; background: linear-gradient(0deg, rgba(4, 34, 37, .94) 0%, rgba(4, 34, 37, .72) 42%, rgba(4, 34, 37, .1) 78%); }
+  .home .article-lead .article-by { color: #F1DDAE; }
+  .home .article-lead h3 { color: #fff; font-size: 30px; }
+  .home .article-lead > p:last-of-type { max-width: 92%; color: rgba(255, 255, 255, .86); }
+  .home .article-lead .article-read { justify-self: auto; align-self: flex-start; margin-top: 4px; background: linear-gradient(135deg, #C9A053, #F7E7B4 50%, #D7B266); color: #1E1505; }
+  .home .article-lead .article-read::after { background: rgba(30, 21, 5, .15); }
+
+  /* الثقافة: العنوان والوصف في منتصف ارتفاع البطاقة بدل أعلاها (كان تحتهما فراغ كبير) */
+  .home-culture { grid-template-rows: 1fr auto auto 1fr; }
+  .home-culture .sec-title { grid-row: 2; }
+  .home-culture .culture-sub { grid-row: 3; margin-bottom: 0; }
+  .home-culture .row-more { grid-row: 1 / 5; }
+}
+
+/* =====================================================================
+   صفحة الإنجازات — الكمبيوتر فقط (٧ نوفمبر)
+   ===================================================================== */
+@media (min-width: 1100px) {
+  /* لوحة الشرف: أطول قليلًا، والصورة من أعلاها فلا يُقطع الرأس، والكلام في اليسار حتى لا يغطي صاحب الإنجاز */
+  .ah2-hero ~ .honor .honor-card { height: 420px; }
+  .ah2-hero ~ .honor .honor-img { object-position: 50% 4%; }
+  .ah2-hero ~ .honor .honor-card::before {
+    background: url("../assets/svg/watermark.svg") left -40px bottom -50px / 220px no-repeat,
+      linear-gradient(270deg, rgba(6, 49, 53, 0) 30%, rgba(6, 49, 53, .75) 58%, rgba(6, 49, 53, .97) 100%); }
+  .ah2-hero ~ .honor .honor-body { right: auto; left: 0; bottom: calc(20px + 2cm); width: 46%; max-width: 560px; padding: 32px 36px; }
+  .ah2-hero ~ .honor .honor-title { font-size: 30px; }
+  .ah2-hero ~ .honor .honor-kicker, .ah2-hero ~ .honor .honor-meta, .ah2-hero ~ .honor .honor-cta { font-size: 15px; }
+
+  /* البطاقات: تُملأ الفراغات تلقائيًا، والبطاقة العريضة (مثل إنجاز علي الحبسي) بعرض بطاقتين لا السطر كله:
+     الصورة نصف البطاقة والنص بجانبها، وبارتفاع البطاقات نفسه */
+  .grid-2.cards-ov { grid-auto-flow: row dense; align-items: stretch; }
+  .cards-ov .ach.wide { grid-column: span 2; gap: 16px; padding: 6px; }
+  .cards-ov .ach.wide .ach-img { flex: 0 0 50%; width: 50%; height: auto; aspect-ratio: auto; align-self: stretch; object-fit: cover; }
+  .cards-ov .ach.wide .ach-body { padding: 14px 8px 10px 4px; gap: 8px; justify-content: center; }
+  .cards-ov .ach.wide h3 { font-size: 19px; -webkit-line-clamp: 3; }
+  .cards-ov .ach.wide .desc { font-size: 14px; -webkit-line-clamp: 5; }
+}
+
+/* =====================================================================
+   صفحة المنجزين — الكمبيوتر فقط (٧ نوفمبر): الاسم فوق الصورة كما كان، بتدرج احترافي
+   تدرج «متدرج النعومة» بلون الثيمة: أغمق في الأسفل تحت الاسم ثم يتلاشى بخطوات متقاربة حتى ٦٠٪ من الارتفاع، بلا حافة ظاهرة، فيبقى الوجه نظيفًا
+   ===================================================================== */
+@media (min-width: 1100px) {
+  /* خمسة منجزين في كل سطر */
+  .grid-2.cards-ov:has(.person-card) { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+  .cards-ov .person-card { border-radius: 18px; box-shadow: 0 10px 24px -16px rgba(6, 49, 53, .5), inset 0 0 0 1px #C9A35C;
+    transition: transform .35s cubic-bezier(.16, 1, .3, 1), box-shadow .35s; }
+  .cards-ov .person-card:hover { transform: translateY(-4px); box-shadow: 0 18px 32px -18px rgba(6, 49, 53, .6), inset 0 0 0 1.5px #E2C489; }
+  .cards-ov .person-card .ach-img { transition: transform .8s ease; }
+  .cards-ov .person-card:hover .ach-img { transform: scale(1.04); }
+  .cards-ov .person-card::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit;
+    /* أقوى وأطول بنسبة ١٥٪ (يصل إلى ٦٩٪ من الارتفاع) */
+    background: linear-gradient(0deg,
+      rgba(5, 38, 42, .97) 0%, rgba(5, 38, 42, .95) 10%, rgba(5, 38, 42, .83) 21%, rgba(5, 38, 42, .62) 31%,
+      rgba(5, 38, 42, .41) 41%, rgba(5, 38, 42, .23) 52%, rgba(5, 38, 42, .09) 61%, rgba(5, 38, 42, 0) 69%); }
+  .cards-ov .person-card .ach-body { padding: 0 14px 18px; gap: 6px; background: none; }
+  .cards-ov .person-card .ach-cat { font-size: 11.5px; box-shadow: 0 2px 8px rgba(0, 0, 0, .25); }
+  .cards-ov .person-card h3 { color: #fff; font-size: 16.5px; font-weight: 800; letter-spacing: .1px; text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
+}
+
+/* =====================================================================
+   الرئيسية — القسم العلمي: ثلاثة أخبار ابتكارات في العمود الأيسر (الكمبيوتر فقط) — ٧ نوفمبر
+   ===================================================================== */
+.science-brief-dk { display: none; }
+@media (min-width: 1100px) {
+  /* على الكمبيوتر ثلاثة أخبار فقط في العمود الأيسر: أخبار الابتكارات الثلاثة (الخبران الأصليان يظهران على الهاتف فقط) */
+  .science-brief-dk { display: block; }
+  .science-briefs .science-brief:not(.science-brief-dk) { display: none; }
+  .science-editorial-layout { align-items: stretch; }
+  .science-briefs { gap: 18px; grid-template-rows: repeat(3, 1fr); align-content: stretch; }
+  .science-brief-dk, .science-brief-dk .science-brief-link { height: 100%; }
+  .science-brief-link { grid-template-columns: 170px minmax(0, 1fr); gap: 20px; padding: 14px; }
+  .science-brief-link > img { width: 170px; aspect-ratio: 4 / 3; }
+  .science-brief h3 { font-size: 18.5px; line-height: 1.7; margin-top: 6px; }
+  .science-brief .science-read { margin-top: 6px; font-size: 13px; }
+}
+
+/* =====================================================================
+   جوائز السلطان قابوس — الهيدر على الكمبيوتر بحجم بانر جلالة السلطان في الرئيسية (كان عريضًا قصيرًا ١٨٠ بكسل) — ٧ نوفمبر
+   ===================================================================== */
+@media (min-width: 1100px) {
+  .aws-page .aws-hero { width: var(--layout-width, 100vw); max-width: none; margin-inline: calc(50% - (var(--layout-width, 100vw) / 2));
+    padding-inline: max(40px, calc((var(--layout-width, 100vw) / 2) - 560px)); }
+  .aws-page .aws-hero-inner { max-width: 1120px; height: clamp(480px, 38vw, 580px); grid-template-columns: 1.1fr 1fr; gap: 40px; }
+  .aws-page .aws-hero-copy { padding: 0; }
+  .aws-page .aws-hero h1 { font-size: 50px; line-height: 1.3; margin-bottom: 18px; }
+  .aws-page .aws-hero-rule { width: 96px; height: 3px; margin-bottom: 18px; }
+  .aws-page .aws-hero p { max-width: 540px; font-size: 18px; line-height: 2; }
+  .aws-page .aws-hero-tribute { margin-top: 16px; font-size: 15px; }
+  .aws-page .aws-hero-portrait { height: clamp(480px, 38vw, 580px); }
+  .aws-page .aws-hero-portrait img { height: clamp(460px, calc(38vw - 20px), 560px); max-width: none; width: auto; }
+  .aws-page .aws-portrait-halo { width: 300px; height: 82%; bottom: 14px; box-shadow: 0 0 0 26px #d9be8206, 0 0 0 27px #d9be8218; }
+}
+
+/* =====================================================================
+   صفحة الإنجازات — «البطاقات الموحّدة» (٨ نوفمبر، الكمبيوتر فقط)
+   كل البطاقات بنفس المقاس وقصّ الصورة ٤:٣، خط بلون المجال أسفل الصورة، المجال داخل إطار بلونه،
+   العنوان سطران، وفي الأسفل الاسم والتاريخ، وشارة النطاق (دولي/خليجي/محلي) على الصورة. لا بطاقة عريضة.
+   ألوان المجالات: الرياضة أخضر، الثقافة ذهبي، الأدب بنفسجي، الابتكارات أسود.
+   ===================================================================== */
+@media (min-width: 1100px) {
+  .grid-2.cards-ov:not(:has(.person-card)) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; grid-auto-flow: row; }
+  .cards-ov .ach:not(.person-card) { --c: #0A5C63; position: relative; display: flex; flex-direction: column; padding: 0; border: 0; border-radius: 16px; overflow: hidden; background: #fff;
+    box-shadow: inset 0 0 0 1px #E6ECEA; transition: transform .25s ease, box-shadow .25s ease; }
+  .cards-ov .ach:not(.person-card):hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px #E6ECEA, 0 18px 30px -18px rgba(10, 59, 62, .55); }
+  .cards-ov .ach:not(.person-card)[data-cat="الرياضة"] { --c: #1F8A5B; }
+  .cards-ov .ach:not(.person-card)[data-cat="الثقافة"] { --c: #A8742C; }
+  .cards-ov .ach:not(.person-card)[data-cat="الأدب"] { --c: #8A4B9A; }
+  .cards-ov .ach:not(.person-card)[data-cat="الإبتكارات"], .cards-ov .ach:not(.person-card)[data-cat="الابتكارات"] { --c: #111; }
+  .cards-ov .ach:not(.person-card) .ach-img, .cards-ov .ach:not(.person-card).wide .ach-img { flex: none; width: 100%; height: auto; aspect-ratio: 4 / 3; padding: 0; border-radius: 0; background: #E9EEEC; box-shadow: none;
+    border-bottom: 4px solid var(--c); object-fit: cover; }
+  .cards-ov .ach:not(.person-card):hover .ach-img { transform: none; filter: brightness(1.04); }
+  .cards-ov .ach:not(.person-card).wide { grid-column: auto; flex-direction: column; gap: 0; padding: 0; }
+  .cards-ov .ach:not(.person-card) .ach-body, .cards-ov .ach:not(.person-card).wide .ach-body { flex: 1; gap: 0; padding: 16px 16px 14px; justify-content: flex-start; }
+  .cards-ov .ach:not(.person-card) .ach-cat, .cards-ov .ach:not(.person-card).wide .ach-cat { align-self: flex-start; padding: 2px 12px; border: 1.5px solid var(--c); border-radius: 99px; background: #fff; color: var(--c); font-size: 12px; font-weight: 800; }
+  .cards-ov .ach:not(.person-card) h3, .cards-ov .ach:not(.person-card).wide h3 { margin: 10px 0 14px; min-height: 51px; font-size: 16px; line-height: 1.6; -webkit-line-clamp: 2; color: #14282A; }
+  .cards-ov .ach:not(.person-card) .desc, .cards-ov .ach:not(.person-card).wide .desc { display: none; }
+  .cards-ov .ach:not(.person-card) .ach-meta, .cards-ov .ach:not(.person-card).wide .ach-meta { display: flex; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1px solid #E6ECEA; font-size: 12.5px; color: #6B7A7B; }
+  .cards-ov .ach:not(.person-card) .ach-meta span { display: inline; color: #14282A; font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+  .cards-ov .ach:not(.person-card) .ach-meta span::after { content: none; }
+  /* شارة النطاق على الصورة */
+  .cards-ov .ach:not(.person-card)[data-scope]::before { position: absolute; z-index: 3; top: 10px; right: 10px; display: inline-flex; align-items: center; gap: 6px; padding: 3px 11px; border-radius: 99px;
+    background: rgba(255, 255, 255, .93); color: #14282A; font-size: 11.5px; font-weight: 700; box-shadow: 0 2px 8px rgba(0, 0, 0, .12); }
+  .cards-ov .ach:not(.person-card)[data-scope="international"]::before { content: "● دولي"; }
+  .cards-ov .ach:not(.person-card)[data-scope="gulf"]::before { content: "● خليجي"; }
+  .cards-ov .ach:not(.person-card)[data-scope="local"]::before { content: "● محلي"; }
+}
+
+/* الصورة المكررة (الخامسة) للكمبيوتر فقط */
+.sports-dup { display: none; }
+@media (min-width: 1100px) { .sports-dup { display: block; } }
+
+/* الرئيسية (٩ نوفمبر): قسم الرياضة أصغر، وقسم الثقافة ٤ صور بدل ٣ */
+@media (min-width: 1100px) {
+  .home-sports { margin-top: 56px; padding: 34px 40px 30px; }
+  .home-sports .sec-title { margin-bottom: 20px; }
+  .home-sports .sports-grid { max-width: 820px; margin-inline: auto; gap: 20px; }
+  .home-sports .sports-caption h3 { font-size: 18px; }
+  .home-sports .sports-more { margin-top: 20px; }
+  .home-culture .row-more .people { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .home-culture .person.sm .badge { font-size: 12px; }
+  .home-culture .person.sm .name { font-size: 15px; }
+}
+@media (min-width: 1100px) {
+  .home-sports .sports-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 960px; gap: 18px; }
+  .home-sports .sports-caption h3 { font-size: 17px; }
+}
+
+/* الإنجازات: كلمة العنوان بنفس حجم «المنجزين» (٦٠ بكسل) */
+@media (min-width: 1100px) {
+  .page-hero.ah2-hero { padding-inline: max(40px, calc((var(--layout-width, 100vw) - var(--dw)) / 2)); padding-block: calc(44px + .5cm) calc(40px + .5cm); }
+  .page-hero .ah2-title { font-size: 60px !important; line-height: 1.45; }
+  .ah2-sub { font-size: 19px; }
+}

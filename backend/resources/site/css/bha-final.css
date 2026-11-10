@@ -1,0 +1,308 @@
+/* جائزة بلعرب — التصميم المعتمد «الضوء والمشربية» بعد التعديلات. يُحمَّل بعد bha-concepts-base.css و bha-c2.css */
+
+/* ---------- الفكرة: إنفوجرافيك في إطار ---------- */
+.bf-idea { position: relative; padding: 20px 16px 18px; border-radius: 22px; background: #FFFDF8; box-shadow: 0 0 0 1px var(--hair), 0 18px 34px -24px rgba(90, 60, 20, .35); overflow: hidden; }
+.bf-idea::before { content: ""; position: absolute; inset: 0 0 auto; height: 5px; background: var(--gold); }
+.bf-idea::after { content: ""; position: absolute; inset: auto -40px -40px auto; width: 170px; height: 170px; background: var(--mash) 0 0 / 42px 42px; opacity: .14; border-radius: 50%; pointer-events: none; }
+.bf-idea-lead { font-size: 15.5px; line-height: 2; color: var(--ink); font-weight: 600; }
+.bf-idea-lead b { color: #8E6A2C; }
+.bf-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+.bf-facts li { display: grid; gap: 4px; padding: 12px; border-radius: 16px; background: #F7EFDF; }
+.bf-facts svg { width: 24px; height: 24px; color: #8E6A2C; }
+.bf-facts b { color: var(--ink); font-size: 13.5px; font-weight: 800; line-height: 1.5; }
+.bf-facts small { color: var(--muted); font-size: 11.5px; line-height: 1.6; }
+.bf-path { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-top: 20px; padding-top: 6px; }
+.bf-path::before { content: ""; position: absolute; top: 23px; inset-inline: 10%; height: 2px; background: linear-gradient(90deg, #C9A35C, #F1DDAE, #C9A35C); }
+.bf-path li { position: relative; display: grid; justify-items: center; gap: 4px; text-align: center; }
+.bf-path span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #FFFDF8; box-shadow: inset 0 0 0 1.5px #B8893E; color: #8E6A2C; font-size: 14px; font-weight: 800; }
+.bf-path li:last-child span { background: var(--gold); color: #2A1E08; box-shadow: none; }
+.bf-path b { color: var(--ink); font-size: 12px; font-weight: 800; }
+.bf-path small { color: var(--muted); font-size: 9.5px; line-height: 1.6; }
+.bf-first { margin-top: 18px; padding: 14px; border-radius: 14px; background: #2A2013; color: #EFE3CB; font-size: 13px; line-height: 1.95; }
+.bf-first b { display: block; margin-bottom: 4px; color: var(--gold3); font-size: 12px; }
+
+/* ---------- من يحق له المشاركة: الشعار في المنتصف وخمسة أسهم ---------- */
+.bf-radial { position: relative; width: min(100%, 380px); aspect-ratio: 1; margin: 6px auto 0; }
+.bf-radial::before { content: ""; position: absolute; inset: 22%; border-radius: 50%; background: radial-gradient(closest-side, rgba(241, 221, 174, .55), transparent); }
+.bf-arrows { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.bf-arrows line { stroke: #B8893E; stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.bf-core { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 31%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: #FFFDF8; box-shadow: 0 0 0 5px #F3E7CF, 0 0 0 6.5px #C9A35C, 0 16px 30px -10px rgba(90, 60, 20, .45); }
+.bf-core img { width: 64%; height: auto; }
+.bf-node { position: absolute; display: grid; justify-items: center; gap: 2px; width: 30%; translate: -50% -50%; text-align: center; }
+.bf-node i { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #2A2013; color: var(--gold3); box-shadow: 0 6px 14px -6px rgba(42, 32, 19, .6); }
+.bf-node svg { width: 20px; height: 20px; }
+.bf-node b { margin-top: 2px; color: #8E6A2C; font-size: 11.5px; font-weight: 800; }
+.bf-node small { color: var(--ink); font-size: 11px; font-weight: 700; line-height: 1.5; }
+@media (prefers-reduced-motion: no-preference) {
+  .cx.js .bf-arrows line { stroke-dashoffset: 1; }
+  .cx.js .bf-core { scale: .6; opacity: 0; transition: scale .8s cubic-bezier(.2, .8, .2, 1.2), opacity .5s ease; }
+  .cx.js .bf-node { opacity: 0; scale: .7; transition: opacity .5s ease calc(.7s + var(--i) * .15s), scale .6s cubic-bezier(.2, .8, .2, 1.3) calc(.7s + var(--i) * .15s); }
+  .bf-radial.in .bf-arrows line { transition: stroke-dashoffset .6s ease calc(.35s + var(--i) * .15s); stroke-dashoffset: 0; }
+  .bf-radial.in .bf-core, .bf-radial.in .bf-node { scale: 1; opacity: 1; }
+  .bf-radial.in .bf-core { animation: bf-glow 3.2s ease-in-out 1.6s infinite; }
+}
+@keyframes bf-glow { 50% { box-shadow: 0 0 0 5px #F3E7CF, 0 0 0 6.5px #C9A35C, 0 0 0 16px rgba(201, 163, 92, .15), 0 16px 30px -10px rgba(90, 60, 20, .45); } }
+.bf-who-full { display: grid; gap: 0; margin-top: 10px; border-top: 1px solid var(--hair); }
+.bf-who-full div { display: grid; grid-template-columns: 74px 1fr; gap: 10px; padding: 10px 2px; border-bottom: 1px solid var(--hair); }
+.bf-who-full dt { color: #8E6A2C; font-size: 12px; font-weight: 800; } .bf-who-full dd { color: var(--ink); font-size: 12.5px; line-height: 1.8; }
+
+/* ---------- كلمة سموّه: الصورة تنبثق من أسفل الخط وتلاصقه ---------- */
+[data-bf] .w-stage { overflow: hidden; }
+[data-bf] .w-stage::after { display: none; }
+[data-bf] .w-img { filter: none; transform: none; object-position: 50% 100%; }
+[data-bf] .w-line { position: relative; z-index: 2; display: block; width: min(86%, 330px); height: 3px; margin: 0 auto; border-radius: 3px; background: var(--gold); box-shadow: 0 0 14px rgba(201, 163, 92, .6); }
+@media (prefers-reduced-motion: no-preference) {
+  .cx.js[data-bf] .w-img { translate: 0 102%; transition: translate 1.5s cubic-bezier(.16, 1, .3, 1) .45s; }
+  .cx.js[data-bf] .w-line { scale: 0 1; transition: scale .8s cubic-bezier(.3, .7, .2, 1); }
+  [data-bf] .c-word.in .w-img { translate: 0 0; }
+  [data-bf] .c-word.in .w-line { scale: 1 1; }
+}
+
+/* ---------- الدورات: كلها معروضة ---------- */
+.bf-cy { margin-bottom: 26px; overflow: hidden; border-radius: 24px; background: #FFFDF8; box-shadow: 0 0 0 1px var(--hair), 0 22px 40px -28px rgba(60, 40, 10, .45); }
+.bf-cy-cover { position: relative; height: 230px; overflow: hidden; background: #2A2013; color: #fff; isolation: isolate; }
+.bf-cy-cover > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+.bf-cy-pat { position: absolute; inset: 0; z-index: -2; background: var(--mash) 0 0 / 46px 46px, radial-gradient(90% 90% at 80% 10%, #4A3A22, #2A2013); opacity: .9; }
+.bf-cy-cover::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(30, 22, 10, .1), rgba(30, 22, 10, .88) 85%); }
+.bf-cy-year { position: absolute; top: 10px; left: 14px; font-size: 54px; font-weight: 800; line-height: 1; color: transparent; -webkit-text-stroke: 1.2px rgba(244, 226, 178, .85); }
+.bf-cy-t { position: absolute; inset: auto 16px 14px; }
+.bf-cy-t small { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--gold); color: #2A1E08; font-size: 11px; font-weight: 800; }
+.bf-cy-t h3 { margin-top: 6px; font-size: 20px; font-weight: 800; line-height: 1.45; }
+.bf-cy-t p { display: flex; align-items: center; gap: 5px; margin-top: 4px; color: rgba(255, 255, 255, .85); font-size: 12px; }
+.bf-cy-t svg { width: 15px; height: 15px; color: var(--gold3); flex: none; }
+.bf-cy-brief { padding: 16px 16px 0; font-size: 13.5px; line-height: 2; }
+.bf-cy-nums { display: grid; grid-template-columns: repeat(3, 1fr); margin: 14px 16px 0; border-radius: 16px; background: #F7EFDF; text-align: center; }
+.bf-cy-nums div { display: grid; padding: 10px 4px; } .bf-cy-nums div + div { border-inline-start: 1px solid #E7DAC0; }
+.bf-cy-nums b { color: #2A2013; font-size: 19px; font-weight: 800; } .bf-cy-nums span { color: var(--muted); font-size: 10.5px; font-weight: 700; }
+.bf-cy-meta { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 16px 0; }
+.bf-cy-meta span { padding: 5px 10px; border-radius: 10px; background: #fff; box-shadow: inset 0 0 0 1px var(--hair); color: var(--ink); font-size: 11.5px; font-weight: 700; line-height: 1.6; }
+.bf-cy-meta i { display: block; color: #8E6A2C; font-size: 10px; font-style: normal; font-weight: 800; }
+.bf-wins { display: grid; gap: 10px; padding: 16px; }
+.bf-w { position: relative; display: grid; grid-template-columns: 46px 1fr; column-gap: 12px; padding: 14px; border-radius: 18px; background: #fff; box-shadow: inset 0 0 0 1px var(--hair); }
+.bf-medal { grid-row: span 4; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; font-size: 18px; font-weight: 800; color: #fff; background: linear-gradient(135deg, #9AA7AA, #6B7B7E); }
+.bf-w.r1 .bf-medal { background: var(--gold); color: #2A1E08; box-shadow: 0 6px 14px rgba(169, 129, 64, .4); }
+.bf-w.r2 .bf-medal { background: linear-gradient(135deg, #E3E7E8, #A7B2B5); color: #2E3A3C; }
+.bf-w.r3 .bf-medal { background: linear-gradient(135deg, #E2B38D, #A86B42); }
+.bf-w.r0 .bf-medal { background: #2A2013; color: var(--gold3); }
+.bf-w.r1 { background: #2A2013; box-shadow: 0 14px 28px -16px rgba(42, 32, 19, .7); }
+.bf-w.r1 h4, .bf-w.r1 .bf-team { color: #fff; } .bf-w.r1 small { color: var(--gold3); } .bf-w.r1 details p { color: rgba(255, 255, 255, .85); } .bf-w.r1 summary { color: var(--gold3); }
+.bf-w small { color: #8E6A2C; font-size: 11.5px; font-weight: 800; }
+.bf-w h4 { margin-top: 2px; color: var(--ink); font-size: 15.5px; font-weight: 800; line-height: 1.6; }
+.bf-team { margin-top: 4px; color: #5A4A30; font-size: 12px; font-weight: 700; line-height: 1.8; }
+.bf-w details { margin-top: 6px; }
+.bf-w summary { display: inline-flex; color: #8E6A2C; font-size: 12px; font-weight: 800; cursor: pointer; list-style: none; }
+.bf-w summary::-webkit-details-marker { display: none; }
+.bf-w summary::after { content: "+"; margin-inline-start: 6px; }
+.bf-w details[open] summary::after { content: "–"; }
+.bf-w details p { margin-top: 6px; font-size: 12.5px; line-height: 1.95; }
+.bf-cy-more { margin: 0 16px 16px; }
+.bf-cy-more img { display: block; width: 100%; border-radius: 16px; }
+.bf-cy-more figcaption { padding-top: 6px; color: var(--muted); font-size: 11.5px; }
+@media (prefers-reduced-motion: no-preference) {
+  .cx.js .bf-idea, .cx.js .bf-cy { opacity: 0; transform: translateY(22px); transition: opacity .9s ease, transform .9s cubic-bezier(.2, .7, .2, 1); }
+  .bf-idea.in, .bf-cy.in { opacity: 1 !important; transform: none !important; }
+}
+@media (min-width: 700px) { .bf-wins { grid-template-columns: 1fr 1fr; } .bf-cy-cover { height: 300px; } .bf-path small { font-size: 11px; } }
+/* الأيقونة على رأس السهم تمامًا، والنص بعيد عن السهم (للعقدة العليا يكون النص فوقها) */
+.bf-radial { margin-top: 40px; margin-bottom: 18px; }
+.bf-node { translate: -50% -20px; }
+.bf-node:first-of-type, .bf-radial .bf-node[style*="--i:0"] { display: flex; flex-direction: column-reverse; align-items: center; translate: -50% calc(-100% + 20px); }
+
+/* ===== تعديلات ٦ نوفمبر (ليلًا) ===== */
+/* المسار: سُلّم رأسي، كل خطوة بطاقة ورقمها في دائرة ذهبية على خط واحد */
+.bf-path-h { margin: 22px 0 12px; color: var(--ink); font-size: 15px; font-weight: 800; }
+.bf-path { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 0; padding: 0; }
+.bf-path::before { top: 20px; bottom: 20px; inset-inline: auto; inset-inline-start: 19px; width: 2px; height: auto; background: linear-gradient(180deg, #F1DDAE, #C9A35C); }
+.bf-path li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: center; justify-items: stretch; text-align: start; }
+.bf-path li > div { display: grid; gap: 2px; padding: 11px 14px; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 1px var(--hair); margin-inline-start: calc(var(--i) * 6px); }
+.bf-step { position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #FFFDF8; box-shadow: inset 0 0 0 2px #C9A35C; color: #8E6A2C; font-size: 15px; font-weight: 800; }
+.bf-path li:last-child .bf-step { background: var(--gold); box-shadow: 0 0 0 4px rgba(201, 163, 92, .2); color: #2A1E08; }
+.bf-path li:last-child > div { background: #2A2013; box-shadow: none; } .bf-path li:last-child b { color: var(--gold3); } .bf-path li:last-child small { color: rgba(255, 255, 255, .8); }
+.bf-path b { font-size: 14px; } .bf-path small { font-size: 12px; line-height: 1.7; }
+.bf-path span:not(.bf-step) { display: none; }
+@media (prefers-reduced-motion: no-preference) { .cx.js .bf-path li { opacity: 0; translate: 16px 0; transition: opacity .5s ease calc(var(--i) * .12s), translate .6s ease calc(var(--i) * .12s); } .bf-idea.in .bf-path li { opacity: 1; translate: 0 0; } }
+
+/* كلمة سموّه: خلفية واحدة بلا تدرّج يتداخل مع الأبيض، والصورة مقصوصة بخط مستقيم على الخط الذهبي تمامًا */
+[data-bf] .c-word { margin-top: 46px; padding-top: 30px; background: #F1E6D0; border-block: 1px solid #E2D2AF; }
+[data-bf] .c-word::before { opacity: .1; }
+[data-bf] .w-stage { aspect-ratio: 531 / 640; }
+[data-bf] .w-img { inset: auto 0 0 0; height: 108%; top: auto; bottom: -8%; object-fit: contain; object-position: 50% 100%; }
+[data-bf] .w-line { margin-top: 0; }
+
+/* صور الدورة */
+.bf-gal-h { margin: 4px 16px 10px; color: var(--ink); font-size: 14px; font-weight: 800; }
+.bf-gal { display: flex; gap: 10px; padding: 0 16px 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.bf-gal::-webkit-scrollbar { display: none; }
+.bf-gal figure { flex: 0 0 82%; margin: 0; scroll-snap-align: center; }
+.bf-gal img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 16px; background: #EFE3CB; }
+.bf-gal figcaption { display: grid; gap: 1px; padding: 6px 2px 0; color: var(--ink); font-size: 12px; font-weight: 700; line-height: 1.6; }
+.bf-gal figcaption span { color: var(--muted); font-size: 10.5px; font-weight: 600; }
+.bf-extra { padding-top: 0; }
+
+/* شعار عُمان (الخنجر والتاج) بدل الأيقونة في بطاقة «بمباركة سامية» */
+.bf-emblem { width: auto; height: 40px; }
+.bf-emblem { height: 44px; filter: brightness(.72) contrast(1.6) saturate(1.3); }
+
+/* ملخص الفوز ظاهرًا، وتحته صور التصميم */
+.bf-why, .bf-design, .bf-credit, .bf-noimg { grid-column: 1 / -1; }
+.bf-why { margin-top: 12px; padding: 12px 14px; border-radius: 14px; background: #FBF6EA; box-shadow: inset 0 0 0 1px rgba(169, 129, 64, .18); }
+.bf-why b { display: block; margin-bottom: 4px; color: #8E6A2C; font-size: 12px; font-weight: 800; }
+.bf-why p { margin: 0; color: #3D3222; font-size: 13px; line-height: 1.95; }
+.bf-w.r1 .bf-why { background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px rgba(244, 223, 174, .2); }
+.bf-w.r1 .bf-why b { color: var(--gold3); } .bf-w.r1 .bf-why p { color: rgba(255, 255, 255, .88); }
+.bf-design { display: grid; gap: 10px; margin-top: 12px; }
+.bf-design.is-multi { grid-auto-flow: column; grid-auto-columns: 86%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; scrollbar-width: none; }
+.bf-design.is-multi::-webkit-scrollbar { display: none; }
+.bf-design figure { position: relative; margin: 0; overflow: hidden; border-radius: 14px; background: #1E170D; scroll-snap-align: start; box-shadow: 0 10px 22px -14px rgba(42, 32, 19, .7); }
+.bf-design img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.bf-design figcaption { position: absolute; inset: auto 0 0; padding: 22px 12px 9px; color: #fff; font-size: 11.5px; font-weight: 700; line-height: 1.6; background: linear-gradient(0deg, rgba(20, 15, 8, .85), transparent); }
+.bf-design figcaption a { color: var(--gold3, #F4DFAE); }
+.bf-credit { margin-top: 6px; color: #8A7A60; font-size: 10.5px; }
+.bf-credit a { color: inherit; text-decoration: underline; }
+.bf-w.r1 .bf-credit { color: rgba(255, 255, 255, .55); }
+.bf-noimg { display: flex; align-items: center; gap: 6px; margin-top: 10px; padding: 10px 12px; border-radius: 12px; border: 1px dashed rgba(169, 129, 64, .35); color: #8A7A60; font-size: 11.5px; }
+.bf-noimg svg { width: 14px; height: 14px; flex: none; }
+.c-expo-img { margin-top: 14px; }
+@media (min-width: 700px) { .bf-design.is-multi { grid-auto-columns: calc(50% - 5px); } }
+
+/* لمعة على اسم الجائزة: تبدأ من حرف الجيم (يمين) وتعبر الاسم، دون تغيير لونه */
+.bf-shine { position: relative; display: inline-block; }
+.bf-shine::after { content: attr(data-t); position: absolute; inset: 0; pointer-events: none; color: transparent;
+  background: linear-gradient(100deg, transparent 44%, rgba(255, 252, 240, .2) 47%, rgba(255, 255, 255, .95) 50%, rgba(255, 252, 240, .2) 53%, transparent 56%) no-repeat;
+  background-size: 300% 100%; background-position: 0% 0; -webkit-background-clip: text; background-clip: text; opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .bf-shine::after { animation: bf-shine 6.5s cubic-bezier(.45, .05, .25, 1) .9s infinite; }
+}
+@keyframes bf-shine { 0% { opacity: 1; background-position: 0% 0; } 26% { opacity: 1; background-position: 100% 0; } 27%, 100% { opacity: 0; background-position: 100% 0; } }
+
+/* مربع تاريخ الإطلاق: ورقة تقويم ذهبية */
+.bf-facts li.bf-launch { justify-items: start; align-content: start; }
+.bf-cal { display: grid; justify-items: center; width: 62px; overflow: hidden; border-radius: 12px; background: #FFFCF5; box-shadow: 0 6px 14px -8px rgba(110, 80, 30, .55), inset 0 0 0 1px rgba(169, 129, 64, .28); }
+.bf-cal i { display: block; width: 100%; padding: 3px 0 2px; text-align: center; font-style: normal; font-size: 11px; font-weight: 800; color: #FFF6E0; background: linear-gradient(135deg, #C9A053, #8E6A2C); }
+.bf-cal b { margin-top: 2px; font-size: 24px; line-height: 1.1; font-weight: 800; color: var(--ink); }
+.bf-cal em { margin-bottom: 4px; font-style: normal; font-size: 11px; font-weight: 700; color: #8E6A2C; }
+.bf-facts li.bf-launch small { margin-top: 4px; color: #6B5636; font-size: 12.5px; font-weight: 800; }
+
+/* بطاقتا «رؤية عُمان 2040» (الشعار الرسمي بالذهبي) و«موقع جديد كل دورة» (خريطة عُمان المعتمدة بمواقع الدورات) */
+.bf-facts li.bf-vision, .bf-facts li.bf-where { position: relative; overflow: hidden; align-content: start; min-height: 150px;
+  background: radial-gradient(90% 70% at 30% 20%, #FFF8E8 0%, #F7EFDF 70%); box-shadow: inset 0 0 0 1px rgba(184, 137, 62, .22); }
+/* الشعار والخريطة في صندوق بالارتفاع نفسه أعلى البطاقة، فيأتي العنوانان على سطر واحد */
+.bf-facts .bf-vlogo { width: 100%; max-width: 140px; height: 96px; object-fit: contain; object-position: 50% 0; margin: 0 auto 4px; filter: drop-shadow(0 6px 10px rgba(142, 106, 44, .18)); }
+.bf-facts .bf-omap { width: 100%; height: 96px; margin: 0 0 4px; overflow: visible; }
+.bf-omap-fill { fill: url(#bfMapG); stroke: #8E6A2C; stroke-width: .6; stroke-linejoin: round; filter: drop-shadow(0 4px 6px rgba(142, 106, 44, .28)); }
+.bf-omap-arc { fill: none; stroke: #7A5820; stroke-width: 1.3; stroke-dasharray: .04 .03; stroke-linecap: round; }
+.bf-omap-pin circle { fill: #fff; stroke: #6A4B18; stroke-width: 1.8; }
+.bf-omap-pin.is-2 circle { fill: #7A5820; stroke: #fff; }
+.bf-omap-pin .ring { fill: none; stroke: #B8893E; stroke-width: 1; opacity: 0; }
+.bf-omap-pin text { font: 800 10px Cairo, sans-serif; fill: #4E3812; text-anchor: end; direction: ltr; paint-order: stroke; stroke: #FFF8E8; stroke-width: 3.2px; stroke-linejoin: round; }
+@media (prefers-reduced-motion: no-preference) {
+  .bf-omap-pin .ring { animation: bf-ping 2.6s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  .bf-omap-pin.is-2 .ring { animation-delay: 1.3s; }
+  .bf-idea.in .bf-vlogo { animation: bf-vin 1.2s cubic-bezier(.2, .8, .2, 1) both, bf-vspin 14s 1.2s ease-in-out infinite; }
+}
+@keyframes bf-ping { 0% { opacity: .9; transform: scale(.8); } 100% { opacity: 0; transform: scale(3); } }
+@keyframes bf-vin { from { opacity: 0; transform: scale(.8) rotate(-12deg); } }
+@keyframes bf-vspin { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-4deg) scale(1.03); } }
+
+/* كلمة سموّه على الشاشات العريضة: الصورة والخط الذهبي تحتها في عمود، والكلمة بجانبهما في المنتصف
+   (كان الخط يقع وحده في العمود الثاني وتنزل الكلمة تحت الصورة) */
+@media (min-width: 700px) {
+  [data-bf] .c-word { grid-template-rows: auto auto; align-items: center; column-gap: 40px; padding-inline: var(--pad); }
+  [data-bf] .c-word .w-stage { grid-column: 1; grid-row: 1; justify-self: center; align-self: end; }
+  [data-bf] .c-word .w-line { grid-column: 1; grid-row: 2; align-self: start; }
+  [data-bf] .c-word .w-copy { grid-column: 2; grid-row: 1 / 3; align-self: center; padding-block: 30px; }
+}
+
+/* جائزة بلعرب على الكمبيوتر (١١٠٠ بكسل فأعلى) — ٧ نوفمبر:
+   الهيدر أقصر قليلًا (مسافات أقل وشعار أصغر)، وصور «المشروع والتتويج» ثلاث متجاورة بدل صورة تملأ ٨٢٪ من العرض */
+@media (min-width: 1100px) {
+  /* الهيدر: الشعار كبير في اليمين، والاسم والتعريف والأرقام في اليسار، يفصل بينهما خط ذهبي رفيع */
+  [data-bf] .c-hero-in { grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto auto auto; align-items: center; justify-items: start;
+    column-gap: 44px; max-width: 980px; margin-inline: auto; padding: 34px var(--pad) 30px; text-align: right; }
+  [data-bf] .c-mark { grid-column: 1; grid-row: 1 / 5; width: 190px; margin: 0; padding-inline-end: 44px; border-inline-end: 1.5px solid rgba(184, 137, 62, .45); box-sizing: content-box; }
+  [data-bf] .c-hero-in > :not(.c-mark) { grid-column: 2; }
+  [data-bf] .c-eyebrow::after { display: none; }
+  [data-bf] .c-hero h1 { margin-top: 6px; }
+  [data-bf] .c-motto { max-width: none; margin-top: 8px; }
+  [data-bf] .c-stats { max-width: 520px; margin-top: 16px; padding-top: 12px; }
+  [data-bf] .c-stats > div { justify-items: start; padding-inline-start: 18px; }
+  [data-bf] .c-stats > div:first-child { padding-inline-start: 0; }
+  [data-bf] .bf-gal { gap: 16px; }
+  [data-bf] .bf-gal figure { flex: 0 0 calc((100% - 32px) / 3); }
+  [data-bf] .bf-gal img { border-radius: 14px; }
+}
+
+/* صورة زوّار جناح الجائزة في يسار الهيدر (الكمبيوتر فقط)، تذوب من جهتها اليمنى في خلفية الهيدر بتدرج لوني */
+.bf-hero-img { display: none; }
+@media (min-width: 1100px) {
+  [data-bf] .c-hero { min-height: 300px; }
+  [data-bf] .bf-hero-img { display: block; position: absolute; z-index: 0; top: 0; bottom: 0; left: 0; width: 46%; height: 100%; object-fit: cover; object-position: 30% 38%; pointer-events: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 26%, rgba(0, 0, 0, .62) 50%, rgba(0, 0, 0, .26) 70%, rgba(0, 0, 0, .07) 87%, transparent 100%);
+            mask-image: linear-gradient(90deg, #000 0%, #000 26%, rgba(0, 0, 0, .62) 50%, rgba(0, 0, 0, .26) 70%, rgba(0, 0, 0, .07) 87%, transparent 100%); }
+  /* المحتوى في الجهة اليمنى بجانب الصورة */
+  [data-bf] .c-hero-in { max-width: none; margin-inline: 0; width: 58%; column-gap: 34px; padding-inline: 40px 0; }
+  [data-bf] .c-mark { width: 150px; padding-inline-end: 34px; }
+}
+
+/* جائزة بلعرب على الكمبيوتر: الصفحة كاملة من حافة إلى حافة بلا هوامش بيضاء يمينًا ويسارًا؛
+   الخلفيات تمتد بعرض الشاشة، والمحتوى في الوسط بعرض نحو ١١٢٠ بكسل عبر --pad */
+@media (min-width: 1100px) {
+  main.cx[data-bf] { max-width: none; --pad: max(40px, calc((100vw - 1120px) / 2)); }
+  [data-bf] .c-hero-in { padding-inline: var(--pad) 0; }
+  [data-bf] .c-word .w-copy { padding-inline: 0; }
+}
+
+/* جائزة بلعرب على الكمبيوتر: صورة زوّار الجناح تملأ الهيدر كاملًا (عرض الشاشة وارتفاع أول شاشة)،
+   وتدرج بلون الهيدر من اليمين (حيث الشعار والعنوان) يتلاشى نحو اليسار فيبقى الزوار واضحين */
+@media (min-width: 1100px) {
+  [data-bf] .c-hero-in { min-height: calc(100vh - 78px - 70px); align-content: center; }
+  [data-bf] .bf-hero-img { width: 100%; object-position: 22% 42%; -webkit-mask-image: none; mask-image: none; }
+  [data-bf] .c-hero::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    /* التدرج أعرض ومُزاح نحو اليسار: قوي حتى ما بعد نهاية اسم «هيثم» ثم يتلاشى حتى ٩٦٪ من العرض */
+    background: linear-gradient(270deg, rgba(248, 242, 231, .97) 0%, rgba(248, 242, 231, .95) 52%, rgba(248, 242, 231, .9) 60%,
+      rgba(248, 242, 231, .66) 69%, rgba(248, 242, 231, .36) 78%, rgba(248, 242, 231, .12) 88%, rgba(248, 242, 231, 0) 96%); }
+  [data-bf] .h-mash, [data-bf] .h-rays { display: none; }
+}
+
+/* جائزة بلعرب — قسم «الفكرة» على الكمبيوتر (٧ نوفمبر):
+   البطاقات الأربع في سطر واحد، والرموز أكبر وفي المنتصف بارتفاع موحّد، والخط أكبر؛
+   و«من الفكرة إلى أرض الواقع» خط زمني أفقي من خمس خطوات بدل أسطر عريضة فارغة */
+@media (min-width: 1100px) {
+  [data-bf] .bf-idea { padding: 34px 36px 30px; }
+  [data-bf] .bf-idea-lead { font-size: 19px; line-height: 1.9; }
+  [data-bf] .bf-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+  [data-bf] .bf-facts li, [data-bf] .bf-facts li.bf-vision, [data-bf] .bf-facts li.bf-where, [data-bf] .bf-facts li.bf-launch {
+    grid-template-rows: 120px auto auto; justify-items: center; align-content: start; gap: 6px; min-height: 0; padding: 22px 16px 20px; text-align: center; }
+  [data-bf] .bf-facts li > :first-child { align-self: center; }
+  [data-bf] .bf-facts .bf-emblem { height: 96px; margin: 0; }
+  [data-bf] .bf-facts .bf-vlogo { height: 112px; max-width: 190px; margin: 0; }
+  [data-bf] .bf-facts .bf-omap { width: 100%; height: 118px; margin: 0; }
+  [data-bf] .bf-cal { width: 92px; border-radius: 16px; }
+  [data-bf] .bf-cal i { font-size: 14px; padding: 5px 0 4px; }
+  [data-bf] .bf-facts .bf-cal b { font-size: 38px; line-height: 1.15; }
+  [data-bf] .bf-cal em { font-size: 14px; margin-bottom: 6px; }
+  [data-bf] .bf-facts b { font-size: 18px; }
+  [data-bf] .bf-facts small, [data-bf] .bf-facts li.bf-launch small { font-size: 14px; line-height: 1.7; }
+  [data-bf] .bf-facts li.bf-launch small { color: var(--ink); font-size: 18px; }
+
+  [data-bf] .bf-path-h { margin: 34px 0 18px; font-size: 19px; }
+  [data-bf] .bf-path { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+  [data-bf] .bf-path::before { top: 24px; bottom: auto; inset-inline: 10%; width: auto; height: 2px; background: linear-gradient(90deg, #C9A35C, #F1DDAE, #C9A35C); }
+  [data-bf] .bf-path li { grid-template-columns: 1fr; justify-items: center; align-items: start; gap: 14px; text-align: center; }
+  [data-bf] .bf-step { width: 48px; height: 48px; font-size: 18px; }
+  [data-bf] .bf-path li > div { width: 100%; height: 100%; margin-inline-start: 0; padding: 16px 14px; border-radius: 16px; }
+  [data-bf] .bf-path b { font-size: 17px; }
+  [data-bf] .bf-path small { font-size: 13.5px; line-height: 1.75; }
+  [data-bf] .bf-first { margin-top: 26px; padding: 18px 22px; font-size: 15px; }
+  [data-bf] .bf-first b { font-size: 14px; }
+}
+
+/* شعار شفاف ونقشة ممتدة من اليمين إلى اليسار في هيدر الكمبيوتر. */
+@media (min-width: 1100px) {
+  [data-bf] .c-hero .c-mark { background: transparent !important; box-shadow: none !important; filter: none !important; }
+  [data-bf][data-c="2"] .c-hero .h-mash {
+    display: block; z-index: 2; pointer-events: none; opacity: .1;
+    -webkit-mask: linear-gradient(to left, #000 0%, rgba(0,0,0,.75) 55%, transparent 100%);
+    mask: linear-gradient(to left, #000 0%, rgba(0,0,0,.75) 55%, transparent 100%);
+  }
+}

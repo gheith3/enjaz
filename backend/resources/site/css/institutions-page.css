@@ -1,0 +1,469 @@
+/* قسم المؤسسات — الواجهة وصفحة المؤسسة */
+.orgs-h { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; color: var(--dark); font-size: 18px; font-weight: 800; }
+.orgs-h::after { content: ""; flex: 1; height: 1px; background: linear-gradient(270deg, transparent, var(--gold)); }
+.orgs-h img { width: 18px; height: 18px; }
+.org-arrow { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #FBF2E1; color: #8A6A2F; }
+.org-arrow svg { width: 16px; height: 16px; }
+
+/* ---------- الواجهة ---------- */
+.orgs-hero { position: relative; overflow: hidden; padding: 26px var(--gutter) 22px; text-align: center; color: #fff;
+  background: url("../assets/svg/watermark.svg") left -70px bottom -70px / 260px no-repeat,
+    radial-gradient(70% 60% at 85% 0%, rgba(230, 201, 138, .25), transparent 70%), linear-gradient(160deg, #0C7F89, #063135); }
+.orgs-eyebrow { display: block; color: #E6C98A; font-size: 12px; font-weight: 700; }
+.orgs-hero h1 { margin: 2px 0 6px; font-size: 26px; font-weight: 800; }
+.orgs-hero > p { max-width: 320px; margin: 0 auto; color: rgba(255, 255, 255, .85); font-size: 13px; line-height: 1.8; }
+.orgs-stats { display: grid; grid-template-columns: repeat(3, 1fr); margin: 16px auto 16px; max-width: 320px; }
+.orgs-stats > div { display: grid; line-height: 1.3; }
+.orgs-stats > div + div { border-inline-start: 1px solid rgba(230, 201, 138, .4); }
+.orgs-stats b { color: #F4DFAE; font-size: 22px; font-weight: 800; }
+.orgs-stats small { color: rgba(255, 255, 255, .8); font-size: 11px; }
+.orgs-hero .search { max-width: 360px; margin: 0 auto; }
+
+.orgs-featured-wrap { margin-top: 22px; }
+.orgs-featured { position: relative; display: grid; grid-template-columns: 76px 1fr; gap: 14px; align-items: center; padding: 16px; border-radius: 20px; color: #fff; overflow: hidden;
+  background: radial-gradient(60% 90% at 0% 100%, rgba(230, 201, 138, .25), transparent 70%), linear-gradient(150deg, #0C7F89, #063135);
+  box-shadow: 0 14px 28px -14px rgba(6, 49, 53, .65), inset 0 0 0 1px rgba(201, 163, 92, .6); }
+.of-logo { display: grid; place-items: center; width: 76px; height: 76px; border-radius: 18px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(230, 201, 138, .5); }
+.of-logo img { max-width: 60px; max-height: 60px; object-fit: contain; }
+.of-txt { display: grid; gap: 2px; line-height: 1.5; }
+.of-txt small { color: #E6C98A; font-size: 11px; font-weight: 700; }
+.of-txt b { font-size: 15px; }
+.of-txt > span { color: rgba(255, 255, 255, .8); font-size: 11.5px; line-height: 1.7; }
+.of-go { grid-column: 1 / -1; justify-self: start; display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 16px; border-radius: 999px;
+  background: linear-gradient(180deg, #F6E3B4, #D9B262); color: #063135; font-size: 12px; font-weight: 800; }
+.of-go svg { width: 14px; height: 14px; }
+
+.orgs-chips { display: flex; gap: 8px; margin-bottom: 12px; }
+.orgs-chips .chip { width: auto; padding-inline: 18px; }
+.orgs-list { display: grid; gap: 10px; }
+.org-card { display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 10px; border-radius: 16px; background: #fff;
+  box-shadow: 0 4px 14px rgba(6, 49, 53, .07), inset 0 0 0 1px rgba(201, 163, 92, .35); transition: transform .25s ease, box-shadow .25s ease; }
+.org-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px -10px rgba(6, 49, 53, .3), inset 0 0 0 1px #C9A35C; }
+.org-card[hidden] { display: none; }
+.org-logo { flex: none; display: grid; place-items: center; width: 64px; height: 64px; padding: 6px; border-radius: 14px; background: #F7F5EF; }
+.org-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.org-info { flex: 1; display: grid; gap: 4px; min-width: 0; }
+.org-info b { color: var(--dark); font-size: 14px; font-weight: 700; line-height: 1.5; }
+.org-type { justify-self: start; padding: 1px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 700; }
+.org-type.t-gov { background: #E3F2EF; color: #096770; }
+.org-type.t-pvt { background: #FBF2E1; color: #8A6A2F; }
+.orgs-page .empty { padding: 24px 0; text-align: center; color: var(--muted); }
+
+.orgs-join { display: grid; justify-items: center; gap: 4px; margin-top: 28px; padding: 22px 16px; border-radius: 20px; text-align: center; background: #FBF7EE; border: 1px dashed #C9A35C; }
+.orgs-join b { color: var(--dark); font-size: 16px; }
+.orgs-join small { color: var(--muted); font-size: 12.5px; }
+.orgs-join .btn { margin-top: 6px; height: 36px; display: inline-flex; align-items: center; padding: 0 18px; border-radius: 999px; background: linear-gradient(160deg, #0C7F89, #063135); color: #F6E3B4; font-size: 12.5px; font-weight: 800; }
+
+/* ---------- صفحة المؤسسة ---------- */
+.org-hero2 { display: grid; justify-items: center; gap: 6px; padding: 24px var(--gutter) 70px; text-align: center; color: #fff;
+  background: url("../assets/svg/watermark.svg") left -70px bottom -60px / 250px no-repeat,
+    radial-gradient(70% 60% at 85% 0%, rgba(230, 201, 138, .25), transparent 70%), linear-gradient(160deg, #0C7F89, #063135); }
+.oh-logo { display: grid; place-items: center; width: 104px; height: 104px; margin-bottom: 6px; border-radius: 50%; background: rgba(255, 255, 255, .08);
+  box-shadow: 0 0 0 1px rgba(230, 201, 138, .7), 0 0 0 7px rgba(230, 201, 138, .12); }
+.oh-logo img { max-width: 76px; max-height: 70px; object-fit: contain; }
+.oh-type { padding: 1px 12px; border-radius: 999px; background: rgba(230, 201, 138, .2); color: #F4DFAE; font-size: 11.5px; font-weight: 700; }
+.org-hero2 h1 { font-size: 22px; font-weight: 800; line-height: 1.45; }
+.oh-fields { display: flex; gap: 6px; margin-top: 4px; }
+.oh-fields span { padding: 2px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .35); font-size: 11px; }
+
+.org-about { position: relative; z-index: 2; margin-top: -48px; padding: 18px 16px 12px; border-radius: 20px; background: #fff;
+  box-shadow: 0 12px 28px -14px rgba(6, 49, 53, .35), inset 0 0 0 1px rgba(201, 163, 92, .4); }
+.oa-clip { position: relative; max-height: 150px; overflow: hidden; transition: max-height .5s ease; }
+.oa-clip::after { content: ""; position: absolute; inset: auto 0 0; height: 56px; background: linear-gradient(0deg, #fff, transparent); }
+.org-about.open .oa-clip { max-height: 1200px; }
+.org-about.open .oa-clip::after { display: none; }
+.oa-clip p { font-size: 14px; line-height: 1.95; color: #3C4746; }
+.oa-clip p + p { margin-top: 10px; }
+.oa-more { display: block; margin: 8px auto 0; color: var(--primary); font-size: 12.5px; font-weight: 800; }
+
+.oa-feature { position: relative; display: block; overflow: hidden; border-radius: 20px; aspect-ratio: 16 / 11; box-shadow: 0 12px 26px -14px rgba(6, 49, 53, .6), inset 0 0 0 1px #C9A35C; }
+.oa-feature img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.oa-feature:hover img { transform: scale(1.04); }
+.oa-feature::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(6, 49, 53, .95), rgba(6, 49, 53, .45) 45%, transparent 70%); }
+.oa-feature-b { position: absolute; inset: auto 0 0; z-index: 1; display: grid; gap: 4px; padding: 16px; color: #fff; }
+.oa-feature-b small { color: #E6C98A; font-size: 11px; font-weight: 700; }
+.oa-feature-b b { font-size: 16px; line-height: 1.55; }
+.oa-read { justify-self: start; margin-top: 4px; padding: 3px 12px; border-radius: 999px; background: linear-gradient(180deg, #F6E3B4, #D9B262); color: #063135; font-size: 11.5px; font-weight: 800; }
+.oa-list { display: grid; gap: 10px; margin-top: 12px; }
+.oa-row { display: flex; align-items: center; gap: 12px; padding: 8px 10px 8px 8px; border-radius: 16px; background: #fff; box-shadow: 0 4px 14px rgba(6, 49, 53, .07), inset 0 0 0 1px rgba(201, 163, 92, .3); }
+.oa-row img { flex: none; width: 76px; height: 64px; border-radius: 12px; object-fit: cover; }
+.oa-txt { flex: 1; display: grid; gap: 2px; min-width: 0; line-height: 1.5; }
+.oa-txt small { color: var(--gold); font-size: 10.5px; font-weight: 700; }
+.oa-txt b { color: var(--dark); font-size: 13px; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.oa-all { display: flex; justify-content: center; align-items: center; height: 40px; margin-top: 12px; border-radius: 999px; border: 1px solid #C9A35C; color: var(--primary); font-size: 13px; font-weight: 800; }
+
+.org-word { position: relative; display: grid; grid-template-columns: 112px 1fr; gap: 14px; align-items: end; margin: 0; padding: 18px 16px 0; border-radius: 22px; overflow: hidden;
+  background: radial-gradient(70% 70% at 0% 100%, rgba(230, 201, 138, .22), transparent 70%), linear-gradient(160deg, #0C7F89, #063135); color: #fff; }
+.ow-pic img { display: block; width: 100%; }
+.ow-body { align-self: center; padding-bottom: 18px; }
+.ow-q { display: block; height: 30px; color: #E6C98A; font-family: Georgia, serif; font-size: 56px; line-height: 1; }
+.org-word blockquote { margin: 0; font-size: 13.5px; line-height: 1.9; color: rgba(255, 255, 255, .92); }
+.org-word figcaption { margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(230, 201, 138, .4); }
+.org-word figcaption b { color: #F4DFAE; font-size: 14px; }
+
+.org-others { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding: 2px var(--gutter) 6px; }
+.org-others::-webkit-scrollbar { display: none; }
+.org-mini { flex: none; display: grid; justify-items: center; gap: 6px; width: 120px; padding: 12px 8px 10px; border-radius: 16px; background: #fff; text-align: center;
+  box-shadow: 0 4px 14px rgba(6, 49, 53, .07), inset 0 0 0 1px rgba(201, 163, 92, .35); }
+.org-mini img { height: 48px; max-width: 90px; object-fit: contain; }
+.org-mini span { color: var(--dark); font-size: 11px; font-weight: 700; line-height: 1.5; }
+
+@media (min-width: 768px) {
+  .orgs-list { grid-template-columns: repeat(2, 1fr); }
+  .oa-list { grid-template-columns: repeat(3, 1fr); }
+}
+
+
+
+/* ---------- رأس الواجهة: صور جلالة السلطان ---------- */
+.sultan-hero { position: relative; height: 300px; padding: 0; overflow: hidden; background: #063135; text-align: start; }
+.sh-media { position: absolute; inset: 0; }
+.sh-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity 1.4s ease, transform 7s ease-out; }
+.sh-img.on { opacity: 1; transform: scale(1); }
+.sultan-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(0deg, rgba(6, 49, 53, .97) 0%, rgba(6, 49, 53, .82) 30%, rgba(6, 49, 53, .25) 62%, rgba(6, 49, 53, .05) 80%, rgba(6, 49, 53, .35) 100%); }
+.sh-bars { position: absolute; top: 14px; inset-inline-end: var(--gutter); z-index: 2; display: flex; gap: 4px; }
+.sh-bars i { width: 14px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .45); transition: width .4s ease, background .4s ease; }
+.sh-bars i.on { width: 26px; background: #E6C98A; }
+.sh-text { position: absolute; inset-inline: 0; bottom: 0; z-index: 2; padding: 0 var(--gutter) 34px; color: #fff; }
+.sh-text h1 { margin: 2px 0 4px; font-size: 24px; font-weight: 800; line-height: 1.35; text-shadow: 0 2px 12px rgba(0, 0, 0, .35); }
+.sh-text > p { margin: 0; font-size: 12.5px; line-height: 1.7; color: rgba(255, 255, 255, .88); }
+.sh-text::before { content: ""; display: block; width: 44px; height: 2px; margin-bottom: 10px; background: linear-gradient(90deg, #F4DFAE, #C9A35C); }
+.dh-stats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.dh-stats span { padding: 2px 10px; border-radius: 999px; background: rgba(255, 255, 255, .1); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); box-shadow: inset 0 0 0 1px rgba(230, 201, 138, .5); font-size: 11px; color: rgba(255, 255, 255, .92); }
+.dh-stats b { color: #F4DFAE; font-size: 13px; font-weight: 800; }
+.sh-search { position: relative; z-index: 3; margin-top: -22px; }
+.sh-search .search { box-shadow: 0 10px 24px -10px rgba(6, 49, 53, .45); }
+@media (min-width: 768px) { .sultan-hero { height: 380px; } }
+@media (prefers-reduced-motion: reduce) { .sh-img { transition: none; transform: none; } }
+
+/* ---------- المؤسسات: مؤسستان في كل سطر ---------- */
+.orgs-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.org-card { position: relative; flex-direction: column; align-items: stretch; gap: 8px; padding: 10px 10px 12px; text-align: center; }
+.org-card .org-logo { width: 100%; height: 92px; padding: 12px; border-radius: 14px; background: #fff; border: 1.5px solid #0C7F89; box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 4px rgba(12, 127, 137, .18); }
+.org-card .org-info { justify-items: center; gap: 6px; }
+.org-card .org-info b { font-size: 12.5px; line-height: 1.55; min-height: 2.9em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.org-card .org-type { justify-self: center; }
+.org-card .org-arrow { display: none; }
+@media (min-width: 768px) { .orgs-list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* ---------- الإحصائيات أسفل الصفحة ---------- */
+.orgs-stats-sec { margin-top: 28px; }
+.orgs-stats-card { display: grid; grid-template-columns: repeat(3, 1fr); padding: 16px 8px; border-radius: 20px; text-align: center; color: #fff;
+  background: radial-gradient(70% 90% at 100% 0%, rgba(230, 201, 138, .22), transparent 70%), linear-gradient(160deg, #0C7F89, #063135);
+  box-shadow: 0 12px 26px -14px rgba(6, 49, 53, .6), inset 0 0 0 1px rgba(201, 163, 92, .55); }
+.orgs-stats-card > div { display: grid; line-height: 1.3; }
+.orgs-stats-card > div + div { border-inline-start: 1px solid rgba(230, 201, 138, .4); }
+.orgs-stats-card b { color: #F4DFAE; font-size: 26px; font-weight: 800; }
+.orgs-stats-card small { color: rgba(255, 255, 255, .85); font-size: 12px; }
+.org-card .org-logo { display: block; }
+.org-card .org-logo img { display: block; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: contain; }
+
+/* رأس أقصر + إطار ذهبي رفيع للبحث */
+.sultan-hero { height: 230px; }
+.sh-text { padding-bottom: 32px; }
+.sh-search .search { border: 0; }
+.sh-search .search input { border: 1px solid #C9A35C; }
+@media (min-width: 768px) { .sultan-hero { height: 300px; } }
+
+/* ---------- الصورة والنص منفصلان: لا كتابة فوق صور جلالة السلطان ---------- */
+.sultan-hero { height: auto; background: #063135; }
+.sultan-hero::after { display: none; }
+.sh-media { position: relative; height: 200px; overflow: hidden; }
+.sh-media::after { content: ""; position: absolute; inset: auto 0 0; height: 34%; pointer-events: none;
+  background: linear-gradient(0deg, #063135 0%, rgba(6, 49, 53, .6) 45%, rgba(6, 49, 53, 0) 100%); }
+.sh-media::before { content: ""; position: absolute; inset: 0 0 auto; z-index: 1; height: 50px; pointer-events: none; background: linear-gradient(180deg, rgba(6, 49, 53, .45), transparent); }
+.sh-bars { z-index: 2; }
+.sh-text { position: relative; inset: auto; padding: 4px var(--gutter) 34px; background: #063135; }
+.sh-text::before { display: none; }
+.sh-text h1 { margin: 0 0 2px; font-size: 22px; text-shadow: none; }
+.sh-text .orgs-eyebrow { display: flex; align-items: center; gap: 8px; }
+.sh-text .orgs-eyebrow::before { content: ""; width: 26px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #F4DFAE, #C9A35C); }
+@media (min-width: 768px) { .sultan-hero { height: auto; } .sh-media { height: 300px; } }
+
+/* خط ذهبي مموّج يفصل الصورة عن الشريط الأخضر */
+.sultan-hero .sh-wave { position: absolute; left: 0; right: 0; top: 172px; z-index: 2; width: 100%; height: 30px; overflow: visible; pointer-events: none; }
+.sh-wave-fill { fill: #063135; }
+.sh-wave-line { fill: none; stroke: url(#shGold); stroke-width: 1.6; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 4px rgba(244, 223, 174, .6)); }
+.sh-media::after { height: 45%; }
+@media (min-width: 768px) { .sultan-hero .sh-wave { top: 270px; } }
+
+/* نفس أخضر الهيدر: #0C7F89 → #0A737C */
+.sultan-hero { background: #0A737C; }
+.sh-text { background: linear-gradient(180deg, #0C7F89, #0A737C); }
+.sh-wave-fill { fill: #0C7F89; }
+.sh-media::after { background: linear-gradient(0deg, #0C7F89 0%, rgba(12, 127, 137, .6) 45%, rgba(12, 127, 137, 0) 100%); }
+
+/* التدرّج يبدأ من الخط الذهبي: الصورة فوقه صافية */
+.sh-media::after { display: none; }
+
+/* إحصائيات صغيرة تحت البحث */
+.orgs-mini-stats { display: flex; justify-content: center; align-items: center; margin-top: 10px; }
+.orgs-mini-stats span { display: inline-flex; align-items: baseline; gap: 5px; padding: 0 14px; color: var(--muted); font-size: 11.5px; }
+.orgs-mini-stats span + span { border-inline-start: 1px solid rgba(201, 163, 92, .6); }
+.orgs-mini-stats b { color: var(--primary); font-size: 15px; font-weight: 800; }
+
+/* ---------- نبض المؤسسات: عدّاد + شريط النسبة ---------- */
+.orgs-pulse { max-width: 340px; margin: 12px auto 0; }
+.op-nums { display: flex; justify-content: center; align-items: center; }
+.op-item { display: inline-flex; align-items: center; gap: 5px; padding: 0 14px; color: var(--muted); font-size: 11.5px;
+  opacity: 0; transform: translateY(6px); transition: opacity .5s ease, transform .5s ease; }
+.op-item + .op-item { border-inline-start: 1px solid rgba(201, 163, 92, .55); }
+.go .op-item { opacity: 1; transform: none; }
+.go .op-item:nth-child(2) { transition-delay: .2s; } .go .op-item:nth-child(3) { transition-delay: .4s; }
+.op-item b { min-width: 1ch; color: var(--primary); font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.op-item i { width: 7px; height: 7px; border-radius: 50%; }
+.op-gov i { background: #0C7F89; } .op-pvt i { background: #C9A35C; } .op-pvt b { color: #A88344; }
+.op-item.done b { animation: op-pop .35s ease; }
+@keyframes op-pop { 50% { transform: scale(1.25); } }
+.op-bar { position: relative; display: flex; gap: 3px; height: 4px; margin: 9px 14px 0; border-radius: 4px; background: rgba(12, 127, 137, .08); overflow: hidden; }
+.op-seg { height: 100%; width: 0; border-radius: 4px; transition: width 1.3s cubic-bezier(.3, .7, .2, 1); }
+.op-seg-gov { background: linear-gradient(90deg, #0A737C, #0C7F89); }
+.op-seg-pvt { background: linear-gradient(90deg, #C9A35C, #F4DFAE); transition-delay: .5s; }
+.go .op-seg { width: calc(var(--w) - 2px); }
+.op-shine { position: absolute; top: 0; bottom: 0; width: 40%; left: -45%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .9), transparent); }
+.go .op-shine { animation: op-shine 1.2s ease 1.6s both; }
+@keyframes op-shine { to { left: 110%; } }
+@media (prefers-reduced-motion: reduce) { .op-item, .op-seg { transition: none; } .go .op-shine, .op-item.done b { animation: none; } }
+
+/* ---------- حلقات الإحصائيات المتحركة ---------- */
+.orgs-pulse { display: none; }
+.orgs-rings { display: flex; justify-content: center; gap: 26px; margin-top: 14px; }
+.or-item { display: grid; justify-items: center; gap: 4px; opacity: 0; transform: translateY(8px) scale(.92); transition: opacity .5s ease, transform .6s cubic-bezier(.3, .7, .2, 1.3); }
+.go .or-item { opacity: 1; transform: none; }
+.go .or-item:nth-child(3) { transition-delay: .18s; } .go .or-item:nth-child(4) { transition-delay: .36s; }
+.or-ring { position: relative; width: 58px; height: 58px; }
+.or-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.or-track { fill: #fff; stroke: rgba(12, 127, 137, .1); stroke-width: 4; }
+.or-arc { fill: none; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1.5s cubic-bezier(.3, .7, .2, 1); }
+.go .or-arc { stroke-dashoffset: calc(100 - var(--p)); }
+.go .or-item:nth-child(3) .or-arc { transition-delay: .25s; } .go .or-item:nth-child(4) .or-arc { transition-delay: .5s; }
+.or-total .or-arc, .or-pvt .or-arc { stroke: url(#orGold); }
+.or-gov .or-arc { stroke: url(#orGreen); }
+.or-total .or-ring::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(201, 163, 92, .35); opacity: 0; }
+.go .or-total .or-ring::after { animation: or-halo 2.4s ease 1.6s infinite; }
+@keyframes or-halo { 0% { opacity: .9; transform: scale(1); } 100% { opacity: 0; transform: scale(1.35); } }
+.or-ring b { position: absolute; inset: 0; display: grid; place-items: center; color: var(--primary); font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.or-pvt .or-ring b, .or-total .or-ring b { color: #8A6A2F; }
+.or-item small { color: var(--muted); font-size: 11.5px; font-weight: 600; }
+.or-item.done b { animation: op-pop .35s ease; }
+@media (prefers-reduced-motion: reduce) { .or-item, .or-arc { transition: none; } .go .or-total .or-ring::after, .or-item.done b { animation: none; } }
+
+/* حلقة رابعة: عسكرية */
+.orgs-rings { gap: 18px; }
+.or-mil .or-arc { stroke: url(#orGreen); }
+.go .or-item:nth-child(5) { transition-delay: .54s; } .go .or-item:nth-child(5) .or-arc { transition-delay: .75s; }
+.or-mil .or-arc { stroke: #4E6B3A; }
+.or-mil .or-ring b { color: #4E6B3A; }
+
+/* ---------- القطاع العسكري ---------- */
+.mil-panel { position: relative; overflow: hidden; padding: 18px 14px 16px; border-radius: 22px; color: #fff;
+  background: url("../assets/svg/watermark.svg") left -60px bottom -60px / 230px no-repeat,
+    radial-gradient(70% 60% at 100% 0%, rgba(230, 201, 138, .2), transparent 70%), linear-gradient(160deg, #0C7F89, #063135);
+  box-shadow: 0 14px 30px -14px rgba(6, 49, 53, .65), inset 0 0 0 1px rgba(201, 163, 92, .6); }
+.mil-head { display: flex; align-items: center; gap: 12px; }
+.mil-badge { flex: none; display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(160deg, #F6E3B4, #C9A35C); box-shadow: 0 0 0 4px rgba(230, 201, 138, .2); }
+.mil-badge img { width: 24px; height: 27px; filter: brightness(0) saturate(100%) invert(14%) sepia(30%) saturate(1500%) hue-rotate(145deg); }
+.mil-head h2 { color: #fff; font-size: 19px; font-weight: 800; line-height: 1.4; }
+.mil-head p { margin-top: 2px; color: rgba(255, 255, 255, .82); font-size: 12px; line-height: 1.7; }
+.mil-line { display: block; height: 1px; margin: 14px 0; background: linear-gradient(90deg, transparent, #E6C98A, transparent); }
+.mil-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.mil-card { display: grid; justify-items: center; gap: 8px; padding: 10px 10px 12px; border-radius: 16px; text-align: center; background: rgba(255, 255, 255, .07);
+  box-shadow: inset 0 0 0 1px rgba(230, 201, 138, .4); transition: transform .25s ease, background .25s ease; }
+.mil-card:hover { transform: translateY(-2px); background: rgba(255, 255, 255, .12); }
+.mil-card .mil-logo { display: grid; place-items: center; width: 100%; height: 76px; padding: 14px; border-radius: 12px; background: #fff; border: 1.5px solid #0C7F89; box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 4px rgba(12, 127, 137, .18); }
+.mil-card .mil-logo img { width: 34px; height: 38px; object-fit: contain; }
+.mil-card b { color: #fff; font-size: 12px; font-weight: 700; line-height: 1.55; min-height: 2.9em; }
+@media (min-width: 768px) { .mil-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* ---------- ثلاث مؤسسات في كل سطر ---------- */
+.orgs-chips { gap: 6px; }
+.orgs-chips .chip { flex: 1; padding-inline: 8px; }
+.orgs-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.org-card { gap: 7px; padding: 7px 7px 10px; border-radius: 14px; }
+.org-card .org-logo { height: 72px; padding: 9px; border-radius: 11px; border-width: 1.2px; box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 3px rgba(12, 127, 137, .15); }
+.org-card .org-logo-icon { padding: 18px; }
+.org-card .org-info { gap: 5px; }
+.org-card .org-info b { font-size: 11px; line-height: 1.5; min-height: 3em; }
+.org-type { padding: 1px 8px; font-size: 9.5px; }
+.org-type.t-mil { background: #EAF0E3; color: #4A6436; }
+.org-card[data-cat="عسكري"] .org-logo { border-color: #5B7A43; }
+.org-card[data-cat="خاص"] .org-logo { border-color: #C9A35C; }
+@media (min-width: 768px) { .orgs-list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* عنوان كل قطاع داخل القائمة */
+.orgs-group { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; margin-top: 8px; color: var(--dark); font-size: 13px; font-weight: 800; }
+.orgs-group:first-child { margin-top: 0; }
+.orgs-group::before { content: ""; width: 4px; height: 16px; border-radius: 4px; background: var(--c); }
+.orgs-group::after { content: ""; flex: 1; height: 1px; background: linear-gradient(270deg, transparent, rgba(201, 163, 92, .7)); }
+.orgs-group b { order: 2; display: grid; place-items: center; min-width: 22px; height: 20px; padding: 0 6px; border-radius: 999px; background: color-mix(in srgb, var(--c) 12%, #fff); color: var(--c); font-size: 11px; }
+.orgs-group::after { order: 3; }
+.orgs-group[hidden] { display: none; }
+.g-gov { --c: #0C7F89; } .g-mil { --c: #5B7A43; } .g-pvt { --c: #B58E4A; }
+
+/* ---------- مؤسسات من نفس المجال: مربعات صغيرة متحركة + سهم ---------- */
+.org-rail { display: flex; align-items: center; gap: 10px; }
+.rail-view { flex: 1; min-width: 0; overflow: hidden; padding: 4px 2px 8px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.rail-view.manual { overflow-x: auto; scrollbar-width: none; }
+.rail-track { display: flex; gap: 8px; width: max-content; will-change: transform; }
+.org-sq { flex: none; display: grid; grid-template-rows: 42px auto; justify-items: center; align-content: center; gap: 4px; width: 82px; height: 82px; padding: 6px 5px; border-radius: 14px; background: #fff; text-align: center;
+  box-shadow: 0 3px 10px rgba(6, 49, 53, .07), inset 0 0 0 1px rgba(12, 127, 137, .55); }
+.org-sq img { width: 100%; height: 100%; padding: 3px 4px; object-fit: contain; }
+.org-sq span { max-width: 100%; color: var(--dark); font-size: 9.5px; font-weight: 700; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.org-rail .more-round { min-width: 28px; }
+
+/* ---------- صفحة إنجازات مؤسسة واحدة ---------- */
+.oi-hero { position: relative; display: grid; justify-items: center; gap: 4px; padding: 14px var(--gutter) 26px; text-align: center; color: #fff;
+  background: url("../assets/svg/watermark.svg") left -70px bottom -60px / 250px no-repeat, radial-gradient(70% 60% at 85% 0%, rgba(230, 201, 138, .25), transparent 70%), linear-gradient(180deg, #0C7F89, #0A737C); }
+.oi-back { justify-self: start; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 4px; color: #F4DFAE; font-size: 12px; font-weight: 700; }
+.oi-back .btn-round { width: 28px; height: 28px; background: rgba(255, 255, 255, .14); box-shadow: inset 0 0 0 1px rgba(230, 201, 138, .6); transform: scaleX(-1); }
+.oi-back .btn-round svg { width: 14px; height: 14px; }
+.oi-hero .oh-logo { width: 84px; height: 84px; margin-bottom: 4px; }
+.oi-hero .oh-logo img { max-width: 60px; max-height: 56px; }
+.oi-hero h1 { max-width: 320px; font-size: 19px; font-weight: 800; line-height: 1.55; }
+.oi-count { margin-top: 4px; padding: 2px 14px; border-radius: 999px; background: rgba(255, 255, 255, .1); box-shadow: inset 0 0 0 1px rgba(230, 201, 138, .5); font-size: 11.5px; }
+.oi-count b { color: #F4DFAE; font-size: 14px; }
+.oi-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.oi-card { display: grid; overflow: hidden; border-radius: 16px; background: #fff; box-shadow: 0 4px 14px rgba(6, 49, 53, .07), inset 0 0 0 1px rgba(201, 163, 92, .4); transition: transform .25s ease; }
+.oi-card:hover { transform: translateY(-2px); }
+.oi-img { display: block; aspect-ratio: 4 / 3; overflow: hidden; }
+.oi-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.oi-card:hover .oi-img img { transform: scale(1.05); }
+.oi-b { display: grid; gap: 3px; padding: 9px 10px 11px; line-height: 1.5; }
+.oi-b small { color: var(--gold); font-size: 10.5px; font-weight: 700; }
+.oi-b b { color: var(--dark); font-size: 12.5px; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+@media (min-width: 768px) { .oi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.oi-grid { margin-bottom: 36px; }
+.oi-hero + .section { margin-top: 24px; }
+
+/* شعار المؤسسة: بطاقة بيضاء بإطار ذهبي رفيع بدل الدائرة الخضراء */
+.oh-logo { width: 128px; height: 96px; padding: 10px 14px; border-radius: 20px; background: #fff;
+  box-shadow: 0 0 0 1px #C9A35C, 0 0 0 5px rgba(255, 255, 255, .12), 0 14px 28px -12px rgba(0, 0, 0, .45); }
+.oh-logo img { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: contain; }
+.oi-hero .oh-logo { width: 112px; height: 84px; padding: 8px 12px; }
+.oi-hero .oh-logo img { max-width: none; max-height: none; }
+
+
+
+
+
+/* ---------- كلمة المسؤول: نفس تصميم قسم عائشة السيفي ---------- */
+.official-feature { margin-top: var(--section); }
+/* الرسم بارتفاع ثابت أعلى اللوحة، فلا يكبر عند التوسّع */
+.official-feature .aisha-art { inset: 0 0 auto auto; height: 230px; }
+.official-feature .aisha-portrait { transition: transform 1s cubic-bezier(.16, 1, .3, 1); }
+.official-feature.open .aisha-portrait { transform: scale(1.05); }
+.official-feature .aisha-copy { width: 54%; }
+.official-feature .aisha-copy h2 { font-size: 16px; }
+.official-feature .aisha-bio { position: relative; padding-bottom: 2px; }
+.official-feature .wc-text { position: relative; max-height: 118px; overflow: hidden; transition: max-height .7s cubic-bezier(.3, .7, .2, 1); }
+.official-feature .wc-text::after { content: ""; position: absolute; inset: auto 0 0; height: 36px; background: linear-gradient(0deg, #FAFDFA, rgba(250, 253, 250, 0)); transition: opacity .3s ease; }
+.official-feature.open .wc-text::after { opacity: 0; }
+.official-feature .wc-text p { margin: 0; font-size: 11px; line-height: 1.85; color: #214448; }
+.official-feature .wc-text p + p { margin-top: 6px; }
+.official-feature .wc-more { display: inline-flex; align-items: center; gap: 4px; min-height: 36px; color: var(--primary); font-size: 10.5px; font-weight: 700; }
+.official-feature .wc-more svg { width: 14px; height: 14px; transition: transform .3s ease; }
+.official-feature.open .wc-more svg { transform: rotate(180deg); }
+.of-frame { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.of-frame rect { width: calc(100% - 2px); height: calc(100% - 2px); fill: none; stroke: #C9A35C; stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.2s cubic-bezier(.4, 0, .2, 1) .2s; }
+.official-feature.open .of-frame rect { stroke-dashoffset: 0; }
+@media (min-width: 700px) { .official-feature .aisha-art { height: 280px; } .official-feature .wc-text p { font-size: 14px; } }
+/* الصورة لا تدخل تحت الكلمة، والتلاشي من النص نفسه */
+.official-feature .aisha-portrait { height: 94%; bottom: -1%; right: -18px; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%); mask-image: linear-gradient(90deg, transparent 0%, #000 18%); }
+.official-feature .aisha-copy { width: 52%; }
+.official-feature .wc-text::after { display: none; }
+.official-feature .wc-text { -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent); mask-image: linear-gradient(180deg, #000 62%, transparent); }
+.official-feature.open .wc-text { -webkit-mask-image: none; mask-image: none; }
+.official-feature .aisha-art { inset: auto 0 0 auto; height: 236px; transition: height .7s cubic-bezier(.3, .7, .2, 1); }
+.official-feature.open .aisha-art { height: 290px; }
+@media (min-width: 700px) { .official-feature .aisha-art { height: 280px; } .official-feature.open .aisha-art { height: 340px; } }
+
+/* ---------- تصميم الوزير ٢: عند التوسّع تقف الصورة على خط ذهبي، وتحته الاسم والمسمى ---------- */
+.official-feature .aisha-copy { width: 54%; transition: width .7s cubic-bezier(.3, .7, .2, 1); }
+.official-feature .aisha-copy h2 { margin-bottom: 2px; }
+.of-role { margin: 0 0 10px; color: #E9D6A5; font-size: 11px; font-weight: 600; line-height: 1.6; max-height: 40px; transition: opacity .4s ease, max-height .6s ease, margin .6s ease; }
+.official-feature .aisha-copy h2 { max-height: 80px; transition: opacity .4s ease, max-height .6s ease, margin .6s ease; }
+.official-feature .aisha-art { bottom: 0; transition: height .8s cubic-bezier(.3, .7, .2, 1), bottom .8s cubic-bezier(.3, .7, .2, 1); }
+.official-feature.open .aisha-portrait { transform: none; }
+/* الاسم تحت الخط */
+.of-id { position: absolute; z-index: 3; right: 0; top: 66%; width: 42%; display: grid; justify-items: center; gap: 2px; padding-top: 12px; text-align: center; opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .6s ease; pointer-events: none; }
+.of-id::before { content: ""; position: absolute; top: 0; left: 6%; right: 6%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, #E6C98A 18%, #FFF1D2 50%, #E6C98A 82%, transparent); box-shadow: 0 0 10px rgba(244, 223, 174, .7); transform: scaleX(0); transition: transform .8s cubic-bezier(.3, .7, .2, 1) .3s; }
+.of-id b { color: #fff; font-size: 13px; font-weight: 800; line-height: 1.5; }
+.of-id small { color: #E9D6A5; font-size: 10.5px; line-height: 1.5; }
+/* الحالة الموسّعة */
+.official-feature.open .aisha-copy { width: 60%; }
+.official-feature.open .aisha-copy h2, .official-feature.open .of-role { opacity: 0; max-height: 0; margin: 0; overflow: hidden; }
+.official-feature.open .aisha-art { height: 180px; bottom: 34%; }
+.official-feature.open .of-id { opacity: 1; transform: none; transition-delay: .45s; }
+.official-feature.open .of-id::before { transform: scaleX(1); }
+@media (min-width: 700px) { .official-feature.open .aisha-art { height: 240px; } }
+
+/* ---------- تصميم الوزير ٣: حركة إسناد متصلة وصورة أصغر ---------- */
+.official-feature { --lift: 0px; --ease: cubic-bezier(.45, .05, .25, 1); }
+.official-feature .aisha-art, .official-feature.open .aisha-art { height: 222px; bottom: 0; transform-origin: 100% 100%; will-change: transform;
+  transform: translateY(var(--lift)) scale(1); transition: transform .9s var(--ease); }
+.official-feature.open .aisha-art { transform: translateY(var(--lift)) scale(.74); }
+.official-feature .wc-text { transition: max-height .9s var(--ease); }
+.official-feature .aisha-copy { transition: width .9s var(--ease); }
+/* الخط الذهبي يُرسم من المنتصف بعد وصول الصورة، ثم يظهر الاسم */
+.of-id { top: 66%; width: 40%; transition: opacity .5s ease, transform .6s var(--ease); }
+.of-id::before { transition: transform .7s var(--ease); }
+.official-feature.open .of-id { transition-delay: .7s; }
+.official-feature.open .of-id::before { transition-delay: .6s; }
+.official-feature:not(.open) .of-id { transition-delay: 0s; }
+@media (min-width: 700px) { .official-feature .aisha-art, .official-feature.open .aisha-art { height: 270px; } }
+.official-feature .of-id { top: calc(66% - 15px); }
+
+/* ---------- تصميم ٣ (معدّل): الخط الذهبي قاعدة ملتصقة بالصورة ---------- */
+/* القاعدة داخل الرسم نفسه، فتتحرك وتصغر مع الصورة ولا تنفصل عنها */
+.of-stand { position: absolute; z-index: 3; right: -18px; bottom: -1%; width: 46%; height: 0; pointer-events: none; }
+.of-base { position: absolute; left: -6%; right: -2%; top: -2px; height: 4px; border-radius: 4px; transform: scaleX(0); transform-origin: 60% 50%;
+  background: linear-gradient(90deg, rgba(201, 163, 92, 0), #C9A35C 14%, #FFF1D2 52%, #E6C98A 80%, rgba(201, 163, 92, 0));
+  box-shadow: 0 0 12px rgba(244, 223, 174, .8); transition: transform .8s var(--ease); }
+/* ظلّ ضوئي خفيف تحت القاعدة يوحي بأن الصورة تستند عليها */
+.of-base::after { content: ""; position: absolute; left: 12%; right: 12%; top: 3px; height: 18px; border-radius: 50%; background: radial-gradient(closest-side, rgba(244, 223, 174, .45), transparent); }
+.of-stand .of-id { position: absolute; top: 14px; left: 0; right: 0; width: auto; padding: 0; display: grid; justify-items: center; gap: 2px; text-align: center; opacity: 0; transform: translateY(8px); transition: opacity .5s ease, transform .6s var(--ease); }
+.of-stand .of-id::before { display: none; }
+/* الرسم يصغر إلى ٠٫٧٤، فنكبّر الخط ليظهر بحجمه الطبيعي */
+.of-stand .of-id b { color: #fff; font-size: 17.5px; font-weight: 800; line-height: 1.45; white-space: nowrap; }
+.of-stand .of-id small { color: #E9D6A5; font-size: 14px; line-height: 1.5; white-space: nowrap; }
+.official-feature.open .of-base { transform: scaleX(1); transition-delay: .55s; }
+.official-feature.open .of-stand .of-id { opacity: 1; transform: none; transition-delay: .8s; }
+/* إلغاء الكتلة القديمة المنفصلة */
+.official-feature > .of-id { display: none; }
+.of-stand .of-id { left: -34%; right: 26px; }
+
+/* حركة الخط الساند مثل تصميم ٢: يُرسم من المنتصف بخط رفيع لامع */
+.of-base { left: 4%; right: 4%; top: -1px; height: 2.7px; border-radius: 2px; transform-origin: 50% 50%;
+  background: linear-gradient(90deg, transparent, #E6C98A 18%, #FFF1D2 50%, #E6C98A 82%, transparent); box-shadow: 0 0 13px rgba(244, 223, 174, .7);
+  transition: transform .8s cubic-bezier(.3, .7, .2, 1); }
+.of-base::after { display: none; }
+.official-feature.open .of-base { transition-delay: .3s; }
+.of-stand .of-id { transition: opacity .5s ease, transform .6s ease; }
+.official-feature.open .of-stand .of-id { transition-delay: .45s; }
+/* الاسم والمسمى داخل عرض الصورة فقط، فلا يقتربان من بطاقة الكلمة */
+.of-stand .of-id { left: 0; right: 26px; }
+.of-stand .of-id b, .of-stand .of-id small { white-space: normal; text-wrap: balance; }
+.of-stand .of-id b { font-size: 16.5px; }
+.of-stand .of-id small { font-size: 13.5px; }
+.official-feature.open .aisha-copy { width: 57%; }
+
+/* نوع رابع: مؤسسات رياضية (الاتحادات) */
+.g-sport { --c: #B4483C; }
+.org-type.t-sport { background: #FBEAE7; color: #9C3A2F; }
+.org-card[data-cat="رياضي"] .org-logo { border-color: #D98C82; }
+.or-sport .or-arc { stroke: #B4483C; }
+.or-sport .or-ring b { color: #9C3A2F; }
+.go .or-item:nth-child(6) { transition-delay: .72s; } .go .or-item:nth-child(6) .or-arc { transition-delay: 1s; }
+/* خمس حلقات تتسع على الهاتف */
+@media (max-width: 420px) {
+  .orgs-rings { gap: 10px; }
+  .or-ring { width: 52px; height: 52px; }
+  .or-ring b { font-size: 16px; }
+  .or-item small { font-size: 10.5px; }
+}
+/* الجامعات والكليات (تصل إلى universities.html) */
+.g-edu { --c: #9A7A3C; }
+.org-type.t-edu { background: #F6F0E2; color: #8A6A2E; }
+.org-card-all { background: linear-gradient(90deg, #FBF7EE, #fff); }
+.org-card-all .org-info b { color: #9A7A3C; }

@@ -1,0 +1,64 @@
+/* القائمة الرئيسية الموحّدة لكل صفحات الموقع (مستقلة عن main.css لتعمل في صفحة من نحن أيضًا) */
+.menu {
+  position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; padding: 0 18px 22px; overflow-y: auto;
+  color: #fff; font-family: inherit;
+  background: url("../assets/svg/watermark.svg") no-repeat -90px calc(100% + 30px) / 300px,
+    radial-gradient(70% 40% at 100% 0%, rgba(201,161,90,.22), transparent 70%),
+    linear-gradient(180deg, #0C7F89 0%, #08626A 45%, #063135 100%);
+  opacity: 0; visibility: hidden; transform: translateY(-10px);
+  transition: opacity .28s ease, transform .28s ease, visibility 0s .28s;
+}
+.menu.open { opacity: 1; visibility: visible; transform: none; transition: opacity .28s ease, transform .28s ease; }
+.menu::before { content: none; }
+.menu::after { content: "إنجازات شباب عُمان · ٢٠٢٦"; display: block; margin-top: auto; padding-top: 22px; text-align: center; font-size: 11px; color: rgba(255,255,255,.55); letter-spacing: .3px; }
+.menu > * { position: relative; z-index: 1; }
+
+.menu-top { height: 64px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+.menu-top img { height: 44px; width: auto; display: block; }
+.menu-close { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); color: #fff; cursor: pointer; transition: background .2s, transform .35s; }
+.menu.open .menu-close { transform: rotate(90deg); }
+.menu-close:focus-visible { outline: 2px solid #E3C88F; outline-offset: 2px; border-radius: 50%; }
+.menu-close:hover { background: rgba(255,255,255,.18); }
+.menu-close svg { width: 18px; height: 18px; }
+
+.menu .search { position: relative; margin: 16px 0 10px; }
+.menu .search input { width: 100%; height: 46px; padding: 0 16px 0 46px; border: 1px solid rgba(255,255,255,.2); border-radius: 14px; background: rgba(255,255,255,.95); color: #063135; font: inherit; font-size: 14px; box-sizing: border-box; }
+.menu .search input::placeholder { color: #6b7a78; }
+.menu .search input:focus { outline: 2px solid #E3C88F; outline-offset: 2px; }
+.menu .search button { position: absolute; left: 4px; top: 4px; width: 38px; height: 38px; display: grid; place-items: center; border: 0; border-radius: 10px; background: #A88344; cursor: pointer; }
+.menu .search button img { width: 16px; height: 16px; filter: brightness(0) invert(1); }
+
+.menu nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.menu nav li { border-bottom: 1px solid rgba(255,255,255,.1); }
+.menu nav a {
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 50px; padding: 0 14px;
+  border: 0; border-radius: 12px; background: none; color: #fff; font-size: 15.5px; font-weight: 500; line-height: 1.5; text-decoration: none;
+  transition: background .2s, color .2s, padding .2s;
+}
+.menu nav a::after { content: ""; flex-shrink: 0; width: 7px; height: 7px; border-left: 1.8px solid #C9A15A; border-bottom: 1.8px solid #C9A15A; transform: rotate(45deg); opacity: .8; transition: transform .2s; }
+.menu nav a:hover { background: rgba(255,255,255,.06); }
+.menu nav a:hover::after { transform: translateX(-3px) rotate(45deg); }
+.menu nav a[aria-current="page"] { background: linear-gradient(90deg, rgba(201,161,90,0), rgba(201,161,90,.22)); color: #F0D9A5; font-weight: 700; }
+.menu nav a[aria-current="page"]::before { content: ""; position: absolute; right: 0; top: 12px; bottom: 12px; width: 3px; border-radius: 3px; background: #E3C88F; }
+
+/* دخول العناصر تتابعيًا */
+.menu nav li { opacity: 0; transform: translateX(14px); }
+.menu.open nav li { animation: menu-in .4s cubic-bezier(.2,.8,.2,1) forwards; }
+.menu.open nav li:nth-child(2) { animation-delay: .03s; } .menu.open nav li:nth-child(3) { animation-delay: .06s; }
+.menu.open nav li:nth-child(4) { animation-delay: .09s; } .menu.open nav li:nth-child(5) { animation-delay: .12s; }
+.menu.open nav li:nth-child(6) { animation-delay: .15s; } .menu.open nav li:nth-child(7) { animation-delay: .18s; }
+.menu.open nav li:nth-child(8) { animation-delay: .21s; } .menu.open nav li:nth-child(9) { animation-delay: .24s; }
+.menu.open nav li:nth-child(10) { animation-delay: .27s; }
+@keyframes menu-in { to { opacity: 1; transform: none; } }
+
+body.menu-open { overflow: hidden; }
+body.menu-open .site-footer { visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .menu nav li { opacity: 1; transform: none; }
+  .menu.open nav li { animation: none; }
+  .menu.open .menu-close { transform: none; }
+}
+@media (min-width: 700px) {
+  .menu { padding-inline: max(24px, calc((100% - 560px) / 2)); }
+}

@@ -1,0 +1,89 @@
+/* ================= إنجازات وأخبار المؤسسات: أسلوب «غرفة الأخبار» ================= */
+.tl-tag { display: inline-flex; align-items: center; gap: 5px; justify-self: start; padding: 1px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 800; line-height: 1.8; }
+.tl-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.tl-tag.t-ach { color: #8a6a2e; background: #F7EEDB; }
+.tl-tag.t-news { color: var(--primary); background: #E6F2F1; }
+.oa-feature-b .tl-tag.t-ach { color: #063135; background: linear-gradient(180deg, #F6E3B4, #D9B262); }
+.oa-feature-b .tl-tag.t-news { color: #fff; background: rgba(12,127,137,.85); }
+
+/* الخط الزمني */
+.tl { list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: 14px; }
+.tl::before { content: ""; position: absolute; top: 8px; bottom: 8px; right: 25px; width: 2px; background: linear-gradient(180deg, #C9A35C, rgba(201,163,92,.15)); }
+.tl-item[hidden] { display: none; }
+.tl-item > a { position: relative; display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; align-items: start; color: inherit; }
+.tl-date { position: relative; z-index: 1; display: grid; justify-items: center; align-content: center; width: 52px; height: 56px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1.5px #C9A35C, 0 6px 14px -6px rgba(6,49,53,.4); line-height: 1.1; }
+.tl-date b { color: var(--dark); font-size: 20px; font-weight: 900; }
+.tl-date small { color: var(--gold); font-size: 10.5px; font-weight: 800; }
+.tl-card { position: relative; display: grid; overflow: hidden; border-radius: 16px; background: #fff; box-shadow: 0 4px 16px rgba(6,49,53,.08); transition: transform .25s, box-shadow .25s; }
+.tl-item > a:hover .tl-card { transform: translateX(-3px); box-shadow: 0 10px 22px rgba(6,49,53,.12); }
+.tl-img { display: block; width: 100%; aspect-ratio: 16 / 8; object-fit: cover; }
+.tl-b { display: grid; gap: 5px; padding: 12px 14px 14px 40px; }
+.tl-b b { color: var(--dark); font-size: 14px; font-weight: 800; line-height: 1.6; }
+.tl-b small { color: #5b6664; font-size: 12px; line-height: 1.75; }
+.tl-go { position: absolute; left: 10px; bottom: 12px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; color: var(--gold); background: #FBF6EA; }
+.tl-go svg { width: 14px; height: 14px; }
+.tl-compact { margin-top: 16px; }
+.tl-compact .tl-b { padding-block: 10px 12px; }
+.tl-compact .tl-b b { font-size: 13px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tl-compact .tl-go { top: 50%; bottom: auto; margin-top: -13px; }
+
+/* صفحة السجل */
+.nr-counts { display: inline-flex; align-items: center; gap: 12px; margin-top: 6px; padding: 3px 16px; border-radius: 999px; background: rgba(255,255,255,.1); box-shadow: inset 0 0 0 1px rgba(230,201,138,.5); font-size: 12px; }
+.nr-counts b { color: #F4DFAE; font-size: 15px; }
+.nr-counts i { width: 1px; height: 14px; background: rgba(255,255,255,.3); }
+.nr-tabs { display: flex; gap: 4px; padding: 4px; margin-bottom: 16px; border-radius: 999px; background: #fff; box-shadow: 0 4px 14px rgba(6,49,53,.07), inset 0 0 0 1px rgba(201,163,92,.35); }
+.nr-tabs button { flex: 1; min-height: 38px; border-radius: 999px; color: var(--muted); font: inherit; font-size: 13px; font-weight: 800; transition: background .2s, color .2s; }
+.nr-tabs button.on { color: #fff; background: linear-gradient(160deg, #0C7F89, #063135); }
+.tl-month { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; color: var(--gold); font-size: 13px; font-weight: 900; }
+.tl-month::after { content: ""; flex: 1; height: 1px; background: linear-gradient(270deg, transparent, #C9A35C); }
+
+/* صفحة الخبر */
+.nw-mast { padding: 12px var(--gutter); background: linear-gradient(180deg, #0A737C, #075A62); }
+.nw-org { display: flex; align-items: center; gap: 10px; padding: 8px 12px 8px 8px; border-radius: 16px; background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(230,201,138,.35); color: #fff; }
+.nw-logo { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 12px; background: #fff; }
+.nw-logo img { max-width: 34px; max-height: 32px; object-fit: contain; }
+.nw-org > span:nth-child(2) { flex: 1; display: grid; line-height: 1.5; }
+.nw-org small { color: #E6C98A; font-size: 10.5px; }
+.nw-org b { font-size: 13px; }
+.nw-org-go { color: #E6C98A; font-size: 22px; }
+.nw-head { padding-top: 18px; }
+.nw-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.nw-date { display: inline-flex; align-items: baseline; gap: 6px; padding: 4px 12px; border-radius: 10px; background: #FBF6EA; box-shadow: inset 0 0 0 1px rgba(201,163,92,.5); }
+.nw-date b { color: var(--dark); font-size: 16px; font-weight: 900; }
+.nw-date small { color: var(--gold); font-size: 11px; font-weight: 800; }
+.nw-head h1 { margin: 12px 0 6px; color: var(--dark); font-size: 22px; font-weight: 900; line-height: 1.55; }
+.nw-dek { margin: 0; color: #4b5553; font-size: 14px; line-height: 1.9; }
+.nw-cover { margin: 16px 0 0; }
+.nw-cover img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-block: 2px solid #C9A35C; }
+.nw-cover figcaption { padding: 6px var(--gutter) 0; color: var(--muted); font-size: 11px; }
+.nw-body { padding-top: 16px; color: #2b3231; font-size: 15px; line-height: 2.05; }
+.nw-body > p { margin: 0 0 14px; }
+.nw-text > p { margin: 0 0 14px; }
+.nw-text h2 { display: flex; align-items: center; gap: 8px; margin: 22px 0 8px; color: var(--dark); font-size: 18px; font-weight: 900; line-height: 1.5; }
+.nw-text h2 img { width: 18px; height: 18px; }
+.nw-list { list-style: none; counter-reset: n; display: grid; gap: 8px; margin: 0 0 16px; padding: 0; }
+.nw-list li { counter-increment: n; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; align-items: start; font-size: 14px; line-height: 1.85; }
+.nw-list li::before { content: counter(n, arabic-indic); display: grid; place-items: center; width: 26px; height: 26px; margin-top: 2px; border-radius: 8px; color: #fff; font-size: 12px; font-weight: 900; background: linear-gradient(160deg, #C9A35C, #A88344); }
+.nw-quote { position: relative; margin: 20px 0; padding: 18px 20px 18px 16px; border-radius: 16px; color: var(--dark); font-size: 17px; font-weight: 800; line-height: 1.8; background: #FBF6EA; border-right: 4px solid #C9A35C; }
+.nw-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; }
+.nw-facts li { display: inline-flex; align-items: baseline; gap: 5px; padding: 3px 11px; border-radius: 999px; background: linear-gradient(160deg, #0C7F89, #063135); line-height: 1.7; }
+.nw-facts small { color: rgba(255,255,255,.7); font-size: 10px; }
+.nw-facts small::after { content: ":"; }
+.nw-facts b { color: #F4DFAE; font-size: 11.5px; font-weight: 800; }
+.nw-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.nw-mini { display: grid; align-content: start; overflow: hidden; border-radius: 16px; background: #fff; box-shadow: 0 4px 14px rgba(6,49,53,.07), inset 0 0 0 1px rgba(201,163,92,.4); transition: transform .25s; }
+.nw-mini:hover { transform: translateY(-2px); }
+.nw-mini img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.nw-mini span { display: grid; gap: 2px; padding: 7px 9px 9px; line-height: 1.5; }
+.nw-mini small { color: var(--gold); font-size: 10px; font-weight: 700; }
+.nw-mini b { color: var(--dark); font-size: 11.5px; font-weight: 800; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.nw-gallery { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; height: 200px; margin: 6px 0 4px; }
+.nw-gallery img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+.nw-gallery img:first-child { grid-row: 1 / 3; }
+.nw-more { margin-top: 26px; padding-bottom: 32px; }
+
+@media (min-width: 700px) {
+  .tl:not(.tl-compact) .tl-card { grid-template-columns: 220px minmax(0, 1fr); }
+  .tl:not(.tl-compact) .tl-img { height: 100%; aspect-ratio: auto; }
+  .nw-head, .nw-body { max-width: 760px; margin-inline: auto; }
+}
