@@ -35,6 +35,18 @@ abstract class GalleryRelationManager extends RelationManager
         return false;
     }
 
+    /** Custom properties edited per image (besides caption, focal and credit). Override to add more. */
+    protected function extraFields(): array
+    {
+        return [];
+    }
+
+    /** @return list<string> */
+    private function propertyKeys(): array
+    {
+        return ['caption', 'focal', 'credit', ...array_map(fn ($field) => $field->getName(), $this->extraFields())];
+    }
+
     public function form(Schema $schema): Schema
     {
         return $schema->components([
@@ -43,6 +55,7 @@ abstract class GalleryRelationManager extends RelationManager
                 TextInput::make('caption.en')->label('التعليق (English)')->extraInputAttributes(['dir' => 'ltr']),
                 TextInput::make('focal')->label('نقطة التركيز')->placeholder('50% 50%')->rule('nullable|regex:/^\d{1,3}%\s+\d{1,3}%$/')->extraInputAttributes(['dir' => 'ltr']),
                 TextInput::make('credit')->label('المصدر / الحقوق'),
+                ...$this->extraFields(),
             ]),
         ]);
     }
@@ -69,13 +82,9 @@ abstract class GalleryRelationManager extends RelationManager
             ])
             ->recordActions([
                 EditAction::make()
-                    ->fillForm(fn (Media $record) => [
-                        'caption' => $record->getCustomProperty('caption', []),
-                        'focal' => $record->getCustomProperty('focal'),
-                        'credit' => $record->getCustomProperty('credit'),
-                    ])
+                    ->fillForm(fn (Media $record) => collect($this->propertyKeys())->mapWithKeys(fn ($key) => [$key => $record->getCustomProperty($key)])->all())
                     ->using(function (Media $record, array $data): Model {
-                        foreach (['caption', 'focal', 'credit'] as $key) {
+                        foreach ($this->propertyKeys() as $key) {
                             filled($data[$key] ?? null) ? $record->setCustomProperty($key, $data[$key]) : $record->forgetCustomProperty($key);
                         }
                         $record->save();

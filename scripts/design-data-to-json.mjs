@@ -65,6 +65,7 @@ const evaluate = (expression, filename) => vm.runInNewContext(`(${expression})`,
 
 write('about-roadmap.json', evaluate(extractDeclaration(readFileSync(join(design, 'js/about-roadmap.js'), 'utf8'), 'const M = ['), 'about-roadmap.js'));
 write('about-page.json', evaluate(extractDeclaration(readFileSync(join(design, 'about.html'), 'utf8'), 'const PAGE = {'), 'about.html'));
+write('org-news.json', evaluate(extractDeclaration(readFileSync(join(design, 'org-news.html'), 'utf8'), 'var N = {'), 'org-news.html'));
 
 // 3. Inline <script type="application/json" id="..."> blocks of every page.
 for (const file of readdirSync(design).filter((f) => f.endsWith('.html')).sort()) {

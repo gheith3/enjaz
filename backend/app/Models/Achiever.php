@@ -73,6 +73,12 @@ class Achiever extends Model implements HasMedia
         return $this->belongsToMany(Achievement::class)->withPivot(['is_primary', 'sort_order']);
     }
 
+    /** Affiliations: staff, alumni, students, members (pivot kind + role). */
+    public function organizations(): BelongsToMany
+    {
+        return $this->belongsToMany(Organization::class)->using(AchieverOrganization::class)->withPivot(['id', 'kind', 'role', 'sort_order']);
+    }
+
     public function journeyItems(): HasMany
     {
         return $this->hasMany(AchieverJourneyItem::class)->orderBy('sort_order');

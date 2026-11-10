@@ -8,6 +8,7 @@ use App\Filament\Resources\Achievers\Pages\ListAchievers;
 use App\Filament\Resources\Achievers\RelationManagers\AchievementsRelationManager;
 use App\Filament\Resources\Achievers\RelationManagers\GalleryRelationManager;
 use App\Filament\Resources\Achievers\RelationManagers\JourneyItemsRelationManager;
+use App\Filament\Resources\Achievers\RelationManagers\OrganizationsRelationManager;
 use App\Filament\Resources\Achievers\RelationManagers\QuotesRelationManager;
 use App\Filament\Resources\Achievers\RelationManagers\SocialLinksRelationManager;
 use App\Filament\Resources\Achievers\Schemas\AchieverForm;
@@ -52,6 +53,7 @@ class AchieverResource extends Resource
     {
         return [
             AchievementsRelationManager::class,
+            OrganizationsRelationManager::class,
             JourneyItemsRelationManager::class,
             QuotesRelationManager::class,
             SocialLinksRelationManager::class,
