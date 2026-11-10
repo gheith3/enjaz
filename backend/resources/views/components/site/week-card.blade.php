@@ -10,7 +10,7 @@
     <span class="week-cta">{{ __('site.achievers.week_cta_'.($female ? 'f' : 'm')) }} <span aria-hidden="true">←</span></span>
   </span>
   <x-site.oman-week-map :id="$first ? 'mapGold' : 'mapGold2'" />
-  @if ($cutout = $achiever->imageUrl('cutout'))
+  @if ($cutout = $achiever->imageUrl('week') ?? $achiever->imageUrl('cutout'))
     <img class="week-cut" src="{{ $cutout }}" alt="{{ $achiever->name }}" width="735" height="781">
   @endif
 </a>

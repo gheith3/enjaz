@@ -57,7 +57,8 @@ class ImportDesignTest extends TestCase
         $this->assertSame('Ali Al-Habsi', $ali->getTranslation('name', 'en'));
         $this->assertSame(['total' => 11, 'international' => 6, 'local' => 5], $ali->medalStats()); // as the design's profile
         $this->assertSame(10, $ali->journeyItems()->count());
-        $this->assertTrue($ali->hasMedia('cutout'));
+        $this->assertSame('ali-hero-cutout.png', $ali->getFirstMedia('cutout')->file_name);   // profile hero
+        $this->assertSame('ali-trophies-cutout.png', $ali->getFirstMedia('week')->file_name); // week card
 
         $booker = Achievement::query()->where('slug', 'man-booker-2019')->firstOrFail();
         $this->assertSame('٢١ مايو ٢٠١٩', $booker->dateLabel());
