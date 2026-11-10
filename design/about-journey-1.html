@@ -1,0 +1,1294 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script id="vp-lock">/* تنسيق ثابت لكل الهواتف: الصفحة تُرسم دائمًا بعرض ٣٩٠ (مقاس التصميم) ثم يكبّرها الهاتف أو يصغّرها بالتناسب، بلا مط ولا إعادة ترتيب */(function(){var m=document.querySelector('meta[name=viewport]');if(!m)return;function f(){var s=Math.min(screen.width,screen.height),p=!matchMedia('(orientation: landscape)').matches;m.setAttribute('content',s<=500&&p?'width=390, viewport-fit=cover':'width=device-width, initial-scale=1, viewport-fit=cover')}f();addEventListener('orientationchange',function(){setTimeout(f,80)})})()</script>
+<meta name="theme-color" content="#0C7F89">
+<title>رحلتنا ١ — نسخة محفوظة | إنجازات شباب عُمان</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="مبادرة وطنية من الشباب وإلى الشباب، توثّق نجاحات أبناء عُمان وتُبقي أثرهم حاضرًا للأجيال القادمة.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="إنجازات شباب عُمان">
+<meta property="og:title" content="من نحن | إنجازات شباب عُمان">
+<meta property="og:description" content="مبادرة وطنية من الشباب وإلى الشباب، توثّق نجاحات أبناء عُمان وتُبقي أثرهم حاضرًا للأجيال القادمة.">
+<meta property="og:image" content="./assets/img/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ar_OM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="من نحن | إنجازات شباب عُمان">
+<meta name="twitter:description" content="مبادرة وطنية من الشباب وإلى الشباب، توثّق نجاحات أبناء عُمان وتُبقي أثرهم حاضرًا للأجيال القادمة.">
+<meta name="twitter:image" content="./assets/img/og-default.jpg">
+<link rel="icon" href="./assets/svg/ornament.svg">
+<link rel="stylesheet" href="./css/site-menu.css?v=1">
+<link rel="stylesheet" href="./css/about-roadmap.css?v=20261103-font">
+<style>
+/* =========================================================
+   من نحن — التصميم ٦ «قوالب ملوّنة»
+   كل قسم = قالب <template> + بيانات في كائن PAGE أسفل الصفحة.
+   لتعديل المحتوى: عدّل PAGE فقط، دون لمس التصميم.
+   ========================================================= */
+@font-face{font-family:"Cairo";src:url("./assets/fonts/Cairo-Variable.woff2") format("woff2"),url("./assets/fonts/Cairo-Variable.ttf") format("truetype");font-weight:200 1000;font-display:block}
+@font-face{font-family:"Tajawal";src:url("./assets/fonts/tajawal/tajawal-400.woff2") format("woff2"),url("./assets/fonts/tajawal/tajawal-400.ttf") format("truetype");font-weight:400;font-display:block}
+@font-face{font-family:"Tajawal";src:url("./assets/fonts/tajawal/tajawal-500.woff2") format("woff2"),url("./assets/fonts/tajawal/tajawal-500.ttf") format("truetype");font-weight:500;font-display:block}
+@font-face{font-family:"Tajawal";src:url("./assets/fonts/tajawal/tajawal-700.woff2") format("woff2"),url("./assets/fonts/tajawal/tajawal-700.ttf") format("truetype");font-weight:700;font-display:block}
+@font-face{font-family:"Tajawal";src:url("./assets/fonts/tajawal/tajawal-800.woff2") format("woff2"),url("./assets/fonts/tajawal/tajawal-800.ttf") format("truetype");font-weight:800;font-display:block}
+
+:root{
+  --primary:#096770; --teal:#0C7F89; --dark:#063135; --deep:#04262A;
+  --green:#91C46C; --gold:#A88344; --gold-2:#D9B977; --sand:#F7F2E8; --sand-2:#EFE6D3;
+  --ink:#152B2A; --muted:#5F6B69; --line:#E6DECD; --card:#FFFFFF;
+  --grad:linear-gradient(160deg,#0C7F89 0%,#075A62 55%,#063135 100%);
+  --shadow:0 10px 30px -12px rgba(6,49,53,.35);
+  --r:18px; --gut:16px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --font:"Cairo",Tahoma,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--sand);line-height:1.8;font-size:15px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+h1,h2,h3,p,figure{margin:0}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--gold-2);outline-offset:3px;border-radius:8px}
+.page{max-width:540px;margin-inline:auto;background:var(--sand);position:relative;overflow:hidden;overflow:clip}
+.wrap{padding-inline:var(--gut)}
+
+/* ---------- عنوان القسم (قالب موحّد) ---------- */
+.sec{padding-block:44px}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.sec-head .mark{width:30px;height:30px;flex:none;display:grid;place-items:center}
+.sec-head h2{font-size:23px;font-weight:800;color:var(--dark);line-height:1.3}
+.sec-head .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-2))}
+.sec-head.light h2{color:#fff}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--gold);letter-spacing:.2px}
+.eyebrow::before{content:"";width:18px;height:2px;border-radius:2px;background:currentColor}
+
+/* ---------- الهيدر ---------- */
+.header{position:sticky;top:0;z-index:40;height:64px;display:flex;align-items:center;justify-content:space-between;padding-inline:var(--gut);background:linear-gradient(180deg,#0C7F89,#0A737C);box-shadow:0 6px 20px -10px rgba(0,0,0,.4)}
+.header .logo img{height:44px;width:auto}
+.header .brand{display:flex;align-items:center;gap:14px;min-width:0}
+.header .crumb{position:relative;padding-inline-start:14px;color:#fff;font-size:15px;font-weight:500;white-space:nowrap}
+.header .crumb::before{content:"";position:absolute;right:0;top:50%;width:1px;height:22px;transform:translateY(-50%);background:linear-gradient(180deg,transparent,#D9B977,transparent)}
+.icon-btn{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;color:#fff;transition:background .2s}
+.icon-btn:hover{background:rgba(255,255,255,.12)}
+.icon-btn svg{width:24px;height:24px}
+.progress{position:absolute;inset-inline:0;bottom:0;height:2px;background:transparent}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold-2));transform-origin:right}
+
+/* شريط أقسام الصفحة */
+.chips-nav{position:sticky;top:64px;z-index:30;background:rgba(247,242,232,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.chips-nav ul{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0;padding:10px var(--gut);list-style:none}
+.chips-nav ul::-webkit-scrollbar{display:none}
+.chips-nav a{display:block;white-space:nowrap;font-size:13px;font-weight:700;color:var(--muted);padding:6px 14px;border-radius:99px;border:1px solid transparent;transition:.25s var(--ease)}
+.chips-nav a.on{color:#fff;background:var(--primary);box-shadow:0 6px 14px -8px var(--primary)}
+
+/* القائمة الجانبية */
+.drawer{position:fixed;inset:0;z-index:80;visibility:hidden}
+.drawer.open{visibility:visible}
+.drawer .scrim{position:absolute;inset:0;background:rgba(4,38,42,.55);opacity:0;transition:opacity .3s}
+.drawer.open .scrim{opacity:1}
+.drawer .panel{position:absolute;inset-block:0;right:0;width:min(84vw,340px);background:var(--grad);color:#fff;padding:20px;transform:translateX(100%);transition:transform .35s var(--ease);overflow:auto}
+.drawer.open .panel{transform:none}
+.drawer .panel-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.drawer .panel-top img{height:46px}
+.drawer nav a{display:flex;justify-content:space-between;padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.12);font-weight:500}
+.drawer nav a[aria-current]{color:var(--gold-2);font-weight:800}
+
+/* =========================================================
+   ١) الافتتاحية — صورة ملوّنة على خلفية رملية + هالة تيل وذهب
+   ========================================================= */
+.hero{position:relative;padding-block:26px 30px;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:-10% -30% 25%;z-index:-1;
+  -webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent);
+  background:
+    radial-gradient(45% 38% at 30% 45%,rgba(217,185,119,.55),transparent 70%),
+    radial-gradient(50% 40% at 75% 30%,rgba(12,127,137,.28),transparent 72%),
+    radial-gradient(40% 30% at 50% 85%,rgba(145,196,108,.25),transparent 70%)}
+.hero-pattern{position:absolute;inset:0;z-index:-1;opacity:.07;background:url("./assets/svg/watermark.svg") center 30%/120% no-repeat}
+.hero-tag{position:absolute;left:0;top:96px;z-index:3;background:var(--grad);color:#fff;padding:8px 12px 8px 14px;border-radius:0 14px 14px 0;box-shadow:var(--shadow);line-height:1.1}
+.hero-tag b{display:block;font-size:22px;font-weight:800}
+.hero-tag small{font-size:10px;opacity:.85}
+.hero-copy{position:relative;z-index:2}
+.hero h1{font-size:clamp(30px,9vw,40px);font-weight:800;line-height:1.25;color:var(--dark);margin-top:8px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--teal),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-lead{margin-top:10px;color:var(--muted);font-size:15.5px;max-width:30ch}
+.hero-art{position:relative;margin:6px -6px 0;aspect-ratio:899/984;perspective:900px}
+.hero-art .ring{position:absolute;inset:8% 6%;border-radius:50%;border:1.5px dashed rgba(168,131,68,.45);animation:spin 40s linear infinite}
+.hero-art .ring.r2{inset:16% 14%;border-style:solid;border-color:rgba(12,127,137,.18);animation-duration:60s;animation-direction:reverse}
+.hero-art .hero-image-blend{position:relative;width:100%;height:100%;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 88%,rgba(0,0,0,.85) 92%,rgba(0,0,0,.35) 97%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 88%,rgba(0,0,0,.85) 92%,rgba(0,0,0,.35) 97%,transparent 100%)}
+.hero-art img{position:relative;display:block;width:100%;height:100%;object-fit:contain;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s var(--ease)}
+.hero-art .spark{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold-2);box-shadow:0 0 12px 3px rgba(217,185,119,.8);animation:float 4s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{50%{transform:translateY(-10px);opacity:.5}}
+/* دخول الصورة الرئيسية: نقاط نصفية (أسلوب الطباعة) تكبر حتى تلتحم الصورة */
+.hero-art img.hero-dots{-webkit-mask-image:radial-gradient(circle,#000 var(--hr),transparent calc(var(--hr) + .5px));mask-image:radial-gradient(circle,#000 var(--hr),transparent calc(var(--hr) + .5px));-webkit-mask-size:14px 14px;mask-size:14px 14px;animation:hero-dots 1.6s cubic-bezier(.5,0,.2,1) .2s both}
+@keyframes hero-dots{from{--hr:0px;scale:1.06}to{--hr:11px;scale:1}}
+.hero-art .ring{animation:ring-in 1.6s cubic-bezier(.16,1,.3,1) .6s both,spin 40s linear 2.2s infinite}
+.hero-art .ring.r2{animation:ring-in 1.6s cubic-bezier(.16,1,.3,1) .8s both,spin 60s linear 2.4s infinite reverse}
+@keyframes ring-in{from{scale:.86;opacity:0}to{scale:1;opacity:1}}
+.hero-art .spark{animation:spark-in .8s ease-out both,float 4s ease-in-out infinite}
+.hero-art .spark:nth-of-type(1){animation-delay:1.6s,2.4s}.hero-art .spark:nth-of-type(2){animation-delay:1.8s,3.4s}.hero-art .spark:nth-of-type(3){animation-delay:2s,4.4s}
+@keyframes spark-in{from{opacity:0}}
+.hero-lead{animation:lead-in 1.2s cubic-bezier(.16,1,.3,1) .1s both}
+@keyframes lead-in{from{opacity:0;translate:0 10px}}
+@media (prefers-reduced-motion:reduce){.hero-art img,.hero-art .ring,.hero-art .spark,.hero-lead{animation:none}}
+.hero-actions{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;height:46px;padding-inline:20px;border-radius:99px;font-weight:700;font-size:14.5px;transition:transform .2s var(--ease),box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 12px 24px -12px var(--primary)}
+.btn-ghost{border:1.5px solid var(--primary);color:var(--primary);background:rgba(255,255,255,.6)}
+
+/* شريط الأرقام (قالب stat) */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 14px 12px;position:relative;overflow:hidden}
+.stat::after{content:"";position:absolute;inset-inline-start:0;top:0;width:4px;height:100%;background:linear-gradient(var(--teal),var(--green))}
+.stat b{display:block;font-size:26px;font-weight:800;color:var(--primary);line-height:1.2}
+.stat span{font-size:12.5px;color:var(--muted)}
+
+/* =========================================================
+   ٢) قوس المجالات — دائرة صور ملوّنة ثلاثية الأبعاد تُسحب باللمس
+   ========================================================= */
+.fields{background:var(--grad);color:#fff;position:relative;padding:40px 0 30px;overflow:hidden}
+/* يبدأ بلون نهاية قسم القيم (#04262A) فلا يظهر خط فاصل حاد، ثم يضيء تدريجياً خلف الصور */
+.fields{background:linear-gradient(180deg,#04262A 0%,#063B40 18%,#0A5D65 55%,#075A62 75%,#063135 100%)}
+.fields::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(70% 30% at 50% 22%,rgba(217,185,119,.16),transparent 70%),
+  radial-gradient(50% 50% at 50% 110%,rgba(145,196,108,.25),transparent 70%)}
+.fields .intro{position:relative;text-align:center;padding-inline:var(--gut)}
+.fields .intro h2{font-size:24px;font-weight:800;line-height:1.35}
+.fields .intro h2 em{font-style:normal;color:var(--gold-2)}
+.fields .intro p{opacity:.8;font-size:14px;margin-top:4px}
+.stage{position:relative;height:300px;margin-top:10px;perspective:1100px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.stage:active{cursor:grabbing}
+.carousel{position:absolute;left:50%;top:44%;width:0;height:0;transform-style:preserve-3d}
+.field-card{position:absolute;width:104px;height:178px;left:-52px;top:-89px;border-radius:18px;overflow:hidden;transform-style:preserve-3d;backface-visibility:hidden;border:1.5px solid rgba(255,255,255,.35);box-shadow:0 18px 30px -12px rgba(0,0,0,.5);transition:border-color .3s,filter .3s;background:var(--dark)}
+.field-card img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.field-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,49,53,0) 35%,rgba(6,49,53,.92) 100%)}
+.field-card .lbl{position:absolute;inset-inline:6px;bottom:10px;z-index:2;text-align:center;font-weight:800;font-size:13.5px;line-height:1.3}
+.field-card .ico{position:absolute;top:8px;inset-inline-start:8px;z-index:2;width:26px;height:26px;border-radius:9px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);display:grid;place-items:center}
+.field-card .ico img{width:16px;height:16px;filter:brightness(0) invert(1)}
+.field-card.active{border-color:var(--gold-2);box-shadow:0 0 0 3px rgba(217,185,119,.35),0 24px 40px -14px rgba(0,0,0,.6)}
+.field-card.dim{filter:saturate(.75) brightness(.85)}
+.reflection{position:absolute;left:50%;bottom:24px;width:78%;height:40px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(217,185,119,.45),transparent);filter:blur(4px)}
+.explore{margin:0 var(--gut) 34px}
+.field-info{position:relative;padding:16px 18px;border-radius:18px;color:#fff;background:linear-gradient(135deg,#0C7F89,#063135);border:1px solid rgba(217,185,119,.45);box-shadow:0 14px 28px -16px rgba(6,49,53,.7);display:flex;align-items:center;gap:12px;min-height:84px;overflow:hidden}
+.explore-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.explore-dots i{width:6px;height:6px;border-radius:99px;background:var(--line);transition:width .35s var(--ease),background .35s}
+.explore-dots i.on{width:20px;background:var(--gold)}
+.field-info .txt{flex:1;min-width:0}
+.field-info b{display:block;font-size:16px;color:var(--gold-2)}
+.field-info small{font-size:13px;opacity:.85;line-height:1.6;display:block}
+.field-info a{flex:none;height:38px;padding-inline:14px;border-radius:99px;background:#fff;color:var(--primary);font-weight:800;font-size:13px;display:grid;place-items:center}
+.stage-ctrl{position:relative;display:flex;justify-content:center;gap:12px;margin-top:14px}
+.round{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;border:1.5px solid rgba(255,255,255,.4);color:#fff;transition:background .2s}
+.round:hover{background:rgba(255,255,255,.12)}
+.round svg{width:18px;height:18px}
+
+/* =========================================================
+   ٣) الرسالة والرؤية والقيم — تبويبات
+   ========================================================= */
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);background:var(--sand-2);border-radius:14px;padding:4px;position:relative}
+.tabs button{position:relative;z-index:1;height:42px;font-weight:800;font-size:14px;color:var(--muted);border-radius:11px;transition:color .25s}
+.tabs button[aria-selected="true"]{color:#fff}
+.tabs .pill{position:absolute;top:4px;bottom:4px;right:4px;width:calc((100% - 8px)/3);border-radius:11px;background:var(--grad);transition:transform .35s var(--ease)}
+.tab-panel{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;min-height:170px;position:relative;overflow:hidden}
+.tab-panel .big-ico{position:absolute;left:-10px;bottom:-14px;width:110px;opacity:.08}
+.tab-panel h3{font-size:18px;color:var(--primary);font-weight:800;margin-bottom:6px}
+.tab-panel p{color:var(--ink)}
+.tab-panel .keys{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.tab-panel .keys span{font-size:12px;font-weight:700;color:var(--primary);background:#E3F4F3;padding:3px 12px;border-radius:99px}
+.values{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.values li{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.values li b{color:var(--gold);font-weight:800}
+.values li i{flex:none;width:24px;height:24px;border-radius:8px;background:#E3F4F3;color:var(--primary);display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12px;margin-top:2px}
+.fade-in{animation:fadeIn .45s var(--ease)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}}
+
+/* =========================================================
+   ٤) مسيرتنا — مسار متعرّج يُرسم مع التمرير
+   ========================================================= */
+.journey{position:relative}
+.path-wrap{position:relative;margin-top:6px}
+.path-wrap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.path-bg{fill:none;stroke:var(--line);stroke-width:3;stroke-dasharray:2 8;stroke-linecap:round}
+.path-fg{fill:none;stroke:url(#pg);stroke-width:4;stroke-linecap:round}
+.stops{position:relative;list-style:none;margin:0;padding:0}
+.year{display:flex;justify-content:center;padding:14px 0 6px}
+.year b{position:relative;z-index:2;display:grid;place-items:center;min-width:78px;height:42px;padding-inline:16px;border-radius:22px 22px 22px 4px;background:var(--grad);color:#fff;font-weight:800;font-size:15px;box-shadow:var(--shadow)}
+/* المحطة: مربع صورة صغير + مساحة نص بجانبه */
+.stop{position:relative;display:flex;align-items:center;gap:12px;padding-block:9px}
+.stop.r{padding-right:44px}
+.stop.l{padding-left:44px;flex-direction:row-reverse}
+.stop .node{position:absolute;top:50%;margin-top:-16px;z-index:2;width:32px;height:32px;border-radius:50%;background:var(--card);border:2px solid var(--line);display:grid;place-items:center;font-weight:800;font-size:13px;color:var(--muted);box-shadow:0 4px 10px -4px rgba(6,49,53,.35);transition:.4s var(--ease)}
+.stop.r .node{right:0} .stop.l .node{left:0}
+.stop.reached .node{border-color:var(--teal);background:var(--grad);color:#fff}
+.stop .sq{position:relative;flex:none;width:86px;height:86px;border-radius:16px;overflow:hidden;border:3px solid #fff;background:var(--sand-2);box-shadow:0 10px 20px -12px rgba(6,49,53,.55);transition:transform .3s var(--ease)}
+.stop .sq:hover,.stop .sq:focus-visible{transform:scale(1.05)}
+.stop .sq img{width:100%;height:100%;object-fit:cover}
+.stop .sq.logo{background:#fff}
+.stop .sq.logo img{object-fit:contain;padding:8px}
+.stop .sq.empty{background:linear-gradient(150deg,#0C7F89,#063135);display:grid;place-items:center;color:#fff;cursor:default}
+.stop .sq.empty:hover{transform:none}
+.stop .sq.empty::before{content:"";position:absolute;inset:0;background:url("./assets/svg/watermark.svg") center/160% no-repeat;opacity:.1}
+.stop .sq.empty span{position:relative;font-weight:800;font-size:17px;line-height:1.2;text-align:center}
+.stop .sq.empty span small{display:block;font-size:10px;font-weight:500;color:var(--gold-2);margin-top:3px}
+.stop .tx{flex:1;min-width:0}
+.stop .date{display:block;font-size:12px;font-weight:800;color:var(--gold);line-height:1.5}
+.stop .t{display:block;font-size:13.5px;font-weight:500;line-height:1.7;color:var(--ink)}
+.stop .en{display:block;font-size:11px;line-height:1.5;color:var(--muted);direction:ltr;text-align:left;margin-top:4px}
+.lb.no-img img{display:none}
+.lb.no-img .lb-body{padding-top:56px}
+.lb .lb-en{display:block;direction:ltr;text-align:left;font-size:12.5px;color:var(--muted);margin-top:8px}
+.journey-note{font-size:12px;color:var(--muted);text-align:center;margin-top:6px}
+
+/* =========================================================
+   ٥) كلمة المؤسس
+   ========================================================= */
+.founder{background:var(--grad);color:#fff;border-radius:24px;overflow:hidden;position:relative;box-shadow:var(--shadow)}
+.founder::before{content:"";position:absolute;inset:0;background:url("./assets/svg/watermark.svg") left -40px top -20px/240px no-repeat;opacity:.08}
+.founder-top{position:relative;display:flex;align-items:center;gap:14px;padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.14)}
+.founder-top img{width:76px;height:76px;border-radius:20px;object-fit:cover;object-position:top;background:linear-gradient(160deg,#E3F4F3,#fff);border:2px solid var(--gold-2)}
+.founder-top b{font-size:18px;display:block;line-height:1.4}
+.founder-top small{color:var(--gold-2);font-weight:700}
+.founder-body{position:relative;padding:18px 20px 6px}
+.founder-body .q{font-size:46px;line-height:.6;color:var(--gold-2);font-family:Georgia,serif}
+.founder-body h3{font-size:16px;color:var(--gold-2);margin:6px 0 6px}
+.founder-text{max-height:190px;overflow:hidden;position:relative;transition:max-height .6s var(--ease);font-size:14.5px;line-height:2}
+.founder-text{-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+.founder.open .founder-text{-webkit-mask-image:none;mask-image:none}
+.founder-text p+p{margin-top:10px}
+.founder-toggle{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:14px;font-weight:800;color:var(--gold-2)}
+.founder-toggle svg{width:16px;transition:transform .3s}
+.founder.open .founder-toggle svg{transform:rotate(180deg)}
+
+/* =========================================================
+   ٦) قالوا عن إنجازات — شرائح
+   ========================================================= */
+.slider{overflow:hidden;border-radius:22px}
+.track{display:flex;transition:transform .5s var(--ease)}
+.quote{flex:0 0 100%;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:0 20px 22px;text-align:center;position:relative;overflow:hidden}
+.quote .band{position:relative;height:96px;margin-inline:-20px;background:var(--grad);overflow:hidden}
+.quote .band::before{content:"";position:absolute;inset:0;background:url("./assets/svg/watermark.svg") center/180px repeat;opacity:.09}
+.quote .band::after{content:"";position:absolute;inset-inline:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-2),transparent)}
+.quote .qm{position:absolute;top:-6px;right:16px;font-size:84px;line-height:1;color:rgba(217,185,119,.55);font-family:Georgia,serif}
+.quote .portrait{position:relative;width:124px;height:150px;margin:-72px auto 16px;border-radius:62px 62px 20px 20px;overflow:hidden;background:linear-gradient(170deg,#E3F4F3,#F4EEDF);border:4px solid #fff;box-shadow:0 0 0 2px var(--gold-2),0 18px 30px -14px rgba(6,49,53,.55)}
+.quote .portrait img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .8s var(--ease)}
+.quote:hover .portrait img{transform:scale(1.05)}
+.quote p{font-size:15px;font-weight:500;color:var(--ink)}
+.quote .who{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--muted);line-height:1.7}
+.quote .who b{display:block;color:var(--primary);font-size:13.5px}
+.slider-ctrl{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:16px}
+.slider-ctrl .round{border-color:transparent;background:var(--primary)}
+.dots{display:flex;gap:6px}
+.dots button{width:8px;height:8px;border-radius:99px;background:#CFC6B3;transition:.3s var(--ease)}
+.dots button[aria-current="true"]{width:24px;background:var(--gold)}
+
+/* =========================================================
+   ٧) فريق العمل
+   ========================================================= */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.member{display:flex;flex-direction:column;justify-content:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 8px 10px;text-align:center;transition:transform .25s var(--ease),box-shadow .25s}
+.member:hover,.member:focus-visible{transform:translateY(-3px);box-shadow:var(--shadow)}
+.member .ph{aspect-ratio:1;border-radius:12px;overflow:hidden;background:linear-gradient(160deg,#D4F0EE,#F4EEDF)}
+.member .ph img{width:100%;height:100%;object-fit:cover;object-position:top}
+.member .ph img.ph-icon{object-fit:contain;padding:18%;opacity:.7}
+.member b{display:block;font-size:12px;line-height:1.5;margin-top:7px;color:var(--dark)}
+.member small{display:block;font-size:10.5px;color:var(--muted);line-height:1.4}
+.tdeck{position:relative;padding-top:6px}
+.tdeck-cards{position:relative;width:200px;height:268px;margin:0 auto;transition:height .9s cubic-bezier(.7,0,.2,1)}
+.tc{position:absolute;left:0;top:0;width:200px;height:268px;border-radius:20px;overflow:hidden;border:3px solid #fff;transform-origin:50% 50%;background:linear-gradient(160deg,#D4F0EE,#F4EEDF);box-shadow:0 16px 30px -12px rgba(6,49,53,.55);transition:transform .75s cubic-bezier(.22,.61,.36,1),filter .6s,border-radius .6s;cursor:pointer}
+.is-grid .tc{border-radius:30px;box-shadow:0 10px 20px -10px rgba(6,49,53,.45)}
+.tdeck-bar{transition:opacity .5s .5s,transform .5s .5s}
+.is-grid .tdeck-bar{opacity:0;transform:translateY(12px);pointer-events:none}
+.tc img{width:100%;height:100%;object-fit:cover;object-position:top}
+.tc .tc-cap{position:absolute;inset:auto 0 0;padding:34px 12px 12px;background:linear-gradient(0deg,rgba(6,49,53,.95),transparent);color:#fff;text-align:center;opacity:0;transition:opacity .25s}
+.tc .tc-cap>*{transform:translateY(8px);transition:transform .45s cubic-bezier(.22,.61,.36,1)}
+.tc.front .tc-cap>*{transform:none;transition-delay:.4s}
+.tc .tc-cap b{display:block;font-size:14px;font-weight:800;line-height:1.5}
+.tc .tc-cap small{display:block;color:var(--gold-2);font-size:11.5px;font-weight:700}
+.tc.front{border-color:#E9CF94}
+.tc.front .tc-cap{opacity:1;transition:opacity .4s .4s}
+.tdeck-bar{width:150px;height:4px;margin:18px auto 0;border-radius:4px;background:#e2d9c4;overflow:hidden}
+.tdeck-bar i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--gold-2),var(--primary))}
+.tdeck-bar i.go{animation:td-fill 3s linear forwards}
+@keyframes td-fill{to{width:100%}}
+@media (prefers-reduced-motion:reduce){.tc{transition:none}.tdeck-bar{display:none}}
+.team-note{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+
+/* =========================================================
+   ٨) إنجازاتنا — تصفية + شرائح أفقية
+   ========================================================= */
+.filters{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--gut)*-1) 14px;padding-inline:var(--gut)}
+.filters::-webkit-scrollbar{display:none}
+.filters button{white-space:nowrap;height:36px;padding-inline:16px;border-radius:99px;border:1px solid var(--line);background:var(--card);font-weight:700;font-size:13px;color:var(--muted);transition:.25s}
+.filters button[aria-pressed="true"]{background:var(--dark);border-color:var(--dark);color:#fff}
+.ach-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:calc(var(--gut)*-1);padding:4px var(--gut) 14px}
+.ach-row::-webkit-scrollbar{display:none}
+.ach{flex:0 0 66%;scroll-snap-align:start;background:var(--card);border-radius:18px;overflow:hidden;border:1px solid var(--line);text-align:start;transition:transform .25s var(--ease),opacity .3s}
+.ach:active{transform:scale(.98)}
+.ach figure{position:relative;aspect-ratio:4/3;overflow:hidden}
+.ach figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.ach:hover figure img{transform:scale(1.06)}
+.ach .cat{position:absolute;top:10px;right:10px;font-size:11px;font-weight:800;background:rgba(255,255,255,.92);color:var(--primary);padding:2px 10px;border-radius:99px}
+.ach .body{padding:12px 14px 14px}
+.ach b{display:block;font-size:15px;line-height:1.5;color:var(--dark)}
+.ach .go{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:12.5px;font-weight:800;color:var(--teal)}
+.row-ctrl{display:flex;align-items:center;gap:12px}
+.row-ctrl .round{flex:none;width:38px;height:38px;border:0;background:var(--primary);color:#fff}
+.row-ctrl .row-bar{flex:1}
+.drag-x{cursor:grab}
+.drag-x.dragging{cursor:grabbing;scroll-snap-type:none!important;scroll-behavior:auto}
+.drag-x.dragging *{pointer-events:none}
+.row-bar{height:3px;border-radius:3px;background:var(--line);overflow:hidden}
+.row-bar i{display:block;height:100%;width:30%;background:var(--gold);border-radius:3px;transition:transform .15s linear}
+
+/* =========================================================
+   ٩) المكتبة الإعلامية
+   ========================================================= */
+.media{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.media button{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:1;text-align:start;color:#fff;background:var(--dark)}
+.media button:first-child{grid-column:span 2;aspect-ratio:2/1;background:var(--grad)}
+.media img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.media button:hover img.bg{transform:scale(1.07)}
+.media button::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,49,53,.05),rgba(6,49,53,.88))}
+.media .m-in{position:absolute;inset-inline:12px;bottom:12px;z-index:2;display:flex;align-items:center;gap:8px;font-weight:800;font-size:14.5px}
+.media .m-in i{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);display:grid;place-items:center}
+.media .m-in i img{width:17px;filter:brightness(0) invert(1)}
+
+/* ---------- خاتمة وفوتر ---------- */
+.cta{margin:0 var(--gut);border-radius:24px;padding:26px 20px;background:linear-gradient(135deg,#F2E5C8,#E3F4F3);position:relative;overflow:hidden;text-align:center}
+.cta h2{font-size:22px;font-weight:800;color:var(--dark)}
+.cta p{color:var(--muted);margin:4px 0 14px}
+.footer{margin-top:40px;background:linear-gradient(155deg,#0a7379 0%,#07555a 53%,#06383c 100%);color:#CFE3E1;padding:28px var(--gut) 90px;font-size:13px}
+.footer img{height:52px;margin-bottom:12px}
+.footer .cols{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+.footer .contact{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);display:grid;gap:4px}
+.footer .copy{margin-top:14px;opacity:.6;font-size:12px}
+
+/* زر العودة للأعلى */
+.to-top{position:fixed;bottom:18px;left:18px;z-index:35;width:46px;height:46px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;box-shadow:var(--shadow);opacity:0;transform:translateY(16px);transition:.3s var(--ease);pointer-events:none}
+.to-top.show{opacity:1;transform:none;pointer-events:auto}
+.to-top svg{width:20px}
+
+/* نافذة العرض */
+dialog.lb{border:0;padding:0;width:min(92vw,500px);border-radius:22px;overflow:hidden;background:var(--card);color:var(--ink)}
+dialog.lb::backdrop{background:rgba(4,38,42,.7);backdrop-filter:blur(4px)}
+dialog.lb[open]{animation:pop .35s var(--ease)}
+@keyframes pop{from{opacity:0;transform:scale(.94)}}
+.lb img{width:100%;max-height:60vh;object-fit:cover}
+.lb .lb-body{padding:16px 18px 18px}
+.lb .lb-body b{display:block;font-size:17px;color:var(--dark)}
+.lb .lb-body small{color:var(--muted)}
+.lb .x{position:absolute;top:10px;left:10px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;color:var(--dark)}
+.lb .x svg{width:18px}
+
+/* =========================================================
+   الرسالة والرؤية والقيم — بطاقات زجاجية ذهبية
+   ========================================================= */
+.vmv{position:relative;overflow:hidden;color:#fff;padding:46px 0 34px;
+  background:radial-gradient(70% 40% at 50% 0%,rgba(217,185,119,.25),transparent 70%),radial-gradient(60% 30% at 0% 68%,rgba(12,127,137,.4),transparent 70%),linear-gradient(180deg,#0A4E55 0%,#06363B 45%,#04262A 100%)}
+.vmv-stars{position:absolute;inset:0;pointer-events:none}
+.vmv-stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#FFF1D2;animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{opacity:.15}}
+.vmv-head{position:relative;text-align:center;padding-inline:16px}
+.vmv-head h2{font-size:25px;font-weight:800;line-height:1.4;margin-top:4px}
+.vmv-head h2 em{font-style:normal;color:#E9CF96}
+.vmv-pills{position:relative;display:flex;gap:4px;width:max-content;margin:16px auto 0;padding:4px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid rgba(233,207,150,.25)}
+.vmv-pills button{position:relative;z-index:1;height:36px;padding-inline:18px;border-radius:99px;font-weight:800;font-size:13.5px;color:rgba(255,255,255,.75);transition:color .3s}
+.vmv-pills button[aria-selected="true"]{color:#2F230C}
+.vmv-pills .ink{position:absolute;top:4px;bottom:4px;left:4px;width:60px;border-radius:99px;background:linear-gradient(90deg,#F0D9A5,#C9A35C);box-shadow:0 6px 18px -6px rgba(217,185,119,.9);transition:left .45s var(--ease),width .45s var(--ease)}
+.vmv-deck{--cw:min(330px,80vw);position:relative;display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:48px calc((100% - var(--cw))/2) 26px;perspective:1100px}
+.vmv-deck::-webkit-scrollbar{display:none}
+.vmv-card{flex:0 0 var(--cw);scroll-snap-align:center;position:relative;display:flex;flex-direction:column;min-height:500px;padding:44px 18px 0;text-align:center;border-radius:26px;
+  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05) 45%,rgba(255,255,255,.02));border:1px solid rgba(233,207,150,.38);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 30px 50px -25px rgba(0,0,0,.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);will-change:transform;transition:box-shadow .4s}
+.vmv-card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(240px circle at var(--mx,50%) var(--my,20%),rgba(240,217,165,.2),transparent 60%)}
+.vmv-card.active{box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 0 1px rgba(233,207,150,.6),0 30px 60px -18px rgba(217,185,119,.38)}
+.vmv-badge{position:absolute;top:-33px;left:50%;margin-left:-33px;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,#0E6770,#04262A);border:1.5px solid #E9CF96;box-shadow:0 0 0 6px rgba(233,207,150,.08),0 0 32px rgba(233,207,150,.45)}
+.vmv-badge::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:1px dashed rgba(233,207,150,.55);animation:spin 16s linear infinite}
+.vmv-badge svg{width:28px;height:28px}
+.vmv svg[aria-hidden] path,.vmv svg[aria-hidden] circle{vector-effect:non-scaling-stroke}
+.vmv-badge svg,.m-tile svg,.v-ico svg{fill:none;stroke:#F0D9A5;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.vmv-card h3{font-size:28px;font-weight:800;line-height:1.3;background:linear-gradient(180deg,#FFF6DF,#E0BC72);-webkit-background-clip:text;background-clip:text;color:transparent}
+.vmv-rule{position:relative;display:block;width:110px;height:1px;margin:8px auto 14px;background:linear-gradient(90deg,transparent,#E9CF96,transparent)}
+.vmv-rule::after{content:"";position:absolute;left:50%;top:-3px;width:7px;height:7px;margin-left:-3.5px;transform:rotate(45deg);background:#E9CF96}
+.vmv-card .lead{font-size:16px;line-height:2;font-weight:500;color:rgba(255,255,255,.93)}
+.vmv-art{position:relative;margin:auto -18px 0;height:250px;overflow:hidden;border-radius:0 0 26px 26px}
+
+/* الرسالة: كتاب يشعّ وبطاقات معرفة تطفو */
+.m-beam{position:absolute;left:50%;bottom:60px;width:250px;height:230px;transform:translateX(-50%);background:linear-gradient(0deg,rgba(255,214,140,.6),rgba(255,214,140,0) 85%);clip-path:polygon(42% 100%,58% 100%,100% 0,0 0);animation:beam 3.2s ease-in-out infinite}
+@keyframes beam{50%{opacity:.55}}
+.m-glow{position:absolute;left:50%;bottom:50px;width:150px;height:46px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(255,232,170,1),rgba(255,214,140,0));animation:beam 2.4s ease-in-out infinite;z-index:2}
+.m-book{position:absolute;left:50%;bottom:4px;width:280px;transform:translateX(-50%);filter:drop-shadow(0 12px 18px rgba(0,0,0,.5));z-index:1}
+.m-tile{position:absolute;width:54px;height:54px;border-radius:13px;display:grid;place-items:center;z-index:3;background:linear-gradient(160deg,rgba(255,255,255,.3),rgba(255,255,255,.06));border:1px solid rgba(240,217,165,.7);box-shadow:0 0 24px rgba(240,217,165,.35),inset 0 1px 0 rgba(255,255,255,.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);transform:rotate(var(--r));animation:tileFloat 5s ease-in-out infinite}
+.m-tile svg{width:24px;height:24px;stroke:#FFF3D6}
+.m-tile b{position:absolute;bottom:-21px;left:50%;transform:translateX(-50%);font-size:11.5px;font-weight:800;color:#F0D9A5;white-space:nowrap}
+@keyframes tileFloat{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-11px) rotate(calc(var(--r) * -1))}}
+.m-parts i{position:absolute;bottom:70px;width:3px;height:3px;border-radius:50%;background:#FFE7B0;box-shadow:0 0 6px 1px rgba(255,214,140,.9);opacity:0;animation:rise 4s linear infinite;z-index:2}
+@keyframes rise{10%{opacity:1}100%{transform:translate(var(--dx),-180px);opacity:0}}
+
+/* الرؤية: طريق مضيء نحو منارة */
+.art-vision svg{position:absolute;inset:0;width:100%;height:100%}
+/* أضواء تتدفّق على الطريق نحو المنارة، وأشعة تدور حولها */
+.v-flow{stroke-dasharray:6 19;animation:flow 1.6s linear infinite;filter:drop-shadow(0 0 3px #FFE7B0)}
+.v-flow.f2,.v-flow.f3{stroke-dasharray:3 22;animation-duration:2.2s;opacity:.8}
+.v-flow.f3{animation-delay:-1.1s}
+@keyframes flow{from{stroke-dashoffset:0}to{stroke-dashoffset:25}}
+.v-lanes{-webkit-mask-image:linear-gradient(0deg,#000 40%,transparent 100%);mask-image:linear-gradient(0deg,#000 40%,transparent 100%)}
+.v-rays{transform-box:view-box;transform-origin:160px 110px;animation:spin 24s linear infinite;opacity:.35}
+.v-rays line:nth-child(odd){stroke-width:1.6}
+.v-ring{transform-box:fill-box;transform-origin:center;opacity:0;animation:ring 3s ease-out infinite}
+.v-ring.r2{animation-delay:1s}.v-ring.r3{animation-delay:2s}
+@keyframes ring{0%{transform:scale(.6);opacity:.9}100%{transform:scale(4.2);opacity:0}}
+.v-star{transform-box:fill-box;transform-origin:center;animation:star 3s ease-in-out infinite}
+@keyframes star{50%{transform:scale(1.25) rotate(45deg)}}
+.v-beam{animation:beam 2.6s ease-in-out infinite}
+.v-tw circle{animation:tw 2.4s ease-in-out infinite}
+.v-tw circle:nth-child(2n){animation-delay:1.1s}
+
+/* القيم: مسار منقّط ونقطة ضوء تمرّ على كل قيمة */
+.v-list{position:relative;list-style:none;margin:6px 0 0;padding:0;display:grid;gap:18px;text-align:start}
+.v-list::before{content:"";position:absolute;top:24px;bottom:24px;left:21px;border-left:2px dashed rgba(233,207,150,.45)}
+.v-dot{position:absolute;left:17px;top:20px;width:10px;height:10px;border-radius:50%;background:#FFE7B0;box-shadow:0 0 12px 4px rgba(255,214,140,.75);animation:vdot 6s ease-in-out infinite;z-index:2}
+@keyframes vdot{0%{top:20px;opacity:0}6%{opacity:1}94%{opacity:1}100%{top:calc(100% - 30px);opacity:0}}
+.v-list li{display:grid;grid-template-columns:1fr 44px;gap:12px;align-items:center;opacity:0;transform:translateY(12px);transition:opacity .6s var(--ease),transform .6s var(--ease);transition-delay:calc(var(--i) * .14s)}
+.vmv-card.seen .v-list li{opacity:1;transform:none}
+.v-tx{font-size:14.5px;line-height:1.8;color:rgba(255,255,255,.92)}
+.v-tag{display:inline-block;margin-top:6px;padding:0 16px;border-radius:9px 9px 9px 2px;background:linear-gradient(90deg,#F4DFAE,#C9A35C);color:#33250A;font-weight:800;font-size:13.5px;line-height:1.9;box-shadow:0 6px 16px -6px rgba(217,185,119,.85)}
+.v-ico{position:relative;z-index:1;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,#0E6770,#04262A);border:1.5px solid rgba(233,207,150,.75);animation:vglow 6s ease-in-out infinite;animation-delay:calc(var(--i) * 1.45s + .3s)}
+.v-ico svg{width:20px;height:20px}
+@keyframes vglow{0%,30%,100%{box-shadow:0 0 0 0 rgba(233,207,150,0)}10%{box-shadow:0 0 0 6px rgba(233,207,150,.16),0 0 26px rgba(240,217,165,.9)}}
+.v-foot{position:relative;margin:auto -18px 0;height:90px;border-radius:0 0 26px 26px;overflow:hidden;background:radial-gradient(60% 70% at 50% 120%,rgba(255,214,140,.55),transparent 70%)}
+.v-foot::before{content:"";position:absolute;left:10%;right:10%;bottom:22px;height:1px;background:linear-gradient(90deg,transparent,#F0D9A5,transparent)}
+.vmv-ribbon{position:absolute;left:0;bottom:0;width:100%;height:60px;pointer-events:none}
+/* ---- عرض البطاقات الثلاث جنبًا إلى جنب (نسخة مصغّرة) ---- */
+.vmv{padding:40px 0 34px}
+.vmv-deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;overflow:visible;padding:38px 10px 20px;perspective:none;align-items:stretch}
+.vmv-card{min-height:0;padding:28px 8px 0;border-radius:16px;transition:transform .35s var(--ease),box-shadow .4s}
+.vmv-card:hover,.vmv-card.active{transform:translateY(-4px)}
+.vmv-badge{top:-21px;margin-left:-21px;width:42px;height:42px;box-shadow:0 0 0 4px rgba(233,207,150,.08),0 0 20px rgba(233,207,150,.45)}
+.vmv-badge::after{inset:-5px}
+.vmv-badge svg{width:18px;height:18px}
+.vmv-card h3{font-size:17px}
+.vmv-rule{width:50px;margin:4px auto 8px}
+.vmv-rule::after{width:5px;height:5px;top:-2px;margin-left:-2.5px}
+.vmv-card .lead{font-size:11px;line-height:1.85}
+.vmv-art{height:215px;margin:auto -8px 0;border-radius:0 0 16px 16px}
+.art-mission .m-tile{margin-top:62px}
+.m-beam{width:120px;height:195px;bottom:30px}
+.m-glow{width:72px;height:24px;bottom:26px}
+.m-book{width:122px;bottom:4px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.5))}
+.m-tile{width:26px;height:26px;border-radius:7px;box-shadow:0 0 12px rgba(240,217,165,.35),inset 0 1px 0 rgba(255,255,255,.45)}
+.m-tile svg{width:13px;height:13px}
+.m-tile b{font-size:8px;bottom:-13px}
+.m-parts i{bottom:40px;width:2px;height:2px}
+@keyframes tileFloat{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-6px) rotate(calc(var(--r) * -1))}}
+@keyframes rise{10%{opacity:1}100%{transform:translate(calc(var(--dx) * .4),-100px);opacity:0}}
+.v-list{gap:10px;margin-top:2px}
+.v-list::before{left:10px;top:12px;bottom:12px;border-left-width:1.5px}
+.v-dot{left:6.5px;width:8px;height:8px;top:10px}
+@keyframes vdot{0%{top:10px;opacity:0}6%{opacity:1}94%{opacity:1}100%{top:calc(100% - 18px);opacity:0}}
+.v-list li{grid-template-columns:minmax(0,1fr) 22px;gap:5px}
+.v-ico{width:22px;height:22px;border-width:1px}
+.v-ico svg{width:12px;height:12px}
+.v-tx{font-size:10px;line-height:1.65}
+.v-tag{font-size:10px;padding:0 7px;margin-top:3px;border-radius:6px 6px 6px 2px;line-height:1.8}
+.v-foot{height:46px;margin:auto -8px 0;border-radius:0 0 16px 16px}
+.v-foot::before{bottom:12px}
+@media (min-width:480px){.vmv-card .lead{font-size:12px}.v-tx{font-size:11px}}
+/* ---- الرسالة والرؤية: بطاقتان مربعتان متساويتان، والقيم أفقية بعرض كامل تحتهما ---- */
+.vmv-deck{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 10px;padding:30px 12px 18px}
+.vmv{padding-top:14px}
+#vmv-mission,#vmv-vision{min-height:0}
+#vmv-mission .lead,#vmv-vision .lead{font-size:10.5px;line-height:1.8;padding-inline:2px}
+#vmv-mission .vmv-art,#vmv-vision .vmv-art{flex:none;height:146px;margin-top:auto}
+.art-mission .m-tile{margin-top:0;top:auto!important;bottom:66px;width:26px;height:26px}
+.art-mission .m-tile:nth-of-type(2),.art-mission .m-tile:nth-of-type(3){bottom:96px}
+.art-mission .m-tile svg{width:13px;height:13px}
+.art-mission .m-tile b{font-size:8px;bottom:-13px}
+.m-beam{height:140px;bottom:26px}
+.m-glow{bottom:24px}
+.m-book{width:122px}
+#vmv-values{grid-column:1/-1;padding:28px 10px 0}
+#vmv-values h3{font-size:19px}
+/* القيم في صف أفقي: الأيقونة فوق، والنص تحتها */
+.v-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:4px}
+.v-list::before{top:11px;bottom:auto;left:10%;right:10%;border-left:0;border-top:1.5px dashed rgba(233,207,150,.45)}
+.v-list li{grid-template-columns:1fr;justify-items:center;text-align:center;gap:6px;align-content:start}
+.v-list li .v-ico{order:-1}
+.v-tx{font-size:10px;line-height:1.7}
+.v-dot{top:7px;left:auto;right:10%;animation:vdotx 6s ease-in-out infinite}
+@keyframes vdotx{0%{right:10%;opacity:0}6%{opacity:1}94%{opacity:1}100%{right:88%;opacity:0}}
+.v-foot{height:34px}
+@media (min-width:480px){#vmv-mission .lead,#vmv-vision .lead{font-size:12px}.v-tx{font-size:11px}}
+
+@media (prefers-reduced-motion:reduce){.v-list li{opacity:1;transform:none}}
+
+/* =========================================================
+   قالوا عن إنجازات — قبة الشخصيات والحلقة الذهبية
+   ========================================================= */
+.tm{position:relative;border-radius:28px;overflow:hidden;background:linear-gradient(180deg,#FFFFFF 0%,#FBF6EC 100%);border:1px solid #EADBB8;box-shadow:0 24px 40px -28px rgba(6,49,53,.45)}
+.tm-dome{position:relative;height:264px;overflow:hidden;border-radius:0 0 50% 50% / 0 0 20% 20%;
+  background:radial-gradient(70% 70% at 50% 100%,rgba(217,185,119,.35),transparent 70%),linear-gradient(180deg,#063135 0%,#0A5D65 70%,#0C7F89 100%)}
+.tm-dome::after{content:"";position:absolute;inset:0;background:url("./assets/svg/watermark.svg") center 40%/150% no-repeat;opacity:.06;pointer-events:none}
+.tm-stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#FFF1D2;animation:tw 3s ease-in-out infinite}
+.tm-arc{position:absolute;left:0;right:0;top:56px;width:100%;height:150px}
+.tm-halo{position:absolute;left:50%;top:22px;width:200px;height:200px;margin-left:-100px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,226,160,.55),transparent);animation:beam 3s ease-in-out infinite}
+.tm-orbit{position:absolute;inset:0}
+/* بقية الشخصيات: أيقونات صغيرة على سطر مقوّس أسفل الثلاثة، وتنتقل إلى المدار بالتناوب */
+.tm-qarc{position:absolute;left:50%;top:0;width:240px;height:264px;margin-left:-120px;pointer-events:none;overflow:visible}
+.tm-av.is-queue .ph{border-width:4px;box-shadow:0 6px 12px -6px rgba(0,0,0,.6)}
+.tm-av{position:absolute;left:50%;top:0;width:132px;height:132px;margin-left:-66px;border-radius:50%;padding:0;
+  transition:transform .8s var(--ease),opacity .6s,filter .6s;transform:translate(var(--x),var(--y)) scale(var(--s));opacity:var(--o);filter:saturate(var(--sat))}
+.tm-av .ph{position:absolute;inset:8px;border-radius:50%;overflow:hidden;border:3px solid #fff;background:linear-gradient(170deg,#E3F4F3,#F4EEDF);box-shadow:0 14px 26px -10px rgba(0,0,0,.55)}
+.tm-av img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.tm-av svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.tm-av .track{fill:none;stroke:rgba(233,207,150,.35);stroke-width:2}
+.tm-av .prog{fill:none;stroke:#E9CF96;stroke-width:3;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;filter:drop-shadow(0 0 4px rgba(255,214,140,.9))}
+.tm-av.is-center .prog{animation:tmProg var(--dur) linear forwards}
+.tm-av.is-center.paused .prog{animation-play-state:paused}
+@keyframes tmProg{to{stroke-dashoffset:0}}
+.tm-av:not(.is-center) .prog{opacity:0}
+.tm-av.is-center::after{content:"";position:absolute;inset:-10px;border-radius:50%;border:1px dashed rgba(233,207,150,.6);animation:spin 22s linear infinite}
+.tm-body{position:relative;padding:18px 22px 6px;text-align:center;min-height:250px}
+.tm-mark{display:block;height:34px;font-family:Georgia,serif;font-size:64px;line-height:1;background:linear-gradient(180deg,#E0BC72,#A88344);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tm-text{font-size:16px;line-height:2;font-weight:500;color:var(--ink)}
+.tm-text span{display:inline-block;opacity:0;transform:translateY(8px);filter:blur(3px);animation:wordIn .55s var(--ease) forwards;animation-delay:calc(var(--d) * 45ms)}
+@keyframes wordIn{to{opacity:1;transform:none;filter:none}}
+.tm-who{margin-top:16px;animation:fadeIn .6s var(--ease) both;animation-delay:.6s}
+.tm-who .rule{display:block;width:90px;height:1px;margin:0 auto 10px;background:linear-gradient(90deg,transparent,#C9A35C,transparent);position:relative}
+.tm-who .rule::after{content:"";position:absolute;left:50%;top:-3px;width:7px;height:7px;margin-left:-3.5px;transform:rotate(45deg);background:#C9A35C}
+.tm-who b{display:block;font-size:15.5px;font-weight:800;background:linear-gradient(90deg,#063135,#0C7F89);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tm-who small{display:block;font-size:12.5px;line-height:1.7;color:var(--muted);margin-top:2px}
+.tm-nav{display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 0 20px}
+.tm-nav .round{border:0;background:var(--primary);color:#fff;width:40px;height:40px}
+.tm-count{min-width:52px;text-align:center;font-weight:800;color:var(--gold);font-size:14px;letter-spacing:1px}
+@media (prefers-reduced-motion:reduce){.tm-text span{opacity:1;transform:none;filter:none}}
+
+/* ظهور عند التمرير */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+@media (min-width:420px){.ach{flex-basis:58%}}
+/* إنجازاتنا: شبكة ٣×٣ بدل الصف الأفقي */
+.ach-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;overflow:visible;scroll-snap-type:none;margin-inline:0;padding:4px 0 6px}
+.ach{border-radius:12px}
+.ach figure{aspect-ratio:1/1;height:auto}
+.ach figure img{position:absolute;inset:0;width:100%;height:100%}
+.ach b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:3.1em}
+.ach-row{align-items:stretch}.ach{display:flex;flex-direction:column}
+.ach .cat{top:6px;right:6px;font-size:8.5px;padding:1px 7px}
+.ach .body{padding:7px 7px 9px}
+.ach b{font-size:10.5px;line-height:1.55}
+.ach .go{display:none}
+#our-achievements .row-ctrl{display:none}
+@media (min-width:480px){.ach-row{gap:12px}.ach b{font-size:12.5px}.ach .cat{font-size:10px}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+<link rel="stylesheet" href="./css/about-footer.css?v=20261104-1">
+<link rel="stylesheet" href="css/desktop.css?v=20261108-uni4">
+<link rel="stylesheet" href="css/about-hero-desktop.css?v=8">
+<link rel="stylesheet" href="css/about-journey-1.css?v=1">
+<link rel="stylesheet" href="css/phone-footer.css?v=2">
+</head>
+<body class="about-page">
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="menu-top">
+    <a href="./index.html" aria-label="الصفحة الرئيسية"><img src="assets/svg/logo.svg" alt="إنجازات شباب عمان"></a>
+    <button class="menu-close" type="button" aria-label="إغلاق القائمة" data-menu-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </div>
+  <form class="search" role="search" onsubmit="return false"><label class="sr-only" for="q569">ابحث في الموقع</label><input id="q569" type="search" placeholder="ابحث في الموقع"><button type="submit" aria-label="بحث"><img src="assets/svg/icon-search.svg" alt=""></button></form>
+  <nav aria-label="أقسام الموقع"><ul><li><a href="./index.html">الصفحة الرئيسية</a></li><li><a href="./achievements.html">الإنجازات</a></li><li><a href="./achievers.html">المنجزين</a></li><li><a href="./inspiring.html">ملهمون من عُمان</a></li><li><a href="./awards.html">جوائز السلطان قابوس</a></li><li><a href="./bilarab-award.html">جائزة بلعرب</a></li><li><a href="./universities.html">الجامعات والكليات</a></li><li><a href="./institutions.html">المؤسسات</a></li><li><a href="./science.html">الاختراعات والابتكارات والمنشورات العلمية</a></li><li><a href="./articles.html">المقالات</a></li><li><a href="./about.html" aria-current="page">من نحن؟</a></li><li><a href="./contact.html">تواصل معنا</a></li></ul></nav>
+</div>
+<div class="page">
+<a class="sr-only" href="#main">انتقل إلى المحتوى</a>
+
+<header class="header">
+  <div class="brand">
+    <a class="logo" href="./index.html" aria-label="إنجازات — الصفحة الرئيسية"><img src="./assets/svg/logo.svg" alt="إنجازات شباب عمان" width="117" height="94"></a>
+    <span class="crumb" aria-live="polite">من نحن</span>
+  </div>
+  <button class="icon-btn" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="menu" data-open-drawer>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+  <div class="progress" aria-hidden="true"><i data-progress></i></div>
+</header>
+
+<nav class="chips-nav" aria-label="أقسام الصفحة"><ul data-chips></ul></nav>
+
+
+<main id="main">
+
+<!-- ١) الافتتاحية -->
+<section class="hero wrap" id="top" aria-label="من نحن">
+  <div class="hero-pattern" aria-hidden="true"></div>
+  <div class="hero-copy">
+    <span class="ab-kick ab-dk">من نحن</span>
+    <h1 class="ab-title ab-dk">نوثّق <em>إنجازات</em> شباب عُمان</h1>
+    <p class="hero-lead">مبادرة وطنية من الشباب وإلى الشباب، توثّق نجاحات أبناء عُمان وتُبقي أثرهم حاضرًا للأجيال القادمة.</p>
+    <ul class="ab-facts ab-dk" aria-label="من مسيرتنا"><li><b>٢٠١٤</b><span>بداية جمع بيانات المنجزين</span></li><li><b>+٤٠٠٠</b><span>نسخة من الكتاب أُهديت للمنجزين</span></li><li><b>+٢٠٠٠</b><span>منجز ومنجزة عُمانيين في قاعدة بياناتنا</span></li></ul>
+    <div class="ab-acts ab-dk"><a class="ab-btn" href="#journey">رحلتنا <span aria-hidden="true">←</span></a><a class="ab-btn ab-ghost" href="./contact.html">تواصل معنا</a></div>
+  </div>
+  <div class="hero-art" data-tilt>
+    <div class="ring" aria-hidden="true"></div><div class="ring r2" aria-hidden="true"></div>
+    <span class="spark" style="top:12%;right:18%" aria-hidden="true"></span>
+    <span class="spark" style="top:40%;left:6%" aria-hidden="true"></span>
+    <span class="spark" style="bottom:22%;right:8%" aria-hidden="true"></span>
+    <div class="hero-image-blend"><img src="./assets/img/about-achievers-hero-v2.png" alt="كولاج فني لجوخة الحارثية وعلي الحبسي وعائشة السيفي وباحثة عُمانية حول كتاب الإنجازات ومعالم عُمان" width="1199" height="1312" fetchpriority="high"></div>
+  </div>
+</section>
+
+<!-- ٢) الرسالة والرؤية والقيم — بطاقات زجاجية متحركة -->
+<section class="vmv" id="mission" aria-label="رسالتنا ورؤيتنا وقيمنا">
+  <div class="vmv-stars" aria-hidden="true" data-vmv-stars></div>
+  <div class="vmv-deck" data-vmv-deck>
+    <article class="vmv-card" id="vmv-mission" aria-label="الرسالة">
+      <span class="vmv-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></span>
+      <h3>الرسالة</h3><span class="vmv-rule" aria-hidden="true"></span>
+      <p class="lead">توثيق إنجازات الأفراد والمؤسسات، وتسليط الضوء على إبداعاتهم وتجاربهم الناجحة، ونشر ثقافة الإنجاز والابتكار.</p>
+      <div class="vmv-art art-mission" aria-hidden="true">
+        <span class="m-beam"></span><span class="m-tile" style="left:6%;top:74px;--r:-8deg;animation-delay:0s"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20v-8M10 20V5M16 20v-11M22 20H2"/></svg><b>إحصاء</b></span><span class="m-tile" style="left:27%;top:24px;--r:5deg;animation-delay:-1.2s"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M15.5 14.5c3 0 5.5 2 5.5 5"/></svg><b>أثر</b></span><span class="m-tile" style="left:51%;top:24px;--r:-5deg;animation-delay:-2.4s"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-9M12 12c0-4 3-7 8-7 0 5-3 7-8 7zM12 14c0-3-2-6-7-6 0 4 3 6 7 6z"/></svg><b>نمو</b></span><span class="m-tile" style="left:72%;top:74px;--r:8deg;animation-delay:-3.6s"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18h8M3 22h18M14 22a7 7 0 0 0 0-14h-1M9 14h2M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2zM12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg><b>علم</b></span><span class="m-glow"></span><span class="m-parts" data-vmv-parts></span>
+        <svg class="m-book" viewBox="0 0 300 120"><defs>
+          <linearGradient id="pgL" x1="0" x2="1"><stop offset="0" stop-color="#C9B48A"/><stop offset="1" stop-color="#FFF5DC"/></linearGradient>
+          <linearGradient id="pgR" x1="1" x2="0"><stop offset="0" stop-color="#C9B48A"/><stop offset="1" stop-color="#FFF5DC"/></linearGradient></defs>
+          <path d="M150 112 C110 94 50 94 10 106 L10 116 C50 104 110 104 150 120 C190 104 250 104 290 116 L290 106 C250 94 190 94 150 112Z" fill="#7A5A28"/>
+          <path d="M150 44 C112 22 52 24 14 36 L14 106 C52 94 112 94 150 112Z" fill="url(#pgL)"/>
+          <path d="M150 44 C188 22 248 24 286 36 L286 106 C248 94 188 94 150 112Z" fill="url(#pgR)"/>
+          <g stroke="#A8916A" stroke-width=".8" opacity=".5" fill="none"><path d="M30 50 C70 40 110 42 138 56M30 62 C70 52 110 54 138 68M30 74 C70 64 110 66 138 80M30 86 C70 76 110 78 138 92"/><path d="M270 50 C230 40 190 42 162 56M270 62 C230 52 190 54 162 68M270 74 C230 64 190 66 162 80M270 86 C230 76 190 78 162 92"/></g>
+          <path d="M150 44 L150 112" stroke="#8C6A33" stroke-width="1.4"/></svg>
+      </div>
+    </article>
+
+    <article class="vmv-card" id="vmv-vision" aria-label="الرؤية">
+      <span class="vmv-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+      <h3>الرؤية</h3><span class="vmv-rule" aria-hidden="true"></span>
+      <p class="lead">أن نكون المنصّة الأساسية والمرجع الأول لتوثيق إنجازات الشباب العُماني في سلطنة عُمان.</p>
+      <div class="vmv-art art-vision" aria-hidden="true">
+        <svg viewBox="30 -130 260 380" preserveAspectRatio="xMidYMax slice"><defs>
+          <radialGradient id="hz" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFD98F" stop-opacity=".55"/><stop offset="1" stop-color="#FFD98F" stop-opacity="0"/></radialGradient>
+          <linearGradient id="bm" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FFE7B0"/><stop offset="1" stop-color="#FFE7B0" stop-opacity="0"/></linearGradient>
+          <linearGradient id="rd" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0BC72"/><stop offset="1" stop-color="#FFF6DF"/></linearGradient>
+          <linearGradient id="rdF" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E9CF96" stop-opacity=".55"/><stop offset="1" stop-color="#FFF6DF" stop-opacity=".05"/></linearGradient>
+          <filter id="bl"><feGaussianBlur stdDeviation="4"/></filter></defs>
+          <g class="v-grid" stroke="#E9CF96" fill="none">
+            <path d="M160 128 L-220 250M160 128 L-60 250M160 128 L60 250M160 128 L260 250M160 128 L380 250M160 128 L540 250" stroke-opacity=".16"/>
+            <path d="M0 140H320M0 158H320M0 184H320M0 222H320" stroke-opacity=".1"/></g>
+          <ellipse cx="160" cy="128" rx="170" ry="22" fill="url(#hz)"/>
+          <g class="v-rays" stroke="#FFE7B0" stroke-width="1" stroke-linecap="round"><line x1="160" y1="110" x2="160" y2="40" transform="rotate(0.0 160 110)"/><line x1="160" y1="110" x2="160" y2="66" transform="rotate(22.5 160 110)"/><line x1="160" y1="110" x2="160" y2="40" transform="rotate(45.0 160 110)"/><line x1="160" y1="110" x2="160" y2="66" transform="rotate(67.5 160 110)"/><line x1="160" y1="110" x2="160" y2="40" transform="rotate(90.0 160 110)"/><line x1="160" y1="110" x2="160" y2="66" transform="rotate(112.5 160 110)"/><line x1="160" y1="110" x2="160" y2="40" transform="rotate(135.0 160 110)"/><line x1="160" y1="110" x2="160" y2="66" transform="rotate(157.5 160 110)"/><line x1="160" y1="110" x2="160" y2="40" transform="rotate(180.0 160 110)"/><line x1="160" y1="110" x2="160" y2="66" transform="rotate(202.5 160 110)"/><line x1="160" y1="110" x2="160" y2="40" transform="rotate(225.0 160 110)"/><line x1="160" y1="110" x2="160" y2="66" transform="rotate(247.5 160 110)"/><line x1="160" y1="110" x2="160" y2="40" transform="rotate(270.0 160 110)"/><line x1="160" y1="110" x2="160" y2="66" transform="rotate(292.5 160 110)"/><line x1="160" y1="110" x2="160" y2="40" transform="rotate(315.0 160 110)"/><line x1="160" y1="110" x2="160" y2="66" transform="rotate(337.5 160 110)"/></g>
+          <polygon points="88,252 157,116 163,116 232,252" fill="url(#rdF)" opacity=".55"/>
+          <path d="M88 252 L157 116 M232 252 L163 116" stroke="#E9CF96" stroke-width="2" fill="none" opacity=".9"/>
+          <path d="M88 252 L157 116 M232 252 L163 116" stroke="#E9CF96" stroke-width="8" fill="none" opacity=".25" filter="url(#bl)"/>
+          <g class="v-lanes" fill="none" stroke-linecap="round">
+            <path class="v-flow" pathLength="100" d="M160 252 L160 118" stroke="#fff" stroke-width="3"/>
+            <path class="v-flow f2" pathLength="100" d="M124 252 L158.5 118" stroke="#FFE7B0" stroke-width="2"/>
+            <path class="v-flow f3" pathLength="100" d="M196 252 L161.5 118" stroke="#FFE7B0" stroke-width="2"/>
+          </g>
+          <circle class="v-ring" cx="160" cy="110" r="10" fill="none" stroke="#FFE7B0"/>
+          <circle class="v-ring r2" cx="160" cy="110" r="10" fill="none" stroke="#FFE7B0"/>
+          <circle class="v-ring r3" cx="160" cy="110" r="10" fill="none" stroke="#FFE7B0"/>
+          <circle cx="160" cy="110" r="14" fill="#FFE7B0" opacity=".35" filter="url(#bl)"/>
+          <path class="v-star" d="M160 98 L163 107 L172 110 L163 113 L160 122 L157 113 L148 110 L157 107Z" fill="#FFF8E6"/>
+          <g class="v-tw" fill="#FFF1D2"><circle cx="40" cy="30" r="1.2"/><circle cx="270" cy="50" r="1.5"/><circle cx="90" cy="80" r="1"/><circle cx="230" cy="18" r="1"/><circle cx="295" cy="96" r="1.1"/><circle cx="70" cy="-90" r="1.3"/><circle cx="250" cy="-60" r="1"/><circle cx="120" cy="-30" r="1.1"/><circle cx="210" cy="-110" r="1.4"/><circle cx="60" cy="-20" r="1"/><circle cx="20" cy="100" r="1"/></g>
+        </svg>
+      </div>
+    </article>
+
+    <article class="vmv-card" id="vmv-values" aria-label="قيمنا">
+      <span class="vmv-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6z"/></svg></span>
+      <h3>قيمنا</h3><span class="vmv-rule" aria-hidden="true"></span>
+      <ul class="v-list"><span class="v-dot" aria-hidden="true"></span><li style="--i:0"><div class="v-tx">انظر إلى الأشياء بشكل مختلف عن الآخرين حتى تصل إلى نقطة<br><span class="v-tag">الإلهام</span></div><span class="v-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg></span></li><li style="--i:1"><div class="v-tx">فالقليل من التفكير يولّد الكثير من<br><span class="v-tag">الشغف</span></div><span class="v-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 11-8 11z"/></svg></span></li><li style="--i:2"><div class="v-tx">لا تكتفِ بالمشاهدة، كن فضوليًا، وحاول البحث وتعلّم ما يدفعك<br><span class="v-tag">للابتكار</span></div><span class="v-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span></li><li style="--i:3"><div class="v-tx">هكذا يجب أن يكون تفكيرك حتى تجد نفسك في مراتب<br><span class="v-tag">الإنجاز</span></div><span class="v-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></span></li></ul>
+      <div class="v-foot" aria-hidden="true"></div>
+    </article>
+  </div>
+  <svg class="vmv-ribbon" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C110 6 250 70 400 18" fill="none" stroke="#E9CF96" stroke-opacity=".5"/><path d="M0 54 C120 16 250 78 400 28" fill="none" stroke="#E9CF96" stroke-opacity=".25" stroke-dasharray="2 5"/></svg>
+</section>
+
+<!-- ٢) قوس المجالات -->
+<section class="fields" id="fields" aria-labelledby="fields-title">
+  <div class="intro">
+    <span class="eyebrow" style="color:var(--gold-2)">مجالات الإنجاز</span>
+    <h2 id="fields-title">كل إنجازٍ <em>حكاية</em> وطن.</h2>
+    <p>اسحب يمينًا ويسارًا، أو اضغط على مجال لاستكشافه.</p>
+  </div>
+  <div class="stage" data-stage aria-roledescription="معرض دوّار" aria-label="مجالات الإنجاز">
+    <div class="reflection" aria-hidden="true"></div>
+    <div class="carousel" data-carousel></div>
+  </div>
+  <div class="stage-ctrl">
+    <button class="round" type="button" aria-label="المجال السابق" data-ring-prev><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    <button class="round" type="button" aria-label="إيقاف الدوران التلقائي" aria-pressed="false" data-ring-pause><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
+    <button class="round" type="button" aria-label="المجال التالي" data-ring-next><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+  </div>
+</section>
+
+
+<!-- ٤) مسيرتنا -->
+<section class="sec wrap journey roadmap" id="journey" aria-labelledby="journey-title" style="padding-top:10px" data-roadmap data-img="./assets/img/">
+  <div class="sec-head reveal"><span class="mark"><img src="./assets/svg/ornament.svg" alt=""></span><h2 id="journey-title">خارطة العمل</h2><span class="line"></span></div>
+  <div class="rm-tl" data-rm-tl>
+    <span class="rm-stars" aria-hidden="true" data-rm-stars></span>
+    <svg class="rm-svg" aria-hidden="true"><defs><linearGradient id="rm-g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1D2"/><stop offset="1" stop-color="#C9A35C"/></linearGradient></defs><path class="rm-bg"/><path class="rm-fg"/></svg>
+    <span class="rm-spark" data-rm-spark></span>
+    <ol></ol>
+  </div>
+  <p class="journey-note">اضغط على الصورة لعرض التفاصيل.</p>
+  <dialog class="rm-sheet" data-rm-sheet aria-label="تفاصيل المحطة">
+    <button class="rm-x" type="button" aria-label="إغلاق" data-rm-x><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="rm-media" data-rm-media></div>
+    <div class="rm-body"><div class="rm-row"><span class="rm-n" data-rm-n></span><span class="rm-tag" data-rm-date></span></div><p class="rm-full" data-rm-t></p>
+      <div class="rm-nav"><button type="button" data-rm-prev>→ السابقة</button><button type="button" data-rm-next>التالية ←</button></div></div>
+  </dialog>
+</section>
+
+<!-- ٥) كلمة المؤسس -->
+<section class="wrap reveal" id="founder" aria-labelledby="founder-title" style="padding-block:10px 44px">
+  <article class="founder" data-founder>
+    <div class="founder-top"><img src="./assets/img/founder.png" alt="منذر بن إبراهيم المعمري"><div><b id="founder-title">منذر بن إبراهيم المعمري</b><small>المؤسس ورئيس الفريق</small></div></div>
+    <div class="founder-body"><div class="q" aria-hidden="true">“</div><h3>إيمانٌ بالشباب… وعملٌ لأجلهم</h3><div class="founder-text" id="founder-text" data-founder-text></div></div>
+    <button class="founder-toggle" type="button" aria-expanded="false" aria-controls="founder-text" data-founder-toggle><span>اقرأ الكلمة كاملة</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+  </article>
+</section>
+
+<!-- ٦) قالوا عن إنجازات -->
+<section class="sec wrap reveal" id="testimonials" aria-labelledby="t-title" style="padding-top:0">
+  <div class="sec-head"><span class="mark"><img src="./assets/svg/ornament.svg" alt=""></span><h2 id="t-title">قالوا عن إنجازات</h2><span class="line"></span></div>
+  <div class="tm" data-tm aria-roledescription="شهادات">
+    <div class="tm-dome">
+      <span class="tm-stars" aria-hidden="true" data-tm-stars></span>
+      <svg class="tm-arc" viewBox="0 0 320 140" preserveAspectRatio="none" aria-hidden="true"><path d="M14 136 Q160 -24 306 136" fill="none" stroke="#E9CF96" stroke-opacity=".55" stroke-dasharray="2 6"/></svg>
+      <span class="tm-halo" aria-hidden="true"></span>
+      <svg class="tm-qarc" viewBox="-120 0 240 264" aria-hidden="true"><path d="M-84 214 Q0 262 84 214" fill="none" stroke="#E9CF96" stroke-opacity=".5" stroke-dasharray="2 5"/></svg>
+      <div class="tm-orbit" data-tm-orbit></div>
+    </div>
+    <div class="tm-body" aria-live="polite" data-tm-body></div>
+    <div class="tm-nav">
+      <button class="round" type="button" aria-label="الشهادة السابقة" data-tm-prev><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      <span class="tm-count" data-tm-count></span>
+      <button class="round" type="button" aria-label="الشهادة التالية" data-tm-next><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ٧) فريق العمل -->
+<section class="sec wrap reveal" id="team" aria-labelledby="team-title" style="padding-top:0">
+  <div class="sec-head"><span class="mark"><img src="./assets/svg/ornament.svg" alt=""></span><h2 id="team-title">فريق العمل</h2><span class="line"></span></div>
+  <div class="tdeck" data-team>
+    <div class="tdeck-cards" data-cards></div>
+    <div class="tdeck-bar" aria-hidden="true"><i data-bar></i></div>
+  </div>
+  <p class="team-note">الصور والأسماء تجريبية؛ تُستبدل ببيانات أعضاء الفريق.</p>
+</section>
+
+<!-- ٨) إنجازاتنا -->
+<section class="sec wrap reveal" id="our-achievements" aria-labelledby="a-title" style="padding-top:0">
+  <div class="sec-head"><span class="mark"><img src="./assets/svg/ornament.svg" alt=""></span><h2 id="a-title">إنجازاتنا</h2><span class="line"></span></div>
+  <div class="filters" role="group" aria-label="تصفية الإنجازات" data-filters></div>
+  <div class="ach-row" data-ach-row></div>
+  <div class="row-ctrl"><button class="round" type="button" aria-label="الإنجاز السابق" data-row-prev><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button><div class="row-bar" aria-hidden="true"><i data-row-bar></i></div><button class="round" type="button" aria-label="الإنجاز التالي" data-row-next><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button></div>
+</section>
+
+<!-- ٩) المكتبة الإعلامية -->
+<section class="sec wrap reveal" id="media" aria-labelledby="m-title" style="padding-top:0">
+  <div class="sec-head"><span class="mark"><img src="./assets/svg/ornament.svg" alt=""></span><h2 id="m-title">المكتبة الإعلامية</h2><span class="line"></span></div>
+  <div class="media" data-media></div>
+</section>
+
+<!-- استكشف: بطاقة مستقلة تتبدّل كل ٥ ثوانٍ -->
+<section class="explore" aria-label="استكشف المجالات">
+  <div class="field-info" aria-live="off" data-field-info></div>
+  <div class="explore-dots" aria-hidden="true" data-explore-dots></div>
+</section>
+</main>
+
+<footer class="site-footer footer-redesign">
+  <div class="footer-layout">
+    <nav class="footer-navigation" aria-label="روابط الموقع"><div class="footer-link-columns">
+      <ul><li><a href="index.html">الصفحة الرئيسية</a></li><li><a href="achievements.html">الإنجازات</a></li><li><a href="achievers.html">المنجزين</a></li><li><a href="inspiring.html">ملهمون من عُمان</a></li><li><a href="about.html">من نحن</a></li></ul>
+      <ul><li><a href="awards.html">جوائز السلطان قابوس</a></li><li><a href="bilarab-award.html">جائزة بلعرب</a></li><li><a href="universities.html">الجامعات والكليات</a></li><li><a href="institutions.html">المؤسسات</a></li><li><a href="science.html">الاختراعات والابتكارات العلمية</a></li><li><a href="articles.html">المقالات</a></li><li><a href="contact.html">تواصل معنا</a></li></ul>
+    </div></nav>
+    <div class="footer-brand"><a class="footer-logo" href="index.html" aria-label="إنجازات شباب عمان — الصفحة الرئيسية"><img src="assets/svg/logo.svg" alt="إنجازات شباب عمان"></a><div class="footer-socials" aria-label="مواقع التواصل"><a href="https://www.instagram.com/injazat_oman/" aria-label="إنستغرام" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor" stroke="none"/></svg></a><span class="footer-social-unavailable" role="img" aria-label="واتساب — الرابط غير متوفر" title="واتساب"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.7 7.4L3 20.5l1.4-4.6A8.5 8.5 0 1 1 20.5 11.7Z"/><path d="M8.6 8.2c.4-.5.7-.5 1-.1l1.1 1.7c.2.3.1.6-.3 1 .6 1.2 1.5 2.1 2.7 2.7.4-.4.7-.5 1-.3l1.7 1.1c.4.3.4.6-.1 1-1.8 1.6-6.5-1.5-7.5-4.6-.4-1.1-.3-1.9.4-2.5Z"/></svg></span><a href="https://x.com/injazat_oman" aria-label="إكس (تويتر)" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M20 4 4 20M4 4h4l12 16h-4Z"/></svg></a><span class="footer-social-unavailable" role="img" aria-label="فيسبوك — الرابط غير متوفر" title="فيسبوك"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 21v-8h3l.5-3H14V8.5c0-.9.4-1.5 1.6-1.5H18V4.3A13 13 0 0 0 15.5 4C12.8 4 11 5.6 11 8.4V10H8v3h3v8"/></svg></span><a href="https://www.linkedin.com/search/results/all/?keywords=injazat_oman" aria-label="لينكدإن" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 10v6M8 7.5v.2M12 16v-6m0 2.5c0-3.2 4-3.4 4 0V16"/></svg></a><span class="footer-social-unavailable" role="img" aria-label="يوتيوب — الرابط غير متوفر" title="يوتيوب"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="4"/><path d="m10 9 5 3-5 3Z"/></svg></span></div></div>
+    <div class="footer-details"><ul><li><a href="tel:+96893322212"><img src="assets/svg/icon-phone-footer.svg" alt=""><span dir="ltr">+968 93322212</span></a></li><li><a href="mailto:injaz@om.com"><img src="assets/svg/icon-mail-footer.svg" alt=""><span dir="ltr">injaz@om.com</span></a></li><li><span><img src="assets/svg/icon-pin-footer.svg" alt="">مسقط، عُمان</span></li></ul></div>
+  </div><p class="copy">جميع الحقوق محفوظة © ٢٠٢٦</p>
+</footer>
+
+<button class="to-top" type="button" aria-label="العودة إلى الأعلى" data-top><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 15l6-6 6 6"/></svg></button>
+
+<dialog class="lb" data-lb aria-label="عرض الصورة">
+  <button class="x" type="button" aria-label="إغلاق" data-lb-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <img alt="" data-lb-img>
+  <div class="lb-body"><b data-lb-title></b><small data-lb-sub></small><span class="lb-en" lang="en" data-lb-en hidden></span></div>
+</dialog>
+</div>
+
+<!-- =================== القوالب =================== -->
+<template id="tpl-stat"><div class="stat"><b data-count></b><span data-label></span></div></template>
+
+<template id="tpl-field">
+  <button class="field-card" type="button"><span class="ico"><img alt=""></span><img class="ph" alt=""><span class="lbl"></span></button>
+</template>
+
+<template id="tpl-year"><li class="year"><b></b></li></template>
+
+<template id="tpl-stop">
+  <li class="stop"><span class="node" aria-hidden="true"></span>
+    <button class="sq" type="button"><img alt="" loading="lazy"></button>
+    <div class="tx"><span class="date"></span><span class="t"></span><span class="en" lang="en"></span></div>
+  </li>
+</template>
+
+<template id="tpl-quote">
+  <figure class="quote"><div class="band" aria-hidden="true"><span class="qm">”</span></div><div class="portrait"><img alt="" loading="lazy"></div><blockquote style="margin:0"><p></p></blockquote><figcaption class="who"><b></b><span></span></figcaption></figure>
+</template>
+
+<template id="tpl-member">
+  <button class="member" type="button"><div class="ph"><img alt="" loading="lazy"></div><b></b><small></small></button>
+</template>
+
+<template id="tpl-ach">
+  <button class="ach" type="button"><figure><img alt="" loading="lazy"><span class="cat"></span></figure><div class="body"><b></b><span class="go">عرض الصورة <span aria-hidden="true">←</span></span></div></button>
+</template>
+
+<template id="tpl-media">
+  <button type="button"><img class="bg" alt="" loading="lazy"><span class="m-in"><i><img alt=""></i><span></span></span></button>
+</template>
+
+<script>
+/* =========================================================
+   بيانات الصفحة — عدّل هنا فقط
+   ========================================================= */
+const IMG = "./assets/img/", SVG = "./assets/svg/";
+const PAGE = {
+  nav: [["#top","البداية"],["#mission","رسالتنا"],["#fields","مجالاتنا"],["#journey","خارطة العمل"],["#founder","كلمتنا"],["#testimonials","قالوا عنّا"],["#team","الفريق"],["#our-achievements","إنجازاتنا"],["#media","المكتبة"]],
+
+  fields: [
+    {t:"إنجازات عُمان",     d:"سجلّ وطني يحفظ نجاحات أبناء عُمان داخليًا وخارجيًا.", img:"about-launch.jpg",          ico:"cat-culture.svg"},
+    {t:"تراث وثقافة",      d:"إنجازات تحفظ الهوية العُمانية وتنقلها للعالم.",        img:"about-signing.jpg",         ico:"cat-arts.svg"},
+    {t:"بحث وعلم",         d:"باحثون وعلماء رفعوا اسم عُمان في المحافل العلمية.",    img:"science-water-v1.jpg",      ico:"cat-science.svg"},
+    {t:"ابتكار وإبداع",     d:"مخترعون حوّلوا أفكارهم إلى حلول تخدم المجتمع.",        img:"science-invention-v1.jpg",  ico:"cat-innovation.svg"},
+    {t:"شباب صنعوا الفارق", d:"منجزون حصدوا الجوائز في المسابقات الدولية.",           img:"itex-award.jpg",            ico:"cat-students.svg"},
+    {t:"رياضة",            d:"أبطال رفعوا راية عُمان في الملاعب والبطولات.",          img:"basketball.jpg",            ico:"cat-sports.svg"},
+    {t:"أدب ومعرفة",        d:"أقلام عُمانية وصلت بالأدب العُماني إلى العالمية.",      img:"jokha-booker.jpg",          ico:"cat-literature.svg"},
+    {t:"إعلام وفنون",       d:"مبدعون في الإعلام والفنون وصناعة المحتوى.",             img:"inspiring-safiya-cover-v1.jpg", ico:"cat-arts.svg"},
+    {t:"ريادة وإلهام",      d:"قصص ملهمة لشباب صنعوا طريقهم بأنفسهم.",                 img:"sports-hamed-portrait-v2.jpg", ico:"cat-business.svg"}
+  ],
+
+
+  /* خارطة العمل — بالتسلسل كما في المرجع. y = عنوان المجموعة السنوية، img اختياري، logo = صورة شعار */
+  journey: [
+    {y:"٢٠١٤–٢٠١٦", date:"٢٠١٤–٢٠١٦م", t:"مرحلة جمع بيانات المنجزين", img:"timeline/tl-01.jpg"},
+    {y:"٢٠١٧", date:"يناير ٢٠١٧م", t:"تدشين كتاب إنجازات شباب عُمان بمجلس عُمان", img:"about-signing.jpg"},
+    {y:"٢٠١٧", date:"فبراير ٢٠١٧م", t:"المشاركة في معرض مسقط الدولي للكتاب", img:"timeline/tl-03.jpg"},
+    {y:"٢٠١٧", date:"أغسطس ٢٠١٧م", t:"تكريم البطل العالمي/ محمد المشايخي الفائز بفضية العالم ببطولة العالم لذوي الإعاقة بلندن", img:"timeline/tl-04.jpg"},
+    {y:"٢٠١٧", date:"نوفمبر ٢٠١٧م", t:"إهداء أكثر من (٤٠٠٠) نسخة من كتاب إنجازات شباب عُمان للمنجزين", img:"timeline/tl-05.jpg"},
+    {y:"٢٠١٨", date:"ديسمبر ٢٠١٦ – يناير ٢٠١٨م", t:"المساهمة بتسليط الضوء على أكثر من (٨٠) مواطن عبر مواقع التواصل الاجتماعي", img:"timeline/tl-06.jpg"},
+    {y:"٢٠١٨", date:"يناير ٢٠١٨م", t:"توقيع شراكة مع شركة (Galaxy way) شريك إبداعي، وشركة (Gate 10) كشريك تسويقي", img:"timeline/tl-07.jpg"},
+    {y:"٢٠١٨", date:"فبراير ٢٠١٨م", t:"المشاركة في معرض مسقط الدولي للكتاب", img:"timeline/tl-08.jpg"},
+    {y:"٢٠١٨", date:"فبراير ٢٠١٨م", t:"تدشين جلسات شباب عُمان", img:"timeline/tl-09.jpg"},
+    {y:"٢٠١٨", date:"", t:"بالشراكة مع إذاعة الوصال، تم تقديم برنامج إنجازات شباب عُمان والذي يهدف إلى تسليط الضوء على إنجازات الشباب طيلة شهر رمضان", img:"alwisal-logo.png", logo:true},
+    {y:"٢٠١٨", date:"٢٠١٨م", t:"تدشين جائزة شباب عُمان النسخة الأولى"},
+    {y:"٢٠١٨", date:"٢٠١٨م", t:"تدشين الموقع الإلكتروني الذي يضم (١٥٠) منجز عُماني كمرحلة أولى"},
+    {y:"٢٠١٩", date:"٢٠١٩م", t:"تدشين قافلة شباب عُمان"},
+    {y:"٢٠١٩", date:"فبراير ٢٠١٩م", t:"تدشين الإصدار الثاني من كتاب إنجازات شباب عُمان"},
+    {y:"٢٠١٩", date:"فبراير ٢٠١٩م", t:"المشاركة في معرض مسقط الدولي للكتاب"},
+    {y:"٢٠١٩", date:"مارس ٢٠١٩م", t:"تدشين جائزة شباب عُمان النسخة الثانية"},
+    {y:"٢٠١٩", date:"٢٠١٩م", t:"تدشين المرحلة الثانية للموقع الإلكتروني ليضم (٣٠٠٠) منجز عُماني"}
+  ],
+
+  founder: [
+    "إن الشباب هم نهضةُ الأوطان ومحرك الحضارة وصمام الأمان، فبهم الأممُ تقوم وعلى عقولهم النيرة تعلقُ الآمال وعلى يديهم تُبنى ركائزُ الوطن. وإن اهتمام مولانا حضرةِ صاحب الجلالة السلطان هيثم بن طارق المعظم (حفظهُ الله ورعاه) بالشباب كان جليًا؛ إذ آمن جلالتهُ (أبقاهُ الله) بأهميةِ الاستثمار في طاقات شباب عُمان وتوجيهها توجيهًا صحيحًا، وشدد على أهميةِ النهوضِ بهم علميًا وفكريًا وعمليًا وثقافيًا ورياضيًا وفنيًا، فكان الشاب العُماني منذُ البدء شريكًا جوهريًا في عمليةِ التنميةِ الشاملة وركنًا أساسيًا للنهوض بهذا الوطن العزيز.",
+    "وعليه فإن عُمان ستصل لغاياتها المنشودة وسيتحقق لها ما تصبو إليه من مكانةٍ عاليةٍ مرموقةٍ على يد شبابنا الطموح المثابر.",
+    "إخواني وأخواتي شباب عُمان المجيدين؛ إيمانًا مني بجهودكم الملموسة في سبيل رقي وخدمة هذا الوطن العزيز، ولأنكم حملتم راية العلمِ والعمل فأحسنتم واجتهدتم ونِعمَ الجهد الذي بذلتموه ليرفرف علم بلادنا عاليًا بين الشعوب، وسعيًا مني لحفظ إنجازاتكم النيرة وأسمائكم التي سطعت في سماءِ الإنجازِ والإبداع؛ كرّس فريق العمل وقتهُ وجهدهُ بتوفيقٍ من الله تعالى على مدار ٨ أعوام لتوثيق إنجازاتكم المشرفة، وقد تمثل ذلك في الإصدار الأول والثاني من كتاب إنجازات شباب عُمان، وكتاب ملهمون من عُمان، إضافة إلى الموقع الإلكتروني الذي سيضم بين أقسامه أكثر من ١٥٠٠ مجيدة ومجيد.",
+    "شباب عُمان، سيروا على بركةٍ من الله وتوفيقهِ في دروبِ العلا والمجد، فعلى يديكم سينبتُ في جبين الأفقِ ألفُ إنجازٍ وإنجاز."
+  ],
+
+  /* قالوا عن إنجازات — t: "official" للمسؤولين (دوائر أكبر)، و "person" للأفراد (دوائر أصغر بنحو ٣٠٪).
+     الترتيب: صاحب السمو السيد أسعد، ثم الفريق أول سلطان النعماني، ثم معالي نصر الكندي، ثم الأفراد.
+     لإضافة فرد: {t:"person", q:"نص الشهادة", n:"الاسم", r:"الصفة", img:"اسم-الصورة.jpg"} */
+  quotes: [
+    {t:"official", q:"الشكر موصول لكل من ساهم في إخراج هذا العمل وأرشفة هذه الإنجازات النيرة لإيصالها للمجتمع المحلي والدولي بصورة تليق بحجم إنجازات شباب عمان.",
+     n:"صاحب السمو السيد/ أسعد بن طارق آل سعيد", r:"نائب رئيس مجلس الوزراء لشؤون التعاون الخارجي والممثل الخاص لجلالة السلطان", img:"testimonial-asad-portrait.jpg"},
+    {t:"official", q:"الشكر والتقدير على إنجاز هذا الكتاب القيّم والثناء على الجهود الواضحة فيه كسجل وطني توثيقي لإنجازات شباب عمان.",
+     n:"معالي الفريق أول/ سلطان بن محمد النعماني", r:"وزير المكتب السلطاني", img:"testimonial-sultan-portrait.jpg"},
+    {t:"official", q:"توثيق هذه الإنجازات مطلب مهم، لتعلم الأجيال القادمة ما حققته الأجيال السابقة والحالية، عليه أبارك هذا العمل وأشكر كل من ساهم فيه متمنيًا التوفيق للجميع.",
+     n:"معالي/ نصر بن حمود الكندي", r:"أمين عام شؤون البلاط السلطاني", img:"testimonial-nasr-portrait.jpg"},
+    {t:"person", q:"توثيق إنجازات شباب عُمان عمل ضخم، وعمل يستحق الشكر والتقدير، نتمنى لكل الإنجازات الموثقة والإنجازات القادمة بأن تلقى كل الدعم لتصل إلى أعلى وأرفع درجة.",
+     n:"بثينة البلوشية", r:"إعلامية عُمانية", img:"testimonial-bothaina-albalushi.jpg"},
+    {t:"person", q:"مشروع إنجازات شباب عُمان، يعتبر العمل مفخرة للوطن لما يحويه من إنجازات وطنية مشرفة.",
+     n:"ناصر الجساسي", r:"إعلامي ومتطوع عُماني", img:"testimonial-nasser-aljassasi.jpg"},
+    {t:"person", q:"إنجازات شباب عُمان قدمت الشباب العُماني المُجيد بمختلف المجالات في أزهى صورة، شكرًا لكم.",
+     n:"نادر المرهون", r:"إعلامي ومتطوع عُماني", img:"testimonial-nader-almarhoon.jpg"},
+    {t:"person", q:"عندما ترتبط إنجازات شبابنا بحب وطن.. فإنها تشكل منظومة عبقرية.. وجب علينا جميعًا إظهارها وتسويقها للعالم. أنتم فخر للأجيال القادمة.",
+     n:"سوسن اليعقوبي", r:"", img:"testimonial-sawsan-alyaqoubi.jpg"},
+    {t:"person", q:"مشروع إنجازات شباب عُمان؛ يُعد أحد أهم المشاريع الشبابية في السلطنة، كونه يعد النافذة الأولى لدعم المنجزين وأرشفة إنجازاتهم للأجيال القادمة.",
+     n:"مصطفى بارامي", r:"مخترع", img:"testimonial-mustafa-barami.jpg"},
+    {t:"person", q:"يُعد مشروع إنجازات شباب عُمان سجلًا حافلًا لما قدمه أبناء السلطنة البررة لهذا الوطن المعطاء. أرشفة هذه الإنجازات بهذا الأسلوب الراقي يتيح لأجيال عُمان الاطلاع على تجارب رائدة بمختلف المجالات.",
+     n:"الدكتور/ سلمان الحجري", r:"", img:"testimonial-salman-alhajri.jpg"}
+  ],
+
+  /* فريق العمل: img فارغ = قالب ينتظر الصورة */
+  team: [
+    {n:"منذر بن إبراهيم المعمري", r:"المؤسس ورئيس الفريق", img:"founder.png"},
+    {n:"اسم عضو الفريق", r:"المسمى الوظيفي", img:"team/m1.jpg", g:"man"},
+    {n:"اسم عضوة الفريق", r:"المسمى الوظيفي", img:"team/w1.jpg", g:"woman"},
+    {n:"اسم عضو الفريق", r:"المسمى الوظيفي", img:"team/m2.jpg", g:"man"},
+    {n:"اسم عضوة الفريق", r:"المسمى الوظيفي", img:"team/w2.jpg", g:"woman"},
+    {n:"اسم عضو الفريق", r:"المسمى الوظيفي", img:"team/m3.jpg", g:"man"}
+  ],
+
+  achCats: ["الكل","فعاليات","إصدارات","شراكات"],
+  achievements: [
+    {t:"حفل تدشين الكتاب بمجلس عُمان", c:"فعاليات", img:"about-launch.jpg"},
+    {t:"إهداء ٩٠٠٠ نسخة للمنجزين",     c:"فعاليات", img:"about-gift.jpg"},
+    {t:"تسليط الضوء على ١٥٠٠ منجز",     c:"إصدارات", img:"about-signing.jpg"},
+    {t:"قرعة كأس العالم للهوكي",        c:"فعاليات", img:"about-ceremony.jpg"},
+    {t:"إصدار كتاب إنجازات شباب عُمان", c:"إصدارات", img:"book-first.jpg"},
+    {t:"إصدار كتاب ملهمون من عُمان",    c:"إصدارات", img:"book-second.jpg"},
+    {t:"مذكرة تفاهم مع الثقافة السعودية", c:"شراكات", img:"org-news-1.jpg"},
+    {t:"زيارة معرض الكتاب بالرياض",     c:"فعاليات", img:"org-news-2.jpg"},
+    {t:"مؤتمر وزراء الثقافة بالدوحة",    c:"فعاليات", img:"org-news-3.jpg"}
+  ],
+
+  media: [
+    {t:"الملف التعريفي", ico:"icon-resume.svg",  img:"about-ceremony.jpg"},
+    {t:"الإصدار الأول",  ico:"icon-book.svg",    img:"book-first.jpg"},
+    {t:"لقاءات مسجلة",   ico:"icon-youtube.svg", img:"about-launch.jpg"},
+    {t:"الإصدار الثاني", ico:"icon-book.svg",    img:"book-second.jpg"},
+    {t:"صور متنوعة",     ico:"icon-images.svg",  img:"about-gift.jpg"}
+  ]
+};
+
+/* =========================================================
+   محرك القوالب والتفاعل
+   ========================================================= */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const tpl = id => document.getElementById(id).content.firstElementChild.cloneNode(true);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const ar = n => String(n).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]).replace(/(\S)(?=(\S{3})+$)/g,"$1٬");
+
+/* دخول الصورة الرئيسية بالنقاط النصفية (يُفعَّل فقط في المتصفحات التي تدعم تحريك المتغيرات) */
+(() => { const img = $(".hero-art img"); if (!img || reduce || !(window.CSS && CSS.registerProperty)) return;
+  try { CSS.registerProperty({ name: "--hr", syntax: "<length>", inherits: false, initialValue: "0px" }); } catch (e) {}
+  const done = () => img.classList.remove("hero-dots");
+  img.classList.add("hero-dots");
+  img.addEventListener("animationend", e => { if (e.animationName === "hero-dots") done(); });
+  setTimeout(done, 2600);
+})();
+
+/* شريط الأقسام */
+const chips = $("[data-chips]");
+PAGE.nav.forEach(([h,t]) => chips.insertAdjacentHTML("beforeend", `<li><a href="${h}">${t}</a></li>`));
+
+/* القائمة */
+const menu = $("#menu"), openBtn = $("[data-open-drawer]");
+const setMenu = o => { menu.classList.toggle("open", o); document.body.classList.toggle("menu-open", o); openBtn.setAttribute("aria-expanded", o); if (o) setTimeout(() => $("[data-menu-close]", menu).focus(), 60); else openBtn.focus(); };
+openBtn.onclick = () => setMenu(true);
+$$("[data-menu-close]").forEach(b => b.onclick = () => setMenu(false));
+$$("#menu nav a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+document.addEventListener("keydown", e => { if (e.key === "Escape" && menu.classList.contains("open")) setMenu(false); });
+$("#menu form").addEventListener("submit", e => { e.preventDefault(); const v = $("input", e.target).value.trim(); location.href = "./achievers.html" + (v ? "?q=" + encodeURIComponent(v) : ""); });
+
+const countUp = el => { const n = +el.dataset.n, t0 = performance.now(), dur = 1400;
+  const step = t => { const p = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-p,3); el.textContent = el.dataset.pre + ar(Math.round(n*e)); if (p<1) requestAnimationFrame(step); };
+  requestAnimationFrame(step); };
+
+/* ميلان صورة الافتتاحية مع اللمس / المؤشر */
+const art = $("[data-tilt]"), artImg = $("img", art);
+if (!reduce) art.addEventListener("pointermove", e => { const r = art.getBoundingClientRect(); const x = (e.clientX-r.left)/r.width-.5, y = (e.clientY-r.top)/r.height-.5; artImg.style.setProperty("--ry", `${x*14}deg`); artImg.style.setProperty("--rx", `${-y*10}deg`); });
+art.addEventListener("pointerleave", () => { artImg.style.setProperty("--ry","0deg"); artImg.style.setProperty("--rx","0deg"); });
+
+/* ٢) القوس ثلاثي الأبعاد */
+const ring = $("[data-carousel]"), stage = $("[data-stage]"), info = $("[data-field-info]");
+const N = PAGE.fields.length, STEP = 360/N;
+/* نصف القطر محسوب من عرض البطاقة لتبقى البطاقات متقاربة */
+const CARD_W = 104, CARD_GAP = 6;
+const R = () => Math.round(N*(CARD_W+CARD_GAP)/(2*Math.PI));
+const cards = PAGE.fields.map((f,i) => { const el = tpl("tpl-field");
+  $(".ph",el).src = IMG+f.img; $(".ph",el).alt = ""; $(".ico img",el).src = SVG+f.ico; $(".lbl",el).textContent = f.t;
+  el.setAttribute("aria-label", f.t); el.onclick = () => { if (!moved) goTo(i); }; ring.append(el); return el; });
+let angle = 0, target = 0, active = -1, auto = !reduce, moved = false;
+const layout = () => { const r = R(); cards.forEach((c,i) => c.style.transform = `rotateY(${i*STEP}deg) translateZ(${r}px)`); };
+const norm = a => ((a % 360) + 360) % 360;
+const goTo = i => { const cur = Math.round(-target/STEP); let d = ((i - cur) % N + N) % N; if (d > N/2) d -= N; target = -(cur + d)*STEP; };
+const setInfo = i => { if (i === active) return; active = i; const f = PAGE.fields[i];
+  cards.forEach((c,k) => { c.classList.toggle("active", k===i); c.classList.toggle("dim", k!==i); c.tabIndex = k===i ? 0 : -1; });
+};
+/* بطاقة «استكشف» مستقلة عن الدوران: تتبدّل كل ٥ ثوانٍ */
+const dotsBox = $("[data-explore-dots]"); let exIdx = -1;
+PAGE.fields.forEach(() => dotsBox.append(document.createElement("i")));
+const showExplore = i => { const f = PAGE.fields[i]; exIdx = i;
+  info.innerHTML = `<div class="txt fade-in"><b>${f.t}</b><small>${f.d}</small></div><a href="./achievements.html">استكشف</a>`;
+  [...dotsBox.children].forEach((d,k) => d.classList.toggle("on", k===i)); };
+showExplore(0);
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(() => showExplore((exIdx + 1) % N), 5000);
+const tick = () => { if (auto && !dragging) target -= 0.06; angle += (target-angle)*0.09;
+  ring.style.transform = `translateZ(${-R()}px) rotateY(${angle}deg)`;
+  setInfo(((Math.round(-angle/STEP) % N) + N) % N); requestAnimationFrame(tick); };
+let dragging = false, sx = 0, sa = 0;
+stage.addEventListener("pointerdown", e => { dragging = true; moved = false; sx = e.clientX; sa = target; stage.setPointerCapture(e.pointerId); });
+stage.addEventListener("pointermove", e => { if (!dragging) return; const dx = e.clientX - sx; if (Math.abs(dx) > 6) moved = true; target = sa + dx*0.35; });
+const endDrag = () => { if (!dragging) return; dragging = false; target = Math.round(target/STEP)*STEP; };
+stage.addEventListener("pointerup", endDrag); stage.addEventListener("pointercancel", endDrag);
+$("[data-ring-next]").onclick = () => { target = Math.round(target/STEP)*STEP - STEP; };
+$("[data-ring-prev]").onclick = () => { target = Math.round(target/STEP)*STEP + STEP; };
+const pauseBtn = $("[data-ring-pause]");
+const paintPause = () => { pauseBtn.setAttribute("aria-pressed", !auto); pauseBtn.setAttribute("aria-label", auto ? "إيقاف الدوران التلقائي" : "تشغيل الدوران التلقائي");
+  pauseBtn.innerHTML = auto ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>' : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 5v14L6 12z"/></svg>'; };
+pauseBtn.onclick = () => { auto = !auto; target = Math.round(target/STEP)*STEP; paintPause(); };
+stage.addEventListener("keydown", e => { if (e.key==="ArrowLeft") $("[data-ring-next]").click(); if (e.key==="ArrowRight") $("[data-ring-prev]").click(); });
+paintPause(); layout(); addEventListener("resize", layout); requestAnimationFrame(tick);
+
+
+/* ٤) خارطة العمل: تصميم الخيط الذهبي في ./js/about-roadmap.js */
+let pLen = 0; const pWrap = null, pFg = null, stopsBox = null;
+function drawPath(){}
+
+/* ٥) كلمة المؤسس */
+$("[data-founder-text]").innerHTML = PAGE.founder.map(p=>`<p>${p}</p>`).join("");
+const fBox = $("[data-founder]"), fText = $("[data-founder-text]"), fBtn = $("[data-founder-toggle]");
+fBtn.onclick = () => { const o = !fBox.classList.contains("open"); fBox.classList.toggle("open",o); fBtn.setAttribute("aria-expanded",o);
+  fText.style.maxHeight = o ? fText.scrollHeight+"px" : ""; $("span",fBtn).textContent = o ? "إخفاء الكلمة" : "اقرأ الكلمة كاملة";
+  if(!o) fBox.scrollIntoView({block:"start",behavior:reduce?"auto":"smooth"}); setTimeout(drawPath,650); };
+
+/* ٦) قالوا عن إنجازات */
+(() => {
+  const DUR = 8000, Q = PAGE.quotes, n = Q.length, box = $("[data-tm]"), orbit = $("[data-tm-orbit]"), body = $("[data-tm-body]");
+  const stars = $("[data-tm-stars]");
+  for (let i = 0; i < 26; i++) { const e = document.createElement("i"); e.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*70}%;animation-delay:${(Math.random()*3).toFixed(2)}s;opacity:${(.3+Math.random()*.6).toFixed(2)}`; stars.append(e); }
+  const avs = Q.map((q,i) => { const b = document.createElement("button"); b.type = "button"; b.className = "tm-av"; b.style.setProperty("--dur", DUR+"ms");
+    b.setAttribute("aria-label", `شهادة ${q.n}`);
+    b.innerHTML = `<svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="48" pathLength="100"/><circle class="prog" cx="50" cy="50" r="48" pathLength="100"/></svg><span class="ph"><img src="${IMG+q.img}" alt=""></span>`;
+    b.onclick = () => go(i, true); if (q.t === "person") b.classList.add("is-person"); orbit.append(b); return b; });
+  // مواضع الشخصيات على القوس: الوسط، التالية يسارًا، السابقة يمينًا
+  const slots = { center:{x:"0px",y:"34px",s:1,o:1,sat:1}, next:{x:"-112px",y:"92px",s:.48,o:.75,sat:.4}, prev:{x:"112px",y:"92px",s:.48,o:.75,sat:.4} };
+  // البقية على السطر المقوّس أسفل الثلاثة (نفس منحنى tm-qarc): الأقرب للدخول في يسار السطر بجانب «التالية»، والخارج من المدار يذهب إلى يمينه
+  const queueSlot = j => { const m = Math.max(1, n - 3), t = m === 1 ? .5 : j / (m - 1), u = 1 - t;
+    const cx = u*u*-84 + 2*u*t*0 + t*t*84, cy = u*u*214 + 2*u*t*244 + t*t*214;
+    return { x: cx.toFixed(1) + "px", y: (cy - 66).toFixed(1) + "px", s: .22, o: .95, sat: .85 }; };
+  let cur = 0, timer = 0, started = false;
+  const words = t => t.split(/\s+/).map((w,i) => `<span style="--d:${i}">${w}</span>`).join(" ");
+  function go(i, user){ cur = (i + n) % n;
+    avs.forEach((b,k) => { const rel = (k - cur + n) % n, slot = rel === 0 ? slots.center : rel === 1 ? slots.next : rel === n - 1 ? slots.prev : queueSlot(rel - 2);
+      // نفس المقاس للجميع في كل موضع (الوسط بمقاس واحد، والجانبان بمقاس واحد)
+      for (const [key,v] of Object.entries(slot)) b.style.setProperty("--"+key, v);
+      b.classList.toggle("is-queue", rel > 1 && rel < n - 1);
+      b.classList.remove("is-center"); b.tabIndex = rel === 0 ? -1 : 0; });
+    void avs[cur].offsetWidth; avs[cur].classList.add("is-center");
+    const q = Q[cur];
+    body.innerHTML = `<span class="tm-mark" aria-hidden="true">“</span><p class="tm-text">${reduce ? q.q : words(q.q)}</p><div class="tm-who"><span class="rule" aria-hidden="true"></span><b>${q.n}</b><small>${q.r}</small></div>`;
+    $("[data-tm-count]").textContent = `${ar(cur+1)} / ${ar(n)}`;
+    clearTimeout(timer); if (!reduce && started) timer = setTimeout(() => go(cur+1), DUR); }
+  $("[data-tm-next]").onclick = () => go(cur+1, true);
+  $("[data-tm-prev]").onclick = () => go(cur-1, true);
+  // سحب يمين/يسار
+  let sx = null; box.addEventListener("pointerdown", e => sx = e.clientX);
+  box.addEventListener("pointerup", e => { if (sx === null) return; const dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 45) go(cur + (dx > 0 ? 1 : -1), true); });
+  // إيقاف مؤقت عند مرور المؤشر
+  box.addEventListener("pointerenter", e => { if (e.pointerType !== "mouse") return; clearTimeout(timer); avs[cur].classList.add("paused"); });
+  box.addEventListener("pointerleave", e => { if (e.pointerType !== "mouse" || reduce) return; const av = avs[cur]; av.classList.remove("paused","is-center"); void av.offsetWidth; av.classList.add("is-center"); clearTimeout(timer); timer = setTimeout(() => go(cur+1), DUR); });
+  // يبدأ دائمًا بصاحب السمو السيد أسعد، ولا يبدأ التبديل إلا عند وصول الزائر للقسم
+  go(0);
+  const tmIo = new IntersectionObserver(es => { if (es[0].isIntersecting) { tmIo.disconnect(); started = true; go(0); } }, { threshold: .35 });
+  tmIo.observe(box);
+})();
+
+
+/* نافذة العرض */
+const lb = $("[data-lb]");
+const openLb = (src,title,sub,en) => { lb.classList.toggle("no-img", !src); if (src) { $("[data-lb-img]").src = src; $("[data-lb-img]").alt = title; }
+  $("[data-lb-title]").textContent = title; $("[data-lb-sub]").textContent = sub||"";
+  $("[data-lb-en]").textContent = en||""; $("[data-lb-en]").hidden = !en; lb.showModal(); };
+$("[data-lb-close]").onclick = () => lb.close(); lb.addEventListener("click", e => { if (e.target===lb) lb.close(); });
+
+/* ٧) الفريق */
+const cardsBox = $("[data-cards]"), tBar = $("[data-bar]");
+const tSrc = m => m.img ? IMG+m.img : SVG+(m.g==="woman"?"icon-omani-woman-teal.svg":"icon-omani-man-teal.svg");
+const TN = PAGE.team.length;
+const tCards = PAGE.team.map((m,i) => { const c = document.createElement("div"); c.className = "tc";
+  c.innerHTML = `<img alt="${m.n}" src="${tSrc(m)}"><div class="tc-cap"><b>${m.n}</b><small>${m.r}</small></div>`;
+  c.onclick = () => { if (c.classList.contains("front")) openLb(tSrc(m), m.n, m.r); };
+  cardsBox.append(c); return c; });
+/* مواضع الرزمة: الأمامية مستقيمة، والبقية مائلة ومتدرّجة في العمق خلفها */
+const tPos = p => ["rotate(-1deg)", "translate(16px,-6px) rotate(6deg) scale(.95)", "translate(-18px,-10px) rotate(-8deg) scale(.9)"][p] || "translateY(-12px) scale(.85)";
+let tOrder = PAGE.team.map((_,i) => i), tTimer = null, tBusy = false;
+const tLay = (skip) => tOrder.forEach((ci,p) => { const c = tCards[ci]; if (c === skip) return;
+  c.style.zIndex = 20 - p; c.style.transform = tPos(p); c.style.filter = `brightness(${1 - Math.min(p,3)*.07})`;
+  c.style.opacity = 1; c.classList.toggle("front", p === 0); });
+const tShow = i => {
+  const cur = tOrder[0]; if (i === cur || tBusy) return;
+  const old = tCards[cur];
+  tOrder = Array.from({length:TN}, (_,k) => (i + k) % TN);
+  tBar.classList.remove("go"); tBar.offsetWidth; if (!reduce) tBar.classList.add("go");
+  if (reduce) return tLay();
+  tBusy = true; old.classList.remove("front"); old.style.zIndex = 25;
+  // البطاقة الأمامية تخرج كاملةً من حدود الرزمة، وفي منتصف المدة تمامًا (وهي خارجها) تنتقل للخلف ثم تعود خلف البطاقات
+  const back = tPos(TN - 1), D = 1000;
+  old.style.transition = "none"; old.style.transform = back;
+  old.animate([
+    { transform: tPos(0), easing: "cubic-bezier(.4,0,.2,1)" },
+    { transform: "translate(-235px,10px) rotate(-16deg) scale(.94)", offset: .5, easing: "cubic-bezier(.4,0,.2,1)" },
+    { transform: back }
+  ], { duration: D, easing: "linear" });
+  setTimeout(() => tLay(old), 120);
+  setTimeout(() => { old.style.zIndex = 1; }, D / 2);
+  setTimeout(() => { old.style.transition = ""; tLay(); tBusy = false; }, D + 20);
+};
+const tRestart = () => { clearInterval(tTimer); if (!reduce) tTimer = setInterval(() => tShow((tOrder[0] + 1) % TN), 3000); };
+/* البداية: الصور مجمّعة (٣ في كل سطر) لمدة ٣ ثوانٍ، ثم تنتقل إلى رزمة البطاقات */
+const tdeck = $("[data-team]");
+const tGrid = () => { const W = tdeck.clientWidth, gap = 8, cw = Math.min(110, (W - gap*2) / 3), s = cw / 200, ch = 268 * s;
+  const rows = Math.ceil(TN / 3), gh = rows * ch + (rows - 1) * gap;
+  cardsBox.style.height = gh + "px";
+  tCards.forEach((c,i) => { const col = i % 3, row = Math.floor(i / 3);
+    const x = (1 - col) * (cw + gap), y = row * (ch + gap) + ch/2 - 134;
+    c.style.zIndex = 10; c.style.opacity = 1; c.style.filter = "none"; c.classList.remove("front");
+    c.style.transform = `translate(${x}px, ${y}px) scale(${s})`; }); };
+const tStart = () => { tdeck.classList.remove("is-grid"); cardsBox.style.height = "";
+  tCards.forEach((c,i) => { c.style.transition = `transform 1s cubic-bezier(.65,0,.25,1.1) ${i * 70}ms, filter .6s, border-radius .6s`; });
+  tLay(); setTimeout(() => tCards.forEach(c => c.style.transition = ""), 1500);
+  if (!reduce) tBar.classList.add("go"); tRestart(); };
+if (reduce) { tLay(); }
+else {
+  tdeck.classList.add("is-grid"); tCards.forEach(c => c.style.transition = "none"); tGrid(); cardsBox.offsetWidth; tCards.forEach(c => c.style.transition = "");
+  const tio = new IntersectionObserver(es => { if (es[0].isIntersecting) { tio.disconnect(); setTimeout(tStart, 3000); } }, { threshold: .4 });
+  tio.observe(tdeck);
+}
+
+/* ٨) الإنجازات */
+const row = $("[data-ach-row]"), fBar = $("[data-filters]"), bar = $("[data-row-bar]");
+PAGE.achCats.forEach((c,i) => { const b = document.createElement("button"); b.type="button"; b.textContent=c; b.setAttribute("aria-pressed",i===0); b.onclick=()=>filterAch(c,b); fBar.append(b); });
+const achEls = PAGE.achievements.map(a => { const el = tpl("tpl-ach"); $("img",el).src = IMG+a.img; $("img",el).alt = ""; $(".cat",el).textContent = a.c; $("b",el).textContent = a.t;
+  el.dataset.c = a.c; el.onclick = () => openLb(IMG+a.img, a.t, a.c); row.append(el); return el; });
+function filterAch(c,btn){ $$("button",fBar).forEach(b=>b.setAttribute("aria-pressed",b===btn)); achEls.forEach(el=>el.hidden = c!=="الكل" && el.dataset.c!==c); row.scrollTo({left:0}); rowBar(); }
+function rowBar(){ const max = row.scrollWidth - row.clientWidth, w = row.clientWidth/row.scrollWidth; bar.style.width = (w*100)+"%";
+  const p = max>0 ? Math.abs(row.scrollLeft)/max : 0; bar.style.transform = `translateX(${-p*(1/w-1)*100}%)`; }
+row.addEventListener("scroll", rowBar, {passive:true});
+const cardStep = () => { const c = achEls.find(el => !el.hidden); return c ? c.offsetWidth + 12 : 240; };
+$("[data-row-next]").onclick = () => row.scrollBy({left:-cardStep(), behavior:"smooth"});
+$("[data-row-prev]").onclick = () => row.scrollBy({left: cardStep(), behavior:"smooth"});
+
+/* سحب أفقي بالماوس للصفوف القابلة للتمرير */
+function dragScroll(el){ el.classList.add("drag-x"); let down = false, sx = 0, sl = 0, moved = false;
+  el.addEventListener("pointerdown", e => { if (e.pointerType !== "mouse" || e.button !== 0) return; down = true; moved = false; sx = e.clientX; sl = el.scrollLeft; });
+  addEventListener("pointermove", e => { if (!down) return; const dx = e.clientX - sx; if (!moved && Math.abs(dx) > 5) { moved = true; el.classList.add("dragging"); } if (moved) el.scrollLeft = sl - dx; });
+  addEventListener("pointerup", () => { if (!down) return; down = false; el.classList.remove("dragging"); });
+  el.addEventListener("click", e => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true); }
+[row, chips, fBar].forEach(dragScroll);
+
+/* ===== الرسالة والرؤية والقيم ===== */
+(() => {
+  const vc = $$(".vmv-card");
+  const stars = $("[data-vmv-stars]");
+  for (let i = 0; i < 38; i++) { const e = document.createElement("i"); e.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${(Math.random()*3).toFixed(2)}s;opacity:${(.3+Math.random()*.6).toFixed(2)}`; stars.append(e); }
+  const parts = $("[data-vmv-parts]");
+  for (let i = 0; i < 12; i++) { const e = document.createElement("i"); e.style.cssText = `left:${40+Math.random()*20}%;--dx:${(Math.random()*80-40).toFixed(0)}px;animation-delay:${(Math.random()*4).toFixed(2)}s;animation-duration:${(3+Math.random()*2.5).toFixed(2)}s`; parts.append(e); }
+  // تظهر القيم تدريجيًا عند الوصول للقسم
+  const vio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { vc.forEach(c => c.classList.add("seen")); vio.disconnect(); } }), {threshold:.25});
+  vio.observe($(".vmv-deck"));
+  // لمسة على بطاقة تبرزها، وضوء يتبع الإصبع / المؤشر
+  vc.forEach(c => {
+    c.addEventListener("pointermove", e => { const r = c.getBoundingClientRect(); c.style.setProperty("--mx", (e.clientX - r.left) + "px"); c.style.setProperty("--my", (e.clientY - r.top) + "px"); });
+    c.addEventListener("pointerdown", () => vc.forEach(x => x.classList.toggle("active", x === c)));
+  });
+})();
+
+
+/* عجلة الماوس على شريط الأقسام تحرّكه أفقيًا (الشريط رفيع فلا يعيق تمرير الصفحة) */
+chips.addEventListener("wheel", e => { if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; e.preventDefault(); chips.scrollBy({left:-e.deltaY}); }, {passive:false});
+
+/* ٩) المكتبة */
+const media = $("[data-media]");
+PAGE.media.forEach(m => { const el = tpl("tpl-media"); $(".bg",el).src = IMG+m.img; $(".m-in img",el).src = SVG+m.ico; $(".m-in > span",el).textContent = m.t;
+  el.onclick = () => openLb(IMG+m.img, m.t, "المكتبة الإعلامية"); media.append(el); });
+
+/* التمرير: التقدّم، القسم الحالي، المسار، الظهور */
+const prog = $("[data-progress]"), topBtn = $("[data-top]"), navLinks = $$("a",chips);
+const sections = PAGE.nav.map(([h])=>$(h));
+/* يحرّك شريط الأقسام أفقيًا فقط، دون تحريك الصفحة */
+function centerChip(a){ const r = a.getBoundingClientRect(), u = chips.getBoundingClientRect();
+  chips.scrollBy({left:(r.left + r.width/2) - (u.left + u.width/2), behavior: reduce ? "auto" : "smooth"}); }
+function onScroll(){ const h = document.documentElement, y = h.scrollTop;
+  prog.style.width = (y/(h.scrollHeight-h.clientHeight)*100)+"%"; topBtn.classList.toggle("show", y>600);
+  let cur = 0; sections.forEach((s,i)=>{ if (s && s.getBoundingClientRect().top < 150) cur = i; });
+  navLinks.forEach((a,i)=>{ const on = i===cur; if (on !== a.classList.contains("on")) { a.classList.toggle("on",on); if(on) centerChip(a); } });
+  if (pLen){ const r = pWrap.getBoundingClientRect(), vh = innerHeight; const p = Math.min(1, Math.max(0, (vh*0.7 - r.top)/r.height));
+    pFg.style.strokeDashoffset = reduce ? 0 : pLen*(1-p);
+    $$(".stop",stopsBox).forEach(s=>{ const nr = $(".node",s).getBoundingClientRect(); s.classList.toggle("reached", nr.top < vh*0.7 || reduce); }); } }
+addEventListener("scroll", onScroll, {passive:true});
+addEventListener("resize", () => { drawPath(); rowBar(); });
+topBtn.onclick = () => scrollTo({top:0,behavior:reduce?"auto":"smooth"});
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; e.target.classList.add("in");
+  if (e.target.matches("[data-count]") && !reduce) countUp(e.target); io.unobserve(e.target); }), {threshold:.2});
+$$(".reveal,[data-count]").forEach(el => io.observe(el));
+
+addEventListener("load", () => { drawPath(); rowBar(); });
+drawPath(); rowBar();
+</script>
+<script id="desktop-early">
+/* يُحمَّل مباشرة بعد الشريط العلوي: عرض الصفحة وقائمة الكمبيوتر قبل أول رسم (نسخة من أول desktop.js؛ desktop.js لا يكرّرها) */
+/* Use the content viewport, excluding the scrollbar, for full-width sections. */
+(function () {
+  function syncWidth() {
+    document.documentElement.style.setProperty('--layout-width', document.documentElement.clientWidth + 'px');
+  }
+  syncWidth();
+  window.addEventListener('resize', syncWidth, { passive: true });
+  if ('ResizeObserver' in window) new ResizeObserver(syncWidth).observe(document.documentElement);
+})();
+
+/* الكمبيوتر: قائمة أفقية في الهيدر تُبنى من روابط القائمة نفسها، وزر بحث يفتح القائمة الكاملة،
+   وهيدر يصغر عند النزول. على الهاتف لا يظهر شيء من هذا (مخفي بالتنسيق). */
+(function () {
+  // صفحة «من نحن» لها هيدر خاص (.page > .header)؛ تُعامل مثل بقية الصفحات
+  var header = document.querySelector('.site-header') || document.querySelector('.about-page .page > .header');
+  var links = document.querySelectorAll('.menu nav a');
+  if (!header || !links.length || header.querySelector('.dnav')) return;
+  // الروابط الأساسية فقط حتى لا يزدحم الهيدر؛ البقية في القائمة الكاملة
+  var keep = ['index.html', 'achievements.html', 'achievers.html', 'inspiring.html', 'institutions.html', 'awards.html', 'bilarab-award.html', 'universities.html', 'science.html', 'articles.html', 'about.html', 'contact.html'];
+  var short = { 'bilarab-award.html': 'جائزة بلعرب', 'awards.html': 'جوائز السلطان قابوس', 'universities.html': 'الجامعات', 'science.html': 'الابتكارات العلمية', 'index.html': 'الرئيسية', 'achievers.html': 'المنجزون', 'about.html': 'من نحن' };
+  var nav = document.createElement('nav');
+  nav.className = 'dnav'; nav.setAttribute('aria-label', 'أقسام الموقع');
+  var ul = document.createElement('ul');
+  var here = location.pathname.split('/').pop() || 'index.html';
+  [].forEach.call(links, function (a) {
+    var href = (a.getAttribute('href') || '').replace(/^\.\//, '');
+    if (keep.indexOf(href) < 0) return;
+    var li = document.createElement('li'), b = document.createElement('a');
+    b.href = href; b.textContent = short[href] || a.textContent.trim();
+    if (a.getAttribute('aria-current') === 'page' || href === here) b.setAttribute('aria-current', 'page');
+    li.appendChild(b); ul.appendChild(li);
+  });
+  if (!ul.children.length) return;
+  nav.appendChild(ul);
+  header.classList.add('has-desktop-nav');
+  var brand = header.querySelector('.brand') || header.firstElementChild;
+  brand.insertAdjacentElement('afterend', nav);
+  var openBtn = header.querySelector('[data-menu-open], [data-open-drawer]');
+  if (openBtn) {
+    var s = document.createElement('button');
+    s.type = 'button'; s.className = 'dsearch'; s.setAttribute('aria-label', 'البحث والقائمة الكاملة');
+    s.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
+    s.addEventListener('click', function () { openBtn.click(); });
+    nav.insertAdjacentElement('afterend', s);
+  }
+  var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 40); };
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
+
+</script>
+<script src="./js/about-roadmap.js?v=20261108-1"></script>
+<script src="./js/about-journey-1.js?v=1"></script>
+<script src="js/desktop.js?v=20261106-bha"></script>
+<script>/* الرؤية على الكمبيوتر: إطار الرسم فقط (البطاقة بمقاسها الأصلي) حتى يظهر الشارع والنجمة كاملين */
+if (matchMedia('(min-width: 1100px)').matches) { var vs = document.querySelector('.art-vision svg'); if (vs) { vs.setAttribute('viewBox', '-100 62 520 188'); vs.setAttribute('preserveAspectRatio', 'xMidYMax slice'); } }</script>
+</body>
+</html>

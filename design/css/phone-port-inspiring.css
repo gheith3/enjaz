@@ -1,0 +1,176 @@
+/* نقل هيدر «ملهمون» (جدار الصور المتحرك + لحظة كل ملهم) إلى الهاتف — نسخة المراجعة فقط */
+/* جدار صور متحرك لهيدر ملهمون في نسخة الكمبيوتر. */
+@media (max-width: 1099px) {
+  .page-hero.ins-strip { position: relative; display: flex; align-items: center; min-height: 620px; padding: 70px 6%; overflow: hidden; isolation: isolate; background: linear-gradient(175deg, #0C7F89 0%, #0A5C63 55%, #063135 100%); }
+  .page-hero.ins-strip::before { content: none; }
+  /* نفس تركيب صفحة الإنجازات: الصور والتدرج داخل طبقة خلفية واحدة. */
+  .ins-strip .is-photo-media { position: absolute; inset: 0; z-index: 0; display: block; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 25%, rgba(0,0,0,.85) 45%, rgba(0,0,0,.55) 70%, rgba(0,0,0,.2) 100%);
+    mask-image: linear-gradient(90deg, #000 0%, #000 25%, rgba(0,0,0,.85) 45%, rgba(0,0,0,.55) 70%, rgba(0,0,0,.2) 100%); }
+  .ins-strip .is-photo-media::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, rgba(8,70,76,.42) 0%, rgba(8,70,76,.48) 30%, rgba(8,70,76,.56) 60%, rgba(8,70,76,.65) 100%),
+      linear-gradient(0deg, rgba(6,49,53,.5) 0%, rgba(6,49,53,0) 35%),
+      linear-gradient(180deg, rgba(6,49,53,.35) 0%, rgba(6,49,53,0) 25%); }
+  .ins-strip .is-head { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; width: 50%; max-width: 720px; margin: 0; padding-inline-end: 35px; }
+  .ins-strip .is-eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #e9ce90; font-size: 16px; font-weight: 800; }
+  .ins-strip .is-eyebrow::before { content: ""; width: 38px; height: 2px; background: #d3b16e; }
+  .page-hero.ins-strip .is-title { max-width: none; font-size: clamp(48px, 4.8vw, 88px); line-height: 1.3; white-space: nowrap; }
+  .ins-strip .is-intro { max-width: 510px; color: #e1eeeb; font-size: clamp(21px, 1.9vw, 28px); line-height: 1.9; }
+  .ins-strip .is-discover { display: inline-flex; align-items: center; gap: 28px; margin-top: 9px; padding: 13px 22px; border: 1px solid rgba(237,212,154,.7); border-radius: 999px; color: #f5dfae; font-size: 16px; font-weight: 800; text-decoration: none; transition: background .25s, color .25s; }
+  .ins-strip .is-discover:hover { background: #f1d79e; color: #06383a; }
+  .ins-strip .is-discover:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+  .ins-strip .is-panels { display: none; }
+  .ins-strip .is-photo-wall { position: absolute; inset: -24% auto -24% -1%; z-index: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; width: 41%; padding-inline: 12px; overflow: hidden; direction: ltr; transform: rotate(-14deg); transform-origin: center; -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 32%, rgba(0,0,0,.9) 55%, rgba(0,0,0,.62) 78%, transparent 100%); mask-image: linear-gradient(90deg, #000 0%, #000 32%, rgba(0,0,0,.9) 55%, rgba(0,0,0,.62) 78%, transparent 100%); }
+  .ins-strip .is-photo-column { min-width: 0; overflow: hidden; }
+  .ins-strip .is-photo-track { display: flex; flex-direction: column; width: 100%; will-change: transform; animation: is-wall-up 52s linear infinite; }
+  .ins-strip .is-photo-column:nth-child(even) .is-photo-track { animation-name: is-wall-down; animation-duration: 60s; }
+  .ins-strip .is-photo-column:nth-child(3) .is-photo-track { animation-duration: 56s; }
+  .ins-strip .is-photo-column:nth-child(4) .is-photo-track { animation-duration: 64s; }
+  .ins-strip .is-photo-tile { position: relative; display: block; flex: none; width: 100%; aspect-ratio: 1; margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(235,216,169,.35); border-radius: 14px; background: #0a5c63; }
+  .ins-strip .is-photo-tile img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+}
+@media (prefers-reduced-motion: reduce) { .ins-strip .is-photo-track { animation: none !important; } .ins-strip .is-discover { transition: none; } }
+/* ملهمون من عُمان — هيدر الكمبيوتر (٨ نوفمبر): جدار الصور المتحرك بلون واحد من الثيمة مع صور ملوّنة متفرقة،
+   وتدرج ناعم متدرّج من جهة النص، وعنوان بطبقتين، ومجالات الإلهام، وزر ذهبي. الهاتف لا يتأثر. */
+@media (max-width: 1099px) {
+  .page-hero.ins-strip { min-height: 540px; padding: 64px max(40px, calc(50% - 560px));
+    background: linear-gradient(175deg, #0C7F89 0%, #0A5C63 55%, #063135 100%); }
+  /* علامة اقتباس كبيرة باهتة خلف النص */
+  .page-hero.ins-strip::after { content: "”"; position: absolute; z-index: 1; top: -40px; right: max(10px, calc(50% - 640px)); color: rgba(230, 201, 138, .07);
+    font: 900 420px/1 Georgia, serif; pointer-events: none; }
+  .ins-strip .is-photo-wall { width: 58%; inset: -30% auto -30% -4%; gap: 14px; transform: rotate(-12deg); }
+  .ins-strip .is-photo-tile { margin-bottom: 14px; border: 0; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(0, 0, 0, .6); }
+  /* لون واحد من الثيمة لكل الصور… */
+  .ins-strip .is-photo-tile img { filter: grayscale(1) contrast(1.08) brightness(.92); }
+  .ins-strip .is-photo-tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, #0C7F89, #063135); mix-blend-mode: color; opacity: .9; }
+  /* …وصور ملوّنة متفرقة بإطار ذهبي كأنها تحت الضوء */
+  .ins-strip .is-photo-tile:nth-child(4n+2) img { filter: none; }
+  .ins-strip .is-photo-tile:nth-child(4n+2)::after { background: none; box-shadow: inset 0 0 0 2px #E6C98A; border-radius: inherit; mix-blend-mode: normal; opacity: 1; }
+
+  .ins-strip .is-head { width: 46%; max-width: 560px; margin-inline-start: 0; gap: 18px; padding: 0; }
+  .ins-strip .is-eyebrow { font-size: 15px; letter-spacing: .3px; }
+  .page-hero.ins-strip .is-title { display: flex; flex-direction: column; margin: 0; font-size: 30px; line-height: 1.2; white-space: normal; color: #fff; }
+  .page-hero.ins-strip .is-title .is-gold { font-size: 96px; line-height: 1.15; background: linear-gradient(180deg, #FBEFCF 0%, #E6C98A 45%, #B98F45 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 6px 18px rgba(0, 0, 0, .25)); }
+  .ins-strip .is-intro { margin: 0; color: #D9EAE6; font-size: 21px; line-height: 1.9; }
+  .ins-strip .is-fields { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .ins-strip .is-fields li { padding: 6px 16px; border: 1px solid rgba(230, 201, 138, .45); border-radius: 99px; background: rgba(6, 49, 53, .45); color: #F1E0B5; font-size: 14px; font-weight: 700;
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+  .ins-strip .is-discover { gap: 16px; margin-top: 8px; padding: 14px 28px; border: 0; background: linear-gradient(135deg, #F1D99F, #C9A35C); color: #063135; font-size: 17px; box-shadow: 0 12px 26px -14px rgba(0, 0, 0, .7); }
+  .ins-strip .is-discover:hover { background: #F6E3B4; transform: translateY(-2px); }
+  .ins-strip .is-discover span { transition: translate .25s; }
+  .ins-strip .is-discover:hover span { translate: -5px 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ins-strip .is-head > * { animation: is2-up .9s cubic-bezier(.16, 1, .3, 1) both; }
+    .ins-strip .is-head > :nth-child(2) { animation-delay: .1s; } .ins-strip .is-head > :nth-child(3) { animation-delay: .2s; }
+    .ins-strip .is-head > :nth-child(4) { animation-delay: .3s; } .ins-strip .is-head > :nth-child(5) { animation-delay: .4s; }
+  }
+}
+@media (max-width: 1099px) {
+  .page-hero.ins-strip { padding-inline: max(40px, calc(50vw - 560px)) !important; }
+  .ins-strip .is-photo-wall { width: 46%; inset: -34% auto -34% -3%; gap: 12px; }
+  .ins-strip .is-photo-tile { margin-bottom: 12px; border-radius: 14px; }
+}
+/* هيدر «ملهمون من عُمان» — تحسينات خفيفة فقط (٨ نوفمبر ٢٠٢٦). التصميم والفكرة كما هما تمامًا
+   (جدار الصور بلونه الفيروزي، علامة الاقتباس، التخطيط). المعدَّل: نعومة التدرّج، والعناوين، والشارات، والزر. الكمبيوتر فقط. */
+@media (max-width: 1099px) {
+  /* الخلفية: نفس الألوان مع إضاءة خفيفة خلف النص وهالة ذهبية في الأعلى */
+  .page-hero.ins-strip { background:
+    radial-gradient(40% 70% at 78% 45%, rgba(30, 170, 180, .22) 0%, transparent 70%),
+    radial-gradient(40% 50% at 85% 8%, rgba(233, 201, 135, .1) 0%, transparent 70%),
+    linear-gradient(175deg, #0C7F89 0%, #0A5C63 55%, #063135 100%); }
+
+  /* التدرّج فوق الجدار: نفس اللون، لكن انتقال أنعم بلا حدود ظاهرة */
+  .ins-strip .is-photo-media {
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 22%, rgba(0,0,0,.92) 34%, rgba(0,0,0,.78) 46%, rgba(0,0,0,.58) 58%, rgba(0,0,0,.36) 72%, rgba(0,0,0,.16) 86%, rgba(0,0,0,.05) 100%);
+            mask-image: linear-gradient(90deg, #000 0%, #000 22%, rgba(0,0,0,.92) 34%, rgba(0,0,0,.78) 46%, rgba(0,0,0,.58) 58%, rgba(0,0,0,.36) 72%, rgba(0,0,0,.16) 86%, rgba(0,0,0,.05) 100%); }
+  .ins-strip .is-photo-media::after { background:
+    linear-gradient(90deg, rgba(8,70,76,.38) 0%, rgba(8,70,76,.44) 25%, rgba(8,70,76,.52) 50%, rgba(8,70,76,.62) 75%, rgba(8,70,76,.7) 100%),
+    linear-gradient(0deg, rgba(4,40,44,.6) 0%, rgba(4,40,44,.25) 18%, rgba(4,40,44,0) 38%),
+    linear-gradient(180deg, rgba(4,40,44,.4) 0%, rgba(4,40,44,0) 24%); }
+
+  /* العناوين */
+  .ins-strip .is-eyebrow { letter-spacing: .2px; }
+  .ins-strip .is-eyebrow::before { background: linear-gradient(270deg, #E9C987, rgba(233, 201, 135, .2)); }
+  .page-hero.ins-strip .is-title .is-gold { background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 30%, #E6C177 55%, #F8E3AA 78%, #EFD08A 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .3)); }
+  .ins-strip .is-intro { text-wrap: balance; }
+
+  /* الشارات: نجمة ذهبية صغيرة */
+  .ins-strip .is-fields li { display: inline-flex; align-items: center; gap: 8px; }
+  .ins-strip .is-fields li::before { content: ""; width: 7px; height: 7px; flex: none; background: #F3D995;
+    clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); }
+
+  /* الزر: ذهب أغنى ولمعة علوية خفيفة */
+  .ins-strip .is-discover { background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 35%, #E6C177 70%, #D9B262 100%); box-shadow: 0 14px 28px -14px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .6); }
+}
+
+/* ===== «لحظة كل ملهم» — الجدار يتحرك كما هو، وكل ٣ ثوانٍ صورة ظاهرة تأخذ لحظتها (اسم الملهم ومجاله على الصورة) ===== */
+@media (max-width: 1099px) {
+  /* الطبقة الفيروزية نفسها داخل الجدار (الشكل لا يتغيّر)، حتى تعلو الصورة المختارة فوقها بألوانها */
+  .ins-strip .is-photo-media::after { background: none !important; }
+  .ins-strip .is-photo-wall { z-index: 2; }
+  .ins-strip .is-photo-wall::after { content: ""; position: absolute; inset: -20%; z-index: 1; pointer-events: none; transform: rotate(12deg); background:
+    linear-gradient(90deg, rgba(8,70,76,.38) 0%, rgba(8,70,76,.44) 25%, rgba(8,70,76,.52) 50%, rgba(8,70,76,.62) 75%, rgba(8,70,76,.7) 100%),
+    linear-gradient(0deg, rgba(4,40,44,.6) 0%, rgba(4,40,44,.25) 18%, rgba(4,40,44,0) 38%),
+    linear-gradient(180deg, rgba(4,40,44,.4) 0%, rgba(4,40,44,0) 24%); }
+  .ins-strip .is-photo-tile { transition: transform .9s cubic-bezier(.2, .8, .2, 1), box-shadow .9s ease; }
+  .ins-strip .is-photo-tile img { transition: filter .9s ease; }
+  .ins-strip .is-photo-tile::after { transition: opacity .9s ease; }
+  .ins-strip .is-photo-tile.is-live { z-index: 2; transform: scale(1.08); box-shadow: 0 0 0 2px #F3D995, 0 0 34px rgba(243, 217, 149, .45), 0 24px 40px -18px rgba(0, 0, 0, .8); }
+  .ins-strip .is-photo-tile.is-live img { filter: none !important; }
+  .ins-strip .is-photo-tile.is-live::after { opacity: 0 !important; }
+  .ins-strip .is-photo-column:has(.is-live) { overflow: visible; position: relative; z-index: 3; }
+  .is-live-cap { position: absolute; z-index: 3; inset: auto 8px 8px; padding: 6px 10px; border-radius: 10px; background: rgba(2, 30, 34, .78); backdrop-filter: blur(4px);
+    border: 1px solid rgba(243, 217, 149, .5); text-align: right; opacity: 0; transform: translateY(8px); transition: opacity .5s ease .35s, transform .5s ease .35s; }
+  .is-live .is-live-cap { opacity: 1; transform: none; }
+  .is-live-cap b { display: block; font-size: 13px; line-height: 1.4; color: #F3D995; }
+  .is-live-cap span { font-size: 11px; color: #e1eeeb; }
+  /* شارة المجال المقابل تضيء */
+  .ins-strip .is-fields li { transition: background .5s ease, color .5s ease, border-color .5s ease; }
+  .ins-strip .is-fields li.is-on { background: linear-gradient(175deg, #FFF4D2, #E6C177 70%, #D9B262); color: #063135; border-color: transparent; }
+  .ins-strip .is-fields li.is-on::before { background: #063135; }
+}
+@media (max-width: 1099px) {
+  .page-hero.ins-strip { display: flex; align-items: flex-end; min-height: 560px; padding: 40px 18px 34px !important; }
+  .page-hero.ins-strip::after { display: none; }
+  .ins-strip .is-photo-media { -webkit-mask-image: none !important; mask-image: none !important; }
+  .ins-strip .is-photo-media::before { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background: linear-gradient(0deg, rgba(3,38,42,.97) 0%, rgba(3,38,42,.9) 36%, rgba(3,38,42,.45) 62%, rgba(3,38,42,.1) 85%, rgba(3,38,42,.25) 100%); }
+  .ins-strip .is-photo-wall { width: 130% !important; inset: -40% -15% -10% -15% !important; gap: 10px !important; transform: rotate(-12deg) !important; -webkit-mask-image: none !important; mask-image: none !important; }
+  .ins-strip .is-photo-tile { margin-bottom: 10px !important; border-radius: 12px !important; }
+  .ins-strip .is-head { width: 100% !important; max-width: none !important; gap: 12px !important; z-index: 4; }
+  .ins-strip .is-eyebrow { font-size: 13px !important; }
+  .page-hero.ins-strip .is-title { font-size: 22px !important; }
+  .page-hero.ins-strip .is-title .is-gold { font-size: 64px !important; }
+  .ins-strip .is-intro { font-size: 16px !important; line-height: 1.8 !important; }
+  .ins-strip .is-fields li { font-size: 12px !important; padding: 4px 11px !important; }
+  .ins-strip .is-discover { font-size: 14px !important; padding: 11px 22px !important; }
+  .is-live-cap b { font-size: 11px; } .is-live-cap span { font-size: 10px; }
+}
+/* (تعديلات الهاتف ٢) هيدر أقصر وصور أصغر، وأزرار الفرز بلا سحب */
+@media (max-width: 1099px) {
+  .page-hero.ins-strip { min-height: 450px !important; padding-top: 28px !important; padding-bottom: 26px !important; }
+  .ins-strip .is-photo-wall { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; width: 104% !important; inset: -40% -2% -10% -2% !important; gap: 7px !important; }
+  .ins-strip .is-photo-tile { margin-bottom: 7px !important; border-radius: 9px !important; }
+  .ins-strip .is-head { gap: 10px !important; }
+  .page-hero.ins-strip .is-title .is-gold { font-size: 54px !important; }
+  .wall-filter { display: flex !important; flex-wrap: wrap !important; justify-content: center; gap: 6px !important; overflow: visible !important; }
+  .wall-filter .chip { flex: none; padding: 6px 13px !important; font-size: 12.5px !important; min-height: 0 !important; }
+}
+/* (٣) الكلام أعلى وبانر أقصر، واسم الملهم شريط رفيع أسفل الصورة لا يغطي الوجه */
+@media (max-width: 1099px) {
+  .page-hero.ins-strip { min-height: 390px !important; align-items: flex-end; padding-top: 18px !important; padding-bottom: 20px !important; }
+  .ins-strip .is-head { gap: 8px !important; }
+  .page-hero.ins-strip .is-title .is-gold { font-size: 50px !important; }
+  .ins-strip .is-photo-tile.is-live img { object-position: center 12% !important; }
+  .is-live-cap { inset: auto 0 0 0 !important; padding: 3px 6px !important; border: 0 !important; border-radius: 0 !important; background: linear-gradient(0deg, rgba(2, 30, 34, .92), rgba(2, 30, 34, .6)) !important; text-align: center !important; }
+  .is-live-cap b { display: inline !important; font-size: 9.5px !important; } .is-live-cap span { display: none !important; }
+}
+/* (٤) «ملهمون من عُمان» كاملًا بالذهبي في سطر واحد، والتدرّج الداكن يصعد أعلى قليلًا */
+@media (max-width: 1099px) {
+  .page-hero.ins-strip .is-title { display: block !important; white-space: nowrap !important; font-size: 40px !important; line-height: 1.25 !important;
+    background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 30%, #E6C177 55%, #F8E3AA 78%, #EFD08A 100%); -webkit-background-clip: text; background-clip: text; color: transparent !important; -webkit-text-fill-color: transparent; }
+  .page-hero.ins-strip .is-title .is-gold { display: inline !important; font-size: inherit !important; line-height: inherit !important; filter: none !important; }
+  .ins-strip .is-photo-media::before { background: linear-gradient(0deg, rgba(3,38,42,.97) 0%, rgba(3,38,42,.92) 44%, rgba(3,38,42,.6) 66%, rgba(3,38,42,.2) 86%, rgba(3,38,42,.3) 100%) !important; }
+}

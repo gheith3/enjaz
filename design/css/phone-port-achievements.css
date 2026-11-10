@@ -1,0 +1,50 @@
+/* الإنجازات على الهاتف — نسخة المراجعة فقط: البطاقات الموحّدة كالكمبيوتر، ولوحة الشرف بنص منسّق أسفلها */
+@media (max-width: 1099px) {
+  .grid-2.cards-ov:not(:has(.person-card)) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; grid-auto-flow: row; }
+  .cards-ov .ach:not(.person-card) { --c: #0A5C63; position: relative; display: flex; flex-direction: column; padding: 0; border: 0; border-radius: 16px; overflow: hidden; background: #fff;
+    box-shadow: inset 0 0 0 1px #E6ECEA; transition: transform .25s ease, box-shadow .25s ease; }
+  .cards-ov .ach:not(.person-card):hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px #E6ECEA, 0 18px 30px -18px rgba(10, 59, 62, .55); }
+  .cards-ov .ach:not(.person-card)[data-cat="الرياضة"] { --c: #1F8A5B; }
+  .cards-ov .ach:not(.person-card)[data-cat="الثقافة"] { --c: #A8742C; }
+  .cards-ov .ach:not(.person-card)[data-cat="الأدب"] { --c: #8A4B9A; }
+  .cards-ov .ach:not(.person-card)[data-cat="الإبتكارات"], .cards-ov .ach:not(.person-card)[data-cat="الابتكارات"] { --c: #111; }
+  .cards-ov .ach:not(.person-card) .ach-img, .cards-ov .ach:not(.person-card).wide .ach-img { flex: none; width: 100%; height: auto; aspect-ratio: 4 / 3; padding: 0; border-radius: 0; background: #E9EEEC; box-shadow: none;
+    border-bottom: 4px solid var(--c); object-fit: cover; }
+  .cards-ov .ach:not(.person-card):hover .ach-img { transform: none; filter: brightness(1.04); }
+  .cards-ov .ach:not(.person-card).wide { grid-column: auto; flex-direction: column; gap: 0; padding: 0; }
+  .cards-ov .ach:not(.person-card) .ach-body, .cards-ov .ach:not(.person-card).wide .ach-body { flex: 1; gap: 0; padding: 16px 16px 14px; justify-content: flex-start; }
+  .cards-ov .ach:not(.person-card) .ach-cat, .cards-ov .ach:not(.person-card).wide .ach-cat { align-self: flex-start; padding: 2px 12px; border: 1.5px solid var(--c); border-radius: 99px; background: #fff; color: var(--c); font-size: 12px; font-weight: 800; }
+  .cards-ov .ach:not(.person-card) h3, .cards-ov .ach:not(.person-card).wide h3 { margin: 10px 0 14px; min-height: 51px; font-size: 16px; line-height: 1.6; -webkit-line-clamp: 2; color: #14282A; }
+  .cards-ov .ach:not(.person-card) .desc, .cards-ov .ach:not(.person-card).wide .desc { display: none; }
+  .cards-ov .ach:not(.person-card) .ach-meta, .cards-ov .ach:not(.person-card).wide .ach-meta { display: flex; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1px solid #E6ECEA; font-size: 12.5px; color: #6B7A7B; }
+  .cards-ov .ach:not(.person-card) .ach-meta span { display: inline; color: #14282A; font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+  .cards-ov .ach:not(.person-card) .ach-meta span::after { content: none; }
+  /* شارة النطاق على الصورة */
+  .cards-ov .ach:not(.person-card)[data-scope]::before { position: absolute; z-index: 3; top: 10px; right: 10px; display: inline-flex; align-items: center; gap: 6px; padding: 3px 11px; border-radius: 99px;
+    background: rgba(255, 255, 255, .93); color: #14282A; font-size: 11.5px; font-weight: 700; box-shadow: 0 2px 8px rgba(0, 0, 0, .12); }
+  .cards-ov .ach:not(.person-card)[data-scope="international"]::before { content: "● دولي"; }
+  .cards-ov .ach:not(.person-card)[data-scope="gulf"]::before { content: "● خليجي"; }
+  .cards-ov .ach:not(.person-card)[data-scope="local"]::before { content: "● محلي"; }
+}
+@media (max-width: 1099px) {
+  .grid-2.cards-ov:not(:has(.person-card)) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .cards-ov .ach:not(.person-card) .ach-body { padding: 10px 10px 10px !important; }
+  .cards-ov .ach:not(.person-card) .ach-cat { font-size: 10.5px !important; padding: 1px 9px !important; }
+  .cards-ov .ach:not(.person-card) h3 { margin: 8px 0 10px !important; min-height: 44px; font-size: 13.5px !important; line-height: 1.6 !important; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+  .cards-ov .ach:not(.person-card) .ach-meta { flex-wrap: wrap; gap: 2px 8px !important; padding-top: 8px !important; font-size: 10.5px !important; }
+  .cards-ov .ach:not(.person-card)[data-scope]::before { top: 7px; right: 7px; padding: 2px 8px; font-size: 10px; }
+  /* لوحة الشرف: النص أسفل البطاقة على تدرّج داكن */
+  .honor-card { min-height: 260px; }
+  .honor-card::before { background: linear-gradient(0deg, rgba(4, 34, 37, .98) 0%, rgba(4, 34, 37, .84) 48%, rgba(4, 34, 37, .38) 78%, transparent 100%) !important; }
+  .ah2-hero ~ .honor .honor-body, .honor-body { bottom: 0 !important; top: auto !important; gap: 5px; padding: 16px 16px 16px; }
+  .ah2-hero ~ .honor .honor-title, .honor-title { font-size: 18px !important; line-height: 1.5; }
+  .honor-img { object-position: 60% 30% !important; }
+}
+
+/* نفس ارتفاع هيدر المنجزين في نسخة الهاتف والتابلت. */
+@media (max-width: 767px) {
+  .page-hero.ah2-hero { height: 304px; min-height: 0; }
+}
+@media (min-width: 768px) and (max-width: 1099px) {
+  .page-hero.ah2-hero { height: 329.5px; min-height: 0; }
+}

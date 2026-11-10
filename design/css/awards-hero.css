@@ -1,0 +1,71 @@
+/* Sultan Qaboos awards — scoped hero styles. */
+.aws-hero { position:relative; isolation:isolate; overflow:hidden; padding:0 var(--gutter); text-align:right; background:radial-gradient(ellipse at 22% 48%, #296b69 0, transparent 52%),linear-gradient(115deg,#083b40,#07535a 65%,#08616a); }
+.aws-hero::after { content:""; position:absolute; inset:0; pointer-events:none; border-bottom:1px solid #c7a86a66; background:none; z-index:-1; }
+.aws-hero-inner { max-width:1080px; margin:auto; display:grid; grid-template-columns:1.15fr 1fr; gap:24px; align-items:center; height:180px; min-height:0; }
+.aws-hero-copy { padding:10px 0; min-width:0; position:relative; z-index:2; animation:aws-copy-enter .9s ease-out both; }
+.aws-hero h1 { font-size:clamp(21px,2.2vw,26px); line-height:1.35; font-weight:800; margin:0 0 8px; color:#fff; }
+.aws-hero h1 span { color:#f2deb4; }
+.aws-hero-rule { display:block; width:64px; height:2px; margin-bottom:8px; background:linear-gradient(to left,#dcbc7e,transparent); }
+.aws-hero p { margin:0; max-width:490px; font-size:12px; line-height:1.9; color:#e1eeeb; }
+.aws-hero-tribute { display:block; margin-top:8px; font-size:10px; color:#d6bd8b; }
+.aws-hero-portrait { position:relative; align-self:end; height:180px; display:flex; align-items:flex-end; justify-content:center; }
+.aws-portrait-halo { position:absolute; width:145px; height:155px; border:1px solid #d9be8245; border-radius:48% 48% 0 0; bottom:8px; background:radial-gradient(ellipse,#c8b57b24,transparent 68%); box-shadow:0 0 0 15px #d9be8206,0 0 0 16px #d9be8218; }
+.aws-hero-portrait img { position:relative; display:block; height:174px; width:auto; max-width:100%; object-fit:contain; object-position:bottom; filter:drop-shadow(0 12px 20px #001c3445); transform-origin:50% 100%; animation:aws-portrait-enter 1.25s cubic-bezier(.22,1,.36,1) both; mask-image:linear-gradient(#000 88%,transparent 100%); }
+@keyframes aws-copy-enter { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+@keyframes aws-portrait-enter { from { opacity:0; transform:translateY(105%); } to { opacity:1; transform:translateY(0); } }
+@media(max-width:600px) {
+ .aws-hero { padding:0 18px; }
+ .aws-hero-inner { grid-template-columns:1.65fr 1fr; gap:8px; height:204px; min-height:0; }
+ .aws-hero-copy { padding:8px 0; }
+ .aws-hero h1 { font-size:clamp(18px,4.5vw,22px); line-height:1.3; margin:0 0 6px; }
+ .aws-hero-rule { margin-bottom:7px; width:44px; }
+ .aws-hero p { font-size:10px; line-height:1.65; }
+ .aws-hero-tribute { font-size:9px; margin-top:6px; }
+ .aws-hero-portrait { height:204px; }
+ .aws-hero-portrait img { height:194px; max-width:100%; width:174px; }
+ .aws-portrait-halo { width:100px; height:165px; bottom:8px; }
+}
+@media(prefers-reduced-motion:reduce) { .aws-hero-copy,.aws-hero-portrait img { animation:none; } }
+
+/* ===== بطاقتا الجائزتين: الكأس والشعار كقطعتين معروضتين على سطح لامع =====
+   بلا رسومات: هالة دافئة ناعمة خلفه، انعكاس حقيقي للكأس تحته، وخط ذهبي رفيع عند قاعدته.
+   يظهر مرة واحدة بارتفاع خفيف ووضوح تدريجي، ثم يمر عليه بريق هادئ. */
+.aws-card.has-podium { grid-template-columns: 124px 1fr; align-items: stretch; min-height: 196px; padding-block: 0; }
+.has-podium .aws-txt { align-self: center; padding-block: 16px; }
+.aws-podium { position: relative; width: 124px; height: auto; min-height: 196px; }
+.aws-podium i { display: none; }
+.aws-halo { position: absolute; left: 50%; top: 50%; width: 150px; height: 150px; transform: translate(-50%, -58%); border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 240, 214, .42), rgba(255, 226, 186, .14) 58%, transparent); }
+.aws-floor { position: absolute; left: 50%; bottom: 46px; z-index: 3; width: 112px; height: 1px; transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(255, 233, 190, .9) 30%, #FFF3D6 50%, rgba(255, 233, 190, .9) 70%, transparent); box-shadow: 0 0 8px rgba(255, 228, 170, .6); }
+.aws-podium .aws-trophy { position: absolute; left: 50%; right: auto; top: auto; bottom: 46px; z-index: 2; width: 94px; height: 136px; display: block; border-radius: 0; background: none; transform: translateX(-50%); }
+.aws-podium .aws-trophy img { width: 100%; height: 100%; object-fit: contain; object-position: bottom; animation: none;
+  filter: drop-shadow(0 6px 8px rgba(40, 20, 10, .35)) saturate(1.05) contrast(1.04);
+  -webkit-box-reflect: below 1px linear-gradient(transparent 64%, rgba(255, 255, 255, .26)); }
+.aws-podium .aws-trophy::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask: url("../assets/img/volunteer/original-trophy-cutout.png") center bottom / contain no-repeat;
+          mask: url("../assets/img/volunteer/original-trophy-cutout.png") center bottom / contain no-repeat;
+  background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, .55) 50%, transparent 58%) no-repeat;
+  background-size: 260% 100%; background-position: 160% 0; opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .aws-podium .aws-trophy { opacity: 0; filter: blur(6px); transform: translate(-50%, 18px); transition: opacity 1.1s ease, filter 1.1s ease, transform 1.3s cubic-bezier(.2, .8, .2, 1); }
+  .has-podium.is-in .aws-podium .aws-trophy { opacity: 1; filter: none; transform: translate(-50%, 0); }
+  .aws-halo, .aws-floor { opacity: 0; transition: opacity 1.6s ease .4s; }
+  .has-podium.is-in .aws-halo, .has-podium.is-in .aws-floor { opacity: 1; }
+  .has-podium.is-in .aws-podium .aws-trophy::after { animation: aws-gleam 7s ease-in-out 1.6s infinite; }
+}
+@keyframes aws-gleam { 0% { opacity: 0; background-position: 160% 0; } 10% { opacity: 1; } 30% { opacity: 1; background-position: -60% 0; } 36%, 100% { opacity: 0; background-position: -60% 0; } }
+@media (min-width: 700px) { .aws-card.has-podium { grid-template-columns: 140px 1fr; min-height: 214px; } .aws-podium { width: 140px; } .aws-podium .aws-trophy { width: 108px; height: 156px; } .aws-floor { width: 126px; } }
+
+/* شعار جائزة الثقافة: الخط العربي بذهب معدني (القناع بشكل الشعار) بدل الميدالية والحلقات */
+.aws-podium .aws-emblem { width: 84px; height: 109px; bottom: 50px; filter: drop-shadow(0 6px 10px rgba(0, 20, 22, .55)); -webkit-box-reflect: below 3px linear-gradient(transparent 66%, rgba(255, 255, 255, .22)); }
+.aws-gold { position: absolute; inset: 0;
+  -webkit-mask: url("../assets/img/award/logo.png") center / contain no-repeat;
+          mask: url("../assets/img/award/logo.png") center / contain no-repeat;
+  background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 30%, #E6C177 55%, #F8E3AA 78%, #EFD08A 100%); }
+.aws-podium .aws-emblem::after {
+  -webkit-mask: url("../assets/img/award/logo.png") center / contain no-repeat;
+          mask: url("../assets/img/award/logo.png") center / contain no-repeat; }
+.is-culture .aws-halo { background: radial-gradient(closest-side, rgba(244, 223, 174, .3), rgba(19, 149, 159, .18) 60%, transparent); }
+.is-culture .aws-floor { bottom: 50px; }
+@media (min-width: 700px) { .aws-podium .aws-emblem { width: 98px; height: 127px; } }

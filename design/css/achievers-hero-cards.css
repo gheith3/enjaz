@@ -1,0 +1,46 @@
+/* المنجزين — هيدر «بطاقات الأبطال» على الكمبيوتر: الكلام والبحث يمينًا، والبطاقات في عمودها يسارًا بلا تداخل مع الكلام. الهاتف لا يتأثر. */
+.ap-deck { display: none; }
+@media (min-width: 1100px) {
+  .page-hero.ap-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 40px; min-height: 480px; padding: 40px max(40px, calc(50vw - 580px)) !important; text-align: right; overflow: hidden; }
+  .ap-hero .hero-text { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .ap-hero .ap-title { font-size: clamp(64px, 6vw, 92px) !important; line-height: 1.15; }
+  .ap-sub { max-width: 30em; margin: 0 !important; font-size: 22px !important; line-height: 1.8; }
+  .ap-hero .ap-faces { display: none; }
+  .page-hero.ap-hero .ap-search { width: 460px; max-width: 100%; margin: 10px 0 0 !important; }
+  .page-hero.ap-hero .ap-search input { height: 54px; font-size: 16px; }
+  .page-hero.ap-hero .ap-search button { width: 44px; height: 44px; top: 5px; left: 5px; }
+  /* البطاقات */
+  .ap-deck { grid-column: 2; grid-row: 1; display: block; position: relative; height: 400px; overflow: visible; }
+  .hc { --r: 0deg; --x: 0px; --y: 0px; position: absolute; left: 50%; bottom: 20px; width: 200px; height: 290px; margin-left: -100px; border-radius: 18px; overflow: hidden; cursor: pointer;
+    transform-origin: 50% 100%; transform: translateX(var(--x)) translateY(var(--y)) rotate(var(--r)); transition: transform .7s cubic-bezier(.2, .9, .3, 1.1), box-shadow .4s, filter .4s;
+    background: #0A3C40; box-shadow: 0 20px 40px -20px rgba(0, 0, 0, .8), inset 0 0 0 1px rgba(230, 201, 138, .5); filter: brightness(.75); }
+  .hc img { width: 100%; height: 74%; object-fit: cover; }
+  .hc-i { position: absolute; left: 0; right: 0; bottom: 0; padding: 38px 14px 12px; background: linear-gradient(180deg, transparent, #052E2F 45%); color: #fff; text-align: right; }
+  .hc-i span { display: inline-block; padding: 1px 9px; border-radius: 99px; background: rgba(230, 201, 138, .2); color: #F6E3B4; font-size: 11px; font-weight: 800; }
+  .hc-i b { display: block; margin-top: 4px; font-size: 17px; }
+  .hc-i small { display: block; color: #CFE3DD; font-size: 12px; line-height: 1.6; }
+  .hc::before { content: ""; position: absolute; inset: 7px; z-index: 2; border-radius: 13px; border: 1px solid rgba(230, 201, 138, .45); pointer-events: none; }
+  .hc::after { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(115deg, transparent 35%, rgba(255, 246, 220, .35) 50%, transparent 65%) -200% 0 / 300% 100% no-repeat; }
+  .hc.front { filter: none; box-shadow: 0 30px 50px -20px rgba(0, 0, 0, .9), 0 0 0 2px #E6C98A, 0 0 40px rgba(246, 227, 180, .35); }
+  .ap-deck:hover .hc { filter: none; }
+  @media (prefers-reduced-motion: no-preference) { .hc.front::after { animation: hc-foil 2.6s ease-in-out .3s; } }
+}
+@keyframes hc-foil { to { background-position: 200% 0; } }
+@media (min-width: 1100px) { .page-hero.ap-hero { padding-bottom: 64px !important; } .ap-deck { height: 380px; } }
+/* نفس ارتفاع هيدر الإنجازات (٢٨٠ بكسل) */
+@media (min-width: 1100px) {
+  .page-hero.ap-hero { min-height: 0; height: calc(280px + 1cm); padding: 0 max(40px, calc(50vw - 580px)) !important; }
+  .ap-hero .hero-text { gap: 10px; }
+  .ap-hero .ap-title { font-size: 60px !important; }
+  .ap-sub { font-size: 19px !important; }
+  .page-hero.ap-hero .ap-search { margin-top: 6px !important; }
+  .page-hero.ap-hero .ap-search input { height: 48px; }
+  .page-hero.ap-hero .ap-search button { width: 38px; height: 38px; }
+  .ap-deck { height: 280px; }
+  .hc { width: 150px; height: 212px; margin-left: -75px; bottom: 26px; border-radius: 14px; }
+  .hc::before { inset: 5px; border-radius: 10px; }
+  .hc-i { padding: 26px 10px 8px; }
+  .hc-i b { font-size: 14px; } .hc-i small { font-size: 10.5px; } .hc-i span { font-size: 10px; }
+}
+@media (min-width: 1100px) { .hc { bottom: 58px; height: 200px; } .ap-deck { overflow: visible; } }
+@media (min-width: 1100px) { .hc-i { padding: 30px 10px 12px; text-align: center; } .hc-i b { font-size: 15px; } .hc img { height: 100%; } }

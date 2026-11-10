@@ -1,0 +1,223 @@
+/* الرئيسية على الهاتف — مساحة أوسع للصورة والكلمة، ثم الإحصائيات وصور المنجزين. */
+@media (max-width: 699px) {
+  .home #main { display: flex; flex-direction: column; }
+  .home #main > * { order: 3; }
+  .home #main > .hero-majlis { order: 0; }
+  .home #main > .home-statistics { order: 3; }
+  .home #main > .home-achievers { order: 1; }
+
+  .home .hero-majlis { aspect-ratio: auto; height: 560px; }
+  .home .hero-majlis .grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 0; padding: 26px 22px 0;
+  }
+  .home .hero-majlis .quote {
+    justify-content: flex-start; padding: 0 12px 0 0;
+    min-width: 0;
+  }
+  .home .hero-majlis .quote::before { top: 5px; bottom: 5px; }
+  .home .hero-majlis .hc-lead {
+    font-size: clamp(20px, 5.8vw, 28px) !important;
+    white-space: normal; text-wrap: balance;
+    margin-bottom: 9px; line-height: 1.5;
+  }
+  .home .hero-majlis .hc-body {
+    font-size: 14px !important; line-height: 1.9 !important;
+    letter-spacing: 0; text-wrap: pretty;
+  }
+  .home .hero-majlis .by { margin-top: 12px !important; }
+  .home .hero-majlis .by b {
+    font-size: 11.5px !important; line-height: 1.7 !important;
+    text-wrap: balance; padding-top: 9px !important;
+  }
+  .home .hero-majlis .by span { font-size: 10.5px !important; }
+  .home .hero-majlis blockquote::before { font-size: 72px; }
+  .home .hero-majlis .hc-pic,
+  .home .hero-majlis .hm-slide--sultan .hc-pic {
+    width: 100%; min-height: 0; margin: 6px 0 0 !important;
+    translate: 0 0;
+  }
+  .home .hero-majlis .portrait { object-fit: contain; object-position: center bottom; }
+  .home .hero-majlis .hm-slide--sultan .portrait {
+    scale: 1.298; translate: 0 calc(46px + 1cm); transform-origin: center bottom;
+  }
+  .home .hero-majlis .hm-slide--ahd .portrait {
+    scale: .9; translate: calc(1cm - 13px) calc(-8px - .5cm); transform-origin: center bottom;
+  }
+  .home .hero-majlis .hm-slide--dy .portrait {
+    scale: 1; translate: 0 8px; transform-origin: center bottom;
+  }
+  .hero-majlis .hm-slide::before {
+    background-size: 30px 30px !important; background-position: center bottom;
+    opacity: .2 !important;
+    -webkit-mask-image: linear-gradient(0deg, #000 0%, #000 15%, rgba(0,0,0,.7) 45%, rgba(0,0,0,.25) 72%, transparent 100%);
+    mask-image: linear-gradient(0deg, #000 0%, #000 15%, rgba(0,0,0,.7) 45%, rgba(0,0,0,.25) 72%, transparent 100%);
+  }
+  .home .home-statistics { margin-top: 22px; }
+  .home .home-achievers { margin-top: 24px; }
+  .home-culture .people > .person:nth-child(n+4) { display: none; }
+}
+@media (max-width: 359px) {
+  .home .hero-majlis { height: 580px; }
+  .home .hero-majlis .grid { padding-inline: 16px; }
+  .home .hero-majlis .hc-body { font-size: 13px !important; }
+}
+
+@media (max-width: 699px) {
+  .home .hero-majlis .hm-slide--sultan::after {
+    background: radial-gradient(130% 95% at 50% 38%, transparent 58%, rgba(0,0,0,.18) 100%), linear-gradient(0deg, rgba(0,0,0,.14), transparent 22%);
+  }
+}
+
+@media (max-width: 699px) {
+  .home .hero-majlis .hm-slide--ahd .portrait {
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+  }
+}
+
+/* قوس مزدوج بذهب هادئ يربط العرض بصور المنجزين. */
+.hero-arc { display: none; }
+@media (max-width: 699px) {
+  .home .hero-majlis::after { display: none; }
+  .home .hero-majlis .hero-arc {
+    display: block; position: absolute; z-index: 8;
+    inset: auto 0 21px; width: 100%; height: 54px; pointer-events: none;
+  }
+  .hero-arc-fill { fill: #fff; }
+  .hero-arc-line { fill: none; stroke: url(#homeArcGold); stroke-width: 1.5; }
+  .hero-arc-echo { fill: none; stroke: #E9C987; stroke-width: .7; opacity: .35; }
+  .home .hero-majlis .hm-star { bottom: 5px; z-index: 9; width: 10px; height: 10px; }
+  .home .hero-majlis .hm-dots { bottom: 71px; }
+}
+
+/* الاسم الكامل في سطر واحد تحت صورة د. مسلم ود. عذراء. */
+@media (max-width: 699px) {
+  .home-achievers .strip button[data-name="د. مسلم العريمي"] .strip-name,
+  .home-achievers .strip button[data-name="د. عذراء المعولية"] .strip-name {
+    display: block; align-self: center; width: max-content;
+    white-space: nowrap; overflow: visible; overflow-wrap: normal;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 699px) and (prefers-reduced-motion: no-preference) {
+  .home .hero-majlis .hm-slide::before { animation: phone-pattern-up 12s linear infinite; }
+}
+@keyframes phone-pattern-up {
+  from { background-position: center 0; }
+  to { background-position: center -30px; }
+}
+
+/* القوس الذهبي وإشارة الكمبيوتر أسفل صور العرض، ثم شريط المنجزين. */
+.home-hero-cue { display: none; }
+@media (max-width: 699px) {
+  .home .hero-arc-fill { fill: #fff; }
+  .home .hero-arc-line2 { stroke: #F3D995; }
+  .home #main > .home-hero-cue { order: 2; }
+  .home .home-hero-cue { display: grid; place-items: center; min-height: 88px; padding-top: 8px; }
+  .home .home-hero-cue .scroll-cue {
+    position: relative; display: grid; justify-items: center;
+    left: auto; bottom: auto; translate: 0 -43px; gap: 0; padding: 4px 14px;
+    color: #9C7330; font: 700 13px/1 Cairo,Tahoma,sans-serif;
+    transition: opacity .45s ease, transform .45s ease;
+  }
+  .home .home-hero-cue .scroll-cue.gone { opacity: 0; transform: translateY(12px); pointer-events: none; }
+  .home .home-hero-cue .sc-w { display: grid; justify-items: center; gap: 0; height: auto; }
+  .home .home-hero-cue .sc-w span { grid-area: auto; line-height: 17px; opacity: 0; }
+  .home .home-hero-cue .sc-a { width: 24px; height: 22px; margin-top: 2px; opacity: 0; }
+  .home .home-hero-cue .sc-a path { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .home .home-achievers { margin-top: -16px; }
+}
+@media (max-width: 699px) and (prefers-reduced-motion: no-preference) {
+  .home .home-hero-cue .sc-w span, .home .home-hero-cue .sc-a { animation: sc-fade 2s ease-out .8s infinite; }
+  .home .home-hero-cue .sc-w span:nth-child(2) { animation-delay: 1.3s; }
+  .home .home-hero-cue .sc-w span:nth-child(3) { animation-delay: 1.8s; }
+  .home .home-hero-cue .sc-a { animation-delay: 2.3s; }
+}
+@media (max-width: 699px) and (prefers-reduced-motion: reduce) {
+  .home .home-hero-cue .sc-w span, .home .home-hero-cue .sc-a { opacity: 1; }
+}
+
+@media (max-width: 699px) {
+  .home .hero-majlis::after { display: block; content: ""; position: absolute; inset: auto 0 0; width: 100%; height: 22px; background: #fff; opacity: 1; z-index: 8; pointer-events: none; animation: none; transform: none; border: 0; border-radius: 0; box-shadow: none; filter: none; }
+}
+
+@media (max-width: 699px) {
+  .home .hero-arc-fill, .home .hero-arc-line2 { filter: none; }
+}
+
+/* (الهاتف) إشارة النزول: «حلم» ثم «عزيمة» تظهران في مكان «إنجاز»، ثم «إنجاز» في مكانها، ثم السهم في مكانه، بنفس التلاشي */
+@keyframes sc-fade-same { 0% { opacity: 0; transform: translateY(5px); } 6%, 20% { opacity: 1; transform: none; } 27%, 100% { opacity: 0; transform: none; } }
+@media (max-width: 699px) {
+  .home .home-hero-cue .sc-w { grid-template-rows: 17px 17px 17px; }
+  .home .home-hero-cue .sc-w span { grid-column: 1; grid-row: 3; }
+}
+@media (max-width: 699px) and (prefers-reduced-motion: no-preference) {
+  .home .home-hero-cue .sc-w span:nth-child(1), .home .home-hero-cue .sc-w span:nth-child(2) { animation-name: sc-fade-same; }
+}
+@media (max-width: 699px) and (prefers-reduced-motion: reduce) {
+  .home .home-hero-cue .sc-w span:nth-child(1), .home .home-hero-cue .sc-w span:nth-child(2) { opacity: 0; }
+}
+/* الدورة ٢.٧ث حتى يختفي السهم تمامًا قبل ظهور «حلم» من جديد (نفس سرعة الظهور والتلاشي) */
+@keyframes sc-fade-p { 0% { opacity: 0; transform: translateY(5px); } 4.4%, 18.5% { opacity: 1; transform: none; } 40.7%, 100% { opacity: 0; transform: none; } }
+@keyframes sc-fade-same-p { 0% { opacity: 0; transform: translateY(5px); } 4.4%, 14.8% { opacity: 1; transform: none; } 20%, 100% { opacity: 0; transform: none; } }
+@media (max-width: 699px) and (prefers-reduced-motion: no-preference) {
+  .home .home-hero-cue .sc-w span, .home .home-hero-cue .sc-a { animation-duration: 2.7s; animation-name: sc-fade-p; }
+  .home .home-hero-cue .sc-w span:nth-child(1), .home .home-hero-cue .sc-w span:nth-child(2) { animation-name: sc-fade-same-p; }
+}
+
+/* صورة العرض تتكيّف مع المساحة الظاهرة فعلًا في المتصفح (بعد شريط Safari)، فيبقى القوس ظاهرًا وتحته طرف شريط المنجزين على كل الهواتف */
+@media (max-width: 699px) {
+  .home .hero-majlis { height: 560px !important; height: clamp(470px, calc(100svh - 112px), 560px) !important; }
+}
+
+/* (ملاءمة الشاشة الأولى) في Safari تظهر مساحة أقل من المعاينة (≈٦٥٠ بدل ٨٤٤)، فتتكيّف صورة العرض مع المساحة الظاهرة
+   حتى تظهر تحتها صور المنجزين وإشارة السهم كاملة على أي هاتف. الكلمات في سطر واحد بلا فراغ فوقها. */
+@media (max-width: 699px) {
+  .home .home-hero-cue .sc-w { grid-template-rows: 17px; }
+  .home .home-hero-cue .sc-w span { grid-row: 1; }
+  .home .home-hero-cue { min-height: 0; padding: 0 0 12px; }
+  .home .home-hero-cue .scroll-cue { translate: 0 -8px; }
+}
+@media (max-width: 699px) {
+  /* صور المنجزين أصغر قليلًا على الشاشات القصيرة فقط */
+  .home .home-achievers .strip { --active-photo-height: clamp(112px, calc(100svh - 534px), 138px); --side-photo-height: calc(var(--active-photo-height) * .78); }
+  /* صورة العرض = المساحة الظاهرة − الشريط العلوي − (صور المنجزين + السهم) */
+  .home .hero-majlis { height: clamp(400px, calc(100svh - 236px), 560px) !important; container: hm / size; }
+}
+@media (max-width: 699px) {
+  /* رابط «المزيد من المبدعين» في نفس سطر الاسم (يسارًا) بدل سطر مستقل */
+  .home .home-achievers .strip-nav { position: relative; z-index: 2; margin-top: -36px; pointer-events: none; }
+  .home .home-achievers .strip-nav a { pointer-events: auto; }
+}
+/* حين تقصر صورة العرض تقترب صور الشخصيات قليلًا حتى لا تبدو صغيرة */
+@container hm (max-height: 440px) {
+  .home .hero-majlis .hm-slide--sultan .portrait { scale: 1.62; translate: 0 calc(52px + 1cm); }
+  .home .hero-majlis .hm-slide--ahd .portrait { scale: .9; translate: calc(1cm - 13px) calc(-16px - .5cm); }
+  .home .hero-majlis .hm-slide--dy .portrait { scale: 1; translate: 0 2px; }
+}
+@media (max-width: 699px) {
+  .home .hero-majlis { height: clamp(390px, calc(100svh - 252px), 560px) !important; }
+}
+/* معادلة واحدة تربط الاثنين: الصورة الكبيرة لصور المنجزين (--strip-a) وصورة العرض = ما يتبقى من الشاشة الظاهرة */
+@media (max-width: 699px) {
+  .home { --strip-a: clamp(112px, calc(100svh * .184), 138px); }
+  .home .home-achievers .strip { --active-photo-height: var(--strip-a); --side-photo-height: calc(var(--strip-a) * .78); }
+  .home .hero-majlis { height: clamp(390px, calc(100svh - 137px - var(--strip-a)), 560px) !important; }
+}
+@container hm (min-height: 440.5px) and (max-height: 500px) {
+  .home .hero-majlis .hm-slide--sultan .portrait { scale: 1.4; translate: 0 calc(48px + 1cm); }
+  .home .hero-majlis .hm-slide--ahd .portrait { scale: 1; translate: calc(1cm - 13px) calc(-2px - .5cm); }
+  .home .hero-majlis .hm-slide--dy .portrait { scale: 1.12; translate: 0 14px; }
+}
+/* الفقرات البيضاء في ٣ أسطر بدل ٤ (السلطان، السيدة الجليلة، ذي يزن) */
+@media (max-width: 699px) {
+  .home .hero-majlis .grid { padding-inline: 16px !important; }
+  .home .hero-majlis .hc-body { font-size: 13px !important; text-wrap: wrap !important; }
+}
+/* بعد اختصار الفقرة إلى ٣ أسطر: صورتا السلطان والسيدة الجليلة تبقيان بنفس مقاسهما السابق (يبدأ مكانهما أسفل بمقدار السطر المحذوف) */
+@media (max-width: 699px) {
+  .home .hero-majlis .hm-slide--sultan .hc-pic, .home .hero-majlis .hm-slide--ahd .hc-pic { margin-top: 31px !important; }
+}

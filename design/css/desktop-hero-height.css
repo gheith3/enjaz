@@ -1,0 +1,15 @@
+/* الهيدرات الثلاثة تملأ المساحة الأولى أسفل شريط التنقل — الكمبيوتر فقط. */
+@media (min-width: 1100px) {
+  .home .hero-cinema,
+  .aws-page .aws-hero,
+  [data-bf] .c-hero { --opening-height: max(560px, calc(100svh - 78px)); min-height: var(--opening-height); }
+  .home .hero-cinema { height: var(--opening-height); }
+  .home .hero-cinema .grid { padding-bottom: 86px; box-sizing: border-box; }
+  .aws-page .aws-hero-inner { height: var(--opening-height); padding-block: 24px 86px; box-sizing: border-box; }
+  .aws-page .aws-hero-portrait { height: 100%; min-height: 0; }
+  .aws-page .aws-hero-portrait img { height: 100%; max-height: 100%; max-width: 100%; width: auto; object-fit: contain; }
+  [data-bf] .c-hero-in { min-height: var(--opening-height); padding-block: 40px 100px; box-sizing: border-box; align-content: center; }
+  .home .hero-cinema .scroll-cue,
+  .aws-page .aws-hero .scroll-cue,
+  [data-bf] .c-hero .scroll-cue { bottom: 16px; }
+}

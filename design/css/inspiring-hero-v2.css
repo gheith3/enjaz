@@ -1,0 +1,43 @@
+/* ملهمون من عُمان — هيدر الكمبيوتر (٨ نوفمبر): جدار الصور المتحرك بلون واحد من الثيمة مع صور ملوّنة متفرقة،
+   وتدرج ناعم متدرّج من جهة النص، وعنوان بطبقتين، ومجالات الإلهام، وزر ذهبي. الهاتف لا يتأثر. */
+.is-fields { display: none; }
+@media (min-width: 1100px) {
+  .page-hero.ins-strip { min-height: 540px; padding: 64px max(40px, calc(50% - 560px));
+    background: linear-gradient(175deg, #0C7F89 0%, #0A5C63 55%, #063135 100%); }
+  /* علامة اقتباس كبيرة باهتة خلف النص */
+  .page-hero.ins-strip::after { content: "”"; position: absolute; z-index: 1; top: -40px; right: max(10px, calc(50% - 640px)); color: rgba(230, 201, 138, .07);
+    font: 900 420px/1 Georgia, serif; pointer-events: none; }
+  .ins-strip .is-photo-wall { width: 58%; inset: -30% auto -30% -4%; gap: 14px; transform: rotate(-12deg); }
+  .ins-strip .is-photo-tile { margin-bottom: 14px; border: 0; border-radius: 18px; box-shadow: 0 10px 24px -14px rgba(0, 0, 0, .6); }
+  /* لون واحد من الثيمة لكل الصور… */
+  .ins-strip .is-photo-tile img { filter: grayscale(1) contrast(1.08) brightness(.92); }
+  .ins-strip .is-photo-tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, #0C7F89, #063135); mix-blend-mode: color; opacity: .9; }
+  /* …وصور ملوّنة متفرقة بإطار ذهبي كأنها تحت الضوء */
+  .ins-strip .is-photo-tile:nth-child(4n+2) img { filter: none; }
+  .ins-strip .is-photo-tile:nth-child(4n+2)::after { background: none; box-shadow: inset 0 0 0 2px #E6C98A; border-radius: inherit; mix-blend-mode: normal; opacity: 1; }
+
+  .ins-strip .is-head { width: 46%; max-width: 560px; margin-inline-start: 0; gap: 18px; padding: 0; }
+  .ins-strip .is-eyebrow { font-size: 15px; letter-spacing: .3px; }
+  .page-hero.ins-strip .is-title { display: flex; flex-direction: column; margin: 0; font-size: 30px; line-height: 1.2; white-space: normal; color: #fff; }
+  .page-hero.ins-strip .is-title .is-gold { font-size: 96px; line-height: 1.15; background: linear-gradient(180deg, #FBEFCF 0%, #E6C98A 45%, #B98F45 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 6px 18px rgba(0, 0, 0, .25)); }
+  .ins-strip .is-intro { margin: 0; color: #D9EAE6; font-size: 21px; line-height: 1.9; }
+  .ins-strip .is-fields { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .ins-strip .is-fields li { padding: 6px 16px; border: 1px solid rgba(230, 201, 138, .45); border-radius: 99px; background: rgba(6, 49, 53, .45); color: #F1E0B5; font-size: 14px; font-weight: 700;
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+  .ins-strip .is-discover { gap: 16px; margin-top: 8px; padding: 14px 28px; border: 0; background: linear-gradient(135deg, #F1D99F, #C9A35C); color: #063135; font-size: 17px; box-shadow: 0 12px 26px -14px rgba(0, 0, 0, .7); }
+  .ins-strip .is-discover:hover { background: #F6E3B4; transform: translateY(-2px); }
+  .ins-strip .is-discover span { transition: translate .25s; }
+  .ins-strip .is-discover:hover span { translate: -5px 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ins-strip .is-head > * { animation: is2-up .9s cubic-bezier(.16, 1, .3, 1) both; }
+    .ins-strip .is-head > :nth-child(2) { animation-delay: .1s; } .ins-strip .is-head > :nth-child(3) { animation-delay: .2s; }
+    .ins-strip .is-head > :nth-child(4) { animation-delay: .3s; } .ins-strip .is-head > :nth-child(5) { animation-delay: .4s; }
+  }
+}
+@keyframes is2-up { from { opacity: 0; transform: translateY(18px); } }
+@media (min-width: 1100px) {
+  .page-hero.ins-strip { padding-inline: max(40px, calc(50vw - 560px)) !important; }
+  .ins-strip .is-photo-wall { width: 46%; inset: -34% auto -34% -3%; gap: 12px; }
+  .ins-strip .is-photo-tile { margin-bottom: 12px; border-radius: 14px; }
+}

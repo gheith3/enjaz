@@ -1,0 +1,18 @@
+/* خط ذهبي يحيط بحدود جسم المنجز في رأس الصفحة، بنفس فكرة خريطة «منجز الأسبوع»:
+   يُرسم الخط بعد صعود الصورة، ثم يتوهّج بنبض هادئ، وضوءان يجريان على طوله */
+.profile-portrait.hm { position: relative; }
+.hm-trace { position: absolute; left: 0; bottom: 0; z-index: 1; width: 100%; height: auto; aspect-ratio: 948 / 928; overflow: visible; pointer-events: none; }
+.hm-line { fill: none; stroke: url(#hmGold); stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 3px rgba(246, 227, 180, .8));
+  opacity: 0; animation: hm-in .5s 1.5s ease-out both, hm-glow 4s 2s ease-in-out infinite; }
+.hm-run { fill: none; stroke: #FFF8E4; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke;
+  stroke-dasharray: 9 91; opacity: 0; filter: drop-shadow(0 0 2px #F6E3B4) drop-shadow(0 0 5px rgba(246, 227, 180, .8));
+  animation: hm-run 6s 2s linear infinite; }
+.hm-run-2 { animation-delay: 5s; }
+@keyframes hm-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hm-glow { 0%, 100% { filter: drop-shadow(0 0 3px rgba(246, 227, 180, .8)); } 50% { filter: drop-shadow(0 0 8px rgba(246, 227, 180, 1)); } }
+@keyframes hm-run { 0% { opacity: 0; stroke-dashoffset: 100; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { opacity: 0; stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .hm-line, .hm-run { animation: none !important; }
+  .hm-line { opacity: 1; }
+}

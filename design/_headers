@@ -1,0 +1,4 @@
+# إعدادات Netlify لملفات الخطوط: مسموح تحميلها، وتُحفظ في المتصفح سنة كاملة فلا يُعاد تحميلها ولا يتبدّل الخط بين الصفحات
+/assets/fonts/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable

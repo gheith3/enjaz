@@ -1,0 +1,67 @@
+/* هيدر جوائز السلطان قابوس — «حروف الثقافة» (٨ نوفمبر ٢٠٢٦)
+   كلمات مجالات الجائزة تطفو بالذهب في الهيدر كله (طبقة خلف المحتوى وطبقة أمامه مموّهة)،
+   بلا قوس خلف جلالته، وتدرّج لوني من الأسفل، والعنوان بذهب صفحة «المنجزين» ولمعتها، وتعريف منسّق.
+   للرجوع: awards.before-words.html */
+
+.aws-words .aws-portrait-halo { display: none; }
+/* حذف التوهّج الأخضر الشفاف خلف جلالته: خلفية متدرّجة فقط */
+.aws-hero.aws-words { background: linear-gradient(115deg, #083b40, #07535a 65%, #08616a); }
+.aws-words .aws-hero-inner { position: relative; }
+.aws-words .aws-hero-copy { z-index: 3; }
+
+/* طبقات الكلمات */
+.aws-words .awf { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.aws-words .awf.front { z-index: 4; }
+.aws-words .awf-w { position: absolute; bottom: -12%; font-family: var(--font); font-weight: 800; white-space: nowrap; opacity: 0;
+  color: transparent; background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 30%, #E6C177 55%, #F8E3AA 78%, #EFD08A 100%); -webkit-background-clip: text; background-clip: text;
+  filter: blur(var(--b, 0)); }
+
+/* تدرّج أسفل الصورة مع إبقاء الظل الملوّن المحيط بها محذوفًا. */
+.aws-words::before { content: ""; position: absolute; inset: auto 0 0; height: 42%; z-index: 2; pointer-events: none;
+  background: linear-gradient(0deg, #042A2E 0%, rgba(4, 42, 46, .75) 35%, rgba(4, 42, 46, 0) 100%); }
+.aws-words .aws-hero-portrait img { filter: none; -webkit-mask-image: linear-gradient(#000 78%, transparent 100%); mask-image: linear-gradient(#000 78%, transparent 100%); }
+.aws-words .scroll-cue { z-index: 5; }
+
+/* العنوان: ذهب «المنجزين» مع لمعة تعبر */
+.aws-words h1 .ap-shine { position: relative; display: inline-block; color: transparent;
+  background: linear-gradient(175deg, #FFF4D2 0%, #F3D995 30%, #E6C177 55%, #F8E3AA 78%, #EFD08A 100%);
+  -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 2px 10px rgba(0, 0, 0, .25)); }
+.aws-words h1 .ap-shine::after { content: attr(data-t); position: absolute; inset: 0; pointer-events: none; color: transparent;
+  background: linear-gradient(100deg, transparent 44%, rgba(255, 252, 240, .2) 47%, rgba(255, 255, 255, .95) 50%, rgba(255, 252, 240, .2) 53%, transparent 56%) no-repeat;
+  background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; opacity: 0; }
+
+/* التعريف المنسّق */
+.aws-words .aws-hero-lead { max-width: 470px; color: rgba(255, 255, 255, .9); text-wrap: pretty; }
+.aws-words .aws-hero-fields { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; padding: 0; list-style: none; }
+.aws-words .aws-hero-fields li { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border: 1px solid rgba(243, 217, 149, .45); border-radius: 999px;
+  background: rgba(4, 42, 46, .35); color: #F3D995; font-size: 11px; font-weight: 700; line-height: 1.6; backdrop-filter: blur(3px); }
+.aws-words .aws-hero-fields li::before { content: ""; width: 7px; height: 7px; flex: none; background: #F3D995;
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); }
+.aws-words .aws-hero-tribute { display: flex; align-items: center; gap: 8px; margin-top: 10px; color: rgba(243, 217, 149, .8); }
+.aws-words .aws-hero-tribute::before { content: ""; width: 22px; height: 1px; background: linear-gradient(270deg, #E6C177, transparent); }
+
+@media (max-width: 600px) {
+  .aws-words .aws-hero-fields { gap: 4px; margin-top: 6px; }
+  .aws-words .aws-hero-fields li { padding: 1px 7px; font-size: 8.5px; gap: 4px; }
+  .aws-words .aws-hero-fields li::before { width: 5px; height: 5px; }
+  .aws-words .aws-hero-tribute { margin-top: 6px; gap: 5px; }
+  .aws-words .aws-hero-tribute::before { width: 14px; }
+}
+@media (min-width: 1100px) {
+  .aws-page .aws-words .aws-hero-lead { font-size: 18px; line-height: 1.95; }
+  .aws-page .aws-words .aws-hero-fields { gap: 10px; margin-top: 18px; }
+  .aws-page .aws-words .aws-hero-fields li { padding: 6px 16px; font-size: 15px; gap: 8px; }
+  .aws-page .aws-words .aws-hero-fields li::before { width: 9px; height: 9px; }
+  .aws-page .aws-words .aws-hero-tribute { margin-top: 18px; }
+  .aws-page .aws-words .aws-hero-tribute::before { width: 34px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .aws-words .awf-w { animation: awf-float var(--d) linear var(--dl) infinite; }
+  .aws-words h1 .ap-shine::after { animation: awf-shine 5s ease-in-out 1.4s infinite; }
+  .aws-words .aws-hero-fields li { animation: aws-copy-enter .8s cubic-bezier(.16, 1, .3, 1) calc(.6s + var(--i, 0) * .15s) both; }
+  .aws-words .aws-hero-fields li:nth-child(2) { --i: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .aws-words .awf-w { opacity: var(--o); bottom: auto; top: var(--y); } }
+@keyframes awf-float { 0% { opacity: 0; transform: translateY(0); } 15%, 80% { opacity: var(--o); } 100% { opacity: 0; transform: translateY(calc(var(--fy, 640px) * -1)); } }
+@keyframes awf-shine { 0%, 15% { opacity: 1; background-position: 100% 0; } 45%, 100% { opacity: 1; background-position: 0 0; } }

@@ -1,0 +1,49 @@
+/* هيدر الإنجازات — ظهور «الميداليات تنقلب» عند فتح الصفحة (الكمبيوتر فقط، ٨ نوفمبر ٢٠٢٦).
+   كل صورة تبدأ كوجه ميدالية ذهبية محفور عليه اسم ولاية عُمانية، ثم تنقلب في موجة تبدأ من جهة العنوان وتنتشر عبر الجدار، ويمرّ عليها بريق ذهبي.
+   التنظيم وحركة الصفوف كما هما. التوقيت يُحسب في js/achievements-hero-intro.js */
+@media (prefers-reduced-motion: no-preference) {
+  .ah2-hero.ah2-intro .ah2-wall { perspective: 900px; }
+  .ah2-hero.ah2-intro .ah2-tile { transform-style: preserve-3d; animation: ah2-flip 1s cubic-bezier(.3, .9, .3, 1.15) var(--fd, 0s) both; }
+  /* وجه الميدالية */
+  .ah2-hero.ah2-intro .ah2-tile::before { position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none;
+    /* اسم ولاية عُمانية محفور على وجه الميدالية بدل النجمة */
+    content: attr(data-w); display: grid; place-items: center; padding: 6px; text-align: center;
+    font: 800 13px/1.35 var(--font, "Cairo"), sans-serif; letter-spacing: .2px; color: #6E4E18;
+    text-shadow: 0 1px 0 rgba(255, 246, 220, .75), 0 -1px 0 rgba(90, 60, 20, .35);
+    background: radial-gradient(circle at 35% 30%, #FFF4D2 0%, #F0D08A 30%, #C99A45 62%, #8E6A2C 100%);
+    box-shadow: inset 0 0 0 2px rgba(255, 246, 220, .55), inset 0 -8px 16px rgba(90, 60, 20, .35);
+    animation: ah2-face 1s ease var(--fd, 0s) both; }
+  /* بريق ذهبي يعبر الصورة بعد انقلابها */
+  .ah2-hero.ah2-intro .ah2-tile::after { background: linear-gradient(115deg, transparent 30%, rgba(255, 246, 220, .75) 48%, rgba(255, 255, 255, .15) 56%, transparent 70%) -160% 0 / 260% 100% no-repeat,
+      linear-gradient(160deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, 0) 45%) !important;
+    animation: ah2-glint .9s ease calc(var(--fd, 0s) + .55s) both; }
+  /* ظهور الكلام: العنوان يُكشف بمسحة ذهبية من اليمين مع وضوح تدريجي، ثم السطر الثاني، ثم أداة البحث تتمدد بإطار ذهبي يتوهّج */
+  .ah2-hero.ah2-intro .ah2-text > * { animation: none; }
+  .ah2-hero.ah2-intro .ah2-title { animation: ah2-title-in 1.1s cubic-bezier(.2, .8, .2, 1) .25s both; }
+  .ah2-hero.ah2-intro .ah2-sub { animation: ah2-sub-in .9s cubic-bezier(.2, .8, .2, 1) .75s both; }
+  .ah2-hero.ah2-intro .ah2-search { transform-origin: 100% 50%; animation: ah2-search-in .9s cubic-bezier(.2, .9, .25, 1.1) 1.15s both; }
+  .ah2-hero.ah2-intro .ah2-search input { animation: ah2-search-glow 1.6s ease 1.7s both; }
+}
+@keyframes ah2-flip { 0% { transform: rotateY(180deg) scale(.6); opacity: 0; } 25% { opacity: 1; } 60% { transform: rotateY(-12deg) scale(1.04); } 100% { transform: none; opacity: 1; } }
+@keyframes ah2-face { 0%, 45% { opacity: 1; } 55%, 100% { opacity: 0; } }
+@keyframes ah2-glint { from { background-position: -160% 0, 0 0; } to { background-position: 160% 0, 0 0; } }
+@keyframes ah2-title-in { from { opacity: 0; clip-path: inset(0 0 0 100%); filter: blur(8px); transform: translateX(-24px); } to { opacity: 1; clip-path: inset(0 0 0 0); filter: none; transform: none; } }
+@keyframes ah2-sub-in { from { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateY(14px); } to { opacity: 1; clip-path: inset(0 0 0 0); transform: none; } }
+@keyframes ah2-search-in { from { opacity: 0; transform: scaleX(.2); } 60% { opacity: 1; } to { opacity: 1; transform: none; } }
+@keyframes ah2-search-glow { 0% { box-shadow: 0 0 0 0 rgba(230, 201, 138, 0); } 40% { box-shadow: 0 0 0 6px rgba(230, 201, 138, .35), 0 0 30px rgba(246, 227, 180, .45); } 100% { box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .7); } }
+/* بلا انقطاع: من أول رسم تكون الصور ميداليات والكلام مخفيًا، والحركة متوقفة حتى يجهز التوقيت (الصنف ah2-go) */
+@media (prefers-reduced-motion: no-preference) {
+  .ah2-hero.ah2-intro:not(.ah2-go) .ah2-tile, .ah2-hero.ah2-intro:not(.ah2-go) .ah2-tile::before, .ah2-hero.ah2-intro:not(.ah2-go) .ah2-tile::after,
+  .ah2-hero.ah2-intro:not(.ah2-go) .ah2-title, .ah2-hero.ah2-intro:not(.ah2-go) .ah2-sub, .ah2-hero.ah2-intro:not(.ah2-go) .ah2-search,
+  .ah2-hero.ah2-intro:not(.ah2-go) .ah2-search input { animation-play-state: paused !important; }
+}
+/* الهاتف */
+@media (max-width: 1099px) { .ah2-hero.ah2-intro .ah2-tile::before { font-size: 9px; padding: 3px; letter-spacing: 0; } }
+/* (الهاتف) صف صور إضافي في الأعلى وآخر في الأسفل بنفس المقاس، والصور الحالية كما هي */
+.ah2-row0 { display: none; }
+@media (max-width: 767px) {
+  .ah2-hero .ah2-row0, .ah2-hero .ah2-row4 { display: flex; }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .ah2-row0 { animation-duration: 69s; animation-delay: -20s; }
+}

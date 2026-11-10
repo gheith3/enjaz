@@ -1,0 +1,61 @@
+/* «الصورة تحكي» — scoped to the achievement detail page. */
+.achievement-detail #main { background: #fdfdfb; }
+.story-hero { position: relative; isolation: isolate; overflow: hidden; background: var(--dark); color: #fff; }
+.story-photo { display: block; width: 100%; height: 300px; object-fit: cover; object-position: 48% top; }
+.story-heading { position: absolute; inset: auto 0 0; padding: 65px 22px 20px; background: linear-gradient(180deg, transparent, rgba(6,49,53,.828) 42%, rgba(6,49,53,1)); }
+.story-category { display: inline-block; padding: 3px 12px; border: 1px solid #d4bd86; border-radius: 6px; font-size: 11px; color: #f4e5bf; margin-bottom: 10px; }
+.story-heading h1 { max-width: 610px; margin: 0; font-size: clamp(20px, 5.5vw, 27px); font-weight: 700; line-height: 1.55; text-wrap: balance; }
+.story-body { max-width: 700px; margin: auto; padding: 0 22px 12px; }
+.story-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 12px 0; border-bottom: 1px solid #e2e8e4; }
+.story-facts > div { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 6px; min-width: 0; }
+.story-facts > div + div { border-inline-start: 1px solid #e2e8e4; }
+.story-facts dt { display: flex; justify-content: center; align-items: center; gap: 4px; font-size: 10px; color: var(--muted); }
+.story-facts dt svg, .story-facts dt img { width: 13px; height: 13px; object-fit: contain; }
+.story-facts dt svg { fill: none; stroke: var(--primary); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.story-facts dd { margin: 4px 0 0; color: var(--dark); font-size: 11px; font-weight: 600; }
+.story-author { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 44px; margin: 16px 0 24px; padding: 8px 14px; border-radius: 10px; background: #edf3ed; color: var(--dark); }
+.story-author strong { font-size: 14px; font-weight: 500; }
+.story-profile-link { display: inline-flex; align-items: center; justify-content: center; gap: 2px; min-height: 32px; padding: 0 2px; border: 1px solid var(--primary); border-radius: 8px; background: #fff; font-size: 10px; font-weight: 600; color: var(--primary); white-space: nowrap; width: max-content; }
+.story-profile-link img { width: 22px; height: 22px; object-fit: contain; flex-shrink: 0; }
+.story-profile-link svg { width: 14px; height: 14px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.story-author:hover .story-profile-link { background: #e2eeea; }
+.story-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.story-section-heading h2 { border-inline-start: 3px solid var(--gold); padding-inline-start: 11px; margin: 0; font-size: 20px; color: var(--dark); }
+.story-share { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; min-width: 44px; padding: 0 8px; background: transparent; border: 0; font: inherit; font-size: 11px; color: var(--primary); cursor: pointer; }
+.story-share img { height: 17px; width: 17px; }
+.story-article .article p { font-weight: 700; font-size: 12px; line-height: 1.95; color: #374748; text-align: justify; text-align-last: start; }
+.story-article .article p + p { margin-top: 16px; }
+.story-back { display: flex; align-items: center; justify-content: space-between; min-height: 48px; margin-top: 28px; padding: 10px 16px; border: 1px solid #ceddd9; border-radius: 10px; color: var(--primary); font-size: 13px; }
+.achievement-detail a:focus-visible, .achievement-detail button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+@media (min-width: 700px) {
+  .story-hero { max-width: 1000px; margin: 24px auto 0; border-radius: 20px; }
+  .story-photo { height: 360px; object-position: center 25%; }
+  .story-heading { padding-inline: 40px; }
+  .story-body { padding-inline: 26px; }
+}
+@media (max-width: 350px) {
+  .story-photo { height: 280px; }
+  .story-heading { padding-inline: 20px; }
+  .story-body { padding-inline: 16px; }
+  .story-facts dd { font-size: 11px; }
+}
+
+/* A compact sharing strip with an anchored, non-expanding menu. */
+.story-share-card { display:flex; align-items:center; gap:10px; width:fit-content; max-width:100%; margin:18px auto 0; padding:4px 11px 4px 4px; border:1px solid #e1e9e5; border-radius:11px; background:#f7faf8; }
+.story-share-card > p { margin:0; color:var(--dark); font-size:11px; line-height:1.5; font-weight:600; }
+.story-share-options { position:relative; flex-shrink:0; }
+.story-share-options summary { display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; background:var(--primary); cursor:pointer; list-style:none; transition:background .2s; }
+.story-share-options summary:hover, .story-share-options[open] summary { background:var(--dark); }
+.story-share-options summary::-webkit-details-marker { display:none; }
+.story-share-options summary img { width:14px; height:14px; filter:brightness(0) invert(1); }
+.story-share-channels { position:absolute; z-index:10; inset-inline-end:0; bottom:calc(100% + 9px); display:flex; gap:5px; width:max-content; padding:6px; border:1px solid #dce6df; border-radius:11px; background:#fff; box-shadow:0 6px 18px #06313518; }
+.story-share-channels::after { content:""; position:absolute; inset-inline-end:12px; bottom:-4px; width:7px; height:7px; background:#fff; border-inline-end:1px solid #dce6df; border-bottom:1px solid #dce6df; transform:rotate(45deg); }
+.story-share-channels a { display:grid; place-items:center; width:32px; height:32px; padding:0; border-radius:8px; transition:transform .18s ease, box-shadow .18s ease; }
+.story-share-channels svg { width:17px; height:17px; }
+.story-share-channels [data-story-channel="whatsapp"] { background:#e6f5eb; color:#168345; }
+.story-share-channels [data-story-channel="twitter"] { background:#152f31; color:#fff; }
+.story-share-channels [data-story-channel="email"] { background:#edf2ef; color:var(--primary); }
+.story-share-channels a:hover { transform:translateY(-2px); box-shadow:0 4px 10px #06313518; }
+.story-share-options summary:focus-visible, .story-share-channels a:focus-visible { outline:2px solid var(--primary); outline-offset:3px; }
+@media (prefers-reduced-motion:no-preference) { .story-share-options[open] .story-share-channels { animation:story-share-appear .18s ease-out; } }
+@keyframes story-share-appear { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }

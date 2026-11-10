@@ -1,0 +1,105 @@
+/* صفحة الإنجازات: لون وسم النطاق، حالة عدم وجود نتائج، والترقيم */
+.ach .tag.scope-international { background: #FBF2E1; color: #8A6A2F; }
+.ach .tag.scope-local { background: #EFF7E6; color: #4C7A2E; }
+
+.empty { display: grid; justify-items: center; gap: 12px; padding: 32px 16px; text-align: center; color: var(--muted); }
+.empty[hidden] { display: none; }
+.empty p { font-size: 14px; }
+
+.pager[hidden] { display: none; }
+.pager a[aria-disabled="true"] { opacity: .35; pointer-events: none; }
+
+/* ---------- لوحة الشرف ---------- */
+.honor { margin-top: 14px; }
+.honor-card {
+  position: relative; display: block; overflow: hidden; isolation: isolate;
+  aspect-ratio: 16 / 11; min-height: 230px; border-radius: 16px; color: #fff;
+  box-shadow: 0 10px 24px rgba(6, 49, 53, .28), inset 0 0 0 1px rgba(168, 131, 68, .5);
+}
+.honor-img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; transition: transform .6s ease; }
+.honor-card::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    url("../assets/svg/watermark.svg") left -40px bottom -50px / 200px no-repeat,
+    linear-gradient(0deg, rgba(6, 49, 53, .98) 0%, rgba(6, 49, 53, .9) 42%, rgba(6, 49, 53, .45) 70%, rgba(6, 49, 53, .05) 100%);
+}
+.honor-card:hover .honor-img, .honor-card:focus-visible .honor-img { transform: scale(1.04); }
+.honor-ribbon {
+  position: absolute; top: 12px; inset-inline-start: 0; display: inline-flex; align-items: center; gap: 5px;
+  height: 26px; padding-inline: 10px 12px; border-radius: 0 999px 999px 0;
+  background: linear-gradient(90deg, #A88344, #D9B262); color: #fff; font-size: 11.5px; font-weight: 700;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+}
+[dir="rtl"] .honor-ribbon { border-radius: 999px 0 0 999px; }
+.honor-ribbon svg { width: 13px; height: 13px; fill: #fff; }
+.honor-body { position: absolute; inset-inline: 0; bottom: 0; display: grid; gap: 4px; padding: 16px; }
+.honor-kicker { display: inline-flex; align-items: center; gap: 6px; color: #E6C98A; font-size: 12px; font-weight: 700; }
+.honor-kicker img { width: 16px; height: 16px; }
+.honor-title { font-size: 18px; font-weight: 800; line-height: 1.45; text-wrap: balance; }
+.honor-meta { color: rgba(255, 255, 255, .78); font-size: 11.5px; }
+.honor-cta {
+  justify-self: start; margin-top: 6px; display: inline-flex; align-items: center; gap: 6px;
+  height: 30px; padding-inline: 14px; border-radius: 999px;
+  background: rgba(255, 255, 255, .14); border: 1px solid rgba(230, 201, 138, .6); font-size: 12px; font-weight: 700;
+}
+
+/* ---------- بطاقة الإنجاز البيضاء: ٣ في السطر، لا شيء فوق الصورة ---------- */
+.grid-2.cards-ov { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.cards-ov .ach { padding: 4px; border: 1px solid #E2E5E4; border-radius: 12px; background: #fff; box-shadow: 0 2px 5px rgba(0, 0, 0, .045); }
+.cards-ov .ach::after { content: none; background: none; }
+.cards-ov .ach-img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 9px; transition: transform .6s ease; }
+.cards-ov .ach:hover .ach-img, .cards-ov .ach:focus-within .ach-img { transform: scale(1.03); }
+.cards-ov .ach-link { z-index: 4; }
+.cards-ov .ach-body { display: flex; flex-direction: column; flex: 1; gap: 4px; padding: 7px 3px 2px; }
+.cards-ov .ach-cat {
+  align-self: flex-start; margin: 0; padding: 1px 8px; border-radius: 999px;
+  background: #FBF2E1; color: #8A6A2F; font-size: 9.5px; font-weight: 700; line-height: 1.6;
+}
+.cards-ov .ach h3 {
+  margin: 0; color: #1B1E24; font-size: 11px; font-weight: 700; line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cards-ov .ach-meta {
+  margin-top: auto; padding-top: 4px; border-top: 1px solid #EEF1F0;
+  color: var(--muted); font-size: 9.5px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cards-ov .ach-meta span { display: none; }
+.cards-ov .ach .desc { display: none; }
+/* إطار ذهبي رفيع ثابت (في الحشوة حول الصورة، لا يغطيها) */
+.cards-ov .ach-img {
+  padding: 1px;
+  /* طبقة فاتحة خلف الصورة (للصور الشفافة) + الذهبي للإطار فقط */
+  background: linear-gradient(#EEF3F3, #EEF3F3) content-box, #C9A35C padding-box;
+  box-shadow: 0 2px 6px rgba(168, 131, 68, .2);
+}
+
+/* البطاقة العريضة: الصورة على جانب والنص على الجانب الآخر */
+.cards-ov .ach.wide { grid-column: 1 / -1; flex-direction: row; gap: 10px; padding: 5px; }
+.cards-ov .ach.wide .ach-img { flex: 0 0 46%; width: 46%; aspect-ratio: 4 / 3.4; }
+.cards-ov .ach.wide .ach-body { padding: 4px 2px 2px; gap: 5px; }
+.cards-ov .ach.wide .ach-cat { font-size: 10.5px; }
+.cards-ov .ach.wide h3 { font-size: 14px; -webkit-line-clamp: 2; }
+.cards-ov .ach.wide .desc {
+  display: -webkit-box; margin: 0; color: var(--muted); font-size: 10.5px; line-height: 1.7;
+  -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cards-ov .ach.wide .desc { order: 1; }
+.cards-ov .ach.wide .ach-meta { order: 2; font-size: 10.5px; }
+@media (prefers-reduced-motion: reduce) { .cards-ov .ach-img { transition: none; } }
+
+@media (min-width: 700px) {
+  .grid-2.cards-ov { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .cards-ov .ach-body { padding: 10px 6px 6px; gap: 5px; }
+  .cards-ov .ach-cat { font-size: 11px; }
+  .cards-ov .ach h3 { font-size: 14px; }
+  .cards-ov .ach-meta { font-size: 11px; }
+  .cards-ov .ach-meta span { display: inline; }
+  .cards-ov .ach-meta span::after { content: " · "; }
+  .cards-ov .ach.wide .ach-img { flex-basis: 40%; width: 40%; }
+  .cards-ov .ach.wide h3 { font-size: 18px; }
+  .cards-ov .ach.wide .desc { font-size: 13px; }
+  .honor-card { aspect-ratio: 21 / 9; }
+  .honor-title { font-size: 24px; }
+  .honor-body { padding: 24px; max-width: 640px; }
+}
+@media (prefers-reduced-motion: reduce) { .honor-img { transition: none; } }
