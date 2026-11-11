@@ -83,6 +83,10 @@ services:
       ENJAZ_MCP_ENABLED: ${ENJAZ_MCP_ENABLED:-true}
       ENJAZ_MCP_ALLOWED_IPS: ${ENJAZ_MCP_ALLOWED_IPS:-}
       ENJAZ_MCP_PERSONAL_TOKENS: ${ENJAZ_MCP_PERSONAL_TOKENS:-true}
+      # OAuth signing keys: empty = generated once into the storage volume (never regenerate: it disconnects assistants)
+      PASSPORT_PRIVATE_KEY: ${PASSPORT_PRIVATE_KEY:-}
+      PASSPORT_PUBLIC_KEY: ${PASSPORT_PUBLIC_KEY:-}
+      MCP_ALLOWED_ORIGINS: ${MCP_ALLOWED_ORIGINS:-https://claude.ai,https://claude.com}
 
       # Startup: migrations + site structure (roles, pages, sections); first super admin = ADMIN_EMAIL
       RUN_MIGRATIONS: ${RUN_MIGRATIONS:-true}
