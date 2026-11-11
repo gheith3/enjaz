@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Achievement;
 use App\Models\Achiever;
+use App\Models\Article;
 use App\Models\Award;
 use App\Models\LabItem;
+use App\Models\NewsCategory;
 use App\Models\Organization;
 use App\Models\Page;
 use Illuminate\Http\Response;
@@ -42,6 +44,10 @@ class SitemapController extends Controller
         }
         LabItem::query()->published()->get(['id', 'slug', 'updated_at'])
             ->each(fn (LabItem $x) => $sitemap->add(Url::create($x->url())->setLastModificationDate($x->updated_at)));
+        NewsCategory::query()->whereHas('news', fn ($q) => $q->published())->get()
+            ->each(fn (NewsCategory $c) => $sitemap->add(Url::create($c->url())));
+        Article::query()->published()->get(['id', 'slug', 'updated_at'])
+            ->each(fn (Article $a) => $sitemap->add(Url::create($a->url())->setLastModificationDate($a->updated_at)));
 
         return response($sitemap->render(), 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
     }

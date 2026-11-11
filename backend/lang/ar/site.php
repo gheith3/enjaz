@@ -346,6 +346,22 @@ return [
         'no_people' => 'لا يوجد منجزون مرتبطون بهذا الاتحاد بعد.',
     ],
     // Strings used by the site's JavaScript (rendered as JSON in the layout, read by resources/site/js).
+    'magazine' => [
+        'kicker' => 'مجلة إنجازات', 'title' => 'المقالات', 'search' => 'ابحث في المقالات', 'search_placeholder' => 'ابحث عن مقال أو كاتب',
+        'browse' => 'تصفّح المقالات', 'note_kicker' => 'من الفكرة إلى الأثر', 'note_text' => 'لكل إنجاز|حكاية تستحق أن تُروى.',
+        'issue_n' => 'العدد :n', 'mast_title' => 'مجلة|إنجازات', 'issue_lead' => 'مقال العدد', 'quote' => 'اقتباس العدد',
+        'all' => 'كل المقالات', 'tabs' => 'تصنيف المقالات', 'all_tab' => 'الكل', 'empty' => 'لا توجد مقالات مطابقة.',
+        'most_read' => 'الأكثر قراءة', 'writers' => 'أقلام إنجازات', 'more_writers' => 'المزيد من الأقلام',
+        'minutes' => ':n دقائق', 'minutes_short' => ':n د', 'minutes_unit' => 'دقائق', 'read_time' => ':n دقائق قراءة',
+        'cta_title' => 'اكتب لمجلة إنجازات', 'cta_text' => 'شاركنا مقالاً عن تجربة أو إنجاز يستحق أن يُروى.',
+        'crumbs' => 'مسار الصفحة', 'cover_alt' => '', 'box' => 'خلاصة المقال', 'share' => 'شارك المقال', 'share_btn' => 'مشاركة',
+        'share_x' => 'مشاركة على إكس', 'copy' => 'نسخ الرابط', 'copied' => 'تم نسخ الرابط', 'about_writer' => 'عن الكاتب',
+        'writer_articles' => 'كل مقالاته', 'read_also' => 'اقرأ أيضًا', 'articles_of' => 'مقالات :name',
+        'writers_title' => 'أقلام|إنجازات', 'writers_intro' => 'أصواتٌ شابة تكتب عن الأثر، وتروي ما وراء الإنجاز.',
+        'stat_writers' => 'كاتبًا وكاتبة', 'stat_articles' => 'مقالًا منشورًا', 'stat_fields' => 'مجالات',
+        'featured' => 'قلم العدد', 'latest_article' => 'اقرأ مقاله الأخير', 'all_writers' => 'كل الأقلام', 'writers_tabs' => 'تصنيف الكتّاب',
+        'writers_cta_title' => 'كن قلماً من أقلام إنجازات',
+    ],
     'news' => [
         'back_home' => '→ العودة إلى الرئيسية', 'empty' => 'لا توجد أخبار منشورة في هذا القسم بعد.',
     ],

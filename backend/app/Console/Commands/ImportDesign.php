@@ -8,6 +8,7 @@ use App\Support\DesignImport\Steps\AchievementsStep;
 use App\Support\DesignImport\Steps\AwardsStep;
 use App\Support\DesignImport\Steps\ImportStep;
 use App\Support\DesignImport\Steps\LabStep;
+use App\Support\DesignImport\Steps\MagazineStep;
 use App\Support\DesignImport\Steps\MenusStep;
 use App\Support\DesignImport\Steps\NewsStep;
 use App\Support\DesignImport\Steps\OrganizationsStep;
@@ -39,6 +40,7 @@ class ImportDesign extends Command
         AwardsStep::class,
         LabStep::class,
         NewsStep::class,
+        MagazineStep::class,
     ];
 
     public function handle(): int

@@ -40,3 +40,4 @@ import './sections/design/award-volunteer-motion.js';
 import './sections/award-culture.js';
 import './sections/award-volunteer.js';
 import './sections/lab.js';
+import './sections/magazine.js';

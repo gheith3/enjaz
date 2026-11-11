@@ -14,6 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Behind Cloudflare Tunnel / demo-gateway: trust X-Forwarded-* from the proxy.
         $middleware->trustProxies(at: '*');
+        // Read counter sent from cached article pages (their CSRF token may be old); it only increments a number.
+        $middleware->validateCsrfTokens(except: ['magazine/*/view']);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

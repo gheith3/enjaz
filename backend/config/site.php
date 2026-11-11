@@ -52,8 +52,21 @@ return [
             ],
         ],
         'news' => ['label' => 'الأخبار', 'route' => 'news.index', 'sections' => []],
-        'magazine' => ['label' => 'المقالات', 'sections' => []],
-        'writers' => ['label' => 'أقلام إنجازات', 'sections' => []],
+        'magazine' => [
+            'label' => 'المقالات', 'route' => 'magazine.index', 'sections' => [],
+            'labels' => [
+                'note_kicker' => 'بطاقة الهيدر: السطر الصغير', 'note_text' => 'بطاقة الهيدر: النص (| لسطر جديد)',
+                'mast_title' => 'اسم المجلة (الجزء الملوّن بعد |)', 'cta_title' => 'الدعوة في آخر الصفحة: العنوان', 'cta_text' => 'الدعوة: النص',
+                'cta_url' => 'الدعوة: الرابط (فارغ = تواصل معنا)',
+            ],
+        ],
+        'writers' => [
+            'label' => 'أقلام إنجازات', 'route' => 'magazine.writers', 'sections' => [],
+            'labels' => [
+                'kicker' => 'السطر الصغير فوق العنوان', 'cta_title' => 'الدعوة في آخر الصفحة: العنوان', 'cta_text' => 'الدعوة: النص',
+                'cta_url' => 'الدعوة: الرابط (فارغ = تواصل معنا)',
+            ],
+        ],
         'about' => ['label' => 'من نحن', 'sections' => []],
         'contact' => ['label' => 'تواصل معنا', 'sections' => []],
     ],
@@ -133,6 +146,18 @@ return [
         ],
         'news' => [
             'before' => ['home-news'],
+            'after' => [],
+        ],
+        'magazine' => [
+            'before' => ['articles-page'],
+            'after' => ['articles-hero-desktop', 'articles-hero-wall', 'phone-port-articles'],
+        ],
+        'article' => [
+            'before' => ['articles-page', 'article-page'],
+            'after' => [],
+        ],
+        'writers' => [
+            'before' => ['articles-page', 'writers-page'],
             'after' => [],
         ],
         'lab-all' => [
