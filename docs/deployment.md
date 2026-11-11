@@ -27,6 +27,9 @@ ghaklab-deploy injazat                # pull, rebuild, check http://injazat-app/
 Log: `~/.local/state/ghaklab-deploy/injazat.log`. Manual fallback:
 `cd ~/live/injazat && git pull && docker compose -f docker/docker-compose.ghaklab.yml --env-file docker/.env.ghaklab up -d --build`.
 
+AI assistants (MCP): set `ENJAZ_MCP_*` in `docker/.env.ghaklab`; Passport keys are generated once into the storage
+volume unless `PASSPORT_*_KEY` are set. See [mcp.md](mcp.md).
+
 ## Rollback
 `ghaklab-deploy` rolls back by itself when the health check fails. By hand:
 `cd ~/live/injazat && git checkout <previous-commit>` and run the same `up -d --build`.

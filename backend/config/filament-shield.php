@@ -27,7 +27,7 @@ return [
             'pages' => true,
             'widgets' => true,
             'resources' => true,
-            'custom_permissions' => false,
+            'custom_permissions' => true,
         ],
     ],
 
@@ -252,7 +252,10 @@ return [
     |
     */
 
-    'custom_permissions' => [],
+    // Use:Mcp: may connect AI assistants (MCP, docs/mcp.md). Created and granted by App\Support\Site\RoleSync.
+    'custom_permissions' => [
+        'Use:Mcp' => 'ربط مساعدات الذكاء الاصطناعي (MCP)',
+    ],
 
     /*
     |--------------------------------------------------------------------------

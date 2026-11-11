@@ -26,10 +26,25 @@ if [ -z "$APP_KEY" ]; then
     export APP_KEY
 fi
 
+# Passport keys sign the AI assistant (MCP) tokens (docs/mcp.md): from PASSPORT_PRIVATE_KEY / PASSPORT_PUBLIC_KEY,
+# or generated once into the storage volume. Never regenerate them on every start: that would disconnect every assistant.
+if [ -z "$PASSPORT_PRIVATE_KEY" ] && [ ! -f /var/www/html/storage/oauth-private.key ]; then
+    echo "🔑 Generating Passport keys (saved to storage/)..."
+    for attempt in 1 2 3; do
+        php artisan passport:keys --force --no-interaction && [ -f /var/www/html/storage/oauth-private.key ] && break
+        echo "⚠️ Passport key generation failed (attempt $attempt), retrying..."
+        rm -f /var/www/html/storage/oauth-private.key /var/www/html/storage/oauth-public.key
+    done
+    [ -f /var/www/html/storage/oauth-private.key ] || echo "❌ No Passport keys: AI (MCP) connections will not work. Run 'php artisan passport:keys' in the container."
+fi
+
 echo "🔒 Setting permissions..."
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-[ -f "$APP_KEY_FILE" ] && chmod 600 "$APP_KEY_FILE"
+# league/oauth2-server refuses Passport key files unless they are 600 or 660 (every /mcp and OAuth request would fail).
+for secret in "$APP_KEY_FILE" /var/www/html/storage/oauth-private.key /var/www/html/storage/oauth-public.key; do
+    [ -f "$secret" ] && chmod 600 "$secret"
+done
 
 # Wait for the database.
 case "$DB_CONNECTION" in
@@ -53,6 +68,12 @@ esac
 if [ "$RUN_MIGRATIONS" = "true" ] || [ "$RUN_MIGRATIONS" = "seed" ]; then
     echo "🧭 Syncing site structure..."
     php artisan site:sync --no-interaction
+
+    # Passport personal access client: needed for personal access tokens of AI assistants (docs/mcp.md). Idempotent.
+    if ! php artisan tinker --execute="echo \\Illuminate\\Support\\Facades\\DB::table('oauth_clients')->where('grant_types', 'like', '%personal_access%')->where('revoked', false)->exists() ? 'yes' : '';" 2>/dev/null | grep -q yes; then
+        echo "🔑 Creating the Passport personal access client..."
+        php artisan passport:client --personal --name="Personal Access" --provider=users --no-interaction || echo "⚠️ Could not create the Passport personal access client"
+    fi
 fi
 
 echo "⚡ Optimizing..."

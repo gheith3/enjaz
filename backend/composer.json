@@ -13,6 +13,8 @@
         "filament/spatie-laravel-settings-plugin": "5.11.1",
         "laravel/framework": "^13.17",
         "laravel/horizon": "^5.46",
+        "laravel/mcp": "^1.2",
+        "laravel/passport": "^13.11",
         "laravel/tinker": "^3.0",
         "league/flysystem-aws-s3-v3": "^3.0",
         "spatie/laravel-activitylog": "4.12.3",

@@ -4,8 +4,11 @@ namespace App\Providers;
 
 use App\Policies\ActivityPolicy;
 use App\Policies\RolePolicy;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Activitylog\Models\Activity;
@@ -36,6 +39,10 @@ class AppServiceProvider extends ServiceProvider
         // Shield policies for models outside app/Models.
         Gate::policy(Activity::class, ActivityPolicy::class);
         Gate::policy(Role::class, RolePolicy::class);
+
+        // AI assistants (MCP) make bursts of calls: a generous but finite bucket per user.
+        RateLimiter::for('mcp', fn (Request $request): Limit => Limit::perMinute(120)
+            ->by('mcp:'.($request->user()?->getAuthIdentifier() ?? $request->ip())));
 
         // Settings appear on every page (header, footer, meta): clear the page cache when they change.
         Event::listen(SettingsSaved::class, function (): void {
