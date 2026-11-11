@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin;
 
 use App\Filament\Resources\LabItems\LabItemResource;
+use App\Filament\Resources\NewsCategories\NewsCategoryResource;
 use App\Filament\Resources\Pages\PageResource;
 use App\Models\LabItem;
 use App\Models\Page;
@@ -24,6 +25,7 @@ class LabDashboardTest extends TestCase
             LabItemResource::getUrl('edit', ['record' => $pub])] as $url) {
             $this->get($url)->assertOk();
         }
+        $this->get(NewsCategoryResource::getUrl('index'))->assertOk();
         $this->get(PageResource::getUrl('edit', ['record' => Page::query()->where('key', 'lab')->first()]))->assertOk()->assertSee('قاعة العرض');
     }
 }

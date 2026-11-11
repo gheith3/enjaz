@@ -22,6 +22,7 @@ class NewsTable
                 SpatieMediaLibraryImageColumn::make('cover')->collection('cover')->conversion('card')->label('')->height(40)->width(64),
                 TextColumn::make('title')->label('العنوان')->searchable(query: TranslatableColumn::search('title'))->limit(60)->wrap(),
                 TextColumn::make('organization.name')->label('المؤسسة')->toggleable(),
+                TextColumn::make('category.name')->label('القسم')->toggleable(),
                 TextColumn::make('kind')->label('النوع')->formatStateUsing(fn (string $state) => News::KINDS[$state] ?? $state)->badge(),
                 TextColumn::make('happened_at')->label('التاريخ')->date('Y-m-d')->sortable(),
                 ContentTable::publishedColumn(),
@@ -29,6 +30,8 @@ class NewsTable
             ->filters([
                 SelectFilter::make('organization_id')->label('المؤسسة')->relationship('organization', 'name')
                     ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)->searchable()->preload(),
+                SelectFilter::make('news_category_id')->label('القسم')->relationship('category', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)->preload(),
                 SelectFilter::make('kind')->label('النوع')->options(News::KINDS),
                 ...ContentTable::filters(),
             ])

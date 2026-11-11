@@ -18,7 +18,7 @@ use Spatie\Translatable\HasTranslations;
 
 /**
  * News and organization achievements (design org-news.html). Images: cover, gallery.
- * Phase 4 adds categories for the public news section.
+ * The news section (news.html) lists them by category; show_in_himam / show_on_home place them on other pages.
  */
 class News extends Model implements HasMedia
 {
@@ -27,7 +27,7 @@ class News extends Model implements HasMedia
     public const KINDS = ['news' => 'خبر', 'achievement' => 'إنجاز'];
 
     protected $fillable = [
-        'slug', 'organization_id', 'kind', 'tag', 'title', 'dek', 'summary', 'body', 'facts', 'cover_caption', 'happened_at',
+        'slug', 'organization_id', 'news_category_id', 'kind', 'tag', 'title', 'dek', 'summary', 'body', 'facts', 'cover_caption', 'show_in_himam', 'show_on_home', 'happened_at',
         'is_published', 'published_at', 'sort_order',
     ];
 
@@ -36,7 +36,7 @@ class News extends Model implements HasMedia
 
     protected function casts(): array
     {
-        return ['facts' => 'array', 'happened_at' => 'date', 'sort_order' => 'integer'];
+        return ['facts' => 'array', 'happened_at' => 'date', 'show_in_himam' => 'boolean', 'show_on_home' => 'boolean', 'sort_order' => 'integer'];
     }
 
     public function registerMediaCollections(): void
@@ -53,6 +53,17 @@ class News extends Model implements HasMedia
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(NewsCategory::class, 'news_category_id');
+    }
+
+    /** Anchor of the item on the news page (news.html#news-water). */
+    public function anchor(): string
+    {
+        return 'news-'.$this->slug;
     }
 
     public function galleryMedia(): MorphMany
@@ -72,8 +83,11 @@ class News extends Model implements HasMedia
             ->filter(fn ($f) => $f['label'] !== '' || $f['value'] !== '')->values()->all();
     }
 
+    /** Organization news have their own page (org-news.html); the others are read in full on the news page. */
     public function url(): string
     {
-        return route('news.show', $this);
+        return $this->organization_id || ! $this->news_category_id
+            ? route('news.show', $this)
+            : route('news.index', ['category' => $this->category?->slug]).'#'.$this->anchor();
     }
 }

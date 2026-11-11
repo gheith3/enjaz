@@ -39,6 +39,7 @@ Route::middleware(CacheResponse::class)->group(function () {
     Route::get('/lab/{segment}', [LabController::class, 'list'])->whereIn('segment', ['inventions', 'publications'])->name('lab.list');
     Route::get('/lab/{item:slug}', [LabController::class, 'show'])->name('lab.show');
 
+    Route::get('/news', [NewsController::class, 'index'])->name('news.index');
     Route::get('/news/{news:slug}', [NewsController::class, 'show'])->name('news.show');
 });
 

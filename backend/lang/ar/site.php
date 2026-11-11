@@ -346,6 +346,9 @@ return [
         'no_people' => 'لا يوجد منجزون مرتبطون بهذا الاتحاد بعد.',
     ],
     // Strings used by the site's JavaScript (rendered as JSON in the layout, read by resources/site/js).
+    'news' => [
+        'back_home' => '→ العودة إلى الرئيسية', 'empty' => 'لا توجد أخبار منشورة في هذا القسم بعد.',
+    ],
     'lab' => [
         'crumb' => 'المختبر', 'kicker' => 'القسم العلمي', 'title' => 'المختبر', 'sections' => 'إنجازات المختبر',
         'subtitle' => 'الاختراعات والابتكارات والمنشورات العلمية',

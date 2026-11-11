@@ -8,6 +8,7 @@ use App\Models\Award;
 use App\Models\LabItem;
 use App\Models\MenuItem;
 use App\Models\News;
+use App\Models\NewsCategory;
 use App\Models\Organization;
 use App\Models\Page;
 use App\Models\Redirect;
@@ -120,6 +121,17 @@ class ImportDesignTest extends TestCase
         $lab = Page::query()->where('key', 'lab')->first();
         $this->assertSame('62', $lab->label('stat_inventions'));
         $this->assertSame(3, $lab->getMedia('hero')->count());
+    }
+
+    public function test_it_imports_the_news_section_as_drafts(): void
+    {
+        $this->artisan('injazat:import-design', ['--only' => ['news']])->assertSuccessful();
+
+        $science = NewsCategory::query()->where('slug', 'science')->firstOrFail();
+        $this->assertSame('الابتكارات والاختراعات والمنشورات العلمية', $science->name);
+        $this->assertSame(3, $science->news()->count());
+        $this->assertSame(0, $science->news()->where('is_published', true)->count());
+        $this->assertTrue(News::query()->where('slug', 'water')->first()->hasMedia('cover'));
     }
 
     public function test_running_it_again_keeps_editors_changes(): void

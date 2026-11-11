@@ -11,6 +11,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
@@ -31,11 +32,16 @@ class NewsForm
                     Select::make('organization_id')->label('المؤسسة')->relationship('organization', 'name')
                         ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)->preload()->searchable()
                         ->default(fn () => request()->integer('organization') ?: null),
+                    Select::make('news_category_id')->label('قسم الأخبار')->relationship('category', 'name')
+                        ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)->preload()
+                        ->helperText('أخبار القسم تُقرأ كاملة في صفحة الأخبار. أخبار المؤسسات لها صفحة خاصة.'),
                     Select::make('kind')->label('النوع')->options(News::KINDS)->required()->default('news'),
                     Translatable::text('tag', 'الوسم (مثل: شراكة، زيارة)', required: false),
                     DatePicker::make('happened_at')->label('التاريخ')->native(false),
                     Translatable::textarea('dek', 'السطر التعريفي تحت العنوان', rows: 2),
                     Translatable::textarea('summary', 'الملخص (في القوائم)', rows: 2),
+                    Toggle::make('show_in_himam')->label('يظهر في «همم بلا حدود» (صفحة ملهمون من عُمان)'),
+                    Toggle::make('show_on_home')->label('يظهر في الصفحة الرئيسية'),
                     ...Publishing::fields(),
                 ]),
                 Tab::make('النص')->icon('heroicon-o-document-text')->schema([
@@ -48,7 +54,7 @@ class NewsForm
                 ]),
                 Tab::make('الصورة')->icon('heroicon-o-photo')->schema([
                     MediaSlot::make('cover', 'صورة الخبر'),
-                    Translatable::text('cover_caption', 'تعليق / مصدر الصورة', required: false),
+                    Translatable::text('cover_caption', 'تعليق / مصدر الصورة (في صفحة الأخبار يظهر ملاحظةً تحت النص)', required: false),
                 ]),
             ]),
         ]);

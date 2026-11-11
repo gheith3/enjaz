@@ -184,6 +184,9 @@ return [
         'all_people' => 'All federation achievers',
         'no_people' => 'No achievers linked to this federation yet.',
     ],
+    'news' => [
+        'back_home' => '← Back to home', 'empty' => 'No news in this section yet.',
+    ],
     'lab' => [
         'crumb' => 'The Lab', 'kicker' => 'Science', 'title' => 'The Lab', 'sections' => 'Lab achievements',
         'subtitle' => 'Inventions, innovations and scientific publications',

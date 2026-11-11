@@ -51,7 +51,7 @@ return [
                 'inventions_intro' => 'صفحة كل الابتكارات: النص (:count للعدد)', 'publications_intro' => 'صفحة كل المنشورات: النص (:count للعدد)',
             ],
         ],
-        'news' => ['label' => 'الأخبار', 'sections' => []],
+        'news' => ['label' => 'الأخبار', 'route' => 'news.index', 'sections' => []],
         'magazine' => ['label' => 'المقالات', 'sections' => []],
         'writers' => ['label' => 'أقلام إنجازات', 'sections' => []],
         'about' => ['label' => 'من نحن', 'sections' => []],
@@ -130,6 +130,10 @@ return [
         'lab' => [
             'before' => ['science-page', 'lab-v2'],
             'after' => ['lab-hero-desktop', 'lab-sections-desktop', 'lab-showcase', 'phone-port-lab'],
+        ],
+        'news' => [
+            'before' => ['home-news'],
+            'after' => [],
         ],
         'lab-all' => [
             'before' => ['science-page', 'lab-v2', 'lab-all-desktop'],
