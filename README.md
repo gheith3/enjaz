@@ -14,17 +14,16 @@ Laravel project on the **ghaklab** stack (from the `ghaklab-template-laravel` te
 backend/   Laravel app (+ Dockerfile and docker/ for the production image)
 docs/      project documents (start with docs/README.md)
 docker/    docker-compose.local.yml  - full stack in Docker on any machine
-           docker-compose.ghaklab.yml - LIVE on ghaklab behind the Cloudflare Tunnel
 scripts/   init.sh (rename the template, run once)
 ```
 
-## Two copies on ghaklab
-| Copy | Folder | Runs as | URL |
-|---|---|---|---|
-| demo (dev) | `~/projects/injazat` | Flock site `injazat.test` | https://demo.fahim.om (`demo injazat`) |
-| live | `~/live/injazat` | `docker/docker-compose.ghaklab.yml` | e.g. https://injazat.fahim.om |
+## Dev and production
+| Copy | Where | URL |
+|---|---|---|
+| dev | `~/projects/injazat` on ghaklab (Flock site `injazat.test`) | https://demo.fahim.om (`demo injazat`) |
+| production | owner's server, Portainer stack `docker/docker-compose.prod.yml` | https://injazat.om |
 
-Work, commit and push in the demo copy; the live copy only pulls and rebuilds. See `docs/deployment.md`.
+Work on a branch, PR to gheith3/enjaz, merge when CI is green, then tag `v*` to release. See `docs/deployment.md`.
 
 ## Local dev (Flock, on ghaklab)
 ```bash
