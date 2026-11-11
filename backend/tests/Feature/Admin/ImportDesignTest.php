@@ -4,13 +4,19 @@ namespace Tests\Feature\Admin;
 
 use App\Models\Achievement;
 use App\Models\Achiever;
+use App\Models\Article;
+use App\Models\ArticleCategory;
 use App\Models\Award;
+use App\Models\Issue;
+use App\Models\LabItem;
 use App\Models\MenuItem;
 use App\Models\News;
+use App\Models\NewsCategory;
 use App\Models\Organization;
 use App\Models\Page;
 use App\Models\Redirect;
 use App\Models\SocialLink;
+use App\Models\Writer;
 use App\Settings\GeneralSettings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
@@ -101,6 +107,53 @@ class ImportDesignTest extends TestCase
         $this->assertSame(7, $bilarab->winners()->count());
         $this->assertSame(2, $bilarab->features()->count());
         $this->assertSame('/awards/culture', Redirect::query()->where('from_path', '/award.html')->value('to_path'));
+    }
+
+    public function test_it_imports_the_lab(): void
+    {
+        $this->artisan('injazat:import-design', ['--only' => ['organizations', 'lab']])->assertSuccessful();
+
+        $this->assertSame(5, LabItem::query()->where('kind', 'invention')->count());
+        $this->assertSame(4, LabItem::query()->where('kind', 'publication')->count());
+        $sense = LabItem::query()->where('slug', 'senseglass')->firstOrFail();
+        $this->assertSame('جامعة صحار', $sense->organization?->name);
+        $this->assertSame('ITEX ماليزيا', $sense->event);
+        $this->assertSame('2026-05-01', $sense->happened_at->toDateString());
+        $this->assertSame(4, $sense->facts()->count());
+        $this->assertStringContainsString('<figure>', LabItem::query()->where('slug', 'etienne')->first()->body);
+        $this->assertTrue(LabItem::query()->where('slug', 'carbon-ai')->first()->cover_is_illustrative);
+        $lab = Page::query()->where('key', 'lab')->first();
+        $this->assertSame('62', $lab->label('stat_inventions'));
+        $this->assertSame(3, $lab->getMedia('hero')->count());
+    }
+
+    public function test_it_imports_the_news_section_as_drafts(): void
+    {
+        $this->artisan('injazat:import-design', ['--only' => ['news']])->assertSuccessful();
+
+        $science = NewsCategory::query()->where('slug', 'science')->firstOrFail();
+        $this->assertSame('الابتكارات والاختراعات والمنشورات العلمية', $science->name);
+        $this->assertSame(3, $science->news()->count());
+        $this->assertSame(0, $science->news()->where('is_published', true)->count());
+        $this->assertTrue(News::query()->where('slug', 'water')->first()->hasMedia('cover'));
+    }
+
+    public function test_it_imports_the_magazine_as_drafts(): void
+    {
+        $this->artisan('injazat:import-design', ['--only' => ['magazine']])->assertSuccessful();
+
+        $this->assertSame(8, Writer::query()->count());
+        $this->assertSame(12, Article::query()->count());
+        $this->assertSame(0, Article::query()->where('is_published', true)->count());
+        $issue = Issue::query()->where('number', 12)->firstOrFail();
+        $lead = $issue->leadArticle;
+        $this->assertSame('ما الذي يبقى بعد انتهاء التصفيق؟', $lead->title);
+        $this->assertSame('بدر العلوي', $lead->writer->name);
+        $this->assertCount(3, $lead->boxItems());
+        $this->assertStringContainsString('<h2>من الميدالية إلى المهارة</h2>', $lead->body);
+        $this->assertTrue(Writer::query()->where('slug', 'badr')->first()->is_featured);
+        $this->assertSame(7, Article::query()->where('slug', 'patent')->first()->read_minutes);
+        $this->assertSame(5, ArticleCategory::query()->count());
     }
 
     public function test_running_it_again_keeps_editors_changes(): void

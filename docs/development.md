@@ -79,6 +79,13 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
 | `/news/{slug}` | `site/pages/news` | org-news.html |
 | `/awards` | `site/pages/awards` (awards with a card style) | awards.html |
 | `/awards/{slug}` | `site/awards/{culture,volunteer,architecture}` (the award's kind) | award / award-volunteer / bilarab-award.html |
+| `/lab` | `site/lab/index` (showcase, publications table, phone tabs) | science.html |
+| `/lab/inventions`, `/lab/publications` | `livewire/site/lab-index` (`LabIndex`: medal / exhibition / field / year, order) | lab-all.html |
+| `/lab/{slug}` | `site/lab/show` (invention story or publication with citation) | lab-item.html |
+| `/news?category={slug}` | `site/pages/news-index` (news of a category, read in full, `#news-{slug}` anchors) | news.html |
+| `/magazine` | `site/magazine/index` + `livewire/site/magazine-index` (tabs; the hero search sends `mag-search`) | articles.html |
+| `/magazine/{slug}` | `site/magazine/show` (POST `/magazine/{slug}/view` counts reads for «الأكثر قراءة») | article.html |
+| `/writers` | `site/magazine/writers` | writers.html |
 
 - Shared cards: `components/site/cards/achievement` (variants grid / row / profile) and `cards/person`.
 - Design scripts that only animate or handle UI are ported almost verbatim to `resources/site/js/sections/design/`
@@ -96,6 +103,15 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
   goals/who/path/criteria are polymorphic `facts`; extra sections are `award_features`; small design texts live in
   `awards.extra` ({key: {ar, en}}, edited in the dashboard tab «نصوص التصميم»). Interactive parts (medal filter and
   preview, volunteer tabs and winner card) read a winners JSON printed by the view; all text is in the HTML.
+- Fixed pages keep their small design texts in `pages.extra` ({key: {ar, en}}); the keys and their dashboard labels
+  are listed per page in `config/site.php` (`labels`) and appear in the page form under «نصوص التصميم». Read them with
+  `$page->label('key', default)`. Pages with the `cutout` feature have a transparent hero image slot.
+- Lab items: `lab_items` (kind invention | publication); the card / filter fields are columns, the story is rich text,
+  «بطاقة الابتكار» is polymorphic `facts` (group `facts`), sources are `sources`.
+- News: category news (`news_category_id`) are read on `/news`; organization news keep `/news/{slug}`. `News::url()` picks.
+- Magazine: `article_categories` (tabs), `writers`, `issues` (newest published one = current: mast, lead article,
+  quote), `articles` (read minutes computed on save; the pull quote goes after the first paragraph of the first section,
+  the summary box before the second heading, the last paragraph gets the ornament).
 - A page under another menu section sets `request()->attributes->set('menu_section', '/universities')` (menu highlight).
 - Lists filter on the server; search ignores hamza, ta marbuta, alif maqsura and diacritics (`ArabicSearch`), counts
   use the design's Arabic agreement (`ArabicCount`), dates the design's format (`ArabicDate`).

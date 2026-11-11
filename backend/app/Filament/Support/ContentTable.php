@@ -38,7 +38,7 @@ class ContentTable
     public static function openOnSite(string $route): Action
     {
         return Action::make('open')->label('عرض')->icon('heroicon-o-arrow-top-right-on-square')->color('gray')
-            ->url(fn (Model $record) => Route::has($route) ? route($route, $record) : null, shouldOpenInNewTab: true)
+            ->url(fn (Model $record) => method_exists($record, 'url') ? $record->url() : (Route::has($route) ? route($route, $record) : null), shouldOpenInNewTab: true)
             ->visible(fn (Model $record) => Route::has($route) && method_exists($record, 'isLive') && $record->isLive());
     }
 

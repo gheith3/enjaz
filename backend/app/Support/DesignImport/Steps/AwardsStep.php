@@ -73,7 +73,7 @@ class AwardsStep implements ImportStep
     {
         [$this->design, $this->report, $this->force] = [$design, $report, $force];
         $this->achievers = Achiever::query()->get(['id', 'name'])
-            ->mapWithKeys(fn (Achiever $a) => [self::nameKey($a->getTranslation('name', 'ar')) => $a->id])->all();
+            ->mapWithKeys(fn (Achiever $a) => [ArabicSearch::personKey($a->getTranslation('name', 'ar')) => $a->id])->all();
 
         $done = array_filter([$this->culture(), $this->volunteer(), $this->bilarab()]);
         $this->listPage();
@@ -406,15 +406,7 @@ class AwardsStep implements ImportStep
 
     private function achiever(string $name): ?int
     {
-        return $this->achievers[self::nameKey($name)] ?? null;
-    }
-
-    /** Name without titles and the father's name ("د. جوخة بنت محمد الحارثية" = "جوخة الحارثية"). */
-    private static function nameKey(string $name): string
-    {
-        $name = preg_replace(['/^(د|م|أ)\.\s*/u', '/\s(بن|بنت)\s+\S+/u'], '', trim($name));
-
-        return ArabicSearch::normalize((string) $name);
+        return $this->achievers[ArabicSearch::personKey($name)] ?? null;
     }
 
     private function text(Crawler $root, string $selector): string

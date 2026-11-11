@@ -7,3 +7,9 @@
 
 /* Awards: items hidden by the filters (the design re-rendered the lists; here they are hidden). */
 [data-award] .aw-tl [hidden] { display: none !important; }
+
+/* Lab story: images in the text (rich editor / import write a plain <figure>) look like the design's .li-fig. */
+.lb-item .li-body figure { margin: 16px calc(-1 * var(--gutter, 16px)); }
+.lb-item .li-body figure img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; }
+.lb-item .li-body figcaption { padding: 7px var(--gutter, 16px) 0; color: #6B7B7C; font-size: 11.5px; line-height: 1.7; }
+@media (min-width: 768px) { .lb-item .li-body figure { margin-inline: 0; } .lb-item .li-body figure img { border-radius: 16px; } }

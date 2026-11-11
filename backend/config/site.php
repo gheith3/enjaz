@@ -38,10 +38,35 @@ return [
         'awards' => ['label' => 'جوائز السلطان قابوس', 'route' => 'awards.index', 'sections' => []],
         'organizations' => ['label' => 'المؤسسات', 'route' => 'organizations.index', 'features' => ['hero_slides', 'letter'], 'sections' => []],
         'universities' => ['label' => 'الجامعات والكليات', 'route' => 'universities.index', 'sections' => []],
-        'lab' => ['label' => 'الاختراعات والابتكارات والمنشورات العلمية', 'sections' => []],
-        'news' => ['label' => 'الأخبار', 'sections' => []],
-        'magazine' => ['label' => 'المقالات', 'sections' => []],
-        'writers' => ['label' => 'أقلام إنجازات', 'sections' => []],
+        'lab' => [
+            'label' => 'الاختراعات والابتكارات والمنشورات العلمية', 'route' => 'lab.index', 'features' => ['cutout', 'hero_slides'], 'sections' => [],
+            'labels' => [
+                'crumb' => 'الاسم في الشريط العلوي', 'subtitle' => 'السطر العريض تحت العنوان',
+                'stat_inventions' => 'الرقم الأول (فارغ = عدد الابتكارات المنشورة)', 'stat_inventions_label' => 'وصف الرقم الأول',
+                'stat_science' => 'الرقم الثاني (فارغ = عدد كل عناصر المختبر)', 'stat_science_label' => 'وصف الرقم الثاني',
+                'stats_note' => 'مصدر الأرقام (تحت الأرقام)',
+                'showcase_tag' => 'عنوان صغير: قاعة العرض', 'showcase_title' => 'عنوان قسم الابتكارات',
+                'table_tag' => 'عنوان صغير: جدول المعرفة', 'table_title' => 'عنوان قسم المنشورات',
+                'cta_title' => 'الدعوة في آخر الصفحة: العنوان', 'cta_text' => 'الدعوة: النص',
+                'inventions_intro' => 'صفحة كل الابتكارات: النص (:count للعدد)', 'publications_intro' => 'صفحة كل المنشورات: النص (:count للعدد)',
+            ],
+        ],
+        'news' => ['label' => 'الأخبار', 'route' => 'news.index', 'sections' => []],
+        'magazine' => [
+            'label' => 'المقالات', 'route' => 'magazine.index', 'sections' => [],
+            'labels' => [
+                'note_kicker' => 'بطاقة الهيدر: السطر الصغير', 'note_text' => 'بطاقة الهيدر: النص (| لسطر جديد)',
+                'mast_title' => 'اسم المجلة (الجزء الملوّن بعد |)', 'cta_title' => 'الدعوة في آخر الصفحة: العنوان', 'cta_text' => 'الدعوة: النص',
+                'cta_url' => 'الدعوة: الرابط (فارغ = تواصل معنا)',
+            ],
+        ],
+        'writers' => [
+            'label' => 'أقلام إنجازات', 'route' => 'magazine.writers', 'sections' => [],
+            'labels' => [
+                'kicker' => 'السطر الصغير فوق العنوان', 'cta_title' => 'الدعوة في آخر الصفحة: العنوان', 'cta_text' => 'الدعوة: النص',
+                'cta_url' => 'الدعوة: الرابط (فارغ = تواصل معنا)',
+            ],
+        ],
         'about' => ['label' => 'من نحن', 'sections' => []],
         'contact' => ['label' => 'تواصل معنا', 'sections' => []],
     ],
@@ -114,6 +139,34 @@ return [
         'achievement' => [
             'before' => ['achievement-detail', 'profile-idcard', 'profile-enhance', 'achievement-enhance'],
             'after' => [],
+        ],
+        'lab' => [
+            'before' => ['science-page', 'lab-v2'],
+            'after' => ['lab-hero-desktop', 'lab-sections-desktop', 'lab-showcase', 'phone-port-lab'],
+        ],
+        'news' => [
+            'before' => ['home-news'],
+            'after' => [],
+        ],
+        'magazine' => [
+            'before' => ['articles-page'],
+            'after' => ['articles-hero-desktop', 'articles-hero-wall', 'phone-port-articles'],
+        ],
+        'article' => [
+            'before' => ['articles-page', 'article-page'],
+            'after' => [],
+        ],
+        'writers' => [
+            'before' => ['articles-page', 'writers-page'],
+            'after' => [],
+        ],
+        'lab-all' => [
+            'before' => ['science-page', 'lab-v2', 'lab-all-desktop'],
+            'after' => ['phone-port-lab', 'phone-port-lab-all'],
+        ],
+        'lab-item' => [
+            'before' => ['science-page', 'lab-v2'],
+            'after' => ['phone-port-lab'],
         ],
         'home' => [
             'before' => ['home-banner', 'home-achievers', 'home-stats-gold', 'home-latest', 'home-aisha', 'home-awards', 'home-inspiring', 'home-articles', 'home-science', 'home-partners', 'home-sports', 'home-upgrade', 'home-hero-cinema'],
