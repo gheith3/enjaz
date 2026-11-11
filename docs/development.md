@@ -131,6 +131,13 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
 - Lists filter on the server; search ignores hamza, ta marbuta, alif maqsura and diacritics (`ArabicSearch`), counts
   use the design's Arabic agreement (`ArabicCount`), dates the design's format (`ArabicDate`).
 
+## Tests
+
+- `php artisan test --parallel --compact` (paratest; about 2 minutes). Each process gets its own database
+  (`injazat_test_N`) and media folder; image conversions are skipped in tests (`MEDIA_QUEUE_CONNECTION=null`).
+- Design import tests live in `tests/Feature/Import`, one class per area, each importing only the steps it checks
+  (a full import takes minutes). Keep new ones that way so the parallel runner can spread them.
+
 ## Database rules learned the hard way
 
 - `jsonb` does not keep object key order (keys are sorted by length): never rely on the order of keys in a jsonb
@@ -157,7 +164,7 @@ php artisan site:sync                       # roles/permissions, pages/sections,
 php artisan injazat:import-design           # fill from /design (only empty values; --force overwrites; --only=menus)
 node ../scripts/design-data-to-json.mjs     # after the design's JS data files change
 npm run build                               # no hot reload through Flock/demo
-php artisan test --compact && vendor/bin/pint --dirty
+php artisan test --parallel --compact && vendor/bin/pint --dirty
 ```
 
 Visual check against the design (serve the design on a local port; lab-shot uses the host network):

@@ -33,6 +33,7 @@
         <env name="TELESCOPE_ENABLED" value="false"/>
         <env name="RESPONSE_CACHE_ENABLED" value="false"/>
         <env name="MEDIA_DISK" value="media_test"/>
+        <env name="MEDIA_QUEUE_CONNECTION" value="null"/>
         <env name="FILESYSTEM_DISK" value="local"/>
         <env name="NIGHTWATCH_ENABLED" value="false"/>
     </php>

@@ -50,7 +50,8 @@ return [
         // Tests only (phpunit.xml MEDIA_DISK=media_test): media library writes here instead of OneBox.
         'media_test' => [
             'driver' => 'local',
-            'root' => storage_path('framework/testing/media'),
+            // One folder per parallel test process (TEST_TOKEN), as each process has its own database and media ids.
+            'root' => storage_path('framework/testing/media'.(env('TEST_TOKEN') ? '-'.env('TEST_TOKEN') : '')),
             'url' => '/media-test',
             'visibility' => 'public',
             'throw' => false,
