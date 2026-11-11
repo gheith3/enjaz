@@ -1,0 +1,161 @@
+/*
+ * Dashboard look in the website's mood: green sidebar (design tokens of resources/site/css/main.css), mint page
+ * background, green login page. Plain CSS loaded after Filament's (unlayered, so it wins over Filament's layers).
+ */
+:root {
+    --inj-primary: #096770;
+    --inj-teal: #0C7F89;
+    --inj-green: #91C46C;
+    --inj-gold: #A88344;
+    --inj-bg: #EDF4F3;
+    --inj-side: linear-gradient(180deg, #0C7F89 0%, #096770 55%, #07545C 100%);
+    --inj-on-side: rgb(255 255 255 / .9);
+    --inj-on-side-dim: rgb(255 255 255 / .62);
+}
+
+.dark {
+    --inj-bg: #0B1517;
+    --inj-side: linear-gradient(180deg, #0A5F67 0%, #07474E 100%);
+}
+
+.fi-body {
+    background: var(--inj-bg);
+}
+
+/* ---------- Sidebar ---------- */
+.fi-main-sidebar {
+    background: var(--inj-side);
+    color: var(--inj-on-side);
+}
+
+@media (min-width: 1024px) {
+    .fi-main-sidebar {
+        top: 12px;
+        height: calc(100dvh - 24px);
+        margin-block: 12px;
+        margin-inline-start: 12px;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px -12px rgb(9 103 112 / .45);
+    }
+}
+
+.fi-main-sidebar .fi-sidebar-header {
+    height: auto;
+    min-height: 5.5rem;
+    padding-block: 1.25rem .5rem;
+}
+
+.fi-main-sidebar .fi-logo {
+    color: #fff;
+}
+
+.fi-main-sidebar .fi-logo svg {
+    height: 100%;
+    width: auto;
+}
+
+/* group titles */
+.fi-main-sidebar .fi-sidebar-group-label {
+    color: var(--inj-on-side-dim);
+    font-size: .75rem;
+    letter-spacing: 0;
+}
+
+.fi-main-sidebar .fi-sidebar-group-btn .fi-icon,
+.fi-main-sidebar .fi-sidebar-group-dropdown-trigger-btn .fi-icon,
+.fi-main-sidebar .fi-sidebar-item-btn > .fi-icon,
+.fi-main-sidebar .fi-icon-btn .fi-icon,
+.fi-main-sidebar .fi-sidebar-database-notifications-btn > .fi-icon {
+    color: var(--inj-on-side-dim);
+}
+
+/* items */
+.fi-main-sidebar .fi-sidebar-item-label,
+.fi-main-sidebar .fi-sidebar-database-notifications-btn-label,
+.fi-main-sidebar .fi-user-menu-trigger-text {
+    color: var(--inj-on-side);
+}
+
+.fi-main-sidebar .fi-sidebar-item-has-url > .fi-sidebar-item-btn:hover,
+.fi-main-sidebar .fi-sidebar-item-has-url > .fi-sidebar-item-btn:focus-visible,
+.fi-main-sidebar .fi-sidebar-group-dropdown-trigger-btn:hover,
+.fi-main-sidebar .fi-sidebar-database-notifications-btn:hover,
+.fi-main-sidebar .fi-user-menu-trigger:hover,
+.fi-main-sidebar .fi-icon-btn:hover {
+    background: rgb(255 255 255 / .1);
+}
+
+.fi-main-sidebar .fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+    background: #fff;
+    box-shadow: 0 4px 14px -6px rgb(0 0 0 / .35);
+}
+
+.fi-main-sidebar .fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-icon,
+.fi-main-sidebar .fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-label {
+    color: var(--inj-primary);
+    font-weight: 700;
+}
+
+.fi-main-sidebar .fi-sidebar-item.fi-active > .fi-sidebar-item-btn .fi-sidebar-item-grouped-border-part {
+    background: var(--inj-green);
+}
+
+.fi-main-sidebar .fi-sidebar-item-grouped-border-part {
+    background: rgb(255 255 255 / .45);
+}
+
+.fi-main-sidebar .fi-sidebar-item-grouped-border-part-not-first,
+.fi-main-sidebar .fi-sidebar-item-grouped-border-part-not-last {
+    background: rgb(255 255 255 / .22);
+}
+
+/* user menu at the bottom */
+.fi-main-sidebar .fi-sidebar-footer {
+    border-top-color: rgb(255 255 255 / .16);
+}
+
+.fi-main-sidebar .fi-user-menu-trigger-text * {
+    color: inherit;
+}
+
+/* scrollbar */
+.fi-main-sidebar .fi-sidebar-nav {
+    scrollbar-color: rgb(255 255 255 / .25) transparent;
+    scrollbar-width: thin;
+}
+
+/* ---------- Content ---------- */
+.fi-main .fi-section,
+.fi-main .fi-ta-ctn,
+.fi-main .fi-wi-stats-overview-stat {
+    border-radius: 18px;
+}
+
+.fi-header-heading {
+    color: var(--inj-primary);
+}
+
+.dark .fi-header-heading {
+    color: #fff;
+}
+
+/* ---------- Login and other simple pages ---------- */
+.fi-simple-layout {
+    background:
+        radial-gradient(circle at 15% 10%, rgb(145 196 108 / .28), transparent 40%),
+        radial-gradient(circle at 85% 90%, rgb(168 131 68 / .22), transparent 45%),
+        var(--inj-side);
+}
+
+.fi-simple-main {
+    border-radius: 24px;
+    box-shadow: 0 24px 60px -20px rgb(0 0 0 / .45);
+}
+
+.fi-simple-layout .fi-logo {
+    color: var(--inj-primary);
+}
+
+.dark .fi-simple-layout .fi-logo {
+    color: #fff;
+}
