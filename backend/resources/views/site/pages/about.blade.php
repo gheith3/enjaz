@@ -24,7 +24,7 @@
     <span class="spark" style="top:12%;right:18%" aria-hidden="true"></span>
     <span class="spark" style="top:40%;left:6%" aria-hidden="true"></span>
     <span class="spark" style="bottom:22%;right:8%" aria-hidden="true"></span>
-    <div class="hero-image-blend">@if ($heroImg = $p->getFirstMedia('cutout'))<img src="{{ $heroImg->getUrl() }}" fetchpriority="high" alt="{{ $heroImg->getCustomProperty('alt') }}" width="1199" height="1312">@endif</div>
+    <div class="hero-image-blend">@if ($heroImg = $p->getFirstMedia('cutout'))<img src="{{ \App\Support\Media\Src::of($heroImg) }}" fetchpriority="high" alt="{{ $heroImg->getCustomProperty('alt') }}" width="1199" height="1312">@endif</div>
   </div>
 </section>
 

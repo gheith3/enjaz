@@ -24,7 +24,7 @@
     <section class="wrap orgs-featured-wrap" aria-labelledby="feat-h">
       <h2 class="orgs-h" id="feat-h"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt="">{{ __('site.organizations.featured') }}</h2>
       <a class="orgs-featured" href="{{ $featured->url() }}">
-        <span class="of-logo">@if ($logo = $featured->image('logo_white')?->getUrl() ?? $featured->image('logo')?->getUrl())<img src="{{ $logo }}" alt="">@endif</span>
+        <span class="of-logo">@if ($logo = \App\Support\Media\Src::of($featured->image('logo_white')) ?? \App\Support\Media\Src::of($featured->image('logo')))<img src="{{ $logo }}" alt="">@endif</span>
         <span class="of-txt"><small>{{ $featured->type?->label }}</small><b>{{ $featured->name }}</b>@if ($featured->tagline)<span>{{ $featured->tagline }}</span>@endif</span>
         <span class="of-go">{{ __('site.organizations.featured_go') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></span>
       </a>
@@ -46,7 +46,7 @@
         @endforeach
         @if ($group->more)
           <a class="org-card" href="{{ route('universities.index') }}">
-            <span class="org-logo">@if ($logo = $group->items->first()?->image('logo')?->getUrl())<img src="{{ $logo }}" alt="" loading="lazy">@endif</span>
+            <span class="org-logo">@if ($logo = \App\Support\Media\Src::of($group->items->first()?->image('logo')))<img src="{{ $logo }}" alt="" loading="lazy">@endif</span>
             <span class="org-info"><b>{{ __('site.organizations.all_universities') }}</b><small class="org-type {{ $group->type->css_class }}">{{ $group->type->label }}</small></span>
             <span class="org-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></span>
           </a>

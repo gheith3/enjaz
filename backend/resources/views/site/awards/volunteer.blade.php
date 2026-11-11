@@ -18,7 +18,7 @@
         $photo = $w->image('photo');
 
         return $photo ? ['src' => $w->imageUrl('photo', 'card'), 'pos' => \App\Models\AwardWinner::focal($photo), 'photo' => true]
-            : (($logo = $w->image('logo')) ? ['src' => $logo->getUrl(), 'pos' => null, 'photo' => false] : null);
+            : (($logo = $w->image('logo')) ? ['src' => \App\Support\Media\Src::of($logo), 'pos' => null, 'photo' => false] : null);
     };
 @endphp
 <x-site.layout :title="$a->name" :description="\Illuminate\Support\Str::limit((string) $a->about, 160)" :image="$a->imageUrl('logo')"
@@ -155,7 +155,7 @@
           return [
               'name' => $w->name, 'rank' => $w->rank, 'cat' => $w->category?->key, 'catName' => $w->category?->name, 'project' => $w->work, 'place' => $w->place,
               'why' => $w->why, 'photo' => $photo ? $w->imageUrl('photo') : null, 'credit' => $photo?->getCustomProperty('credit'), 'pic' => $pic($w),
-              'gallery' => $w->getMedia('gallery')->map(fn ($m) => [$m->hasGeneratedConversion('large') ? $m->getUrl('large') : $m->getUrl(), \App\Support\Localized::get($m->getCustomProperty('caption'))])->values(),
+              'gallery' => $w->getMedia('gallery')->map(fn ($m) => [\App\Support\Media\Src::of($m), \App\Support\Localized::get($m->getCustomProperty('caption'))])->values(),
               'facts' => $w->facts->map(fn ($f) => [$f->label, $f->value])->values(),
               'src' => $w->source_url ? [$w->source_title ?: $w->source_url, $w->source_url] : null,
               'edition' => __('site.awards.edition_n', ['ord' => $ord[$e->number] ?? $e->number]).' · '.$e->year,

@@ -12,7 +12,7 @@
         <p class="by"><b>{{ $q->fullName() }}</b>@if ($q->postnominal)<span>{{ $q->postnominal }}</span>@endif</p>
       </div>
       <div class="hc-pic">@if ($q->variant === 'sultan')<img class="hc-logo" src="{{ Vite::asset('resources/site/assets/svg/logo.svg') }}" alt="" aria-hidden="true" width="117" height="94">@include('site.sections.home.partials.hero-rays')@endif
-        @if ($portrait)<img class="portrait" src="{{ $portrait->getUrl() }}" @if ($i === 0) data-slide-img fetchpriority="high" @else decoding="async" @endif alt="{{ \App\Models\LeaderQuote::alt($portrait, $q->fullName()) }}" @if ($w = $portrait->getCustomProperty('width')) width="{{ $w }}" height="{{ $portrait->getCustomProperty('height') }}" @endif>@endif</div>
+        @if ($portrait)<img class="portrait" src="{{ \App\Support\Media\Src::of($portrait) }}" @if ($i === 0) data-slide-img fetchpriority="high" @else decoding="async" @endif alt="{{ \App\Models\LeaderQuote::alt($portrait, $q->fullName()) }}" @if ($w = $portrait->getCustomProperty('width')) width="{{ $w }}" height="{{ $portrait->getCustomProperty('height') }}" @endif>@endif</div>
     </div>
     </div>
   @endforeach

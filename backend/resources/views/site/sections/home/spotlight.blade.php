@@ -7,7 +7,7 @@
 <section class="section aisha-feature" aria-labelledby="aisha-title">
   <div class="aisha-art">
     @include('site.sections.home.partials.spotlight-back')
-    @if ($portrait)<img class="aisha-portrait" src="{{ $portrait->getUrl() }}" alt="{{ \App\Models\PageSectionItem::alt($portrait, $item->displayTitle()) }}" loading="lazy" width="420" height="539">@endif
+    @if ($portrait)<img class="aisha-portrait" src="{{ \App\Support\Media\Src::of($portrait) }}" alt="{{ \App\Models\PageSectionItem::alt($portrait, $item->displayTitle()) }}" loading="lazy" width="420" height="539">@endif
     @include('site.sections.home.partials.spotlight-front')
   </div>
   <div class="aisha-copy">

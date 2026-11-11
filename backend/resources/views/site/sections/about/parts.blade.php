@@ -5,7 +5,7 @@
     $off = fn (string $key) => isset($sec[$key]) && ! $sec[$key]->is_enabled;
     $items = fn (string $key) => isset($sec[$key]) ? $sec[$key]->items()->with('media')->get() : collect();
     $founderItem = $items('about.founder')->first();
-    $img = fn ($it, $c = 'image') => $it->getFirstMediaUrl($c) ?: '';
+    $img = fn ($it, $c = 'image') => \App\Support\Media\Src::of($it->getFirstMedia($c)) ?? '';
     $ach = $items('about.achievements');
     $anchors = ['about.fields' => '#fields', 'about.journey' => '#journey', 'about.founder' => '#founder', 'about.testimonials' => '#testimonials',
         'about.team' => '#team', 'about.achievements' => '#our-achievements', 'about.media' => '#media'];
@@ -63,8 +63,8 @@
 
 <section @if ($off('about.founder')) hidden @endif class="wrap reveal" id="founder" aria-labelledby="founder-title" style="padding-block:10px 44px">
   <article class="founder" data-founder>
-    <div class="fd-photo ct-dk" aria-hidden="true">@if ($card = $founderItem?->getFirstMediaUrl('image2'))<img src="{{ $card }}" alt="" loading="lazy">@endif<b>{{ $founderItem?->displayTitle() }}</b><small>{{ $founderItem?->label }}</small></div>
-    <div class="founder-top">@if ($ph = $founderItem?->getFirstMediaUrl('image'))<img src="{{ $ph }}" alt="{{ $founderItem->displayTitle() }}">@endif<div><b id="founder-title">{{ $founderItem?->displayTitle() }}</b><small>{{ $founderItem?->label }}</small></div></div>
+    <div class="fd-photo ct-dk" aria-hidden="true">@if ($card = (\App\Support\Media\Src::of($founderItem?->getFirstMedia('image2')) ?? ''))<img src="{{ $card }}" alt="" loading="lazy">@endif<b>{{ $founderItem?->displayTitle() }}</b><small>{{ $founderItem?->label }}</small></div>
+    <div class="founder-top">@if ($ph = (\App\Support\Media\Src::of($founderItem?->getFirstMedia('image')) ?? ''))<img src="{{ $ph }}" alt="{{ $founderItem->displayTitle() }}">@endif<div><b id="founder-title">{{ $founderItem?->displayTitle() }}</b><small>{{ $founderItem?->label }}</small></div></div>
     <div class="founder-body"><div class="q" aria-hidden="true">“</div><h3>{{ \App\Support\Localized::get($founderItem?->settings['meta'] ?? null) }}</h3><div class="founder-text" id="founder-text" data-founder-text></div></div>
     <button class="founder-toggle" type="button" aria-expanded="false" aria-controls="founder-text" data-founder-toggle><span>{{ __('site.about.read_word') }}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
   </article>

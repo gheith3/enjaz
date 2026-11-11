@@ -74,7 +74,7 @@
       <div><small>{{ __('site.contact.hq') }}</small><b>{{ $p->label('place') }}</b><span>{{ $p->label('country') }}</span><p>{{ $p->label('place_text') }}</p></div>
     </div>
     <div class="cv-place">
-      @if ($map = $p->getFirstMedia('cutout'))<img src="{{ $map->getUrl() }}" alt="{{ $map->getCustomProperty('alt') }}" loading="lazy" width="800" height="400">@endif
+      @if ($map = $p->getFirstMedia('cutout'))<img src="{{ \App\Support\Media\Src::of($map) }}" alt="{{ $map->getCustomProperty('alt') }}" loading="lazy" width="800" height="400">@endif
       <span class="cv-place-tag"><svg aria-hidden="true"><use href="#contact-pin"/></svg>{{ $p->label('place') }} · {{ $p->label('country') }}</span>
     </div>
   </section>

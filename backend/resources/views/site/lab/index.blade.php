@@ -7,7 +7,7 @@
     $nInv = (int) ($p->label('stat_inventions') ?: $inventions->count());
     $nAll = (int) ($p->label('stat_science') ?: $inventions->count() + $publications->count());
     $portraits = $p->getMedia('hero');
-    $cutout = $p->getFirstMediaUrl('cutout');
+    $cutout = (\App\Support\Media\Src::of($p->getFirstMedia('cutout')) ?? '');
     $count = fn ($n) => \App\Support\ArabicDate::digits($n);
 @endphp
 <x-site.layout :title="$p->title" :description="$p->meta_description" styles="lab"
@@ -33,7 +33,7 @@
     @if ($note = $p->label('stats_note'))<p class="lab-src">{{ $note }}</p>@endif
   </div>
   @if ($portraits->isNotEmpty())
-    <div class="lab-hero-portraits" aria-hidden="true">@foreach ($portraits->take(3) as $m)<img src="{{ $m->getUrl() }}" alt="" decoding="async">@endforeach</div>
+    <div class="lab-hero-portraits" aria-hidden="true">@foreach ($portraits->take(3) as $m)<img src="{{ \App\Support\Media\Src::of($m) }}" alt="" decoding="async">@endforeach</div>
   @endif
   </div>
 </section>

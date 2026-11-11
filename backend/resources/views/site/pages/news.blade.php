@@ -29,7 +29,7 @@
     <div class="wrap nw-body">
       <div class="nw-text">{!! $body !!}</div>
       @if (($gallery = $news->getMedia('gallery'))->isNotEmpty())
-        <div class="nw-gallery" aria-label="{{ __('site.organizations.event_photos') }}">@foreach ($gallery as $image)<img src="{{ $image->hasGeneratedConversion('card') ? $image->getUrl('card') : $image->getUrl() }}" alt="{{ \App\Support\Localized::get($image->getCustomProperty('caption')) }}" loading="lazy">@endforeach</div>
+        <div class="nw-gallery" aria-label="{{ __('site.organizations.event_photos') }}">@foreach ($gallery as $image)<img src="{{ $image->hasGeneratedConversion('card') ? $image->getUrl('card') : \App\Support\Media\Src::of($image) }}" alt="{{ \App\Support\Localized::get($image->getCustomProperty('caption')) }}" loading="lazy">@endforeach</div>
       @endif
       <div class="ar-share nw-share"><span>{{ __('site.organizations.share_news') }}</span>
         <button type="button" data-share aria-label="{{ __('site.achievements.share_short') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>

@@ -15,7 +15,7 @@
         @if ($page->hero_eyebrow)<span class="aws-hero-tribute">{{ $page->hero_eyebrow }}</span>@endif
       </div>
       @if ($portrait)
-        <div class="aws-hero-portrait"><img src="{{ $portrait->getUrl() }}" alt="{{ $portrait->getCustomProperty('alt', '') }}" width="967" height="1626" fetchpriority="high" decoding="async"></div>
+        <div class="aws-hero-portrait"><img src="{{ \App\Support\Media\Src::of($portrait) }}" alt="{{ $portrait->getCustomProperty('alt', '') }}" width="967" height="1626" fetchpriority="high" decoding="async"></div>
       @endif
     </div>
   </section>
@@ -23,7 +23,7 @@
     @foreach ($awards as $award)
       <a class="aws-card is-{{ $award->card_style }} has-podium" href="{{ $award->url() }}">
         <span class="aws-art aws-podium" aria-hidden="true"><span class="aws-halo"></span>
-          @if ($art = $award->image('card_art'))<span class="aws-trophy"><img src="{{ $art->getUrl() }}" alt="" decoding="async"></span>
+          @if ($art = $award->image('card_art'))<span class="aws-trophy"><img src="{{ \App\Support\Media\Src::of($art) }}" alt="" decoding="async"></span>
           @else<span class="aws-trophy aws-emblem"><span class="aws-gold"></span></span>@endif
           <span class="aws-floor"></span></span>
         <span class="aws-txt"><small>{{ $award->card_meta }}</small><b>{{ $award->name }}</b>

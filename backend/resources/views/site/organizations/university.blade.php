@@ -68,7 +68,7 @@
           @foreach ($presidents as $i => $p)
             <li @class(['up-card', 'is-now' => $p->is_current]) data-p="{{ $i }}" tabindex="0">
               <span class="up-ord" aria-hidden="true">{{ $i + 1 }}</span>
-              <span class="up-ph">@if ($photo = $p->image('photo')?->getUrl())<img src="{{ $photo }}" alt="{{ $p->name }}" loading="lazy">@endif</span>
+              <span class="up-ph">@if ($photo = \App\Support\Media\Src::of($p->image('photo')))<img src="{{ $photo }}" alt="{{ $p->name }}" loading="lazy">@endif</span>
               <span class="up-k">{{ __('site.university.president_n', ['ord' => $ord[$i] ?? $i + 1]) }}@if ($p->is_current) · {{ __('site.university.current') }}@endif</span>
               <small class="up-t">{{ $p->title }}</small><b class="up-n">{{ $p->name }}</b>
               <span class="up-y">{{ $p->from_year }} – {{ $p->to_year ?: __('site.university.now') }}</span><span class="up-d">{{ $durText($p) }}@if ($i === $longest && ! $p->is_current) · {{ __('site.university.longest') }}@endif</span>
@@ -83,7 +83,7 @@
         <ol class="up-rail ul-lead">
           @foreach ($leaders as $p)
             <li @class(['up-card', 'is-now' => $p->is_current])>
-              <span class="up-ph">@if ($photo = $p->image('photo')?->getUrl())<img src="{{ $photo }}" alt="{{ $p->name }}" loading="lazy">@else<i class="up-ini" aria-hidden="true">{{ $initials($p->name) }}</i>@endif</span>
+              <span class="up-ph">@if ($photo = \App\Support\Media\Src::of($p->image('photo')))<img src="{{ $photo }}" alt="{{ $p->name }}" loading="lazy">@else<i class="up-ini" aria-hidden="true">{{ $initials($p->name) }}</i>@endif</span>
               <span class="up-k">{{ $p->role }}</span><small class="up-t">{{ $p->title }}</small><b class="up-n">{{ $p->name }}</b>
               @if ($p->note)<small class="up-note">{{ $p->note }}</small>@endif
             </li>
@@ -92,7 +92,7 @@
         @if ($board->isNotEmpty())
           <div class="ub"><h3 class="ub-h">{{ __('site.university.board_members') }} <small>{{ $board->count() }}</small></h3><div class="ub-grid">
             @foreach ($board as $m)
-              <div class="ub-m"><span class="ub-ph">@if ($photo = $m->image('photo')?->getUrl())<img src="{{ $photo }}" alt="{{ $m->name }}" loading="lazy">@else<i>{{ $initials($m->name) }}</i>@endif</span>
+              <div class="ub-m"><span class="ub-ph">@if ($photo = \App\Support\Media\Src::of($m->image('photo')))<img src="{{ $photo }}" alt="{{ $m->name }}" loading="lazy">@else<i>{{ $initials($m->name) }}</i>@endif</span>
                 <small class="ub-t">{{ $m->title }}</small><b>{{ $m->name }}</b><span class="ub-r">{{ $m->role }}</span></div>
             @endforeach
           </div></div>
@@ -208,7 +208,7 @@
               'chapters' => collect($o->gallery_chapters ?? [])->map(fn ($c) => [$c['key'], \App\Support\Localized::get($c['label'] ?? $c['key'])])->values()->all(),
               'credit' => filled($credit['text'] ?? null) ? [$credit['text'], $credit['url'] ?? ''] : null,
               'photos' => $photos->map(fn ($m) => [
-                  'src' => $m->hasGeneratedConversion('large') ? $m->getUrl('large') : $m->getUrl(), 'chapter' => $m->getCustomProperty('chapter'),
+                  'src' => \App\Support\Media\Src::of($m), 'chapter' => $m->getCustomProperty('chapter'),
                   'year' => $m->getCustomProperty('year'), 'title' => $m->getCustomProperty('title') ?? \App\Support\Localized::get($m->getCustomProperty('caption')),
                   'note' => $m->getCustomProperty('note'), 'doc' => $m->getCustomProperty('kind') === 'doc',
                   'credit' => $m->getCustomProperty('credit') ? [$m->getCustomProperty('credit'), $m->getCustomProperty('credit_url') ?? ''] : null,
