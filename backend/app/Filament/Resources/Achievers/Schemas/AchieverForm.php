@@ -11,6 +11,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
@@ -65,6 +66,12 @@ class AchieverForm
                     Toggle::make('is_inspiring')->label('من «ملهمون من عُمان»')->live()->columnSpanFull(),
                     Translatable::text('inspiring_tagline', 'عبارة الإلهام', required: false)
                         ->visible(fn (Get $get) => (bool) $get('is_inspiring')),
+                    Translatable::text('inspiring_field', 'مجال الإلهام (الرياضة، الفن ...؛ يُستخدم للفرز)', required: false)
+                        ->visible(fn (Get $get) => (bool) $get('is_inspiring')),
+                    Group::make([
+                        MediaSlot::make('inspiring_panel', 'صورة لوح «ملهمون» (طولية)'),
+                        MediaSlot::make('inspiring_cover', 'غلاف «ملهمون» (مربع، في الرئيسية والجدار)'),
+                    ])->columnSpanFull()->visible(fn (Get $get) => (bool) $get('is_inspiring')),
                 ]),
             ]),
         ]);

@@ -4,8 +4,10 @@ namespace App\Models;
 
 use App\Models\Concerns\ClearsResponseCache;
 use App\Models\Concerns\LogsContentActivity;
+use App\Support\Localized;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -28,6 +30,17 @@ class PageSection extends Model
         return $this->belongsTo(Page::class);
     }
 
+    public function items(): HasMany
+    {
+        return $this->hasMany(PageSectionItem::class)->orderBy('sort_order');
+    }
+
+    /** A translatable setting ({ar, en}) in the current language, or the default. */
+    public function text(string $key, ?string $default = null): ?string
+    {
+        return Localized::get($this->setting($key)) ?: $default;
+    }
+
     public function view(): string
     {
         return 'site.sections.'.$this->key;
@@ -47,6 +60,7 @@ class PageSection extends Model
     {
         [$page] = explode('.', $this->key, 2);
 
-        return config("site.pages.$page.sections.{$this->key}", $this->key);
+        // Section keys contain a dot, so read the page's list and index it (config('a.b.home.x') would split the key).
+        return config("site.pages.$page.sections", [])[$this->key] ?? $this->key;
     }
 }

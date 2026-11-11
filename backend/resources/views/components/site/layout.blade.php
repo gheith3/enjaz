@@ -40,10 +40,19 @@
 {{ $head ?? '' }}
 </head>
 <body class="{{ $bodyClass }}">
+@if ($shell === 'about')
+{{-- about.html: the menu sits before a .page wrapper that holds its own header, the section chips, main and footer. --}}
+<x-site.menu :logo="$logoUrl()" :items="$menus->get('header', collect())" />
+<div class="page">
+<a class="sr-only" href="#main">{{ __('site.skip_to_content') }}</a>
+<x-site.header :crumb="$crumb" :logo="$logoUrl()" :items="$menus->get('header', collect())" variant="about" />
+{{ $beforeMain ?? '' }}
+@else
 <a class="sr-only" href="#main">{{ __('site.skip_to_content') }}</a>
 
 <x-site.header :crumb="$crumb" :logo="$logoUrl()" :items="$menus->get('header', collect())" />
 <x-site.menu :logo="$logoUrl()" :items="$menus->get('header', collect())" />
+@endif
 {{-- Design "desktop-early": layout width without the scrollbar, smaller header after scrolling. Runs before first paint. --}}
 <script>
 (function () {
@@ -62,6 +71,11 @@
 
 <x-site.footer :general="$general" :logo="$logoUrl()" :socials="$socials"
     :columns="[$menus->get('footer_1', collect()), $menus->get('footer_2', collect())]" />
+@if ($shell === 'about')
+{{ $afterFooter ?? '' }}
+</div>
+{{ $afterPage ?? '' }}
+@endif
 
 <script type="application/json" id="site-labels">@json(__('site.js'))</script>
 @vite('resources/site/js/site.js')

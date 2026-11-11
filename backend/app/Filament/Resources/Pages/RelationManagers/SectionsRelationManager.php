@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Pages\RelationManagers;
 
+use App\Filament\Resources\PageSections\PageSectionResource;
 use App\Models\PageSection;
+use Filament\Actions\Action;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -30,7 +32,7 @@ class SectionsRelationManager extends RelationManager
     {
         return $table
             ->description('اسحب الأقسام لترتيبها، وأوقف ما لا تريد عرضه.')
-            ->reorderable('sort_order')
+            ->reorderable('sort_order', fn () => ! config('site.pages.'.$this->getOwnerRecord()->key.'.fixed_order'))
             ->defaultSort('sort_order')
             ->paginated(false)
             ->columns([
@@ -39,6 +41,10 @@ class SectionsRelationManager extends RelationManager
                 IconColumn::make('ready')->label('جاهز في الموقع')->boolean()
                     ->state(fn (PageSection $record) => $record->isRenderable())
                     ->tooltip('يظهر القسم في الموقع عند اكتمال بنائه.'),
+            ])
+            ->recordActions([
+                Action::make('edit')->label('النصوص والعناصر')->icon('heroicon-o-pencil-square')
+                    ->url(fn (PageSection $record) => PageSectionResource::getUrl('edit', ['record' => $record])),
             ]);
     }
 }

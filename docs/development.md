@@ -79,6 +79,11 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
 | `/news/{slug}` | `site/pages/news` | org-news.html |
 | `/awards` | `site/pages/awards` (awards with a card style) | awards.html |
 | `/awards/{slug}` | `site/awards/{culture,volunteer,architecture}` (the award's kind) | award / award-volunteer / bilarab-award.html |
+| `/` | `site/pages/home` + `site/sections/home/*` (one view per section; order and visibility in the dashboard) | index.html |
+| `/inspiring` | `site/pages/inspiring` + sections (`site/sections/inspiring/himam`) | inspiring.html |
+| `/about` | `site/pages/about` (layout `shell="about"`, no main.css) + `site/sections/about/*`; lists via `window.INJAZ_ABOUT` | about.html |
+| `/contact` | `site/pages/contact` + `livewire/site/contact-form` (inbox «رسائل التواصل») | contact.html |
+| `/search` | `livewire/site/search-page` (no design page: the design's cards and magazine rows) | — |
 | `/lab` | `site/lab/index` (showcase, publications table, phone tabs) | science.html |
 | `/lab/inventions`, `/lab/publications` | `livewire/site/lab-index` (`LabIndex`: medal / exhibition / field / year, order) | lab-all.html |
 | `/lab/{slug}` | `site/lab/show` (invention story or publication with citation) | lab-item.html |
@@ -103,6 +108,16 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
   goals/who/path/criteria are polymorphic `facts`; extra sections are `award_features`; small design texts live in
   `awards.extra` ({key: {ar, en}}, edited in the dashboard tab «نصوص التصميم»). Interactive parts (medal filter and
   preview, volunteer tabs and winner card) read a winners JSON printed by the view; all text is in the HTML.
+- Page sections (`page_sections`): each has a settings form (`App\Filament\Support\SectionSettings`, opened from the
+  page's «أقسام الصفحة» → «النصوص والعناصر») and, for hand-picked content, items (`page_section_items`: a linked record
+  plus the section's own image and texts). Home: leaders' words are `leader_quotes`; the strip, latest achievements,
+  inspiring, articles, science and partners read flags on the records (show_in_home_strip, show_on_home + home_slot,
+  is_inspiring, show_on_home, is_partner); spotlight, the awards banner, sports and culture are section items.
+  Purely decorative SVG of the design is kept verbatim in `site/sections/home/partials`.
+- About: a fixed-order page (`fixed_order` in config): its ported script needs every section, so a section turned off is
+  rendered `hidden`. Its UI wording inside the ported scripts is still Arabic (to move to lang files with the English UI).
+- Contact: messages are saved first, then mailed to the page's «email» text (else the site email) with reply-to the
+  sender; attachments on the private `local` disk. Real delivery needs MAIL_* in the server .env (default `log`).
 - Fixed pages keep their small design texts in `pages.extra` ({key: {ar, en}}); the keys and their dashboard labels
   are listed per page in `config/site.php` (`labels`) and appear in the page form under «نصوص التصميم». Read them with
   `$page->label('key', default)`. Pages with the `cutout` feature have a transparent hero image slot.
@@ -117,6 +132,11 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
   use the design's Arabic agreement (`ArabicCount`), dates the design's format (`ArabicDate`).
 
 ## Database rules learned the hard way
+
+- `jsonb` does not keep object key order (keys are sorted by length): never rely on the order of keys in a jsonb
+  object; store an explicit list (e.g. home partners `row_order`).
+- Lang groups: a group name must not reuse an existing string key (`site.home` is a string; the home page group is
+  `site.homepage`).
 
 - Translatable columns are **`jsonb`** (`$table->jsonb(...)`), never `json`: PostgreSQL cannot sort or compare `json`,
   and the dashboard sorts/searches them.

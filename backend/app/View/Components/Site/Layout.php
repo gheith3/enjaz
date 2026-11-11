@@ -49,6 +49,7 @@ class Layout extends Component
         public string $bodyClass = '',
         public bool $noindex = false,
         public string $htmlClass = '',
+        public string $shell = 'site',
     ) {
         $this->general = app(GeneralSettings::class);
         $seo = app(SeoSettings::class);
@@ -72,7 +73,7 @@ class Layout extends Component
     }
 
     /**
-     * The design's order: main, site-menu, <page before>, desktop, <page after>, phone-footer; then the site's
+     * The design's order (main.css unless the page sets 'main' => false, like about.html): main, site-menu, <page before>, desktop, <page after>, phone-footer; then the site's
      * small overrides (resources/site/css-site/overrides.css).
      *
      * @return list<string>
@@ -84,7 +85,7 @@ class Layout extends Component
         return [
             ...array_map(
                 fn (string $name) => "resources/site/css/$name.css",
-                ['main', 'site-menu', ...($page['before'] ?? []), 'desktop', ...($page['after'] ?? []), 'phone-footer'],
+                [...(($page['main'] ?? true) ? ['main'] : []), 'site-menu', ...($page['before'] ?? []), 'desktop', ...($page['after'] ?? []), 'phone-footer'],
             ),
             'resources/site/css-site/overrides.css',
         ];

@@ -1,0 +1,7 @@
+/* about.html inline <style> (2 of 2), unchanged. */
+@media (min-width: 1100px) {
+.about-page #founder .founder { width: 100%; max-width: none; box-sizing: border-box; }
+/* ألوان الصور طبيعية وواضحة في جميع مواضع المدار. */
+.about-page #testimonials .tm-av { opacity: 1; filter: none; }
+.about-page #testimonials .tm-av img { display: block; image-rendering: auto; }
+}

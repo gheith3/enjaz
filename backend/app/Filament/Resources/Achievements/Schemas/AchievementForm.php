@@ -80,6 +80,8 @@ class AchievementForm
                     Toggle::make('show_on_home')->label('في «أحدث الإنجازات» بالرئيسية')->live(),
                     Select::make('home_slot')->label('المكان')->options(['feature' => 'الإنجاز الكبير', 'card' => 'بطاقة', 'row' => 'سطر'])
                         ->visible(fn (Get $get) => (bool) $get('show_on_home')),
+                    Translatable::text('home_title', 'العنوان المختصر في الرئيسية (فارغ = عنوان الإنجاز)', required: false)
+                        ->visible(fn (Get $get) => (bool) $get('show_on_home')),
                 ]),
             ]),
         ]);

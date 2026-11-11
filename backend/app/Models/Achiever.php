@@ -31,13 +31,13 @@ class Achiever extends Model implements HasMedia
     protected $fillable = [
         'slug', 'name', 'gender', 'field_id', 'headline', 'hero_lines', 'short_bio', 'story', 'journey_kicker', 'journey_title',
         'personal_quote', 'personal_quote_context', 'personal_quote_source', 'quotes_note', 'portrait_trace', 'is_featured', 'is_inspiring',
-        'inspiring_tagline', 'show_in_home_strip', 'week_from', 'week_teaser', 'is_published', 'published_at', 'sort_order',
+        'inspiring_tagline', 'inspiring_field', 'show_in_home_strip', 'week_from', 'week_teaser', 'is_published', 'published_at', 'sort_order',
     ];
 
     /** @var list<string> */
     public array $translatable = [
         'name', 'headline', 'hero_lines', 'short_bio', 'story', 'journey_kicker', 'journey_title', 'personal_quote',
-        'personal_quote_context', 'personal_quote_source', 'quotes_note', 'inspiring_tagline', 'week_teaser',
+        'personal_quote_context', 'personal_quote_source', 'quotes_note', 'inspiring_tagline', 'inspiring_field', 'week_teaser',
     ];
 
     protected function casts(): array
@@ -56,6 +56,8 @@ class Achiever extends Model implements HasMedia
         $this->addMediaCollection('journey')->singleFile();
         $this->addMediaCollection('week')->singleFile();
         $this->addMediaCollection('gallery');
+        $this->addMediaCollection('inspiring_panel')->singleFile();   // ملهمون: tall photo of the hero panels
+        $this->addMediaCollection('inspiring_cover')->singleFile();   // ملهمون: square cover (home, wall)
     }
 
     public function getRouteKeyName(): string

@@ -32,12 +32,12 @@ class Achievement extends Model implements HasMedia
     protected $fillable = [
         'slug', 'title', 'excerpt', 'body', 'scope_id', 'field_id', 'discipline', 'profile_tag', 'achieved_at', 'date_precision',
         'country', 'highlights', 'pull_quote', 'pull_quote_by', 'pull_quote_role', 'pull_quote_note', 'pull_quote_after',
-        'video_url', 'is_featured', 'show_on_home', 'home_slot', 'is_published', 'published_at', 'sort_order',
+        'video_url', 'is_featured', 'show_on_home', 'home_slot', 'home_title', 'is_published', 'published_at', 'sort_order',
     ];
 
     /** @var list<string> */
     public array $translatable = [
-        'title', 'excerpt', 'body', 'discipline', 'profile_tag', 'country', 'pull_quote', 'pull_quote_by', 'pull_quote_role', 'pull_quote_note',
+        'title', 'home_title', 'excerpt', 'body', 'discipline', 'profile_tag', 'country', 'pull_quote', 'pull_quote_by', 'pull_quote_role', 'pull_quote_note',
     ];
 
     protected function casts(): array

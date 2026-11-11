@@ -34,7 +34,13 @@ return [
         ],
         'achievements' => ['label' => 'الإنجازات', 'route' => 'achievements.index', 'sections' => []],
         'achievers' => ['label' => 'المنجزين', 'route' => 'achievers.index', 'sections' => []],
-        'inspiring' => ['label' => 'ملهمون من عُمان', 'sections' => []],
+        'inspiring' => [
+            'label' => 'ملهمون من عُمان', 'route' => 'inspiring', 'sections' => ['inspiring.himam' => 'هِمَمٌ بلا حدود'],
+            'labels' => [
+                'crumb' => 'الاسم في الشريط العلوي', 'discover' => 'رابط «اكتشف قصصهم»', 'wall_title' => 'عنوان جدار الصور', 'cta_title' => 'الترشيح: العنوان', 'cta_text' => 'الترشيح: النص',
+                'cta_button' => 'الترشيح: نص الزر', 'cta_url' => 'الترشيح: الرابط (فارغ = تواصل معنا)',
+            ],
+        ],
         'awards' => ['label' => 'جوائز السلطان قابوس', 'route' => 'awards.index', 'sections' => []],
         'organizations' => ['label' => 'المؤسسات', 'route' => 'organizations.index', 'features' => ['hero_slides', 'letter'], 'sections' => []],
         'universities' => ['label' => 'الجامعات والكليات', 'route' => 'universities.index', 'sections' => []],
@@ -67,8 +73,32 @@ return [
                 'cta_url' => 'الدعوة: الرابط (فارغ = تواصل معنا)',
             ],
         ],
-        'about' => ['label' => 'من نحن', 'sections' => []],
-        'contact' => ['label' => 'تواصل معنا', 'sections' => []],
+        'about' => [
+            'label' => 'من نحن', 'route' => 'about', 'fixed_order' => true,
+            'sections' => [
+                'about.fields' => 'مجالات الإنجاز (الحلقة الدوّارة)', 'about.journey' => 'خارطة العمل', 'about.founder' => 'كلمة المؤسس',
+                'about.testimonials' => 'قالوا عن إنجازات', 'about.team' => 'فريق العمل', 'about.achievements' => 'إنجازاتنا',
+                'about.media' => 'المكتبة الإعلامية',
+            ],
+            'labels' => [
+                'crumb' => 'الاسم في الشريط العلوي', 'nav_top' => 'شريط الأقسام: البداية', 'nav_mission' => 'شريط الأقسام: الرسالة',
+                'fact1_n' => 'الرقم ١', 'fact1_t' => 'وصف الرقم ١', 'fact2_n' => 'الرقم ٢', 'fact2_t' => 'وصف الرقم ٢', 'fact3_n' => 'الرقم ٣', 'fact3_t' => 'وصف الرقم ٣',
+                'journey_button' => 'زر «رحلتنا»', 'contact_button' => 'زر «تواصل معنا»',
+                'mission' => 'الرسالة: النص', 'vision' => 'الرؤية: النص',
+                'value1' => 'القيمة ١: النص', 'value1_tag' => 'القيمة ١: الكلمة', 'value2' => 'القيمة ٢: النص', 'value2_tag' => 'القيمة ٢: الكلمة',
+                'value3' => 'القيمة ٣: النص', 'value3_tag' => 'القيمة ٣: الكلمة', 'value4' => 'القيمة ٤: النص', 'value4_tag' => 'القيمة ٤: الكلمة',
+            ],
+        ],
+        'contact' => [
+            'label' => 'تواصل معنا', 'route' => 'contact', 'features' => ['cutout'], 'sections' => [],
+            'labels' => [
+                'email' => 'البريد في الصفحة (وتصل إليه رسائل النموذج؛ فارغ = بريد الموقع)', 'phones' => 'أرقام الهاتف (مفصولة بفاصلة؛ فارغ = أرقام الموقع)',
+                'handle' => 'اسم الحساب في التواصل الاجتماعي (@injazat_oman)', 'team_name' => 'اسم الفريق في المحادثة',
+                'chat1' => 'المحادثة: الرسالة ١', 'chat2' => 'المحادثة: الرسالة ٢', 'chat3' => 'المحادثة: الرسالة ٣',
+                'methods_title' => 'عنوان «قنوات مباشرة»', 'form_title' => 'عنوان «أرسل رسالة»', 'location_title' => 'عنوان الموقع',
+                'place' => 'المقر (محافظة مسقط)', 'country' => 'الدولة', 'place_text' => 'نص تحت المقر',
+            ],
+        ],
     ],
 
     /*
@@ -159,6 +189,23 @@ return [
         'writers' => [
             'before' => ['articles-page', 'writers-page'],
             'after' => [],
+        ],
+        'search' => [
+            'before' => ['achievements-page', 'achievers-page', 'articles-page'],
+            'after' => [],
+        ],
+        'contact' => [
+            'before' => ['contact'],
+            'after' => ['contact-hero-desktop', 'phone-port-contact'],
+        ],
+        'about' => [
+            'main' => false,
+            'before' => ['about-roadmap', 'about-page', 'about-footer'],
+            'after' => ['about-hero-desktop', 'phone-port-about', 'about-page-2', 'phone-port-journey'],
+        ],
+        'inspiring' => [
+            'before' => ['inspiring-page', 'inspiring-strip'],
+            'after' => ['inspiring-desktop-hero', 'inspiring-hero-v2', 'inspiring-hero-polish', 'inspiring-hero-intro', 'phone-port-inspiring', 'inspiring-hero-text', 'inspiring-himam'],
         ],
         'lab-all' => [
             'before' => ['science-page', 'lab-v2', 'lab-all-desktop'],

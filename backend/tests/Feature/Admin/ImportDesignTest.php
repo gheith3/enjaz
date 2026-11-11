@@ -9,11 +9,13 @@ use App\Models\ArticleCategory;
 use App\Models\Award;
 use App\Models\Issue;
 use App\Models\LabItem;
+use App\Models\LeaderQuote;
 use App\Models\MenuItem;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\Organization;
 use App\Models\Page;
+use App\Models\PageSection;
 use App\Models\Redirect;
 use App\Models\SocialLink;
 use App\Models\Writer;
@@ -154,6 +156,37 @@ class ImportDesignTest extends TestCase
         $this->assertTrue(Writer::query()->where('slug', 'badr')->first()->is_featured);
         $this->assertSame(7, Article::query()->where('slug', 'patent')->first()->read_minutes);
         $this->assertSame(5, ArticleCategory::query()->count());
+    }
+
+    public function test_it_imports_the_inspiring_people_and_the_home_page(): void
+    {
+        $this->artisan('injazat:import-design', ['--only' => ['achievements', 'organizations', 'awards', 'lab', 'inspiring', 'home']])->assertSuccessful();
+
+        $this->assertSame(4, Achiever::query()->where('is_inspiring', true)->count());
+        $this->assertSame('الفن', Achiever::query()->where('slug', 'safiya-albahlani')->first()->inspiring_field);
+        $this->assertSame(4, PageSection::query()->where('key', 'inspiring.himam')->first()->items()->count());
+        $this->assertSame(3, LeaderQuote::query()->count());
+        $this->assertSame('feature', Achievement::query()->where('home_slot', 'feature')->first()?->home_slot);
+        $this->assertSame(4, PageSection::query()->where('key', 'home.sports')->first()->items()->count());
+        $this->assertSame(['gov', 'private', 'military', 'sports'], PageSection::query()->where('key', 'home.partners')->first()->setting('row_order'));
+        $this->get('/')->assertOk()->assertSee('إن الشباب هم ثروة الأمم');
+        $this->get('/inspiring')->assertOk()->assertSee('زينب الحراصي');
+    }
+
+    public function test_it_imports_the_about_page(): void
+    {
+        $this->artisan('injazat:import-design', ['--only' => ['about']])->assertSuccessful();
+
+        $count = fn (string $key) => PageSection::query()->where('key', $key)->first()->items()->count();
+        $this->assertSame(9, $count('about.fields'));
+        $this->assertSame(17, $count('about.journey'));
+        $this->assertSame(1, $count('about.founder'));
+        $this->assertSame(9, $count('about.testimonials'));
+        $this->assertSame(5, $count('about.team'));
+        $page = Page::forKey('about');
+        $this->assertSame('الإلهام', $page->label('value1_tag'));
+        $this->assertTrue($page->hasMedia('cutout'));
+        $this->get('/about')->assertOk()->assertSee('منذر بن إبراهيم المعمري');
     }
 
     public function test_running_it_again_keeps_editors_changes(): void
