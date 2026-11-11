@@ -97,6 +97,14 @@ RUN npm run build
 
 
 # ==========================================
+# Design source (the repo's design/ folder) for the first content import on a server:
+# `php artisan injazat:import-design` reads ../design = /var/www/design. CI passes it as a named build context
+# (build-contexts: design=./design); without it this empty stage is used and the image has no design folder.
+# ==========================================
+FROM scratch AS design
+
+
+# ==========================================
 # STAGE 4: Final Production Image
 # ==========================================
 FROM base AS final
@@ -112,6 +120,7 @@ LABEL org.opencontainers.image.title="injazat" \
 
 COPY --from=vendor /var/www/html /var/www/html
 COPY --from=frontend /app/public/build /var/www/html/public/build
+COPY --from=design / /var/www/design
 
 RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views \
         storage/app/public bootstrap/cache \

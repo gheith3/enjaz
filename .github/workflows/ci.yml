@@ -6,6 +6,8 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Called by build-and-push.yml: an image is only built from a commit whose checks pass.
+  workflow_call:
 
 concurrency:
   group: ci-${{ github.ref }}

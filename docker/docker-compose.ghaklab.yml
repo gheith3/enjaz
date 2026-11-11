@@ -17,6 +17,9 @@ services:
     build:
       context: ../backend
       dockerfile: Dockerfile
+      # design/ goes into the image (/var/www/design) for `php artisan injazat:import-design`.
+      additional_contexts:
+        design: ../design
       args:
         APP_VERSION: ${APP_VERSION:-ghaklab}
         GIT_COMMIT: ${GIT_COMMIT:-local}

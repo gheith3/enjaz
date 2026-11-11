@@ -1,0 +1,93 @@
+name: Build and Push Docker Image
+
+# Release: push a tag. `git tag v2.0.0 && git push origin v2.0.0`
+# (build-* tags build an image without moving :latest: `git tag build-test-1 && git push origin build-test-1`).
+# The image is ghcr.io/<owner>/<repo> (gheith3/enjaz on the production repo); the production stack
+# (docker/docker-compose.prod.yml) runs :latest and is redeployed through the Portainer webhook.
+on:
+  push:
+    tags:
+      - 'v*'
+      - 'build-*'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  tests:
+    uses: ./.github/workflows/ci.yml
+
+  build:
+    needs: tests
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Image name (lowercase owner/repo)
+        id: image
+        run: echo "name=${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # v1.2.3 -> 1.2.3, 1.2, latest; build-foo -> build-foo; always the short commit sha.
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ env.REGISTRY }}/${{ steps.image.outputs.name }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=ref,event=tag
+            type=sha,prefix=
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v7
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          # The design folder goes into the image (/var/www/design) for the first content import.
+          build-contexts: |
+            design=./design
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            APP_VERSION=${{ github.ref_name }}
+            GIT_COMMIT=${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # Redeploys the Portainer stack. Skipped when the PORTAINER_WEBHOOK_URL secret is not set.
+  trigger-portainer:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Trigger Portainer webhook
+        env:
+          PORTAINER_WEBHOOK_URL: ${{ secrets.PORTAINER_WEBHOOK_URL }}
+        run: |
+          if [ -z "$PORTAINER_WEBHOOK_URL" ]; then
+            echo "PORTAINER_WEBHOOK_URL is not set; skipping redeploy."
+            exit 0
+          fi
+          curl -fsS -X POST "$PORTAINER_WEBHOOK_URL"
