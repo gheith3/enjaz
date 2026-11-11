@@ -6,7 +6,8 @@
   var art = document.querySelector('[data-mag-wall]');
   if (art) {
     var A = []; try { A = JSON.parse(art.dataset.magWall); } catch (e) {}
-    if (A.length >= 4) {
+    // The design needs 4 covers; covers repeat to fill the 12 tiles, so any number works (the fallback picture looks cut).
+    if (A.length >= 1) {
       var esc = function (s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; };
       var cells = [], shapes = ['w2', '', 'h2', '', '', 'w2', '', '', '', '', '', ''];
       for (var i = 0; i < 12; i++) cells.push(A[i % A.length]);
