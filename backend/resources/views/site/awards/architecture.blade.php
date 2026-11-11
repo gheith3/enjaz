@@ -18,7 +18,7 @@
     $ranks = __('site.awards.arch_ranks');
     $pins = $editions->filter(fn ($e) => $e->map_x !== null)->map(fn ($e) => [$e->map_label, $e->map_x, $e->map_y])->values()->all();
     $caption = fn ($m) => \App\Support\Localized::get($m->getCustomProperty('caption'));
-    $url = fn ($m) => $m->hasGeneratedConversion('large') ? $m->getUrl('large') : $m->getUrl();
+    $url = fn ($m) => \App\Support\Media\Src::of($m);
     $n = 0;
 @endphp
 <x-site.layout :title="$a->name" :description="\Illuminate\Support\Str::limit((string) $a->about, 160)" :image="$a->imageUrl('hero')"
@@ -27,7 +27,7 @@
   <section class="c-hero" aria-labelledby="c-h1">
     @if ($hero = $a->imageUrl('hero'))<img class="bf-hero-img" src="{{ $hero }}" alt="" aria-hidden="true" width="2200" height="1466">@endif
     <div class="h-mash" aria-hidden="true"></div><div class="h-rays" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="c-hero-in">@if ($mark = $a->image('mark'))<img class="c-mark" src="{{ $mark->getUrl() }}" alt="" width="311" height="281">@endif
+    <div class="c-hero-in">@if ($mark = $a->image('mark'))<img class="c-mark" src="{{ \App\Support\Media\Src::of($mark) }}" alt="" width="311" height="281">@endif
       @if ($a->eyebrow)<span class="c-eyebrow">{{ $a->eyebrow }}</span>@endif
       <h1 id="c-h1"><span class="gold-t bf-shine" data-t="{{ $a->title ?: $a->name }}">{{ $a->title ?: $a->name }}</span>@if ($a->subtitle)<small>{{ $a->subtitle }}</small>@endif</h1>
       @if ($a->motto)<p class="c-motto">«{{ $a->motto }}»</p>@endif
@@ -39,9 +39,9 @@
     <div class="bf-idea">
       @if ($a->lead)<p class="bf-idea-lead">{!! $bold($a->lead) !!}</p>@endif
       <ul class="bf-facts">
-        @if ($a->label('blessing'))<li>@if ($emblem = $a->image('emblem'))<img class="bf-emblem" src="{{ $emblem->getUrl() }}" alt="">@endif<b>{{ $a->label('blessing') }}</b><small>{{ $a->label('blessing_by') }}</small></li>@endif
+        @if ($a->label('blessing'))<li>@if ($emblem = $a->image('emblem'))<img class="bf-emblem" src="{{ \App\Support\Media\Src::of($emblem) }}" alt="">@endif<b>{{ $a->label('blessing') }}</b><small>{{ $a->label('blessing_by') }}</small></li>@endif
         @if ($a->launched)<li class="bf-launch"><span class="bf-cal" aria-hidden="true"><i>{{ $launch[1] ?? '' }}</i><b>{{ $d($launch[0] ?? '') }}</b><em>{{ $d($launch[2] ?? '') }}</em></span><small>{{ __('site.awards.launch_date') }}</small><span class="sr-only">{{ $a->launched }}</span></li>@endif
-        @if ($a->label('vision'))<li class="bf-vision">@if ($logo = $a->image('vision_logo'))<img class="bf-vlogo" src="{{ $logo->getUrl() }}" alt="{{ $logo->getCustomProperty('alt', '') }}" width="330" height="235" loading="lazy">@endif<b>{{ $a->label('vision') }}</b><small>{{ $a->label('vision_text') }}</small></li>@endif
+        @if ($a->label('vision'))<li class="bf-vision">@if ($logo = $a->image('vision_logo'))<img class="bf-vlogo" src="{{ \App\Support\Media\Src::of($logo) }}" alt="{{ $logo->getCustomProperty('alt', '') }}" width="330" height="235" loading="lazy">@endif<b>{{ $a->label('vision') }}</b><small>{{ $a->label('vision_text') }}</small></li>@endif
         @if ($pins)<li class="bf-where"><x-site.award.oman-map :pins="$pins" :label="__('site.awards.map')" /><b>{{ $a->label('where') }}</b><small>{{ $a->label('where_text') }}</small></li>@endif
       </ul>
       @if (($path = $a->factsIn('path'))->isNotEmpty())
@@ -58,7 +58,7 @@
       <div class="bf-radial" data-radial>
         <svg class="bf-arrows" viewBox="0 0 360 360" aria-hidden="true"><defs><marker id="bfa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#B8893E"/></marker></defs>
           @foreach ($who as $i => $w)@php $ang = deg2rad(-90 + $i * $step); @endphp<line pathLength="1" style="--i:{{ $i }}" x1="{{ number_format(180 + 60 * cos($ang), 1, '.', '') }}" y1="{{ number_format(180 + 60 * sin($ang), 1, '.', '') }}" x2="{{ number_format(180 + 118 * cos($ang), 1, '.', '') }}" y2="{{ number_format(180 + 118 * sin($ang), 1, '.', '') }}" marker-end="url(#bfa)"/>@endforeach</svg>
-        @if ($mark)<span class="bf-core"><img src="{{ $mark->getUrl() }}" alt="{{ $a->name }}"></span>@endif
+        @if ($mark)<span class="bf-core"><img src="{{ \App\Support\Media\Src::of($mark) }}" alt="{{ $a->name }}"></span>@endif
         @foreach ($who as $i => $w)
           @php $ang = deg2rad(-90 + $i * $step); @endphp
           <div class="bf-node" style="--i:{{ $i }};left:{{ number_format(50 + 142 / 3.6 * cos($ang), 2, '.', '') }}%;top:{{ number_format(50 + 142 / 3.6 * sin($ang), 2, '.', '') }}%"><i><x-site.award.icon :name="$w->icon ?: 'flag'" /></i><b>{{ $w->label }}</b><small title="{{ $w->value }}">{{ $w->short ?: $w->value }}</small></div>
@@ -69,7 +69,7 @@
 
   @if ($letter)
     <section class="c-word" id="c-word" aria-labelledby="c-word-h">
-      <div class="w-stage">@if ($photo = $letter->image('photo')?->getUrl())<svg class="w-img" viewBox="0 0 531 689" role="img" aria-label="{{ trim($letter->title.' '.$letter->name) }}"><defs><filter id="bf-portrait-edge" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="erode" radius="1.2" result="clean-alpha"/><feGaussianBlur in="clean-alpha" stdDeviation="0.35" result="soft-alpha"/><feComposite in="SourceGraphic" in2="soft-alpha" operator="in"/></filter></defs><image href="{{ $photo }}" width="531" height="689" filter="url(#bf-portrait-edge)"/></svg>@endif</div><span class="w-line" aria-hidden="true"></span>
+      <div class="w-stage">@if ($photo = \App\Support\Media\Src::of($letter->image('photo')))<svg class="w-img" viewBox="0 0 531 689" role="img" aria-label="{{ trim($letter->title.' '.$letter->name) }}"><defs><filter id="bf-portrait-edge" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="erode" radius="1.2" result="clean-alpha"/><feGaussianBlur in="clean-alpha" stdDeviation="0.35" result="soft-alpha"/><feComposite in="SourceGraphic" in2="soft-alpha" operator="in"/></filter></defs><image href="{{ $photo }}" width="531" height="689" filter="url(#bf-portrait-edge)"/></svg>@endif</div><span class="w-line" aria-hidden="true"></span>
       <div class="w-copy"><span class="w-kicker" id="c-word-h">{{ __('site.awards.word_highness') }}</span><b class="w-name gold-t">{{ $letter->name }}</b><small class="w-role">{{ collect([$letter->title, $letter->role])->filter()->implode(' · ') }}</small>
         @if ($letter->quote)<blockquote class="w-quote"><p>{{ $letter->quote }}</p></blockquote>@endif
         <details class="w-full"><summary><span class="o">{{ __('site.awards.read_word') }}</span><span class="c">{{ __('site.awards.hide') }}</span></summary><div>

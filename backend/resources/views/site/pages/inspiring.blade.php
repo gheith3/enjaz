@@ -6,7 +6,7 @@
     $field = fn ($a) => $a->inspiring_field ?: $a->field?->name;
     $fields = $people->map($field)->filter()->unique()->values();
     // Photo wall: 8 columns of 16 tiles, each column starting at another person and photo (as the design's columns).
-    $photos = $people->map(fn ($a) => collect(['inspiring_panel', 'portrait', 'inspiring_cover'])->map(fn ($c) => $a->getFirstMediaUrl($c))->filter()->values()
+    $photos = $people->map(fn ($a) => collect(['inspiring_panel', 'portrait', 'inspiring_cover'])->map(fn ($c) => \App\Support\Media\Src::of($a->getFirstMedia($c)))->filter()->values()
         ->map(fn ($src) => ['src' => $src, 'name' => $a->name, 'field' => $field($a)]))->filter(fn ($l) => $l->isNotEmpty())->values();
 @endphp
 <x-site.layout :title="$p->title" :description="$p->meta_description ?: $p->hero_lead" styles="inspiring"
@@ -37,7 +37,7 @@
     @foreach ($people as $i => $a)
       @php $img = $a->image('inspiring_panel') ?? $a->image('portrait'); @endphp
       <button type="button" @class(['is-panel', 'is-on' => $i === 0]) aria-pressed="{{ $i === 0 ? 'true' : 'false' }}" aria-label="{{ $a->name }} — {{ $field($a) }}">
-        @if ($img)<img src="{{ $img->getUrl() }}" alt="" width="540" height="604" style="object-position:{{ $img->getCustomProperty('focal') ?: '50% 25%' }}" @if ($i > 1) loading="lazy" @endif>@endif
+        @if ($img)<img src="{{ \App\Support\Media\Src::of($img) }}" alt="" width="540" height="604" style="object-position:{{ $img->getCustomProperty('focal') ?: '50% 25%' }}" @if ($i > 1) loading="lazy" @endif>@endif
         <span class="is-v" aria-hidden="true">{{ $a->name }}</span>
         <span class="is-cap"><span class="is-field">{{ $field($a) }}</span><b class="is-name">{{ $a->name }}</b>@if ($a->inspiring_tagline)<span class="is-line">{{ $a->inspiring_tagline }}</span>@endif</span>
         <i class="is-bar" aria-hidden="true"></i>
@@ -54,12 +54,12 @@
   <div class="wall">
     @foreach ($people as $i => $a)
       @php $img = $a->image('portrait') ?? $a->image('inspiring_cover'); @endphp
-      <a @class(['tile', 'tall' => in_array($i % 4, [0, 3], true)]) href="{{ $a->url() }}">@if ($img)<img src="{{ $img->getUrl() }}" alt="{{ $a->name }}" loading="lazy" style="object-position:{{ $img->getCustomProperty('focal') ?: '50% 25%' }}">@endif<span class="tile-b"><span>{{ $field($a) }}</span><b>{{ $a->name }}</b></span></a>
+      <a @class(['tile', 'tall' => in_array($i % 4, [0, 3], true)]) href="{{ $a->url() }}">@if ($img)<img src="{{ \App\Support\Media\Src::of($img) }}" alt="{{ $a->name }}" loading="lazy" style="object-position:{{ $img->getCustomProperty('focal') ?: '50% 25%' }}">@endif<span class="tile-b"><span>{{ $field($a) }}</span><b>{{ $a->name }}</b></span></a>
     @endforeach
     {{-- The tall tiles leave two holes in a grid of four; like the design, fill them with covers of the same people. --}}
     @if ($people->count() % 4 === 0)
       @foreach ($people->values()->filter(fn ($a, $k) => $k % 2 === 1 && $a->hasMedia('inspiring_cover'))->take(2) as $a)
-        <a class="tile" href="{{ $a->url() }}" tabindex="-1" aria-hidden="true"><img src="{{ $a->getFirstMediaUrl('inspiring_cover') }}" alt="" loading="lazy"><span class="tile-b"><span>{{ $field($a) }}</span><b>{{ $a->name }}</b></span></a>
+        <a class="tile" href="{{ $a->url() }}" tabindex="-1" aria-hidden="true"><img src="{{ (\App\Support\Media\Src::of($a->getFirstMedia('inspiring_cover')) ?? '') }}" alt="" loading="lazy"><span class="tile-b"><span>{{ $field($a) }}</span><b>{{ $a->name }}</b></span></a>
       @endforeach
     @endif
   </div>

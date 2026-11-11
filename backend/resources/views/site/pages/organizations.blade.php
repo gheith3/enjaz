@@ -4,7 +4,7 @@
   <section class="orgs-hero frame-hero" data-sultan-hero>
     <div class="fh-frame">
       @foreach ($slides as $slide)
-        @php $url = $slide->hasGeneratedConversion('large') ? $slide->getUrl('large') : $slide->getUrl(); @endphp
+        @php $url = \App\Support\Media\Src::of($slide); @endphp
         <figure @class(['fh-slide', 'on' => $loop->first]) style="--bg:url({{ $url }})"><img src="{{ $url }}" alt="{{ $slide->getCustomProperty('alt') }}" @unless ($loop->first) loading="lazy" @endunless></figure>
       @endforeach
     </div>
@@ -20,7 +20,7 @@
       @if ($page->hero_lead)<p>{{ $page->hero_lead }}</p>@endif
     </div>
     @if ($letter)
-      @php $paper = $letter->image('photo')?->getUrl(); @endphp
+      @php $paper = \App\Support\Media\Src::of($letter->image('photo')); @endphp
       <button type="button" class="ol-card" data-letter-open aria-haspopup="dialog" aria-label="{{ __('site.organizations.letter_open') }}">
         @if ($paper)<span class="ol-paper"><img src="{{ $paper }}" alt="" width="900" height="1200" decoding="async"></span>@endif
         <span class="ol-cap"><b>{{ __('site.organizations.letter_kicker') }}</b>@if ($letter->quote)<span>{{ $letter->quote }}</span>@endif<em>{{ __('site.organizations.letter_read') }}</em></span>

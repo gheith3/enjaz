@@ -44,7 +44,7 @@
       @if ($presidents->isNotEmpty())
         <section class="fp-sec" id="fp-pres" aria-labelledby="fp-pres-h"><h2 class="fp-h" id="fp-pres-h">{{ __('site.federation.presidents') }}</h2><ol class="fp-tl">
           @foreach ($presidents->reverse() as $p)
-            @php $photo = $p->image('photo')?->getUrl(); @endphp
+            @php $photo = \App\Support\Media\Src::of($p->image('photo')); @endphp
             <li @class(['is-now' => $p->is_current])><span class="fp-pt"><span class="fp-yrs">{{ $p->from_year }} – {{ $p->to_year ?: __('site.university.now') }}</span><b>{{ $p->name }}</b>
               @if ($p->note)<span class="fp-note">{{ $p->note }}</span>@endif @if ($p->is_current)<span class="fp-now">{{ __('site.federation.president') }}</span>@endif</span>
               <span @class(['fp-pp', 'is-empty' => ! $photo])>@if ($photo)<img src="{{ $photo }}" alt="{{ $p->name }}" loading="lazy">@else<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>@endif</span></li>
@@ -64,7 +64,7 @@
       @php
           $gallery = [
               'photos' => $photos->map(fn ($m) => [
-                  'src' => $m->hasGeneratedConversion('large') ? $m->getUrl('large') : $m->getUrl(), 'kind' => $m->getCustomProperty('kind', 'photo'),
+                  'src' => \App\Support\Media\Src::of($m), 'kind' => $m->getCustomProperty('kind', 'photo'),
                   'era' => $m->getCustomProperty('era'), 'year' => $m->getCustomProperty('year'),
                   'title' => $m->getCustomProperty('title') ?? \App\Support\Localized::get($m->getCustomProperty('caption')), 'note' => $m->getCustomProperty('note'),
                   'credit' => $m->getCustomProperty('credit') ? [$m->getCustomProperty('credit'), $m->getCustomProperty('credit_url') ?? ''] : null,

@@ -13,7 +13,7 @@ Project created from `gheith3/ghaklab-template-laravel`. Lab conventions: ghakla
 - Secrets only in git-ignored files: `backend/.env`, `docker/.env.ghaklab`, `docker/.env.local`.
 - Keep `docker/` and `backend/docker/` working: if you add a PHP extension, a queue, a scheduled task or an
   env variable, update the Dockerfile / supervisord.conf / compose env / `.env*.example` in the same change.
-- Before committing: `vendor/bin/pint --dirty`, `php artisan test --compact`, `npm run build`.
+- Before committing: `vendor/bin/pint --dirty`, `php artisan test --parallel --compact`, `npm run build`.
   GitHub CI runs the same on every PR and push to main (`.github/workflows/ci.yml`); merge only when green.
 - UI changes: check them with `lab-shot https://injazat.test --both --all` and look at the screenshots.
   Light/dark theme: `<x-theme-script />` in `<head>` + `<x-theme-toggle />`; use `dark:` classes.

@@ -31,6 +31,11 @@ return [
 
     'connections' => [
 
+        // Drops jobs (tests: image conversions).
+        'null' => [
+            'driver' => 'null',
+        ],
+
         'sync' => [
             'driver' => 'sync',
         ],

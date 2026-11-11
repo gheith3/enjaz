@@ -5,7 +5,7 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
   /* ---------- شريط المنجزين (الرئيسية) ---------- */
-  var strip = $('[data-strip]');
+  var strip = $('.home-achievers[data-strip]');   // other pages use data-strip too (university)
   if (strip) {
     var row = $('.strip', strip);
     var items = $$('button', row);

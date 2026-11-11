@@ -28,7 +28,7 @@
           <h2 class="u-gh"><span>{{ __('site.organizations.group_'.$group) }}</span><b>{{ $d($items->count()) }}</b></h2>
           @if ($group === 'uni' && $spot)
             <a class="u-spot" href="{{ $spot->url() }}" @if ($spot->color_primary) style="--c1:{{ $spot->color_primary }};--c2:{{ $spot->color_secondary ?: $spot->color_primary }}" @endif>
-              <span class="u-spot-logo">@if ($logo = $spot->image('logo_wide')?->getUrl() ?? $spot->logoUrl())<img src="{{ $logo }}" alt="" loading="lazy">@endif</span>
+              <span class="u-spot-logo">@if ($logo = \App\Support\Media\Src::of($spot->image('logo_wide')) ?? $spot->logoUrl())<img src="{{ $logo }}" alt="" loading="lazy">@endif</span>
               <span class="u-spot-txt"><small>{{ $spot->tagline ?: __('site.organizations.profile') }}</small><b>{{ $spot->name }}</b>
                 <span class="u-spot-stats">@foreach ($spot->stats->take(3) as $stat)<span><b>{{ $stat->value }}</b>{{ $stat->label }}</span>@endforeach</span>
                 <em>{{ __('site.organizations.profile_cta') }} <span aria-hidden="true">←</span></em></span>

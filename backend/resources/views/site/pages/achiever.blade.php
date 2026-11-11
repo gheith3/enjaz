@@ -177,7 +177,7 @@
       <div class="media3" data-gallery>
         @foreach ($gallery as $image)
           @php $caption = \App\Support\Localized::get($image->getCustomProperty('caption')); @endphp
-          <a href="{{ $image->hasGeneratedConversion('large') ? $image->getUrl('large') : $image->getUrl() }}" data-caption="{{ $caption }}" aria-label="{{ __('site.achievers.view_image', ['caption' => $caption]) }}"><img class="cover" src="{{ $image->hasGeneratedConversion('card') ? $image->getUrl('card') : $image->getUrl() }}" alt="{{ $caption }}" loading="lazy" style="object-position:{{ \App\Models\Achiever::focal($image) }}"><span class="ico-circle"><img src="{{ Vite::asset('resources/site/assets/svg/icon-images.svg') }}" alt=""></span></a>
+          <a href="{{ \App\Support\Media\Src::of($image) }}" data-caption="{{ $caption }}" aria-label="{{ __('site.achievers.view_image', ['caption' => $caption]) }}"><img class="cover" src="{{ $image->hasGeneratedConversion('card') ? $image->getUrl('card') : \App\Support\Media\Src::of($image) }}" alt="{{ $caption }}" loading="lazy" style="object-position:{{ \App\Models\Achiever::focal($image) }}"><span class="ico-circle"><img src="{{ Vite::asset('resources/site/assets/svg/icon-images.svg') }}" alt=""></span></a>
         @endforeach
       </div>
     </section>

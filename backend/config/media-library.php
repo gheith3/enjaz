@@ -78,7 +78,8 @@ return [
      * This queue connection will be used to generate derived and responsive images.
      * Leave empty to use the default queue connection.
      */
-    'queue_connection_name' => env('QUEUE_CONNECTION', 'sync'),
+    // Tests set MEDIA_QUEUE_CONNECTION=null: the WebP conversions are not made (pages fall back to the original).
+    'queue_connection_name' => env('MEDIA_QUEUE_CONNECTION', env('QUEUE_CONNECTION', 'sync')),
 
     /*
      * This queue will be used to generate derived and responsive images.

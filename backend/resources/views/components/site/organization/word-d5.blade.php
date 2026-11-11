@@ -1,6 +1,6 @@
 @props(['letter', 'variant' => 'institution'])
 {{-- Leader's word, design "official-feature d5" (institution.html): ribbons are decoration, content from the letter. --}}
-@php $photo = $letter->image('photo')?->getUrl(); @endphp
+@php $photo = \App\Support\Media\Src::of($letter->image('photo')); @endphp
 <section @class(['section aisha-feature official-feature d5', 'lw' => $variant === 'leader']) aria-labelledby="aisha-title" data-word>
   <div class="aisha-art">
     <svg class="aisha-lines aisha-lines-back" viewBox="0 0 1339 612" aria-hidden="true" focusable="false">

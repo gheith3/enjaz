@@ -20,8 +20,13 @@
       <a @class(['sports-person', 'sports-dup' => $i === $items->count()]) href="{{ $href ?? route('achievers.index') }}" data-cat="{{ $section->text('title', __('site.homepage.sports')) }}" data-name="{{ $name }}"
          @if ($item->isExternal()) target="_blank" rel="noopener noreferrer" aria-label="{{ $name }}، {{ $item->label }} — {{ __('site.homepage.external_page') }}" @endif>
         <div class="sports-photo sports-motion-{{ $layout }}">
-          @include('site.sections.home.partials.sports-'.$layout)
-          @if ($cut)<img class="sports-cutout" src="{{ $cut->getUrl() }}" alt="{{ $name }}" loading="lazy" decoding="async" width="1122" height="1402">@endif
+          @if ($i === $items->count())
+            {{-- the repeated card gets its own SVG ids (ids must be unique in the page) --}}
+            {!! preg_replace('/(id="|url\(#|href="#)sports-/', '$1sports-dup-', view('site.sections.home.partials.sports-'.$layout)->render()) !!}
+          @else
+            @include('site.sections.home.partials.sports-'.$layout)
+          @endif
+          @if ($cut)<img class="sports-cutout" src="{{ \App\Support\Media\Src::of($cut) }}" alt="{{ $name }}" loading="lazy" decoding="async" width="1122" height="1402">@endif
         </div>
         <div class="sports-caption"><h3>{{ $name }}</h3>@if ($item->label)<span class="sports-field">{{ $item->label }}</span>@endif</div>
       </a>
