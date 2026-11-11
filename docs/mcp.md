@@ -32,8 +32,8 @@ PASSPORT_PRIVATE_KEY=           # optional, see below
 PASSPORT_PUBLIC_KEY=
 ```
 
-Settings: `config/injazat.php` (`injazat.mcp.*`). The live compose file passes all of these
-(`docker/docker-compose.ghaklab.yml`, values in `docker/.env.ghaklab`).
+Settings: `config/injazat.php` (`injazat.mcp.*`). The production compose file passes all of these
+(`docker/docker-compose.prod.yml`, values in the Portainer stack settings).
 
 **Passport keys** sign the tokens. Either set `PASSPORT_PRIVATE_KEY` / `PASSPORT_PUBLIC_KEY` (PEM; a single line
 with `\n` works), or leave them empty: the container entrypoint generates `storage/oauth-{private,public}.key` once
@@ -146,7 +146,7 @@ computed once on first read. Code: `app/Mcp/Servers/InjazatServer.php`, `app/Mcp
 
 ## Swapping from the old app
 
-- Set the same `ENJAZ_MCP_*` values in `docker/.env.ghaklab` and keep the same public URL; `/mcp` and the OAuth
+- Set the same `ENJAZ_MCP_*` values in the Portainer stack settings and keep the same public URL; `/mcp` and the OAuth
   routes have the same paths.
 - Tokens and OAuth clients live in the old app's database and its user ids are UUIDs, while this app's are integers.
   They are **not** carried over, so every assistant has to sign in again once (claude.ai: the connector asks to
