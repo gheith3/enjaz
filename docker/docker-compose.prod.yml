@@ -1,0 +1,141 @@
+# Production stack (Portainer, on the owner's server). Runs the image built by
+# .github/workflows/build-and-push.yml (ghcr.io/gheith3/enjaz:latest on the production repo).
+# Settings come from the stack's environment (see docker/.env.example).
+#
+# Container names stay enjaz-* (the server's nginx proxies to enjaz-app:80 on the shared "proxy" network).
+# Volumes are new (injazat_*): the new app starts on a fresh database; the old enjaz_* volumes are not used.
+services:
+  app:
+    image: ghcr.io/gheith3/enjaz:${IMAGE_TAG:-latest}
+    container_name: enjaz-app
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      # Application (REQUIRED: APP_URL, APP_KEY)
+      APP_NAME: ${APP_NAME:-injazat}
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_URL: ${APP_URL:?APP_URL is required}
+      ASSET_URL: ${APP_URL:?APP_URL is required}
+      APP_KEY: ${APP_KEY:?APP_KEY is required}
+      APP_LOCALE: ${APP_LOCALE:-ar}
+      APP_FALLBACK_LOCALE: ${APP_FALLBACK_LOCALE:-ar}
+      APP_MAINTENANCE_DRIVER: ${APP_MAINTENANCE_DRIVER:-file}
+      BCRYPT_ROUNDS: ${BCRYPT_ROUNDS:-12}
+
+      # Logging
+      LOG_CHANNEL: ${LOG_CHANNEL:-stack}
+      LOG_STACK: ${LOG_STACK:-single}
+      LOG_DEPRECATIONS_CHANNEL: ${LOG_DEPRECATIONS_CHANNEL:-null}
+      LOG_LEVEL: ${LOG_LEVEL:-warning}
+
+      # Database
+      DB_CONNECTION: pgsql
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_DATABASE: ${POSTGRES_DB:-injazat}
+      DB_USERNAME: ${POSTGRES_USER:-injazat_user}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+
+      # Redis (cache, sessions, queue for image conversions)
+      REDIS_CLIENT: phpredis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-null}
+      CACHE_STORE: redis
+      SESSION_DRIVER: redis
+      SESSION_LIFETIME: 120
+      SESSION_ENCRYPT: "false"
+      SESSION_PATH: /
+      SESSION_DOMAIN: ${SESSION_DOMAIN:-}
+      SESSION_SECURE_COOKIE: "true"
+      QUEUE_CONNECTION: redis
+      QUEUE_FAILED_DRIVER: database-uuids
+      BROADCAST_CONNECTION: ${BROADCAST_CONNECTION:-log}
+
+      # Mail (contact form): set MAIL_MAILER=smtp and the MAIL_* values to send; "log" keeps messages in the inbox only
+      MAIL_MAILER: ${MAIL_MAILER:-log}
+      MAIL_SCHEME: ${MAIL_SCHEME:-null}
+      MAIL_HOST: ${MAIL_HOST:-127.0.0.1}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME:-null}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-null}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-hello@example.com}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-إنجازات شباب عُمان}
+
+      # Files: external S3 (RustFS). S3_URL = public URL browsers use; S3_ENDPOINT = how this container reaches it
+      # (optional, e.g. http://rustfs:9000). The bucket must exist and allow public read of media/.
+      FILESYSTEM_DISK: s3
+      MEDIA_DISK: s3
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:?AWS_ACCESS_KEY_ID is required}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:?AWS_SECRET_ACCESS_KEY is required}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-us-east-1}
+      AWS_BUCKET: ${AWS_BUCKET:-enjaz}
+      AWS_USE_PATH_STYLE_ENDPOINT: "true"
+      AWS_ENDPOINT: ${S3_ENDPOINT:-${S3_URL:?S3_URL is required}}
+      AWS_URL: ${S3_URL:?S3_URL is required}/${AWS_BUCKET:-enjaz}
+
+      # AI assistant (MCP, docs/mcp.md)
+      ENJAZ_MCP_ENABLED: ${ENJAZ_MCP_ENABLED:-true}
+      ENJAZ_MCP_ALLOWED_IPS: ${ENJAZ_MCP_ALLOWED_IPS:-}
+      ENJAZ_MCP_PERSONAL_TOKENS: ${ENJAZ_MCP_PERSONAL_TOKENS:-true}
+
+      # Startup: migrations + site structure (roles, pages, sections); first super admin = ADMIN_EMAIL
+      RUN_MIGRATIONS: ${RUN_MIGRATIONS:-true}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+    volumes:
+      - injazat_app_storage:/var/www/html/storage
+    networks:
+      - enjaz-network
+      - proxy
+
+  database:
+    image: postgres:16.15-alpine
+    container_name: enjaz-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-injazat}
+      POSTGRES_USER: ${POSTGRES_USER:-injazat_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    volumes:
+      - injazat_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-injazat_user} -d ${POSTGRES_DB:-injazat}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - enjaz-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: enjaz-redis
+    command: redis-server --appendonly yes ${REDIS_PASSWORD:+--requirepass $REDIS_PASSWORD}
+    restart: unless-stopped
+    volumes:
+      - injazat_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - enjaz-network
+
+networks:
+  enjaz-network:
+    driver: bridge
+  # Shared network the server's nginx reverse proxy is attached to.
+  proxy:
+    external: true
+
+volumes:
+  injazat_app_storage:
+  injazat_postgres_data:
+  injazat_redis_data:
