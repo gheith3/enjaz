@@ -47,6 +47,7 @@ services:
       AWS_ENDPOINT: ${S3_URL:-https://onebox.fahim.om}
       AWS_URL: ${S3_URL:-https://onebox.fahim.om}/${AWS_BUCKET:-injazat-demo}
       MAIL_MAILER: log
+      ENJAZ_MCP_ENABLED: ${ENJAZ_MCP_ENABLED:-false}
       RUN_MIGRATIONS: ${RUN_MIGRATIONS:-seed}
     volumes:
       - app_storage:/var/www/html/storage

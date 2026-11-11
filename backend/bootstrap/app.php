@@ -16,9 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
         // Read counter sent from cached article pages (their CSRF token may be old); it only increments a number.
         $middleware->validateCsrfTokens(except: ['magazine/*/view']);
+        // Guests reaching an auth-only page (the OAuth consent screen of AI assistants) sign in on the dashboard.
+        $middleware->redirectGuestsTo(fn () => route('filament.admin.auth.login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
-            fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
+            fn (Request $request) => $request->is('api/*', 'mcp') || $request->expectsJson(),
         );
     })->create();

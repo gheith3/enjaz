@@ -91,6 +91,13 @@ services:
       MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-injazat@example.com}
 
 
+      # AI assistants (MCP, docs/mcp.md)
+      ENJAZ_MCP_ENABLED: ${ENJAZ_MCP_ENABLED:-false}
+      ENJAZ_MCP_ALLOWED_IPS: ${ENJAZ_MCP_ALLOWED_IPS:-}
+      ENJAZ_MCP_PERSONAL_TOKENS: ${ENJAZ_MCP_PERSONAL_TOKENS:-true}
+      PASSPORT_PRIVATE_KEY: ${PASSPORT_PRIVATE_KEY:-}
+      PASSPORT_PUBLIC_KEY: ${PASSPORT_PUBLIC_KEY:-}
+
       # Startup behaviour
       RUN_MIGRATIONS: ${RUN_MIGRATIONS:-true}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-}
