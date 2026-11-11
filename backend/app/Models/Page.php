@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\ClearsResponseCache;
 use App\Models\Concerns\LogsContentActivity;
+use App\Support\Localized;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,7 @@ class Page extends Model implements HasMedia
 
     protected $fillable = [
         'key', 'title', 'meta_description', 'hero_eyebrow', 'hero_title', 'hero_lead',
-        'hero_cta_label', 'hero_cta_url', 'noindex',
+        'hero_cta_label', 'hero_cta_url', 'noindex', 'extra',
     ];
 
     /** @var list<string> */
@@ -34,13 +35,20 @@ class Page extends Model implements HasMedia
 
     protected function casts(): array
     {
-        return ['noindex' => 'boolean'];
+        return ['noindex' => 'boolean', 'extra' => 'array'];
     }
 
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('og_image')->singleFile();
         $this->addMediaCollection('hero');
+        $this->addMediaCollection('cutout')->singleFile();
+    }
+
+    /** A small text of the page design (stored in `extra` as {key: {ar, en}}, keys in config/site.php "labels"), or the default. */
+    public function label(string $key, ?string $default = null): ?string
+    {
+        return Localized::get($this->extra[$key] ?? null) ?: $default;
     }
 
     /** A letter shown on the page (e.g. His Majesty's handwritten letter on the organizations page). */

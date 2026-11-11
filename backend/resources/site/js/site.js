@@ -39,3 +39,4 @@ import './sections/design/phone-arc-bilarab.js';
 import './sections/design/award-volunteer-motion.js';
 import './sections/award-culture.js';
 import './sections/award-volunteer.js';
+import './sections/lab.js';

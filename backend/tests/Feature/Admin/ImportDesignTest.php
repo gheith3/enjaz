@@ -5,6 +5,7 @@ namespace Tests\Feature\Admin;
 use App\Models\Achievement;
 use App\Models\Achiever;
 use App\Models\Award;
+use App\Models\LabItem;
 use App\Models\MenuItem;
 use App\Models\News;
 use App\Models\Organization;
@@ -101,6 +102,24 @@ class ImportDesignTest extends TestCase
         $this->assertSame(7, $bilarab->winners()->count());
         $this->assertSame(2, $bilarab->features()->count());
         $this->assertSame('/awards/culture', Redirect::query()->where('from_path', '/award.html')->value('to_path'));
+    }
+
+    public function test_it_imports_the_lab(): void
+    {
+        $this->artisan('injazat:import-design', ['--only' => ['organizations', 'lab']])->assertSuccessful();
+
+        $this->assertSame(5, LabItem::query()->where('kind', 'invention')->count());
+        $this->assertSame(4, LabItem::query()->where('kind', 'publication')->count());
+        $sense = LabItem::query()->where('slug', 'senseglass')->firstOrFail();
+        $this->assertSame('جامعة صحار', $sense->organization?->name);
+        $this->assertSame('ITEX ماليزيا', $sense->event);
+        $this->assertSame('2026-05-01', $sense->happened_at->toDateString());
+        $this->assertSame(4, $sense->facts()->count());
+        $this->assertStringContainsString('<figure>', LabItem::query()->where('slug', 'etienne')->first()->body);
+        $this->assertTrue(LabItem::query()->where('slug', 'carbon-ai')->first()->cover_is_illustrative);
+        $lab = Page::query()->where('key', 'lab')->first();
+        $this->assertSame('62', $lab->label('stat_inventions'));
+        $this->assertSame(3, $lab->getMedia('hero')->count());
     }
 
     public function test_running_it_again_keeps_editors_changes(): void

@@ -33,6 +33,14 @@ class PageForm
                     TextInput::make('hero_cta_url')->label('رابط الزر')->maxLength(255)
                         ->extraInputAttributes(['dir' => 'ltr']),
                 ]),
+            Section::make('نصوص التصميم')->description('النصوص الصغيرة في تصميم هذه الصفحة. اتركها فارغة لاستخدام النص الافتراضي.')
+                ->columnSpanFull()->collapsible()->columns(2)
+                ->visible(fn (?Page $record) => filled(config('site.pages.'.$record?->key.'.labels')))
+                ->schema(fn (?Page $record) => collect(config('site.pages.'.$record?->key.'.labels', []))
+                    ->map(fn (string $label, string $key) => TextInput::make("extra.$key.ar")->label($label))->values()->all()),
+            Section::make('صورة مفرّغة في رأس الصفحة')->columnSpanFull()->collapsible()
+                ->visible(fn (?Page $record) => $record?->hasFeature('cutout'))
+                ->schema([MediaSlot::make('cutout', 'الصورة (PNG أو WebP بخلفية شفافة)', focal: false)]),
             Section::make('رسالة في رأس الصفحة')->description('مثل رسالة جلالة السلطان بخط يده في صفحة المؤسسات.')
                 ->columnSpanFull()->collapsible()->relationship('letter')
                 ->visible(fn (?Page $record) => $record?->hasFeature('letter'))

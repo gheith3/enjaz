@@ -38,7 +38,19 @@ return [
         'awards' => ['label' => 'جوائز السلطان قابوس', 'route' => 'awards.index', 'sections' => []],
         'organizations' => ['label' => 'المؤسسات', 'route' => 'organizations.index', 'features' => ['hero_slides', 'letter'], 'sections' => []],
         'universities' => ['label' => 'الجامعات والكليات', 'route' => 'universities.index', 'sections' => []],
-        'lab' => ['label' => 'الاختراعات والابتكارات والمنشورات العلمية', 'sections' => []],
+        'lab' => [
+            'label' => 'الاختراعات والابتكارات والمنشورات العلمية', 'route' => 'lab.index', 'features' => ['cutout', 'hero_slides'], 'sections' => [],
+            'labels' => [
+                'crumb' => 'الاسم في الشريط العلوي', 'subtitle' => 'السطر العريض تحت العنوان',
+                'stat_inventions' => 'الرقم الأول (فارغ = عدد الابتكارات المنشورة)', 'stat_inventions_label' => 'وصف الرقم الأول',
+                'stat_science' => 'الرقم الثاني (فارغ = عدد كل عناصر المختبر)', 'stat_science_label' => 'وصف الرقم الثاني',
+                'stats_note' => 'مصدر الأرقام (تحت الأرقام)',
+                'showcase_tag' => 'عنوان صغير: قاعة العرض', 'showcase_title' => 'عنوان قسم الابتكارات',
+                'table_tag' => 'عنوان صغير: جدول المعرفة', 'table_title' => 'عنوان قسم المنشورات',
+                'cta_title' => 'الدعوة في آخر الصفحة: العنوان', 'cta_text' => 'الدعوة: النص',
+                'inventions_intro' => 'صفحة كل الابتكارات: النص (:count للعدد)', 'publications_intro' => 'صفحة كل المنشورات: النص (:count للعدد)',
+            ],
+        ],
         'news' => ['label' => 'الأخبار', 'sections' => []],
         'magazine' => ['label' => 'المقالات', 'sections' => []],
         'writers' => ['label' => 'أقلام إنجازات', 'sections' => []],
@@ -114,6 +126,18 @@ return [
         'achievement' => [
             'before' => ['achievement-detail', 'profile-idcard', 'profile-enhance', 'achievement-enhance'],
             'after' => [],
+        ],
+        'lab' => [
+            'before' => ['science-page', 'lab-v2'],
+            'after' => ['lab-hero-desktop', 'lab-sections-desktop', 'lab-showcase', 'phone-port-lab'],
+        ],
+        'lab-all' => [
+            'before' => ['science-page', 'lab-v2', 'lab-all-desktop'],
+            'after' => ['phone-port-lab', 'phone-port-lab-all'],
+        ],
+        'lab-item' => [
+            'before' => ['science-page', 'lab-v2'],
+            'after' => ['phone-port-lab'],
         ],
         'home' => [
             'before' => ['home-banner', 'home-achievers', 'home-stats-gold', 'home-latest', 'home-aisha', 'home-awards', 'home-inspiring', 'home-articles', 'home-science', 'home-partners', 'home-sports', 'home-upgrade', 'home-hero-cinema'],

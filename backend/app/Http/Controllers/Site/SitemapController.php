@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Achievement;
 use App\Models\Achiever;
 use App\Models\Award;
+use App\Models\LabItem;
 use App\Models\Organization;
 use App\Models\Page;
 use Illuminate\Http\Response;
@@ -36,6 +37,11 @@ class SitemapController extends Controller
             ->each(fn (Organization $o) => $sitemap->add(Url::create($o->url())->setLastModificationDate($o->updated_at)));
         Award::query()->published()->get(['id', 'slug', 'updated_at'])
             ->each(fn (Award $a) => $sitemap->add(Url::create($a->url())->setLastModificationDate($a->updated_at)));
+        foreach (LabItem::SEGMENTS as $segment) {
+            $sitemap->add(Url::create(route('lab.list', $segment)));
+        }
+        LabItem::query()->published()->get(['id', 'slug', 'updated_at'])
+            ->each(fn (LabItem $x) => $sitemap->add(Url::create($x->url())->setLastModificationDate($x->updated_at)));
 
         return response($sitemap->render(), 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
     }

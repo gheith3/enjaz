@@ -23,6 +23,12 @@ class ArabicSearch
         return preg_replace('/\s+/u', ' ', $text);
     }
 
+    /** A person's name without titles and the father's name ("د. جوخة بنت محمد الحارثية" = "جوخة الحارثية"), normalized. */
+    public static function personKey(string $name): string
+    {
+        return self::normalize((string) preg_replace(['/^(د|م|أ)\.\s*/u', '/\s(بن|بنت)\s+\S+/u'], '', trim($name)));
+    }
+
     /** SQL expression of a jsonb translation (e.g. title->>'ar') normalized the same way. */
     public static function expression(string $column, string $locale): string
     {
