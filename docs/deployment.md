@@ -19,7 +19,8 @@ git tag -a v2.0.3 -m "..." && git push origin v2.0.3   # CI -> image ghcr.io/ghe
 ```
 `.github/workflows/build-and-push.yml` builds `backend/` with the `design/` folder baked in (`/var/www/design`), then
 calls the `PORTAINER_WEBHOOK_URL` secret of the repo (Portainer pulls the new image and restarts the stack). On start
-the entrypoint migrates, runs `site:sync` (roles, pages, sections, super admin = `ADMIN_EMAIL`) and caches config.
+the entrypoint migrates, runs `site:sync` (roles, pages, sections, super admin = `ADMIN_EMAIL`), caches config and
+clears the full-page cache (cached pages link the previous build's hashed assets, which a new image no longer has).
 
 Stack settings: `docker/.env.example` (REQUIRED: APP_URL, APP_KEY, POSTGRES_PASSWORD, AWS keys, S3_URL). Container names
 stay `enjaz-*` (the server's nginx proxies to `enjaz-app:80` on the `proxy` network); the volumes are `injazat_*`.

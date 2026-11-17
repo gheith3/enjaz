@@ -81,6 +81,11 @@ php artisan optimize:clear
 php artisan optimize
 php artisan filament:optimize 2>/dev/null || true
 
+# Cached public pages link the previous build's assets (hashed file names that a new image no longer has):
+# clear them on every start, or visitors get pages without their scripts until the next content edit.
+echo "🧹 Clearing the page cache..."
+php artisan responsecache:clear --no-interaction || echo "⚠️ Could not clear the page cache"
+
 mkdir -p /var/log/supervisor /var/log/nginx
 chown -R www-data:www-data /var/log/supervisor /var/log/nginx
 
