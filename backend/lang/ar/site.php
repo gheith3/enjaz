@@ -97,6 +97,7 @@ return [
         'story' => 'قصتي',
         'read_more' => 'اقرأ المزيد',
         'hide' => 'إخفاء',
+        'stats_label' => 'إحصاءات الإنجازات',
         'medals_label' => 'إحصاءات الإنجازات: :total إجمالًا، :intl دولية و:local محلية',
         'medals_total' => 'إجمالي الإنجازات',
         'medals_intl' => 'إنجازات دولية',

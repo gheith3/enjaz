@@ -73,6 +73,16 @@ class AchievementForm
                     ]),
                     TextInput::make('video_url')->label('رابط فيديو (اختياري)')->url()->extraInputAttributes(['dir' => 'ltr']),
                 ]),
+                Tab::make('في صفحة المنجز')->icon('heroicon-o-user-circle')->columns(2)->schema([
+                    Select::make('rank')->label('نوع الإنجاز')->options(Achievement::RANKS)->placeholder('جائزة')
+                        ->helperText('يظهر على بطاقة الإنجاز في «إنجازاتي». فارغ = جائزة.'),
+                    Toggle::make('is_profile_highlight')->label('الإنجاز الأبرز للمنجز')->inline(false)
+                        ->helperText('بطاقة كبيرة بعلامة «الإنجاز الأبرز» في صفحة المنجز (اختر إنجازًا واحدًا لكل منجز).'),
+                    Translatable::text('short_title', 'عنوان مختصر (البطاقات الصغيرة والخط الزمني). فارغ = عنوان الإنجاز', required: false),
+                    Translatable::text('issuer', 'الجهة المانحة (مثل: جائزة مان بوكر الدولية). فارغ = أول مؤسسة مرتبطة', required: false),
+                    Translatable::text('project', 'العمل المرتبط (مثل: سيدات القمر). يجمع إنجازات العمل الواحد', required: false),
+                    Translatable::text('stat', 'عبارة بارزة (مثل: أول كاتبة عربية تفوز بها)', required: false),
+                ]),
                 Tab::make('الصورة')->icon('heroicon-o-photo')->schema([
                     MediaSlot::make('cover', 'صورة الإنجاز', 'تظهر أعلى صفحة الإنجاز وفي البطاقات (تُقص حسب المكان).'),
                 ]),

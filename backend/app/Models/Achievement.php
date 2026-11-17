@@ -29,22 +29,30 @@ class Achievement extends Model implements HasMedia
 
     public const PRECISIONS = ['day' => 'اليوم والشهر والسنة', 'month' => 'الشهر والسنة', 'year' => 'السنة فقط'];
 
+    /** Kinds of achievement on the achiever's page (keys are the design's, read by js/aj-bento.js). */
+    public const RANKS = [
+        'gold' => 'ميدالية ذهبية', 'silver' => 'ميدالية فضية', 'bronze' => 'ميدالية برونزية', 'first' => 'المركز الأول',
+        'second' => 'المركز الثاني', 'award' => 'جائزة', 'honor' => 'تكريم', 'milestone' => 'محطة',
+    ];
+
     protected $fillable = [
         'slug', 'title', 'excerpt', 'body', 'scope_id', 'field_id', 'discipline', 'profile_tag', 'achieved_at', 'date_precision',
         'country', 'highlights', 'pull_quote', 'pull_quote_by', 'pull_quote_role', 'pull_quote_note', 'pull_quote_after',
         'video_url', 'is_featured', 'show_on_home', 'home_slot', 'home_title', 'is_published', 'published_at', 'sort_order',
+        'rank', 'project', 'issuer', 'stat', 'short_title', 'is_profile_highlight',
     ];
 
     /** @var list<string> */
     public array $translatable = [
         'title', 'home_title', 'excerpt', 'body', 'discipline', 'profile_tag', 'country', 'pull_quote', 'pull_quote_by', 'pull_quote_role', 'pull_quote_note',
+        'project', 'issuer', 'stat', 'short_title',
     ];
 
     protected function casts(): array
     {
         return [
             'achieved_at' => 'date', 'highlights' => 'array', 'is_featured' => 'boolean', 'show_on_home' => 'boolean',
-            'pull_quote_after' => 'integer', 'sort_order' => 'integer',
+            'is_profile_highlight' => 'boolean', 'pull_quote_after' => 'integer', 'sort_order' => 'integer',
         ];
     }
 

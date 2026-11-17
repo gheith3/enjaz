@@ -48,7 +48,7 @@ return [
         'week_cta_m' => 'Read his story', 'week_cta_f' => 'Read her story', 'empty' => 'No achievers match your search.',
         'show_all' => 'Show all achievers', 'contacts' => 'Social accounts', 'id_card' => 'ID card', 'share' => 'Share', 'featured' => 'Featured',
         'story' => 'My story', 'read_more' => 'Read more', 'hide' => 'Hide',
-        'medals_label' => 'Achievements: :total in total, :intl international and :local local', 'medals_total' => 'Total achievements',
+        'stats_label' => 'Achievement stats', 'medals_label' => 'Achievements: :total in total, :intl international and :local local', 'medals_total' => 'Total achievements',
         'medals_intl' => 'international achievements', 'medals_local' => 'local achievements', 'medals_row' => ':n :kind out of :total',
         'journey' => 'My journey', 'achievements' => 'My achievements', 'scope_all' => 'All', 'scope_international' => 'International', 'scope_local' => 'Local', 'sort' => 'Sort', 'sort_year' => 'Year',
         'sort_type' => 'Type', 'sort_reset' => 'Clear', 'no_achievements' => 'No achievements in this category.', 'said' => 'What they said about :name',

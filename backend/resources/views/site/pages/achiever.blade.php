@@ -7,8 +7,6 @@
     $general = app(\App\Settings\GeneralSettings::class);
     $d = fn ($n) => \App\Support\ArabicDate::digits($n);
     $pct = fn ($n) => $stats['total'] ? $d(round($n / $stats['total'] * 100)).'٪' : $d(0).'٪';
-    $years = $achievements->map(fn ($a) => $a->achieved_at?->year)->filter()->unique()->sortDesc()->values();
-    $scopes = $achievements->pluck('scope')->filter()->unique('id')->sortBy('sort_order')->values();
 @endphp
 <x-site.layout :title="$achiever->name" :description="$achiever->short_bio ?: $achiever->headline" :image="$achiever->imageUrl('portrait')" styles="achiever"
     body-class="flush achiever-profile" og-type="profile" :noindex="! $achiever->isLive()"
@@ -74,6 +72,36 @@
         <button class="toggle" type="button" aria-expanded="false" aria-controls="story-text" data-more="{{ __('site.achievers.read_more') }}" data-less="{{ __('site.achievers.hide') }}"><span>{{ __('site.achievers.read_more') }}</span><img src="{{ Vite::asset('resources/site/assets/svg/icon-chevron-down.svg') }}" alt=""></button>
       </div>
     @endif
+    @if ($stats['total'] && $profileItems)
+      @php
+        $span = \App\Support\Site\ProfileAchievements::span($profileItems);
+        $spanLine = collect([
+            $span['from'] ? $d($span['from']).($span['to'] !== $span['from'] ? ' – '.$d($span['to']) : '') : null,
+            $span['countries'] ? \App\Support\ArabicCount::of($span['countries'], 'countries') : null,
+        ])->filter()->implode(' · ');
+        $intlShare = (int) round($stats['international'] * 100 / $stats['total']);
+      @endphp
+      {{-- Design 9: replaced on load by the stats bar (js/aj-pro.js), then by the medal beside the story (js/aj-split.js). --}}
+      <div class="kc" data-kc aria-label="{{ __('site.achievers.stats_label') }}">
+        <button type="button" class="kc-c t" data-st="all" style="--d:0">
+          <span class="kc-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg i" cx="60" cy="60" r="52" pathLength="100" style="--p:{{ $intlShare }}"/><circle class="fg l" cx="60" cy="60" r="52" pathLength="100" style="--p:{{ 100 - $intlShare }};--o:{{ $intlShare }}"/></svg><b data-to="{{ $stats['total'] }}">{{ $d($stats['total']) }}</b></span>
+          <span class="kc-tx"><em>{{ __('site.achievers.medals_total') }}</em>@if ($spanLine !== '')<small>{{ $spanLine }}</small>@endif</span>
+          <span class="kc-shine" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="kc-c i" data-st="intl" style="--d:1">
+          <span class="kc-ic"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#096770" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 4 5.6 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.6-4-9s1.4-6.4 4-9z"/></svg></span>
+          <span class="kc-tx"><span class="kc-n"><b data-to="{{ $stats['international'] }}">{{ $d($stats['international']) }}</b><i data-pct="{{ $intlShare }}">{{ $d($intlShare) }}٪</i></span><em>{{ __('site.achievers.medals_intl') }}</em>
+          <span class="kc-bar"><span style="--w:{{ $intlShare }}%"></span></span></span>
+          <span class="kc-go" aria-hidden="true">←</span>
+        </button>
+        <button type="button" class="kc-c l" data-st="local" style="--d:2">
+          <span class="kc-ic"><img src="{{ Vite::asset('resources/site/assets/svg/icon-oman-map.svg') }}" alt=""></span>
+          <span class="kc-tx"><span class="kc-n"><b data-to="{{ $stats['local'] }}">{{ $d($stats['local']) }}</b><i data-pct="{{ 100 - $intlShare }}">{{ $d(100 - $intlShare) }}٪</i></span><em>{{ __('site.achievers.medals_local') }}</em>
+          <span class="kc-bar"><span style="--w:{{ 100 - $intlShare }}%"></span></span></span>
+          <span class="kc-go" aria-hidden="true">←</span>
+        </button>
+      </div>
+    @endif
     @if ($stats['total'])
       <div class="medal-stats" data-medal-stats data-total="{{ $stats['total'] }}" data-intl="{{ $stats['international'] }}" data-local="{{ $stats['local'] }}" role="group"
            aria-label="{{ __('site.achievers.medals_label', ['total' => $d($stats['total']), 'intl' => $d($stats['international']), 'local' => $d($stats['local'])]) }}">
@@ -118,32 +146,13 @@
     </section>
   @endif
 
-  @if ($achievements->isNotEmpty())
+  @if ($profileItems)
+    {{-- Design 9: tiles, timeline and reader are drawn by js/aj-bento.js from #aj-data (App\Support\Site\ProfileAchievements). --}}
     <section class="section wrap" id="achievements">
       <div class="sec-title"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt=""><h2>{{ __('site.achievers.achievements') }}</h2></div>
-      <div class="sort-row">
-        <div class="chips-flow" data-chips>
-          <button type="button" class="chip active" aria-pressed="true" data-scope-filter="all"><span>{{ __('site.achievers.scope_all') }}</span></button><button type="button" class="chip" aria-pressed="false" data-scope-filter="international"><span>{{ __('site.achievers.scope_international') }}</span></button><button type="button" class="chip" aria-pressed="false" data-scope-filter="local"><span>{{ __('site.achievers.scope_local') }}</span></button>
-        </div>
-        <button type="button" class="chip filter-toggle" aria-expanded="false" aria-controls="filter-panel" data-profile-sort-toggle>
-          <img src="{{ Vite::asset('resources/site/assets/svg/icon-filter.svg') }}" alt=""><span>{{ __('site.achievers.sort') }}</span></button>
-      </div>
-      <div class="filter-panel" id="filter-panel" data-profile-sort-panel
-           data-years='@json($years->map(fn ($y) => ['v' => (string) $y, 'l' => $d($y)])->all())'
-           data-types='@json($scopes->map(fn ($s) => ['v' => $s->slug, 'l' => $s->name])->all())'
-           data-all="{{ __('site.all') }}">
-        <div class="fp-inner">
-          <div class="f-boxes f-boxes-2"><button type="button" class="f-box" data-key="year" aria-expanded="false"><span class="f-label">{{ __('site.achievers.sort_year') }}</span><span class="f-val">{{ __('site.all') }}</span><svg class="chev" viewBox="0 0 14 8" aria-hidden="true"><path d="M1 1l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="f-box" data-key="type" aria-expanded="false"><span class="f-label">{{ __('site.achievers.sort_type') }}</span><span class="f-val">{{ __('site.all') }}</span><svg class="chev" viewBox="0 0 14 8" aria-hidden="true"><path d="M1 1l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-          <div class="f-sheet" data-sheet hidden></div>
-          <button type="button" class="f-reset" data-filter-reset>{{ __('site.achievers.sort_reset') }}</button>
-        </div>
-      </div>
-      <div class="grid-2 cols-3" style="margin-top:16px" data-ach-grid>
-        @foreach ($achievements as $achievement)
-          <x-site.cards.achievement :achievement="$achievement" variant="profile" />
-        @endforeach
-      </div>
-      <p class="ach-empty" data-ach-empty hidden>{{ __('site.achievers.no_achievements') }}</p>
+      <div class="aj" data-aj></div>
+      @php $ajData = ['items' => $profileItems]; @endphp
+      <script type="application/json" id="aj-data">{!! json_encode($ajData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
     </section>
   @endif
 

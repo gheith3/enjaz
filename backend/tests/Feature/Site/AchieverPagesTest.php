@@ -64,6 +64,40 @@ class AchieverPagesTest extends TestCase
             ->assertSee('قصة البداية');
     }
 
+    public function test_profile_prints_the_achievements_data_of_design_9(): void
+    {
+        $international = Scope::factory()->create();
+        $local = Scope::factory()->local()->create();
+        $achiever = Achiever::factory()->create();
+        $booker = Achievement::factory()->create([
+            'slug' => 'man-booker', 'scope_id' => $international->id, 'achieved_at' => '2019-05-21', 'date_precision' => 'day',
+            'rank' => 'award', 'issuer' => ['ar' => 'جائزة مان بوكر الدولية'], 'project' => ['ar' => 'سيدات القمر'],
+            'stat' => ['ar' => 'أول كاتبة عربية تفوز بها'], 'short_title' => ['ar' => 'مان بوكر'], 'is_profile_highlight' => true,
+            'country' => ['ar' => 'المملكة المتحدة'], 'body' => ['ar' => '<p>الفقرة الأولى</p><ul><li>نقطة</li></ul>'],
+            'highlights' => [['lead' => ['ar' => 'أول كاتبة عربية'], 'text' => ['ar' => 'تفوز بالجائزة']]],
+        ]);
+        $booker->sources()->create(['title' => ['ar' => 'مؤسسة بوكر'], 'subtitle' => ['ar' => 'إعلان الفوز'], 'url' => 'https://example.com/booker']);
+        $honor = Achievement::factory()->create(['slug' => 'local-honor', 'scope_id' => $local->id, 'achieved_at' => '2016-01-01', 'date_precision' => 'year', 'rank' => null, 'country' => null]);
+        $achiever->achievements()->attach([$booker->id, $honor->id]);
+
+        $html = $this->get('/achievers/'.$achiever->slug)->assertOk()
+            ->assertSee('class="kc" data-kc', false)->assertSee('<div class="aj" data-aj></div>', false)
+            ->assertDontSee('data-ach-grid', false)
+            ->getContent();
+
+        preg_match('#<script type="application/json" id="aj-data">(.*?)</script>#s', $html, $match);
+        $items = collect(json_decode($match[1], true)['items'])->keyBy('slug');
+
+        $this->assertEquals([
+            'rank' => 'award', 'org' => 'جائزة مان بوكر الدولية', 'project' => 'سيدات القمر', 'stat' => 'أول كاتبة عربية تفوز بها',
+            'short' => 'مان بوكر', 'featured' => 1, 'scope' => 'international', 'iso' => '2019-05-21', 'country' => 'المملكة المتحدة',
+            'details' => "الفقرة الأولى\n\n• نقطة", 'highlights' => ['<b>أول كاتبة عربية</b> تفوز بالجائزة'],
+            'sources' => [['org' => 'مؤسسة بوكر', 'title' => 'إعلان الفوز', 'url' => 'https://example.com/booker']],
+        ], collect($items['man-booker'])->only(['rank', 'org', 'project', 'stat', 'short', 'featured', 'scope', 'iso', 'country', 'details', 'highlights', 'sources'])->all());
+        $this->assertEquals(['rank' => 'award', 'featured' => 0, 'scope' => 'local', 'iso' => '2016', 'country' => '—'],
+            collect($items['local-honor'])->only(['rank', 'featured', 'scope', 'iso', 'country'])->all());
+    }
+
     public function test_draft_profile_is_hidden(): void
     {
         $this->get('/achievers/'.Achiever::factory()->draft()->create()->slug)->assertNotFound();
