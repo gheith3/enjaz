@@ -13,3 +13,153 @@
 .lb-item .li-body figure img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; }
 .lb-item .li-body figcaption { padding: 7px var(--gutter, 16px) 0; color: #6B7B7C; font-size: 11.5px; line-height: 1.7; }
 @media (min-width: 768px) { .lb-item .li-body figure { margin-inline: 0; } .lb-item .li-body figure img { border-radius: 16px; } }
+
+/* «إنجازاتي» tiles (approved option C): every small tile carries its year, chips, title and details on a frosted
+   card at the bottom, so nothing covers the faces; the large tile keeps its text on the photo over a deeper shade.
+   Tiles are a little taller than the design's so the photo shows above the card. Twelve achievements fit three desktop rows. */
+.ab-grid.ab-grid-balanced { grid-auto-rows:214px; }
+@media (min-width:900px) { .ab-grid.ab-grid-balanced { grid-auto-rows:226px; } }
+@media (min-width:1100px) { .ab-grid.ab-grid-balanced { grid-template-columns:repeat(5,minmax(0,1fr)); grid-auto-rows:240px; gap:12px; } }
+.ab-grid-balanced .ab-meta { display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin-bottom:5px; }
+.ab-grid-balanced .ab-cap .ab-y { position:static; line-height:1; }
+.ab-grid-balanced .ab-cap .ab-k { position:static; gap:4px; }
+.ab-grid-balanced .ab-t.sm::after { background:linear-gradient(180deg,rgba(6,49,53,0) 55%,rgba(6,49,53,.25) 100%); }
+.ab-grid-balanced .ab-t.sm .ab-cap {
+  inset:auto 8px 8px 8px; padding:9px 11px; border-radius:14px; background:rgba(255,255,255,.92);
+  -webkit-backdrop-filter:blur(10px) saturate(1.4); backdrop-filter:blur(10px) saturate(1.4); box-shadow:0 8px 20px rgba(0,0,0,.22);
+}
+.ab-grid-balanced .ab-t.sm .ab-y { margin-inline-end:2px; color:#063135; font-size:13px; font-weight:900; text-shadow:none; }
+.ab-grid-balanced .ab-t.sm .ab-chip { padding-inline:7px; background:#e3efeb; color:#075A62; font-size:9.5px; line-height:1.8; -webkit-backdrop-filter:none; backdrop-filter:none; }
+.ab-grid-balanced .ab-t.sm .ab-chip.g { background:var(--ab-gold); color:#3a2a08; }
+.ab-grid-balanced .ab-t.sm .ab-ti { color:#063135; font-size:13px; line-height:1.55; -webkit-line-clamp:2; }
+.ab-grid-balanced .ab-t.sm .ab-sub { margin-top:3px; color:#8A6A2F; font-size:9px; font-weight:700; }
+.ab-grid-balanced .ab-t.xl::after { background:linear-gradient(180deg,rgba(6,49,53,0) 0%,rgba(6,49,53,0) 36%,rgba(6,49,53,.72) 60%,rgba(4,31,34,.97) 100%); }
+.ab-grid-balanced .ab-t.xl .ab-meta { gap:8px; margin-bottom:8px; }
+.ab-grid-balanced .ab-t.xl .ab-y { margin-inline-end:4px; color:#F6E3B4; font-size:34px; text-shadow:0 2px 12px rgba(0,0,0,.35); }
+.ab-grid-balanced .ab-t.xl .ab-ti { text-shadow:0 2px 12px rgba(0,0,0,.4); }
+@media (min-width:900px) { .ab-grid-balanced .ab-t.xl .ab-y { font-size:44px; } }
+/* «المكتبة المرئية»: each library is a cover — a mosaic of its first pictures (or the achiever's photo while it is
+   empty) under a deep shade, framed by a thin gold line, with the library's name and count. */
+.profile-library-choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.profile-library-choice {
+  position:relative; isolation:isolate; overflow:hidden; display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
+  aspect-ratio:16/10; padding:20px; border:0; border-radius:22px; background:#063135; color:#fff; font:inherit; text-align:start; cursor:pointer;
+  box-shadow:0 18px 36px -24px rgba(6,49,53,.7); transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+}
+.profile-library-choice::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,rgba(6,49,53,.05) 18%,rgba(6,49,53,.55) 56%,rgba(4,31,34,.95) 100%); }
+.profile-library-choice::before { content:""; position:absolute; inset:9px; z-index:1; border:1px solid rgba(241,221,174,.38); border-radius:15px; pointer-events:none; }
+.profile-library-choice:hover { transform:translateY(-3px); box-shadow:0 26px 42px -24px rgba(6,49,53,.8); }
+.profile-library-choice:focus-visible { outline:3px solid var(--gold); outline-offset:4px; }
+.lib-cover { position:absolute; inset:0; z-index:-2; display:grid; gap:3px; background:#063135; }
+.lib-cover img { display:block; width:100%; height:100%; min-height:0; object-fit:cover; object-position:50% 22%; transition:transform .8s cubic-bezier(.2,.7,.2,1); }
+.lib-cover[data-n="2"] { grid-template-columns:1fr 1fr; }
+.lib-cover[data-n="3"] { grid-template-columns:1.6fr 1fr; grid-template-rows:1fr 1fr; }
+.lib-cover[data-n="3"] img:first-child { grid-row:1 / span 2; }
+.profile-library-choice:hover .lib-cover img { transform:scale(1.05); }
+.profile-library-choice.is-empty .lib-cover img { filter:saturate(.55) brightness(.75); }
+.lib-cover-text { position:relative; z-index:2; display:grid; justify-items:start; gap:3px; min-width:0; }
+.lib-cover-text strong { font-size:clamp(17px,2vw,24px); font-weight:800; line-height:1.3; text-shadow:0 2px 12px rgba(0,0,0,.35); }
+.lib-cover-text small { color:#F1DDAE; font-size:12.5px; font-weight:700; }
+.profile-library-icon { display:grid; place-items:center; width:44px; height:44px; margin-bottom:8px; border:1px solid rgba(241,221,174,.6); border-radius:14px; background:rgba(6,49,53,.5); color:#F6E3B4; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+.profile-library-icon svg { width:22px; height:22px; }
+.lib-cover-go { position:relative; z-index:2; display:grid; place-items:center; flex:none; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.16); color:#fff; font-size:18px; transition:background .25s, color .25s, transform .25s; }
+.profile-library-choice:hover .lib-cover-go { background:#F1DDAE; color:#063135; transform:translateX(-3px); }
+@media (max-width:699px) {
+  .profile-library-choice { aspect-ratio:4/5; padding:14px; border-radius:18px; }
+  .profile-library-choice::before { inset:6px; border-radius:13px; }
+  .lib-cover-go { display:none; }
+  .profile-library-icon { width:36px; height:36px; margin-bottom:6px; border-radius:11px; }
+  .profile-library-icon svg { width:18px; height:18px; }
+  .lib-cover-text strong { font-size:15px; }
+  .lib-cover-text small { font-size:11px; }
+}
+/* Video and photo libraries: pop-up pages of small square tiles with the title underneath. */
+.library-dialog { box-sizing:border-box; width:min(960px,calc(100vw - 32px)); max-height:min(86vh,860px); padding:0; border:0; border-radius:22px; background:#fff; color:var(--dark); box-shadow:0 30px 80px #04282c59; overflow:auto; overscroll-behavior:contain; }
+.library-dialog::backdrop { background:rgba(6,49,53,.72); backdrop-filter:blur(3px); }
+html.library-open { overflow:hidden; scrollbar-gutter:stable; }
+.library-head { position:sticky; top:0; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 20px; background:inherit; border-bottom:1px solid #e3ece8; }
+.library-head h3 { margin:0; color:var(--primary); font-size:19px; }
+.library-close { display:grid; place-items:center; width:40px; height:40px; flex:none; border:1px solid #d7e4df; border-radius:50%; background:#f4f8f6; color:var(--primary); font-size:24px; line-height:1; cursor:pointer; }
+.library-close:focus-visible, .library-tile:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+.library-player { margin:18px 20px 0; aspect-ratio:16/9; border-radius:16px; overflow:hidden; background:#000; }
+.library-player[hidden] { display:none; }
+.library-player iframe { display:block; width:100%; height:100%; border:0; }
+.library-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:16px; margin:0; padding:20px; list-style:none; }
+.library-grid > li { display:flex; }
+/* Each picture is a small card: the picture, then its title centred under a short gold line (the year above a video's title). */
+.library-tile {
+  display:flex; flex-direction:column; width:100%; overflow:hidden; border:1px solid #e3ece8; border-radius:16px; background:#fff; color:var(--dark);
+  box-shadow:0 10px 24px -20px rgba(6,49,53,.45); transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.library-tile:hover { transform:translateY(-3px); border-color:#d6e4df; box-shadow:0 18px 32px -20px rgba(6,49,53,.5); }
+.library-thumb { position:relative; display:block; aspect-ratio:4/3; overflow:hidden; background:linear-gradient(160deg,#0C7F89,#063135); }
+.library-thumb img { display:block; width:100%; height:100%; object-fit:cover; object-position:50% 25%; transition:transform .5s cubic-bezier(.2,.7,.2,1); }
+.library-play { position:absolute; inset:0; margin:auto; display:grid; place-items:center; width:46px; height:46px; border-radius:50%; background:rgba(6,49,53,.72); color:#fff; box-shadow:0 0 0 2px rgba(241,221,174,.75); }
+.library-play svg { width:20px; height:20px; margin-inline-start:-3px; }
+.library-tile:hover .library-thumb img { transform:scale(1.05); }
+.library-caption { position:relative; display:grid; align-content:center; justify-items:center; gap:2px; min-height:66px; padding:13px 14px 14px; text-align:center; }
+.library-caption::before { content:""; position:absolute; top:0; left:50%; width:36px; height:2px; margin-left:-18px; border-radius:2px; background:linear-gradient(90deg,#F1DDAE,#C9A35C); }
+.library-caption b { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; color:#063135; font-size:13px; font-weight:700; line-height:1.65; }
+.library-caption small { color:#A88344; font-size:11px; font-weight:800; line-height:1.4; }
+@media (max-width:699px) { .library-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; padding:14px; } .library-caption { min-height:60px; padding:11px 10px 12px; } .library-caption b { font-size:12px; } }
+.library-empty { margin:0; padding:28px 20px; color:var(--muted); }
+[data-theme="dark"] .library-dialog { background:#12383c; color:#e5f0eb; }
+[data-theme="dark"] .library-tile { background:#163f43; border-color:#25494d; color:#e5f0eb; }
+[data-theme="dark"] .library-caption b { color:#e5f0eb; }
+[data-theme="dark"] .library-head { border-color:#25494d; }
+
+/* Achiever profile hero: the short introduction is one line. */
+.profile-hero .about { max-width:none; }
+/* The Arabic and English names share one right edge; the star sits outside it, in the space at the right of the
+   Arabic name, centred on its line (on phones the names step aside a little to leave it room). */
+.profile-hero .who-name { position:relative; }
+.profile-hero .who-name h1 { margin:0; }
+.profile-hero .who-name .featured-mark { position:absolute; top:50%; left:calc(100% + 8px); right:auto; width:23px; height:23px; margin-top:-8.5px; }
+@media (min-width:1100px) { .profile-hero .who-name .featured-mark { left:calc(100% + 10px); width:27.6px; height:27.6px; margin-top:-10.8px; } }
+@media (max-width:699px) { .profile-hero .who:has(.featured-mark) { margin-inline-start:26px; } }
+/* Opening the page: the portrait rises from its line and the text rises with it — the name, then its star,
+   the English name, and the introduction unfolding from the right (achiever.blade.php + profile-portrait.js). */
+.profile-hero.hero-wait .who-name, .profile-hero.hero-wait .en, .profile-hero.hero-wait .about { opacity:0; }
+.profile-hero.hero-in .who-name h1 { animation:hero-up 1.4s cubic-bezier(.16,1,.3,1) .05s both; will-change:transform,opacity; }
+.profile-hero.hero-in .who-name::after { content:""; position:absolute; inset-inline:0; bottom:-3px; height:2px; border-radius:2px; pointer-events:none;
+  background:linear-gradient(270deg,rgba(227,194,126,0),#E3C27E 30%,#F6E3B4 50%,#E3C27E 70%,rgba(227,194,126,0)); transform-origin:right;
+  animation:hero-line 1.5s cubic-bezier(.65,0,.35,1) .5s both; }
+.profile-hero.hero-in .featured-mark { animation:hero-star .9s cubic-bezier(.22,1,.36,1) .9s both; }
+.profile-hero.hero-in .en { animation:hero-up 1.4s cubic-bezier(.16,1,.3,1) .25s both; will-change:transform,opacity; }
+.profile-hero.hero-in .about { animation:hero-up 1.4s cubic-bezier(.16,1,.3,1) .45s both; will-change:transform,opacity; }
+/* One calm movement: the name, the English name and the introduction (with its glass pill) rise a little and fade in one after the other;
+   a gold light runs under the name and fades; the star settles last. Starts once the Cairo font is ready, so nothing reflows. */
+@keyframes hero-up { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+@keyframes hero-line { 0% { opacity:1; transform:scaleX(0); } 55% { opacity:1; transform:scaleX(1); } 100% { opacity:0; transform:scaleX(1); } }
+@keyframes hero-star { from { opacity:0; transform:scale(.55); filter:drop-shadow(0 0 0 rgba(246,227,180,0)); } 60% { opacity:1; filter:drop-shadow(0 0 10px rgba(246,227,180,.9)); } to { opacity:1; transform:none; filter:drop-shadow(0 1px 2px rgba(0,0,0,.2)); } }
+@media (prefers-reduced-motion:reduce) { .profile-hero.hero-in .who-name::after { display:none; } .profile-hero.hero-in .who-name h1, .profile-hero.hero-in .featured-mark, .profile-hero.hero-in .en, .profile-hero.hero-in .about { animation:none; } }
+
+/* Compact header on a profile or an achievement: the achiever's small photo joins the logo, so the desktop
+   header gaps shrink to keep the menu clear of the photo and of the search button. */
+@media (min-width:1100px) {
+  :is(.achiever-profile, .achievement-detail) .site-header.is-compact { gap:18px; }
+  :is(.achiever-profile, .achievement-detail) .site-header.is-compact .dnav a { padding-inline:6px; }
+  :is(.achiever-profile, .achievement-detail) .site-header.is-compact .dnav a:hover::after,
+  :is(.achiever-profile, .achievement-detail) .site-header.is-compact .dnav a[aria-current="page"]::after { left:6px; right:6px; }
+}
+@media (min-width:1100px) and (max-width:1240px) {
+  :is(.achiever-profile, .achievement-detail) .site-header.is-compact .crumb-avatar { width:0; opacity:0; }
+}
+
+
+/* Profile: the ID-card row is taller, and everything in it is 20% larger. */
+.profile-contact-row { height:58px; padding:0 8px; border-radius:16px; gap:6px; }
+.profile-contact-row .id-launch { height:42px; gap:10px; padding:0 8px 0 12px; border-radius:12px; font-size:14.4px; }
+.profile-contact-row .id-mini { width:36px; height:25px; border-radius:5px; }
+.profile-contact-row .id-mini::before { top:6px; right:5px; width:10px; height:10px; }
+.profile-contact-row .id-mini::after { top:7px; left:5px; width:12px; box-shadow:0 5px 0 0 rgba(255,255,255,.45); }
+.profile-contact-row .id-mini i { height:3.5px; }
+.profile-contact-row .id-launch .id-arrow { font-size:15.6px; }
+.profile-contact-row .profile-socials::before { height:24px; }
+.profile-contact-row .profile-social, .profile-contact-row .profile-share { min-width:38px; height:38px; gap:7px; border-radius:11px; }
+.profile-contact-row .profile-social-icon img { width:18px; height:18px; }
+.profile-contact-row .profile-share svg { width:19px; height:19px; }
+@media (min-width:640px) {
+  .profile-contact-row .profile-social { padding:0 12px; }
+  .profile-contact-row .profile-social-handle { font-size:13.8px; }
+}

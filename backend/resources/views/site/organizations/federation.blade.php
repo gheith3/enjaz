@@ -26,32 +26,86 @@
     @if ($memberships->isNotEmpty())<div class="fp-chips">@foreach ($memberships as $m)<span>{{ preg_replace('/ \(.*\)/u', '', $m['name']) }} <b>{{ $m['year'] }}</b></span>@endforeach</div>@endif
     <nav class="fp-jump" aria-label="{{ __('site.university.jump') }}"><a href="#fp-about">{{ __('site.federation.about') }}</a>
       @if ($presidents->isNotEmpty())<a href="#fp-pres">{{ __('site.university.jump_presidents') }}</a>@endif
-      @if ($hasGallery)<a href="#fp-gal">{{ __('site.federation.gallery_short') }}</a>@endif
-      <a href="#fp-ach">{{ __('site.university.jump_achievements') }}</a><a href="#fp-people">{{ __('site.university.jump_people') }}</a></nav>
+      @if ($o->milestones->isNotEmpty())<a href="#fp-ms">{{ __('site.federation.milestones') }}</a>@endif
+      <a href="#fp-ach">{{ __('site.university.jump_achievements') }}</a>
+      @if ($hasGallery)<a href="#fp-gal">{{ __('site.federation.gallery_short') }}</a>@endif<a href="#fp-people">{{ __('site.university.jump_people') }}</a></nav>
   </section>
   <div class="wrap">
-    <div class="fp-top">
-      <section class="fp-sec" id="fp-about" aria-labelledby="fp-about-h"><h2 class="fp-h" id="fp-about-h">{{ __('site.federation.about') }}</h2><div>
-        @if ($o->about)
-          @if ($facts)<dl class="fp-facts">@foreach ($facts as $label => $value)<div><dt>{{ $label }}</dt><dd>{{ $value }}</dd></div>@endforeach</dl>@endif
-          <p class="fp-text">{{ $o->about }}</p>
-          @if ($memberships->isNotEmpty())<ul class="fp-members">@foreach ($memberships as $m)<li><b>{{ $m['year'] }}</b>{{ $m['name'] }}</li>@endforeach</ul>@endif
-          @if ($o->website)<a class="fp-site" href="{{ $o->website }}" target="_blank" rel="noopener">{{ __('site.federation.website') }} <span aria-hidden="true">↗</span></a>@endif
-        @else
-          <p class="fp-soon">{{ __('site.federation.soon') }}</p>
-        @endif
-      </div></section>
-      @if ($presidents->isNotEmpty())
-        <section class="fp-sec" id="fp-pres" aria-labelledby="fp-pres-h"><h2 class="fp-h" id="fp-pres-h">{{ __('site.federation.presidents') }}</h2><ol class="fp-tl">
-          @foreach ($presidents->reverse() as $p)
-            @php $photo = \App\Support\Media\Src::of($p->image('photo')); @endphp
-            <li @class(['is-now' => $p->is_current])><span class="fp-pt"><span class="fp-yrs">{{ $p->from_year }} – {{ $p->to_year ?: __('site.university.now') }}</span><b>{{ $p->name }}</b>
-              @if ($p->note)<span class="fp-note">{{ $p->note }}</span>@endif @if ($p->is_current)<span class="fp-now">{{ __('site.federation.president') }}</span>@endif</span>
-              <span @class(['fp-pp', 'is-empty' => ! $photo])>@if ($photo)<img src="{{ $photo }}" alt="{{ $p->name }}" loading="lazy">@else<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>@endif</span></li>
-          @endforeach
-        </ol></section>
+    {{-- «عن الاتحاد» in one framed panel (facts ribbon, text, memberships as badges, website), then «رؤساء الاتحاد» as the
+         animated leadership stage (x-site.organization.heads-stage) instead of a long list (css federation-pro). --}}
+    <section class="fp-sec fa" id="fp-about" aria-labelledby="fp-about-h"><h2 class="fp-h" id="fp-about-h">{{ __('site.federation.about') }}</h2>
+      @if ($o->about)
+        <div class="fa-panel">
+          @if ($facts)<dl class="fa-facts">@foreach ($facts as $label => $value)<div><dt>{{ $label }}</dt><dd>{{ $value }}</dd></div>@endforeach</dl>@endif
+          <div class="fa-body">
+            <p class="fa-text">{{ $o->about }}</p>
+            @if ($memberships->isNotEmpty() || $o->website)
+              <div class="fa-side">
+                @if ($memberships->isNotEmpty())<h3>{{ __('site.federation.memberships') }}</h3>
+                  <ul class="fa-members">@foreach ($memberships as $m)<li><b>{{ $m['year'] }}</b><span>{{ $m['name'] }}</span></li>@endforeach</ul>@endif
+                @if ($o->website)<a class="fa-site" href="{{ $o->website }}" target="_blank" rel="noopener">{{ __('site.federation.website') }} <span aria-hidden="true">↗</span></a>@endif
+              </div>
+            @endif
+          </div>
+        </div>
+      @else
+        <p class="fp-soon">{{ __('site.federation.soon') }}</p>
       @endif
-    </div>
+    </section>
+    @if ($presidents->isNotEmpty())
+      <section class="fp-sec fa-pres" id="fp-pres" aria-labelledby="fp-pres-h"><h2 class="fp-h" id="fp-pres-h">{{ __('site.federation.presidents') }} <small>{{ \App\Support\ArabicDate::digits($presidents->count()) }}</small></h2>
+        <x-site.organization.heads-stage :heads="$presidents->sortBy(fn ($p) => [$p->from_year ?? 9999, $p->sort_order])->values()" />
+      </section>
+    @endif
+
+
+
+
+    @if ($o->milestones->isNotEmpty())
+      {{-- «أبرز المحطات» on a pitch: every stop's card is shown at once, in time order; a ball rolls under them from stop to stop
+           and lights each card in turn (js sections/fed-pro). --}}
+      @php $stops = $o->milestones->sortBy(fn ($m) => (int) $m->year)->values(); @endphp
+      <section class="fp-sec fms" id="fp-ms" aria-labelledby="fp-ms-h" data-fms>
+        <h2 class="fp-h" id="fp-ms-h">{{ __('site.federation.milestones') }}</h2>
+        <div class="fms-pitch" style="--n: {{ $stops->count() }}">
+          <span class="fms-lines" aria-hidden="true"></span>
+          <div class="fms-scroll">
+          <div class="fms-cards">
+            @foreach ($stops as $m)
+              <article @class(['fms-card', 'on' => $loop->last]) style="--i: {{ $loop->index }}">
+                <span class="fms-cup" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 31c-5.5 0-10-4.5-10-10V8h20v13c0 5.5-4.5 10-10 10Z"/><path d="M14 12H8v4a7 7 0 0 0 7 7M34 12h6v4a7 7 0 0 1-7 7M24 31v7M16 42h16M19 38h10"/></svg></span>
+                <b class="fms-year">{{ \App\Support\ArabicDate::digits($m->year) }}</b>
+                <h3>{{ $m->title }}</h3>@if ($m->place)<p>{{ $m->place }}</p>@endif
+              </article>
+            @endforeach
+          </div>
+          <div class="fms-track" role="tablist" aria-label="{{ __('site.federation.milestones') }}" style="--n: {{ $stops->count() }}">
+            <span class="fms-path" aria-hidden="true"><i></i></span>
+            <span class="fms-ball" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#fff" stroke="#14282A" stroke-width="1.6"/><path d="M20 11l7 5-3 8h-8l-3-8z" fill="#14282A"/><path d="M20 11V3M27 16l7-3M24 24l5 7M16 24l-5 7M13 16l-7-3" stroke="#14282A" stroke-width="1.4"/></svg></span>
+            @foreach ($stops as $m)
+              <button type="button" role="tab" @class(['fms-stop', 'on' => $loop->last]) aria-selected="{{ $loop->last ? 'true' : 'false' }}" style="--i: {{ $loop->index }}"><i></i><span>{{ \App\Support\ArabicDate::digits($m->year) }}</span></button>
+            @endforeach
+          </div>
+          </div>
+        </div>
+      </section>
+    @endif
+
+    <section class="fp-sec" id="fp-ach" aria-labelledby="fp-ach-h">
+      <h2 class="fp-h" id="fp-ach-h">{{ __('site.federation.achievements') }} @if ($achievements->isNotEmpty())<small>{{ $plural($achievements->count(), 'achievements') }}</small>@endif</h2>
+      {{-- Cards like the ministries' achievements (eight at most). --}}
+      <div class="fa-grid">
+        @forelse ($achievements->take(8) as $row)
+          @php $a = $row['achievement']; $img = $a->imageUrl('cover', 'card') ?? $a->primaryAchiever()?->imageUrl('portrait', 'card'); @endphp
+          <a class="fa-card" href="{{ $a->url() }}"><span class="fa-img">@if ($img)<img src="{{ $img }}" alt="" loading="lazy" style="object-position:{{ \App\Models\Achievement::focal($a->image('cover')) }}">@endif</span>
+            @if ($tag = $a->disciplineLabel())<span class="fa-pill">{{ $tag }}</span>@endif<b>{{ $a->title }}</b>
+            <small>{{ collect([$a->primaryAchiever()?->name ?? $o->name, $a->dateLabel()])->filter()->implode(' · ') }}</small></a>
+        @empty
+          <p class="fp-soon">{{ __('site.federation.no_achievements') }}</p>
+        @endforelse
+      </div>
+      @if ($achievements->isNotEmpty())<a class="fp-more" href="{{ route('organizations.achievements', $o) }}">{{ __('site.federation.all_achievements') }} ({{ \App\Support\ArabicDate::digits($achievements->count()) }}) <span aria-hidden="true">←</span></a>@endif
+    </section>
 
     @if ($hasGallery)
       <section class="fp-sec fp-gal" id="fp-gal" aria-labelledby="fp-gal-h" data-fp-gal>
@@ -73,26 +127,6 @@
           ];
       @endphp
       <script>window.INJAZ_FED_GALLERY = {!! json_encode($gallery, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!};</script>
-    @endif
-
-    <section class="fp-sec" id="fp-ach" aria-labelledby="fp-ach-h">
-      <h2 class="fp-h" id="fp-ach-h">{{ __('site.federation.achievements') }} @if ($achievements->isNotEmpty())<small>{{ $plural($achievements->count(), 'achievements') }}</small>@endif</h2>
-      <div class="fp-cards">
-        @forelse ($achievements->take(6) as $row)
-          @php $a = $row['achievement']; @endphp
-          <a class="fp-card" href="{{ $a->url() }}"><span class="fp-img">@if ($img = $a->imageUrl('cover', 'card'))<img src="{{ $img }}" alt="" loading="lazy" style="object-position:{{ \App\Models\Achievement::focal($a->image('cover')) }}">@endif</span>
-            <span class="fp-cb"><b>{{ $a->title }}</b><small>{{ collect([$a->primaryAchiever()?->name ?? $o->name, $a->dateLabel()])->filter()->implode(' · ') }}</small></span></a>
-        @empty
-          <p class="fp-soon">{{ __('site.federation.no_achievements') }}</p>
-        @endforelse
-      </div>
-      @if ($achievements->isNotEmpty())<a class="fp-more" href="{{ route('organizations.achievements', $o) }}">{{ __('site.federation.all_achievements') }} ({{ \App\Support\ArabicDate::digits($achievements->count()) }}) <span aria-hidden="true">←</span></a>@endif
-    </section>
-
-    @if ($o->milestones->isNotEmpty())
-      <section class="fp-sec" aria-labelledby="fp-ms-h"><h2 class="fp-h" id="fp-ms-h">{{ __('site.federation.milestones') }}</h2><ul class="fp-ms">
-        @foreach ($o->milestones as $m)<li><span class="fp-y">{{ $m->year }}</span><span><b>{{ $m->title }}</b>@if ($m->place)<small>{{ $m->place }}</small>@endif</span></li>@endforeach
-      </ul></section>
     @endif
 
     <section class="fp-sec" id="fp-people" aria-labelledby="fp-ppl-h">

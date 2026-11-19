@@ -61,6 +61,7 @@ class ProfileAchievements
             'img' => $achievement->imageUrl('cover') ?? $achiever->imageUrl('portrait'),
             'pos' => $cover ? Achievement::focal($cover) : Achiever::focal($achiever->image('portrait')),
             'details' => self::details($achievement),
+            'bold' => self::bold($achievement),
             'highlights' => collect($achievement->highlightItems())
                 ->map(fn (array $item) => trim(($item['lead'] !== '' ? '<b>'.e($item['lead']).'</b> ' : '').e($item['text'])))
                 ->values()->all(),
@@ -98,6 +99,27 @@ class ProfileAchievements
         })->filter()->values();
 
         return $blocks->isNotEmpty() ? $blocks->implode("\n\n") : self::text((string) $achievement->excerpt);
+    }
+
+    /**
+     * Phrases the reader pop-up prints in bold (design 10): what the story already marks as bold,
+     * and the lead words of the highlights.
+     *
+     * @return list<string>
+     */
+    private static function bold(Achievement $achievement): array
+    {
+        $marked = collect($achievement->bodyParagraphs())->flatMap(function (string $html): array {
+            preg_match_all('#<(strong|b)\b[^>]*>(.*?)</\1>#su', $html, $found);
+
+            return array_map(fn (string $inner) => self::text($inner), $found[2]);
+        });
+        $leads = collect($achievement->highlightItems())->pluck('lead');
+
+        return $marked->concat($leads)
+            ->map(fn ($phrase) => trim((string) $phrase))
+            ->filter(fn (string $phrase) => mb_strlen($phrase) >= 3)
+            ->unique()->values()->all();
     }
 
     private static function text(string $html): string

@@ -18,7 +18,7 @@ const tpl = id => document.getElementById(id).content.firstElementChild.cloneNod
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const ar = n => String(n).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]).replace(/(\S)(?=(\S{3})+$)/g,"$1٬");
 
-/* دخول الصورة الرئيسية بالنقاط النصفية: صار بالتنسيق وحده (انظر .hero-art img في الأعلى) */
+/* دخول الصورة الرئيسية (تنهض من الكتاب): بالتنسيق وحده، انظر .hero-art img في about-page.css */
 
 /* شريط الأقسام */
 const chips = $("[data-chips]");

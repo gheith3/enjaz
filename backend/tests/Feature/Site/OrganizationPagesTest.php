@@ -40,7 +40,8 @@ class OrganizationPagesTest extends TestCase
 
         $this->get('/organizations')->assertOk()
             ->assertSee('وزارة التراث')->assertDontSee('وزارة مسودة')
-            ->assertSee('data-count="2"', false)->assertSee('ترعى القطاعات')->assertSee('class="orgs-group g-gov"', false);
+            ->assertSee('data-count="2"', false)->assertSee('ترعى القطاعات')->assertSee('id="od-gov"', false)
+            ->assertSee('class="oc s-gov"', false)->assertSee('ديوان المؤسسات');
     }
 
     public function test_organizations_search_and_type_filter(): void
@@ -68,18 +69,70 @@ class OrganizationPagesTest extends TestCase
             ->call('setGroup', '')->set('q', 'مسقط')->assertSee('كلية مسقط')->assertDontSee('جامعة السلطان قابوس');
     }
 
-    public function test_institution_page_shows_news_letter_and_rail(): void
+    public function test_university_word_uses_the_window_with_quote_highlight_and_signature(): void
     {
-        $ministry = Organization::factory()->create(['organization_type_id' => $this->gov->id, 'name' => ['ar' => 'وزارة الثقافة'], 'focus_areas' => [['ar' => 'الشباب']], 'about' => ['ar' => 'نبذة الوزارة']]);
+        $uni = Organization::factory()->create(['organization_type_id' => $this->academic->id, 'academic_group' => 'uni', 'name' => ['ar' => 'جامعة الاختبار']]);
+        $letter = $uni->letter()->create([
+            'title' => ['ar' => 'الدكتور'], 'name' => ['ar' => 'سالم بن علي'], 'role' => ['ar' => 'رئيس الجامعة'], 'is_published' => true,
+            'body' => ['ar' => "فقرة أولى.\n\nنؤمن بأن المعرفة طريق المستقبل لكل طالب."],
+            'quote' => ['ar' => '…نؤمن بأن *المعرفة طريق المستقبل* لكل طالب.'],
+        ]);
+        $letter->addMediaFromBase64('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=')
+            ->usingFileName('leader.png')->toMediaCollection('photo');
+
+        $this->get($uni->url())->assertOk()
+            ->assertSee('data-word-window', false)->assertDontSee('official-feature d5', false)
+            ->assertSee('<mark>المعرفة طريق المستقبل</mark>', false)
+            ->assertSee('<span class="ww-hl">نؤمن بأن المعرفة طريق المستقبل لكل طالب.</span>', false)
+            ->assertSee('مع خالص التقدير')->assertSee('مدة القراءة');
+    }
+
+    public function test_university_of_technology_card_comes_right_under_the_spotlight(): void
+    {
+        Organization::factory()->create(['organization_type_id' => $this->academic->id, 'academic_group' => 'uni', 'name' => ['ar' => 'جامعة السلطان قابوس'], 'about' => ['ar' => 'نبذة'], 'sort_order' => 1]);
+        Organization::factory()->create(['organization_type_id' => $this->academic->id, 'academic_group' => 'uni', 'name' => ['ar' => 'جامعة نزوى'], 'sort_order' => 2]);
+        Organization::factory()->create(['organization_type_id' => $this->academic->id, 'academic_group' => 'tech', 'name' => ['ar' => 'جامعة التقنية والعلوم التطبيقية'], 'sort_order' => 3]);
+
+        $this->get('/universities')->assertOk()
+            ->assertSeeInOrder(['class="u-spot"', 'class="u-tech"', 'جامعة نزوى'], false)
+            ->assertDontSee('<section class="u-group" data-g="tech">', false);
+
+        Livewire::test(UniversitiesIndex::class, ['sitePage' => Page::forKey('universities')])
+            ->call('setGroup', 'tech')->assertSee('جامعة التقنية والعلوم التطبيقية')->assertDontSee('u-spot');
+    }
+
+    public function test_institution_page_shows_its_achievements_news_details_letter_and_others(): void
+    {
+        $ministry = Organization::factory()->create(['organization_type_id' => $this->gov->id, 'name' => ['ar' => 'وزارة الثقافة'], 'focus_areas' => [['ar' => 'الشباب']],
+            'about' => ['ar' => 'نبذة الوزارة'], 'founded' => 2020, 'hq' => ['ar' => 'مسقط']]);
         Organization::factory()->create(['organization_type_id' => $this->gov->id, 'name' => ['ar' => 'وزارة أخرى']]);
         News::factory()->create(['organization_id' => $ministry->id, 'title' => ['ar' => 'خبر منشور'], 'happened_at' => '2024-05-23']);
         News::factory()->create(['organization_id' => $ministry->id, 'title' => ['ar' => 'خبر مسودة'], 'is_published' => false]);
         $ministry->letter()->create(['name' => ['ar' => 'الوزير'], 'role' => ['ar' => 'وزير'], 'body' => ['ar' => "فقرة أولى\n\nفقرة ثانية"], 'is_published' => true]);
+        // An achievement linked to the ministry itself, and one of a person linked to it: both show on its page.
+        $own = Achievement::factory()->create(['title' => ['ar' => 'تكريم الوزارة للشباب'], 'achieved_at' => '2023-01-10']);
+        $own->organizations()->attach($ministry);
+        $member = Achiever::factory()->create(['name' => ['ar' => 'منجز من الوزارة']]);
+        $member->organizations()->attach($ministry, ['kind' => 'staff']);
+        Achievement::factory()->create(['title' => ['ar' => 'ذهبية المنتسب'], 'achieved_at' => '2025-03-01'])->achievers()->attach($member);
+        Achievement::factory()->create(['title' => ['ar' => 'إنجاز غير مرتبط']]);
 
         $this->get($ministry->url())->assertOk()
             ->assertSee('الشباب')->assertSee('نبذة الوزارة')->assertSee('خبر منشور')->assertDontSee('خبر مسودة')
-            ->assertSee('٢٣ مايو')->assertSee('فقرة ثانية')->assertSee('وزارة أخرى');
-        $this->get(route('organizations.achievements', $ministry))->assertOk()->assertSee('خبر منشور');
+            ->assertSee('٢٣ مايو')->assertSee('فقرة ثانية')->assertSee('وزارة أخرى')
+            ->assertSee('تكريم الوزارة للشباب')->assertSee('ذهبية المنتسب')->assertDontSee('إنجاز غير مرتبط')
+            ->assertSee('منجز من الوزارة')->assertSee('بطاقة المؤسسة')->assertSee('٢٠٢٠')->assertSee('مسقط')
+            ->assertSeeInOrder(['ذهبية المنتسب', 'خبر منشور', 'تكريم الوزارة للشباب']);
+        $this->get(route('organizations.achievements', $ministry))->assertOk()
+            ->assertSee('خبر منشور')->assertSee('تكريم الوزارة للشباب')->assertSee('ذهبية المنتسب');
+    }
+
+    public function test_institution_without_achievements_invites_to_share_one_and_uses_a_crest_without_logo(): void
+    {
+        $army = Organization::factory()->create(['organization_type_id' => $this->gov->id, 'name' => ['ar' => 'الجيش']]);
+
+        $this->get($army->url())->assertOk()->assertSee('لم يُوثَّق بعدُ إنجازٌ لهذه المؤسسة')->assertSee('class="emb-crest"', false);
+        $this->get(route('organizations.achievements', $army))->assertOk()->assertSee('شاركنا إنجازًا');
     }
 
     public function test_news_page_and_draft_visibility(): void

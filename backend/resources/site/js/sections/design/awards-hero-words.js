@@ -1,3 +1,28 @@
+/* Reveal the full portrait only after the browser has decoded it, including cached loads. */
+(function () {
+  var portrait = document.querySelector('.aws-hero-portrait');
+  var image = portrait && portrait.querySelector('img');
+  if (!image) return;
+  portrait.classList.add('is-loading');
+  function finish(ready) {
+    portrait.classList.remove('is-loading');
+    if (ready) portrait.classList.add('is-ready');
+  }
+  function reveal() {
+    if (typeof image.decode === 'function') {
+      image.decode().then(function () { finish(true); }, function () { finish(image.naturalWidth > 0); });
+    } else {
+      finish(image.naturalWidth > 0);
+    }
+  }
+  if (image.complete) {
+    reveal();
+  } else {
+    image.addEventListener('load', reveal, { once: true });
+    image.addEventListener('error', function () { finish(false); }, { once: true });
+  }
+})();
+
 /* Ported from design js/awards-hero-words.js (unchanged). */
 /* هيدر جوائز السلطان قابوس — «حروف الثقافة»: كلمات مجالات الجائزة تطفو بالذهب في الهيدر كله.
    طبقة خلف المحتوى، وطبقة أمامه بكلمات أكبر ومموّهة لعمق سينمائي. */
@@ -30,4 +55,12 @@
   }
   function fit() { sec.style.setProperty('--fy', (sec.offsetHeight + 90) + 'px'); }
   fit(); window.addEventListener('resize', fit);
+})();
+
+/* بطاقتا الجائزتين: الكأس والشعار يظهران مرة واحدة حين تصل البطاقة إلى الشاشة */
+(function () {
+  var cards = document.querySelectorAll('.aws-card.has-podium'); if (!cards.length) return;
+  if (!('IntersectionObserver' in window)) { [].forEach.call(cards, function (c) { c.classList.add('is-in'); }); return; }
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { threshold: .45 });
+  [].forEach.call(cards, function (c) { io.observe(c); });
 })();

@@ -116,11 +116,11 @@ return [
         ],
         'achiever' => [
             'before' => ['profile-socials', 'profile-achievements', 'profile-portrait', 'profile-idcard', 'profile-medal-stats', 'profile-enhance', 'profile-journey', 'profile-said', 'profile-hero-map'],
-            'after' => ['aj-bento', 'aj-layout', 'aj-pro', 'aj-split'],
+            'after' => ['aj-bento', 'aj-layout', 'aj-pro', 'aj-split', 'aj-reader'],
         ],
         'organizations' => [
             'before' => ['institutions-page', 'frame-hero'],
-            'after' => ['orgs-letter'],
+            'after' => ['orgs-letter', 'org-cards', 'orgs-diwan'],
         ],
         'universities' => [
             'before' => ['universities', 'universities-hero'],
@@ -128,11 +128,11 @@ return [
         ],
         'institution' => [
             'before' => ['home-aisha', 'institutions-page', 'minister-design-5'],
-            'after' => [],
+            'after' => ['leader-window', 'org-cards', 'org-profile', 'org-heads'],
         ],
         'university' => [
             'before' => ['home-aisha', 'leader-word', 'minister-design-5', 'universities'],
-            'after' => ['university-layout-fixes'],
+            'after' => ['university-layout-fixes', 'leader-window'],
         ],
         'uni-achievements' => [
             'before' => ['universities'],
@@ -144,7 +144,7 @@ return [
         ],
         'federation' => [
             'before' => ['federation'],
-            'after' => [],
+            'after' => ['org-heads', 'federation-pro'],
         ],
         'awards' => [
             'before' => ['award-volunteer'],
@@ -152,7 +152,7 @@ return [
         ],
         'award-culture' => [
             'before' => ['home-aisha', 'leader-word', 'minister-design-5', 'award'],
-            'after' => ['award-details-desktop'],
+            'after' => ['award-details-desktop', 'leader-window'],
         ],
         'award-volunteer' => [
             'before' => ['award-volunteer', 'award-volunteer-media'],
@@ -168,7 +168,7 @@ return [
         ],
         'achievement' => [
             'before' => ['achievement-detail', 'profile-idcard', 'profile-enhance', 'achievement-enhance'],
-            'after' => [],
+            'after' => ['achievement-reading'],
         ],
         'lab' => [
             'before' => ['science-page', 'lab-v2'],
@@ -213,7 +213,7 @@ return [
         ],
         'lab-item' => [
             'before' => ['science-page', 'lab-v2'],
-            'after' => ['phone-port-lab'],
+            'after' => ['phone-port-lab', 'lab-dossier', 'lab-paper'],
         ],
         'home' => [
             'before' => ['home-banner', 'home-achievers', 'home-stats-gold', 'home-latest', 'home-aisha', 'home-awards', 'home-inspiring', 'home-articles', 'home-science', 'home-partners', 'home-sports', 'home-upgrade', 'home-hero-cinema'],

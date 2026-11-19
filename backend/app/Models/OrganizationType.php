@@ -7,6 +7,7 @@ use App\Models\Concerns\LogsContentActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -38,5 +39,16 @@ class OrganizationType extends Model
     public function organizations(): HasMany
     {
         return $this->hasMany(Organization::class);
+    }
+
+    /**
+     * Every type in order with the number of its published organizations (organizations_count): the hero's
+     * ledger and the list's tabs on «المؤسسات».
+     *
+     * @return Collection<int, OrganizationType>
+     */
+    public static function counted(): Collection
+    {
+        return static::query()->orderBy('sort_order')->withCount(['organizations' => fn ($q) => $q->published()])->get();
     }
 }

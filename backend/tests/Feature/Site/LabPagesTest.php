@@ -46,12 +46,15 @@ class LabPagesTest extends TestCase
             'credit_text' => 'الرؤية', 'credit_url' => 'https://alroya.om/x']);
         $inv->facts()->create(['group' => 'facts', 'label' => ['ar' => 'الميدالية'], 'value' => ['ar' => 'ذهبية']]);
         $inv->sources()->create(['title' => ['ar' => 'خبر الرؤية'], 'url' => 'https://alroya.om/x']);
-        $pub = LabItem::factory()->publication()->create(['slug' => 'carbon-ai', 'title' => ['ar' => 'احتجاز الكربون'], 'happened_at' => '2026-06-01']);
+        $pub = LabItem::factory()->publication()->create(['slug' => 'carbon-ai', 'title' => ['ar' => 'احتجاز الكربون'], 'who' => ['ar' => 'باحث عُماني'], 'happened_at' => '2026-06-01']);
 
         $this->get('/lab/senseglass')->assertOk()->assertSee('ذهبية ITEX')->assertSee('الفكرة')->assertSee('بطاقة الابتكار')
-            ->assertSee('خبر الرؤية')->assertSee('https://alroya.om/x', false);
+            ->assertSee('خبر الرؤية')->assertSee('https://alroya.om/x', false)
+            ->assertSee('data-lab-dossier', false)->assertSee('ld-spec', false)->assertSee('ملف ابتكار');
         $this->get('/lab/carbon-ai')->assertOk()->assertSee('احتجاز الكربون')->assertSee('ملخص البحث')
-            ->assertSee('data-cite="باحث عُماني، باحث آخر (2026). احتجاز الكربون. مجلة علمية."', false);
+            ->assertSee('data-cite="باحث عُماني، باحث آخر (2026). احتجاز الكربون. مجلة علمية."', false)
+            ->assertSee('data-lab-paper', false)->assertSee('lp-finding k-percent', false)->assertSee('--v: 95', false)->assertSee('كيف تستشهد بهذا البحث')
+            ->assertSee('<b>٢٠٢٦</b></span>', false)->assertSee('<li class="is-omani" style="--i:0">', false)->assertSee('صاحب الإنجاز');
     }
 
     public function test_draft_item_is_hidden_from_visitors(): void

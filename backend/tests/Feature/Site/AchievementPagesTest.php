@@ -93,7 +93,8 @@ class AchievementPagesTest extends TestCase
         $html = $this->get('/achievements/'.$first->slug)->assertOk()
             ->assertSee('<title>لقب كأس الخليج — علي الحبسي | إنجازات شباب عُمان</title>', false)
             ->assertSee('أول لقب')->assertSee('الجزيرة')->assertSee('class="pq"', false)
-            ->assertSee('class="ach-path"', false)->assertSee('كأس الاتحاد')
+            ->assertSee('class="ars" data-ars', false)->assertSee('تقرأ الآن')->assertSee('كأس الاتحاد')
+            ->assertSee('class="story-pager"', false)->assertSee('rel="next"', false)->assertDontSee('rel="prev"', false)
             ->assertSee('application/ld+json', false)->getContent();
 
         $this->assertLessThan(strpos($html, 'الفقرة الثانية'), strpos($html, 'قول مأثور'), 'pull quote follows paragraph 1');

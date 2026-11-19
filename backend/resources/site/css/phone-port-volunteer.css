@@ -143,7 +143,8 @@
 
 
 /* ===== الفائزون — عرض واضح على الكمبيوتر (js/award-volunteer-winners.js) ===== */
-.lw { display: none; }
+/* No global «.lw { display: none }» here: this file loads after award-volunteer-desktop.css and would hide the
+   winners on the computer too (that file already hides .lw by default and shows it from 1100px). */
 
 @media (max-width: 1099px) {
   #v-win .v-eds { display: none; }

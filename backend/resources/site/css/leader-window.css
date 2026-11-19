@@ -1,0 +1,155 @@
+/* كلمة الرئيس «نافذة المقام» (components/site/organization/word-window + js/sections/leader-window.js):
+   صاحب الكلمة يقف في قوس عُماني بإطار ذهبي مزدوج، وشعار المؤسسة حجر التاج يتأرجح على الإطار، والصورة كاملة بلا تمويه. */
+@font-face { font-family: "Aref Ruqaa"; src: url("../assets/fonts/ArefRuqaa-Bold-arabic.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+.ww { --gold: #C6A15A; --gold2: #F4DFAE; --gold3: #E6C177; --night: #062F33; --ease: cubic-bezier(.16, 1, .3, 1); --draw: cubic-bezier(.65, 0, .35, 1);
+  position: relative; isolation: isolate; overflow: clip; border-radius: 30px; color: #fff;
+  background: radial-gradient(70% 85% at 88% 18%, #11858C 0%, #0A4B50 46%, var(--night) 100%); box-shadow: 0 40px 70px -46px rgba(6, 49, 53, .9); }
+.ww::before { content: ""; position: absolute; inset: 0; z-index: -2; opacity: .045; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23F4DFAE' stroke-width='1.2'%3E%3Crect x='20' y='20' width='32' height='32'/%3E%3Crect x='20' y='20' width='32' height='32' transform='rotate(45 36 36)'/%3E%3Ccircle cx='36' cy='36' r='6'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 72px 72px;
+  -webkit-mask-image: radial-gradient(60% 70% at 20% 80%, #000, transparent 75%); mask-image: radial-gradient(60% 70% at 20% 80%, #000, transparent 75%); }
+.ww::after { content: ""; position: absolute; inset: 0 0 auto; z-index: 3; height: 2px; background: linear-gradient(90deg, transparent, var(--gold2) 30%, var(--gold) 70%, transparent); opacity: .7; }
+.ww-defs { position: absolute; width: 0; height: 0; }
+.ww-dust { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+.ww-in { display: grid; grid-template-columns: 330px minmax(0, 1fr); column-gap: 60px; align-items: start; padding: 58px 56px 64px; }
+
+/* النافذة */
+.ww-window { position: relative; width: 330px; margin: 0; }
+.ww.open .ww-window { position: sticky; top: 104px; }
+.ww-tilt { position: relative; width: 330px; aspect-ratio: 440 / 600; transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transform-style: preserve-3d; will-change: transform; }
+.ww-glass { position: absolute; inset: 0; overflow: hidden; clip-path: url(#ww-arch);
+  background: radial-gradient(58% 42% at 50% 30%, rgba(244, 223, 174, .62), rgba(244, 223, 174, 0) 72%), linear-gradient(180deg, #14868C 0%, #0B5459 58%, #073A3E 100%); }
+.ww-glow { position: absolute; inset: 0; background: radial-gradient(42% 30% at 50% 27%, rgba(255, 246, 222, .55), transparent 70%); }
+.ww-star { position: absolute; inset: -45%; opacity: .16;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23FFF1D2' stroke-width='1'%3E%3Crect x='16' y='16' width='24' height='24'/%3E%3Crect x='16' y='16' width='24' height='24' transform='rotate(45 28 28)'/%3E%3C/g%3E%3C/svg%3E") center / 56px 56px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 35%, transparent); mask-image: radial-gradient(closest-side, #000 35%, transparent); }
+.ww-photo { position: absolute; left: 50%; bottom: 0; width: 114%; transform: translateX(-50%); }
+.ww-photo img { display: block; width: 100%; height: auto; transform: translate(var(--px, 0), var(--py, 0)); }
+.ww-sweep { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 38%, rgba(255, 250, 236, .36) 50%, transparent 62%); transform: translateX(130%); mix-blend-mode: soft-light; pointer-events: none; }
+.ww-frame { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ww-frame path { fill: none; stroke-linecap: round; }
+.ww-line-out, .ww-line-in { stroke: url(#ww-gold); }
+.ww-line-out { stroke-width: 2.6; }
+.ww-line-in { stroke-width: 1.2; opacity: .75; }
+.ww-trail { stroke: #FFFBEF; stroke-width: 4; stroke-dasharray: .055 1; stroke-dashoffset: -.5; opacity: 0; filter: drop-shadow(0 0 4px #FFF1D2) drop-shadow(0 0 12px rgba(255, 226, 160, .95)); }
+.ww-progress { stroke: #FFF6DC; stroke-width: 3.4; stroke-dasharray: 1; stroke-dashoffset: 1; filter: drop-shadow(0 0 6px rgba(255, 233, 180, .95)); transition: stroke-dashoffset .25s linear; }
+/* حجر التاج: موضعه على الإطار يحسبه السكربت (--kx / --ky)، والافتراضي قمة القوس */
+.ww-key { position: absolute; top: 0; left: 0; z-index: 2; transform: translate(var(--kx, 134px), var(--ky, -26px)); will-change: transform; }
+.ww-key-in { display: grid; place-items: center; box-sizing: border-box; width: 62px; height: 62px; padding: 8px; border-radius: 50%; background: #fff;
+  box-shadow: 0 0 0 3px var(--gold), 0 0 0 8px rgba(198, 161, 90, .22), 0 14px 26px -10px rgba(0, 0, 0, .65); }
+.ww-key-in img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.ww-key-in.is-wide { padding: 8px 6px; }
+.ww-sill { position: absolute; left: -6%; right: -6%; bottom: -12px; height: 14px; border-radius: 4px;
+  background: linear-gradient(180deg, #FFF1D2, #E6C177 45%, #A8803A); box-shadow: 0 18px 26px -14px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .6); }
+.ww-sill::after { content: ""; position: absolute; left: 6%; right: 6%; top: 100%; height: 26px; background: radial-gradient(50% 100% at 50% 0%, rgba(244, 223, 174, .28), transparent 70%); }
+
+/* النص */
+.ww-copy { min-width: 0; padding-top: 22px; }
+.ww-eyebrow { display: flex; align-items: center; gap: 12px; color: var(--gold2); font-size: 13.5px; font-weight: 800; letter-spacing: .3px; }
+.ww-eyebrow i { display: block; flex: none; width: 48px; height: 2px; border-radius: 2px; background: linear-gradient(270deg, var(--gold2), var(--gold)); transform-origin: right; }
+.ww-title { display: block; margin-top: 18px; color: var(--gold3); font-size: 14.5px; font-weight: 700; }
+.ww-name { margin: 6px 0 4px; color: #fff; font-size: 40px; font-weight: 900; line-height: 1.3; text-wrap: balance; }
+.ww-w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .1em; margin-bottom: -.1em; }
+.ww-w > span { display: inline-block; }
+.ww-role { margin: 0; color: #E9D6A5; font-size: 16px; font-weight: 700; }
+.ww-quote { position: relative; margin: 26px 0 0; padding: 0 26px 0 0; border: 0; color: #FBF6EA; font-size: 22px; font-weight: 800; line-height: 1.75; }
+.ww-quote::before { content: "”"; position: absolute; right: -8px; top: -18px; color: var(--gold); font-size: 68px; line-height: 1; opacity: .9; }
+.ww-quote .ww-q { display: inline-block; }
+.ww-quote mark { background: linear-gradient(transparent 62%, rgba(198, 161, 90, .45) 62% 92%, transparent 92%) no-repeat 100% 0 / 100% 100%; color: inherit; }
+.ww-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 24px; }
+.ww-cta, .ww-close { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 22px; border: 0; border-radius: 999px; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
+.ww-cta { color: #063135; background: linear-gradient(135deg, #FFF1D2, var(--gold3) 55%, var(--gold)); box-shadow: 0 16px 30px -16px rgba(230, 193, 119, .9); transition: transform .3s var(--ease), box-shadow .3s; }
+.ww-cta:hover { transform: translateY(-2px); box-shadow: 0 20px 34px -16px rgba(230, 193, 119, 1); }
+.ww-cta svg, .ww-close svg { width: 18px; height: 18px; transition: transform .3s var(--ease); }
+.ww-cta:hover svg { transform: translateY(2px); }
+.ww-cta:focus-visible, .ww-close:focus-visible { outline: 3px solid #FFF1D2; outline-offset: 4px; }
+.ww-meta small { color: rgba(255, 255, 255, .62); font-size: 13px; }
+
+/* القراءة الكاملة */
+.ww-full { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 1.05s var(--draw), opacity .7s ease; }
+.ww-full > div { min-height: 0; overflow: hidden; }
+.ww.open .ww-full { grid-template-rows: 1fr; opacity: 1; }
+.ww.open .ww-meta { display: none; }
+.ww-text { max-width: 620px; padding-top: 28px; }
+.ww-p { position: relative; margin: 0 0 26px; padding-right: 28px; color: #EAE5D8; font-size: 17px; font-weight: 500; line-height: 2.1; opacity: .42; transition: opacity .6s ease, color .6s ease; }
+.ww-p::before { content: ""; position: absolute; right: 0; top: 15px; width: 8px; height: 8px; border: 1.5px solid rgba(244, 223, 174, .5); transform: rotate(45deg); transition: background .5s, border-color .5s, transform .5s var(--ease); }
+.ww-p.is-read { opacity: .78; }
+.ww-p.is-read::before { background: rgba(198, 161, 90, .55); border-color: transparent; }
+.ww-p.is-active { opacity: 1; color: #fff; }
+.ww-p.is-active::before { background: var(--gold2); border-color: var(--gold2); transform: rotate(45deg) scale(1.35); box-shadow: 0 0 12px rgba(244, 223, 174, .9); }
+.ww-hl { background: linear-gradient(transparent 64%, rgba(198, 161, 90, .5) 64% 94%, transparent 94%) no-repeat 100% 0 / 0 100%; transition: background-size 1.2s var(--ease) .2s; }
+.ww-p.is-active .ww-hl, .ww-p.is-read .ww-hl { background-size: 100% 100%; }
+.ww-src { margin: 4px 0 0; padding-right: 28px; color: rgba(255, 255, 255, .55); font-size: 14px; }
+.ww-src a { color: var(--gold2); text-decoration: underline; text-underline-offset: 3px; }
+.ww-sign { margin: 40px 0 0; padding-top: 26px; border-top: 1px solid rgba(244, 223, 174, .25); }
+.ww-sign small { display: block; color: rgba(255, 255, 255, .6); font-size: 15px; }
+.ww-sign b { display: inline-block; margin-top: 6px; color: var(--gold2); font-family: "Aref Ruqaa", "Cairo", serif; font-size: 40px; font-weight: 700; line-height: 1.5; clip-path: inset(0 0 0 100%); transition: clip-path 2.2s var(--draw); }
+.ww-sign.is-in b { clip-path: inset(0 0 0 0); }
+.ww-sign svg { display: block; width: 300px; max-width: 100%; height: 22px; margin-top: -4px; }
+.ww-sign svg path { fill: none; stroke: url(#ww-gold); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s var(--draw) 1.6s; }
+.ww-sign.is-in svg path { stroke-dashoffset: 0; }
+.ww-sign em { display: block; color: #E9D6A5; font-style: normal; font-size: 15px; font-weight: 700; }
+.ww-close { margin-top: 34px; color: var(--gold2); background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1.5px rgba(244, 223, 174, .45); }
+.ww-close:hover { background: rgba(255, 255, 255, .1); }
+
+/* الحركة */
+@media (prefers-reduced-motion: no-preference) {
+  .ww :is(.ww-line-out, .ww-line-in) { stroke-dasharray: 1; }
+  .ww:not(.is-in) :is(.ww-line-out, .ww-line-in) { stroke-dashoffset: 1; }
+  .ww.is-in .ww-line-out { animation: ww-draw 1.6s var(--draw) .15s both; }
+  .ww.is-in .ww-line-in { animation: ww-draw 1.6s var(--draw) .45s both; }
+  .ww:not(.is-in) :is(.ww-glass, .ww-key-in, .ww-sill, .ww-copy > *, .ww-w > span, .ww-q) { opacity: 0; }
+  .ww.is-in .ww-glass { animation: ww-fade 1.2s ease .55s both; }
+  .ww.is-in .ww-glow { animation: ww-bloom 2.4s var(--ease) .7s both; }
+  .ww.is-in .ww-star { animation: ww-star-in 2s ease 1s both, ww-spin 160s linear infinite; }
+  .ww.is-in .ww-photo { animation: ww-rise 1.5s var(--ease) 1s both; }
+  .ww.is-in .ww-sweep { animation: ww-sweep 9s ease-in-out 2.1s infinite; }
+  .ww.is-in .ww-key-in { animation: ww-key 1.1s cubic-bezier(.3, 1.6, .5, 1) 1.55s both; }
+  .ww.is-in .ww-sill { animation: ww-sill 1.1s var(--ease) 1.05s both; }
+  .ww.is-in .ww-eyebrow { animation: ww-fade .8s ease 1.05s both; }
+  .ww.is-in .ww-eyebrow i { animation: ww-grow 1s var(--draw) 1.05s both; }
+  .ww.is-in .ww-title { animation: ww-up .9s var(--ease) 1.25s both; }
+  .ww.is-in .ww-name { opacity: 1; }
+  .ww.is-in .ww-w > span { animation: ww-word 1s var(--ease) calc(1.35s + var(--i) * 95ms) both; }
+  .ww.is-in .ww-role { animation: ww-up .9s var(--ease) 1.85s both; }
+  .ww.is-in .ww-quote { opacity: 1; }
+  .ww.is-in .ww-quote::before { animation: ww-mark 1s cubic-bezier(.3, 1.6, .5, 1) 2s both; }
+  .ww.is-in .ww-q { animation: ww-up .7s var(--ease) calc(2.1s + var(--i) * 38ms) both; }
+  .ww:not(.is-in) .ww-quote mark { background-size: 0 100%; }
+  .ww.is-in .ww-quote mark { animation: ww-hl 1.3s var(--ease) 2.65s both; }
+  .ww.is-in .ww-full { opacity: 0; }
+  .ww.is-in.open .ww-full { opacity: 1; }
+  .ww.is-in .ww-meta { animation: ww-up .9s var(--ease) 2.75s both; }
+}
+@keyframes ww-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes ww-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ww-bloom { from { opacity: 0; transform: scale(.55); } to { opacity: 1; transform: none; } }
+@keyframes ww-spin { to { transform: rotate(360deg); } }
+@keyframes ww-star-in { from { opacity: 0; } to { opacity: .16; } }
+@keyframes ww-rise { from { opacity: 0; transform: translate(-50%, 90px); } 35% { opacity: 1; } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes ww-sweep { 0% { transform: translateX(130%); } 16% { transform: translateX(-130%); } 100% { transform: translateX(-130%); } }
+@keyframes ww-key { from { opacity: 0; transform: scale(.35) rotate(-40deg); } to { opacity: 1; transform: none; } }
+@keyframes ww-sill { from { opacity: 0; transform: scaleX(.2); } to { opacity: 1; transform: none; } }
+@keyframes ww-grow { from { transform: scaleX(0); } to { transform: none; } }
+@keyframes ww-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes ww-word { from { opacity: 0; transform: translateY(105%); } to { opacity: 1; transform: none; } }
+@keyframes ww-mark { from { opacity: 0; transform: scale(.3) rotate(-25deg); } to { opacity: .9; transform: none; } }
+@keyframes ww-hl { from { background-size: 0 100%; } to { background-size: 100% 100%; } }
+
+/* الجوال والشاشات المتوسطة */
+@media (max-width: 1099px) {
+  .ww-in { grid-template-columns: 1fr; row-gap: 26px; padding: 70px 22px 56px; }
+  .ww-window, .ww-tilt { width: min(280px, 72vw); justify-self: center; }
+  .ww.open .ww-window { position: relative; top: 0; }
+  .ww-copy { padding-top: 6px; }
+  .ww-name { font-size: 30px; }
+  .ww-quote { font-size: 19px; }
+  .ww-p { font-size: 16px; }
+  .ww-sign b { font-size: 34px; }
+  .ww-key-in { width: 52px; height: 52px; padding: 7px; }
+}
+@media (min-width: 1100px) and (max-width: 1279px) {
+  .ww-in { grid-template-columns: 300px minmax(0, 1fr); column-gap: 44px; padding-inline: 44px; }
+  .ww-window, .ww-tilt { width: 300px; }
+  .ww-name { font-size: 36px; }
+}

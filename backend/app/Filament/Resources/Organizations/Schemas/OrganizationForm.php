@@ -99,6 +99,7 @@ class OrganizationForm
                         Translatable::text('name', 'الاسم', required: false),
                         Translatable::text('role', 'الصفة', required: false),
                         Translatable::textarea('body', 'النص (افصل الفقرات بسطر فارغ)', rows: 10),
+                        Translatable::text('quote', 'اقتباس بارز من الكلمة (ضع *نجمتين* حول ما يُبرز بالذهبي)', required: false),
                         Grid::make(2)->schema([
                             TextInput::make('source_text')->label('المصدر'),
                             TextInput::make('source_url')->label('رابط المصدر')->url()->extraInputAttributes(['dir' => 'ltr']),

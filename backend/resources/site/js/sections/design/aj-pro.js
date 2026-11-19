@@ -18,8 +18,7 @@
     d.innerHTML='<button type="button" class="ks-total" data-st="all"><span class="ks-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg i" cx="60" cy="60" r="52" pathLength="100" style="--p:'+pi+'"/><circle class="fg l" cx="60" cy="60" r="52" pathLength="100" style="--p:'+pl+';--o:'+pi+'"/></svg><b data-n="'+n+'">٠</b></span><span><em>إجمالي الإنجازات</em><small>'+AR(y0)+' – '+AR(y1)+'</small></span></button>'+
       '<div class="ks-mid"><div class="ks-leg"><button type="button" class="ks-lg i" data-st="intl"><b data-n="'+I.length+'">٠</b>دولية<i>'+AR(pi)+'٪</i></button><button type="button" class="ks-lg l" data-st="local"><i>'+AR(pl)+'٪</i>محلية<b data-n="'+L.length+'">٠</b></button></div>'+
       '<div class="ks-bar">'+I.concat(L).map(seg).join('')+'</div><p class="ks-tip">كل شريحة تمثّل إنجازًا — مرّر عليها لمعرفته واضغط لفتحه</p></div>'+
-      '<div class="ks-facts"><div class="ks-f"><b data-n="'+places.length+'">٠</b><small>دول</small></div><div class="ks-f"><b data-n="'+(y1-y0+1)+'">٠</b><small>أعوام</small></div>'+
-      (star?'<button type="button" class="ks-star" data-go="'+star.slug+'"><small>✦ الإنجاز الأبرز</small><b>'+esc(star.short||star.title)+'</b></button>':'')+'</div>';
+      '<div class="ks-facts"><div class="ks-f"><b data-n="'+places.length+'">٠</b><small>دول</small></div><div class="ks-f"><b data-n="'+(y1-y0+1)+'">٠</b><small>أعوام</small></div>'+'</div>';
     old.replaceWith(d);
     d.addEventListener('click',function(e){var t=e.target.closest('[data-go]');if(!t)return;var dot=document.querySelector('[data-aj] [data-dot="'+t.dataset.go+'"]');if(dot)dot.click()});
     seen(d,function(){d.classList.add('on');[].forEach.call(d.querySelectorAll('[data-n]'),function(el){var to=+el.dataset.n,t0=null,D=reduce?1:1300;

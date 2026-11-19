@@ -11,6 +11,9 @@ const showDialog = (d) => (d.showModal ? d.showModal() : d.setAttribute('open', 
 // Reading progress
 const bar = $('[data-read-progress]');
 if (bar && article) {
+    // The gold line belongs to the header, so it moves and resizes with it and never detaches from the green
+    // (the header shrinks after scrolling, and the page bounces at its bottom).
+    $('.site-header')?.appendChild(bar.parentElement);
     const tick = () => {
         const r = article.getBoundingClientRect();
         const vh = window.innerHeight;

@@ -61,7 +61,9 @@ class AchieverPagesTest extends TestCase
             ->assertSee('data-total="3" data-intl="2" data-local="1"', false)
             ->assertSee('data-icon="trophy"', false)->assertSee('لاعب رائع')->assertSee('الأقوال مترجمة')
             ->assertSee('id="member-card-data"', false)->assertSee('"bio":"حارس مرمى"', false)
-            ->assertSee('قصة البداية');
+            ->assertSee('قصة البداية')
+            ->assertSee('<dialog class="library-dialog" id="library-videos"', false)
+            ->assertSee('<dialog class="library-dialog" id="library-photos"', false);
     }
 
     public function test_profile_prints_the_achievements_data_of_design_9(): void
@@ -91,9 +93,9 @@ class AchieverPagesTest extends TestCase
         $this->assertEquals([
             'rank' => 'award', 'org' => 'جائزة مان بوكر الدولية', 'project' => 'سيدات القمر', 'stat' => 'أول كاتبة عربية تفوز بها',
             'short' => 'مان بوكر', 'featured' => 1, 'scope' => 'international', 'iso' => '2019-05-21', 'country' => 'المملكة المتحدة',
-            'details' => "الفقرة الأولى\n\n• نقطة", 'highlights' => ['<b>أول كاتبة عربية</b> تفوز بالجائزة'],
+            'details' => "الفقرة الأولى\n\n• نقطة", 'highlights' => ['<b>أول كاتبة عربية</b> تفوز بالجائزة'], 'bold' => ['أول كاتبة عربية'],
             'sources' => [['org' => 'مؤسسة بوكر', 'title' => 'إعلان الفوز', 'url' => 'https://example.com/booker']],
-        ], collect($items['man-booker'])->only(['rank', 'org', 'project', 'stat', 'short', 'featured', 'scope', 'iso', 'country', 'details', 'highlights', 'sources'])->all());
+        ], collect($items['man-booker'])->only(['rank', 'org', 'project', 'stat', 'short', 'featured', 'scope', 'iso', 'country', 'details', 'highlights', 'bold', 'sources'])->all());
         $this->assertEquals(['rank' => 'award', 'featured' => 0, 'scope' => 'local', 'iso' => '2016', 'country' => '—'],
             collect($items['local-honor'])->only(['rank', 'featured', 'scope', 'iso', 'country'])->all());
     }

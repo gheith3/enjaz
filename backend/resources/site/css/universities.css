@@ -58,6 +58,8 @@
 /* جامعة التقنية: بطاقة عريضة بفروعها */
 .u-tech { display: grid; gap: 10px; padding: 12px; border-radius: 18px; color: inherit; text-decoration: none; background: linear-gradient(180deg, #fff, #F7F2E7); box-shadow: 0 0 0 1px var(--line); }
 .u-tech-top { display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: center; gap: 10px; }
+/* In the full list the card sits under Sultan Qaboos University's, before the other universities. */
+.u-group[data-g="uni"] .u-tech { margin-bottom: 10px; }
 .u-tech .u-info small { color: #9A7A3C; }
 .u-tech .u-info b { font-size: 15.95px; }
 .u-branches { display: flex; flex-wrap: wrap; gap: 5px; }

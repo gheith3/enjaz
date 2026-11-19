@@ -282,3 +282,68 @@
 @keyframes lw-sheen { 0% { background-position: -160% 0; } 45%, 100% { background-position: 160% 0; } }
 @keyframes lw-orbit { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 @keyframes lw-twinkle { 50% { transform: scale(1.35) rotate(45deg); opacity: .6; } }
+
+/* ===== «عن الجائزة» — دوائر الأثر (للكمبيوتر) =====
+   بطاقة دافئة تنتشر فيها دوائر خفيفة من شعار الجائزة (مثل تموّجات رأس الصفحة)، تحته «تطوعي حياة» وموعد اليوم العالمي للتطوع،
+   وبجانبه اسم الجائزة والنبذة والرؤية اقتباسًا، ثم الأهداف قطرات مرقّمة تتموّج حولها. الجوال يبقى كما كان. */
+@media (max-width: 1099.98px) {
+  .v-about-card, .v-about-text { display: contents; }
+  .v-about-mark, .v-about-t, .v-goals-h { display: none; }
+}
+@media (min-width: 1100px) {
+  #v-about { display: block; }
+  #v-about .v-h { margin-bottom: 22px; }
+  .v-about-card { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 64px; align-items: center;
+    padding: 56px 64px; border: 1px solid #F0DFC6; border-radius: 30px;
+    background: radial-gradient(55% 85% at 100% 45%, rgba(229, 154, 75, .2), transparent 65%), radial-gradient(40% 60% at 0% 100%, rgba(12, 127, 137, .07), transparent 70%), linear-gradient(160deg, #FFFBF5, #FDF1E2);
+    box-shadow: 0 34px 60px -46px rgba(160, 80, 30, .55); }
+  .v-about-card::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: repeating-radial-gradient(circle at 86% 42%, transparent 0 54px, rgba(217, 115, 90, .13) 55px 56px);
+    -webkit-mask-image: radial-gradient(70% 90% at 86% 42%, #000 20%, transparent 75%); mask-image: radial-gradient(70% 90% at 86% 42%, #000 20%, transparent 75%); }
+
+  /* الشعار في قرص أبيض، وحوله تموّجات تنتشر */
+  .v-about-mark { display: grid; justify-items: center; gap: 16px; text-align: center; }
+  .v-about-ripple { position: relative; display: grid; place-items: center; width: 220px; height: 220px; }
+  .v-about-ripple i { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(217, 115, 90, .5); opacity: 0; }
+  .v-about-logo { position: relative; z-index: 1; display: grid; place-items: center; box-sizing: border-box; width: 156px; height: 156px; padding: 24px; border-radius: 50%; background: #fff;
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, .75), 0 0 0 9px rgba(229, 154, 75, .45), 0 24px 40px -18px rgba(194, 94, 42, .6); }
+  .v-about-logo img { width: 100%; height: 100%; object-fit: contain; }
+  .v-about-motto { background: linear-gradient(90deg, #E59A4B, #C25E2A); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 32px; font-weight: 900; line-height: 1.4; }
+  .v-about-date { display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2px 8px; max-width: 280px; padding: 9px 18px; border-radius: 16px;
+    background: rgba(12, 127, 137, .08); color: #0B6A70; font-size: 13.5px; font-weight: 700; line-height: 1.6; }
+  .v-about-date b { color: #C25E2A; font-weight: 900; }
+
+  /* النبذة والرؤية */
+  .v-about-text { min-width: 0; }
+  .v-about-t { margin: 0 0 18px; color: #063135; font-size: 30px; font-weight: 900; line-height: 1.45; text-wrap: balance; }
+  .v-about-t::after { content: ""; display: block; width: 76px; height: 4px; margin-top: 14px; border-radius: 4px; background: linear-gradient(90deg, #0C7F89, #E59A4B); }
+  #v-about .v-about-text .v-lead { margin: 0; color: #2E4A4D; font-size: 19px; line-height: 2.1; text-wrap: pretty; }
+  #v-about .v-about-text .v-vision { display: block; margin: 28px 0 0; padding: 22px 28px 22px 64px; border: 0; border-inline-start: 5px solid #E59A4B; border-radius: 20px 6px 6px 20px;
+    background: #fff; color: #063135; box-shadow: 0 18px 34px -26px rgba(160, 80, 30, .55); }
+  #v-about .v-about-text .v-vision::before { content: "”"; position: absolute; left: 18px; top: 6px; color: rgba(229, 154, 75, .35); font-size: 76px; font-weight: 900; line-height: 1; }
+  #v-about .v-about-text .v-vision span { position: static; display: inline-block; margin: 0 0 6px; padding: 3px 12px; border-radius: 999px; background: rgba(229, 154, 75, .14); color: #C25E2A; font-size: 13px; font-weight: 800; }
+  #v-about .v-about-text .v-vision p { margin: 0; color: #063135; font-size: 22px; font-weight: 800; line-height: 1.6; }
+
+  /* الأهداف: قطرات مرقّمة تتموّج حولها */
+  .v-goals-h { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 46px 0 26px; color: #063135; font-size: 22px; font-weight: 900; }
+  .v-goals-h::before, .v-goals-h::after { content: ""; width: 90px; height: 2px; border-radius: 2px; }
+  .v-goals-h::before { background: linear-gradient(270deg, transparent, #E59A4B); }
+  .v-goals-h::after { background: linear-gradient(90deg, transparent, #E59A4B); }
+  #v-about .v-goals { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: none; gap: 20px; }
+  #v-about .v-goals li { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0; height: auto; min-height: 0; padding: 30px 24px 28px; border: 1px solid #F0DFC6; border-radius: 24px;
+    background: linear-gradient(180deg, #fff, #FFF8EF); color: #2A4B4F; font-size: 17px; font-weight: 700; line-height: 1.9; text-align: center;
+    box-shadow: 0 20px 36px -32px rgba(160, 80, 30, .6); transition: transform .35s cubic-bezier(.3, .7, .2, 1), box-shadow .35s ease, border-color .35s ease; }
+  #v-about .v-goals li::before { position: static; display: grid; place-items: center; flex: none; width: 56px; height: 56px; margin: 0 0 22px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #F2B26B, #E59A4B 45%, #C25E2A); color: #fff; font-size: 22px; font-weight: 900; line-height: 1;
+    box-shadow: 0 0 0 8px rgba(229, 154, 75, .14), 0 0 0 16px rgba(229, 154, 75, .06), 0 12px 20px -10px rgba(194, 94, 42, .7); }
+  #v-about .v-goals li:hover { transform: translateY(-4px); border-color: #E9B57F; box-shadow: 0 26px 40px -28px rgba(160, 80, 30, .6); }
+}
+@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) {
+  .v-about-ripple i { animation: v-about-wave 4.8s ease-out infinite; }
+  .v-about-ripple i:nth-child(2) { animation-delay: 1.6s; }
+  .v-about-ripple i:nth-child(3) { animation-delay: 3.2s; }
+}
+@media (min-width: 1100px) and (prefers-reduced-motion: reduce) {
+  .v-about-ripple i { opacity: .35; } .v-about-ripple i:nth-child(2) { inset: 18px; } .v-about-ripple i:nth-child(3) { inset: 36px; }
+}
+@keyframes v-about-wave { from { opacity: .9; transform: scale(.62); } to { opacity: 0; transform: scale(1.25); } }
