@@ -10,8 +10,13 @@
 .aws-hero-tribute { display:block; margin-top:8px; font-size:10px; color:#d6bd8b; }
 .aws-hero-portrait { position:relative; align-self:end; height:180px; display:flex; align-items:flex-end; justify-content:center; }
 .aws-portrait-halo { position:absolute; width:145px; height:155px; border:1px solid #d9be8245; border-radius:48% 48% 0 0; bottom:8px; background:radial-gradient(ellipse,#c8b57b24,transparent 68%); box-shadow:0 0 0 15px #d9be8206,0 0 0 16px #d9be8218; }
-.aws-hero-portrait img { position:relative; display:block; height:174px; width:auto; max-width:100%; object-fit:contain; object-position:bottom; filter:drop-shadow(0 12px 20px #001c3445); transform-origin:50% 100%; animation:aws-portrait-enter 1.25s cubic-bezier(.22,1,.36,1) both; mask-image:linear-gradient(#000 88%,transparent 100%); }
+.aws-hero-portrait img { position:relative; display:block; height:174px; width:auto; max-width:100%; object-fit:contain; object-position:bottom; filter:drop-shadow(0 12px 20px #001c3445); transform-origin:50% 100%; animation:none; mask-image:linear-gradient(#000 88%,transparent 100%); }
 @keyframes aws-copy-enter { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+/* Start the original entrance only after the full portrait has decoded. */
+.aws-hero-portrait.is-loading img { visibility: hidden; }
+@media (prefers-reduced-motion: no-preference) {
+  .aws-hero-portrait.is-ready img { animation: aws-portrait-enter 1.25s cubic-bezier(.22,1,.36,1) both; }
+}
 @keyframes aws-portrait-enter { from { opacity:0; transform:translateY(105%); } to { opacity:1; transform:translateY(0); } }
 @media(max-width:600px) {
  .aws-hero { padding:0 18px; }
@@ -48,12 +53,13 @@
   background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, .55) 50%, transparent 58%) no-repeat;
   background-size: 260% 100%; background-position: 160% 0; opacity: 0; }
 @media (prefers-reduced-motion: no-preference) {
-  .aws-podium .aws-trophy { opacity: 0; filter: blur(6px); transform: translate(-50%, 18px); transition: opacity 1.1s ease, filter 1.1s ease, transform 1.3s cubic-bezier(.2, .8, .2, 1); }
-  .has-podium.is-in .aws-podium .aws-trophy { opacity: 1; filter: none; transform: translate(-50%, 0); }
-  .aws-halo, .aws-floor { opacity: 0; transition: opacity 1.6s ease .4s; }
-  .has-podium.is-in .aws-halo, .has-podium.is-in .aws-floor { opacity: 1; }
+  /* Artwork stays visible when JavaScript is unavailable or the reveal observer has not run. */
+  .has-podium.is-in .aws-podium .aws-trophy { animation: aws-art-enter 1.1s cubic-bezier(.2, .8, .2, 1); }
+  .has-podium.is-in .aws-halo, .has-podium.is-in .aws-floor { animation: aws-light-enter 1.6s ease; }
   .has-podium.is-in .aws-podium .aws-trophy::after { animation: aws-gleam 7s ease-in-out 1.6s infinite; }
 }
+@keyframes aws-art-enter { from { opacity: .65; transform: translate(-50%, 18px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes aws-light-enter { from { opacity: .4; } to { opacity: 1; } }
 @keyframes aws-gleam { 0% { opacity: 0; background-position: 160% 0; } 10% { opacity: 1; } 30% { opacity: 1; background-position: -60% 0; } 36%, 100% { opacity: 0; background-position: -60% 0; } }
 @media (min-width: 700px) { .aws-card.has-podium { grid-template-columns: 140px 1fr; min-height: 214px; } .aws-podium { width: 140px; } .aws-podium .aws-trophy { width: 108px; height: 156px; } .aws-floor { width: 126px; } }
 

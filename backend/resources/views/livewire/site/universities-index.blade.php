@@ -10,22 +10,23 @@
     </div>
   </div>
   <div data-unis>
-    @php $shown = 0; @endphp
+    @php
+        $shown = 0;
+        // Full list (no filter, no search): the University of Technology's card comes right under Sultan Qaboos University's.
+        $tech = $groups->get('tech')?->first();
+        $techBelowSpot = $spot && $tech && $groups->has('uni');
+    @endphp
     @foreach ($groups as $group => $items)
+      @continue($group === 'tech' && $techBelowSpot)
       @php $list = $group === 'uni' && $spot ? $items->reject(fn ($o) => $o->is($spot)) : $items; @endphp
       @continue($items->isEmpty())
       @php $shown += $items->count(); @endphp
       <section class="u-group" data-g="{{ $group }}">
         @if ($group === 'tech')
-          @php $tech = $items->first(); $branches = $tech->units; @endphp
-          <h2 class="u-gh"><span>{{ __('site.organizations.tech_title') }}</span><b>{{ __('site.organizations.tech_branches', ['n' => $d($branches->count())]) }}</b></h2>
-          <a class="u-tech" href="{{ $tech->url() }}">
-            <span class="u-tech-top"><span class="u-logo" data-r="{{ $tech->logo_ratio ?: 1 }}">@if ($logo = $tech->logoUrl())<img src="{{ $logo }}" alt="" loading="lazy">@endif</span>
-              <span class="u-info">@if ($tech->formerly)<small>{{ __('site.organizations.formerly', ['name' => $tech->formerly]) }}</small>@endif<b>{{ $tech->name }}</b></span></span>
-            <span class="u-branches">@foreach ($branches as $branch)<span>{{ $branch->name }}</span>@endforeach</span>
-          </a>
+          <h2 class="u-gh"><span>{{ __('site.organizations.tech_title') }}</span><b>{{ __('site.organizations.tech_branches', ['n' => $d($items->first()->units->count())]) }}</b></h2>
+          <x-site.cards.university-tech :tech="$items->first()" />
         @else
-          <h2 class="u-gh"><span>{{ __('site.organizations.group_'.$group) }}</span><b>{{ $d($items->count()) }}</b></h2>
+          <h2 class="u-gh"><span>{{ __('site.organizations.group_'.$group) }}</span><b>{{ $d($items->count() + ($group === 'uni' && $techBelowSpot ? 1 : 0)) }}</b></h2>
           @if ($group === 'uni' && $spot)
             <a class="u-spot" href="{{ $spot->url() }}" @if ($spot->color_primary) style="--c1:{{ $spot->color_primary }};--c2:{{ $spot->color_secondary ?: $spot->color_primary }}" @endif>
               <span class="u-spot-logo">@if ($logo = \App\Support\Media\Src::of($spot->image('logo_wide')) ?? $spot->logoUrl())<img src="{{ $logo }}" alt="" loading="lazy">@endif</span>
@@ -40,6 +41,7 @@
               @if ($links)<span class="u-links">{{ $links }}</span>@endif
             </a>
           @endif
+          @if ($group === 'uni' && $techBelowSpot)<x-site.cards.university-tech :tech="$tech" />@endif
           <div class="u-grid">
             @foreach ($list as $organization)
               <x-site.cards.university :organization="$organization" :counts="$counts[$organization->id] ?? null" wire:key="u-{{ $organization->id }}" />

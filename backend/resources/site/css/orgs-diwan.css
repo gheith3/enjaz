@@ -1,0 +1,170 @@
+/* «ديوان المؤسسات» (site/pages/organizations + livewire organizations-index، js sections/orgs-diwan).
+   الواجهة: شريط صور قصير لزيارات جلالة السلطان (لا كتابة فوق الصور) تتبدّل بهدوء، تحته بطاقة بيضاء تتداخل مع حافته:
+   العنوان، ورسالة جلالته بخط يده، وعدد المؤسسات في كل قطاع. ثم البحث والتبويبات، والمؤسسة المميّزة، والقطاعات
+   ببطاقات مدمجة (org-cards). للرجوع: institutions-page + frame-hero (تعليمات القالب القديم). */
+@font-face { font-family: "Aref Ruqaa"; src: url("../assets/fonts/ArefRuqaa-Bold-arabic.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+.od-hero { position: relative; width: var(--layout-width, 100vw); max-width: none; margin-inline: calc(50% - (var(--layout-width, 100vw) / 2)); }
+
+/* شريط الصور */
+.od-band { position: relative; height: 230px; overflow: hidden; background: #0A3E42; }
+.od-slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1.4s ease; }
+.od-slide.on { z-index: 1; opacity: 1; }
+.od-slide.off { z-index: 0; opacity: 0; }
+.od-slide img { display: block; width: 100%; height: 100%; object-fit: cover; } /* موضع كل صورة: نقطة تركيزها (focal) */
+.od-band::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(0deg, rgba(4, 30, 33, .55), transparent 45%); }
+.od-bars { position: absolute; z-index: 3; bottom: 46px; left: 50%; display: flex; gap: 4px; transform: translateX(-50%); }
+.od-bar { display: grid; place-items: center; width: 30px; height: 20px; padding: 0; border: 0; background: none; cursor: pointer; }
+.od-bar i { position: relative; display: block; width: 100%; height: 3px; overflow: hidden; border-radius: 3px; background: rgba(255, 255, 255, .4); }
+.od-bar i::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: #F4DFAE; transform: scaleX(0); transform-origin: right; }
+.od-bar.on i::after { transform: none; }
+.od-bar:focus-visible { outline: 2px solid #F4DFAE; outline-offset: 2px; border-radius: 4px; }
+
+/* بطاقة العنوان */
+.od-head { position: relative; z-index: 4; display: grid; grid-template-areas: "t" "l" "s"; gap: 16px; margin: -34px var(--gutter) 0; padding: 20px 18px 0;
+  border: 1px solid #EADFC8; border-radius: 22px; background: #fff; box-shadow: 0 30px 50px -40px rgba(6, 49, 53, .6); }
+.od-hero.no-photos .od-head { margin-top: 20px; }
+.od-head-t { grid-area: t; }
+.od-eyebrow { display: inline-flex; align-items: center; gap: 8px; color: #A88344; font-size: 12.5px; font-weight: 800; }
+.od-eyebrow::before { content: ""; width: 22px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, #C6A15A); }
+.od-head h1 { margin: 6px 0 4px; color: #07383B; font-size: 25px; font-weight: 900; line-height: 1.35; }
+.od-lead { margin: 0; color: #4F6264; font-size: 14.5px; line-height: 1.9; }
+.od-letter { grid-area: l; display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; border: 1px solid #EADFC8; border-radius: 16px; background: #FBF6EA;
+  color: #14282A; font: inherit; text-align: start; cursor: pointer; transition: border-color .25s, background .25s; }
+.od-letter:hover { border-color: #C6A15A; background: #F8EFD9; }
+.od-letter:focus-visible { outline: 3px solid #C6A15A; outline-offset: 2px; }
+.od-paper { flex: none; width: 44px; aspect-ratio: 3 / 4; padding: 2px; border-radius: 4px; background: #fff; box-shadow: 0 8px 14px -8px rgba(0, 0, 0, .45); transform: rotate(-4deg); transition: transform .4s; }
+.od-paper img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+.od-letter:hover .od-paper { transform: rotate(0); }
+.od-letter-t { display: grid; gap: 1px; min-width: 0; }
+.od-letter-t small { color: #8A6A2E; font-family: "Aref Ruqaa", "Cairo", serif; font-size: 17px; font-weight: 700; line-height: 1.3; }
+.od-letter-t q { display: -webkit-box; overflow: hidden; color: #4F6264; font-size: 12.5px; line-height: 1.7; -webkit-line-clamp: 1; -webkit-box-orient: vertical; quotes: none; }
+.od-letter-t em { color: #0A5359; font-size: 12px; font-style: normal; font-weight: 800; }
+.od-ledger { grid-area: s; display: flex; flex-wrap: wrap; margin: 0 -18px; padding: 0; list-style: none; border-top: 1px solid #F0E8D8; }
+.od-ledger li { flex: 1 1 30%; }
+.od-ledger li + li { border-inline-start: 1px solid #F0E8D8; }
+.od-ledger a { display: grid; justify-items: center; gap: 1px; padding: 12px 6px; color: #14282A; text-decoration: none; transition: background .25s; }
+.od-ledger a:hover { background: #FBF6EA; }
+.od-ledger b { color: #0A5359; font-size: 21px; font-weight: 900; line-height: 1.25; font-variant-numeric: tabular-nums; }
+.od-ledger span { color: #6B7C7D; font-size: 12px; font-weight: 700; }
+
+/* البحث والتبويبات: شريط بعرض الشاشة يبقى ظاهرًا أثناء النزول */
+.od-list { padding-bottom: 56px; }
+.od-tools { position: sticky; top: 64px; z-index: 6; display: grid; gap: 10px; margin-top: 22px; padding-block: 12px;
+  width: var(--layout-width, 100vw); max-width: none; margin-inline: calc(50% - (var(--layout-width, 100vw) / 2));
+  padding-inline: max(var(--gutter), calc((var(--layout-width, 100vw) - 1200px) / 2 + 40px));
+  border-block: 1px solid #EADFC8; background: rgba(251, 247, 239, .93); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.od-search { position: relative; display: flex; align-items: center; margin: 0; }
+.od-search svg { position: absolute; inset-inline-start: 16px; width: 18px; height: 18px; color: #A88344; pointer-events: none; }
+.od-search input { width: 100%; height: 46px; padding-inline: 44px 16px; border: 1px solid #E3D6BC; border-radius: 999px; background: #fff; color: #14282A; font: inherit; font-size: 14.5px;
+  -webkit-appearance: none; appearance: none; }
+.od-search input::placeholder { color: #8A9A9B; }
+.od-search input:focus { outline: none; border-color: #C6A15A; box-shadow: 0 0 0 4px rgba(198, 161, 90, .18); }
+.od-tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.od-tabs::-webkit-scrollbar { display: none; }
+.od-tab { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding-inline: 15px 7px; border: 1px solid #E3D6BC; border-radius: 999px; background: #fff;
+  color: #33494C; font: inherit; font-size: 13.5px; font-weight: 800; cursor: pointer; transition: background .25s, color .25s, border-color .25s; }
+.od-tab b { display: grid; place-items: center; min-width: 25px; height: 25px; padding: 0 7px; border-radius: 999px; background: #F1E9D6; color: #8A6A2E; font-size: 12px; font-weight: 900; }
+.od-tab:hover { border-color: #C6A15A; }
+.od-tab.on { border-color: #0A5359; background: #0A5359; color: #fff; }
+.od-tab.on b { background: rgba(244, 223, 174, .2); color: #F4DFAE; }
+.od-tab:focus-visible { outline: 3px solid #C6A15A; outline-offset: 2px; }
+
+/* المؤسسة المميّزة: بطاقة عرضية مدمجة */
+.od-spot-wrap { margin-top: 24px; }
+.od-spot { position: relative; display: grid; grid-template-columns: 60px minmax(0, 1fr); align-items: center; gap: 12px 14px; padding: 14px 16px; overflow: hidden;
+  border: 1px solid #E6D3A8; border-radius: 20px; background: linear-gradient(270deg, #FFFDF8, #F6ECD6); color: #14282A; text-decoration: none; box-shadow: 0 18px 30px -26px rgba(6, 49, 53, .55); }
+.od-spot::before { content: ""; position: absolute; top: 0; bottom: 0; inset-inline-start: 0; width: 4px; background: linear-gradient(#E6C177, #A88344); }
+.od-spot-logo { display: grid; place-items: center; width: 60px; height: 60px; padding: 8px; border: 1px solid #EADFC8; border-radius: 15px; background: #fff; }
+.od-spot-t { display: grid; gap: 2px; min-width: 0; }
+.od-spot-t small { color: #A88344; font-size: 12px; font-weight: 800; }
+.od-spot-t b { font-size: 17px; font-weight: 900; line-height: 1.45; }
+.od-spot-line { color: #4F6264; font-size: 13.5px; line-height: 1.75; }
+.od-spot-areas { display: none; }
+.od-spot em { grid-column: 1 / -1; justify-self: start; display: inline-flex; gap: 8px; padding: 8px 18px; border-radius: 999px; background: #0A5359; color: #fff; font-size: 13px; font-style: normal; font-weight: 800; transition: transform .25s; }
+.od-spot em span { color: #F4DFAE; }
+.od-spot:hover em { transform: translateX(-3px); }
+.od-spot:focus-visible { outline: 3px solid #C6A15A; outline-offset: 3px; }
+
+/* القطاعات */
+.od-sector { --k: #0C7F89; margin-top: 36px; scroll-margin-top: 150px; }
+.od-sector.s-mil { --k: #5E7A3A; } .od-sector.s-pvt { --k: #B0802F; } .od-sector.s-edu { --k: #8A6A2E; } .od-sector.s-sport { --k: #B23A3A; }
+.od-sec-h { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.od-sec-h::after { content: ""; flex: 1; height: 1px; background: linear-gradient(270deg, #E3D6BC, transparent); }
+.od-glyph { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 11px; background: color-mix(in srgb, var(--k) 12%, #fff); color: var(--k); }
+.od-glyph svg { width: 20px; height: 20px; }
+.od-sec-h h2 { margin: 0; color: #14282A; font-size: 18px; font-weight: 900; }
+.od-count { display: grid; place-items: center; min-width: 26px; height: 26px; padding: 0 8px; border-radius: 999px; background: var(--k); color: #fff; font-size: 12px; font-weight: 900; }
+.od-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.od-empty { margin: 40px 0 0; color: #5B6B6D; font-size: 15px; text-align: center; }
+@media (min-width: 640px) { .od-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .od-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* الحركة */
+@media (prefers-reduced-motion: no-preference) {
+  .od-slide.on img, .od-slide.off img { animation: od-near 9s ease-out both; }
+  .od-bar.on i::after { animation: od-fill var(--od-t, 6.5s) linear both; }
+  .od-head { animation: od-up .9s cubic-bezier(.16, 1, .3, 1) .15s both; }
+  @supports (animation-timeline: view()) {
+    .od-cards > .oc, .od-spot { animation: od-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 50%; }
+  }
+}
+@keyframes od-near { from { transform: scale(1); } to { transform: scale(1.05); } }
+@keyframes od-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes od-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes od-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+/* الكمبيوتر */
+@media (min-width: 1100px) {
+  .od-band { height: 360px; }
+  .od-bars { bottom: 86px; }
+  .od-head { grid-template-areas: "t l" "s s"; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px 40px; max-width: 1120px; margin: -64px auto 0; padding: 26px 32px 0; border-radius: 26px; }
+  .od-head h1 { font-size: 36px; }
+  .od-lead { font-size: 16px; }
+  .od-letter { align-self: center; padding: 12px 14px; }
+  .od-paper { width: 50px; }
+  .od-letter-t q { -webkit-line-clamp: 2; }
+  .od-ledger { flex-wrap: nowrap; margin: 0 -32px; }
+  .od-ledger li { flex: 1 1 0; }
+  .od-ledger a { padding: 14px 6px 16px; }
+  .od-ledger b { font-size: 26px; }
+  .od-ledger span { font-size: 13px; }
+  .od-tools { top: 66px; grid-template-columns: minmax(0, 1fr) 320px; align-items: center; gap: 18px; margin-top: 30px; }
+  .od-tabs { grid-column: 1; grid-row: 1; }
+  .od-search { grid-column: 2; grid-row: 1; }
+  .od-spot-wrap { margin-top: 28px; }
+  .od-spot { grid-template-columns: 72px minmax(0, 1fr) auto auto; gap: 22px; padding: 16px 24px; }
+  .od-spot-logo { width: 72px; height: 72px; padding: 9px; }
+  .od-spot-t b { font-size: 20px; }
+  .od-spot-areas { display: flex; gap: 6px; }
+  .od-spot-areas i { padding: 3px 12px; border: 1px solid #E3D0A4; border-radius: 999px; background: #fff; color: #8A6A2E; font-size: 12.5px; font-style: normal; font-weight: 700; }
+  .od-spot em { grid-column: auto; justify-self: auto; }
+  .od-sector { margin-top: 42px; }
+  .od-sec-h h2 { font-size: 20px; }
+  .od-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+}
+
+/* تطوير (٢٠ نوفمبر): الصورة في إطار عريض واضح داخل عرض الصفحة بدل الشريط الممتد، فوق خلفية فيروزية؛ وكل قطاع في لوحة
+   بلونه: رأس ملوّن بخفة، وخط علوي، وبطاقاته داخلها. */
+.od-hero { padding: 16px var(--gutter) 0; background: linear-gradient(180deg, #063135 0, #0A4B50 230px, transparent 230px); }
+.od-band { height: auto; aspect-ratio: 16 / 10; border-radius: 22px; box-shadow: 0 0 0 1px rgba(244, 223, 174, .35), 0 30px 50px -30px rgba(0, 0, 0, .7); }
+.od-band::after { background: linear-gradient(0deg, rgba(4, 30, 33, .45), transparent 35%); }
+.od-head { margin-inline: 0; }
+.od-sector { --k: #0C7F89; padding: 18px 16px 18px; border: 1px solid color-mix(in srgb, var(--k) 22%, #EADFC8); border-radius: 24px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--k) 9%, #fff) 0, #fff 110px); box-shadow: 0 24px 40px -36px rgba(6, 49, 53, .6); position: relative; overflow: hidden; }
+.od-sector::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: linear-gradient(90deg, transparent, var(--k), transparent); }
+.od-sector.s-mil { --k: #4F6B32; } .od-sector.s-pvt { --k: #A8742A; } .od-sector.s-edu { --k: #8A6A2E; } .od-sector.s-sport { --k: #A33A3A; }
+.od-sec-h { padding-bottom: 14px; margin-bottom: 16px; border-bottom: 1px solid color-mix(in srgb, var(--k) 16%, #F0E8D8); }
+.od-sec-h::after { content: none; }
+.od-glyph { background: var(--k); color: #fff; box-shadow: 0 8px 16px -8px var(--k); }
+.od-sec-h h2 { color: color-mix(in srgb, var(--k) 70%, #14282A); }
+.od-count { margin-inline-start: auto; background: color-mix(in srgb, var(--k) 14%, #fff); color: var(--k); }
+.od-sector .oc { background: #fff; border-color: color-mix(in srgb, var(--k) 14%, #EADFC8); }
+.od-sector .oc-logo { background: color-mix(in srgb, var(--k) 6%, #fff); border-color: color-mix(in srgb, var(--k) 14%, #F0E8D8); }
+@media (min-width: 1100px) {
+  .od-hero { padding: 26px max(40px, calc((var(--layout-width, 100vw) - 1200px) / 2 + 40px)) 0; background: linear-gradient(180deg, #063135 0, #0A4B50 330px, transparent 330px); }
+  .od-band { aspect-ratio: 21 / 8; height: auto; border-radius: 28px; }
+  .od-bars { bottom: 90px; }
+  .od-head { margin: -70px 36px 0; max-width: none; }
+  .od-sector { padding: 24px 26px 26px; border-radius: 28px; }
+}

@@ -22,8 +22,7 @@ import omanMap from '../../../assets/svg/icon-oman-map.svg';
     var globe='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.5" ry="9"/><path d="M3 12h18"/></svg>';
     var m=document.createElement('div');m.className='km';m.setAttribute('aria-label','إحصاءات الإنجازات: '+n+' إجمالًا، '+I.length+' دولية و'+L.length+' محلية');
     m.innerHTML='<div class="km-top"><div class="km-badge">'+svg+'<strong data-n="'+n+'">٠</strong></div><div class="km-tt"><em>إجمالي الإنجازات</em><small>'+AR(I.length)+' دولية · '+AR(L.length)+' محلية</small></div></div>'+
-      '<div class="km-rows">'+row('i',I,pi,globe,'إنجازات دولية')+row('l',L,pl,'<img src="'+omanMap+'" alt="">','إنجازات محلية')+'</div>'+
-      (star?'<div class="km-star-c"><span class="km-sx">✦</span><span><small>الإنجاز الأبرز</small><b>'+esc(star.short||star.title)+'</b></span></div>':'');
+      '<div class="km-rows">'+row('i',I,pi,globe,'إنجازات دولية')+row('l',L,pl,'<img src="'+omanMap+'" alt="">','إنجازات محلية')+'</div>';
     old.replaceWith(m);
     function count(el){var to=+el.dataset.n,suf=el.dataset.s||'',t0=null,D=reduce?1:1300;(function f(t){t0=t0||t;var x=Math.min(1,(t-t0)/D);el.textContent=AR(Math.round(to*(1-Math.pow(1-x,3))))+suf;if(x<1)requestAnimationFrame(f)})(performance.now())}
     function play(){m.classList.add('on');[].forEach.call(m.querySelectorAll('[data-n]'),count)}
@@ -36,8 +35,9 @@ import omanMap from '../../../assets/svg/icon-oman-map.svg';
   btn.querySelector('span').textContent='اقرأ القصة كاملة';btn.setAttribute('aria-haspopup','dialog');btn.removeAttribute('aria-expanded');
   var img=document.querySelector('.jp-side img, .profile-hero img');
   var name=(document.querySelector('h1')||{}).textContent||'';
-  var sents=txt.textContent.trim().split(/(?<=[.؟!])\s+/),paras=[],cur=[];
-  sents.forEach(function(s,i){cur.push(s);if(cur.length>=4||i===sents.length-1){paras.push(cur.join(' '));cur=[]}});
+  /* الفقرات كما في البطاقة (يقسّمها الخادم عند نهايات الجمل)، وإلا فثلاث جمل في كل فقرة */
+  var blocks=txt.textContent.trim().split(/\n\s*\n/).map(function(b){return b.replace(/\s+/g,' ').trim()}).filter(Boolean),paras=[];
+  if(blocks.length>1)paras=blocks;else{var sents=(blocks[0]||'').split(/(?<=[.؟!])\s+/),cur=[];sents.forEach(function(s,i){cur.push(s);if(cur.length>=3||i===sents.length-1){paras.push(cur.join(' '));cur=[]}})}
   var words=txt.textContent.trim().split(/\s+/).length,mins=Math.max(1,Math.round(words/180));
   var AR=function(v){return String(v).replace(/\d/g,function(d){return'٠١٢٣٤٥٦٧٨٩'[d]})};
   var m=document.createElement('div');m.className='sr';m.setAttribute('role','dialog');m.setAttribute('aria-modal','true');m.setAttribute('aria-label','قصتي');

@@ -13,8 +13,9 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 
 /**
- * المؤسسات (design institutions.html): type chips, search, organizations grouped by type. Universities show
- * their first five plus a link to the universities page (they have their own list).
+ * المؤسسات «ديوان المؤسسات»: search, type tabs with counts, the featured organization and the organizations
+ * grouped by type as arch tiles. Universities show their first five plus a link to the universities page
+ * (they have their own list).
  */
 class OrganizationsIndex extends Component
 {
@@ -31,27 +32,11 @@ class OrganizationsIndex extends Component
         $this->type = $slug;
     }
 
-    /** @return Collection<int, OrganizationType> */
+    /** @return Collection<int, OrganizationType> types in order, each with its published organizations_count (the tabs) */
     #[Computed]
     public function types(): Collection
     {
-        return OrganizationType::query()->orderBy('sort_order')->get();
-    }
-
-    /**
-     * Counters of the design's rings: published organizations per type, universities excluded (they have
-     * their own page), and the total.
-     *
-     * @return array{total: int, items: list<array{type: OrganizationType, count: int}>}
-     */
-    #[Computed]
-    public function rings(): array
-    {
-        $counts = Organization::query()->published()->selectRaw('organization_type_id, count(*) as n')->groupBy('organization_type_id')->pluck('n', 'organization_type_id');
-        $items = $this->types->reject(fn (OrganizationType $t) => $t->template === 'university')
-            ->map(fn (OrganizationType $t) => ['type' => $t, 'count' => (int) ($counts[$t->id] ?? 0)])->filter(fn ($i) => $i['count'] > 0)->values()->all();
-
-        return ['total' => array_sum(array_column($items, 'count')), 'items' => $items];
+        return OrganizationType::counted();
     }
 
     #[Computed]

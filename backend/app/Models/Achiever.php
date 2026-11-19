@@ -144,6 +144,15 @@ class Achiever extends Model implements HasMedia
         return $this->gender === 'f';
     }
 
+    /**
+     * The small photo beside the logo in the compact header, on the profile and on every achievement page:
+     * the avatar made for that circle, else the portrait. Never the full-body cutout (the circle would crop the head).
+     */
+    public function headerAvatarUrl(): ?string
+    {
+        return $this->imageUrl('avatar') ?? $this->imageUrl('portrait', 'card');
+    }
+
     /** Hero lines as a list (one per line). */
     public function heroLines(): array
     {

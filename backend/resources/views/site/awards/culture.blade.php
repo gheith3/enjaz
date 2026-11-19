@@ -36,14 +36,23 @@
     <nav class="aw-jump" aria-label="{{ __('site.awards.jump') }}"><a href="#aw-about">{{ __('site.awards.jump_about') }}</a>@if ($letter)<a href="#aw-word">{{ __('site.awards.jump_word') }}</a>@endif<a href="#aw-winners">{{ __('site.awards.jump_winners') }}</a><a href="#aw-how">{{ __('site.awards.jump_how') }}</a>@if ($current)<a href="#aw-now">{{ __('site.awards.jump_now') }}</a>@endif</nav>
   </section>
   <div class="wrap">
-    <section class="aw-sec" id="aw-about" aria-labelledby="aw-about-h">
+    <section class="aw-sec aw-about" id="aw-about" aria-labelledby="aw-about-h">
       <h2 class="aw-h" id="aw-about-h">{{ __('site.awards.about') }}</h2>
-      <p class="aw-lead">{{ $a->about }}</p>
-      <ol class="aw-goals">@foreach ($a->factsIn('goals') as $i => $goal)<li><b>{{ $d($i + 1) }}</b>{{ $goal->value }}</li>@endforeach</ol>
+      {{-- «وثيقة الوسام» (desktop, award-details-desktop.css): the medal with the gold emblem beside the text, the goals
+           below it; on the phone the medal and the goals title are hidden and the layout stays as before. --}}
+      <div class="aw-charter">
+        <div class="aw-medal" aria-hidden="true"><span class="aw-medal-rib"></span><span class="aw-medal-disc"><span class="aw-gold"></span></span>
+          @if ($a->decree)<span class="aw-medal-cap"><small>{{ __('site.awards.decree') }}</small><b>{{ $a->decree }}</b></span>@endif</div>
+        <div class="aw-charter-text"><p class="aw-charter-t" aria-hidden="true">{{ $a->name }}</p><p class="aw-lead">{{ $a->about }}</p></div>
+        <div class="aw-charter-goals">
+          <h3 class="aw-goals-h">{{ __('site.awards.goals') }}</h3>
+          <ol class="aw-goals">@foreach ($a->factsIn('goals') as $i => $goal)<li><b>{{ $d($i + 1) }}</b>{{ $goal->value }}</li>@endforeach</ol>
+        </div>
+      </div>
       @if ($title = $a->label('pillars_title'))<h3 class="aw-sub">{{ $title }}</h3>@endif
       <div class="aw-pillars">
         @foreach ($branches as $key => $branch)
-          <button type="button" class="aw-pil b-{{ $key }}" data-jump-branch="{{ $key }}"><span class="aw-pil-ic"><x-site.award.icon :name="$key" /></span>
+          <button type="button" class="aw-pil b-{{ $key }}" data-jump-branch="{{ $key }}"><span class="aw-pil-rib" aria-hidden="true"></span><span class="aw-pil-ic"><x-site.award.icon :name="$key" /></span>
             <b>{{ $branch->name }}</b><small>{{ $branch->hint }}</small><em><strong>{{ $d($all->filter(fn ($x) => $x[0]->award_category_id === $branch->id)->count()) }}</strong> {{ __('site.awards.branch_winners') }}</em></button>
         @endforeach
       </div>
@@ -52,7 +61,7 @@
     @if ($letter)
       <section class="aw-sec aw-word" id="aw-word" aria-labelledby="aw-word-h">
         <h2 class="aw-h" id="aw-word-h">{{ $a->label('word_title', __('site.awards.word')) }}</h2>
-        <div><x-site.organization.word-d5 :letter="$letter" variant="leader" /></div>
+        <div><x-site.organization.word-window :letter="$letter" :label="$a->name" :emblem="$a->imageUrl('logo', 'card')" /></div>
       </section>
     @endif
 
@@ -83,16 +92,21 @@
 
     <section class="aw-sec" id="aw-how" aria-labelledby="aw-how-h">
       <h2 class="aw-h" id="aw-how-h">{{ __('site.awards.how') }}</h2>
-      @if ($a->lead)<p class="aw-lead">{{ $a->lead }}</p>@endif
-      <ol class="aw-alt">
-        @foreach ($a->editions->sortBy('sort_order') as $e)
-          <li @class(['t-'.($e->type ?: 'oman'), 'is-now' => $e->is_current])><b>{{ $e->year }}</b><small>{{ __('site.awards.type_'.($e->type ?: 'oman')) }}</small></li>
-        @endforeach
-      </ol>
-      <div class="aw-prizes">
-        @foreach ($prizes as $key => $prize)
-          <div class="aw-prize p-{{ $key }}"><span class="aw-seal" aria-hidden="true"><i></i></span><b>{{ $prize->name }}</b><p>{{ $prize->medal }}</p><em>{{ $prize->basis }}</em></div>
-        @endforeach
+      {{-- Desktop (award-details-desktop.css): a teal stage, the editions as nodes on a gold thread and the two prizes as
+           the two faces of one coin. On the phone the stage and the coin add nothing. --}}
+      <div class="aw-how-stage">
+        @if ($a->lead)<p class="aw-lead">{{ $a->lead }}</p>@endif
+        <ol class="aw-alt">
+          @foreach ($a->editions->sortBy('sort_order') as $e)
+            <li @class(['t-'.($e->type ?: 'oman'), 'is-now' => $e->is_current])><b>{{ $e->year }}</b><small>{{ __('site.awards.type_'.($e->type ?: 'oman')) }}</small></li>
+          @endforeach
+        </ol>
+        <div class="aw-prizes">
+          @foreach ($prizes as $key => $prize)
+            <div class="aw-prize p-{{ $key }}"><span class="aw-seal" aria-hidden="true"><i></i></span><b>{{ $prize->name }}</b><p>{{ $prize->medal }}</p><em>{{ $prize->basis }}</em></div>
+          @endforeach
+          <span class="aw-coin" aria-hidden="true"><i></i></span>
+        </div>
       </div>
     </section>
 

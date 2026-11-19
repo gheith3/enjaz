@@ -4,14 +4,19 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
+use App\Models\OrganizationType;
 use App\Models\Page;
+use App\Support\Site\OrganizationFeed;
 use Illuminate\Contracts\View\View;
 
 class OrganizationController extends Controller
 {
     public function index(): View
     {
-        return view('site.pages.organizations', ['page' => Page::forKey('organizations')->load('letter.media', 'media')]);
+        return view('site.pages.organizations', [
+            'page' => Page::forKey('organizations')->load('letter.media', 'media'),
+            'types' => OrganizationType::counted()->where('organizations_count', '>', 0)->values(),
+        ]);
     }
 
     public function universities(): View
@@ -34,18 +39,21 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Achievements of an organization. Institutions: their achievements and news (institution-achievements.html);
-     * universities and federations: the achievements of the organization and its people (phase 2c).
+     * Achievements of an organization. Institutions: their linked achievements (their own and their people's)
+     * and their news in one list; universities and federations: the achievements of the organization and its people.
      */
     public function achievements(Organization $organization): View
     {
         $this->authorizeView($organization);
+        $news = $organization->news()->published()->with('media')->orderByDesc('happened_at')->get();
+        $achievements = $organization->allAchievements();
 
         return view('site.organizations.'.$organization->template().'-achievements', [
             'organization' => $organization->load(['type', 'media']),
             'listPage' => Page::forKey($organization->template() === 'university' ? 'universities' : 'organizations'),
-            'news' => $organization->news()->published()->with('media')->orderByDesc('happened_at')->get(),
-            'achievements' => $organization->allAchievements(),
+            'news' => $news,
+            'achievements' => $achievements,
+            'feed' => OrganizationFeed::of($achievements, $news),
         ]);
     }
 
@@ -70,13 +78,21 @@ class OrganizationController extends Controller
         }
     }
 
-    /** @return array<string, mixed> */
+    /**
+     * «ملف المؤسسة»: its achievements (linked to it or to its people) with its news, its people, and the other
+     * institutions (ministries, military, companies).
+     *
+     * @return array<string, mixed>
+     */
     private function dataInstitution(Organization $organization): array
     {
+        $news = $organization->news()->published()->with('media')->orderByDesc('happened_at')->get();
+
         return [
-            'news' => $organization->news()->published()->with('media')->orderByDesc('happened_at')->limit(5)->get(),
-            'sameField' => Organization::query()->listed()->with('media')->whereKeyNot($organization->getKey())
-                ->whereHas('type', fn ($q) => $q->where('template', 'institution'))->get(),
+            'feed' => OrganizationFeed::of($organization->allAchievements(), $news),
+            'people' => $organization->achievers()->published()->with(['media', 'field'])->get()->unique('id')->values(),
+            'sameField' => Organization::query()->listed()->with(['media', 'type'])->whereKeyNot($organization->getKey())
+                ->where('organization_type_id', $organization->organization_type_id)->get(),
         ];
     }
 

@@ -1,0 +1,77 @@
+/* «من تعاقبوا على قيادتها»: مسرح تتسلّم فيه القيادة — صورة تنفتح في دائرة ضوء، سنة كبيرة تعدّ إليها، اسم يصعد كلمة كلمة،
+   وخط ذهبي يجري بين صور القادة */
+.oh-stage { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-rows: minmax(0, 1fr); min-height: 330px; padding: 26px 20px 84px; border-radius: 24px; color: #fff;
+  background: radial-gradient(60% 90% at 80% 20%, rgba(244, 223, 174, .18), transparent 60%), linear-gradient(140deg, #0C7F89, #063135 70%); }
+.oh-stage::before { content: ""; position: absolute; inset: -40%; z-index: -1; background: conic-gradient(from 0deg, transparent 0 70%, rgba(244, 223, 174, .16) 80%, transparent 90%); animation: oh-sweep 14s linear infinite; }
+.oh-stage::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .07; background: url("../assets/svg/watermark.svg") 10% 50% / 60% no-repeat; }
+.oh-year { position: absolute; left: 20px; bottom: 10px; z-index: 0; color: transparent; -webkit-text-stroke: 1.5px rgba(244, 223, 174, .32); font-size: 72px; font-weight: 900; line-height: 1.1;
+  font-variant-numeric: tabular-nums; letter-spacing: 2px; }
+.oh-slide { grid-area: 1 / 1; display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: center; gap: 18px; visibility: hidden; }
+.oh-slide.on { visibility: visible; }
+.oh-photo { position: relative; width: 120px; aspect-ratio: 1; }
+.oh-ring { position: absolute; inset: -7px; border-radius: 50%; background: conic-gradient(#F4DFAE, #C6A15A, transparent 40%, #F4DFAE 70%, #E6C177); animation: oh-spin 6s linear infinite;
+  -webkit-mask: radial-gradient(circle, transparent 62%, #000 63%); mask: radial-gradient(circle, transparent 62%, #000 63%); }
+.oh-pic { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; border-radius: 50%; background: #F1E9D6; color: #8A6A2E; font-size: 44px; }
+.oh-pic img { width: 100%; height: 100%; object-fit: cover; }
+.oh-info { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: start; text-align: start; gap: 5px; min-width: 0; }
+.oh-no { color: rgba(244, 223, 174, .75); font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+.oh-yrs { padding: 3px 12px; border-radius: 99px; background: rgba(244, 223, 174, .16); color: #F4DFAE; font-size: 13px; font-weight: 800; }
+.oh-name { width: 100%; white-space: nowrap; margin: 2px 0 0; font-size: 21px; font-weight: 900; line-height: 1.45; }
+.oh-name span { display: inline-block; }
+.oh-role { margin: 0; color: #D3E6E4; font-size: 14px; font-weight: 700; line-height: 1.7; }
+.oh-slide .oh-info .op-decree { justify-self: start; background: rgba(244, 223, 174, .2); color: #F4DFAE; }
+.oh-slide.is-now .oh-yrs { background: #F4DFAE; color: #063135; }
+/* شريط القادة */
+.oh-track { position: relative; display: grid; grid-template-columns: repeat(var(--n), minmax(64px, 1fr)); margin-top: 2px; padding: 16px 14px 22px; overflow-x: auto; scrollbar-width: none; }
+.oh-track::-webkit-scrollbar { display: none; }
+.oh-line { position: absolute; top: 41px; right: calc(50% / var(--n)); left: calc(50% / var(--n)); height: 2px; background: #EADFC8; }
+.oh-line i { position: absolute; inset: 0; background: linear-gradient(270deg, #E6C177, var(--k, #0C7F89)); transform: scaleX(var(--p, 0)); transform-origin: right; transition: transform .9s cubic-bezier(.65, 0, .35, 1); }
+.oh-dot { position: relative; display: grid; justify-items: center; gap: 6px; min-width: 52px; padding: 0 2px; border: 0; background: none; font: inherit; cursor: pointer; }
+.oh-face { position: relative; z-index: 1; display: grid; place-items: center; width: 50px; height: 50px; overflow: hidden; border: 3px solid #fff; border-radius: 50%; background: #F1E9D6;
+  color: #8A6A2E; font-weight: 900; box-shadow: 0 0 0 1px #E8DDC6; filter: grayscale(.85); opacity: .75; transition: transform .5s cubic-bezier(.3, 1.5, .5, 1), filter .4s, opacity .4s, box-shadow .4s; }
+.oh-face img { width: 100%; height: 100%; object-fit: cover; }
+.oh-dot small { color: #8A9A9B; font-size: 11.5px; font-weight: 800; transition: color .3s; }
+.oh-dot:hover .oh-face { filter: none; opacity: 1; }
+.oh-dot.on .oh-face { transform: scale(1.18); filter: none; opacity: 1; box-shadow: 0 0 0 2px #fff, 0 0 0 4px #C6A15A, 0 10px 20px -8px rgba(6, 49, 53, .6); }
+.oh-dot.on small { color: #8A6A2E; }
+.oh-prog { position: absolute; bottom: -8px; width: 28px; height: 3px; border-radius: 3px; background: #EADFC8; overflow: hidden; }
+.oh-prog::after { content: ""; position: absolute; inset: 0; background: #C6A15A; transform: scaleX(0); transform-origin: right; }
+.oh.is-playing .oh-dot.on .oh-prog::after { animation: oh-fill var(--oh-t, 3s) linear both; }
+.oh-dot:focus-visible { outline: 3px solid #C6A15A; outline-offset: 2px; border-radius: 12px; }
+@media (prefers-reduced-motion: no-preference) {
+  .oh-slide.on .oh-pic { animation: oh-open 1s cubic-bezier(.65, 0, .35, 1) both; }
+  .oh-slide.on .oh-pic img { animation: oh-zoom 5s ease-out both; }
+  .oh-slide.on .oh-ring { animation: oh-spin 6s linear infinite, oh-fade .8s ease both; }
+  .oh-slide.on .oh-info > * { animation: oh-up .7s cubic-bezier(.16, 1, .3, 1) both; }
+  .oh-slide.on .oh-info > :nth-child(2) { animation-delay: .12s; } .oh-slide.on .oh-info > :nth-child(4) { animation-delay: .5s; } .oh-slide.on .oh-info > :nth-child(5) { animation-delay: .6s; }
+  .oh-slide.on .oh-name { animation: none; }
+  .oh-slide.on .oh-name span { animation: oh-word .7s cubic-bezier(.16, 1, .3, 1) both; animation-delay: calc(.2s + var(--w) * 80ms); }
+}
+@keyframes oh-open { from { clip-path: circle(0% at 50% 50%); transform: scale(1.12); } to { clip-path: circle(50% at 50% 50%); transform: none; } }
+@keyframes oh-zoom { from { transform: scale(1.12); } to { transform: scale(1); } }
+@keyframes oh-spin { to { transform: rotate(360deg); } }
+@keyframes oh-fade { from { opacity: 0; } }
+@keyframes oh-up { from { opacity: 0; transform: translateY(14px); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes oh-word { from { opacity: 0; transform: translateY(70%) rotate(4deg); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes oh-sweep { to { transform: rotate(360deg); } }
+@keyframes oh-fill { to { transform: scaleX(1); } }
+
+@media (min-width: 1100px) {
+  .oh-stage { min-height: 360px; padding: 40px 56px 84px; border-radius: 28px; }
+  .oh-slide { grid-template-columns: 220px minmax(0, 1fr); gap: 46px; }
+  .oh-photo { width: 220px; }
+  .oh-ring { inset: -10px; }
+  .oh-year { left: 40px; font-size: 100px; }
+  .oh-name { font-size: 36px; }
+  .oh-role { font-size: 17px; }
+  .oh-yrs { font-size: 14.5px; }
+  .oh-face { width: 58px; height: 58px; }
+  .oh-line { top: 45px; }
+}
+/* Keep the portrait-right layout on phones while reserving room for the full name. */
+@media (max-width: 699px) {
+  .oh-slide { grid-template-columns: 88px minmax(0, 1fr); gap: 14px; }
+  .oh-photo { width: 88px; }
+  .oh-stage { padding-inline: 16px; }
+}
+.oh > h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; color: #14282A; font-size: 17px; font-weight: 900; }

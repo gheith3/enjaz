@@ -1,21 +1,36 @@
-{{-- Design: institution-achievements.html: the organization's achievements and news. --}}
-<x-site.layout :title="__('site.organizations.achievements_of', ['name' => $organization->name])" styles="institution" body-class="flush"
+{{-- «سجل إنجازات المؤسسة» (css org-profile): every achievement linked to the institution or to its people, with its
+     news, newest first (App\Support\Site\OrganizationFeed). --}}
+@php
+    $o = $organization;
+    $d = fn ($n) => \App\Support\ArabicDate::digits($n);
+    $key = $o->type?->cssKey() ?? 'gov';
+@endphp
+<x-site.layout :title="__('site.organizations.achievements_of', ['name' => $o->name])" styles="institution" body-class="flush op-page"
     :crumb="['title' => $listPage->title, 'url' => route('organizations.index')]">
-  <section class="oi-hero">
-    <a class="oi-back" href="{{ $organization->url() }}"><span class="btn-round"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></span>{{ $organization->displayName() }}</a>
-    @if ($logo = $organization->logoUrl())<span class="oh-logo"><img src="{{ $logo }}" alt="{{ $organization->name }}"></span>@endif
-    <span class="orgs-eyebrow">{{ __('site.organizations.record') }}</span>
-    <h1>{{ __('site.organizations.achievements_of', ['name' => $organization->name]) }}</h1>
-    <span class="oi-count"><b>{{ \App\Support\ArabicDate::digits($news->count()) }}</b> {{ __('site.organizations.documented') }}</span>
+<article class="op s-{{ $key }}" @if ($o->color_primary) style="--brand: {{ $o->color_primary }}" @endif>
+  <header class="op-head op-head-sm">
+    <a class="op-logo" href="{{ $o->url() }}" aria-label="{{ $o->name }}"><x-site.organization.emblem :organization="$o" :lazy="false" /></a>
+    <span class="op-type">{{ __('site.organizations.record') }}</span>
+    <h1>{{ __('site.organizations.achievements_of', ['name' => $o->name]) }}</h1>
+    <p class="op-line">{{ \App\Support\ArabicCount::of($feed->count(), 'achievements') }} · <a href="{{ $o->url() }}" style="color:#F1DDAE">{{ __('site.organizations.back_to', ['name' => $o->displayName()]) }}</a></p>
+  </header>
+  <section class="wrap op-sec op-ach" aria-label="{{ __('site.organizations.achievements') }}">
+    @if ($feed->isNotEmpty())
+      <div class="op-grid">
+        @foreach ($feed as $item)
+          <a class="op-card-a" href="{{ $item['url'] }}">
+            <span class="op-img">@if ($item['image'])<img src="{{ $item['image'] }}" alt="" loading="lazy" style="object-position: {{ $item['focal'] }}">@endif</span>
+            <span class="op-pill k-{{ $item['kind'] }}">{{ $item['tag'] ?? __('site.organizations.news_tag') }}</span><b>{{ $item['title'] }}</b>
+            <small>{{ collect([$item['who'], $item['label']])->filter()->implode(' · ') }}</small>
+          </a>
+        @endforeach
+      </div>
+    @else
+      <div class="op-empty">
+        <p><b>{{ __('site.organizations.empty_title') }}</b><span>{{ __('site.organizations.empty_text') }}</span></p>
+        <a href="{{ url('/contact') }}">{{ __('site.organizations.empty_cta') }} <span aria-hidden="true">←</span></a>
+      </div>
+    @endif
   </section>
-  <section class="section wrap" aria-label="{{ __('site.organizations.achievements') }}">
-    <div class="oi-grid">
-      @foreach ($news as $item)
-        <a class="oi-card" href="{{ $item->url() }}">
-          <span class="oi-img">@if ($img = $item->imageUrl('cover', 'card'))<img src="{{ $img }}" alt="" loading="lazy">@endif</span>
-          <span class="oi-b"><small>{{ $item->dateLabel('daymonth') }}</small><b>{{ $item->title }}</b></span>
-        </a>
-      @endforeach
-    </div>
-  </section>
+</article>
 </x-site.layout>

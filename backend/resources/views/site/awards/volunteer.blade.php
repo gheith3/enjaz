@@ -40,8 +40,22 @@
   <div class="wrap">
     <section class="v-sec" id="v-about" aria-labelledby="v-about-h">
       <h2 class="v-h" id="v-about-h">{{ __('site.awards.about') }}</h2>
-      <p class="v-lead">{{ $a->about }}</p>
-      @if ($a->vision)<div class="v-vision"><span>{{ __('site.awards.vision') }}</span><p>{{ $a->vision }}</p></div>@endif
+      {{-- Desktop «دوائر الأثر» (award-volunteer-desktop.css): the logo in a disc with ripples, the motto and the date beside
+           the text, the vision as a quote and the goals as drops. On the phone the wrappers are display: contents and the
+           extra parts are hidden, so the layout stays as before. --}}
+      <div class="v-about-card">
+        <div class="v-about-mark" aria-hidden="true">
+          <span class="v-about-ripple"><i></i><i></i><i></i><span class="v-about-logo">@if ($logo = $a->imageUrl('logo', 'card'))<img src="{{ $logo }}" alt="" loading="lazy">@endif</span></span>
+          @if ($a->motto)<b class="v-about-motto">«{{ $a->motto }}»</b>@endif
+          @if ($a->date_line)<small class="v-about-date"><b>{{ $dateBold }}</b>{{ $dateRest }}</small>@endif
+        </div>
+        <div class="v-about-text">
+          <p class="v-about-t" aria-hidden="true">{{ $a->name }}</p>
+          <p class="v-lead">{{ $a->about }}</p>
+          @if ($a->vision)<div class="v-vision"><span>{{ __('site.awards.vision') }}</span><p>{{ $a->vision }}</p></div>@endif
+        </div>
+      </div>
+      <h3 class="v-goals-h">{{ __('site.awards.goals') }}</h3>
       <ul class="v-goals">@foreach ($a->factsIn('goals') as $goal)<li>{{ $goal->value }}</li>@endforeach</ul>
     </section>
     <section class="v-sec" id="v-how" aria-labelledby="v-how-h">

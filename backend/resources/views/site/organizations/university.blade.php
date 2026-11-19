@@ -102,7 +102,7 @@
 
     @if ($letter && $letter->image('photo'))
       <section class="u-sec u-word" id="u-word" aria-labelledby="u-word-h"><h2 class="u-h" id="u-word-h">{{ __('site.university.word', ['kind' => $kind]) }}</h2><div>
-        <x-site.organization.word-d5 :letter="$letter" variant="leader" />
+        <x-site.organization.word-window :letter="$letter" :organization="$o" />
       </div></section>
     @endif
 

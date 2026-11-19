@@ -3,7 +3,7 @@
     $cutout = $achiever->image('cutout');
     $portrait = $achiever->image('portrait');
     $heroImage = $achiever->imageUrl('cutout') ?? $achiever->imageUrl('portrait');
-    $avatar = $achiever->imageUrl('avatar') ?? $achiever->imageUrl('portrait', 'card');
+    $avatar = $achiever->headerAvatarUrl();
     $general = app(\App\Settings\GeneralSettings::class);
     $d = fn ($n) => \App\Support\ArabicDate::digits($n);
     $pct = fn ($n) => $stats['total'] ? $d(round($n / $stats['total'] * 100)).'٪' : $d(0).'٪';
@@ -24,27 +24,29 @@
   <section class="profile-hero">
     <div class="top">
       <div class="profile-portrait hm">
-        @if ($achiever->portrait_trace)
-          <svg class="hm-trace" viewBox="0 0 948 928" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="hmGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6E3B4"/><stop offset=".5" stop-color="#D9B262"/><stop offset="1" stop-color="#A88344"/></linearGradient></defs><path class="hm-line" pathLength="100" d="{{ $achiever->portrait_trace }}"/><path class="hm-run" pathLength="100" d="{{ $achiever->portrait_trace }}"/><path class="hm-run hm-run-2" pathLength="100" d="{{ $achiever->portrait_trace }}"/></svg>
-        @endif
         @if ($heroImage)
           <img class="photo" src="{{ $heroImage }}" data-avatar="{{ $avatar }}" alt="{{ \App\Models\Achiever::alt($cutout ?? $portrait, $achiever->name) }}" width="948" height="928">
         @endif
       </div>
       <div class="txt">
         <div class="who">
-          @if ($achiever->is_featured)
-            <span class="featured-mark" aria-label="{{ __('site.achievers.featured') }}"><svg viewBox="0 0 64 64" aria-hidden="true"><path fill="#C6A15A" d="M32 6L40.4 11.7 50.4 13.6 52.3 23.6 58 32 52.3 40.4 50.4 50.4 40.4 52.3 32 58 23.6 52.3 13.6 50.4 11.7 40.4 6 32 11.7 23.6 13.6 13.6 23.6 11.7Z"/><path d="M23 33.2 29.2 40 42 25" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          @endif
-          <h1>{{ $achiever->name }}</h1>
+          <div class="who-name">
+            <h1>{{ $achiever->name }}</h1>
+            @if ($achiever->is_featured)
+              <span class="featured-mark" role="img" aria-label="{{ __('site.achievers.featured') }}"><svg viewBox="0 0 64 64" aria-hidden="true"><path fill="#C6A15A" d="M32 6L40.4 11.7 50.4 13.6 52.3 23.6 58 32 52.3 40.4 50.4 50.4 40.4 52.3 32 58 23.6 52.3 13.6 50.4 11.7 40.4 6 32 11.7 23.6 13.6 13.6 23.6 11.7Z"/><path d="M23 33.2 29.2 40 42 25" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            @endif
+          </div>
           @if ($english = $achiever->getTranslation('name', 'en', false))<p class="en" lang="en">{{ $english }}</p>@endif
         </div>
         @if ($lines = $achiever->heroLines())
-          <p class="about">{!! collect($lines)->map(fn ($l) => e($l))->implode('<br>') !!}</p>
+          <p class="about">{{ implode(' - ', $lines) }}</p>
         @endif
       </div>
     </div>
   </section>
+  {{-- The portrait rises from its line and the name, English name and introduction rise with it (profile-portrait.js).
+       Set before the first paint so nothing jumps; shown without motion after 4 s if the photo is slow. --}}
+  <script>(function (h) { var f = h.querySelector('.profile-portrait'); if (!f || !f.querySelector('.photo') || matchMedia('(prefers-reduced-motion: reduce)').matches) return; h.classList.add('hero-wait'); f.classList.add('motion-pending'); setTimeout(function () { if (!h.classList.contains('hero-wait')) return; f.classList.remove('motion-pending'); h.classList.remove('hero-wait'); h.classList.add('hero-in'); }, 4000); })(document.currentScript.previousElementSibling);</script>
 
   <section class="section wrap profile-contact" aria-label="{{ __('site.achievers.contacts') }}">
     <div class="profile-contact-row">
@@ -68,7 +70,8 @@
     @if ($achiever->story)
       <div class="card story" data-story>
         <div class="sec-title"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt=""><h2>{{ __('site.achievers.story') }}</h2></div>
-        <p id="story-text">{!! nl2br(e($achiever->story)) !!}</p>
+        {{-- Paragraphs: the story written as one block is split at sentence ends (App\Support\Paragraphs). --}}
+        <p id="story-text">{!! nl2br(e(\App\Support\Paragraphs::text((string) $achiever->story))) !!}</p>
         <button class="toggle" type="button" aria-expanded="false" aria-controls="story-text" data-more="{{ __('site.achievers.read_more') }}" data-less="{{ __('site.achievers.hide') }}"><span>{{ __('site.achievers.read_more') }}</span><img src="{{ Vite::asset('resources/site/assets/svg/icon-chevron-down.svg') }}" alt=""></button>
       </div>
     @endif
@@ -174,23 +177,98 @@
     </section>
   @endif
 
-  @if ($achiever->personal_quote)
-    <section class="section wrap">
-      <x-site.pull-quote :text="$achiever->personal_quote" :by="$achiever->name" :role="$achiever->personal_quote_context" :note="$achiever->personal_quote_source" />
-    </section>
-  @endif
+  @php
+    $gallery = $achiever->getMedia('gallery');
+    $photoItems = $gallery->map(function ($image) use ($achiever) {
+        $caption = \App\Support\Localized::get($image->getCustomProperty('caption'));
 
-  @if (($gallery = $achiever->getMedia('gallery'))->isNotEmpty())
-    <section class="section wrap">
-      <div class="sec-title"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt=""><h2>{{ __('site.achievers.gallery') }}</h2></div>
-      <div class="media3" data-gallery>
-        @foreach ($gallery as $image)
-          @php $caption = \App\Support\Localized::get($image->getCustomProperty('caption')); @endphp
-          <a href="{{ \App\Support\Media\Src::of($image) }}" data-caption="{{ $caption }}" aria-label="{{ __('site.achievers.view_image', ['caption' => $caption]) }}"><img class="cover" src="{{ $image->hasGeneratedConversion('card') ? $image->getUrl('card') : \App\Support\Media\Src::of($image) }}" alt="{{ $caption }}" loading="lazy" style="object-position:{{ \App\Models\Achiever::focal($image) }}"><span class="ico-circle"><img src="{{ Vite::asset('resources/site/assets/svg/icon-images.svg') }}" alt=""></span></a>
-        @endforeach
+        return [
+            'full' => \App\Support\Media\Src::of($image),
+            'thumb' => $image->hasGeneratedConversion('card') ? $image->getUrl('card') : \App\Support\Media\Src::of($image),
+            'focal' => \App\Models\Achiever::focal($image),
+            'caption' => $caption,
+            'label' => $caption !== '' ? $caption : $achiever->name,
+        ];
+    })->values();
+    $videoItems = $achievements->filter(fn ($achievement) => filled($achievement->video_url))->unique('video_url')->map(function ($video) use ($heroImage) {
+        $youtube = preg_match('~(?:youtu\.be/|youtube(?:-nocookie)?\.com/(?:watch\?(?:.*&)?v=|embed/|shorts/|live/))([\w-]{11})~', $video->video_url, $m) ? $m[1] : null;
+
+        return [
+            'url' => $video->video_url,
+            'youtube' => $youtube,
+            // YouTube's wide picture (no black bars); the small wide one when a video has no HD picture.
+            'thumb' => $youtube ? 'https://i.ytimg.com/vi/'.$youtube.'/hq720.jpg' : ($video->imageUrl('cover', 'card') ?? $heroImage),
+            'fallback' => $youtube ? 'https://i.ytimg.com/vi/'.$youtube.'/mqdefault.jpg' : null,
+            'title' => (string) $video->title,
+            'year' => $video->achieved_at?->year,
+        ];
+    })->values();
+    // Each library has a cover: a mosaic of its first pictures, or the achiever's photo while it is empty.
+    $fallbackCover = $achiever->imageUrl('journey') ?? $achiever->imageUrl('portrait', 'card') ?? $heroImage;
+    $coverOf = fn ($items) => $items->filter(fn ($item) => filled($item['thumb']))->take(3)
+        ->map(fn ($item) => ['src' => $item['thumb'], 'fallback' => $item['fallback'] ?? null])->values()->all()
+        ?: ($fallbackCover ? [['src' => $fallbackCover, 'fallback' => null]] : []);
+    $covers = ['videos' => $coverOf($videoItems), 'photos' => $coverOf($photoItems)];
+  @endphp
+  <section class="section wrap profile-library" data-profile-library aria-labelledby="library-title">
+    <div class="sec-title"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt=""><h2 id="library-title">{{ __('site.achievers.gallery') }}</h2></div>
+    <div class="profile-library-choices">
+      @foreach (['videos' => $videoItems->count(), 'photos' => $photoItems->count()] as $kind => $count)
+        <button type="button" @class(['profile-library-choice', 'is-empty' => ! $count]) data-library-dialog="library-{{ $kind }}" aria-haspopup="dialog" aria-controls="library-{{ $kind }}">
+          <span class="lib-cover" data-n="{{ count($covers[$kind]) }}" aria-hidden="true">@foreach ($covers[$kind] as $cover)<img src="{{ $cover['src'] }}" alt="" loading="lazy" @if ($cover['fallback']) data-fb="{{ $cover['fallback'] }}" @endif>@endforeach</span>
+          <span class="lib-cover-text">
+            <span class="profile-library-icon" aria-hidden="true">
+              @if ($kind === 'videos')<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>@else<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="m21 16-5-5-9 8"/></svg>@endif
+            </span>
+            <strong>{{ __($kind === 'videos' ? 'site.achievers.video_library' : 'site.achievers.photo_library') }}</strong>
+            <small>{{ \App\Support\ArabicCount::of($count, $kind) }}</small>
+          </span>
+          <span class="lib-cover-go" aria-hidden="true">←</span>
+        </button>
+      @endforeach
+    </div>
+    <dialog class="library-dialog" id="library-videos" aria-labelledby="library-videos-title">
+      <div class="library-head">
+        <h3 id="library-videos-title">{{ __('site.achievers.video_library') }}</h3>
+        <button type="button" class="library-close" data-library-close aria-label="{{ __('site.achievers.close') }}">×</button>
       </div>
-    </section>
-  @endif
+      <div class="library-player" data-video-player hidden></div>
+      @if ($videoItems->isNotEmpty())
+        <ul class="library-grid">
+          @foreach ($videoItems as $video)
+            <li>
+              <a class="library-tile" href="{{ $video['url'] }}" target="_blank" rel="noopener" title="{{ $video['title'] }}" @if ($video['youtube']) data-youtube="{{ $video['youtube'] }}" @endif>
+                <span class="library-thumb">@if ($video['thumb'])<img src="{{ $video['thumb'] }}" alt="" loading="lazy" @if ($video['fallback']) data-fb="{{ $video['fallback'] }}" @endif>@endif<span class="library-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span></span>
+                <span class="library-caption">@if ($video['year'])<small>{{ \App\Support\ArabicDate::digits($video['year']) }}</small>@endif<b>{{ $video['title'] }}</b></span>
+              </a>
+            </li>
+          @endforeach
+        </ul>
+      @else
+        <p class="library-empty">{{ __('site.achievers.no_videos') }}</p>
+      @endif
+    </dialog>
+    <dialog class="library-dialog" id="library-photos" aria-labelledby="library-photos-title">
+      <div class="library-head">
+        <h3 id="library-photos-title">{{ __('site.achievers.photo_library') }}</h3>
+        <button type="button" class="library-close" data-library-close aria-label="{{ __('site.achievers.close') }}">×</button>
+      </div>
+      @if ($photoItems->isNotEmpty())
+        <ul class="library-grid" data-gallery>
+          @foreach ($photoItems as $photo)
+            <li>
+              <a class="library-tile" href="{{ $photo['full'] }}" data-caption="{{ $photo['caption'] }}" title="{{ $photo['label'] }}" aria-label="{{ __('site.achievers.view_image', ['caption' => $photo['label']]) }}">
+                <span class="library-thumb"><img src="{{ $photo['thumb'] }}" alt="{{ $photo['label'] }}" loading="lazy" style="object-position:{{ $photo['focal'] }}"></span>
+                <span class="library-caption"><b>{{ $photo['label'] }}</b></span>
+              </a>
+            </li>
+          @endforeach
+        </ul>
+      @else
+        <p class="library-empty">{{ __('site.achievers.no_photos') }}</p>
+      @endif
+    </dialog>
+  </section>
 
   @if ($related->isNotEmpty())
     <section class="section gray section-pad" aria-labelledby="related-title">
