@@ -12,7 +12,7 @@ class Milestone extends Model
 {
     use ClearsResponseCache, HasTranslations;
 
-    protected $fillable = ['year', 'title', 'text', 'place', 'sort_order'];
+    protected $fillable = ['year', 'title', 'text', 'place', 'decree', 'sort_order'];
 
     /** @var list<string> */
     public array $translatable = ['title', 'text', 'place'];

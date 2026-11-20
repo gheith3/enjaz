@@ -1,4 +1,4 @@
-@props(['heads', 'title' => null])
+@props(['heads', 'title' => null, 'note' => null])
 {{-- «من تعاقبوا على قيادتها» / «رؤساء الاتحاد» (css org-heads, js sections/org-heads): a stage that hands the leadership on —
      each head's portrait opens in a circle of light, the big year counts to his year, the name rises word by word, and a gold
      marker runs along the line of portraits. Plays by itself once reached, pauses on hover; a portrait jumps to its head.
@@ -6,19 +6,20 @@
 @php $d = fn ($n) => \App\Support\ArabicDate::digits($n); @endphp
 <div class="op-heads oh" data-op-heads>
   @if ($title)<h3>{{ $title }}</h3>@endif
+  @if (filled($note))<p class="oh-note">{{ $note }}</p>@endif
   <div class="oh-stage">
     <span class="oh-year" aria-hidden="true" data-oh-year>{{ $heads->first()->from_year ? $d($heads->first()->from_year) : '' }}</span>
     @foreach ($heads as $head)
       @php $photo = \App\Support\Media\Src::of($head->image('photo')); $name = collect([$head->title, $head->name])->filter()->implode(' '); @endphp
       <article @class(['oh-slide', 'on' => $loop->first, 'is-now' => $head->is_current]) data-year="{{ $head->from_year }}" aria-hidden="{{ $loop->first ? 'false' : 'true' }}">
         <div class="oh-photo"><span class="oh-ring" aria-hidden="true"></span>
-          <span class="oh-pic">@if ($photo)<img src="{{ $photo }}" alt="{{ $name }}" loading="lazy">@else<b>{{ mb_substr((string) $head->name, 0, 1) }}</b>@endif</span></div>
+          <span class="oh-pic">@if ($photo)<img src="{{ $photo }}" alt="{{ $name }}" loading="lazy" @if ($focal = $head->image('photo')?->getCustomProperty('focal')) style="object-position: {{ $focal }}" @endif>@else<b>{{ mb_substr((string) $head->name, 0, 1) }}</b>@endif</span></div>
         <div class="oh-info">
           <span class="oh-no">{{ $d(str_pad($loop->iteration, 2, '0', STR_PAD_LEFT)) }} / {{ $d(str_pad($heads->count(), 2, '0', STR_PAD_LEFT)) }}</span>
-          <small class="oh-yrs">@if ($head->from_year){{ $d($head->from_year) }}@endif @if ($head->to_year)– {{ $d($head->to_year) }}@elseif ($head->is_current){{ $head->from_year ? '– ' : '' }}{{ __('site.organizations.current_head') }}@endif</small>
+          <small class="oh-yrs">@if (filled($head->period)){{ $head->period }}@else @if ($head->from_year){{ $d($head->from_year) }}@endif @if ($head->to_year)– {{ $d($head->to_year) }}@elseif ($head->is_current){{ $head->from_year ? '– ' : '' }}{{ __('site.organizations.current_head') }}@endif @endif</small>
           <h4 class="oh-name">@foreach (preg_split('/\s+/u', $name) as $w)<span style="--w: {{ $loop->index }}">{{ $w }}</span> @endforeach</h4>
           @if ($head->role)<p class="oh-role">{{ $head->role }}</p>@endif
-          @if ($head->note)<span class="op-decree">{{ $head->note }}</span>@endif
+          @if ($head->note && $head->note_url)<a class="op-decree" href="{{ $head->note_url }}" target="_blank" rel="noopener">{{ $head->note }} <span aria-hidden="true">↗</span></a>@elseif ($head->note)<span class="op-decree">{{ $head->note }}</span>@endif
         </div>
       </article>
     @endforeach

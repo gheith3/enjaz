@@ -291,3 +291,17 @@
   .op-arches { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
 }
 
+
+/* «المؤسسة في سطور»: vision and mission cards and the work priorities (organizations.details), and a decree that links to its text. */
+.op-direction { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 28px; }
+.op-direction article { padding: 24px; border: 1px solid #e8ddc6; border-radius: 20px; background: #fff; }
+.op-direction article > span { color: #a88344; font-size: 12px; font-weight: 800; }
+.op-direction h3 { margin: 10px 0; }
+.op-direction p { margin: 0; font-size: 15px; line-height: 1.9; color: #4b6465; }
+.op-goals ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; padding-inline-start: 20px; font-size: 15px; color: #4b6465; line-height: 1.9; }
+.oh-note { font-size: 13px; line-height: 1.9; color: #6b7c7d; margin: 0 0 20px; }
+a.op-decree { text-decoration: none; }
+@media (max-width: 699px) {
+  .op-direction, .op-goals ul { grid-template-columns: minmax(0, 1fr); }
+  .op-direction article { padding: 20px; }
+}

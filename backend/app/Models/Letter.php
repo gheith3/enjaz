@@ -14,7 +14,7 @@ class Letter extends Model implements HasMedia
 {
     use ClearsResponseCache, HasSiteMedia, HasTranslations;
 
-    protected $fillable = ['title', 'name', 'role', 'body', 'quote', 'meta', 'source_text', 'source_url', 'is_published'];
+    protected $fillable = ['title', 'name', 'role', 'body', 'quote', 'meta', 'source_text', 'source_url', 'photo_fit', 'is_published'];
 
     /** @var list<string> */
     public array $translatable = ['title', 'name', 'role', 'body', 'quote', 'meta'];

@@ -16,10 +16,10 @@ class OrganizationLeader extends Model implements HasMedia
 
     public const KINDS = ['president' => 'الرؤساء المتعاقبون', 'leader' => 'القيادة الحالية', 'board' => 'مجلس الأمناء / الإدارة'];
 
-    protected $fillable = ['organization_id', 'kind', 'name', 'title', 'role', 'from_year', 'to_year', 'is_current', 'note', 'sort_order'];
+    protected $fillable = ['organization_id', 'kind', 'name', 'title', 'role', 'from_year', 'to_year', 'is_current', 'note', 'period', 'note_url', 'sort_order'];
 
     /** @var list<string> */
-    public array $translatable = ['name', 'title', 'role', 'note'];
+    public array $translatable = ['name', 'title', 'role', 'note', 'period'];
 
     protected function casts(): array
     {

@@ -32,6 +32,7 @@ class MilestonesRelationManager extends RelationManager
             TextInput::make('year')->label('السنة')->required()->maxLength(20),
             Translatable::text('title', 'المحطة'),
             Translatable::text('place', 'المكان', required: false),
+            TextInput::make('decree')->label('المرسوم كما يُكتب (مثل: مرسوم ١٢/٧٦)، وإلا يُستخرج من التفاصيل')->maxLength(80),
             Translatable::textarea('text', 'تفاصيل'),
         ]);
     }

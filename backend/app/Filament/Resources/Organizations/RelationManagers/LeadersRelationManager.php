@@ -47,7 +47,9 @@ class LeadersRelationManager extends RelationManager
                 Toggle::make('is_current')->label('الحالي')->inline(false),
             ]),
             Translatable::textarea('note', 'نبذة'),
-            MediaSlot::make('photo', 'الصورة (PNG مفرّغ إن أمكن)', focal: false),
+            Translatable::text('period', 'الفترة كما تُكتب بدل السنوات (مثل: ٢٦ فبراير – ٧ مارس ٢٠١١)', required: false),
+            TextInput::make('note_url')->label('رابط النبذة (مثل رابط المرسوم)')->url()->extraInputAttributes(['dir' => 'ltr']),
+            MediaSlot::make('photo', 'الصورة (PNG مفرّغ إن أمكن)'),
         ]);
     }
 
