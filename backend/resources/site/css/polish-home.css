@@ -510,3 +510,8 @@ html.t-intro-on .site-header *, html.t-intro-on .home-achievers * { animation-pl
   .hs-gold:has(.hs-col):not(.go) .hs-i, .hs-gold:has(.hs-col):not(.go) .hs-city { opacity: 1; transform: none; }
   .hs-gold:has(.hs-col):not(.go) .hs-land { stroke-dashoffset: 0; fill-opacity: 1; }
 }
+
+/* الشارة المميِّزة (مثل «الرائدة») بجانب المجال، بذهب ممتلئ */
+.tt-who .tt-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.tt-who .tt-field.tt-tag { color: var(--t-ink); font-weight: 800; box-shadow: 0 6px 16px -8px rgba(230,201,138,.7);
+  background: linear-gradient(100deg, #E6C98A, #FFF1CC 45%, #E6C98A 70%, #C9A15C); }

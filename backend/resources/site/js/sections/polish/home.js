@@ -44,7 +44,7 @@
   // L = صور محلية أرسلها صاحب الموقع (مجلد tl-img)، وغيرها من مكتبة الموقع. p = نقطة التركيز في الصورة.
   var L = '/images/timeline/';
   var T = [
-    { y: null, lbl: 'الرائدة', s: 'أول دكتوراه لامرأة خليجية', n: 'د. فاطمة بنت سالم المعمرية', f: 'العلم', img: L + 'fatma-wide.webp', p: '50% 20%', u: '' },
+    { y: 1945, tag: 'الرائدة', s: 'أول دكتوراه لامرأة خليجية', n: 'د. فاطمة بنت سالم المعمرية', f: 'العلم', img: L + 'fatma-wide.webp', p: '50% 20%', u: '' },
     { y: 1990, s: 'ذهبية آسيا في ٤٠٠ متر', n: 'محمد عامر المالكي', f: 'ألعاب القوى', img: L + 'mohammed-amer-almalki-wide.webp', p: '50% 22%', u: 'https://injazat.om/achievers/mohammed-almalki' },
     { y: 1995, s: 'رابع العالم للناشئين', n: 'منتخب عُمان للناشئين', f: 'كرة القدم', img: L + 'u17-1995-wide.webp', p: '50% 40%', u: 'https://injazat.om/achievers/mohammed-amer-al-kathiri' },
     { y: 1995, s: 'الكرة الذهبية للعالم', n: 'محمد بن عامر الكثيري', f: 'كرة القدم', img: L + 'kathiri-wide.webp', p: '50% 25%', u: 'https://injazat.om/achievers/mohammed-amer-al-kathiri' },
@@ -101,7 +101,7 @@
           (function run() { var q = Math.min(1, (Date.now() - t0) / 700); yr.textContent = ar(Math.round(from + (to - from) * (1 - Math.pow(1 - q, 3)))); if (q < 1) setTimeout(run, 30); })();
           yr.dataset.y = to;
         } else { yr.textContent = m.lbl; }
-        ttl.textContent = m.s; who.innerHTML = '<b class="tt-name">' + m.n + '</b><span class="tt-field">' + m.f + '</span>';
+        ttl.textContent = m.s; who.innerHTML = '<b class="tt-name">' + m.n + '</b><span class="tt-chips"><span class="tt-field">' + m.f + '</span>' + (m.tag ? '<span class="tt-field tt-tag">' + m.tag + '</span>' : '') + '</span>';
         if (m.u) { go.href = m.u; go.innerHTML = 'اقرأ القصة <i aria-hidden="true">←</i>'; go.hidden = false; } else { go.removeAttribute('href'); go.hidden = true; }
         cnt.textContent = ar(ti + 1) + ' / ' + ar(T.length);
         copy.classList.remove('out');
