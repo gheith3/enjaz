@@ -4,7 +4,6 @@ use App\Models\Award;
 use App\Models\AwardWinner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Log;
-use Throwable;
 
 /*
  * Completes the 13th edition (2026) of the culture award when 2026_11_20_160000 found winner records already on it (added
@@ -43,7 +42,7 @@ return new class extends Migration
                 if (is_file($file = database_path('data/awards/'.$w['photo'].'.webp'))) {
                     $winner->addMedia($file)->preservingOriginal()->withCustomProperties(['alt' => $w['name']])->toMediaCollection('photo');
                 }
-            } catch (Throwable $e) {
+            } catch (\Throwable $e) {
                 Log::warning('Culture award 2026: photo not attached for '.$w['name'].': '.$e->getMessage());
             }
         }
