@@ -81,6 +81,36 @@ class Achiever extends Model implements HasMedia
         return $this->belongsToMany(Organization::class)->using(AchieverOrganization::class)->withPivot(['id', 'kind', 'role', 'sort_order']);
     }
 
+    /** Titles kept before the name in the short form. */
+    private const NAME_TITLES = ['د.', 'د', 'الدكتور', 'الدكتورة', 'الشيخ', 'الشيخة', 'السيد', 'السيدة', 'المهندس', 'المهندسة', 'الأستاذ', 'الأستاذة'];
+
+    /**
+     * «الاسم والقبيلة» for cards: the first name and the last (tribe) name, keeping a title (د.) and the two-word
+     * forms «عبد …» / «آل …». «علي بن عبدالله الحبسي» → «علي الحبسي».
+     */
+    public function shortName(): string
+    {
+        $words = preg_split('/\s+/u', trim((string) $this->name), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+        $title = [];
+        while ($words && in_array($words[0], self::NAME_TITLES, true)) {
+            $title[] = array_shift($words);
+        }
+        if (count($words) <= 2) {
+            return implode(' ', [...$title, ...$words]);
+        }
+
+        $first = array_shift($words);
+        if (in_array($first, ['عبد', 'أبو', 'ابو'], true)) {
+            $first .= ' '.array_shift($words);
+        }
+        $last = array_pop($words);
+        if ($words && in_array(end($words), ['آل', 'ال', 'بني', 'أبو'], true)) {
+            $last = array_pop($words).' '.$last;
+        }
+
+        return implode(' ', [...$title, $first, $last]);
+    }
+
     public function journeyItems(): HasMany
     {
         return $this->hasMany(AchieverJourneyItem::class)->orderBy('sort_order');

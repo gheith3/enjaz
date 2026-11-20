@@ -30,15 +30,19 @@
     </section>
   @endif
 
-  <section class="section wrap ach-filters" aria-label="{{ __('site.categories') }}">
+  @php $feds = $this->federations; @endphp
+  <section @class(['section wrap ach-filters', 'fed-open' => count($feds)]) aria-label="{{ __('site.categories') }}">
     <div class="cats-wrap" data-cats>
       <div class="chips-flow" data-chips>
-        <button type="button" @class(['chip', 'active' => $field === '']) aria-pressed="{{ $field === '' ? 'true' : 'false' }}" wire:click="setField('')"><span>{{ __('site.all') }}</span></button>
+        <button type="button" @class(['chip', 'active' => $field === '']) data-filter="*" aria-pressed="{{ $field === '' ? 'true' : 'false' }}" wire:click="setField('')"><span>{{ __('site.all') }}</span></button>
         @foreach ($this->fields as $item)
           <button type="button" @class(['chip', 'active' => $field === $item->slug]) aria-pressed="{{ $field === $item->slug ? 'true' : 'false' }}" wire:click="setField('{{ $item->slug }}')">@if ($item->iconUrl())<img src="{{ $item->iconUrl() }}" alt="">@endif<span>{{ $item->name }}</span></button>
         @endforeach
       </div>
     </div>
+    @if (count($feds))
+      <x-site.federations-panel :federations="$feds" :active="$org" unit="achievers" />
+    @endif
   </section>
 
   <section class="section wrap">
@@ -64,6 +68,10 @@
       <div class="flt-chips">
         <button type="button" class="flt-chip" aria-label="{{ __('site.filters.remove', ['label' => __('site.filters.'.($gender === 'f' ? 'female' : 'male'))]) }}" wire:click="$set('gender', '')">{{ __('site.filters.'.($gender === 'f' ? 'female' : 'male')) }}<span aria-hidden="true">✕</span></button>
       </div>
+    @endif
+
+    @if ($fed = $this->activeFederation)
+      <x-site.federation-spot :federation="$fed" :count-label="$countLabel" :field="$this->fields->firstWhere('slug', $field)?->name" unit="achievers" />
     @endif
 
     <div class="grid-2 cards-ov" data-results wire:loading.class="is-loading">

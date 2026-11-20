@@ -5,6 +5,7 @@ namespace App\Livewire\Site;
 use App\Models\Achievement;
 use App\Models\Achiever;
 use App\Models\Field;
+use App\Models\Organization;
 use App\Models\Page;
 use App\Models\Scope;
 use App\Support\ArabicCount;
@@ -49,6 +50,13 @@ class AchievementsIndex extends Component
     #[Url(except: 'new')]
     public string $sort = 'new';
 
+    /** Selected sports federation (organization slug), shown in the federations panel under a field that has them. */
+    #[Url(except: '')]
+    public string $org = '';
+
+    /** Fields that open the federations panel (design js/federations.js: groups by field). */
+    private const FEDERATION_FIELDS = ['sports'];
+
     /** 13 per page on phones, 16 on desktop (the browser switches it, like the design's data-page-size-desktop). */
     public int $perPage = 13;
 
@@ -62,8 +70,60 @@ class AchievementsIndex extends Component
 
     public function setField(string $slug): void
     {
-        $this->field = $slug;
+        // A second press on an open federations field (its ✕) returns to all fields, as in the design.
+        $this->field = $slug === $this->field && $this->hasFederations() ? '' : $slug;
+        $this->org = '';
         $this->resetPage();
+    }
+
+    /** Pick a federation; pressing the selected one again clears it. */
+    public function setOrg(string $slug): void
+    {
+        $this->org = $slug === $this->org ? '' : $slug;
+        $this->resetPage();
+    }
+
+    public function hasFederations(): bool
+    {
+        return in_array($this->field, self::FEDERATION_FIELDS, true);
+    }
+
+    /**
+     * Federations of the open field with the number of achievements under the current filters (design js/federations.js render()).
+     *
+     * @return list<array{slug: string, name: string, short: string, logo: ?string, ratio: float, count: int, url: string}>
+     */
+    #[Computed]
+    public function federations(): array
+    {
+        if (! $this->hasFederations()) {
+            return [];
+        }
+
+        return Organization::query()->listed()->whereHas('type', fn (Builder $q) => $q->where('template', 'federation'))->with('media')->get()
+            ->map(fn (Organization $o) => [
+                'slug' => $o->slug,
+                'name' => $o->name,
+                'short' => $o->displayName(),
+                'logo' => $o->logoUrl(),
+                'ratio' => (float) ($o->logo_ratio ?: 1),
+                'count' => $this->query(withOrg: false, withHonorRule: false)->where(fn (Builder $q) => $this->whereOrg($q, $o->slug))->count(),
+                'url' => $o->url(),
+            ])->values()->all();
+    }
+
+    /** @return array{slug: string, name: string, short: string, logo: ?string, ratio: float, count: int, url: string}|null */
+    #[Computed]
+    public function activeFederation(): ?array
+    {
+        return $this->org === '' ? null : (collect($this->federations)->firstWhere('slug', $this->org) ?: null);
+    }
+
+    /** Achievements of the federation itself or of its people (members, staff…). */
+    private function whereOrg(Builder $query, string $slug): Builder
+    {
+        return $query->whereHas('organizations', fn (Builder $o) => $o->where('slug', $slug))
+            ->orWhereHas('achievers.organizations', fn (Builder $o) => $o->where('slug', $slug));
     }
 
     public function clearFilters(): void
@@ -74,7 +134,7 @@ class AchievementsIndex extends Component
 
     public function clearAll(): void
     {
-        $this->reset('q', 'field', 'gender', 'from', 'to', 'scope', 'sort');
+        $this->reset('q', 'field', 'gender', 'from', 'to', 'scope', 'sort', 'org');
         $this->resetPage();
     }
 
@@ -166,7 +226,7 @@ class AchievementsIndex extends Component
         ]));
     }
 
-    private function query(): Builder
+    private function query(bool $withOrg = true, bool $withHonorRule = true): Builder
     {
         $query = Achievement::query()->published()
             ->with(['field', 'scope', 'media', 'achievers' => fn ($q) => $q->with('media')]);
@@ -190,8 +250,11 @@ class AchievementsIndex extends Component
             $query->where(fn (Builder $q) => ArabicSearch::where($q, ['title', 'excerpt'], $this->q)
                 ->orWhereHas('achievers', fn (Builder $a) => ArabicSearch::where($a, ['name', 'headline'], $this->q)));
         }
+        if ($withOrg && $this->org !== '' && $this->hasFederations()) {
+            $query->where(fn (Builder $q) => $this->whereOrg($q, $this->org));
+        }
         // The honour-board achievement is not repeated in the grid under "all" without a search (design rule).
-        if ($this->field === '' && trim($this->q) === '' && $this->honor) {
+        if ($withHonorRule && $this->field === '' && trim($this->q) === '' && $this->honor) {
             $query->whereKeyNot($this->honor->getKey());
         }
 

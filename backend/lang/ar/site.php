@@ -86,6 +86,17 @@ return [
         'reading_now' => 'تقرأ الآن',
         'record_all' => 'كل إنجازات :name',
     ],
+    'federations' => [
+        'title' => 'الاتحادات الرياضية',
+        'hint_achievements' => 'اختر اتحادًا لعرض إنجازاته',
+        'hint_achievers' => 'اختر اتحادًا لعرض منجزيه',
+        'eyebrow_achievements' => 'إنجازات موثّقة بالشراكة مع',
+        'eyebrow_achievers' => 'منجزون بالشراكة مع',
+        'in' => 'في :field',
+        'page' => 'صفحة الاتحاد',
+        'clear' => 'إلغاء تصفية الاتحاد',
+        'logo' => 'شعار :name',
+    ],
     'achievers' => [
         'search_label' => 'ابحث بالاسم',
         'search_placeholder' => 'ابحث باسم المنجز أو مجاله',
