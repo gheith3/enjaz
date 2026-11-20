@@ -3,6 +3,7 @@
 namespace App\Livewire\Site;
 
 use App\Models\Achievement;
+use App\Models\Achiever;
 use App\Models\Field;
 use App\Models\Page;
 use App\Models\Scope;
@@ -118,13 +119,29 @@ class AchievementsIndex extends Component
             ->map(fn ($y) => (string) $y)->all();
     }
 
-    /** Images of the hero wall: covers of recent achievements. @return list<array{url: string, gold: bool}> */
+    /** The achievers whose portraits make the hero wall, in the approved design's order («صفحة الإنجازات - معتمد»). */
+    private const HERO_ACHIEVERS = ['jokha-alharthi', 'ali-alhabsi', 'musallam-al-araimi', 'mohammed-almashaikhi', 'safiya-albahlani'];
+
+    /**
+     * Images of the hero wall: the portraits of the approved design's achievers (with their focal points); while fewer
+     * than three of them have a portrait, the covers of recent achievements.
+     *
+     * @return list<array{url: string, focal: string}>
+     */
     #[Computed]
     public function heroTiles(): array
     {
+        $portraits = Achiever::query()->published()->whereIn('slug', self::HERO_ACHIEVERS)->with('media')->get()
+            ->sortBy(fn (Achiever $a) => array_search($a->slug, self::HERO_ACHIEVERS, true))
+            ->map(fn (Achiever $a) => ($url = $a->imageUrl('portrait', 'card')) ? ['url' => $url, 'focal' => Achiever::focal($a->image('portrait'))] : null)
+            ->filter()->values();
+        if ($portraits->count() >= 3) {
+            return $portraits->all();
+        }
+
         return Achievement::query()->published()->with('media')->orderByDesc('achieved_at')->limit(30)->get()
             ->map(fn (Achievement $a) => $a->imageUrl('cover', 'card'))->filter()->unique()->take(14)->values()
-            ->map(fn (string $url, int $i) => ['url' => $url, 'gold' => $i % 5 === 1])->all();
+            ->map(fn (string $url) => ['url' => $url, 'focal' => '50% 50%'])->all();
     }
 
     /**
