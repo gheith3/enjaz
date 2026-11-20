@@ -1,0 +1,22 @@
+/* الرئيسية: البطاقة الثانية في «أحدث الإنجازات» والموضوع الرئيسي يسار القسم العلمي (sections/home/latest, science). */
+.home-latest .latest-pair { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.home-latest .latest-pair .latest-card { min-width:0; }
+.home-latest .latest-pair .latest-card > img { width:100%; object-fit:cover; }
+.home-latest .latest-card-restored > img { object-position:center; }
+.science-editorial .science-lead-restored { border:1px solid #dce9e0; background:#fff; box-shadow:0 12px 28px #0631350a; }
+.science-editorial .science-lead-restored .science-lead-link { display:flex; flex-direction:column; }
+.science-editorial .science-lead-restored .science-lead-photo { min-height:240px; background:#e4efea; }
+.science-editorial .science-lead-restored .science-lead-photo img { object-position:center; }
+.science-editorial .science-lead-restored .science-lead-copy { flex:none; }
+.science-editorial .science-lead-restored .science-lead-copy p { margin-bottom:16px; }
+@media(min-width:1100px) {
+ .science-editorial .science-editorial-layout { grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); align-items:stretch; }
+ .science-editorial .science-briefs { grid-column:1; grid-row:1; }
+ .science-editorial .science-lead-restored { grid-column:2; grid-row:1; border-radius:24px; }
+ .science-editorial .science-lead-restored .science-lead-photo { flex:1; aspect-ratio:auto; min-height:310px; }
+ .science-editorial .science-lead-restored .science-lead-photo img { position:absolute; inset:0; }
+}
+@media(max-width:1099px) {
+ .science-editorial .science-brief-dk { display:block; }
+ .science-editorial .science-lead-restored .science-lead-photo { aspect-ratio:4/3; }
+}
