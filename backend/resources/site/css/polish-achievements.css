@@ -1,0 +1,106 @@
+/* صفحة الإنجازات — لمسات احترافية فوق التصميم الحالي، دون تغيير التخطيط */
+:root { --t-gold: #E6C98A; --t-gold-l: #FFF1CC; --t-gold-d: #B98E48; --t-ink: #063135; --t-teal: #0C7F89; --t-ease: cubic-bezier(.22, 1, .36, 1); --t-ease-io: cubic-bezier(.77, 0, .18, 1); }
+@property --t-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+
+/* ===== عام: التقدم، الترويسة، زر الأعلى ===== */
+.t-progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 9999; pointer-events: none; }
+.t-progress b { position: absolute; inset: 0 0 0 auto; width: calc(var(--p, 0) * 100%); background: linear-gradient(270deg, var(--t-gold-d), var(--t-gold) 60%, var(--t-gold-l)); }
+.t-progress b::after { content: ""; position: absolute; left: -4px; top: -3px; width: 8px; height: 8px; transform: rotate(45deg); background: var(--t-gold-l); box-shadow: 0 0 10px 2px rgba(255,241,204,.7); opacity: var(--show, 0); transition: opacity .3s; }
+.site-header { transition: box-shadow .4s; }
+.site-header.t-scrolled { box-shadow: 0 12px 30px -20px rgba(6,49,53,.6), 0 1px 0 rgba(230,201,138,.35); }
+.t-top { position: fixed; left: 22px; bottom: 22px; z-index: 900; width: 54px; height: 54px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  background: radial-gradient(circle at 30% 25%, #0f7880, var(--t-ink)); color: var(--t-gold-l); display: grid; place-items: center; box-shadow: 0 16px 30px -12px rgba(6,49,53,.65);
+  opacity: 0; transform: translateY(18px) scale(.9); pointer-events: none; transition: opacity .4s, transform .6s var(--t-ease); }
+.t-top.on { opacity: 1; transform: none; pointer-events: auto; }
+.t-top svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.t-top circle { fill: none; stroke-width: 2; }
+.t-top .bg { stroke: rgba(255,255,255,.12); }
+.t-top .fg { stroke: var(--t-gold); stroke-linecap: round; stroke-dasharray: 151; stroke-dashoffset: calc(151 - 151 * var(--p, 0)); }
+.t-top i { font-style: normal; font-size: 18px; line-height: 1; transition: transform .4s var(--t-ease); }
+.t-top:hover i { transform: translateY(-3px); }
+
+/* ===== الواجهة ===== */
+.ah2-wall { translate: var(--wx, 0px) var(--wy, 0px); transition: translate 1.6s var(--t-ease); }
+.ah2-tile { transition: box-shadow .5s; }
+.ah2-tile img { transition: transform 1s var(--t-ease); }
+.ah2-tile:hover { box-shadow: 0 0 0 2px var(--t-gold), 0 16px 34px -12px rgba(0,0,0,.45); }
+.ah2-tile:hover img { transform: scale(1.08); }
+.t-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; mix-blend-mode: screen;
+  background: radial-gradient(420px circle at var(--gx, 70%) var(--gy, 40%), rgba(255,241,204,.16), transparent 70%); }
+
+/* البحث: توهج عند التركيز واقتراحات تُكتب */
+.ah2-search { position: relative; transition: box-shadow .5s var(--t-ease), transform .5s var(--t-ease); }
+.ah2-search:focus-within { box-shadow: 0 0 0 3px rgba(230,201,138,.55), 0 18px 40px -16px rgba(0,0,0,.45); transform: translateY(-2px); }
+.ah2-search .t-kbd { position: absolute; inset-inline-end: 52px; top: 50%; translate: 0 -50%; font: 700 11px/1 system-ui, sans-serif; color: #7b8f90; padding: 4px 7px; border-radius: 6px; box-shadow: inset 0 0 0 1px #d5dede; background: #f6f9f9; pointer-events: none; transition: opacity .3s; }
+.ah2-search:focus-within .t-kbd { opacity: 0; }
+.ah2-search button img { transition: transform .5s var(--t-ease); }
+.ah2-search:focus-within button img, .ah2-search button:hover img { transform: rotate(-12deg) scale(1.1); }
+@media (pointer: coarse) { .ah2-search .t-kbd { display: none; } }
+
+/* ===== لوحة الشرف ===== */
+.honor-card { position: relative; isolation: isolate; }
+.honor-img { animation: t-kb 22s ease-in-out infinite alternate; }
+@keyframes t-kb { from { transform: scale(1); } to { transform: scale(1.08) translateX(-1.5%); } }
+.honor-kicker img { transition: transform 1s var(--t-ease); }
+.honor-card:hover .honor-kicker img { transform: rotate(-18deg) scale(1.12); }
+.honor-cta span { display: inline-block; transition: transform .4s var(--t-ease); }
+.honor-card:hover .honor-cta span { transform: translateX(-6px); }
+
+/* إطار ذهبي دوّار */
+.t-ring { position: absolute; inset: 0; z-index: 4; border-radius: inherit; pointer-events: none; padding: 1.5px;
+  background: conic-gradient(from var(--t-a), transparent 0 62%, var(--t-gold-d) 70%, var(--t-gold-l) 78%, var(--t-gold) 84%, transparent 92%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: t-spin 6s linear infinite; }
+@keyframes t-spin { to { --t-a: 360deg; } }
+
+/* لمعة وضوء يتبع المؤشر */
+.t-host { position: relative; }
+.t-shine { position: absolute; inset: 0; z-index: 3; border-radius: inherit; overflow: hidden; pointer-events: none; }
+.t-shine::before { content: ""; position: absolute; top: -10%; bottom: -10%; width: 40%; right: 130%; transform: skewX(-18deg); background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent); }
+.t-host:hover > .t-shine::before { right: -60%; transition: right 1.1s var(--t-ease); }
+.t-shine::after { content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .45s; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255,241,204,.22), transparent 70%); }
+.t-host:hover > .t-shine::after { opacity: 1; }
+
+/* ===== شرائح التصنيفات ===== */
+.chip { position: relative; overflow: hidden; isolation: isolate; transition: transform .45s var(--t-ease), box-shadow .45s, color .3s; }
+.chip::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(135deg, rgba(230,201,138,.22), rgba(12,127,137,.08)); transform: scaleX(0); transform-origin: right; transition: transform .5s var(--t-ease); }
+.chip:not(.active):hover::before { transform: scaleX(1); }
+.chip:hover { transform: translateY(-3px); box-shadow: 0 12px 22px -14px rgba(6,49,53,.45); }
+.chip img { transition: transform .6s var(--t-ease); }
+.chip:hover img { transform: translateY(-2px) rotate(-10deg) scale(1.12); }
+.chip.active { box-shadow: 0 10px 24px -12px rgba(6,49,53,.6), inset 0 -2px 0 var(--t-gold); }
+.t-ripple { position: absolute; z-index: -1; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: rgba(230,201,138,.55); pointer-events: none; animation: t-rip .7s var(--t-ease) forwards; }
+@keyframes t-rip { to { transform: scale(30); opacity: 0; } }
+
+/* ===== شريط النتائج ===== */
+.res-count.t-bump { animation: t-bump .6s var(--t-ease); }
+@keyframes t-bump { 40% { transform: scale(1.08); color: var(--t-gold-d); } }
+.flt-btn { transition: transform .4s var(--t-ease), box-shadow .4s; }
+.flt-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px -12px rgba(6,49,53,.45); }
+.flt-btn svg { transition: transform .5s var(--t-ease); }
+.flt-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+/* ===== بطاقات الإنجازات ===== */
+.ach { transition: transform .6s var(--t-ease), box-shadow .6s; }
+.ach.t-pre { opacity: 0; transform: translateY(30px) scale(.98); }
+.ach.t-show { transition: opacity .9s var(--t-ease), transform .9s var(--t-ease), box-shadow .6s; transition-delay: var(--t-d, 0ms); }
+.ach:hover { transform: translateY(-6px); box-shadow: 0 30px 50px -30px rgba(6,49,53,.55), 0 0 0 1px rgba(230,201,138,.7); }
+.ach .t-accent { position: absolute; top: 0; right: 0; left: 0; height: 3px; z-index: 5; pointer-events: none; border-radius: 3px;
+  background: linear-gradient(270deg, var(--t-gold), var(--t-gold-l), var(--t-gold-d)); transform: scaleX(0); transform-origin: right; transition: transform .7s var(--t-ease); }
+.ach:hover .t-accent { transform: scaleX(1); }
+.ach h3 { transition: color .3s; }
+.ach:hover h3 { color: var(--t-teal); }
+.ach-img { transition: transform .9s var(--t-ease), opacity .6s, filter .8s; }
+.ach-img.t-loading { opacity: .85; filter: blur(2px); background: linear-gradient(100deg, #e7eeee 30%, #f6faf9 50%, #e7eeee 70%) 0 0 / 300% 100%; animation: t-skel 1.4s linear infinite; }
+@keyframes t-skel { to { background-position: -150% 0; } }
+
+/* ===== الترقيم ===== */
+.pager a { transition: transform .35s var(--t-ease), box-shadow .35s, background .3s, color .3s; }
+.pager a:not([aria-disabled="true"]):hover { transform: translateY(-3px); box-shadow: 0 10px 20px -12px rgba(6,49,53,.5); }
+.pager a[aria-current="page"] { box-shadow: 0 0 0 2px var(--t-gold), 0 10px 22px -12px rgba(185,142,72,.7); }
+
+@media (prefers-reduced-motion: reduce) {
+  .honor-img, .t-ring, .ach-img.t-loading { animation: none; }
+  .ach.t-pre { opacity: 1; transform: none; }
+  .ah2-wall { translate: none; }
+}

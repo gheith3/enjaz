@@ -1,0 +1,108 @@
+/* ملهمون من عُمان — لمسة إبداعية فوق التصميم الحالي، دون تغيير التخطيط */
+:root { --t-gold: #E6C98A; --t-gold-l: #FFF1CC; --t-gold-d: #B98E48; --t-ink: #063135; --t-teal: #0C7F89; --t-ease: cubic-bezier(.22, 1, .36, 1); --t-ease-io: cubic-bezier(.77, 0, .18, 1); }
+@property --t-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+
+/* ===== عام ===== */
+.t-progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 9999; pointer-events: none; }
+.t-progress b { position: absolute; inset: 0 0 0 auto; width: calc(var(--p, 0) * 100%); background: linear-gradient(270deg, var(--t-gold-d), var(--t-gold) 60%, var(--t-gold-l)); }
+.t-progress b::after { content: ""; position: absolute; left: -4px; top: -3px; width: 8px; height: 8px; transform: rotate(45deg); background: var(--t-gold-l); box-shadow: 0 0 10px 2px rgba(255,241,204,.7); opacity: var(--show, 0); }
+.site-header { transition: box-shadow .4s; }
+.site-header.t-scrolled { box-shadow: 0 12px 30px -20px rgba(6,49,53,.6), 0 1px 0 rgba(230,201,138,.35); }
+.t-top { position: fixed; left: 22px; bottom: 22px; z-index: 900; width: 54px; height: 54px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  background: radial-gradient(circle at 30% 25%, #0f7880, var(--t-ink)); color: var(--t-gold-l); display: grid; place-items: center; box-shadow: 0 16px 30px -12px rgba(6,49,53,.65);
+  opacity: 0; transform: translateY(18px) scale(.9); pointer-events: none; transition: opacity .4s, transform .6s var(--t-ease); }
+.t-top.on { opacity: 1; transform: none; pointer-events: auto; }
+.t-top svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.t-top circle { fill: none; stroke-width: 2; }
+.t-top .bg { stroke: rgba(255,255,255,.12); }
+.t-top .fg { stroke: var(--t-gold); stroke-linecap: round; stroke-dasharray: 151; stroke-dashoffset: calc(151 - 151 * var(--p, 0)); }
+.t-top i { font-style: normal; font-size: 18px; line-height: 1; }
+.t-rv { opacity: 0; transform: translateY(34px); transition: opacity 1.1s var(--t-ease), transform 1.1s var(--t-ease); transition-delay: var(--t-d, 0ms); }
+.t-rv.t-in { opacity: 1; transform: none; }
+
+/* ===== الواجهة ===== */
+.ins-strip { position: relative; }
+.t-dust { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; }
+.t-trail { position: fixed; z-index: 60; width: 10px; height: 10px; margin: -5px 0 0 -5px; pointer-events: none;
+  background: radial-gradient(circle, #fff 0 18%, var(--t-gold-l) 30%, rgba(230,201,138,0) 70%); animation: t-star .9s var(--t-ease) forwards; }
+@keyframes t-star { from { opacity: 1; transform: scale(1) rotate(0); } to { opacity: 0; transform: translateY(18px) scale(.2) rotate(90deg); } }
+.is-photo-wall { translate: var(--wx, 0px) var(--wy, 0px); transition: translate 1.6s var(--t-ease); }
+/* «ملهمون» بلمعة ذهبية تعبرها كل بضع ثوانٍ */
+.is-gold { background-image: linear-gradient(100deg, transparent 40%, rgba(255,250,235,.95) 50%, transparent 60%), linear-gradient(currentColor, currentColor);
+  background-size: 260% 100%, 100% 100%; background-position: 160% 0, 0 0; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: t-sheen 6s 1.2s ease-in-out infinite; }
+@keyframes t-sheen { 0%, 55% { background-position: 160% 0, 0 0; } 100% { background-position: -100% 0, 0 0; } }
+.is-fields li { transition: transform .45s var(--t-ease), box-shadow .45s, background .3s; }
+.is-fields li:hover { transform: translateY(-3px); box-shadow: 0 10px 20px -12px rgba(0,0,0,.45), 0 0 0 1px var(--t-gold); }
+.t-pop { animation: t-pop .8s var(--t-ease) both; animation-delay: var(--t-d, 0ms); }
+@keyframes t-pop { from { opacity: 0; transform: translateY(12px) scale(.9); } }
+.is-discover { transition: transform .4s var(--t-ease), box-shadow .4s; translate: var(--bx, 0px) var(--by, 0px); }
+.is-discover:hover { box-shadow: 0 0 0 4px rgba(230,201,138,.25), 0 16px 32px -14px rgba(185,142,72,.7); }
+.is-discover span { display: inline-block; transition: transform .4s var(--t-ease); }
+.is-discover:hover span { transform: translateX(-6px); }
+.is-panel img { transition: transform 1.4s var(--t-ease), filter .8s; }
+.is-panel:hover img { transform: scale(1.05); }
+.is-panel.is-on { box-shadow: 0 0 0 2px var(--t-gold), 0 24px 44px -24px rgba(0,0,0,.6); }
+
+/* ===== عناوين الأقسام ===== */
+.ins-h, .hm-head h2 { position: relative; }
+.t-under::after { content: ""; position: absolute; right: 0; bottom: -8px; height: 2px; width: 0; border-radius: 2px; background: linear-gradient(270deg, var(--t-gold-d), var(--t-gold), transparent); transition: width 1.2s .3s var(--t-ease); }
+.t-under.t-in::after { width: 76px; }
+
+/* ===== جدار الوجوه: ملصقات ثلاثية الأبعاد ===== */
+.wall { perspective: 1200px; }
+.tile { transform-style: preserve-3d; transition: transform .7s var(--t-ease), box-shadow .7s, opacity .5s; will-change: transform; }
+.tile.t-moving { transition: transform .1s linear, box-shadow .7s; }
+.tile img { transition: transform .9s var(--t-ease), filter .6s; transform: scale(1.06) translate(var(--ix, 0px), var(--iy, 0px)); }
+.tile:hover { box-shadow: 0 34px 60px -30px rgba(6,49,53,.65), 0 0 0 2px var(--t-gold); z-index: 3; }
+.tile .tile-b { transition: transform .6s var(--t-ease); }
+.tile:hover .tile-b { transform: translateZ(40px) translateY(-4px); }
+.t-glare { position: absolute; inset: 0; z-index: 3; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .4s; mix-blend-mode: soft-light;
+  background: radial-gradient(320px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,.8), transparent 55%); }
+.tile:hover .t-glare { opacity: 1; }
+.wall:hover .tile:not(:hover) { filter: saturate(.75) brightness(.92); }
+/* إعادة الترتيب عند الفرز */
+.tile.t-shuffle { animation: t-shuffle .7s var(--t-ease) both; animation-delay: var(--t-d, 0ms); }
+@keyframes t-shuffle { from { opacity: 0; transform: translateY(24px) rotateX(18deg) scale(.94); } }
+.wall-filter .chip { position: relative; overflow: hidden; isolation: isolate; transition: transform .4s var(--t-ease), box-shadow .4s; }
+.wall-filter .chip:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -12px rgba(6,49,53,.45); }
+.t-ripple { position: absolute; z-index: -1; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: rgba(230,201,138,.55); pointer-events: none; animation: t-rip .7s var(--t-ease) forwards; }
+@keyframes t-rip { to { transform: scale(30); opacity: 0; } }
+
+/* ===== همم بلا حدود ===== */
+.hm-lead { position: relative; isolation: isolate; }
+.hm-img { overflow: hidden; }
+.hm-img img { animation: t-kb 20s ease-in-out infinite alternate; }
+@keyframes t-kb { from { transform: scale(1); } to { transform: scale(1.09) translate(-1.5%, -1%); } }
+.t-ring { position: absolute; inset: 0; z-index: 4; border-radius: inherit; pointer-events: none; padding: 1.5px; opacity: 0; transition: opacity .5s;
+  background: conic-gradient(from var(--t-a), transparent 0 62%, var(--t-gold-d) 70%, var(--t-gold-l) 78%, var(--t-gold) 84%, transparent 92%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: t-spin 5s linear infinite; }
+.hm-lead:hover > .t-ring { opacity: 1; }
+@keyframes t-spin { to { --t-a: 360deg; } }
+.hm-item { position: relative; transition: transform .5s var(--t-ease), box-shadow .5s; }
+.hm-item::after { content: ""; position: absolute; top: 14%; bottom: 14%; right: 0; width: 3px; border-radius: 3px; background: linear-gradient(var(--t-gold-l), var(--t-gold-d)); transform: scaleY(0); transition: transform .5s var(--t-ease); }
+.hm-item:hover { transform: translateX(-6px); box-shadow: 0 18px 36px -24px rgba(6,49,53,.45); }
+.hm-item:hover::after { transform: scaleY(1); }
+.hm-item img { transition: transform .9s var(--t-ease); }
+.hm-item:hover img { transform: scale(1.07) rotate(-1deg); }
+.hm-item.t-slide { opacity: 0; transform: translateX(-40px); }
+.hm-item.t-slide.t-in { opacity: 1; transform: none; transition: opacity .9s var(--t-ease), transform .9s var(--t-ease); transition-delay: var(--t-d, 0ms); }
+
+/* ===== رشّح ملهمًا ===== */
+.nominate { position: relative; isolation: isolate; }
+.t-ants { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.t-ants rect { fill: none; stroke: var(--t-gold); stroke-width: 1.6; stroke-dasharray: 7 7; animation: t-ants 1.4s linear infinite; opacity: .9; }
+@keyframes t-ants { to { stroke-dashoffset: -28; } }
+.nominate .plus { transition: transform .8s var(--t-ease); animation: t-breath 2.8s ease-in-out infinite; }
+.nominate:hover .plus { transform: rotate(180deg) scale(1.12); animation: none; }
+@keyframes t-breath { 0%, 100% { box-shadow: 0 0 0 0 rgba(12,127,137,.45); } 50% { box-shadow: 0 0 0 12px rgba(12,127,137,0); } }
+.nominate .btn { transition: transform .4s var(--t-ease), box-shadow .4s; translate: var(--bx, 0px) var(--by, 0px); }
+.nominate:hover .btn { box-shadow: 0 14px 30px -12px rgba(185,142,72,.7); }
+.t-confetti { position: absolute; z-index: 3; width: 7px; height: 7px; pointer-events: none; border-radius: 2px; animation: t-fly 1s var(--t-ease) forwards; }
+@keyframes t-fly { from { opacity: 1; transform: translate(0, 0) rotate(0); } to { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--dr)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .t-rv, .hm-item.t-slide { opacity: 1; transform: none; }
+  .is-gold, .hm-img img, .t-ants rect, .nominate .plus, .t-ring { animation: none; }
+  .t-dust, .t-trail, .t-confetti { display: none; }
+}

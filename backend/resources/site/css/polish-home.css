@@ -1,0 +1,382 @@
+/* الصفحة الرئيسية — التصميم المختار: الصفحة الحالية + الأجزاء التي اعتمدها صاحب الموقع من التصاميم
+   (أصلي ١: اللمعة على الصور · أصلي ٢: دخول الشعار، صور الرياضة، سهم الأعلى · مبتكر: مروحة الملهمين ·
+    نموذج ١: مستطيل «لديك إنجاز…» وزر «شاركنا إنجازك» · نموذج ٣: رحلة عبر الزمن) */
+:root { --t-gold: #E6C98A; --t-gold-l: #FFF1CC; --t-gold-d: #B98E48; --t-cream: #F4DFAE; --t-ink: #063135; --t-teal: #0C7F89; --t-teal-d: #0A5359;
+  --t-ease: cubic-bezier(.22, 1, .36, 1); --t-ease-io: cubic-bezier(.77, 0, .18, 1); }
+
+/* ===== دخول الشعار مع كل تحديث (أصلي ٢) ===== */
+.t-intro { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; background: radial-gradient(70% 70% at 50% 45%, #0b5f66, var(--t-ink) 75%);
+  clip-path: inset(0 0 0 0); transition: clip-path 1.1s var(--t-ease-io); }
+.t-intro.out { clip-path: inset(0 0 100% 0); }
+.t-intro-in { display: flex; flex-direction: column; align-items: center; gap: 22px; transition: transform 1.1s var(--t-ease-io), opacity .6s; }
+.t-intro.out .t-intro-in { transform: translateY(-40px); opacity: 0; }
+.t-intro img { width: 118px; opacity: 0; transform: translateY(14px) scale(.96); animation: t-in .9s .1s var(--t-ease) forwards; filter: drop-shadow(0 0 24px rgba(230,201,138,.25)); }
+.t-intro i { display: block; width: 160px; height: 1px; background: rgba(255,255,255,.12); position: relative; overflow: hidden; }
+.t-intro i::after { content: ""; position: absolute; inset: 0; background: linear-gradient(270deg, var(--t-gold-l), var(--t-gold), var(--t-gold-d)); transform-origin: right; transform: scaleX(0); animation: t-line 1s .25s var(--t-ease-io) forwards; }
+@keyframes t-in { to { opacity: 1; transform: none; } }
+@keyframes t-line { to { transform: scaleX(1); } }
+
+/* ===== اللمعة على الصور (أصلي ١) ===== */
+.t-host { position: relative; }
+.t-shine { position: absolute; inset: 0; z-index: 3; border-radius: inherit; overflow: hidden; pointer-events: none; }
+.t-shine::before { content: ""; position: absolute; top: -10%; bottom: -10%; width: 45%; right: 130%; transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent); }
+.t-host:hover > .t-shine::before { right: -60%; transition: right 1s var(--t-ease); }
+.t-shine::after { content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .4s;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255,241,204,.18), transparent 70%); }
+.t-host:hover > .t-shine::after { opacity: 1; }
+.latest-feature img, .latest-card img, .latest-row img, .article-lead img, .article-mini img, .science-lead img, .science-brief img, .ha-bh-bg { transition: transform 1.2s var(--t-ease); }
+.latest-feature:hover img, .latest-card:hover img, .latest-row:hover img, .article-lead:hover img, .article-mini:hover img, .science-lead:hover img, .science-brief:hover img, .ha-bh:hover .ha-bh-bg { transform: scale(1.06); }
+
+/* ===== صور الرياضة عند المرور (أصلي ٢) ===== */
+.sports-photo { transition: box-shadow .6s, transform .7s var(--t-ease); }
+.sports-person:hover .sports-photo { box-shadow: 0 0 0 2px var(--t-gold), 0 0 46px rgba(230,201,138,.38); transform: translateY(-8px); }
+/* عند المرور على رياضي: البقية بالأبيض والأسود ويخفتون، فيبرز المختار بألوانه */
+.sports-photo img, .sports-cutout { transition: filter .55s ease, opacity .55s ease; }
+.sports-grid:has(.sports-person:hover) .sports-person:not(:hover) .sports-photo img,
+.sports-grid:has(.sports-person:hover) .sports-person:not(:hover) .sports-cutout { filter: grayscale(1) brightness(.78); opacity: .85; }
+.sports-grid:has(.sports-person:hover) .sports-person:not(:hover) :is(h3, .sports-caption, .sports-field) { opacity: .6; transition: opacity .5s; }
+
+/* ===== رحلة عبر الزمن: الصورة بطلة، والنص مختصر، والنقاط صور مصغّرة ===== */
+.t-time .tt-head { margin-bottom: 26px; }
+.t-time .tt-head p { margin: 8px 0 0; color: #5f6b6b; font-size: 16px; }
+.tt-box { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1.25fr; grid-template-areas: "copy stage" "rail rail" "nav nav";
+  gap: 0 34px; padding: 38px 40px 30px; border-radius: 32px; color: #fff; isolation: isolate;
+  background: radial-gradient(70% 90% at 85% 10%, #0d6e75, var(--t-ink) 60%, #042326); box-shadow: 0 30px 60px -36px rgba(6,49,53,.8); }
+.tt-box::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cpath d='M22 17v10M17 22h10' stroke='%23fff' stroke-width='1'/%3E%3C/svg%3E"); }
+
+/* الصورة: إطار ثابت، طبقات تنكشف بستارة، تقريب هادئ، نسخة مموّهة تملأ الخلفية، وإطار ذهبي داخلي */
+.tt-stage { grid-area: stage; position: relative; height: 290px; border-radius: 26px; overflow: hidden; background: #062c30; box-shadow: 0 30px 60px -28px rgba(0,0,0,.75); }
+.tt-shot { position: absolute; inset: 0; clip-path: inset(0 0 0 100%); transition: clip-path 1.1s var(--t-ease-io); }
+.tt-shot.back { clip-path: inset(0 100% 0 0); }
+.tt-shot.in { clip-path: inset(0 0 0 0); }
+.tt-shot .blur { position: absolute; inset: -30px; background-size: cover; background-position: center; filter: blur(26px) brightness(.55) saturate(1.2); }
+.tt-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.14); transition: transform 6s cubic-bezier(.2,.6,.2,1); }
+.tt-shot.in img { transform: scale(1.02); }
+.tt-shot::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(3,30,33,.45), transparent 35%), linear-gradient(0deg, rgba(3,30,33,.5), transparent 40%); }
+.tt-shot .frame { position: absolute; inset: 12px; z-index: 2; border-radius: 18px; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255,241,204,.5); }
+
+/* النص المختصر */
+.tt-copy { grid-area: copy; align-self: center; transition: opacity .28s ease, transform .28s ease; }
+.tt-copy.out { opacity: 0; transform: translateY(12px); }
+.tt-year { font-size: clamp(80px, 9vw, 140px); font-weight: 900; line-height: .95; font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, var(--t-gold-l), var(--t-gold) 55%, var(--t-gold-d)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tt-year.word { font-size: clamp(56px, 6vw, 96px); line-height: 1.2; }
+.tt-title { margin: 14px 0 10px; font-size: clamp(26px, 2.4vw, 36px); font-weight: 900; line-height: 1.25; color: #fff; }
+.tt-who { margin: 0; color: #a9c4c3; font-size: 15px; }
+.tt-who b { color: var(--t-gold); font-weight: 800; }
+.tt-go { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; padding-bottom: 2px; color: var(--t-cream); font-size: 12.5px; font-weight: 700; text-decoration: none;
+  border-bottom: 1px solid rgba(230,201,138,.45); transition: border-color .3s; }
+.tt-go i { font-style: normal; transition: transform .3s var(--t-ease); }
+.tt-go:hover { border-color: var(--t-gold); }
+.tt-go:hover i { transform: translateX(-4px); }
+.tt-go[hidden] { display: none; }
+
+/* الخط: صور مصغّرة دائرية بدل النقاط */
+.tt-rail { grid-area: rail; position: relative; height: 74px; margin: 34px 22px 0; }
+.tt-rail .line, .tt-rail .fill { position: absolute; top: 17px; height: 2px; }
+.tt-rail .line { inset-inline: 0; background: rgba(255,255,255,.12); }
+.tt-rail .fill { right: 0; width: var(--p, 0%); background: linear-gradient(270deg, var(--t-gold), var(--t-gold-l)); transition: width .8s var(--t-ease); }
+.tt-rail button { position: absolute; top: 0; width: 36px; margin-right: -18px; padding: 0; border: 0; background: none; cursor: pointer; color: inherit; }
+.tt-rail .th { display: block; width: 36px; height: 36px; border-radius: 50%; overflow: hidden; background: var(--t-ink);
+  box-shadow: 0 0 0 2px rgba(230,201,138,.45); filter: grayscale(.85) brightness(.75); transition: transform .45s var(--t-ease), box-shadow .45s, filter .45s; }
+.tt-rail .th img { width: 100%; height: 100%; object-fit: cover; }
+.tt-rail button.past .th { filter: grayscale(.3) brightness(.9); box-shadow: 0 0 0 2px var(--t-gold); }
+.tt-rail button:hover .th { filter: none; transform: translateY(-3px); }
+.tt-rail button.on .th { filter: none; transform: scale(1.3); box-shadow: 0 0 0 2.5px var(--t-gold-l), 0 0 0 8px rgba(230,201,138,.18), 0 12px 24px -8px rgba(0,0,0,.6); }
+.tt-rail button small { display: block; margin-top: 12px; text-align: center; font: 600 12px/1.2 "Cairo", sans-serif; color: #8fb3b1; white-space: nowrap; transition: color .3s; }
+.tt-rail button.on small { color: var(--t-gold-l); font-weight: 800; }
+
+.tt-nav { grid-area: nav; display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 4px; }
+.tt-nav button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(244,223,174,.3); background: transparent; color: var(--t-cream); display: grid; place-items: center; cursor: pointer; transition: background .3s, color .3s; }
+.tt-nav button:hover { background: var(--t-gold); color: var(--t-ink); }
+.tt-nav svg { width: 18px; }
+.tt-nav .count { min-width: 60px; text-align: center; font-size: 13px; font-weight: 700; color: var(--t-gold-l); }
+
+/* ظهور القسم أول مرة */
+.t-time .tt-box { opacity: 0; transform: translateY(30px); transition: opacity 1s var(--t-ease), transform 1s var(--t-ease); }
+.t-time.seen .tt-box { opacity: 1; transform: none; }
+.t-time.seen .tt-rail button { animation: tt-pop .6s var(--t-ease) both; }
+.t-time.seen .tt-rail button:nth-of-type(2) { animation-delay: .05s; } .t-time.seen .tt-rail button:nth-of-type(3) { animation-delay: .1s; }
+.t-time.seen .tt-rail button:nth-of-type(4) { animation-delay: .15s; } .t-time.seen .tt-rail button:nth-of-type(5) { animation-delay: .2s; }
+.t-time.seen .tt-rail button:nth-of-type(6) { animation-delay: .25s; } .t-time.seen .tt-rail button:nth-of-type(7) { animation-delay: .3s; }
+.t-time.seen .tt-rail button:nth-of-type(8) { animation-delay: .35s; } .t-time.seen .tt-rail button:nth-of-type(9) { animation-delay: .4s; }
+.t-time.seen .tt-rail button:nth-of-type(10) { animation-delay: .45s; }
+@keyframes tt-pop { from { opacity: 0; transform: translateY(10px) scale(.7); } }
+
+@media (max-width: 860px) {
+  .tt-box { grid-template-columns: 1fr; grid-template-areas: "stage" "copy" "rail" "nav"; padding: 16px 16px 20px; border-radius: 24px; }
+  .tt-stage { height: 260px; }
+  .tt-copy { margin-top: 18px; }
+  .tt-rail { margin: 26px 8px 0; height: 80px; }
+  .tt-rail button, .tt-rail .th { width: 30px; height: 30px; } .tt-rail button { margin-right: -15px; height: auto; }
+  .tt-rail .line, .tt-rail .fill { top: 14px; }
+  .tt-rail button small { font-size: 9px; }
+  .tt-rail button:nth-of-type(even) small { margin-top: -44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tt-shot, .tt-shot img, .t-time .tt-box { transition: none; }
+  .t-time .tt-box { opacity: 1; transform: none; }
+}
+
+/* ===== ملهمون: مروحة البطاقات (تصميم مبتكر) ===== */
+.home-inspiring.t-fan .inspiring-covers { display: none; }
+.t-deck { position: relative; height: 430px; margin-top: 10px; }
+.t-pc { position: absolute; top: 20px; left: 50%; width: 270px; margin-left: -135px; text-decoration: none; color: inherit;
+  transition: transform 1.1s var(--t-ease), filter .5s; transition-delay: calc(var(--i) * 70ms);
+  transform: translateX(calc((var(--c) - var(--i)) * 26px)) rotate(calc((var(--i) - var(--c)) * 7deg)); z-index: calc(10 - var(--i)); }
+.t-pc .cv { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 1; box-shadow: 0 30px 50px -24px rgba(6,49,53,.55); background: #F5EEDF; }
+.t-pc .cv img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--t-ease); }
+.t-pc .nm { margin-top: 16px; display: flex; justify-content: space-between; align-items: center; gap: 8px; opacity: 0; transition: opacity .6s .5s; }
+.t-pc .nm b { font-size: 18px; font-weight: 900; color: var(--t-ink); }
+.t-pc .nm span { font-size: 12px; font-weight: 800; color: var(--t-gold-d); background: #fff; padding: 2px 10px; border-radius: 99px; box-shadow: 0 0 0 1px #E8DDC6; }
+.t-deck.in .t-pc { transform: translateX(calc((var(--c) - var(--i)) * 300px)) rotate(calc((var(--i) - var(--c)) * 1.6deg)) translateY(calc((var(--i) - var(--c)) * (var(--i) - var(--c)) * 10px)); }
+.t-deck.in .t-pc .nm { opacity: 1; }
+.t-deck.in:hover .t-pc { filter: saturate(.6) opacity(.7); }
+.t-deck.in .t-pc:hover { filter: none; transform: translateX(calc((var(--c) - var(--i)) * 300px)) translateY(-14px) rotate(0deg); z-index: 20; transition-delay: 0s; }
+.t-deck.in .t-pc:hover .cv img { transform: scale(1.05); }
+@media (max-width: 1080px) {
+  .t-deck { height: auto; display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 2px 20px; }
+  .t-pc, .t-deck.in .t-pc, .t-deck.in .t-pc:hover { position: relative; top: 0; left: 0; margin: 0; flex: 0 0 250px; transform: none; scroll-snap-align: start; filter: none; }
+  .t-pc .nm { opacity: 1; }
+}
+
+/* ===== مستطيل «لديك إنجاز يستحق أن يُروى؟» (نموذج ١) ===== */
+.t-cta + .site-footer { margin-top: 0; }
+/* خلفية «المجلس الذهبي»: ليل فيروزي عميق، توهجان ذهبيان، أقواس عُمانية بخط ذهبي رفيع، نقش شبكي يتلاشى،
+   شعاع ضوء يعبر ببطء، وذرات ذهبية صاعدة */
+.t-cta { position: relative; isolation: isolate; overflow: hidden; padding: 110px 0; margin-top: var(--section, 60px); color: #fff;
+  background:
+    radial-gradient(45% 80% at 88% 120%, rgba(230,201,138,.32), transparent 60%),
+    radial-gradient(40% 70% at 8% -10%, rgba(20,163,172,.55), transparent 65%),
+    linear-gradient(120deg, #0b6c74 0%, #074a50 45%, #04282c 100%); }
+.t-cta::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46'%3E%3Cpath d='M23 18v10M18 23h10' stroke='%23E6C98A' stroke-opacity='.35' stroke-width='1'/%3E%3C/svg%3E");
+  -webkit-mask-image: radial-gradient(60% 90% at 25% 50%, #000, transparent 75%); mask-image: radial-gradient(60% 90% at 25% 50%, #000, transparent 75%); }
+.t-cta::after { content: ""; position: absolute; z-index: -1; top: -40%; bottom: -40%; left: -30%; width: 22%; transform: rotate(18deg);
+  background: linear-gradient(90deg, transparent, rgba(255,241,204,.12), transparent); filter: blur(8px); animation: t-cta-beam 9s ease-in-out infinite; }
+@keyframes t-cta-beam { 0% { left: -30%; } 60%, 100% { left: 120%; } }
+.t-cta .mark { position: absolute; z-index: -1; left: 1.5%; top: 50%; width: 230px; translate: 0 -50%; opacity: .1; filter: brightness(2) sepia(.6); }
+.t-cta .dust i { position: absolute; z-index: -1; bottom: -10px; width: 4px; height: 4px; border-radius: 50%; background: #FFF1CC; box-shadow: 0 0 8px 2px rgba(255,236,190,.6);
+  animation: t-cta-rise var(--d, 9s) linear infinite; animation-delay: var(--dl, 0s); left: var(--x); opacity: 0; }
+@keyframes t-cta-rise { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: .9; } 85% { opacity: .6; } 100% { transform: translateY(-340px); opacity: 0; } }
+/* كلمات ذهبية تصعد: تدرج ذهبي كبانر الجوائز، ثلاث طبقات عمق، تتمايل قليلًا أثناء الصعود، وتخفت خلف النص */
+.t-cta .words { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+  -webkit-mask-image: linear-gradient(0deg, transparent 0%, #000 18%, #000 78%, transparent 100%); mask-image: linear-gradient(0deg, transparent 0%, #000 18%, #000 78%, transparent 100%); }
+/* ارتفاع السطر ١٫٦ وحشوة: التدرج المقصوص على النص كان يقطع ما ينزل تحت السطر (ي، ج، ع…) */
+.t-cta .words i { position: absolute; left: var(--x); top: 100%; font-style: normal; font-weight: 800; font-size: var(--fs); white-space: nowrap; line-height: 1.6; padding: .1em .15em .25em;
+  color: transparent; background: linear-gradient(175deg, #fff4d2 0%, #f3d995 30%, #e6c177 55%, #f8e3aa 78%, #efd08a 100%); -webkit-background-clip: text; background-clip: text;
+  opacity: 0; animation: t-word var(--dur) linear infinite; animation-delay: var(--dl); will-change: transform, opacity; }
+.t-cta .words i.far { filter: blur(1.6px); }
+.t-cta .words i.mid { filter: blur(.5px); }
+.t-cta .words i.near { text-shadow: 0 0 18px rgba(230,193,119,.25); }
+@keyframes t-word {
+  0% { transform: translate(0, 0); opacity: 0; }
+  12% { opacity: var(--op); }
+  50% { transform: translate(var(--sw), -260px); }
+  85% { opacity: calc(var(--op) * .8); }
+  100% { transform: translate(0, -520px); opacity: 0; } }
+/* النص والزر فوق الكلمات بوضوح: ظل داكن ناعم خلف كتلة النص */
+.t-cta .in > div { position: relative; }
+.t-cta .in > div::before { content: ""; position: absolute; inset: -30px -40px; z-index: -1; border-radius: 40px; background: radial-gradient(closest-side, rgba(4,40,44,.55), transparent); pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .t-cta .words { display: none; } }
+.t-cta .in { position: relative; width: min(1240px, 100% - 32px); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+.t-cta .kick { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 800; color: var(--t-gold); margin-bottom: 10px; }
+.t-cta .kick::before { content: ""; width: 34px; height: 1px; background: linear-gradient(270deg, var(--t-gold), transparent); }
+@media (prefers-reduced-motion: reduce) { .t-cta::after, .t-cta .dust { display: none; } }
+.t-cta h2 { margin: 0; font-size: clamp(28px, 3vw, 42px); font-weight: 900; }
+.t-cta p { margin: 8px 0 0; color: #d4ecea; font-size: 16px; }
+.t-cta .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 99px; font-weight: 800; font-size: 16px; color: var(--t-ink); text-decoration: none;
+  background: linear-gradient(135deg, var(--t-cream), var(--t-gold) 45%, #C6A15A); box-shadow: 0 10px 30px rgba(198,161,90,.35); transition: transform .3s var(--t-ease); }
+.t-cta .btn:hover { transform: translateY(-3px); }
+/* مزاح ٦ سم نحو اليمين (نحو النص) بطلب صاحب الموقع */
+.t-cta .btn { margin-inline-end: 6cm; }
+@media (max-width: 860px) { .t-cta .btn { margin-inline-end: 0; } }
+
+/* ===== سهم العودة للأعلى (أصلي ٢) ===== */
+.t-top { position: fixed; left: 22px; bottom: 22px; z-index: 900; width: 54px; height: 54px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  background: radial-gradient(circle at 30% 25%, #0f7880, var(--t-ink)); color: var(--t-gold-l); display: grid; place-items: center; box-shadow: 0 16px 30px -12px rgba(6,49,53,.65);
+  opacity: 0; transform: translateY(18px) scale(.9); pointer-events: none; transition: opacity .4s, transform .6s var(--t-ease); }
+.t-top.on { opacity: 1; transform: none; pointer-events: auto; }
+.t-top svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.t-top circle { fill: none; stroke-width: 2; }
+.t-top .bg { stroke: rgba(255,255,255,.12); }
+.t-top .fg { stroke: var(--t-gold); stroke-linecap: round; stroke-dasharray: 151; stroke-dashoffset: calc(151 - 151 * var(--p, 0)); }
+.t-top:hover { transform: translateY(-3px); }
+.t-top i { font-style: normal; font-size: 18px; line-height: 1; transition: transform .4s var(--t-ease); }
+.t-top:hover i { transform: translateY(-3px); }
+
+/* ===== عائشة السيفي: خلفية أغنى وخط مرتب — الحركة الأصلية (الخطان والصورة والنص) لم تُمس ===== */
+.aisha-feature { background: linear-gradient(255deg, #0e8c95 0%, #0a6168 38%, #073f44 70%, #052d31 100%); }
+.t-ai-bg { position: absolute; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+.t-ai-bg i { position: absolute; display: block; }
+/* توهج ذهبي خلف الصورة، وضوء فيروزي خلف النص */
+.t-ai-bg .glow { inset: 0; background:
+  radial-gradient(34% 70% at 74% 62%, rgba(241,214,152,.32), transparent 70%),
+  radial-gradient(40% 80% at 22% 40%, rgba(20,170,180,.35), transparent 70%); animation: t-ai-breathe 7s ease-in-out infinite alternate; }
+@keyframes t-ai-breathe { from { opacity: .75; } to { opacity: 1; } }
+/* نقش شبكي ذهبي خفيف يتلاشى نحو الأطراف */
+.t-ai-bg .grid { inset: 0; opacity: .55;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46'%3E%3Cpath d='M23 18v10M18 23h10' stroke='%23E6C98A' stroke-opacity='.3' stroke-width='1'/%3E%3C/svg%3E");
+  -webkit-mask-image: radial-gradient(55% 80% at 30% 50%, #000, transparent 75%); mask-image: radial-gradient(55% 80% at 30% 50%, #000, transparent 75%); }
+/* شعاع ضوء يعبر ببطء */
+.t-ai-bg .beam { top: -40%; bottom: -40%; width: 18%; left: -25%; transform: rotate(16deg); filter: blur(10px);
+  background: linear-gradient(90deg, transparent, rgba(255,241,204,.1), transparent); animation: t-ai-beam 11s ease-in-out infinite; }
+@keyframes t-ai-beam { 0% { left: -25%; } 55%, 100% { left: 115%; } }
+/* هالة دائرية ذهبية رفيعة خلف الصورة تدور ببطء */
+.t-ai-bg .ring { width: 520px; height: 520px; right: max(2%, calc(50% - 600px)); bottom: -170px; border-radius: 50%;
+  border: 1px dashed rgba(230,201,138,.28); animation: t-ai-spin 60s linear infinite; }
+.t-ai-bg .ring::after { content: ""; position: absolute; inset: 34px; border-radius: 50%; border: 1px solid rgba(230,201,138,.16); }
+@keyframes t-ai-spin { to { transform: rotate(360deg); } }
+.t-ai-bg .dust b { position: absolute; bottom: -8px; left: var(--x); width: 3px; height: 3px; border-radius: 50%; background: #FFF1CC; box-shadow: 0 0 6px 2px rgba(255,236,190,.55);
+  opacity: 0; animation: t-cta-rise var(--d, 9s) linear infinite; animation-delay: var(--dl, 0s); }
+/* الخط: تسلسل واضح — الوسم، ثم الاسم بسطرين والكنية بالذهبي، ثم النبذة بقراءة مريحة */
+.aisha-label { font-size: 14px !important; letter-spacing: .4px; }
+.aisha-copy h2 { font-size: clamp(30px, 4vw, 56px) !important; font-weight: 900; line-height: 1.15 !important; margin-bottom: 26px !important; }
+.aisha-copy h2 .ln.gold { background: linear-gradient(180deg, #FFF1CC, #E6C98A 55%, #C6A15A); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; }
+.aisha-copy h2::after { width: 64px !important; margin-top: 14px !important; display: block !important; }
+.aisha-bio { position: relative; border-radius: 20px !important; padding: 22px 26px 12px 26px !important; border-inline-start: 3px solid #E6C98A !important; }
+.aisha-bio p { font-size: 16.5px !important; line-height: 2 !important; color: #1f3f43; }
+.aisha-bio a { font-weight: 800 !important; }
+
+/* ===== شريط المنجزين: الفكرة نفسها بلمسة أرقى ===== */
+/* مسرح: ضوء ذهبي خلف الصورة الوسطى، وظل أرضي ناعم */
+.home-achievers .strip-frame { position: relative; isolation: isolate; }
+.t-stage-light { position: absolute; z-index: -1; left: 50%; top: -6%; width: 520px; height: 115%; translate: -50% 0; pointer-events: none;
+  background: radial-gradient(45% 55% at 50% 45%, rgba(230,201,138,.28), transparent 70%), conic-gradient(from 180deg at 50% -10%, transparent 42%, rgba(255,241,204,.22) 50%, transparent 58%);
+  animation: t-stage-breathe 6s ease-in-out infinite alternate; }
+.t-stage-light::after { content: ""; position: absolute; left: 12%; right: 12%; bottom: 6%; height: 26px; border-radius: 50%; background: radial-gradient(closest-side, rgba(6,49,53,.22), transparent); }
+@keyframes t-stage-breathe { from { opacity: .7; } to { opacity: 1; } }
+/* عمق: الصور الجانبية تميل نحو الوسط وتخفت تدريجيًا، والوسطى بكامل ألوانها */
+.home-achievers .strip { perspective: 1100px; }
+.home-achievers .strip-photo { transition: transform .8s var(--t-ease), filter .6s, box-shadow .6s; transform-style: preserve-3d; }
+.home-achievers .strip > button:nth-child(-n+2) .strip-photo { transform: rotateY(-12deg); transform-origin: 0% 50%; }
+.home-achievers .strip > button:nth-child(n+4) .strip-photo { transform: rotateY(12deg); transform-origin: 100% 50%; }
+.home-achievers .strip > button:not(.center) .strip-photo { filter: saturate(.75) brightness(.95); }
+.home-achievers .strip > button.edge .strip-photo { filter: saturate(.5) brightness(.9); }
+.home-achievers .strip > button:not(.center):hover .strip-photo { filter: none; transform: translateY(-6px); box-shadow: 0 0 0 2px var(--t-gold), 0 18px 34px -16px rgba(6,49,53,.5); }
+/* الوسطى: إطار ذهبي دوّار، وانعكاس على الأرضية، ولمعة تعبرها عند وصولها */
+.home-achievers .strip > button.center .strip-photo { transform: none; filter: none;
+  box-shadow: 0 30px 50px -24px rgba(6,49,53,.6), 0 0 0 1px rgba(230,201,138,.6), 0 26px 40px -30px rgba(198,161,90,.9); }
+@property --t-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.t-sring { position: absolute; inset: 0; z-index: 4; border-radius: inherit; pointer-events: none; padding: 2px; opacity: 0; transition: opacity .6s;
+  background: conic-gradient(from var(--t-a), transparent 0 58%, #B98E48 68%, #FFF1CC 77%, #E6C98A 84%, transparent 93%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: t-sring 4.5s linear infinite; }
+@keyframes t-sring { to { --t-a: 360deg; } }
+.home-achievers .center .t-sring { opacity: 1; }
+.t-sweep { position: absolute; inset: 0; z-index: 3; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.t-sweep::before { content: ""; position: absolute; top: -10%; bottom: -10%; width: 45%; right: 130%; transform: skewX(-18deg); background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent); }
+.home-achievers .center .t-sweep::before { animation: t-sweep 1.3s .35s var(--t-ease) both; }
+@keyframes t-sweep { from { right: 130%; } to { right: -70%; } }
+.home-achievers .center .strip-photo img { animation: t-settle 1.2s var(--t-ease) both; }
+@keyframes t-settle { from { transform: scale(1.22); } to { transform: scale(1.12); } }
+/* الاسم: يصعد بلين مع خط ذهبي ينمو تحته */
+.home-achievers .center .strip-name { position: relative; animation: t-name .7s .2s var(--t-ease) both; }
+.home-achievers .center .strip-name::after { content: ""; display: block; width: 46px; height: 2px; margin: 8px auto 0; border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--t-gold), transparent); animation: t-uline .8s .45s var(--t-ease) both; }
+@keyframes t-name { from { opacity: 0; transform: translateY(10px); } }
+@keyframes t-uline { from { width: 0; } }
+/* السهمان: دائرة بإطار ذهبي ونبض خفيف، والسهم يتحرك عند المرور */
+.home-achievers .strip-arrow::before { background: radial-gradient(circle at 35% 30%, #0f7880, var(--t-ink)) !important; box-shadow: 0 0 0 1px rgba(230,201,138,.6), 0 12px 24px -10px rgba(6,49,53,.55); }
+.home-achievers .strip-arrow::after { content: ""; position: absolute; width: 44px; height: 44px; border-radius: 50%; animation: t-pulse-ring 2.8s ease-out infinite; }
+@keyframes t-pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(230,201,138,.45); } 70%, 100% { box-shadow: 0 0 0 12px rgba(230,201,138,0); } }
+.home-achievers .strip-arrow svg { transition: transform .35s var(--t-ease); }
+.home-achievers .strip-arrow[data-strip-prev]:hover svg { transform: translateX(3px); }
+.home-achievers .strip-arrow[data-strip-next]:hover svg { transform: translateX(-3px); }
+/* «المزيد من المبدعين»: لمعة ذهبية وارتفاع خفيف */
+.home-achievers .strip-discover { position: relative; overflow: hidden; transition: background .3s, box-shadow .3s, transform .3s var(--t-ease) !important; }
+.home-achievers .strip-discover::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; right: 130%; transform: skewX(-20deg); background: linear-gradient(90deg, transparent, rgba(230,201,138,.45), transparent); }
+.home-achievers .strip-discover:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px rgba(185,142,72,.6); }
+.home-achievers .strip-discover:hover::after { right: -60%; transition: right .8s var(--t-ease); }
+@media (max-width: 860px) { .home-achievers .strip > button .strip-photo { transform: none !important; } .t-stage-light { width: 260px; } }
+
+/* ===== جوائز وطنية: الترتيب نفسه بلمسات أرقى ===== */
+/* ظهور متتابع بميلان ثلاثي الأبعاد */
+.home-awards .ha-grid { perspective: 1400px; }
+.home-awards .ha-sq, .home-awards .ha-bh { transform-origin: 50% 100%; }
+.home-awards .t-aw-pre { opacity: 0; transform: translateY(46px) rotateX(10deg); }
+.home-awards .t-aw-in { opacity: 1; transform: none; transition: opacity 1s cubic-bezier(.22,1,.36,1), transform 1.1s cubic-bezier(.22,1,.36,1); transition-delay: var(--d, 0ms); }
+
+/* علامة مائية كبيرة من شعار الجائزة نفسها في الزاوية، تدور ببطء */
+.home-awards .ha-sq { position: relative; isolation: isolate; overflow: hidden; }
+.t-aw-wm { position: absolute; z-index: -1; left: -70px; bottom: -80px; width: 300px; height: 300px; border-radius: 50%; pointer-events: none; opacity: .09;
+  background-size: 62%; background-position: center; background-repeat: no-repeat; filter: grayscale(1) brightness(2.2) sepia(.6);
+  box-shadow: inset 0 0 0 1px rgba(255,241,204,.6), 0 0 0 26px rgba(255,241,204,.06), 0 0 0 27px rgba(255,241,204,.25);
+  animation: t-aw-turn 60s linear infinite; transition: opacity .6s, transform .8s; }
+.home-awards .ha-sq:hover .t-aw-wm { opacity: .16; }
+@keyframes t-aw-turn { to { rotate: 360deg; } }
+
+/* شارة الشعار: تطفو بهدوء، ويدور حولها إطار ذهبي، وتعبرها لمعة */
+.home-awards .ha-logo { position: relative; animation: t-aw-float 6s ease-in-out infinite; transition: transform .8s cubic-bezier(.22,1,.36,1); }
+.home-awards .ha-sq:nth-child(2) .ha-logo { animation-delay: -3s; }
+@keyframes t-aw-float { 50% { translate: 0 -6px; } }
+.t-aw-ring { position: absolute; inset: -7px; border-radius: inherit; pointer-events: none; padding: 1.5px;
+  background: conic-gradient(from var(--t-a, 0deg), transparent 0 55%, #B98E48 66%, #FFF1CC 76%, #E6C98A 84%, transparent 94%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: t-sring 6s linear infinite; }
+.home-awards .ha-sq:hover .ha-logo { transform: scale(1.06) rotate(-4deg); }
+
+/* اسم الجائزة: لمعة ذهبية تعبره عند المرور */
+.home-awards .ha-name { background: linear-gradient(100deg, transparent 40%, #FFF1CC 48%, #E6C98A 52%, transparent 60%) 120% 0 / 260% 100% no-repeat, linear-gradient(#fff, #fff); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; transition: background-position 1.2s cubic-bezier(.22,1,.36,1); }
+.home-awards .ha-sq:hover .ha-name { background-position: -40% 0, 0 0; }
+
+/* خط الأسفل: ضوء ذهبي يسري عليه */
+.home-awards .ha-foot { position: relative; }
+.home-awards .ha-foot::before { content: ""; position: absolute; top: -1px; height: 1px; width: 90px; right: -90px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, #FFF1CC, transparent); animation: t-aw-run 4.5s ease-in-out infinite; }
+.home-awards .ha-sq:nth-child(2) .ha-foot::before { animation-delay: -2.2s; }
+@keyframes t-aw-run { 0% { right: -90px; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { right: 100%; opacity: 0; } }
+
+/* صور الفائزين: تتباعد كمروحة عند المرور، بحلقة ذهبية */
+.home-awards .ha-stack img { transition: margin .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1), box-shadow .4s; }
+.home-awards .ha-sq:hover .ha-stack img { margin-inline-start: 4px !important; box-shadow: 0 0 0 2px #E6C98A, 0 8px 16px -8px rgba(0,0,0,.6); }
+.home-awards .ha-sq:hover .ha-stack img:nth-child(odd) { transform: translateY(-5px); }
+.home-awards .ha-sq:hover .ha-stack img:nth-child(even) { transform: translateY(-2px); }
+
+/* زر السهم: يمتلئ بالذهبي ويتقدم السهم */
+.home-awards .ha-go { transition: background .4s, color .4s, transform .5s cubic-bezier(.22,1,.36,1), box-shadow .4s; }
+.home-awards .ha-go svg { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+.home-awards .ha-sq:hover .ha-go { background: linear-gradient(135deg, #FFF1CC, #E6C98A 50%, #C6A15A) !important; color: #063135 !important; box-shadow: 0 10px 22px -10px rgba(198,161,90,.8); }
+.home-awards .ha-sq:hover .ha-go svg { transform: translateX(-4px); }
+
+/* بلعرب: الصورة تتحرك ببطء دائمًا، والإطار الداخلي يُرسم عند الظهور، والشرائح زجاجية */
+.home-awards .ha-bh-bg { animation: t-aw-kb 24s ease-in-out infinite alternate; }
+@keyframes t-aw-kb { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.12) translate(-2%, -1.5%); } }
+.home-awards .ha-bh-meta span { backdrop-filter: blur(6px); transition: background .3s, transform .4s cubic-bezier(.22,1,.36,1); }
+.home-awards .ha-bh:hover .ha-bh-meta span { background: rgba(230,201,138,.22); transform: translateY(-2px); }
+.home-awards .ha-bh-mark { transition: transform .8s cubic-bezier(.22,1,.36,1); }
+.home-awards .ha-bh:hover .ha-bh-mark { transform: translateY(-4px) scale(1.05); }
+.home-awards .ha-bh-cta { position: relative; overflow: hidden; }
+.home-awards .ha-bh-cta::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; right: 130%; transform: skewX(-20deg); background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent); }
+.home-awards .ha-bh:hover .ha-bh-cta::after { right: -60%; transition: right .9s cubic-bezier(.22,1,.36,1); }
+.t-aw-frame { position: absolute; top: 22px; left: 22px; width: calc(100% - 44px); height: calc(100% - 44px); z-index: 2; pointer-events: none; overflow: visible; }
+.t-aw-frame rect { fill: none; stroke: rgba(230,201,138,.55); stroke-width: 1.2; stroke-dasharray: var(--L, 3000); stroke-dashoffset: var(--L, 3000); transition: stroke-dashoffset 2.4s cubic-bezier(.65,0,.35,1) .4s; }
+.home-awards .t-aw-in .t-aw-frame rect { stroke-dashoffset: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .home-awards .t-aw-pre { opacity: 1; transform: none; }
+  .t-aw-wm, .home-awards .ha-logo, .t-aw-ring, .home-awards .ha-foot::before, .home-awards .ha-bh-bg { animation: none; }
+  .t-aw-frame rect { stroke-dashoffset: 0; transition: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-sring, .t-stage-light, .home-achievers .strip-arrow::after, .home-achievers .center .t-sweep::before, .home-achievers .center .strip-photo img, .home-achievers .center .strip-name { animation: none; }
+  .t-intro { display: none; }
+  .t-pc, .t-deck.in .t-pc { transition: none; }
+  .t-ai-bg .glow, .t-ai-bg .beam, .t-ai-bg .ring, .t-ai-bg .dust { animation: none; }
+  .t-ai-bg .dust { display: none; }
+}
+
+/* ===== عناوين الأقسام: فيروزي الموقع بتدرج هادئ، الريشة بمقاسها الطبيعي، وخط ذهبي قصير تحته ===== */
+.sec-title { display: flex; align-items: center; gap: 12px !important; }
+.sec-title img { width: 44px !important; height: 28px !important; object-fit: contain; }
+.sec-title h2 { position: relative; margin: 0; padding-bottom: 10px; font-size: clamp(26px, 2.5vw, 34px) !important; font-weight: 800 !important; line-height: 1.3;
+  background: linear-gradient(180deg, #0C7F89, #096770); -webkit-background-clip: text; background-clip: text; color: transparent !important; }
+.sec-title h2::after { content: ""; position: absolute; right: 0; bottom: 0; width: 56px; height: 2px; border-radius: 2px;
+  background: linear-gradient(270deg, #C6A15A, #E6C98A 60%, transparent); }
+.t-time .tt-head p, .home-awards .ha-lead, .inspiring-heading > p, .science-subtitle, .culture-sub { color: #5f6b6b; font-size: 15.5px; }
+
+/* أثناء ظهور الشعار: حركات الواجهة متوقفة عند بدايتها، وتبدأ مع ارتفاع الستارة */
+html.t-intro-on .home-hero *, html.t-intro-on .home-hero *::before, html.t-intro-on .home-hero *::after,
+html.t-intro-on .site-header *, html.t-intro-on .home-achievers * { animation-play-state: paused !important; }

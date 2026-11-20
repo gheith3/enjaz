@@ -34,7 +34,9 @@ class MagazinePagesTest extends TestCase
 
         $this->get('/magazine')->assertOk()->assertSee('العدد ١٢')->assertSee('نوفمبر ٢٠٢٦')->assertSee('أقلام شابة')
             ->assertSee('ما الذي يبقى')->assertSee('مقال العدد')->assertSee('اقتباس العدد هنا')->assertSee('لا تختصروا الحكاية')
-            ->assertSee('بدر العلوي')->assertSee('مقال واحد')->assertDontSee('مقال مسودة');
+            ->assertSee('بدر العلوي')->assertSee('مقال واحد')->assertDontSee('مقال مسودة')
+            // No article has a cover here, so the hero keeps its fallback art (the covers wall is server-rendered only when covers exist).
+            ->assertSee('class="mag-hero-art"', false)->assertDontSee('data-mag-ready', false);
     }
 
     public function test_magazine_list_filters_by_tab_and_search(): void

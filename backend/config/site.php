@@ -109,10 +109,12 @@ return [
         'achievements' => [
             'before' => ['achievements-page', 'federations', 'achievements-hero', 'achievements-hero-intro', 'achievements-honor'],
             'after' => ['phone-port-achievements'],
+            'polish' => ['polish-achievements'],
         ],
         'achievers' => [
             'before' => ['achievements-page', 'achievers-page', 'federations', 'achievers-hero'],
             'after' => ['achievers-hero-cards', 'achievers-hero-intro', 'achievers-hero-wall', 'phone-port-achievers'],
+            'polish' => ['polish-achievers'],
         ],
         'achiever' => [
             'before' => ['profile-socials', 'profile-achievements', 'profile-portrait', 'profile-idcard', 'profile-medal-stats', 'profile-enhance', 'profile-journey', 'profile-said', 'profile-hero-map'],
@@ -149,6 +151,7 @@ return [
         'awards' => [
             'before' => ['award-volunteer'],
             'after' => ['awards-hero', 'scroll-cue', 'desktop-hero-height', 'awards-cards-desktop', 'awards-hero-words', 'phone-port-awards'],
+            'polish' => ['polish-awards'],
         ],
         'award-culture' => [
             'before' => ['home-aisha', 'leader-word', 'minister-design-5', 'award'],
@@ -206,6 +209,7 @@ return [
         'inspiring' => [
             'before' => ['inspiring-page', 'inspiring-strip'],
             'after' => ['inspiring-desktop-hero', 'inspiring-hero-v2', 'inspiring-hero-polish', 'inspiring-hero-intro', 'phone-port-inspiring', 'inspiring-hero-text', 'inspiring-himam'],
+            'polish' => ['polish-inspiring'],
         ],
         'lab-all' => [
             'before' => ['science-page', 'lab-v2', 'lab-all-desktop'],
@@ -218,6 +222,7 @@ return [
         'home' => [
             'before' => ['home-banner', 'home-achievers', 'home-stats-gold', 'home-latest', 'home-aisha', 'home-awards', 'home-inspiring', 'home-articles', 'home-science', 'home-partners', 'home-sports', 'home-upgrade', 'home-hero-cinema'],
             'after' => ['scroll-cue', 'desktop-hero-height', 'home-hero-majlis', 'phone-port-home', 'phone-hero-design', 'phone-arc-motion', 'home-restore'],
+            'polish' => ['polish-home'],
         ],
     ],
 

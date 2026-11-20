@@ -60,7 +60,8 @@
 }
 .cards-ov .person-card .ach-body { position: absolute; inset-inline: 0; bottom: 0; z-index: 2; gap: 3px; padding: 7px; align-items: center; text-align: center; }
 .cards-ov .person-card .ach-cat { align-self: center; font-size: 10px; padding: 0 7px; }
-.cards-ov .person-card h3 { color: #fff; font-size: 11.5px; line-height: 1.4; -webkit-line-clamp: 2; }
+/* ارتفاع السطر ١٫٧ وحشوة سفلية: قصّ السطرين (line-clamp) كان يقطع ما ينزل تحت السطر، كذيل الياء ونقاطها */
+.cards-ov .person-card h3 { color: #fff; font-size: 11.5px; line-height: 1.7; -webkit-line-clamp: 2; padding-bottom: .12em; }
 .cards-ov .person-card .ach-headline, .cards-ov .person-card .ach-meta { display: none; }
 /* منجز بلا صورة: الحرف الأول من اسمه على أرضية فيروزية */
 .cards-ov .person-card .ach-ini {
@@ -151,7 +152,8 @@
 @keyframes map-run { 0% { opacity: 0; stroke-dashoffset: 100; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { opacity: 0; stroke-dashoffset: 0; } }
 @keyframes cut-rise { from { opacity: 0; translate: 0 22px; filter: blur(6px) drop-shadow(0 6px 12px rgba(0, 0, 0, .3)); } to { opacity: 1; translate: 0 0; filter: blur(0) drop-shadow(0 6px 12px rgba(0, 0, 0, .3)); } }
 @keyframes cut-breathe { from { scale: 1; } to { scale: 1.025; } }
-@keyframes name-reveal { from { clip-path: inset(0 0 0 100%); translate: -6px 0; } to { clip-path: inset(0 0 0 0); translate: 0 0; } }
+/* الكشف يتسع فوق السطر وتحته (inset سالب): بحدود السطر بالضبط كان يقص ذيل الياء ونقاطها بعد انتهاء الحركة */
+@keyframes name-reveal { from { clip-path: inset(-25% -4% -40% 100%); translate: -6px 0; } to { clip-path: inset(-25% -4% -40% -4%); translate: 0 0; } }
 @keyframes rise-in { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
 @keyframes light-sweep { 0% { opacity: 1; transform: translateX(-100%); } 100% { opacity: 1; transform: translateX(100%); } }
 @keyframes spark-rise {

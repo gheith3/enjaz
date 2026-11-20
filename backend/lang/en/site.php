@@ -9,6 +9,7 @@ return [
     'search_site' => 'Search the site',
     'search' => 'Search',
     'search_and_menu' => 'Search and full menu',
+    'share_achievement' => 'Share an achievement',
     'back_to' => 'Back to :section',
     'site_links' => 'Site links',
     'social_accounts' => 'Social media',
@@ -43,6 +44,11 @@ return [
         'close' => 'Close', 'pdf' => 'PDF', 'image' => 'Image',
         'record' => 'Achievements record', 'record_span' => ':count · :from to :to', 'record_tabs' => 'Type of achievement',
         'record_intl' => 'International', 'record_local' => 'Local', 'reading_now' => 'Reading now', 'record_all' => 'All of :name\'s achievements',
+    ],
+    'federations' => [
+        'title' => 'Sports federations', 'hint_achievements' => 'Pick a federation to see its achievements', 'hint_achievers' => 'Pick a federation to see its achievers',
+        'eyebrow_achievements' => 'Achievements documented with', 'eyebrow_achievers' => 'Achievers with', 'in' => 'in :field',
+        'page' => 'Federation page', 'clear' => 'Clear the federation filter', 'logo' => ':name logo',
     ],
     'achievers' => [
         'search_label' => 'Search by name', 'search_placeholder' => 'Search by achiever or field', 'faces' => 'Some achievers',

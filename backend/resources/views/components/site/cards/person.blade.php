@@ -10,7 +10,7 @@
   @endif
   <div class="ach-body">
     <p class="ach-cat">{{ $cat ?? $achiever->field?->name }}</p>
-    <h3>{{ $achiever->name }}</h3>
+    <h3 title="{{ $achiever->name }}">{{ $achiever->shortName() }}</h3>
     @if ($headline ?? $achiever->headline)<p class="ach-headline">{{ $headline ?? $achiever->headline }}</p>@endif
     <p class="ach-meta">{{ \App\Support\ArabicCount::of((int) ($achiever->achievements_count ?? $achiever->publishedAchievements()->count()), 'achievements') }}</p>
   </div>

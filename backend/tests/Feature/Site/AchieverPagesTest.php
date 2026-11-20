@@ -6,6 +6,8 @@ use App\Livewire\Site\AchieversIndex;
 use App\Models\Achievement;
 use App\Models\Achiever;
 use App\Models\Field;
+use App\Models\Organization;
+use App\Models\OrganizationType;
 use App\Models\Page;
 use App\Models\Scope;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -44,6 +46,35 @@ class AchieverPagesTest extends TestCase
             ->call('toggleGender', 'f')->assertSee('عائشة السيفي')->assertDontSee('>أحمد<', false)
             ->call('toggleGender', 'f')->assertSee('أحمد')
             ->set('q', 'عايشه')->assertSee('عائشة السيفي')->assertDontSee('>أحمد<', false);
+    }
+
+    public function test_cards_show_the_first_name_and_the_tribe(): void
+    {
+        $short = fn (string $name) => (new Achiever(['name' => ['ar' => $name]]))->shortName();
+
+        $this->assertSame('علي الحبسي', $short('علي بن عبدالله الحبسي'));
+        $this->assertSame('د. جوخة الحارثية', $short('د. جوخة الحارثية'));
+        $this->assertSame('الدكتور حسام العريمي', $short('الدكتور حسام بن سعيد العريمي'));
+        $this->assertSame('عبد الله الكندي', $short('عبد الله بن سالم الكندي'));
+        $this->assertSame('فيصل آل سعيد', $short('فيصل بن علي آل سعيد'));
+        $this->assertSame('محمد المالكي', $short('محمد عامر المالكي'));
+
+        Achiever::factory()->create(['name' => ['ar' => 'سالم بن أحمد الحبسي']]);
+        $this->get('/achievers')->assertSee('>سالم الحبسي<', false);
+    }
+
+    public function test_sports_opens_the_federations_panel_and_a_federation_filters_the_achievers(): void
+    {
+        $sports = Field::factory()->create(['slug' => 'sports', 'name' => ['ar' => 'الرياضة']]);
+        $type = OrganizationType::factory()->template('federation')->create();
+        $football = Organization::factory()->create(['slug' => 'oman-fa', 'organization_type_id' => $type->id, 'name' => ['ar' => 'الاتحاد العُماني لكرة القدم'], 'short_name' => ['ar' => 'كرة القدم']]);
+        Achiever::factory()->create(['name' => ['ar' => 'حارس المنتخب'], 'field_id' => $sports->id])->organizations()->attach($football, ['kind' => 'member']);
+        Achiever::factory()->create(['name' => ['ar' => 'عداء الماراثون'], 'field_id' => $sports->id]);
+
+        Livewire::test(AchieversIndex::class, ['sitePage' => Page::forKey('achievers')])
+            ->call('setField', 'sports')->assertSee('الاتحادات الرياضية')->assertSee('كرة القدم')
+            ->call('setOrg', 'oman-fa')->assertSee('حارس المنتخب')->assertDontSee('عداء الماراثون')->assertSee('منجزون بالشراكة مع')
+            ->call('setOrg', '')->assertSee('عداء الماراثون');
     }
 
     public function test_profile_shows_counts_journey_quotes_and_id_card(): void

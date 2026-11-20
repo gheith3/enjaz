@@ -7,7 +7,14 @@
   if (art) {
     var A = []; try { A = JSON.parse(art.dataset.magWall); } catch (e) {}
     // The design needs 4 covers; covers repeat to fill the 12 tiles, so any number works (the fallback picture looks cut).
-    if (A.length >= 1) {
+    // Already rendered by the server (data-mag-ready, magazine/index.blade.php): only the lighting is needed.
+    if (art.hasAttribute('data-mag-ready')) {
+      var tilesR = art.querySelectorAll('.aw-tile'), orderR = [1, 5, 3, 7, 4, 8, 6, 2], kR = 0;
+      if (tilesR.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(function () {
+        if (art.matches(':hover')) return;
+        [].forEach.call(tilesR, function (t) { t.classList.remove('lit'); }); var t = tilesR[orderR[kR++ % orderR.length] % tilesR.length]; t.classList.add('lit');
+      }, 2000);
+    } else if (A.length >= 1) {
       var esc = function (s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; };
       var cells = [], shapes = ['w2', '', 'h2', '', '', 'w2', '', '', '', '', '', ''];
       for (var i = 0; i < 12; i++) cells.push(A[i % A.length]);

@@ -6,6 +6,8 @@ use App\Livewire\Site\AchievementsIndex;
 use App\Models\Achievement;
 use App\Models\Achiever;
 use App\Models\Field;
+use App\Models\Organization;
+use App\Models\OrganizationType;
 use App\Models\Page;
 use App\Models\Scope;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -127,5 +129,26 @@ class AchievementPagesTest extends TestCase
         $achievement = $this->achievement();
 
         $this->get('/sitemap.xml')->assertSee($achievement->url(), false);
+    }
+
+    public function test_sports_opens_the_federations_panel_and_a_federation_filters_the_grid(): void
+    {
+        $type = OrganizationType::factory()->template('federation')->create();
+        $football = Organization::factory()->create(['slug' => 'oman-fa', 'organization_type_id' => $type->id, 'name' => ['ar' => 'الاتحاد العُماني لكرة القدم'], 'short_name' => ['ar' => 'كرة القدم']]);
+        Organization::factory()->create(['slug' => 'oman-athletics', 'organization_type_id' => $type->id, 'name' => ['ar' => 'الاتحاد العُماني لألعاب القوى'], 'short_name' => ['ar' => 'ألعاب القوى']]);
+        $member = Achiever::factory()->create(['gender' => 'm']);
+        $member->organizations()->attach($football, ['kind' => 'member']);
+        $this->achievement(['title' => ['ar' => 'هدف في كأس الخليج']], $member);
+        $this->achievement(['title' => ['ar' => 'ذهبية الجري']]);
+
+        $page = Livewire::test(AchievementsIndex::class, ['sitePage' => Page::forKey('achievements')])
+            ->assertDontSee('الاتحادات الرياضية')
+            ->call('setField', 'sports')->assertSee('الاتحادات الرياضية')->assertSee('كرة القدم')->assertSee('ألعاب القوى');
+
+        $this->assertSame([1, 0], array_column($page->instance()->federations, 'count'));
+
+        $page->call('setOrg', 'oman-fa')->assertSee('هدف في كأس الخليج')->assertDontSee('ذهبية الجري')->assertSee('صفحة الاتحاد')
+            ->call('setOrg', 'oman-fa')->assertSee('ذهبية الجري')
+            ->call('setField', 'sports')->assertDontSee('الاتحادات الرياضية');
     }
 }

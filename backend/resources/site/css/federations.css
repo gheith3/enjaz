@@ -175,3 +175,23 @@
 @media (prefers-reduced-motion: reduce) {
   .fed-panel, .fed, .fed-spot, .flt-box { transition: none; animation: none; }
 }
+
+/* ---------- الاتحادات في الموقع الحي (Livewire): مقاس الشعار من نسبته بلا js، وظهور ولمسات ---------- */
+/* --w = √(العرض ÷ الارتفاع)، فيأخذ كل شعار مساحة متقاربة: العرضي أعرض وأقصر، والطولي أضيق وأطول */
+.fed .fed-logo { width: min(86%, calc(var(--w, 1) * 30px)); aspect-ratio: var(--r, 1); max-height: calc(100% - 4px); align-self: center; }
+.fed.fed-ph .fed-logo { width: 34%; aspect-ratio: 1; opacity: .55; }
+.fed-panel.open .fed-inner { animation: fed-drop .55s cubic-bezier(.2, .7, .2, 1) both; }
+.fed-panel.open .fed { animation: fed-in .5s cubic-bezier(.2, .7, .2, 1) both; }
+.fed-panel.open .fed:nth-child(2) { animation-delay: .03s; } .fed-panel.open .fed:nth-child(3) { animation-delay: .06s; }
+.fed-panel.open .fed:nth-child(4) { animation-delay: .09s; } .fed-panel.open .fed:nth-child(5) { animation-delay: .12s; }
+.fed-panel.open .fed:nth-child(6) { animation-delay: .15s; } .fed-panel.open .fed:nth-child(7) { animation-delay: .18s; }
+.fed-panel.open .fed:nth-child(8) { animation-delay: .21s; } .fed-panel.open .fed:nth-child(n+9) { animation-delay: .24s; }
+@keyframes fed-drop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.fed img { transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+.fed:hover img { transform: scale(1.08); }
+.fed:hover { box-shadow: 0 0 0 1px rgba(201, 163, 92, .7), 0 10px 18px -10px rgba(0, 0, 0, .35); }
+.fed.is-empty .fed-logo { filter: grayscale(.35); opacity: .8; }
+.fed[aria-pressed="true"] .fed-name { color: var(--gold-d, #a88344); }
+[data-results].is-loading { opacity: .55; transition: opacity .2s; }
+@media (min-width: 700px) { .fed .fed-logo { width: min(86%, calc(var(--w, 1) * 42px)); } }
+@media (prefers-reduced-motion: reduce) { .fed-panel.open .fed-inner, .fed-panel.open .fed { animation: none; } }

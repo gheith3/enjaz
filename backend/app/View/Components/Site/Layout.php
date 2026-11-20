@@ -88,6 +88,9 @@ class Layout extends Component
                 [...(($page['main'] ?? true) ? ['main'] : []), 'site-menu', ...($page['before'] ?? []), 'desktop', ...($page['after'] ?? []), 'phone-footer'],
             ),
             'resources/site/css-site/overrides.css',
+            // Approved 2026-11 polish: the header's «شاركنا إنجازك» on every page, then the page's own touches (config 'polish').
+            'resources/site/css/polish-global.css',
+            ...array_map(fn (string $name) => "resources/site/css/$name.css", $page['polish'] ?? []),
         ];
     }
 

@@ -21,9 +21,17 @@
         @input.debounce.250ms="$dispatch('mag-search', { q: $el.value }); if ($el.value.trim()) { const l = document.getElementById('mag-all'); if (l && l.getBoundingClientRect().top > innerHeight) l.scrollIntoView({ block: 'start' }); }">
       <button type="submit" aria-label="{{ __('site.magazine.search') }}"><img src="{{ Vite::asset('resources/site/assets/svg/icon-search.svg') }}" alt=""></button></form>
     <a class="mag-hero-link" href="#mag-all">{{ $p->hero_cta_label ?: __('site.magazine.browse') }} <span aria-hidden="true">←</span></a></div>
-  <div class="mag-hero-art" aria-hidden="true" data-mag-wall="{{ $wallJson }}">
-    <div class="mag-hero-image"></div><span class="mag-hero-quote">“</span>
-    <div class="mag-hero-note"><span>{{ $l('note_kicker') }}</span><b>{!! collect(explode('|', $l('note_text')))->map(fn ($s) => e($s))->implode('<br>') !!}</b><i></i></div></div>
+  {{-- The covers wall is rendered here (not only by js/magazine.js) so the first paint is already the new design;
+       the old fallback (image, quote, note) only shows when there are no articles. --}}
+  @if ($wall->isNotEmpty())
+    @php $shapes = ['w2', '', 'h2', '', '', 'w2', '', '', '', '', '', '']; $wallItems = $wall->values(); @endphp
+    <div class="mag-hero-art aw-on" aria-hidden="true" data-mag-wall="{{ $wallJson }}" data-mag-ready>
+      <div class="aw-grid">@foreach (range(0, 11) as $i)@php $a = $wallItems[$i % $wallItems->count()]; @endphp<a class="aw-tile {{ $shapes[$i] }}" href="{{ $a->url() }}" tabindex="-1"><img src="{{ $a->imageUrl('cover', 'card') }}" alt="" loading="{{ $i < 6 ? 'eager' : 'lazy' }}"><b>{{ $a->title }}</b></a>@endforeach</div></div>
+  @else
+    <div class="mag-hero-art" aria-hidden="true">
+      <div class="mag-hero-image"></div><span class="mag-hero-quote">“</span>
+      <div class="mag-hero-note"><span>{{ $l('note_kicker') }}</span><b>{!! collect(explode('|', $l('note_text')))->map(fn ($s) => e($s))->implode('<br>') !!}</b><i></i></div></div>
+  @endif
 </section>
 <div class="mag-page">
   @if ($issue)

@@ -4,6 +4,7 @@ namespace App\Livewire\Site;
 
 use App\Models\Achiever;
 use App\Models\Field;
+use App\Models\Organization;
 use App\Models\Page;
 use App\Support\ArabicCount;
 use App\Support\ArabicSearch;
@@ -34,6 +35,13 @@ class AchieversIndex extends Component
     #[Url(except: '')]
     public string $gender = '';
 
+    /** Selected sports federation (organization slug), as on the achievements page. */
+    #[Url(except: '')]
+    public string $org = '';
+
+    /** Fields that open the federations panel. */
+    private const FEDERATION_FIELDS = ['sports'];
+
     public function updated(): void
     {
         $this->resetPage();
@@ -41,8 +49,53 @@ class AchieversIndex extends Component
 
     public function setField(string $slug): void
     {
-        $this->field = $slug;
+        // A second press on an open federations field (its ✕) returns to all fields.
+        $this->field = $slug === $this->field && $this->hasFederations() ? '' : $slug;
+        $this->org = '';
         $this->resetPage();
+    }
+
+    /** Pick a federation; pressing the selected one again clears it. */
+    public function setOrg(string $slug): void
+    {
+        $this->org = $slug === $this->org ? '' : $slug;
+        $this->resetPage();
+    }
+
+    public function hasFederations(): bool
+    {
+        return in_array($this->field, self::FEDERATION_FIELDS, true);
+    }
+
+    /**
+     * Federations of the open field with the number of their achievers under the current filters.
+     *
+     * @return list<array{slug: string, name: string, short: string, logo: ?string, ratio: float, count: int, url: string}>
+     */
+    #[Computed]
+    public function federations(): array
+    {
+        if (! $this->hasFederations()) {
+            return [];
+        }
+
+        return Organization::query()->listed()->whereHas('type', fn (Builder $q) => $q->where('template', 'federation'))->with('media')->get()
+            ->map(fn (Organization $o) => [
+                'slug' => $o->slug,
+                'name' => $o->name,
+                'short' => $o->displayName(),
+                'logo' => $o->logoUrl(),
+                'ratio' => (float) ($o->logo_ratio ?: 1),
+                'count' => $this->query(withOrg: false)->whereHas('organizations', fn (Builder $q) => $q->where('slug', $o->slug))->count(),
+                'url' => $o->url(),
+            ])->values()->all();
+    }
+
+    /** @return array{slug: string, name: string, short: string, logo: ?string, ratio: float, count: int, url: string}|null */
+    #[Computed]
+    public function activeFederation(): ?array
+    {
+        return $this->org === '' ? null : (collect($this->federations)->firstWhere('slug', $this->org) ?: null);
     }
 
     /** Design: gender has no "all"; clicking the selected one again clears it. */
@@ -54,7 +107,7 @@ class AchieversIndex extends Component
 
     public function clearAll(): void
     {
-        $this->reset('q', 'field', 'gender');
+        $this->reset('q', 'field', 'gender', 'org');
         $this->resetPage();
     }
 
@@ -87,7 +140,7 @@ class AchieversIndex extends Component
             ->values()->all();
     }
 
-    private function query(): Builder
+    private function query(bool $withOrg = true): Builder
     {
         $query = Achiever::query()->listed()->with(['field', 'media'])
             ->withCount(['achievements' => fn ($q) => $q->published()]);
@@ -97,6 +150,9 @@ class AchieversIndex extends Component
         }
         if (in_array($this->gender, ['m', 'f'], true)) {
             $query->where('gender', $this->gender);
+        }
+        if ($withOrg && $this->org !== '' && $this->hasFederations()) {
+            $query->whereHas('organizations', fn (Builder $q) => $q->where('slug', $this->org));
         }
         if (trim($this->q) !== '') {
             $query->where(fn (Builder $q) => ArabicSearch::where($q, ['name', 'headline'], $this->q)
