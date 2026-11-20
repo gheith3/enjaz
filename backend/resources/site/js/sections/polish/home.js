@@ -101,7 +101,7 @@
           (function run() { var q = Math.min(1, (Date.now() - t0) / 700); yr.textContent = ar(Math.round(from + (to - from) * (1 - Math.pow(1 - q, 3)))); if (q < 1) setTimeout(run, 30); })();
           yr.dataset.y = to;
         } else { yr.textContent = m.lbl; }
-        ttl.textContent = m.s; who.innerHTML = '<b>' + m.n + '</b> · ' + m.f;
+        ttl.textContent = m.s; who.innerHTML = '<b class="tt-name">' + m.n + '</b><span class="tt-field">' + m.f + '</span>';
         if (m.u) { go.href = m.u; go.innerHTML = 'اقرأ القصة <i aria-hidden="true">←</i>'; go.hidden = false; } else { go.removeAttribute('href'); go.hidden = true; }
         cnt.textContent = ar(ti + 1) + ' / ' + ar(T.length);
         copy.classList.remove('out');
