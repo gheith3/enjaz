@@ -44,16 +44,16 @@
   // L = صور محلية أرسلها صاحب الموقع (مجلد tl-img)، وغيرها من مكتبة الموقع. p = نقطة التركيز في الصورة.
   var L = '/images/timeline/';
   var T = [
-    { y: null, lbl: 'الرائدة', s: 'أول دكتوراه لامرأة خليجية', n: 'د. فاطمة بنت سالم المعمرية', f: 'العلم', img: L + 'fatma.jpg', p: '50% 20%', u: '' },
-    { y: 1990, s: 'ذهبية آسيا في ٤٠٠ متر', n: 'محمد عامر المالكي', f: 'ألعاب القوى', img: S + '0b889be8-9e5e-4d42-9300-687acb6e2247/conversions/mohammed-amer-almalki-large.webp', p: '50% 22%', u: 'https://injazat.om/achievers/mohammed-almalki' },
-    { y: 1995, s: 'رابع العالم للناشئين', n: 'منتخب عُمان للناشئين', f: 'كرة القدم', img: L + 'u17-1995.jpg', p: '50% 40%', u: 'https://injazat.om/achievers/mohammed-amer-al-kathiri' },
-    { y: 1995, s: 'الكرة الذهبية للعالم', n: 'محمد بن عامر الكثيري', f: 'كرة القدم', img: L + 'kathiri.jpg', p: '50% 25%', u: 'https://injazat.om/achievers/mohammed-amer-al-kathiri' },
-    { y: 2009, s: 'أول لقب خليجي لعُمان', n: 'منتخب عُمان', f: 'كرة القدم', img: L + 'gulf-cup-2009.jpg', p: '55% 35%', u: 'https://injazat.om/achievements/aly-alhbsy-03' },
-    { y: 2010, s: 'أمام السلطان قابوس', n: 'مصطفى بارامي', f: 'الابتكار', img: L + 'barami.jpg', p: '50% 30%', u: 'https://injazat.om/achievers/mustafa-barami' },
-    { y: 2019, s: 'على قمة إيفرست', n: 'نظيرة الحارثية', f: 'تسلق الجبال', img: L + 'nadhira.jpg', p: '45% 40%', u: '' },
-    { y: 2019, s: 'مان بوكر العالمية', n: 'د. جوخة الحارثية', f: 'الأدب', img: S + '132dd70f-f359-4c9d-a537-b3b818f1ab0d/conversions/jokha-booker-large.webp', p: '50% 22%', u: 'https://injazat.om/achievements/man-booker-2019' },
-    { y: 2021, s: 'شاعرة الرسول', n: 'بدرية البدري', f: 'الشعر', img: L + 'badri.webp', p: '50% 25%', u: '' },
-    { y: 2025, s: 'وصيف العالم في الغوص الحر', n: 'عمر الغيلاني', f: 'الغوص الحر', img: L + 'ghailani.jpg', p: '50% 25%', u: '' }
+    { y: null, lbl: 'الرائدة', s: 'أول دكتوراه لامرأة خليجية', n: 'د. فاطمة بنت سالم المعمرية', f: 'العلم', img: L + 'fatma-wide.webp', p: '50% 20%', u: '' },
+    { y: 1990, s: 'ذهبية آسيا في ٤٠٠ متر', n: 'محمد عامر المالكي', f: 'ألعاب القوى', img: L + 'mohammed-amer-almalki-wide.webp', p: '50% 22%', u: 'https://injazat.om/achievers/mohammed-almalki' },
+    { y: 1995, s: 'رابع العالم للناشئين', n: 'منتخب عُمان للناشئين', f: 'كرة القدم', img: L + 'u17-1995-wide.webp', p: '50% 40%', u: 'https://injazat.om/achievers/mohammed-amer-al-kathiri' },
+    { y: 1995, s: 'الكرة الذهبية للعالم', n: 'محمد بن عامر الكثيري', f: 'كرة القدم', img: L + 'kathiri-wide.webp', p: '50% 25%', u: 'https://injazat.om/achievers/mohammed-amer-al-kathiri' },
+    { y: 2009, s: 'أول لقب خليجي لعُمان', n: 'منتخب عُمان', f: 'كرة القدم', img: L + 'gulf-cup-2009-wide.webp', p: '55% 35%', u: 'https://injazat.om/achievements/aly-alhbsy-03' },
+    { y: 2010, s: 'أمام السلطان قابوس', n: 'مصطفى بارامي', f: 'الابتكار', img: L + 'barami-wide.webp', p: '50% 30%', u: 'https://injazat.om/achievers/mustafa-barami' },
+    { y: 2019, s: 'على قمة إيفرست', n: 'نظيرة الحارثية', f: 'تسلق الجبال', img: L + 'nadhira-wide.webp', p: '45% 40%', u: '' },
+    { y: 2019, s: 'مان بوكر العالمية', n: 'د. جوخة الحارثية', f: 'الأدب', img: L + 'jokha-booker-wide.webp', p: '50% 22%', u: 'https://injazat.om/achievements/man-booker-2019' },
+    { y: 2021, s: 'شاعرة الرسول', n: 'بدرية البدري', f: 'الشعر', img: L + 'badri-wide.webp', p: '50% 25%', u: '' },
+    { y: 2025, s: 'وصيف العالم في الغوص الحر', n: 'عمر الغيلاني', f: 'الغوص الحر', img: L + 'ghailani-wide.webp', p: '50% 25%', u: '' }
   ];
   var latest = $('.home-latest');
   if (latest) {
