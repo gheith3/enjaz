@@ -428,7 +428,7 @@ return [
         'spotlight' => 'وجوه من عُمان', 'read_about' => 'اقرأ عن إنجازه',
         'awards' => 'جوائز وطنية', 'discover_award' => 'اكتشف الجائزة',
         'inspiring' => 'ملهمون من عُمان', 'inspiring_lead' => 'وجوه نعتز بها، ومواهب تستحق أن تُرى.', 'inspiring_cover' => 'غلاف :name — ملهمون من عُمان',
-        'articles' => 'المقالات', 'writes' => ':name يكتب:', 'read_article' => 'اقرأ المقال',
+        'articles' => 'المقالات', 'writes' => ':name يكتب:', 'read_article' => 'اقرأ المقال', 'articles_lead' => 'أقلامٌ شابة تكتب عن الأثر، لا عن اللقب.', 'all_articles' => 'كل المقالات',
         'sports' => 'الرياضة', 'discover_more' => 'اكتشف المزيد', 'more_sports_sr' => 'من المنجزين الرياضيين', 'external_page' => 'صفحة خارجية',
         'culture' => 'الثقافة', 'more' => 'المزيد', 'more_of' => 'المزيد من :section',
         'science' => 'القسم العلمي', 'science_lead' => 'الابتكارات والاختراعات والمنشورات العلمية', 'spotlight_label' => 'في دائرة الضوء',

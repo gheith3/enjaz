@@ -4,12 +4,14 @@ namespace Tests\Feature\Site;
 
 use App\Models\Achievement;
 use App\Models\Achiever;
+use App\Models\Article;
 use App\Models\Award;
 use App\Models\LeaderQuote;
 use App\Models\Organization;
 use App\Models\OrganizationType;
 use App\Models\Page;
 use App\Models\PageSection;
+use App\Models\Writer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -53,5 +55,20 @@ class HomePageTest extends TestCase
         $this->section('home.hero')->update(['is_enabled' => false]);
 
         $this->get('/')->assertOk()->assertDontSee('كلمة الهيدر');
+    }
+
+    public function test_the_articles_section_shows_five_articles_with_home_picks_first(): void
+    {
+        $writer = Writer::factory()->create(['name' => ['ar' => 'ليلى الرحبي'], 'role' => ['ar' => 'كاتبة رأي']]);
+        Article::factory()->create(['title' => ['ar' => 'مقال مختار للرئيسية'], 'show_on_home' => true, 'writer_id' => $writer->id, 'published_at' => now()->subDays(20)]);
+        foreach (range(1, 5) as $i) {
+            Article::factory()->create(['title' => ['ar' => 'مقال حديث رقم '.$i], 'published_at' => now()->subDays($i)]);
+        }
+
+        $this->get('/')->assertOk()
+            ->assertSeeInOrder(['مقال مختار للرئيسية', 'مقال حديث رقم 1', 'مقال حديث رقم 2', 'مقال حديث رقم 3', 'مقال حديث رقم 4'])
+            ->assertDontSee('مقال حديث رقم 5')
+            ->assertSee('<b>ليلى الرحبي</b><small>كاتبة رأي</small>', false)
+            ->assertSee('class="am-all" href="'.route('magazine.index').'"', false);
     }
 }

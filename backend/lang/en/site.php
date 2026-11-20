@@ -253,7 +253,7 @@ return [
         'spotlight' => 'Faces of Oman', 'read_about' => 'Read about the achievement',
         'awards' => 'National awards', 'discover_award' => 'Discover the award',
         'inspiring' => 'Inspiring Omanis', 'inspiring_lead' => 'Faces we are proud of, talents worth seeing.', 'inspiring_cover' => 'Cover of :name — Inspiring Omanis',
-        'articles' => 'Articles', 'writes' => ':name writes:', 'read_article' => 'Read the article',
+        'articles' => 'Articles', 'writes' => ':name writes:', 'read_article' => 'Read the article', 'articles_lead' => 'Young voices writing about impact, not titles.', 'all_articles' => 'All articles',
         'sports' => 'Sport', 'discover_more' => 'Discover more', 'more_sports_sr' => 'sport achievers', 'external_page' => 'external page',
         'culture' => 'Culture', 'more' => 'More', 'more_of' => 'More :section',
         'science' => 'Science', 'science_lead' => 'Innovations, inventions and scientific publications', 'spotlight_label' => 'In the spotlight',

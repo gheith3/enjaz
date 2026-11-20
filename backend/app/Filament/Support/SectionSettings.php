@@ -38,7 +38,7 @@ class SectionSettings
         'home.spotlight' => ['title' => 'العنوان الصغير'],
         'home.awards' => ['title' => 'العنوان', 'lead' => 'النص تحت العنوان'],
         'home.inspiring' => ['title' => 'العنوان', 'lead' => 'النص تحت العنوان'],
-        'home.articles' => ['title' => 'العنوان'],
+        'home.articles' => ['title' => 'العنوان', 'lead' => 'السطر تحت العنوان', 'more_label' => 'نص رابط «كل المقالات»'],
         'home.sports' => ['title' => 'العنوان', 'more_label' => 'نص الزر'],
         'home.culture' => ['title' => 'العنوان', 'lead' => 'النص تحت العنوان'],
         'home.science' => ['title' => 'العنوان', 'lead' => 'النص تحت العنوان', 'more_label' => 'نص الزر'],

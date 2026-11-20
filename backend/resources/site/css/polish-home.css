@@ -495,3 +495,97 @@ html.t-intro-on .site-header *, html.t-intro-on .home-achievers * { animation-pl
 .tt-who .tt-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .tt-who .tt-field.tt-tag { color: var(--t-ink); font-weight: 800; box-shadow: 0 6px 16px -8px rgba(230,201,138,.7);
   background: linear-gradient(100deg, #E6C98A, #FFF1CC 45%, #E6C98A 70%, #C9A15C); }
+
+/* ===== المقالات: رأس بسطر المجلة ورابط «كل المقالات»، وأربعة مقالات بجانب المقال الرئيسي ===== */
+.home-articles .am-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+.home-articles .am-head .sec-title { margin-bottom: 0; }
+.home-articles .am-tag { margin: 8px 0 0; color: #6c6a65; font-size: 14.5px; line-height: 1.7; }
+.home-articles .am-all { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 99px; border: 1px solid #d9c08e;
+  color: var(--primary, #0C7F89); font-size: 14px; font-weight: 700; text-decoration: none; transition: background .3s, transform .3s var(--t-ease), box-shadow .3s; }
+.home-articles .am-all span { transition: transform .3s var(--t-ease); }
+.home-articles .am-all:hover { background: #f7f1e4; transform: translateY(-2px); box-shadow: 0 10px 24px -12px rgba(185,142,72,.6); }
+.home-articles .am-all:hover span { transform: translateX(-4px); }
+
+/* المقال الرئيسي: التصنيف ومدة القراءة، والكاتب باسمه وصفته، والبطاقة كلها رابط.
+   تحت ١١٠٠ النص تحت الصورة على خلفية فاتحة؛ من ١١٠٠ فوق الصورة الداكنة. */
+.home-articles .article-lead { position: relative; }
+.home-articles .article-lead .am-kick { justify-self: start; margin: 0; padding: 4px 12px; border-radius: 99px; color: #8a6a2c; font-size: 12px; font-weight: 800;
+  background: #f7f1e4; box-shadow: inset 0 0 0 1px #ead9b5; }
+.home-articles .article-lead .article-by { display: flex; align-items: center; gap: 10px; }
+.home-articles .article-lead .article-by > span { display: grid; line-height: 1.35; }
+.home-articles .article-lead .article-by b { color: var(--dark, #063135); font-weight: 800; }
+.home-articles .article-lead .article-by small { color: #B98E48; font-size: 12px; font-weight: 700; }
+.home-articles .article-lead h3 a { color: inherit; text-decoration: none; }
+.home-articles .article-lead h3 a::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.home-articles .article-lead:has(h3 a:focus-visible) { outline: 2px solid var(--t-gold, #E6C98A); outline-offset: 4px; }
+.home-articles .article-lead h3 a:focus-visible { outline: none; }
+@media (min-width: 1100px) {
+  .home .article-lead .am-kick { margin-bottom: 4px; padding: 5px 13px; color: #FFF1CC; font-size: 12.5px;
+    background: rgba(4,34,37,.5); box-shadow: inset 0 0 0 1px rgba(230,201,138,.5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .home .article-lead .article-by b { color: #fff; }
+  .home .article-lead .article-by small { color: #E6C98A; font-size: 12.5px; }
+}
+
+/* القائمة: صورة مصغّرة، ثم التصنيف والعنوان والكاتب، وسهم يظهر عند المرور */
+.home-articles .am-list { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-rows: 1fr; border-radius: 22px; overflow: hidden;
+  background: #fff; box-shadow: 0 0 0 1px #ece6d8, 0 14px 30px -22px rgba(6,49,53,.45); }
+.home-articles .am-item + .am-item { border-top: 1px solid #efe9dc; }
+.home-articles .am-item a { position: relative; display: grid; grid-template-columns: 104px minmax(0, 1fr) 18px; align-items: center; gap: 16px; height: 100%;
+  padding: 12px 18px; color: inherit; text-decoration: none; transition: background .35s; }
+.home-articles .am-item a::before { content: ""; position: absolute; inset-block: 14px; inset-inline-start: 0; width: 3px; border-radius: 3px;
+  background: linear-gradient(180deg, #E6C98A, #B98E48); transform: scaleY(0); transition: transform .45s var(--t-ease); }
+.home-articles .am-item a:hover { background: #fbf8f1; }
+.home-articles .am-item a:hover::before, .home-articles .am-item a:focus-visible::before { transform: scaleY(1); }
+.home-articles .am-item a:focus-visible { outline: 2px solid var(--t-gold, #E6C98A); outline-offset: -3px; }
+.home-articles .am-th { position: relative; display: block; width: 104px; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden;
+  background: radial-gradient(circle at 30% 25%, #0f7880, #063135); box-shadow: 0 8px 18px -12px rgba(6,49,53,.6); }
+.home-articles .am-th img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1s var(--t-ease); }
+.home-articles .am-item a:hover .am-th img { transform: scale(1.08); }
+.home-articles .am-th.am-ph::after { content: "«"; position: absolute; inset: 0; display: grid; place-items: center; color: #E6C98A; font-size: 44px; font-weight: 900; }
+.home-articles .am-b { display: grid; gap: 3px; min-width: 0; }
+.home-articles .am-kick { color: #B98E48; font-size: 12px; font-weight: 800; }
+.home-articles .am-t { color: var(--dark, #063135); font-size: 15.5px; font-weight: 800; line-height: 1.5; transition: color .3s;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.home-articles .am-item a:hover .am-t { color: #0C7F89; }
+.home-articles .am-by { display: flex; align-items: center; gap: 7px; color: #6c6a65; font-size: 12.5px; font-weight: 700; }
+.home-articles .am-by img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1.5px #E8DDC6; }
+.home-articles .am-go { color: #B98E48; font-size: 16px; opacity: 0; transform: translateX(6px); transition: opacity .3s, transform .35s var(--t-ease); }
+.home-articles .am-item a:hover .am-go, .home-articles .am-item a:focus-visible .am-go { opacity: 1; transform: none; }
+
+/* ظهور متتابع للقائمة */
+@media (prefers-reduced-motion: no-preference) {
+  .home-articles .am-item { animation: am-in .7s var(--t-ease) both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+}
+@keyframes am-in { from { opacity: 0; transform: translateY(16px); } }
+
+@media (max-width: 1099px) {
+  .home-articles .am-list { grid-auto-rows: auto; }
+}
+@media (max-width: 699px) {
+  .home-articles .am-head { margin-bottom: 14px; gap: 10px; }
+  .home-articles .am-tag { display: none; }
+  .home-articles .am-all { height: 34px; padding: 0 13px; font-size: 12.5px; }
+  .home-articles .am-list { border-radius: 18px; }
+  .home-articles .am-item a { grid-template-columns: 84px minmax(0, 1fr); gap: 12px; padding: 11px 12px; }
+  .home-articles .am-th { width: 84px; border-radius: 12px; }
+  .home-articles .am-go { display: none; }
+  .home-articles .am-t { font-size: 14px; }
+  .home-articles .am-kick { font-size: 11px; }
+  .home-articles .am-by { font-size: 11.5px; }
+}
+
+/* ===== ملهمون: ارتفاع أقل (فراغ أقل فوق القسم وتحته، وبطاقات أصغر قليلًا) ===== */
+@media (min-width: 1100px) {
+  .home .home-inspiring { padding-top: 46px; padding-bottom: 38px; }
+  .home .home-inspiring .inspiring-heading { margin-bottom: 18px; }
+  .home-inspiring .t-deck { height: 340px; margin-top: 0; }
+  .home-inspiring .t-pc { top: 12px; width: 250px; margin-left: -125px; }
+  .home-inspiring .t-pc .nm { margin-top: 12px; }
+  .home-inspiring .t-deck.in .t-pc { transform: translateX(calc((var(--c) - var(--i)) * 276px)) rotate(calc((var(--i) - var(--c)) * 1.6deg)) translateY(calc((var(--i) - var(--c)) * (var(--i) - var(--c)) * 8px)); }
+  .home-inspiring .t-deck.in .t-pc:hover { transform: translateX(calc((var(--c) - var(--i)) * 276px)) translateY(-12px) rotate(0deg); }
+}
+@media (max-width: 1099px) {
+  .home .home-inspiring { padding-top: 26px; padding-bottom: 22px; }
+  .home-inspiring .t-deck { padding-bottom: 12px; }
+  .home-inspiring .t-deck .t-pc, .home-inspiring .t-deck.in .t-pc, .home-inspiring .t-deck.in .t-pc:hover { flex-basis: 215px; }
+}
