@@ -34,6 +34,7 @@ class SectionSettings
         'home.hero' => ['title' => 'اسم العرض (لقارئات الشاشة)'],
         'home.achievers' => ['title' => 'اسم القسم (لقارئات الشاشة)', 'more_label' => 'نص الرابط'],
         'home.latest' => ['title' => 'العنوان', 'more_label' => 'نص الزر'],
+        'home.stats' => ['eyebrow' => 'العنوان الصغير', 'title' => 'العنوان (آخر كلمة بالذهبي)', 'lead' => 'النص تحت العنوان'],
         'home.spotlight' => ['title' => 'العنوان الصغير'],
         'home.awards' => ['title' => 'العنوان', 'lead' => 'النص تحت العنوان'],
         'home.inspiring' => ['title' => 'العنوان', 'lead' => 'النص تحت العنوان'],

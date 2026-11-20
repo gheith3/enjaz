@@ -248,7 +248,7 @@ return [
         'slider' => 'carousel', 'slide' => 'slide', 'leaders' => 'Words of the leadership', 'words_of' => 'Words of :name',
         'achievers' => 'Achievers', 'achievers_photos' => 'Achievers photos', 'prev_achiever' => 'Previous', 'next_achiever' => 'Next',
         'open_page' => 'Open the page of :name', 'more_achievers' => 'More achievers',
-        'stats' => 'Site statistics', 'stat_achievers' => 'Achievers', 'stat_achievements' => 'Achievements', 'stat_fields' => 'Fields',
+        'stats' => 'Site statistics', 'stats_eyebrow' => 'By the numbers', 'stats_title' => 'Numbers that make us proud', 'stats_lead' => 'Behind every number is a young Omani who made a difference', 'stat_achievers' => 'Achievers', 'stat_achievements' => 'Achievements', 'stat_fields' => 'Fields',
         'latest' => 'Latest achievements', 'discover' => 'Discover more', 'discover_about' => 'Discover more about :title', 'more_achievements' => 'More achievements',
         'spotlight' => 'Faces of Oman', 'read_about' => 'Read about the achievement',
         'awards' => 'National awards', 'discover_award' => 'Discover the award',

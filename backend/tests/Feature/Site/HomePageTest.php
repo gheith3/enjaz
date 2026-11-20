@@ -42,7 +42,7 @@ class HomePageTest extends TestCase
 
         $this->get('/')->assertOk()
             ->assertSee('إن الشباب هم ثروة الأمم')->assertSee('منجز الشريط')->assertSee('جائزة مان بوكر')->assertDontSee('إنجاز طويل')
-            ->assertSee('data-n="221"', false)->assertSee('للعمل التطوعي')->assertSee('جائزة السلطان قابوس')->assertSee('«تطوعي حياة»')
+            ->assertSee('data-n="221"', false)->assertSee('<h2 id="hs-title">أرقامٌ تصنع <em>الفخر</em></h2>', false)->assertSee('للعمل التطوعي')->assertSee('جائزة السلطان قابوس')->assertSee('«تطوعي حياة»')
             ->assertSee('غلام خميس')->assertSee('href="https://example.com/ghulam"', false)->assertSee('sports-motion-ali', false)
             ->assertSee('title="وزارة الثقافة"', false);
     }

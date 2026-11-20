@@ -228,3 +228,10 @@
 })();
 
 })();
+
+/* الأرقام: ضوء يتبع المؤشر داخل كل بطاقة */
+(function () {
+  Array.prototype.forEach.call(document.querySelectorAll('.home-statistics .hs-i'), function (c) {
+    c.addEventListener('mousemove', function (e) { var r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
+  });
+})();

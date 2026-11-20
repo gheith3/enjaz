@@ -423,7 +423,7 @@ return [
         'slider' => 'عرض متتابع', 'slide' => 'شريحة', 'leaders' => 'كلمات القيادة', 'words_of' => 'كلمة :name',
         'achievers' => 'المنجزون', 'achievers_photos' => 'صور المنجزين', 'prev_achiever' => 'المنجز السابق', 'next_achiever' => 'المنجز التالي',
         'open_page' => 'فتح صفحة :name', 'more_achievers' => 'المزيد من المبدعين',
-        'stats' => 'إحصائيات الموقع', 'stat_achievers' => 'عدد المنجزين', 'stat_achievements' => 'عدد الإنجازات', 'stat_fields' => 'عدد المجالات',
+        'stats' => 'إحصائيات الموقع', 'stats_eyebrow' => 'بالأرقام', 'stats_title' => 'أرقامٌ تصنع الفخر', 'stats_lead' => 'خلف كل رقمٍ قصةُ شابٍّ عُمانيٍّ صنع الفرق', 'stat_achievers' => 'عدد المنجزين', 'stat_achievements' => 'عدد الإنجازات', 'stat_fields' => 'عدد المجالات',
         'latest' => 'أحدث الإنجازات', 'discover' => 'اكتشف المزيد', 'discover_about' => 'اكتشف المزيد عن :title', 'more_achievements' => 'المزيد من الإنجازات',
         'spotlight' => 'وجوه من عُمان', 'read_about' => 'اقرأ عن إنجازه',
         'awards' => 'جوائز وطنية', 'discover_award' => 'اكتشف الجائزة',
