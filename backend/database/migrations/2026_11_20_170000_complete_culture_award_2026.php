@@ -38,12 +38,8 @@ return new class extends Migration
                 'award_category_id' => $branches[$w['branch']] ?? null, 'name' => ['ar' => $w['name']], 'field' => ['ar' => $w['field']],
                 'work' => $w['work'] ? ['ar' => $w['work']] : null, 'why' => ['ar' => $w['why']], 'gender' => 'm', 'sort_order' => $names->count() + $i + 1,
             ]);
-            try {
-                if (is_file($file = database_path('data/awards/'.$w['photo'].'.webp'))) {
-                    $winner->addMedia($file)->preservingOriginal()->withCustomProperties(['alt' => $w['name']])->toMediaCollection('photo');
-                }
-            } catch (\Throwable $e) {
-                Log::warning('Culture award 2026: photo not attached for '.$w['name'].': '.$e->getMessage());
+            if (is_file($file = database_path('data/awards/'.$w['photo'].'.webp'))) {
+                $winner->addMedia($file)->preservingOriginal()->withCustomProperties(['alt' => $w['name']])->toMediaCollection('photo');
             }
         }
         $edition->forceFill(['is_current' => false, 'open_fields' => null, 'withheld' => $edition->withheld ?: ['culture']]);
