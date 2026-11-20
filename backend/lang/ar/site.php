@@ -10,6 +10,7 @@ return [
     'search_site' => 'ابحث في الموقع',
     'search' => 'بحث',
     'search_and_menu' => 'البحث والقائمة الكاملة',
+    'share_achievement' => 'شاركنا إنجازك',
     'back_to' => 'العودة إلى :section',
     'site_links' => 'روابط الموقع',
     'social_accounts' => 'مواقع التواصل',

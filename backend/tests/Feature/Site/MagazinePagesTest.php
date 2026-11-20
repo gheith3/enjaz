@@ -34,7 +34,9 @@ class MagazinePagesTest extends TestCase
 
         $this->get('/magazine')->assertOk()->assertSee('العدد ١٢')->assertSee('نوفمبر ٢٠٢٦')->assertSee('أقلام شابة')
             ->assertSee('ما الذي يبقى')->assertSee('مقال العدد')->assertSee('اقتباس العدد هنا')->assertSee('لا تختصروا الحكاية')
-            ->assertSee('بدر العلوي')->assertSee('مقال واحد')->assertDontSee('مقال مسودة');
+            ->assertSee('بدر العلوي')->assertSee('مقال واحد')->assertDontSee('مقال مسودة')
+            // The hero covers wall is in the HTML from the start (no flash of the old hero art before js).
+            ->assertSee('class="mag-hero-art aw-on"', false)->assertSee('class="aw-tile', false)->assertDontSee('mag-hero-note', false);
     }
 
     public function test_magazine_list_filters_by_tab_and_search(): void

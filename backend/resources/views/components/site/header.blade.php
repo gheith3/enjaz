@@ -21,6 +21,8 @@
     @endforeach
   </ul></nav>
   <button type="button" class="dsearch" aria-label="{{ __('site.search_and_menu') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+  {{-- «شاركنا إنجازك» في أقصى يسار الشريط (كل الصفحات؛ css polish-global) --}}
+  <a class="t-share" href="{{ url('/contact') }}">{{ __('site.share_achievement') }}</a>
   @endif
   @if ($variant === 'about')
   <button class="icon-btn" type="button" aria-label="{{ __('site.open_menu') }}" aria-expanded="false" aria-controls="menu" data-menu-open>

@@ -67,3 +67,9 @@ import './sections/design/about-journey-desktop.js';
 
 import './sections/profile-library.js';
 import './sections/achievement-sidebar.js';
+// Approved 2026-11 polish (each runs only on its page).
+import './sections/polish/home.js';
+import './sections/polish/achievements.js';
+import './sections/polish/achievers.js';
+import './sections/polish/inspiring.js';
+import './sections/polish/awards.js';

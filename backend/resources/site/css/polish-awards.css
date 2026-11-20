@@ -1,0 +1,80 @@
+/* جوائز السلطان قابوس — لمسات فوق التصميم الحالي، دون تغيير التخطيط */
+:root { --t-gold: #E6C98A; --t-gold-l: #FFF1CC; --t-gold-d: #B98E48; --t-ink: #063135; --t-ease: cubic-bezier(.22, 1, .36, 1); }
+@property --t-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+
+/* ===== عام ===== */
+.t-progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 9999; pointer-events: none; }
+.t-progress b { position: absolute; inset: 0 0 0 auto; width: calc(var(--p, 0) * 100%); background: linear-gradient(270deg, var(--t-gold-d), var(--t-gold) 60%, var(--t-gold-l)); }
+.t-progress b::after { content: ""; position: absolute; left: -4px; top: -3px; width: 8px; height: 8px; transform: rotate(45deg); background: var(--t-gold-l); box-shadow: 0 0 10px 2px rgba(255,241,204,.7); opacity: var(--show, 0); }
+.site-header { transition: box-shadow .4s; }
+.site-header.t-scrolled { box-shadow: 0 12px 30px -20px rgba(6,49,53,.6), 0 1px 0 rgba(230,201,138,.35); }
+.t-top { position: fixed; left: 22px; bottom: 22px; z-index: 900; width: 54px; height: 54px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  background: radial-gradient(circle at 30% 25%, #0f7880, var(--t-ink)); color: var(--t-gold-l); display: grid; place-items: center; box-shadow: 0 16px 30px -12px rgba(6,49,53,.65);
+  opacity: 0; transform: translateY(18px) scale(.9); pointer-events: none; transition: opacity .4s, transform .6s var(--t-ease); }
+.t-top.on { opacity: 1; transform: none; pointer-events: auto; }
+.t-top svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.t-top circle { fill: none; stroke-width: 2; }
+.t-top .bg { stroke: rgba(255,255,255,.12); }
+.t-top .fg { stroke: var(--t-gold); stroke-linecap: round; stroke-dasharray: 151; stroke-dashoffset: calc(151 - 151 * var(--p, 0)); }
+.t-top i { font-style: normal; font-size: 18px; line-height: 1; }
+
+/* ===== الواجهة ===== */
+.aws-hero { position: relative; }
+.t-dust { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: screen; }
+/* أشعة ضوء ذهبية ناعمة خلف صورة السلطان قابوس */
+.t-rays { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; mix-blend-mode: screen; }
+.t-rays span { position: absolute; top: -30%; height: 160%; width: 12%; left: var(--l); transform: rotate(var(--rot)); filter: blur(20px); opacity: .8;
+  background: linear-gradient(180deg, rgba(255,241,204,.18), rgba(255,241,204,.05) 55%, transparent); animation: t-ray var(--d, 14s) ease-in-out infinite alternate; }
+@keyframes t-ray { from { translate: -30px 0; opacity: .35; } to { translate: 40px 0; opacity: .95; } }
+.aws-hero-portrait { translate: var(--hx, 0px) var(--hy, 0px); transition: translate 1.3s var(--t-ease); }
+.aws-hero-portrait img { filter: drop-shadow(0 30px 40px rgba(0,0,0,.35)); }
+.aws-words .aws-hero-inner { position: relative; z-index: 2; }
+/* المجالان: يظهران تباعًا ويضيئان عند المرور */
+.aws-hero-fields li { transition: transform .45s var(--t-ease), box-shadow .45s; }
+.aws-hero-fields li:hover { transform: translateY(-3px); box-shadow: 0 0 0 1px var(--t-gold), 0 12px 24px -12px rgba(0,0,0,.5); }
+.t-pop { animation: t-pop .8s var(--t-ease) both; animation-delay: var(--t-d, 0ms); }
+@keyframes t-pop { from { opacity: 0; transform: translateY(12px) scale(.92); } }
+/* «طيّب الله ثراه»: يظهر بلين بعد العنوان */
+.aws-hero-tribute { animation: t-fade 1.6s 1.4s ease both; }
+@keyframes t-fade { from { opacity: 0; letter-spacing: .6px; } }
+
+/* ===== بطاقتا الجائزتين ===== */
+.aws-list { perspective: 1400px; }
+.aws-card { transform-style: preserve-3d; transition: transform .7s var(--t-ease), box-shadow .7s; will-change: transform; }
+.aws-card.t-moving { transition: transform .1s linear, box-shadow .7s; }
+.aws-card:hover { box-shadow: 0 40px 70px -34px rgba(6,49,53,.75); }
+.aws-card.t-pre { opacity: 0; transform: translateY(40px) scale(.97); }
+.aws-card.t-show { transition: opacity 1.1s var(--t-ease), transform 1.1s var(--t-ease), box-shadow .7s; transition-delay: var(--t-d, 0ms); }
+/* إطار ذهبي دوّار عند المرور */
+.t-ring { position: absolute; inset: 0; z-index: 6; border-radius: inherit; pointer-events: none; padding: 1.5px; opacity: 0; transition: opacity .5s;
+  background: conic-gradient(from var(--t-a), transparent 0 60%, var(--t-gold-d) 70%, var(--t-gold-l) 78%, var(--t-gold) 84%, transparent 92%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: t-spin 5s linear infinite; }
+.aws-card:hover .t-ring { opacity: 1; }
+@keyframes t-spin { to { --t-a: 360deg; } }
+/* ضوء يتبع المؤشر */
+.t-spot { position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .45s;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(255,241,204,.2), transparent 65%); }
+.aws-card:hover .t-spot { opacity: 1; }
+/* الكأس يرتفع والهالة تتسع ويتوهج الأرضي */
+.aws-podium .aws-trophy { transition: translate .9s var(--t-ease), scale .9s var(--t-ease); }
+.aws-card:hover .aws-podium .aws-trophy { translate: 0 -8px; scale: 1.06; }
+.aws-halo { transition: scale 1s var(--t-ease), opacity .8s; }
+.aws-card:hover .aws-halo { scale: 1.35; opacity: 1; animation: t-halo 2.4s ease-in-out infinite; }
+@keyframes t-halo { 50% { opacity: .7; } }
+.aws-floor { transition: box-shadow .6s, width .6s var(--t-ease); }
+.aws-card:hover .aws-floor { box-shadow: 0 0 18px 2px rgba(255,228,170,.85); }
+/* شرارات تتطاير من الكأس */
+.t-spark { position: absolute; z-index: 5; width: 5px; height: 5px; border-radius: 50%; pointer-events: none; background: var(--t-gold-l);
+  box-shadow: 0 0 8px 2px rgba(255,236,190,.85); animation: t-spark 1.2s var(--t-ease) forwards; }
+@keyframes t-spark { from { opacity: 1; transform: translate(0, 0) scale(1); } to { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.3); } }
+/* «ادخل إلى الجائزة» */
+.aws-go { display: inline-block; transition: translate .4s var(--t-ease), box-shadow .4s, transform .4s var(--t-ease); translate: var(--bx, 0px) var(--by, 0px); }
+.aws-card:hover .aws-go { box-shadow: 0 14px 28px -12px rgba(185,142,72,.75); transform: translateZ(30px); }
+.aws-card .aws-txt b { transition: transform .6s var(--t-ease); }
+.aws-card:hover .aws-txt b { transform: translateZ(24px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .t-dust, .t-rays, .t-spark { display: none; }
+  .aws-card.t-pre { opacity: 1; transform: none; }
+  .t-ring, .aws-card:hover .aws-halo, .aws-hero-tribute, .t-pop { animation: none; }
+}

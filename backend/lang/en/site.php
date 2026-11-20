@@ -9,6 +9,7 @@ return [
     'search_site' => 'Search the site',
     'search' => 'Search',
     'search_and_menu' => 'Search and full menu',
+    'share_achievement' => 'Share an achievement',
     'back_to' => 'Back to :section',
     'site_links' => 'Site links',
     'social_accounts' => 'Social media',

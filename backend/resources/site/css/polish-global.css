@@ -1,0 +1,21 @@
+/* لمسات معتمدة (٢٠٢٦-١١): زر «شاركنا إنجازك» في أقصى يسار الشريط العلوي في كل الصفحات (الزر في components/site/header.blade.php) */
+:root { --t-gold: #E6C98A; --t-gold-l: #FFF1CC; --t-gold-d: #B98E48; --t-ink: #063135; --t-ease: cubic-bezier(.22, 1, .36, 1); }
+/* ===== زر «شاركنا إنجازك» في أقصى يسار الشريط (نموذج ١) ===== */
+/* زر صغير أنيق بلا أيقونة، تعبره لمعة عند المرور، في أقصى اليسار */
+.t-share { position: relative; overflow: hidden; flex: none; display: inline-flex; align-items: center; height: 34px; padding: 0 14px; order: 99;
+  border-radius: 99px; white-space: nowrap; font-size: 12.5px; font-weight: 800; color: var(--t-ink); text-decoration: none;
+  background: linear-gradient(135deg, var(--t-gold-l), var(--t-gold) 50%, #C6A15A);
+  box-shadow: 0 8px 20px -10px rgba(198,161,90,.7), inset 0 1px 0 rgba(255,255,255,.6); transition: transform .3s var(--t-ease), box-shadow .3s; }
+.t-share::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; right: 130%; transform: skewX(-20deg); background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); }
+.t-share:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -10px rgba(198,161,90,.85), inset 0 1px 0 rgba(255,255,255,.6); }
+.t-share:hover::after { right: -60%; transition: right .8s var(--t-ease); }
+/* الشريط بكل عناصره (ومنها «من نحن» و«تواصل معنا»): مسافات أدق ليتسع الزر دون ضغط، ومسافة بعد الشعار */
+.site-header:has(.t-share) { gap: 14px; }
+.site-header .dsearch { flex: none; }
+.site-header:has(.t-share) .brand { margin-inline-end: 6px; }
+.site-header:has(.t-share) .dnav a { padding-inline: 7px; }
+.site-header:has(.t-share) .dnav a:hover::after, .site-header:has(.t-share) .dnav a[aria-current=page]::after { left: 7px; right: 7px; }
+@media (max-width: 1500px) { .site-header:has(.t-share) .dnav a { padding-inline: 6px; font-size: 13px; } }
+@media (max-width: 1279px) { .t-share { display: none; } }
+
+@media (max-width: 1279px) { .site-header .t-share { display: none; } }
