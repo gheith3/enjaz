@@ -589,3 +589,43 @@ html.t-intro-on .site-header *, html.t-intro-on .home-achievers * { animation-pl
   .home-inspiring .t-deck { padding-bottom: 12px; }
   .home-inspiring .t-deck .t-pc, .home-inspiring .t-deck.in .t-pc, .home-inspiring .t-deck.in .t-pc:hover { flex-basis: 215px; }
 }
+
+/* ===== ملهمون: لوحة الاسم تحت كل غلاف (لا تغطي الاسم المطبوع على الغلاف) — زجاجية، فيها المجال بالذهبي والاسم، وسهم يتلوّن عند المرور ===== */
+.home-inspiring .t-pc .nm { position: relative; z-index: 4; margin: 12px 4px 0; padding: 9px 10px 9px 14px; gap: 10px; border-radius: 18px; overflow: hidden;
+  background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(10px) saturate(1.2); backdrop-filter: blur(10px) saturate(1.2);
+  box-shadow: 0 0 0 1px rgba(232,221,198,.95), 0 16px 30px -16px rgba(6,49,53,.5);
+  transform: translateY(10px); transition: opacity .6s .5s, transform .8s .5s var(--t-ease), box-shadow .4s; }
+.home-inspiring .t-deck.in .t-pc .nm { transform: none; }
+/* خط ذهبي على حافة البداية يطول عند المرور */
+.home-inspiring .t-pc .nm::before { content: ""; position: absolute; inset-block: 12px; inset-inline-start: 0; width: 3px; border-radius: 3px;
+  background: linear-gradient(180deg, #F3DDA6, #C9A15C); transform: scaleY(.45); transition: transform .5s var(--t-ease); }
+.home-inspiring .t-pc:hover .nm::before, .home-inspiring .t-pc:focus-visible .nm::before { transform: scaleY(1); }
+/* لمعة تعبر اللوحة عند المرور */
+.home-inspiring .t-pc .nm::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; right: 130%; transform: skewX(-20deg); pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,241,204,.55), transparent); }
+.home-inspiring .t-pc:hover .nm::after { right: -60%; transition: right .9s var(--t-ease); }
+
+.home-inspiring .t-pc .nm .nm-tx { display: grid; gap: 1px; min-width: 0; padding: 0; background: none; box-shadow: none; border-radius: 0; font-size: inherit; }
+.home-inspiring .t-pc .nm .nm-f { display: inline-flex; align-items: center; gap: 6px; padding: 0; background: none; box-shadow: none; border-radius: 0;
+  color: #B98E48; font-size: 12px; font-weight: 800; }
+.home-inspiring .t-pc .nm .nm-f::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, #F3DDA6, #C9A15C); box-shadow: 0 0 0 3px rgba(230,201,138,.2); }
+.home-inspiring .t-pc .nm b { font-size: 17px; font-weight: 900; line-height: 1.35; color: var(--t-ink, #063135); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .3s; }
+.home-inspiring .t-pc:hover .nm b { color: #0A5359; }
+.home-inspiring .t-pc .nm .nm-go { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-style: normal; font-size: 15px; font-weight: 800;
+  color: #0A5359; box-shadow: inset 0 0 0 1px #E8DDC6; background: #fff;
+  transition: background .35s, color .35s, box-shadow .35s, transform .4s var(--t-ease); }
+.home-inspiring .t-pc:hover .nm .nm-go, .home-inspiring .t-pc:focus-visible .nm .nm-go { color: #1e1505; background: linear-gradient(135deg, #c9a053, #f7e7b4 50%, #d7b266);
+  box-shadow: 0 8px 16px -8px rgba(185,142,72,.8); transform: translateX(-3px); }
+.home-inspiring .t-pc:hover .nm { box-shadow: 0 0 0 1px rgba(230,201,138,.9), 0 20px 34px -16px rgba(6,49,53,.55); }
+
+@media (max-width: 1080px) {
+  .home-inspiring .t-pc .nm { margin: 10px 0 0; padding: 8px 8px 8px 12px; border-radius: 16px; transform: none; }
+  .home-inspiring .t-pc .nm b { font-size: 15.5px; }
+  .home-inspiring .t-pc .nm .nm-f { font-size: 11px; }
+  .home-inspiring .t-pc .nm .nm-go { width: 30px; height: 30px; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-inspiring .t-pc .nm { transform: none; }
+  .home-inspiring .t-pc .nm::after { display: none; }
+}
+@media (min-width: 1100px) { .home-inspiring .t-deck { height: 362px; } }

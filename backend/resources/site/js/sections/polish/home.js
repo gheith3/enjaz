@@ -126,7 +126,7 @@
     deck.innerHTML = covers.map(function (f, i) {
       var img = $('img', f), name = ($('figcaption h3', f) || {}).textContent || '', field = ($('figcaption span', f) || {}).textContent || '';
       return '<a class="t-pc" style="--i:' + i + ';--c:' + c + '" href="https://injazat.om/inspiring"><div class="cv"><img src="' + img.getAttribute('src') + '" alt="' + (img.getAttribute('alt') || '') + '" loading="lazy"></div>' +
-        '<div class="nm"><b>' + name + '</b><span>' + field + '</span></div></a>';
+        '<div class="nm"><span class="nm-tx"><span class="nm-f">' + field + '</span><b>' + name + '</b></span><i class="nm-go" aria-hidden="true">←</i></div></a>';
     }).join('');
     $('.inspiring-covers', insp).parentNode.insertBefore(deck, $('.inspiring-covers', insp));
     insp.classList.add('t-fan');
