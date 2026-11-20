@@ -4,6 +4,8 @@
         ->orderByDesc('achieved_at')->orderBy('sort_order')->get()->groupBy(fn ($a) => $a->home_slot ?: 'row');
     $feature = $items->get('feature', collect())->first();
     $cards = $items->get('card', collect())->take(2);
+    // The pair always shows two cards: when fewer achievements are marked «بطاقة», the latest inventions of the lab fill it.
+    $fill = $cards->count() < 2 ? \App\Models\LabItem::query()->listed()->ofKind('invention')->with('media')->take(2 - $cards->count())->get() : collect();
     $rows = $items->get('row', collect())->take(2);
     $title = fn ($a) => $a->home_title ?: $a->title;
     $img = function ($a, $conv = 'large') {
@@ -24,11 +26,14 @@
         <span class="latest-feature-content"><strong>{{ $title($feature) }}</strong><span class="latest-action">{{ $more }} <span aria-hidden="true">←</span></span></span>
       </a>
     @endif
-    @if ($cards->isNotEmpty())
+    @if ($cards->isNotEmpty() || $fill->isNotEmpty())
       <div class="latest-pair">
         @foreach ($cards as $a)
           @php $i = $img($a, 'card'); @endphp
           <a class="latest-card" href="{{ $a->url() }}">@if ($i)<img src="{{ $i['src'] }}" alt="{{ $i['alt'] }}" loading="lazy" @if ($i['pos']) style="object-position:{{ $i['pos'] }}" @endif>@endif<span class="latest-card-content"><strong>{{ $title($a) }}</strong><span class="latest-action">{{ $more }} <span aria-hidden="true">←</span></span></span></a>
+        @endforeach
+        @foreach ($fill as $x)
+          <a class="latest-card latest-card-restored" href="{{ $x->url() }}">@if ($c = $x->imageUrl('cover', 'card'))<img src="{{ $c }}" alt="{{ $x->cardTitle() }}" loading="lazy">@endif<span class="latest-card-content"><strong>{{ $x->cardTitle() }}</strong><span class="latest-action">{{ $more }} <span aria-hidden="true">←</span></span></span></a>
         @endforeach
       </div>
     @endif
