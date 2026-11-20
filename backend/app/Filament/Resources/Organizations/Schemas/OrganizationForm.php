@@ -10,6 +10,7 @@ use App\Models\OrganizationType;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
@@ -61,6 +62,20 @@ class OrganizationForm
                     Repeater::make('focus_areas')->label('مجالات العمل (وسوم تحت الاسم)')->defaultItems(0)->addActionLabel('إضافة مجال')
                         ->simple(TextInput::make('ar')->label('المجال')->required())
                         ->visible(fn (Get $get) => self::template($get) === 'institution'),
+                    // «المؤسسة في سطور»: vision and mission cards, work priorities and a note above the successive heads.
+                    Section::make('الرؤية والرسالة وأولويات العمل («المؤسسة في سطور»)')->collapsible()->collapsed()
+                        ->visible(fn (Get $get) => self::template($get) === 'institution')->schema([
+                            TextInput::make('details.founded_label')->label('عنوان السنة في بطاقة المؤسسة بدل «سنة التأسيس» (مثل: المسمى الحالي)'),
+                            Repeater::make('details.direction')->label('الرؤية والرسالة')->defaultItems(0)->addActionLabel('إضافة بطاقة')->columns(2)
+                                ->schema([
+                                    TextInput::make('label')->label('العنوان الصغير (مثل: رؤية الوزارة)')->required(),
+                                    TextInput::make('title')->label('العنوان')->required(),
+                                    Textarea::make('text')->label('النص')->rows(2)->columnSpanFull(),
+                                ]),
+                            Repeater::make('details.priorities')->label('أولويات العمل')->defaultItems(0)->addActionLabel('إضافة أولوية')
+                                ->simple(TextInput::make('text')->label('الأولوية')->required()),
+                            Textarea::make('details.heads_note')->label('ملاحظة تحت «من تعاقبوا على قيادتها»')->rows(2),
+                        ]),
                     Repeater::make('memberships')->label('العضويات الدولية')->defaultItems(0)->addActionLabel('إضافة عضوية')->columns(2)
                         ->schema([Translatable::text('name', 'الجهة'), TextInput::make('year')->label('السنة')->numeric()])
                         ->visible(fn (Get $get) => self::template($get) === 'federation'),
@@ -106,6 +121,8 @@ class OrganizationForm
                         ]),
                         Toggle::make('is_published')->label('ظاهرة')->default(true),
                         MediaSlot::make('photo', 'صورة صاحب الكلمة (PNG مفرّغ)', focal: false),
+                        Select::make('photo_fit')->label('حجم الصورة في النافذة')->placeholder('تلقائي')
+                            ->options(['wide' => 'مفرّغة مكبّرة تملأ النافذة', 'tall' => 'مفرّغة بطول كامل (نافذة أعلى)']),
                     ]),
                 ]),
             ]),

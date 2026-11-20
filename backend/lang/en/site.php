@@ -89,7 +89,7 @@ return [
         'milestones' => 'Milestones', 'gallery' => 'Photos and videos', 'others' => 'Other organizations', 'logo_of' => 'Logo of :name', 'read_less' => 'Show less',
         'back_to' => 'Back to :name', 'all_count' => 'All achievements (:n)',
         'story' => 'At a glance', 'path' => 'From its beginnings to today', 'heads' => 'Its successive heads',
-        'current_head' => 'current', 'founded_in' => 'founded in :year', 'decree' => 'Decree :n',
+        'current_head' => 'current', 'priorities' => 'Work priorities', 'founded_in' => 'founded in :year', 'decree' => 'Decree :n',
     ],
     'university' => [
         'kind_uni' => 'the university', 'kind_college' => 'the college', 'sector_uni' => ':sector university', 'sector_college' => ':sector college',

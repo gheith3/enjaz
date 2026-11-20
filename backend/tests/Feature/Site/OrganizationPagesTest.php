@@ -127,6 +127,23 @@ class OrganizationPagesTest extends TestCase
             ->assertSee('خبر منشور')->assertSee('تكريم الوزارة للشباب')->assertSee('ذهبية المنتسب');
     }
 
+    public function test_institution_story_shows_vision_priorities_decrees_and_the_word_photo_fit(): void
+    {
+        $ministry = Organization::factory()->create(['organization_type_id' => $this->gov->id, 'name' => ['ar' => 'وزارة التراث والسياحة'], 'founded' => 2020,
+            'details' => ['founded_label' => 'المسمى الحالي', 'direction' => [['label' => 'رؤية الوزارة', 'title' => 'تراثٌ مصان', 'text' => 'نص الرؤية']],
+                'priorities' => ['صون التراث'], 'heads_note' => 'تتزامن بعض الفترات']]);
+        $ministry->milestones()->create(['year' => '2002', 'title' => ['ar' => 'وزارة التراث والثقافة'], 'decree' => 'مرسوما ١٠ و١١/٢٠٠٢', 'sort_order' => 0]);
+        $ministry->leaders()->create(['kind' => 'president', 'name' => ['ar' => 'محسن الشيخ'], 'from_year' => 2011, 'to_year' => 2011,
+            'period' => ['ar' => '٢٦ فبراير – ٧ مارس ٢٠١١'], 'note' => ['ar' => 'مرسوم ١٣/٢٠١١'], 'note_url' => 'https://qanoon.om/p/2011/rd2011013/']);
+        $ministry->letter()->create(['name' => ['ar' => 'الوزير'], 'body' => ['ar' => 'كلمة الوزير'], 'photo_fit' => 'tall', 'is_published' => true]);
+
+        $this->get($ministry->url())->assertOk()
+            ->assertSee('المسمى الحالي')->assertDontSee('تأسست عام')
+            ->assertSee('class="op-direction"', false)->assertSee('تراثٌ مصان')->assertSee('أولويات العمل')->assertSee('صون التراث')
+            ->assertSee('مرسوما ١٠ و١١/٢٠٠٢')->assertSee('تتزامن بعض الفترات')->assertSee('٢٦ فبراير – ٧ مارس ٢٠١١')
+            ->assertSee('href="https://qanoon.om/p/2011/rd2011013/"', false)->assertSee('data-fit="tall"', false)->assertSee('كلمة الوزير');
+    }
+
     public function test_institution_without_achievements_invites_to_share_one_and_uses_a_crest_without_logo(): void
     {
         $army = Organization::factory()->create(['organization_type_id' => $this->gov->id, 'name' => ['ar' => 'الجيش']]);

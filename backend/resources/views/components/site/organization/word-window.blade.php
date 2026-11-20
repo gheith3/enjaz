@@ -23,7 +23,7 @@
     $arch = 'M438 598 V230 C438 124 350 42 220 6 C90 42 2 124 2 230 V598';
     $arrow = fn (string $d) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'.$d.'"/></svg>';
 @endphp
-<section class="ww" aria-labelledby="ww-name" data-word-window>
+<section class="ww" aria-labelledby="ww-name" data-word-window @if ($letter->photo_fit) data-fit="{{ $letter->photo_fit }}" @endif>
   <svg class="ww-defs" width="0" height="0" aria-hidden="true" focusable="false">
     <defs>
       <clipPath id="ww-arch" clipPathUnits="objectBoundingBox"><path d="M.9636 1 V.3933 C.9636 .2333 .7818 .1033 .5 .0433 C.2182 .1033 .0364 .2333 .0364 .3933 V1 Z"/></clipPath>
@@ -40,7 +40,7 @@
           @if ($photo)<div class="ww-photo"><img src="{{ $photo }}" alt="" loading="lazy"></div>@endif
           <div class="ww-sweep"></div>
         </div>
-        <svg class="ww-frame" viewBox="0 0 440 600" aria-hidden="true" focusable="false">
+        <svg class="ww-frame" viewBox="0 0 440 600" @if ($letter->photo_fit === 'tall') preserveAspectRatio="none" @endif aria-hidden="true" focusable="false">
           <path class="ww-line-out" pathLength="1" d="{{ $arch }}"/>
           <path class="ww-line-in" pathLength="1" d="M424 598 V236 C424 140 344 62 220 26 C96 62 16 140 16 236 V598"/>
           @foreach (range(1, 3) as $i)<path class="ww-trail" pathLength="1" d="{{ $arch }}"/>@endforeach

@@ -37,7 +37,7 @@ class Organization extends Model implements HasMedia
     protected $fillable = [
         'slug', 'organization_type_id', 'name', 'short_name', 'abbr', 'academic_group', 'sector', 'city', 'hq', 'sport',
         'founded', 'declared', 'formerly', 'tagline', 'about', 'website', 'color_primary', 'color_secondary', 'logo_ratio',
-        'focus_areas', 'memberships', 'rankings', 'ranking_label', 'ranking_highlights', 'ranking_note', 'gallery_intro',
+        'focus_areas', 'details', 'memberships', 'rankings', 'ranking_label', 'ranking_highlights', 'ranking_note', 'gallery_intro',
         'gallery_chapters', 'gallery_credit', 'is_featured', 'is_partner', 'is_published', 'published_at', 'sort_order',
     ];
 
@@ -47,7 +47,7 @@ class Organization extends Model implements HasMedia
     protected function casts(): array
     {
         return [
-            'founded' => 'integer', 'declared' => 'integer', 'logo_ratio' => 'float', 'is_featured' => 'boolean', 'is_partner' => 'boolean',
+            'details' => 'array', 'founded' => 'integer', 'declared' => 'integer', 'logo_ratio' => 'float', 'is_featured' => 'boolean', 'is_partner' => 'boolean',
             'focus_areas' => 'array', 'memberships' => 'array', 'rankings' => 'array', 'ranking_highlights' => 'array',
             'gallery_chapters' => 'array', 'gallery_credit' => 'array', 'sort_order' => 'integer',
         ];

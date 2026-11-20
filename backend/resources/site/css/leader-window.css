@@ -153,3 +153,9 @@
   .ww-window, .ww-tilt { width: 300px; }
   .ww-name { font-size: 36px; }
 }
+
+/* letters.photo_fit for a cut-out portrait: «wide» enlarges it to fill the arch, «tall» raises the arch for a longer figure. */
+.ww[data-fit] .ww-photo img { width: 100%; height: auto; transform: none; -webkit-mask-image: none; mask-image: none; }
+.ww[data-fit="wide"] .ww-photo { width: 130% !important; bottom: 0; }
+.ww[data-fit="tall"] .ww-tilt { aspect-ratio: 440 / 700; }
+.ww[data-fit="tall"] .ww-photo { top: auto; bottom: 0; width: 110%; }

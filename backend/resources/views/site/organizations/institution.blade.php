@@ -16,6 +16,11 @@
     $en = $en !== '' && $en !== $o->name ? $en : null;
     $areas = $o->focusAreaLabels();
     $leader = $o->leaders->firstWhere('is_current', true);
+    // organizations.details: the card's label for the year (e.g. «المسمى الحالي»), vision/mission cards, priorities, heads note.
+    $details = $o->details ?? [];
+    $foundedLabel = filled($details['founded_label'] ?? null) ? $details['founded_label'] : null;
+    $direction = array_values(array_filter($details['direction'] ?? [], fn ($c) => filled($c['title'] ?? null)));
+    $priorities = array_values(array_filter($details['priorities'] ?? [], 'filled'));
     $place = $o->hq ?: $o->city;
     $host = $o->website ? preg_replace('/^www\./', '', (string) parse_url($o->website, PHP_URL_HOST)) : null;
     $achievementCount = $feed->where('kind', 'achievement')->count();
@@ -26,7 +31,7 @@
         ['label' => __('site.organizations.c_name'), 'value' => $o->name],
         $en ? ['label' => __('site.organizations.c_name_en'), 'value' => $en, 'ltr' => true] : null,
         $o->type ? ['label' => __('site.organizations.f_sector'), 'value' => $o->type->label] : null,
-        $o->founded ? ['label' => __('site.organizations.f_founded'), 'value' => $d($o->founded)] : null,
+        $o->founded ? ['label' => $foundedLabel ?? __('site.organizations.f_founded'), 'value' => $d($o->founded)] : null,
         $place ? ['label' => __('site.organizations.f_place'), 'value' => $place] : null,
         $leader ? ['label' => __('site.organizations.c_leader'), 'value' => collect([$leader->title, $leader->name])->filter()->implode(' '), 'note' => $leader->role] : null,
         $areas ? ['label' => __('site.organizations.c_areas'), 'value' => implode('، ', $areas)] : null,
@@ -35,7 +40,7 @@
     $hasAbout = $about || count($card) > 2;
     // «المؤسسة في سطور» (under the leader's word): its numbers, its milestones (names and decrees) and its successive heads.
     $heads = $o->leaders->where('kind', 'president')->sortBy(fn ($l) => [$l->from_year ?? 9999, $l->sort_order])->values();
-    $hasStory = $o->stats->isNotEmpty() || $o->milestones->isNotEmpty() || $heads->isNotEmpty();
+    $hasStory = $o->stats->isNotEmpty() || $direction || $priorities || $o->milestones->isNotEmpty() || $heads->isNotEmpty();
     $jump = array_filter([
         'op-about' => $hasAbout ? __('site.organizations.about_title') : null,
         'op-ach' => __('site.organizations.achievements'),
@@ -55,7 +60,7 @@
   <header @class(['op-head', 'has-cover' => $cover])>
     @if ($cover)<img class="op-cover" src="{{ $o->imageUrl('cover') }}" alt="" fetchpriority="high" style="object-position: {{ \App\Models\Organization::focal($cover) }}">@endif
     <span class="op-logo"><x-site.organization.emblem :organization="$o" :alt="__('site.organizations.logo_of', ['name' => $o->name])" :lazy="false" /></span>
-    @if ($o->type)<span class="op-type">{{ $o->type->label }}@if ($o->founded) – {{ __('site.organizations.founded_in', ['year' => $d($o->founded)]) }}@endif</span>@endif
+    @if ($o->type)<span class="op-type">{{ $o->type->label }}@if ($o->founded && ! $foundedLabel) – {{ __('site.organizations.founded_in', ['year' => $d($o->founded)]) }}@endif</span>@endif
     <h1>{{ $o->name }}</h1>
     @if ($en)<p class="op-en" dir="ltr" lang="en">{{ $en }}@if ($o->abbr) ({{ $o->abbr }})@endif</p>@endif
     @if ($o->tagline)<p class="op-line">{{ $o->tagline }}</p>@endif
@@ -129,6 +134,12 @@
             @foreach ($o->stats as $stat)<li style="--i: {{ $loop->index }}"><b>{{ $stat->value }}</b><span>{{ $stat->label }}</span></li>@endforeach
           </ul>
         @endif
+        @if ($direction)
+          <div class="op-direction">@foreach ($direction as $item)<article>@if (filled($item['label'] ?? null))<span>{{ $item['label'] }}</span>@endif<h3>{{ $item['title'] }}</h3>@if (filled($item['text'] ?? null))<p>{{ $item['text'] }}</p>@endif</article>@endforeach</div>
+        @endif
+        @if ($priorities)
+          <div class="op-goals"><h3>{{ __('site.organizations.priorities') }}</h3><ul>@foreach ($priorities as $priority)<li>{{ $priority }}</li>@endforeach</ul></div>
+        @endif
         @if ($o->milestones->isNotEmpty())
           <div class="op-path">
             <h3>{{ __('site.organizations.path') }}</h3>
@@ -138,7 +149,7 @@
                 <li @class(['is-now' => $loop->last]) style="--i: {{ $loop->index }}">
                   <span class="op-y">@if ($milestone->year){{ $d($milestone->year) }}@endif</span>
                   <div class="op-step"><b>{{ $milestone->title }}</b>
-                    @if ($decree)<span class="op-decree">{{ __('site.organizations.decree', ['n' => $decree[1]]) }}</span>@endif
+                    @if ($milestone->decree)<span class="op-decree">{{ $milestone->decree }}</span>@elseif ($decree)<span class="op-decree">{{ __('site.organizations.decree', ['n' => $decree[1]]) }}</span>@endif
                     @if ($milestone->text)<p>{{ $milestone->text }}</p>@endif @if ($milestone->place)<small>{{ $milestone->place }}</small>@endif</div>
                 </li>
               @endforeach
@@ -146,7 +157,7 @@
           </div>
         @endif
         @if ($heads->isNotEmpty())
-          <x-site.organization.heads-stage :heads="$heads" :title="__('site.organizations.heads')" />
+          <x-site.organization.heads-stage :heads="$heads" :title="__('site.organizations.heads')" :note="$details['heads_note'] ?? null" />
         @endif
       </div>
     </section>

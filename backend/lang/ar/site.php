@@ -200,7 +200,7 @@ return [
         'milestones' => 'محطات في مسيرتها', 'gallery' => 'صور ومقاطع', 'others' => 'مؤسسات أخرى', 'logo_of' => 'شعار :name', 'read_less' => 'إخفاء',
         'back_to' => 'العودة إلى :name', 'all_count' => 'كل الإنجازات (:n)',
         'story' => 'المؤسسة في سطور', 'path' => 'من النشأة إلى اليوم', 'heads' => 'من تعاقبوا على قيادتها',
-        'current_head' => 'الحالي', 'founded_in' => 'تأسست عام :year', 'decree' => 'مرسوم :n',
+        'current_head' => 'الحالي', 'priorities' => 'أولويات العمل', 'founded_in' => 'تأسست عام :year', 'decree' => 'مرسوم :n',
     ],
     'university' => [
         'kind_uni' => 'الجامعة',
