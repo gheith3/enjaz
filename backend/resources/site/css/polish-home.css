@@ -412,7 +412,7 @@ html.t-intro-on .site-header *, html.t-intro-on .home-achievers * { animation-pl
     font-size: 11px; line-height: 1.4; padding: 5px 9px 6px; margin-top: 8px; }
 }
 
-/* ===== الأرقام: عنوان تسويقي، وخريطة عُمان تُرسم وتضيء مدنها، وشعار المنصة علامةً مائية ===== */
+/* ===== الأرقام: عنوان تسويقي، وبطاقات ذهبية، وحافة يدور عليها الضوء ===== */
 @property --hs-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 
 .home-statistics .hs-head { max-width: 680px; margin: 0 auto 22px; text-align: center; }
@@ -433,23 +433,6 @@ html.t-intro-on .site-header *, html.t-intro-on .home-achievers * { animation-pl
 .hs-gold::before { padding: 2px; animation: hs-border 9s linear infinite;
   background: conic-gradient(from var(--hs-a), #7e5d24 0deg, #c9a053 50deg, #FFF6D8 85deg, #c9a053 120deg, #7e5d24 190deg, #b98e48 260deg, #f7e7b4 300deg, #7e5d24 360deg); }
 @keyframes hs-border { to { --hs-a: 360deg; } }
-
-/* الخلفية: خريطة عُمان (خطها يُرسم ثم تضيء المدن واحدة بعد الأخرى) وشعار «إنجازات شباب عُمان» */
-.hs-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; pointer-events: none; }
-/* عرض الخريطة من عرض الإطار، فتبقى دائمًا يسار رقم البطاقة الأولى ولا تمر نقاطها بين الخانات */
-.hs-map { position: absolute; left: -6px; top: 50%; width: calc(16.6% - 30px); height: auto; max-height: 86%; aspect-ratio: 77.83 / 100; transform: translateY(-50%); overflow: visible; }
-.hs-land { fill: rgba(230,201,138,.08); stroke: rgba(247,231,180,.5); stroke-width: .55; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0;
-  transition: stroke-dashoffset 2.6s cubic-bezier(.45,0,.2,1), fill-opacity 1.2s 1.8s; }
-.hs-city { transition: opacity .6s calc(1.7s + var(--i) * .13s); }
-.hs-city .glow { fill: rgba(255,241,204,.16); }
-.hs-city .dot { fill: #FFF1CC; }
-.hs-city .ping { fill: none; stroke: #FFE7AE; stroke-width: .3; opacity: 0; transform-box: fill-box; transform-origin: center;
-  animation: hs-ping 3.6s calc(2.4s + var(--i) * .33s) ease-out infinite; }
-@keyframes hs-ping { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(3.6); opacity: 0; } }
-.hs-logo { position: absolute; right: 2.5%; top: 50%; height: 118%; width: auto; transform: translateY(-50%); opacity: .08; filter: sepia(1) saturate(2.4) brightness(1.15); }
-/* قبل الظهور (فقط حين يعمل السكربت): الخريطة غير مرسومة والمدن مطفأة */
-.hs-gold:has(.hs-col):not(.go) .hs-land { stroke-dashoffset: 1; fill-opacity: 0; }
-.hs-gold:has(.hs-col):not(.go) .hs-city { opacity: 0; }
 
 /* كل رقم في بطاقة زجاجية بحافة ذهبية خفيفة */
 .hs-i { position: relative; isolation: isolate; gap: 6px; padding: 18px 12px; border-radius: 20px;
@@ -502,13 +485,10 @@ html.t-intro-on .site-header *, html.t-intro-on .home-achievers * { animation-pl
   .hs-l { font-size: 11px; }
   .hs-l::after { margin-top: 5px; }
   .hs-gold.go .hs-l::after { width: 30px; }
-  .hs-map { display: none; }
-  .hs-logo { height: 100%; right: 1%; opacity: .06; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hs-gold::before, .hs-i::before, .hs-city .ping, .home-statistics .hs-head h2 em { animation: none; }
-  .hs-gold:has(.hs-col):not(.go) .hs-i, .hs-gold:has(.hs-col):not(.go) .hs-city { opacity: 1; transform: none; }
-  .hs-gold:has(.hs-col):not(.go) .hs-land { stroke-dashoffset: 0; fill-opacity: 1; }
+  .hs-gold::before, .hs-i::before, .home-statistics .hs-head h2 em { animation: none; }
+  .hs-gold:has(.hs-col):not(.go) .hs-i { opacity: 1; transform: none; }
 }
 
 /* الشارة المميِّزة (مثل «الرائدة») بجانب المجال، بذهب ممتلئ */
