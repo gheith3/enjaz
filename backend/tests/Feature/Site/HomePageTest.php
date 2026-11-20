@@ -6,6 +6,7 @@ use App\Models\Achievement;
 use App\Models\Achiever;
 use App\Models\Article;
 use App\Models\Award;
+use App\Models\LabItem;
 use App\Models\LeaderQuote;
 use App\Models\Organization;
 use App\Models\OrganizationType;
@@ -70,5 +71,19 @@ class HomePageTest extends TestCase
             ->assertDontSee('مقال حديث رقم 5')
             ->assertSee('<b>ليلى الرحبي</b><small>كاتبة رأي</small>', false)
             ->assertSee('class="am-all" href="'.route('magazine.index').'"', false);
+    }
+
+    public function test_the_science_section_shows_four_expanding_panels_with_medals(): void
+    {
+        foreach (range(1, 4) as $i) {
+            LabItem::factory()->create(['kind' => 'invention', 'title' => ['ar' => 'ابتكار رقم '.$i], 'who' => ['ar' => 'مبتكر '.$i], 'medal' => $i === 1 ? 'silver' : 'gold',
+                'happened_at' => now()->subMonths($i), 'published_at' => now()->subMonths($i)]);
+        }
+
+        $this->get('/')->assertOk()
+            ->assertSee('data-sx', false)
+            ->assertSee('class="sx-p is-on"', false)
+            ->assertSeeInOrder(['ابتكار رقم 4', 'ابتكار رقم 1', 'ابتكار رقم 2', 'ابتكار رقم 3'])
+            ->assertSee('class="sx-medal silver"', false)->assertSee('مبتكر 1');
     }
 }

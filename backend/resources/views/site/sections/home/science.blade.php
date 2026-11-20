@@ -1,49 +1,45 @@
-{{-- Design index.html .science-editorial: news marked «في الرئيسية» (one lead + two briefs) and the latest inventions of the
-     lab (three more briefs, desktop only as in the design). --}}
+{{-- Home science section: expanding panels (js/sections/polish/home.js). Items: news marked «في الرئيسية» (up to three), then the latest
+     inventions of the lab, four panels in all; the first is open. Without news, an older invention takes the first place as before. --}}
 @php
     $news = \App\Models\News::query()->published()->where('show_on_home', true)->with(['media', 'category'])
         ->orderByDesc('happened_at')->orderBy('sort_order')->take(3)->get();
     $lead = $news->first();
     $lab = \App\Models\LabItem::query()->listed()->ofKind('invention')->with('media')->take(3)->get();
-    $briefs = $news->slice(1)->map(fn ($n) => ['url' => $n->url(), 'tag' => $n->tag, 'title' => $n->title, 'img' => $n->imageUrl('cover', 'card'), 'alt' => \App\Models\News::alt($n->image('cover')), 'dk' => false])
-        ->concat($lab->map(fn ($x) => ['url' => $x->url(), 'tag' => __('site.homepage.innovations'), 'title' => $x->title, 'img' => $x->imageUrl('cover', 'card'), 'alt' => \App\Models\LabItem::alt($x->image('cover')), 'dk' => true]));
-    $category = $lead?->category;
-    // Without a news item for the lead, the next invention of the lab takes the lead place (the design's left feature).
     $labLead = $lead ? null : \App\Models\LabItem::query()->listed()->ofKind('invention')->with('media')->skip(3)->first() ?? $lab->first();
+    $fromNews = fn ($n) => ['url' => $n->url(), 'img' => $n->imageUrl('cover', 'large'), 'alt' => \App\Models\News::alt($n->image('cover')), 'field' => $n->tag,
+        'title' => $n->title, 'who' => $n->summary, 'medal' => null, 'medal_label' => '', 'event' => ''];
+    $fromLab = fn ($x) => ['url' => $x->url(), 'img' => $x->imageUrl('cover', 'large'), 'alt' => \App\Models\LabItem::alt($x->image('cover')) ?: $x->cardTitle(),
+        'field' => $x->field ?: __('site.homepage.innovations'), 'title' => $x->cardTitle(), 'who' => $x->who, 'medal' => $x->medal, 'medal_label' => $x->medalLabel(),
+        'event' => $x->event_label ?: $x->event];
+    $items = $news->map($fromNews);
+    if ($labLead) {
+        $items->prepend($fromLab($labLead));
+    }
+    $items = $items->concat($lab->reject(fn ($x) => $x->is($labLead))->map($fromLab))->take(4)->values();
+    $category = $lead?->category;
 @endphp
-@if ($lead || $labLead || $briefs->isNotEmpty())
-<section class="section wrap science-editorial" id="science" aria-labelledby="science-title" tabindex="-1">
-  <div class="science-heading">
-    <div class="sec-title"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt=""><h2 id="science-title">{{ $section->text('title', __('site.homepage.science')) }}</h2></div>
-    @if ($sub = $section->text('lead', __('site.homepage.science_lead')))<p class="science-subtitle">{{ $sub }}</p>@endif
-  </div>
-  <div class="science-editorial-layout">
-    @if ($lead)
-      <article class="science-lead">
-        <a href="{{ $lead->url() }}" class="science-lead-link">
-          <div class="science-lead-photo">@if ($c = $lead->image('cover'))<img src="{{ $lead->imageUrl('cover') }}" alt="{{ \App\Models\News::alt($c) }}" loading="lazy" decoding="async" width="1536" height="1024">@endif<span class="science-lead-label">{{ __('site.homepage.spotlight_label') }}</span></div>
-          <div class="science-lead-copy">@if ($lead->tag)<span class="science-story-category">{{ $lead->tag }}</span>@endif<h3>{{ $lead->title }}</h3>@if ($lead->summary)<p>{{ $lead->summary }}</p>@endif<span class="science-read">{{ __('site.homepage.read_story') }} <span aria-hidden="true">←</span></span></div>
-        </a>
-      </article>
-    @elseif ($labLead)
-      <article class="science-lead science-lead-restored">
-        <a href="{{ $labLead->url() }}" class="science-lead-link">
-          <div class="science-lead-photo">@if ($labLead->image('cover'))<img src="{{ $labLead->imageUrl('cover', 'card') }}" alt="{{ $labLead->cardTitle() }}" loading="lazy" decoding="async">@endif<span class="science-lead-label">{{ __('site.homepage.spotlight_label') }}</span></div>
-          <div class="science-lead-copy"><span class="science-story-category">{{ __('site.homepage.innovations') }}</span><h3>{{ $labLead->cardTitle() }}</h3>@if ($labLead->who)<p>{{ $labLead->who }}</p>@endif<span class="science-read">{{ __('site.homepage.read_story') }} <span aria-hidden="true">←</span></span></div>
-        </a>
-      </article>
-    @endif
-    <div class="science-briefs" aria-label="{{ __('site.homepage.science_more') }}">
-      @foreach ($briefs as $b)
-        <article @class(['science-brief', 'science-brief-dk' => $b['dk']])>
-          <a href="{{ $b['url'] }}" class="science-brief-link">
-            @if ($b['img'])<img src="{{ $b['img'] }}" alt="{{ $b['alt'] }}" loading="lazy" decoding="async">@endif
-            <div class="science-brief-copy">@if ($b['tag'])<span class="science-story-category">{{ $b['tag'] }}</span>@endif<h3>{{ $b['title'] }}</h3><span class="science-read">{{ __('site.homepage.read_story') }} <span aria-hidden="true">←</span></span></div>
-          </a>
-        </article>
-      @endforeach
+@if ($items->isNotEmpty())
+<section class="section wrap science-editorial sx" id="science" aria-labelledby="science-title" tabindex="-1">
+  <div class="sx-head">
+    <div class="sx-ttl">
+      <div class="sec-title"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt=""><h2 id="science-title">{{ $section->text('title', __('site.homepage.science')) }}</h2></div>
+      @if ($sub = $section->text('lead', __('site.homepage.science_lead')))<p class="science-subtitle">{{ $sub }}</p>@endif
     </div>
+    <a class="sx-more" href="{{ $section->setting('more_url') ?: ($category?->url() ?? route('lab.index')) }}">{{ $section->text('more_label', __('site.homepage.science_more_btn')) }} <span aria-hidden="true">←</span></a>
   </div>
-  <div class="science-bottom"><a class="btn-more" href="{{ $section->setting('more_url') ?: ($category?->url() ?? route('lab.index')) }}">{{ $section->text('more_label', __('site.homepage.science_more_btn')) }}</a></div>
+  <div class="sx-panels" data-sx>
+    @foreach ($items as $i => $it)
+      <a @class(['sx-p', 'is-on' => $i === 0]) href="{{ $it['url'] }}">
+        @if ($it['img'])<img src="{{ $it['img'] }}" alt="{{ $it['alt'] }}" loading="lazy" decoding="async">@endif
+        @if ($it['medal'] || $it['event'])<span class="sx-top">@if ($it['medal'])<span class="sx-medal {{ $it['medal'] }}"><i aria-hidden="true"></i>{{ $it['medal_label'] }}</span>@endif @if ($it['event'])<span class="sx-ev">{{ $it['event'] }}</span>@endif</span>@endif
+        <span class="sx-body">
+          @if ($it['field'])<span class="sx-f">{{ $it['field'] }}</span>@endif
+          <strong class="sx-t">{{ $it['title'] }}</strong>
+          @if ($it['who'])<span class="sx-who">{{ $it['who'] }}</span>@endif
+          <span class="sx-read">{{ __('site.homepage.read_story') }} <i aria-hidden="true">←</i></span>
+        </span>
+      </a>
+    @endforeach
+  </div>
 </section>
 @endif

@@ -235,3 +235,17 @@
     c.addEventListener('mousemove', function (e) { var r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
   });
 })();
+
+/* القسم العلمي: اللوحات المتمدّدة. بالمؤشر تُفتح اللوحة عند المرور، وباللمس تفتح أول لمسة والثانية تفتح الصفحة، وبلوحة المفاتيح تُفتح عند التركيز. */
+(function () {
+  var box = document.querySelector('[data-sx]');
+  if (!box) return;
+  var ps = Array.prototype.slice.call(box.querySelectorAll('.sx-p'));
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  var open = function (p) { ps.forEach(function (x) { x.classList.toggle('is-on', x === p); }); };
+  ps.forEach(function (p) {
+    p.addEventListener('mouseenter', function () { if (canHover.matches) open(p); });
+    p.addEventListener('focus', function () { open(p); });
+    p.addEventListener('click', function (e) { if (!p.classList.contains('is-on')) { e.preventDefault(); open(p); } });
+  });
+})();
