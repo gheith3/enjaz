@@ -39,6 +39,20 @@ class AchievementPagesTest extends TestCase
         return $achievement;
     }
 
+    public function test_hero_wall_shows_the_approved_achievers_portraits_with_their_focal_points(): void
+    {
+        foreach (['jokha-alharthi' => '62% 10%', 'ali-alhabsi' => '52% 12%', 'safiya-albahlani' => '40% 30%'] as $slug => $focal) {
+            Achiever::factory()->create(['slug' => $slug])
+                ->addMediaFromBase64('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=')
+                ->usingFileName($slug.'.png')->withCustomProperties(['focal' => $focal])->toMediaCollection('portrait');
+        }
+
+        $tiles = Livewire::test(AchievementsIndex::class, ['sitePage' => Page::forKey('achievements')])->instance()->heroTiles;
+
+        $this->assertSame(['62% 10%', '52% 12%', '40% 30%'], array_column($tiles, 'focal'));
+        $this->assertStringContainsString('jokha-alharthi', $tiles[0]['url']);
+    }
+
     public function test_list_shows_published_achievements_only(): void
     {
         $this->achievement(['title' => ['ar' => 'كأس الخليج']]);

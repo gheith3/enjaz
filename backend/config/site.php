@@ -107,7 +107,7 @@ return [
      */
     'styles' => [
         'achievements' => [
-            'before' => ['achievements-page', 'federations', 'achievements-hero', 'achievements-hero-intro'],
+            'before' => ['achievements-page', 'federations', 'achievements-hero', 'achievements-hero-intro', 'achievements-honor'],
             'after' => ['phone-port-achievements'],
         ],
         'achievers' => [

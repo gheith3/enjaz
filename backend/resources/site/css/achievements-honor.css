@@ -1,0 +1,18 @@
+/* «لوحة الشرف» on the achievements page (the approved design «صفحة الإنجازات - معتمد»): the card drops in from above
+   once the hero's intro has finished, then its photo settles and its lines rise one after another (js/sections/achievements-hero). */
+.ah2-tile img { object-fit: cover; }
+
+@media (prefers-reduced-motion: no-preference) {
+ .honor { clip-path: inset(0 -40px -40px); }
+ .honor-card.honor-pending { opacity: 0; transform: translateY(-100%) scale(.98); }
+ .honor-card.honor-visible { animation: honor-enter 1.35s cubic-bezier(.22,1,.36,1) both; }
+ .honor-visible .honor-img { animation: honor-photo 1.8s ease-out both; }
+ .honor-visible .honor-body > * { animation: honor-copy .8s ease both; }
+ .honor-visible .honor-kicker { animation-delay: .5s; }
+ .honor-visible .honor-title { animation-delay: .65s; }
+ .honor-visible .honor-meta { animation-delay: .8s; }
+ .honor-visible .honor-cta { animation-delay: .95s; }
+}
+@keyframes honor-enter { from {opacity:0;transform:translateY(-100%) scale(.98)} to {opacity:1;transform:none} }
+@keyframes honor-photo { from {transform:scale(1.08)} to {transform:scale(1)} }
+@keyframes honor-copy { from {opacity:0;transform:translateY(16px)} to {opacity:1;transform:none} }

@@ -7,9 +7,10 @@
         <div class="ah2-wall">
           @foreach (range(0, 4) as $row)
             <div class="ah2-row ah2-row{{ $row }}">
+              {{-- Two equal halves of 14 so the moving row loops without a jump. --}}
               @foreach (range(0, 27) as $i)
-                @php $tile = $tiles[($i + $row * 3) % count($tiles)]; @endphp
-                <span @class(['ah2-tile', 'is-gold' => $tile['gold']])><img src="{{ $tile['url'] }}" alt="" width="216" height="240" decoding="async"></span>
+                @php $tile = $tiles[($i % 14 + $row * 3) % count($tiles)]; @endphp
+                <span @class(['ah2-tile', 'is-gold' => $i % 14 % 5 === 1])><img src="{{ $tile['url'] }}" alt="" width="216" height="240" decoding="async" style="object-position:{{ $tile['focal'] }}"></span>
               @endforeach
             </div>
           @endforeach
@@ -31,8 +32,8 @@
 
   @if ($honor = $this->honor)
     @php $honorAchiever = $honor->primaryAchiever(); @endphp
-    <section class="wrap honor" aria-labelledby="honor-title">
-      <a class="honor-card" href="{{ $honor->url() }}">
+    <section class="wrap honor" aria-labelledby="honor-title" wire:ignore>
+      <a class="honor-card honor-pending" href="{{ $honor->url() }}">
         <img class="honor-img" src="{{ $honor->imageUrl('cover') }}" alt="{{ \App\Models\Achievement::alt($honor->image('cover'), $honor->title) }}" width="1000" height="665" style="object-position:{{ \App\Models\Achievement::focal($honor->image('cover')) }}">
         <span class="honor-body">
           <span class="honor-kicker"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt="">{{ __('site.achievements.honor') }}</span>
