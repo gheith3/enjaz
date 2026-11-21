@@ -1,7 +1,6 @@
-
 /* الشريط العلوي: يضبط مسافات أقسام الموقع وحجم خطها حتى تتسع كلها دون أن تصل إلى زر البحث */
 (function () {
-  var header = document.querySelector('.site-header'), nav = header && header.querySelector('.dnav'), ul = nav && nav.querySelector('ul');
+  var nav = document.querySelector('header .dnav'), header = nav && nav.closest('header'), ul = nav && nav.querySelector('ul');
   if (!ul) return;
   var steps = [[9, 13.5, 2], [8, 13.5, 2], [7, 13, 2], [6, 13, 1], [5, 12.5, 1], [4, 12, 0], [3, 11.5, 0]];
   function fit() {

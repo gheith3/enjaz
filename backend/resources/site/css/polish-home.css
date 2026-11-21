@@ -704,3 +704,12 @@ html.t-intro-on .site-header *, html.t-intro-on .home-achievers * { animation-pl
 @media (prefers-reduced-motion: reduce) {
   .sx-p, .sx-p > img, .sx-t, .sx-who, .sx-read { transition: none; }
 }
+
+/* ===== شريط المنجزين (معتمد): الوسطى بألوانها، والبقية بالأبيض والأسود بإطار تركوازي؛ تعود الألوان عند المرور ===== */
+/* اللون يُنزع من الصورة نفسها لا من إطارها، فيبقى الإطار التركوازي بلونه */
+.home-achievers .strip > button:not(.center) .strip-photo, .home-achievers .strip > button.edge .strip-photo { filter: none; box-shadow: 0 10px 22px -14px rgba(9,103,112,.55); }
+.home-achievers .strip > button .strip-photo img { transition: filter .7s ease, transform 1.2s var(--t-ease); }
+.home-achievers .strip > button:not(.center) .strip-photo img { filter: grayscale(1) brightness(.97) contrast(1.02); }
+.home-achievers .strip > button:not(.center):hover .strip-photo img { filter: none; }
+.home-achievers .strip > button:not(.center) .strip-photo::after { border: 2px solid var(--primary, #096770); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
+

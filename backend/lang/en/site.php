@@ -61,7 +61,7 @@ return [
         'journey' => 'My journey', 'achievements' => 'My achievements', 'scope_all' => 'All', 'scope_international' => 'International', 'scope_local' => 'Local', 'sort' => 'Sort', 'sort_year' => 'Year',
         'sort_type' => 'Type', 'sort_reset' => 'Clear', 'no_achievements' => 'No achievements in this category.', 'said' => 'What they said about :name',
         'video_library' => 'Video library',
-        'photo_library' => 'Photo library',
+        'photo_library' => 'Photo library', 'open_album' => 'Open the album', 'watch_now' => 'Watch now',
         'no_videos' => 'No videos have been added yet.',
         'no_photos' => 'No photos have been added yet.',
         'gallery' => 'Gallery', 'view_image' => 'View image: :caption', 'related' => 'Achievers in the same field', 'related_all' => 'All :field achievers',
