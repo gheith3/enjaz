@@ -210,64 +210,55 @@
         ?: ($fallbackCover ? [['src' => $fallbackCover, 'fallback' => null]] : []);
     $covers = ['videos' => $coverOf($videoItems), 'photos' => $coverOf($photoItems)];
   @endphp
-  <section class="section wrap profile-library" data-profile-library aria-labelledby="library-title">
+  {{-- «المكتبة المرئية» (تصاميم ٢٠٣٠): غلافان مصمَّمان — الصور مطبوعات مكدّسة من ألبوم المنجز على رمادي حجري، والفيديو سينمائي بصورة
+       المنجز المفرّغة — ونافذة متوسطة: شبكة (٥ صور / ٣ مقاطع في الصف) وعارض بالتنقل و«رجوع» (js/sections/polish/achiever-library.js). --}}
+  @php
+      $mlPhotos = $photoItems->map(fn ($p) => ['img' => $p['thumb'], 'full' => $p['full'], 't' => $p['label'], 'focal' => $p['focal']])->values();
+      $mlVideos = $videoItems->map(fn ($v) => ['id' => $v['youtube'], 'url' => $v['url'], 'img' => $v['thumb'], 'fb' => $v['fallback'], 't' => $v['title'],
+          'y' => $v['year'] ? \App\Support\ArabicDate::digits($v['year']) : ''])->values();
+      $mlFan = $mlPhotos->isEmpty() ? collect() : collect(range(0, 3))->map(fn ($i) => $mlPhotos[$i % $mlPhotos->count()]);
+      $mlCut = $achiever->imageUrl('cutout') ?? $achiever->imageUrl('portrait');
+      $mlName = $achiever->shortName();
+  @endphp
+  <section class="section wrap profile-library ml" data-ml aria-labelledby="library-title"
+      data-media='@json(['name' => $achiever->name, 'photos' => $mlPhotos, 'videos' => $mlVideos])'>
     <div class="sec-title"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt=""><h2 id="library-title">{{ __('site.achievers.gallery') }}</h2></div>
-    <div class="profile-library-choices">
-      @foreach (['videos' => $videoItems->count(), 'photos' => $photoItems->count()] as $kind => $count)
-        <button type="button" @class(['profile-library-choice', 'is-empty' => ! $count]) data-library-dialog="library-{{ $kind }}" aria-haspopup="dialog" aria-controls="library-{{ $kind }}">
-          <span class="lib-cover" data-n="{{ count($covers[$kind]) }}" aria-hidden="true">@foreach ($covers[$kind] as $cover)<img src="{{ $cover['src'] }}" alt="" loading="lazy" @if ($cover['fallback']) data-fb="{{ $cover['fallback'] }}" @endif>@endforeach</span>
-          <span class="lib-cover-text">
-            <span class="profile-library-icon" aria-hidden="true">
-              @if ($kind === 'videos')<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>@else<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="m21 16-5-5-9 8"/></svg>@endif
-            </span>
-            <strong>{{ __($kind === 'videos' ? 'site.achievers.video_library' : 'site.achievers.photo_library') }}</strong>
-            <small>{{ \App\Support\ArabicCount::of($count, $kind) }}</small>
-          </span>
-          <span class="lib-cover-go" aria-hidden="true">←</span>
-        </button>
-      @endforeach
+    <div class="ml-covers">
+      <button type="button" class="ml-cv ph" data-ml-open="photo" aria-haspopup="dialog">
+        <span class="ml-fx cams" aria-hidden="true"></span>
+        <span class="ml-fan" aria-hidden="true">
+          @foreach ($mlFan->reverse()->values() as $k => $ph)
+            @php $n = 3 - $k; @endphp
+            <span class="ml-pr p{{ $n }}"><img src="{{ $ph['img'] }}" alt="" loading="lazy" style="object-position:{{ $ph['focal'] }}">@if ($n === 0)<i class="tape"></i><small>{{ $ph['t'] }}</small>@if ($mlPhotos->count() > 1)<b class="more">+{{ \App\Support\ArabicDate::digits($mlPhotos->count() - 1) }}</b>@endif @endif</span>
+          @endforeach
+        </span>
+        <span class="ml-txt">
+          <span class="kick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6H8l1.5-2h5L16 6h2.5A2.5 2.5 0 0 1 21 8.5v9a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/><circle cx="12" cy="13" r="4"/></svg>{{ __('site.achievers.photo_library') }}</span>
+          <span class="name">{{ $mlName }}</span>
+          <span class="sub">{{ \App\Support\ArabicCount::of($mlPhotos->count(), 'photos') }}</span>
+          <span class="open">{{ __('site.achievers.open_album') }} <span aria-hidden="true">←</span></span>
+        </span>
+      </button>
+      <button type="button" class="ml-cv vd" data-ml-open="video" aria-haspopup="dialog">
+        <span class="beam" aria-hidden="true"></span>
+        <span class="ml-fx tris" aria-hidden="true"></span>
+        @if ($mlCut)<img class="who-img" src="{{ $mlCut }}" alt="" loading="lazy">@endif
+        <span class="playring" aria-hidden="true"></span>
+        <span class="ml-txt">
+          <span class="kick"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.5v7l6-3.5z" fill="currentColor"/></svg>{{ __('site.achievers.video_library') }}</span>
+          <span class="name">{{ $mlName }}</span>
+          <span class="sub">{{ \App\Support\ArabicCount::of($mlVideos->count(), 'videos') }}</span>
+          <span class="open">{{ __('site.achievers.watch_now') }} <span aria-hidden="true">←</span></span>
+        </span>
+      </button>
     </div>
-    <dialog class="library-dialog" id="library-videos" aria-labelledby="library-videos-title">
-      <div class="library-head">
-        <h3 id="library-videos-title">{{ __('site.achievers.video_library') }}</h3>
-        <button type="button" class="library-close" data-library-close aria-label="{{ __('site.achievers.close') }}">×</button>
+    <div class="ml-md" data-ml-md role="dialog" aria-modal="true" aria-labelledby="library-title" hidden>
+      <div class="ml-card">
+        <div class="ml-head"><span class="nm"><small>{{ __('site.achievers.gallery') }}</small><b>{{ $achiever->name }}</b></span><div class="ml-tabs" data-ml-tabs></div>
+          <button type="button" class="ml-x" data-ml-x aria-label="{{ __('site.achievers.close') }}">×</button></div>
+        <div class="ml-body" data-ml-body></div>
       </div>
-      <div class="library-player" data-video-player hidden></div>
-      @if ($videoItems->isNotEmpty())
-        <ul class="library-grid">
-          @foreach ($videoItems as $video)
-            <li>
-              <a class="library-tile" href="{{ $video['url'] }}" target="_blank" rel="noopener" title="{{ $video['title'] }}" @if ($video['youtube']) data-youtube="{{ $video['youtube'] }}" @endif>
-                <span class="library-thumb">@if ($video['thumb'])<img src="{{ $video['thumb'] }}" alt="" loading="lazy" @if ($video['fallback']) data-fb="{{ $video['fallback'] }}" @endif>@endif<span class="library-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span></span>
-                <span class="library-caption">@if ($video['year'])<small>{{ \App\Support\ArabicDate::digits($video['year']) }}</small>@endif<b>{{ $video['title'] }}</b></span>
-              </a>
-            </li>
-          @endforeach
-        </ul>
-      @else
-        <p class="library-empty">{{ __('site.achievers.no_videos') }}</p>
-      @endif
-    </dialog>
-    <dialog class="library-dialog" id="library-photos" aria-labelledby="library-photos-title">
-      <div class="library-head">
-        <h3 id="library-photos-title">{{ __('site.achievers.photo_library') }}</h3>
-        <button type="button" class="library-close" data-library-close aria-label="{{ __('site.achievers.close') }}">×</button>
-      </div>
-      @if ($photoItems->isNotEmpty())
-        <ul class="library-grid" data-gallery>
-          @foreach ($photoItems as $photo)
-            <li>
-              <a class="library-tile" href="{{ $photo['full'] }}" data-caption="{{ $photo['caption'] }}" title="{{ $photo['label'] }}" aria-label="{{ __('site.achievers.view_image', ['caption' => $photo['label']]) }}">
-                <span class="library-thumb"><img src="{{ $photo['thumb'] }}" alt="{{ $photo['label'] }}" loading="lazy" style="object-position:{{ $photo['focal'] }}"></span>
-                <span class="library-caption"><b>{{ $photo['label'] }}</b></span>
-              </a>
-            </li>
-          @endforeach
-        </ul>
-      @else
-        <p class="library-empty">{{ __('site.achievers.no_photos') }}</p>
-      @endif
-    </dialog>
+    </div>
   </section>
 
   @if ($related->isNotEmpty())

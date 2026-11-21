@@ -93,8 +93,8 @@ class AchieverPagesTest extends TestCase
             ->assertSee('data-icon="trophy"', false)->assertSee('لاعب رائع')->assertSee('الأقوال مترجمة')
             ->assertSee('id="member-card-data"', false)->assertSee('"bio":"حارس مرمى"', false)
             ->assertSee('قصة البداية')
-            ->assertSee('<dialog class="library-dialog" id="library-videos"', false)
-            ->assertSee('<dialog class="library-dialog" id="library-photos"', false);
+            ->assertSee('data-ml-open="photo"', false)->assertSee('data-ml-open="video"', false)
+            ->assertSee('class="ml-md" data-ml-md', false);
     }
 
     public function test_profile_prints_the_achievements_data_of_design_9(): void
