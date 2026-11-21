@@ -122,7 +122,7 @@ return [
         ],
         'organizations' => [
             'before' => ['institutions-page', 'frame-hero'],
-            'after' => ['orgs-letter', 'org-cards', 'orgs-diwan'],
+            'after' => ['orgs-letter', 'org-cards', 'orgs-diwan', 'polish-organizations'],
         ],
         'universities' => [
             'before' => ['universities', 'universities-hero'],
