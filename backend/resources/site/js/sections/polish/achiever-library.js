@@ -34,7 +34,7 @@
     if (!items.length) { body.innerHTML = '<p class="ml-empty">' + L.none + '</p>'; return; }
     body.innerHTML = '<div class="ml-grid' + (mode === 'video' ? ' v' : '') + '">' + items.map(function (m, i) {
       return '<button type="button" class="ml-gi" data-i="' + i + '"><span class="th"><img src="' + esc(m.img) + '" alt="" loading="lazy"' + (m.focal ? ' style="object-position:' + esc(m.focal) + '"' : '') +
-        (m.fb ? ' onerror="this.onerror=null;this.src=\'' + esc(m.fb) + '\'"' : '') + '>' +
+        (m.fb ? ' data-fb="' + esc(m.fb) + '"' : '') + '>' +
         (mode === 'video' ? '<i class="pl"></i>' : '<span class="n num">' + ar(i + 1) + '</span>') + '</span>' +
         '<span class="cp">' + (mode === 'video' && m.y ? '<small class="num">' + esc(m.y) + '</small>' : '') + esc(m.t) + '</span></button>';
     }).join('') + '</div>';
@@ -45,7 +45,7 @@
     var items = list(), m = items[viewing];
     body.innerHTML = '<div class="ml-vw"><div class="ml-vw-top"><button type="button" class="ml-back" data-back>→ ' + L.back + '</button><span class="c num">' + ar(viewing + 1) + ' / ' + ar(items.length) + '</span></div>' +
       '<div class="ml-stage">' + (mode === 'photo' ? '<img src="' + esc(m.full || m.img) + '" alt="' + esc(m.t) + '">'
-        : '<div class="vid"><img src="' + esc(m.img) + '" alt=""><button type="button" class="pb" aria-label="▶"></button></div>') +
+        : '<div class="vid"><img src="' + esc(m.img) + '" alt=""' + (m.fb ? ' data-fb="' + esc(m.fb) + '"' : '') + '><button type="button" class="pb" aria-label="▶"></button></div>') +
       (items.length > 1 ? '<button type="button" class="ml-ar pv" data-pv aria-label="›">›</button><button type="button" class="ml-ar nx" data-nx aria-label="‹">‹</button>' : '') + '</div>' +
       '<div class="ml-cap">' + (mode === 'video' && m.y ? '<small class="num">' + esc(m.y) + '</small>' : '') + esc(m.t) + '</div></div>';
     Q('[data-back]', body).onclick = back;
@@ -60,8 +60,15 @@
     if (pv) pv.onclick = function () { step(-1); };
     if (nx) nx.onclick = function () { step(1); };
   }
-  function draw() { drawTabs(); if (viewing < 0) grid(); else viewer(); }
-  function step(d) { var items = list(); viewing = (viewing + d + items.length) % items.length; viewer(); }
+  // صور يوتيوب الكبيرة غير موجودة لبعض المقاطع (يعيد يوتيوب صورة رمادية ١٢٠×٩٠): تُستبدل بالمتوسطة
+  function fixThumbs() {
+    QA('img[data-fb]', body).forEach(function (im) {
+      var swap = function () { if (im.dataset.fb && (!im.naturalWidth || im.naturalWidth <= 120)) { im.src = im.dataset.fb; im.removeAttribute('data-fb'); } };
+      if (im.complete) swap(); else { im.addEventListener('load', swap, { once: true }); im.addEventListener('error', swap, { once: true }); }
+    });
+  }
+  function draw() { drawTabs(); if (viewing < 0) grid(); else viewer(); fixThumbs(); }
+  function step(d) { var items = list(); viewing = (viewing + d + items.length) % items.length; viewer(); fixThumbs(); }
   function back() { viewing = -1; draw(); }
   function open(m, btn) { mode = m; viewing = -1; keep = 0; lastBtn = btn; md.hidden = false; document.documentElement.classList.add('ml-lock'); draw(); var x = Q('[data-ml-x]'); if (x) x.focus(); }
   function close() { md.hidden = true; body.innerHTML = ''; document.documentElement.classList.remove('ml-lock'); if (lastBtn) lastBtn.focus(); }
