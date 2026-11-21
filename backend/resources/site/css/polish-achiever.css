@@ -1,0 +1,33 @@
+
+/* ===================== لمسات إبداعية على صفحة المنجز (لا تغيّر أي تنسيق أو مسافة) ===================== */
+/* ١) شريط تقدّم القراءة الذهبي أعلى الشاشة */
+.px-progress { position: fixed; top: 0; right: 0; left: 0; z-index: 9998; height: 3px; pointer-events: none; transform-origin: 100% 50%; transform: scaleX(var(--p, 0));
+  background: linear-gradient(270deg, #B98E48, #FFF1CC 50%, #E6C98A); box-shadow: 0 0 10px rgba(230,201,138,.6); }
+/* ٢) اسم المنجز: لمعة ذهبية تمرّ على الحروف كل بضع ثوانٍ */
+.profile-hero h1.px-shine { background: linear-gradient(100deg, var(--hc) 0%, var(--hc) 40%, #FFF1CC 48%, #E6C98A 52%, var(--hc) 60%, var(--hc) 100%); background-size: 300% 100%;
+  background-position: 100% 0; -webkit-background-clip: text; background-clip: text; color: transparent; animation: px-name 7s 1.2s ease-in-out infinite; }
+@keyframes px-name { 0%, 55% { background-position: 100% 0; } 85%, 100% { background-position: 0 0; } }
+/* ٣) ذرّات ضوء ذهبية تطفو حول صورة المنجز */
+.px-dust { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+.px-dust i { position: absolute; left: var(--x); bottom: -10px; width: var(--s); height: var(--s); border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle, #FFF6D8, rgba(230,201,138,.6) 50%, transparent 72%); animation: px-up var(--d) linear infinite; animation-delay: var(--dl); }
+@keyframes px-up { 10% { opacity: var(--o); } 80% { opacity: calc(var(--o) * .7); } 100% { transform: translate(var(--sw), -110vh); opacity: 0; } }
+/* ٤) عناوين الأقسام: خط ذهبي يُرسم تحت العنوان عند ظهوره */
+.sec-title h2.px-line::after { content: ""; position: absolute; right: 0; bottom: -6px; height: 2px; width: 0; border-radius: 2px; pointer-events: none;
+  background: linear-gradient(270deg, #B98E48, #E6C98A, transparent); transition: width 1.2s cubic-bezier(.22, 1, .36, 1); }
+.sec-title h2.px-line.px-in::after { width: 70%; }
+/* ٥) ظهور ناعم للأقسام عند الوصول إليها (شفافية وحركة فقط) */
+.px-rv { opacity: 0; transform: translateY(26px); }
+.px-rv.px-in { opacity: 1; transform: none; transition: opacity 1s cubic-bezier(.22, 1, .36, 1), transform 1s cubic-bezier(.22, 1, .36, 1); }
+/* ٦) ضوء يتبع المؤشر فوق بطاقات الإنجازات والشهادات والمنجزين المرتبطين */
+.px-spot::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .4s;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(255,241,204,.22), transparent 70%); }
+.px-spot:hover::after { opacity: 1; }
+/* ٧) بطاقات «قالوا عنه»: توهّج ذهبي هادئ يتنفّس */
+.said-card { transition: box-shadow .6s; }
+.said-card:hover { box-shadow: 0 0 0 1.5px rgba(230,201,138,.8), 0 24px 44px -26px rgba(185,142,72,.6); }
+@media (prefers-reduced-motion: reduce) {
+  .px-dust, .px-progress { display: none; }
+  .profile-hero h1.px-shine { animation: none; }
+  .px-rv { opacity: 1; transform: none; }
+}

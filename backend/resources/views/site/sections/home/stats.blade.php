@@ -8,7 +8,17 @@
     ];
     $defaults = [__('site.homepage.stat_achievers'), __('site.homepage.stat_achievements'), __('site.homepage.stat_fields')];
 @endphp
-<section class="section wrap home-statistics" aria-label="{{ __('site.homepage.stats') }}">
+@php
+    $title = trim($section->text('title', __('site.homepage.stats_title')));
+    $words = preg_split('/\s+/u', $title);
+    $last = count($words) > 1 ? array_pop($words) : null;
+@endphp
+<section class="section wrap home-statistics" aria-labelledby="hs-title">
+  <header class="hs-head">
+    <span class="hs-kick">{{ $section->text('eyebrow', __('site.homepage.stats_eyebrow')) }}</span>
+    <h2 id="hs-title">{{ implode(' ', $words) }}@if ($last) <em>{{ $last }}</em>@endif</h2>
+    @if ($lead = $section->text('lead', __('site.homepage.stats_lead')))<p>{{ $lead }}</p>@endif
+  </header>
   <div class="hs-gold" data-gold-stats>
     @foreach ($defaults as $i => $default)
       @php

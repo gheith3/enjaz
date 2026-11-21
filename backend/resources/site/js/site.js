@@ -1,6 +1,7 @@
 // Public site entry: shared behaviour (header, menu) and the section scripts. Each module looks for its own
 // elements and does nothing on pages without them.
 import './core/menu.js';
+import './core/nav-fit.js';
 import './core/crumb.js';
 import './sections/story.js';
 import './sections/achievements-hero.js';
@@ -73,3 +74,5 @@ import './sections/polish/achievements.js';
 import './sections/polish/achievers.js';
 import './sections/polish/inspiring.js';
 import './sections/polish/awards.js';
+import './sections/polish/universities.js';
+import './sections/polish/achiever.js';

@@ -44,16 +44,16 @@
   // L = صور محلية أرسلها صاحب الموقع (مجلد tl-img)، وغيرها من مكتبة الموقع. p = نقطة التركيز في الصورة.
   var L = '/images/timeline/';
   var T = [
-    { y: null, lbl: 'الرائدة', s: 'أول دكتوراه لامرأة خليجية', n: 'د. فاطمة بنت سالم المعمرية', f: 'العلم', img: L + 'fatma.jpg', p: '50% 20%', u: '' },
-    { y: 1990, s: 'ذهبية آسيا في ٤٠٠ متر', n: 'محمد عامر المالكي', f: 'ألعاب القوى', img: S + '0b889be8-9e5e-4d42-9300-687acb6e2247/conversions/mohammed-amer-almalki-large.webp', p: '50% 22%', u: 'https://injazat.om/achievers/mohammed-almalki' },
-    { y: 1995, s: 'رابع العالم للناشئين', n: 'منتخب عُمان للناشئين', f: 'كرة القدم', img: L + 'u17-1995.jpg', p: '50% 40%', u: 'https://injazat.om/achievers/mohammed-amer-al-kathiri' },
-    { y: 1995, s: 'الكرة الذهبية للعالم', n: 'محمد بن عامر الكثيري', f: 'كرة القدم', img: L + 'kathiri.jpg', p: '50% 25%', u: 'https://injazat.om/achievers/mohammed-amer-al-kathiri' },
-    { y: 2009, s: 'أول لقب خليجي لعُمان', n: 'منتخب عُمان', f: 'كرة القدم', img: L + 'gulf-cup-2009.jpg', p: '55% 35%', u: 'https://injazat.om/achievements/aly-alhbsy-03' },
-    { y: 2010, s: 'أمام السلطان قابوس', n: 'مصطفى بارامي', f: 'الابتكار', img: L + 'barami.jpg', p: '50% 30%', u: 'https://injazat.om/achievers/mustafa-barami' },
-    { y: 2019, s: 'على قمة إيفرست', n: 'نظيرة الحارثية', f: 'تسلق الجبال', img: L + 'nadhira.jpg', p: '45% 40%', u: '' },
-    { y: 2019, s: 'مان بوكر العالمية', n: 'د. جوخة الحارثية', f: 'الأدب', img: S + '132dd70f-f359-4c9d-a537-b3b818f1ab0d/conversions/jokha-booker-large.webp', p: '50% 22%', u: 'https://injazat.om/achievements/man-booker-2019' },
-    { y: 2021, s: 'شاعرة الرسول', n: 'بدرية البدري', f: 'الشعر', img: L + 'badri.webp', p: '50% 25%', u: '' },
-    { y: 2025, s: 'وصيف العالم في الغوص الحر', n: 'عمر الغيلاني', f: 'الغوص الحر', img: L + 'ghailani.jpg', p: '50% 25%', u: '' }
+    { y: 1945, tag: 'الرائدة', s: 'أول دكتوراه لامرأة خليجية', n: 'د. فاطمة بنت سالم المعمرية', f: 'العلم', img: L + 'fatma-wide.webp', p: '50% 20%', u: '' },
+    { y: 1990, s: 'ذهبية آسيا في ٤٠٠ متر', n: 'محمد عامر المالكي', f: 'ألعاب القوى', img: L + 'mohammed-amer-almalki-wide.webp', p: '50% 22%', u: 'https://injazat.om/achievers/mohammed-almalki' },
+    { y: 1995, s: 'رابع العالم للناشئين', n: 'منتخب عُمان للناشئين', f: 'كرة القدم', img: L + 'u17-1995-wide.webp', p: '50% 40%', u: 'https://injazat.om/achievers/mohammed-amer-al-kathiri' },
+    { y: 1995, s: 'الكرة الذهبية للعالم', n: 'محمد بن عامر الكثيري', f: 'كرة القدم', img: L + 'kathiri-wide.webp', p: '50% 25%', u: 'https://injazat.om/achievers/mohammed-amer-al-kathiri' },
+    { y: 2009, s: 'أول لقب خليجي لعُمان', n: 'منتخب عُمان', f: 'كرة القدم', img: L + 'gulf-cup-2009-wide.webp', p: '55% 35%', u: 'https://injazat.om/achievements/aly-alhbsy-03' },
+    { y: 2010, s: 'أمام السلطان قابوس', n: 'مصطفى بارامي', f: 'الابتكار', img: L + 'barami-wide.webp', p: '50% 30%', u: 'https://injazat.om/achievers/mustafa-barami' },
+    { y: 2019, s: 'على قمة إيفرست', n: 'نظيرة الحارثية', f: 'تسلق الجبال', img: L + 'nadhira-wide.webp', p: '45% 40%', u: '' },
+    { y: 2019, s: 'مان بوكر العالمية', n: 'د. جوخة الحارثية', f: 'الأدب', img: L + 'jokha-booker-wide.webp', p: '50% 22%', u: 'https://injazat.om/achievements/man-booker-2019' },
+    { y: 2021, s: 'شاعرة الرسول', n: 'بدرية البدري', f: 'الشعر', img: L + 'badri-wide.webp', p: '50% 25%', u: '' },
+    { y: 2025, s: 'وصيف العالم في الغوص الحر', n: 'عمر الغيلاني', f: 'الغوص الحر', img: L + 'ghailani-wide.webp', p: '50% 25%', u: '' }
   ];
   var latest = $('.home-latest');
   if (latest) {
@@ -101,7 +101,7 @@
           (function run() { var q = Math.min(1, (Date.now() - t0) / 700); yr.textContent = ar(Math.round(from + (to - from) * (1 - Math.pow(1 - q, 3)))); if (q < 1) setTimeout(run, 30); })();
           yr.dataset.y = to;
         } else { yr.textContent = m.lbl; }
-        ttl.textContent = m.s; who.innerHTML = '<b>' + m.n + '</b> · ' + m.f;
+        ttl.textContent = m.s; who.innerHTML = '<b class="tt-name">' + m.n + '</b><span class="tt-chips"><span class="tt-field">' + m.f + '</span>' + (m.tag ? '<span class="tt-field tt-tag">' + m.tag + '</span>' : '') + '</span>';
         if (m.u) { go.href = m.u; go.innerHTML = 'اقرأ القصة <i aria-hidden="true">←</i>'; go.hidden = false; } else { go.removeAttribute('href'); go.hidden = true; }
         cnt.textContent = ar(ti + 1) + ' / ' + ar(T.length);
         copy.classList.remove('out');
@@ -126,7 +126,7 @@
     deck.innerHTML = covers.map(function (f, i) {
       var img = $('img', f), name = ($('figcaption h3', f) || {}).textContent || '', field = ($('figcaption span', f) || {}).textContent || '';
       return '<a class="t-pc" style="--i:' + i + ';--c:' + c + '" href="https://injazat.om/inspiring"><div class="cv"><img src="' + img.getAttribute('src') + '" alt="' + (img.getAttribute('alt') || '') + '" loading="lazy"></div>' +
-        '<div class="nm"><b>' + name + '</b><span>' + field + '</span></div></a>';
+        '<div class="nm"><span class="nm-tx"><span class="nm-f">' + field + '</span><b>' + name + '</b></span><i class="nm-go" aria-hidden="true">←</i></div></a>';
     }).join('');
     $('.inspiring-covers', insp).parentNode.insertBefore(deck, $('.inspiring-covers', insp));
     insp.classList.add('t-fan');
@@ -227,4 +227,25 @@
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 })();
 
+})();
+
+/* الأرقام: ضوء يتبع المؤشر داخل كل بطاقة */
+(function () {
+  Array.prototype.forEach.call(document.querySelectorAll('.home-statistics .hs-i'), function (c) {
+    c.addEventListener('mousemove', function (e) { var r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
+  });
+})();
+
+/* القسم العلمي: اللوحات المتمدّدة. بالمؤشر تُفتح اللوحة عند المرور، وباللمس تفتح أول لمسة والثانية تفتح الصفحة، وبلوحة المفاتيح تُفتح عند التركيز. */
+(function () {
+  var box = document.querySelector('[data-sx]');
+  if (!box) return;
+  var ps = Array.prototype.slice.call(box.querySelectorAll('.sx-p'));
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  var open = function (p) { ps.forEach(function (x) { x.classList.toggle('is-on', x === p); }); };
+  ps.forEach(function (p) {
+    p.addEventListener('mouseenter', function () { if (canHover.matches) open(p); });
+    p.addEventListener('focus', function () { open(p); });
+    p.addEventListener('click', function (e) { if (!p.classList.contains('is-on')) { e.preventDefault(); open(p); } });
+  });
 })();

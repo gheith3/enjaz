@@ -106,3 +106,57 @@
   .is-gold, .hm-img img, .t-ants rect, .nominate .plus, .t-ring { animation: none; }
   .t-dust, .t-trail, .t-confetti { display: none; }
 }
+
+/* ===== «هِمَمٌ بلا حدود»: الخبر الرئيسي شريط عريض (الصورة يمينًا وبطاقة النص تطفو فوق طرفها)، وتحته الأخبار الثلاثة بطاقات في صف واحد ===== */
+.wrap.hm .hm-grid { grid-template-columns: 1fr; gap: 16px; }
+
+/* الخبر الرئيسي */
+.wrap.hm .hm-lead { display: block; position: relative; height: auto; color: var(--hm-ink); background: #f6efe0; box-shadow: 0 0 0 1px #efe5cf, 0 22px 44px -30px rgba(6,49,53,.5); }
+.wrap.hm .hm-lead .hm-img { display: block; height: 220px; }
+.wrap.hm .hm-lead .hm-img img { object-position: 50% 18%; }
+.wrap.hm .hm-lead .hm-body { position: relative; z-index: 2; gap: 9px; margin: -34px 12px 12px; padding: 20px 20px 18px; border-radius: 18px;
+  background: rgba(255,253,248,.97); box-shadow: 0 18px 36px -22px rgba(6,49,53,.55); }
+.wrap.hm .hm-lead .hm-body::before { content: ""; position: absolute; inset-block: 22px; inset-inline-start: 0; width: 3px; border-radius: 3px; background: linear-gradient(180deg, #F3DDA6, #C9A15C); }
+.wrap.hm .hm-lead .hm-tag { color: var(--hm-teal); background: #eaf3f1; }
+.wrap.hm .hm-lead b { color: var(--hm-ink); font-size: 20px; line-height: 1.5; }
+.wrap.hm .hm-lead .hm-txt { flex-shrink: 0; color: #3e5254; font-size: 14px; line-height: 1.8; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.wrap.hm .hm-lead .hm-meta { margin-top: 2px; padding-top: 12px; color: #5e6f70; font-weight: 700; border-top: 1px solid #efe5cf; }
+.wrap.hm .hm-lead .hm-meta i { padding: 7px 15px; border-radius: 99px; color: #fff; background: var(--hm-teal); transition: background .3s, transform .3s; }
+.wrap.hm .hm-lead:hover .hm-meta i { background: #0C7F89; transform: translateX(-3px); }
+
+/* الأخبار الثلاثة */
+.wrap.hm .hm-list { grid-template-columns: 1fr; grid-template-rows: none; gap: 12px; }
+.wrap.hm .hm-item { grid-template-columns: 88px minmax(0, 1fr); gap: 14px; padding: 10px; background: #fff; border-color: #efe5cf; box-shadow: 0 12px 26px -22px rgba(6,49,53,.45); }
+.wrap.hm .hm-item img { width: 88px; height: 88px; border-radius: 14px; }
+.wrap.hm .hm-item > span { gap: 4px; }
+.wrap.hm .hm-item b { font-size: 15px; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.wrap.hm .hm-item .hm-tag { font-size: 11.5px; line-height: 1.6; padding: 3px 10px; border-radius: 10px; }
+.wrap.hm .hm-item:hover { transform: translateY(-4px); border-color: var(--hm-gold); }
+.wrap.hm .hm-item::after { top: auto; bottom: 0; left: 18px; right: 18px; width: auto; height: 3px; transform: scaleX(0); }
+.wrap.hm .hm-item:hover::after { transform: scaleX(1); }
+
+/* تكبير الخط */
+.wrap.hm.hm-big .hm-lead b { font-size: 24px; }
+.wrap.hm.hm-big .hm-lead .hm-txt { font-size: 16.5px; }
+.wrap.hm.hm-big .hm-item b { font-size: 17.5px; }
+.wrap.hm.hm-big .hm-tag, .wrap.hm.hm-big time { font-size: 13.5px; }
+
+@media (min-width: 700px) {
+  .wrap.hm .hm-lead { height: 300px; }
+  .wrap.hm .hm-lead .hm-img { position: absolute; top: 0; bottom: 0; inset-inline-start: 0; width: 62%; height: auto; }
+  .wrap.hm .hm-lead::after { content: ""; position: absolute; top: 0; bottom: 0; inset-inline-start: 0; width: 62%; z-index: 1; pointer-events: none;
+    background: linear-gradient(270deg, rgba(246,239,224,0) 70%, rgba(246,239,224,.9)); }
+  .wrap.hm .hm-lead .hm-body { position: absolute; top: 50%; bottom: auto; inset-inline-end: 22px; width: 47%; margin: 0; padding: 22px 26px 18px; transform: translateY(-50%); }
+  .wrap.hm .hm-lead .hm-txt { -webkit-line-clamp: 2; }
+  .wrap.hm .hm-lead b { font-size: 23px; }
+}
+@media (min-width: 1100px) {
+  .wrap.hm { padding: 34px 40px 36px; }
+  .wrap.hm .hm-head { margin-bottom: 22px; }
+  .wrap.hm .hm-head h2 { font-size: 38px; }
+  .wrap.hm .hm-head p { max-width: 760px; }
+  .wrap.hm .hm-lead { height: 320px; }
+  .wrap.hm .hm-lead b { font-size: 24px; }
+  .wrap.hm .hm-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .wrap.hm.hm-big .hm-lead b { font-size: 28px; }
+}

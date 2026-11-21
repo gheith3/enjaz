@@ -118,15 +118,15 @@ return [
         ],
         'achiever' => [
             'before' => ['profile-socials', 'profile-achievements', 'profile-portrait', 'profile-idcard', 'profile-medal-stats', 'profile-enhance', 'profile-journey', 'profile-said', 'profile-hero-map'],
-            'after' => ['aj-bento', 'aj-layout', 'aj-pro', 'aj-split', 'aj-reader'],
+            'after' => ['aj-bento', 'aj-layout', 'aj-pro', 'aj-split', 'aj-reader', 'polish-achiever'],
         ],
         'organizations' => [
             'before' => ['institutions-page', 'frame-hero'],
-            'after' => ['orgs-letter', 'org-cards', 'orgs-diwan'],
+            'after' => ['orgs-letter', 'org-cards', 'orgs-diwan', 'polish-organizations'],
         ],
         'universities' => [
             'before' => ['universities', 'universities-hero'],
-            'after' => [],
+            'after' => ['polish-universities'],
         ],
         'institution' => [
             'before' => ['home-aisha', 'institutions-page', 'minister-design-5'],

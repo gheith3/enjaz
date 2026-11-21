@@ -4,12 +4,15 @@ namespace Tests\Feature\Site;
 
 use App\Models\Achievement;
 use App\Models\Achiever;
+use App\Models\Article;
 use App\Models\Award;
+use App\Models\LabItem;
 use App\Models\LeaderQuote;
 use App\Models\Organization;
 use App\Models\OrganizationType;
 use App\Models\Page;
 use App\Models\PageSection;
+use App\Models\Writer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -42,7 +45,7 @@ class HomePageTest extends TestCase
 
         $this->get('/')->assertOk()
             ->assertSee('إن الشباب هم ثروة الأمم')->assertSee('منجز الشريط')->assertSee('جائزة مان بوكر')->assertDontSee('إنجاز طويل')
-            ->assertSee('data-n="221"', false)->assertSee('للعمل التطوعي')->assertSee('جائزة السلطان قابوس')->assertSee('«تطوعي حياة»')
+            ->assertSee('data-n="221"', false)->assertSee('<h2 id="hs-title">عُمان <em>تُنجز</em></h2>', false)->assertSee('للعمل التطوعي')->assertSee('جائزة السلطان قابوس')->assertSee('«تطوعي حياة»')
             ->assertSee('غلام خميس')->assertSee('href="https://example.com/ghulam"', false)->assertSee('sports-motion-ali', false)
             ->assertSee('title="وزارة الثقافة"', false);
     }
@@ -53,5 +56,34 @@ class HomePageTest extends TestCase
         $this->section('home.hero')->update(['is_enabled' => false]);
 
         $this->get('/')->assertOk()->assertDontSee('كلمة الهيدر');
+    }
+
+    public function test_the_articles_section_shows_five_articles_with_home_picks_first(): void
+    {
+        $writer = Writer::factory()->create(['name' => ['ar' => 'ليلى الرحبي'], 'role' => ['ar' => 'كاتبة رأي']]);
+        Article::factory()->create(['title' => ['ar' => 'مقال مختار للرئيسية'], 'show_on_home' => true, 'writer_id' => $writer->id, 'published_at' => now()->subDays(20)]);
+        foreach (range(1, 5) as $i) {
+            Article::factory()->create(['title' => ['ar' => 'مقال حديث رقم '.$i], 'published_at' => now()->subDays($i)]);
+        }
+
+        $this->get('/')->assertOk()
+            ->assertSeeInOrder(['مقال مختار للرئيسية', 'مقال حديث رقم 1', 'مقال حديث رقم 2', 'مقال حديث رقم 3', 'مقال حديث رقم 4'])
+            ->assertDontSee('مقال حديث رقم 5')
+            ->assertSee('<b>ليلى الرحبي</b><small>كاتبة رأي</small>', false)
+            ->assertSee('class="am-all" href="'.route('magazine.index').'"', false);
+    }
+
+    public function test_the_science_section_shows_four_expanding_panels_with_medals(): void
+    {
+        foreach (range(1, 4) as $i) {
+            LabItem::factory()->create(['kind' => 'invention', 'title' => ['ar' => 'ابتكار رقم '.$i], 'who' => ['ar' => 'مبتكر '.$i], 'medal' => $i === 1 ? 'silver' : 'gold',
+                'happened_at' => now()->subMonths($i), 'published_at' => now()->subMonths($i)]);
+        }
+
+        $this->get('/')->assertOk()
+            ->assertSee('data-sx', false)
+            ->assertSee('class="sx-p is-on"', false)
+            ->assertSeeInOrder(['ابتكار رقم 4', 'ابتكار رقم 1', 'ابتكار رقم 2', 'ابتكار رقم 3'])
+            ->assertSee('class="sx-medal silver"', false)->assertSee('مبتكر 1');
     }
 }

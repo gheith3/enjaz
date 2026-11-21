@@ -20,18 +20,21 @@
     </div>
   </div>
 
-  @if ($type === '' && ! $searching && ($featured = $this->featured))
-    <section class="wrap od-spot-wrap" aria-labelledby="od-spot-h">
-      <a class="od-spot s-{{ $featured->type?->cssKey() ?? 'gov' }}" href="{{ $featured->url() }}">
-        <span class="od-spot-logo"><x-site.organization.emblem :organization="$featured" :lazy="false" /></span>
-        <span class="od-spot-t">
-          <small id="od-spot-h">{{ __('site.organizations.featured') }}@if ($featured->type) · {{ $featured->type->label }}@endif</small>
-          <b>{{ $featured->name }}</b>
-          @if ($featured->tagline)<span class="od-spot-line">{{ $featured->tagline }}</span>@endif
-        </span>
-        @if ($areas = $featured->focusAreaLabels())<span class="od-spot-areas">@foreach ($areas as $area)<i>{{ $area }}</i>@endforeach</span>@endif
-        <em>{{ __('site.organizations.featured_go') }} <span aria-hidden="true">←</span></em>
-      </a>
+  @if ($type === '' && ! $searching && ($featured = $this->featured)->isNotEmpty())
+    <section @class(['wrap od-spot-wrap', 'od-spots' => $featured->count() > 1]) aria-labelledby="od-spot-h">
+      <h2 class="sr-only" id="od-spot-h">{{ __('site.organizations.featured') }}</h2>
+      @foreach ($featured as $org)
+        <a class="od-spot s-{{ $org->type?->cssKey() ?? 'gov' }}" href="{{ $org->url() }}">
+          <span class="od-spot-logo"><x-site.organization.emblem :organization="$org" :lazy="false" /></span>
+          <span class="od-spot-t">
+            <small>{{ __('site.organizations.featured') }}@if ($org->type) · {{ $org->type->label }}@endif</small>
+            <b>{{ $org->name }}</b>
+            @if ($org->tagline)<span class="od-spot-line">{{ $org->tagline }}</span>@endif
+          </span>
+          @if ($areas = $org->focusAreaLabels())<span class="od-spot-areas">@foreach ($areas as $area)<i>{{ $area }}</i>@endforeach</span>@endif
+          <em>{{ __('site.organizations.featured_go') }} <span aria-hidden="true">←</span></em>
+        </a>
+      @endforeach
     </section>
   @endif
 

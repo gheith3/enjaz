@@ -1,0 +1,107 @@
+/* صفحة الجامعات والكليات — لمسات فخمة (تصاميم ٢٠٣٠).
+   ١) جامعة السلطان قابوس وجامعة التقنية في صف واحد، كلٌّ في مربع؛ والتقنية بخلفية تركوازية داكنة بدل الفاتحة.
+   ٢) بطاقات المؤسسات: قاعدة شعار كريمية، رفع وحافة ذهبية ولمعة عند المرور، وظهور متتابع.
+   ٣) عناوين المجموعات وشريط البحث والفلاتر بلمسات ذهبية. */
+:root { --x-g1: #FFF3D0; --x-g2: #E6C98A; --x-g3: #C9A15C; --x-g4: #8a6a2c; --x-ink: #063135; --x-teal: #0A5359; --x-teal2: #0C7F89; --x-ez: cubic-bezier(.22, 1, .36, 1); }
+
+/* ===== الهيرو: «والكليات» بذهب لامع ===== */
+.uh h1 span { background: linear-gradient(100deg, #C9A15C 0%, #E6C98A 25%, #FFF6D8 35%, #E6C98A 45%, #C9A15C 70%, #E6C98A 100%); background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; animation: x-shine 6s 1s ease-in-out infinite; }
+@keyframes x-shine { 0%, 35% { background-position: 100% 0; } 75%, 100% { background-position: 0 0; } }
+
+/* ===== شريط البحث والفلاتر ===== */
+.ul-tools { -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); background: linear-gradient(rgba(255,255,255,.94) 78%, rgba(255,255,255,0)); }
+.ul-q { background: #fff; box-shadow: inset 0 0 0 1px #e8dcbc, 0 10px 22px -18px rgba(6,49,53,.45); transition: box-shadow .3s; }
+.ul-q:focus-within { box-shadow: inset 0 0 0 1.5px var(--x-g3), 0 12px 26px -14px rgba(185,142,72,.5); }
+.ul-q svg { color: var(--x-g3); }
+.ul-chips button { transition: background .3s, color .3s, transform .3s var(--x-ez), box-shadow .3s; }
+.ul-chips button:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px var(--x-g2), 0 8px 16px -12px rgba(185,142,72,.6); }
+.ul-chips button.active { color: var(--x-g1); background: linear-gradient(135deg, var(--x-teal2), var(--x-ink)); box-shadow: inset 0 0 0 1px rgba(230,201,138,.55), 0 10px 20px -12px rgba(6,49,53,.7); }
+
+/* ===== عناوين المجموعات: خط ذهبي قبل العنوان، وعدد في وسام، وخط يمتد بعده ===== */
+.u-gh { gap: 12px; margin-bottom: 18px; }
+.u-gh::before { width: 30px; height: 3px; border-radius: 3px; background: linear-gradient(270deg, var(--x-g3), var(--x-g1)); }
+.u-gh b { color: var(--x-g1); padding: 1px 12px; background: linear-gradient(135deg, var(--x-teal2), var(--x-ink)); box-shadow: inset 0 0 0 1px rgba(230,201,138,.5); }
+.u-gh::after { content: ""; flex: 1; height: 1px; margin-inline-start: 6px; background: linear-gradient(270deg, #e3d3ac, rgba(227,211,172,0)); }
+.u-group { margin-top: 30px; }
+
+/* ===== المربعان المميّزان: السلطان قابوس (ذهبي) والتقنية (تركوازي داكن) ===== */
+.u-spot, .u-tech { position: relative; isolation: isolate; overflow: hidden; border-radius: 26px; transition: transform .6s var(--x-ez), box-shadow .6s; }
+.u-spot::before, .u-tech::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; padding: 1.5px; pointer-events: none;
+  background: linear-gradient(135deg, rgba(255,243,208,.9), rgba(201,161,92,.2) 40%, rgba(201,161,92,.2) 60%, rgba(255,243,208,.8));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.u-spot::after, .u-tech::after { content: ""; position: absolute; top: -20%; bottom: -20%; width: 34%; right: 130%; z-index: 1; transform: skewX(-18deg); pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,246,216,.32), transparent); }
+.u-spot:hover::after, .u-tech:hover::after { right: -60%; transition: right 1.1s var(--x-ez); }
+.u-spot:hover, .u-tech:hover { transform: translateY(-5px); box-shadow: 0 34px 56px -30px rgba(6,49,53,.75); }
+.u-spot { box-shadow: 0 26px 50px -32px rgba(107,79,26,.85); }
+.u-spot-logo, .u-tech .u-logo { box-shadow: 0 14px 28px -16px rgba(0,0,0,.45), inset 0 0 0 1px rgba(230,201,138,.35); transition: transform .6s var(--x-ez); }
+.u-spot:hover .u-spot-logo, .u-tech:hover .u-logo { transform: scale(1.03); }
+.u-spot-stats span { -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); box-shadow: inset 0 0 0 1px rgba(255,241,204,.25); }
+
+/* التقنية: خلفية تركوازية داكنة بلمعة ذهبية، ونص فاتح، وفروع كحبات زجاجية */
+.u-tech { color: #fff;
+  background: radial-gradient(80% 90% at 100% 0%, rgba(230,201,138,.24), transparent 60%), radial-gradient(70% 80% at 0% 100%, rgba(12,127,137,.55), transparent 70%), linear-gradient(135deg, #0b6a72, #063135 72%);
+  box-shadow: 0 26px 50px -32px rgba(6,49,53,.9); }
+.u-tech .u-logo { background: #fff; border-radius: 14px; }
+.u-tech .u-info small { color: var(--x-g1); }
+.u-tech .u-info b { color: #fff; }
+.u-branches span { color: #fff; background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(230,201,138,.35); transition: background .3s, transform .3s var(--x-ez); }
+.u-branches span::before { background: var(--x-g2); box-shadow: 0 0 0 3px rgba(230,201,138,.18); }
+.u-tech:hover .u-branches span { background: rgba(255,255,255,.12); }
+.u-tech-count { display: inline-flex; align-items: baseline; gap: 6px; justify-self: start; margin-top: 6px; padding: 4px 12px; border-radius: 99px; color: var(--x-ink); font-size: 13px; font-weight: 800;
+  background: linear-gradient(135deg, var(--x-g1), var(--x-g2) 55%, var(--x-g3)); }
+.u-tech-count b { font-size: 17px; color: var(--x-ink); }
+
+@media (min-width: 860px) {
+  .u-group:has(> .u-spot) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; align-items: stretch; }
+  .u-group:has(> .u-spot) > :not(.u-spot):not(.u-tech) { grid-column: 1 / -1; }
+  .u-group > .u-spot, .u-group[data-g=uni] > .u-tech { margin-bottom: 24px; }
+  .u-group > .u-spot { grid-template-columns: 1fr; align-content: start; gap: 16px; padding: 24px 26px; }
+  .u-spot-logo { height: 116px; }
+  .u-spot-logo img { height: 84px; }
+  .u-spot-txt > b { font-size: 28px; }
+  .u-spot .u-links { grid-column: auto; }
+  .u-group > .u-tech { align-content: start; gap: 16px; padding: 24px 26px; }
+  .u-tech .u-tech-top { grid-template-columns: 1fr; gap: 16px; }
+  .u-tech .u-logo { height: 116px; }
+  .u-tech .u-info { gap: 4px; padding: 0; }
+  .u-tech .u-info b { font-size: 28px; line-height: 1.35; }
+  .u-tech .u-info small { font-size: 12.5px; font-weight: 700; }
+}
+
+/* ===== بطاقات المؤسسات ===== */
+.u-grid { gap: 18px; }
+.u-card { position: relative; overflow: hidden; gap: 10px; padding: 10px 10px 14px; border-radius: 20px; background: #fff;
+  box-shadow: 0 0 0 1px #eee6d4, 0 16px 30px -26px rgba(6,49,53,.5); transition: transform .55s var(--x-ez), box-shadow .55s; }
+.u-card .u-logo { height: 112px; border-radius: 14px; background: radial-gradient(90% 110% at 50% 0%, #fffdf8, #f6efe0); box-shadow: inset 0 0 0 1px #f0e6cf; overflow: hidden; }
+.u-card .u-logo img { max-width: 78%; max-height: 72%; transition: transform .7s var(--x-ez); }
+.u-card .u-info { gap: 3px; padding: 0 6px; }
+.u-card .u-info b { font-size: 15.5px; line-height: 1.55; transition: color .3s; }
+.u-card .u-info small { display: inline-flex; align-items: center; gap: 6px; color: #8a7a55; font-weight: 700; }
+.u-card .u-info small::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--x-g3); flex: none; }
+.u-card::after { content: ""; position: absolute; left: 18px; right: 18px; bottom: 0; height: 3px; border-radius: 3px 3px 0 0; transform: scaleX(0);
+  background: linear-gradient(270deg, var(--x-g3), var(--x-g1), var(--x-g3)); transition: transform .5s var(--x-ez); }
+.u-card:hover { transform: translateY(-6px); box-shadow: 0 0 0 1.5px var(--x-g2), 0 28px 44px -26px rgba(6,49,53,.55); }
+.u-card:hover::after { transform: scaleX(1); }
+.u-card:hover .u-logo img { transform: scale(1.08); }
+.u-card:hover .u-info b { color: var(--x-teal); }
+.u-card .u-links { margin: 0 6px; }
+
+/* ظهور متتابع (يُفعَّل بالسكربت فقط) */
+.x-rv { opacity: 0; transform: translateY(22px); }
+.x-rv.x-in { opacity: 1; transform: none; transition: opacity .8s var(--x-ez), transform .8s var(--x-ez), box-shadow .55s; transition-delay: var(--x-d, 0ms); }
+.u-card.x-rv.x-in:hover { transition-delay: 0ms; transform: translateY(-6px); }
+.u-spot.x-rv.x-in:hover, .u-tech.x-rv.x-in:hover { transition-delay: 0ms; transform: translateY(-5px); }
+
+@media (max-width: 699px) {
+  .u-grid { gap: 10px; }
+  .u-card { border-radius: 16px; padding: 8px 8px 12px; }
+  .u-card .u-logo { height: 86px; }
+  .u-card .u-info b { font-size: 13.5px; }
+  .u-spot, .u-tech { border-radius: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .uh h1 span { animation: none; background-position: 30% 0; }
+  .x-rv { opacity: 1; transform: none; }
+}
