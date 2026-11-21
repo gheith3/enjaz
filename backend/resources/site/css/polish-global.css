@@ -19,3 +19,14 @@
 @media (max-width: 1279px) { .t-share { display: none; } }
 
 @media (max-width: 1279px) { .site-header .t-share { display: none; } }
+
+/* ===== الشريط العلوي: أقسام الموقع تتسع دائمًا دون أن تتداخل مع زر البحث (العدسة) =====
+   المسافة والخط يُضبطان آليًا (js nav-fit) حسب المساحة المتاحة. */
+@media (min-width: 1100px) {
+  .site-header .dnav { overflow: hidden; }
+  .site-header .dnav ul { gap: var(--dg, 2px); }
+  .site-header .dnav a, .site-header:has(.t-share) .dnav a { padding-inline: var(--dp, 9px); font-size: var(--df, 13.5px); }
+  .site-header .dnav a:hover::after, .site-header .dnav a[aria-current=page]::after,
+  .site-header:has(.t-share) .dnav a:hover::after, .site-header:has(.t-share) .dnav a[aria-current=page]::after { left: var(--dp, 9px); right: var(--dp, 9px); }
+  .site-header .dsearch { position: relative; z-index: 2; }
+}
