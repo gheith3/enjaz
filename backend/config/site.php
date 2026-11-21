@@ -118,7 +118,7 @@ return [
         ],
         'achiever' => [
             'before' => ['profile-socials', 'profile-achievements', 'profile-portrait', 'profile-idcard', 'profile-medal-stats', 'profile-enhance', 'profile-journey', 'profile-said', 'profile-hero-map'],
-            'after' => ['aj-bento', 'aj-layout', 'aj-pro', 'aj-split', 'aj-reader'],
+            'after' => ['aj-bento', 'aj-layout', 'aj-pro', 'aj-split', 'aj-reader', 'polish-achiever'],
         ],
         'organizations' => [
             'before' => ['institutions-page', 'frame-hero'],
