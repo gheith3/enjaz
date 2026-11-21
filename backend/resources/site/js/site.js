@@ -73,3 +73,4 @@ import './sections/polish/achievements.js';
 import './sections/polish/achievers.js';
 import './sections/polish/inspiring.js';
 import './sections/polish/awards.js';
+import './sections/polish/universities.js';

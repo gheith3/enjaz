@@ -126,7 +126,7 @@ return [
         ],
         'universities' => [
             'before' => ['universities', 'universities-hero'],
-            'after' => [],
+            'after' => ['polish-universities'],
         ],
         'institution' => [
             'before' => ['home-aisha', 'institutions-page', 'minister-design-5'],
