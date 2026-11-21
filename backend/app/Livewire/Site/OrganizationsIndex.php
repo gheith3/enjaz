@@ -40,9 +40,10 @@ class OrganizationsIndex extends Component
     }
 
     #[Computed]
-    public function featured(): ?Organization
+    /** @return Collection<int, Organization> up to three organizations marked «مميّزة», side by side */
+    public function featured(): Collection
     {
-        return Organization::query()->published()->where('is_featured', true)->with(['media', 'type'])->orderBy('sort_order')->first();
+        return Organization::query()->published()->where('is_featured', true)->with(['media', 'type'])->orderBy('sort_order')->orderBy('id')->take(3)->get();
     }
 
     /** @return Collection<int, OrganizationType> grouped organizations (search + type filter applied) */
