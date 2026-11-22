@@ -118,7 +118,7 @@ return [
         ],
         'achiever' => [
             'before' => ['profile-socials', 'profile-achievements', 'profile-portrait', 'profile-idcard', 'profile-medal-stats', 'profile-enhance', 'profile-journey', 'profile-said', 'profile-hero-map'],
-            'after' => ['aj-bento', 'aj-layout', 'aj-pro', 'aj-split', 'aj-reader', 'polish-achiever'],
+            'after' => ['aj-bento', 'aj-layout', 'aj-pro', 'aj-split', 'aj-reader', 'polish-achiever', 'polish-achiever-said'],
         ],
         'organizations' => [
             'before' => ['institutions-page', 'frame-hero'],
@@ -164,6 +164,7 @@ return [
         'award-architecture' => [
             'before' => ['bha-concepts-base', 'bha-c2', 'bha-final'],
             'after' => ['scroll-cue', 'desktop-hero-height', 'bha-hero-motion', 'bha-hero-intro', 'phone-port-bilarab', 'phone-arc-motion'],
+            'polish' => ['polish-award-architecture'],
         ],
         'org-news' => [
             'before' => ['institutions-page', 'org-news', 'article-page'],

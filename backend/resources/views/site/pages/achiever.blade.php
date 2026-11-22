@@ -162,16 +162,24 @@
   @if ($achiever->quotes->isNotEmpty())
     <section class="section wrap" id="said" aria-labelledby="said-title">
       <div class="sec-title"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt=""><h2 id="said-title">{{ __('site.achievers.said', ['name' => $achiever->name]) }}</h2></div>
-      <div class="said">
-        @foreach ($achiever->quotes as $quote)
-          <figure class="said-card" style="--i:{{ $loop->index }}">
-            <span class="said-av" aria-hidden="true"><img src="{{ $quote->imageUrl('avatar', 'card') ?? Vite::asset('resources/site/assets/svg/icon-omani-man-teal.svg') }}" alt="" loading="lazy"></span>
-            <div class="said-body">
-              <blockquote>{{ $quote->text }}</blockquote>
-              <figcaption><b>{{ $quote->name }}</b>@if ($quote->role)<small>{{ $quote->role }}</small>@endif</figcaption>
-            </div>
-          </figure>
-        @endforeach
+      @php $quoteAvatar = fn ($quote) => $quote->imageUrl('avatar', 'card') ?? Vite::asset('resources/site/assets/svg/icon-omani-man-teal.svg'); @endphp
+      {{-- «غبار ذهبي» (تصاميم ٢٠٥٠ / معتمد): the canvas writes each quote in gold dust; the quotes are also listed for screen readers. --}}
+      <div class="gd swap" data-gd>
+        <div class="gd-who">
+          <div class="gd-av">
+            <svg class="gd-ring" viewBox="0 0 124 124" aria-hidden="true"><circle class="bg" cx="62" cy="62" r="57"/><circle class="pr" cx="62" cy="62" r="57"/></svg>
+            @foreach ($achiever->quotes as $quote)<img src="{{ $quoteAvatar($quote) }}" alt="" loading="lazy">@endforeach
+            <span class="shine" aria-hidden="true"></span>
+          </div>
+          @if ($achiever->quotes->count() > 1)<div class="picks">@foreach ($achiever->quotes as $quote)<button type="button" aria-label="{{ $quote->name }}"><img src="{{ $quoteAvatar($quote) }}" alt="" loading="lazy"></button>@endforeach</div>@endif
+        </div>
+        <div class="gd-main">
+          <span class="gd-mark" aria-hidden="true">”</span>
+          <div class="gd-by" aria-hidden="true"><b></b><small></small></div>
+          <span class="gd-no" aria-hidden="true"><b></b> <i></i></span>
+          <ul class="gd-sr">@foreach ($achiever->quotes as $quote)<li data-q="{{ $quote->text }}" data-n="{{ $quote->name }}" data-r="{{ $quote->role }}"><blockquote>{{ $quote->text }}</blockquote> — {{ $quote->name }}@if ($quote->role)، {{ $quote->role }}@endif</li>@endforeach</ul>
+        </div>
+        <canvas aria-hidden="true"></canvas>
       </div>
       @if ($achiever->quotes_note)<p class="said-note">{{ $achiever->quotes_note }}</p>@endif
     </section>

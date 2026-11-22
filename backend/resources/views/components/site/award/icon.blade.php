@@ -17,6 +17,13 @@
         'ruler' => '<path d="m3 17 14-14 4 4L7 21Z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/>',
         'team' => '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2.5 20c.6-3.4 2.6-5 5.5-5s4.9 1.6 5.5 5M10.5 20c.6-3.4 2.6-5 5.5-5s4.9 1.6 5.5 5"/>',
         'pc' => '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',
+        'star' => '<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9Z"/>',
+        'chat' => '<path d="M4 5h16v10H9l-5 4Z"/><path d="M8 9h8M8 12h5"/>',
+        'arch' => '<path d="M4 21V11a8 8 0 0 1 16 0v10"/><path d="M9 21v-6a3 3 0 0 1 6 0v6M2 21h20"/>',
+        'pencil' => '<path d="m3 17 14-14 4 4L7 21H3Z"/><path d="m14 6 4 4"/>',
+        'search' => '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/>',
+        'trophy' => '<path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8M9 18h6"/>',
+        'talk' => '<path d="M4 5h11v8H8l-4 3Z"/><path d="M15 9h5v8l-3-2h-6v-2"/>',
     ];
 @endphp
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ $width }}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" {{ $attributes }}>{!! $paths[$name] ?? $paths['culture'] !!}</svg>
