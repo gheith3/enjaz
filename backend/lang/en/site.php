@@ -186,6 +186,15 @@ return [
         'participations' => 'entries', 'in_final' => 'in the final', 'site_area' => 'm² site area',
         'jury' => 'Jury chair', 'exec' => 'Executed by', 'ceremony' => 'Ceremony', 'gallery' => 'Project and ceremony photos',
         'sources_refs' => 'Sources and references', 'map' => 'Map of Oman: edition sites',
+        // Approved 2050 design of the Bilarab award page
+        'about_kicker' => 'About the award', 'goals' => 'Goals of the award', 'journey' => 'The design journey: :title', 'journey_scene' => 'The design journey in :n chapters',
+        'journey_entries' => ':n entries', 'journey_finals' => ':n projects in the final', 'journey_end' => 'From paper to reality',
+        'showcase' => 'Winning projects', 'showcase_image' => 'Image :n', 'card_kicker' => 'Participant card', 'card_title' => 'Do the conditions apply to you?',
+        'card_lead' => 'Clear conditions: if they apply to you, the competition is open to you.', 'card_summary' => 'Summary of the conditions', 'stamp' => 'Eligible', 'stamp_sub' => 'to enter',
+        'winners' => 'Winners', 'read_more' => 'Read more', 'read_less' => 'Hide', 'design_unpublished' => 'Images of this design have not been published yet',
+        'gallery_hint' => 'Tap any image to enlarge it', 'gallery_count' => ':n images', 'gallery_swipe' => 'Swipe or press the arrow for more', 'gallery_end' => 'That is the last image',
+        'gallery_prev' => 'Previous images', 'gallery_next' => 'Next images', 'viewer' => 'Image viewer', 'viewer_close' => 'Close', 'viewer_prev' => 'Previous', 'viewer_next' => 'Next',
+        'timeline' => 'The award\'s path', 'expo_team' => 'Winning design team', 'chapter' => 'Chapter :n', 'zoom' => 'Enlarge image',
     ],
     'federation' => [
         'memberships' => 'Memberships',

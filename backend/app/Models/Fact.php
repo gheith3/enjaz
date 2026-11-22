@@ -12,9 +12,11 @@ class Fact extends Model
 {
     use ClearsResponseCache, HasTranslations;
 
-    public const GROUPS = ['goals' => 'الأهداف', 'who' => 'من يحق له المشاركة', 'path' => 'المسار / الخطوات', 'criteria' => 'معايير التقييم', 'facts' => 'معلومات'];
+    public const GROUPS = ['goals' => 'الأهداف', 'who' => 'من يحق له المشاركة', 'path' => 'المسار / الخطوات', 'criteria' => 'معايير التقييم', 'facts' => 'معلومات',
+        'expo' => 'أرقام المسابقة الخاصة (ما بعد الدورات)', 'initiative' => 'أركان المبادرة (ما بعد الدورات)'];
 
-    public const ICONS = ['flag' => 'علم', 'age' => 'شخص', 'ruler' => 'مسطرة', 'team' => 'فريق', 'pc' => 'حاسوب', 'pin' => 'موقع', 'build' => 'مبنى', 'cal' => 'تقويم', 'globe' => 'كرة أرضية'];
+    public const ICONS = ['flag' => 'علم', 'age' => 'شخص', 'ruler' => 'مسطرة', 'team' => 'فريق', 'pc' => 'حاسوب', 'pin' => 'موقع', 'build' => 'مبنى', 'cal' => 'تقويم', 'globe' => 'كرة أرضية',
+        'star' => 'نجمة', 'chat' => 'حوار', 'arch' => 'قوس', 'pencil' => 'قلم', 'search' => 'عدسة', 'trophy' => 'كأس', 'talk' => 'نقاش'];
 
     protected $fillable = ['group', 'label', 'value', 'short', 'icon', 'sort_order'];
 

@@ -8,6 +8,7 @@ use App\Models\AwardEdition;
 use App\Models\Page;
 use App\Models\Redirect;
 use App\Support\ArabicSearch;
+use App\Support\Awards\BilarabContent;
 use App\Support\DesignImport\DesignSource;
 use App\Support\DesignImport\ImportReport;
 use Spatie\MediaLibrary\HasMedia;
@@ -263,6 +264,7 @@ class AwardsStep implements ImportStep
             $award->facts()->create(['group' => 'path', 'label' => ['ar' => $p[0]], 'value' => ['ar' => $p[1]], 'sort_order' => $i + 1]);
         }
         $this->letter($award, $d['word'] ?? null, 'إن الهدف الأسمى هو الاستماع إلى صوت الشباب بطريقة مختلفة');
+        BilarabContent::apply($award);
 
         foreach ($d['cycles'] as $i => $c) {
             [$pin, $x, $y] = self::BILARAB_PINS[$c['n']] ?? [null, null, null];

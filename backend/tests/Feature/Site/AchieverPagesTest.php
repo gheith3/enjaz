@@ -91,6 +91,7 @@ class AchieverPagesTest extends TestCase
             ->assertSee('<p class="en" lang="en">Ali Al-Habsi</p>', false)
             ->assertSee('data-total="3" data-intl="2" data-local="1"', false)
             ->assertSee('data-icon="trophy"', false)->assertSee('لاعب رائع')->assertSee('الأقوال مترجمة')
+            ->assertSee('data-gd', false)->assertSee('data-q="لاعب رائع" data-n="مدرب"', false)
             ->assertSee('id="member-card-data"', false)->assertSee('"bio":"حارس مرمى"', false)
             ->assertSee('قصة البداية')
             ->assertSee('data-ml-open="photo"', false)->assertSee('data-ml-open="video"', false)

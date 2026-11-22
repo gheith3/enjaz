@@ -77,3 +77,5 @@ import './sections/polish/awards.js';
 import './sections/polish/universities.js';
 import './sections/polish/achiever.js';
 import './sections/polish/achiever-library.js';
+import './sections/polish/award-architecture.js';
+import './sections/polish/achiever-said.js';

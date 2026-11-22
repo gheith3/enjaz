@@ -360,6 +360,15 @@ return [
         'participations' => 'مشاركة', 'in_final' => 'في النهائي', 'site_area' => 'م² مساحة الموقع',
         'jury' => 'رئيس التحكيم', 'exec' => 'المنفِّذ', 'ceremony' => 'موقع التتويج', 'gallery' => 'صور المشروع والتتويج',
         'sources_refs' => 'المصادر والمراجع', 'map' => 'خريطة سلطنة عُمان: مواقع الدورات',
+        // تصميم ٢٠٥٠ المعتمد لصفحة جائزة بلعرب
+        'about_kicker' => 'عن الجائزة', 'goals' => 'أهداف الجائزة', 'journey' => 'رحلة التصميم: :title', 'journey_scene' => 'رحلة التصميم في :n فصول',
+        'journey_entries' => ':n مشاركة', 'journey_finals' => ':n مشاريع في النهائي', 'journey_end' => 'من الورق إلى أرض الواقع',
+        'showcase' => 'صور المشاريع الفائزة', 'showcase_image' => 'الصورة :n', 'card_kicker' => 'بطاقة المشارك', 'card_title' => 'هل تنطبق عليك الشروط؟',
+        'card_lead' => 'شروط واضحة، إذا انطبقت عليك فباب المشاركة مفتوح أمامك.', 'card_summary' => 'ملخص الشروط', 'stamp' => 'مؤهَّل', 'stamp_sub' => 'للمشاركة',
+        'winners' => 'الفائزون', 'read_more' => 'اقرأ المزيد', 'read_less' => 'إخفاء', 'design_unpublished' => 'لم تُنشر صور هذا التصميم بعد',
+        'gallery_hint' => 'اضغط على أي صورة لعرضها مكبّرة', 'gallery_count' => ':n صور', 'gallery_swipe' => 'اسحب أو اضغط السهم لرؤية المزيد', 'gallery_end' => 'وصلت إلى آخر الصور',
+        'gallery_prev' => 'الصور السابقة', 'gallery_next' => 'الصور التالية', 'viewer' => 'عارض الصور', 'viewer_close' => 'إغلاق', 'viewer_prev' => 'السابقة', 'viewer_next' => 'التالية',
+        'timeline' => 'مسيرة الجائزة', 'expo_team' => 'فريق التصميم الفائز', 'chapter' => 'الفصل :n', 'zoom' => 'تكبير الصورة',
     ],
     'federation' => [
         'memberships' => 'العضويات',
