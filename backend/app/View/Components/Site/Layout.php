@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\SocialLink;
 use App\Settings\GeneralSettings;
 use App\Settings\SeoSettings;
+use App\Support\Site\CssBundles;
 use App\Support\Site\SiteMedia;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -67,7 +68,8 @@ class Layout extends Component
             $this->crumb['url'] = null;
         }
 
-        $this->stylesheets = self::stylesheetsFor($styles);
+        // One merged stylesheet per page (resources/site/css-bundles, php artisan site:css-bundles).
+        $this->stylesheets = CssBundles::for($styles);
         $this->menus = MenuItem::grouped();
         $this->socials = SocialLink::query()->forSite()->get();
     }
