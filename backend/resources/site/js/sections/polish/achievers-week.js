@@ -13,7 +13,7 @@
     // نعيد تشغيل حركة اللوحة الداخلية (الخريطة، الصورة، الاسم) لتبدأ مع ظهورها لا قبله
     setTimeout(function () { cards.forEach(function (c) { c.classList.add('motion'); c.classList.remove('is-live'); void c.offsetWidth; c.classList.add('is-live'); }); }, 120);
   };
-  var later = function () { setTimeout(show, 1000); };
+  var later = function () { setTimeout(show, window.__xInstant ? 0 : 1000); };
   if (!hero || !hero.classList.contains('ap-intro') || hero.classList.contains('ap-go')) later();
   else new MutationObserver(function (m, o) { if (hero.classList.contains('ap-go')) { o.disconnect(); later(); } }).observe(hero, { attributes: true, attributeFilter: ['class'] });
   setTimeout(show, 2600);   // حدّ أقصى

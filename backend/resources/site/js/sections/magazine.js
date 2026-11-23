@@ -45,10 +45,14 @@
     if (shareBtn) shareBtn.addEventListener('click', function () {
       if (navigator.share) navigator.share({ title: document.title, url: location.href }).catch(function () {}); else copy();
     });
-    try {
-      var key = 'injaz-read:' + page.dataset.articleView;
-      if (!sessionStorage.getItem(key)) { sessionStorage.setItem(key, '1'); fetch(page.dataset.articleView, { method: 'POST', keepalive: true }).catch(function () {}); }
-    } catch (e) {}
+    var countRead = function () {
+      try {
+        var key = 'injaz-read:' + page.dataset.articleView;
+        if (!sessionStorage.getItem(key)) { sessionStorage.setItem(key, '1'); fetch(page.dataset.articleView, { method: 'POST', keepalive: true }).catch(function () {}); }
+      } catch (e) {}
+    };
+    // الصفحة قد تُجهَّز مسبقًا في الخلفية (speculation rules): تُحسب القراءة حين يفتحها الزائر فعلًا
+    if (document.prerendering) document.addEventListener('prerenderingchange', countRead, { once: true }); else countRead();
   }
 
   var wr = document.querySelector('[data-writers]');

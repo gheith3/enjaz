@@ -59,3 +59,6 @@
 @keyframes x-vt-out { to { opacity: 0; } }
 @keyframes x-vt-in { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
+
+/* التنقل داخل الموقع (html.x-instant من رأس الصفحة): البنر مكتمل من أول إطار — ما كان مخفيًا في الصفحة بانتظار السكربت يظهر فورًا */
+html.x-instant .ap-hero.ap-intro .ap-deck { visibility: visible !important; }

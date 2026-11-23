@@ -6,7 +6,7 @@
   var ar = function (n) { return String(n).replace(/\d/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'[d]; }); };
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!reduce) root.querySelectorAll('[data-to]').forEach(function (el, k) {
+  if (!reduce && !window.__xInstant) root.querySelectorAll('[data-to]').forEach(function (el, k) {
     var to = +el.dataset.to, t0 = performance.now() + 300 + k * 150, dur = 1700;
     el.textContent = ar(0);
     (function step(t) { var p = Math.max(0, Math.min(1, (t - t0) / dur)), e = 1 - Math.pow(1 - p, 3); el.textContent = ar(Math.round(to * e)); if (p < 1) requestAnimationFrame(step); })(performance.now());

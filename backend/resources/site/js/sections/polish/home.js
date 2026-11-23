@@ -18,7 +18,8 @@
     try { return ['navigate', 'reload', 'back_forward'][performance.navigation.type] || 'navigate'; } catch (x) { return 'navigate'; }
   })();
   var seenIntro = false; try { seenIntro = sessionStorage.getItem('t-intro-home') === '1'; } catch (x) {}
-  var playIntro = !RM && (navType === 'reload' || (navType === 'navigate' && !seenIntro));
+  // من صفحة أخرى في الموقع: البنر مباشرة بلا افتتاحية (الافتتاحية لأول دخول للموقع وعند إعادة التحميل)
+  var playIntro = !RM && (navType === 'reload' || (navType === 'navigate' && !seenIntro && !window.__xInstant));
   try { sessionStorage.setItem('t-intro-home', '1'); } catch (x) {}
   // صفحة عائدة من ذاكرة المتصفح (bfcache): لا افتتاحية
   addEventListener('pageshow', function (e) { if (e.persisted) { var o = $('.t-intro'); if (o && o.parentNode) o.parentNode.removeChild(o); } });
