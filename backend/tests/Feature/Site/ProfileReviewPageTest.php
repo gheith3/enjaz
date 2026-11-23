@@ -140,8 +140,8 @@ class ProfileReviewPageTest extends TestCase
         $edits = [
             "achiever_{$id}_name" => 'علي محمد الحبسي',
             "achiever_{$id}_story" => 'تعديل لم يُعتمد',
-            "achiever_{$id}_journey" => "2003 | البداية في نادي النصر\n2010 - الاحتراف في إنجلترا",
-            "achiever_{$id}_links" => "instagram.com/ali\nhttps://example.com",
+            "achiever_{$id}_journey_items" => "2003 | البداية في نادي النصر\n2010 - الاحتراف في إنجلترا",
+            "achiever_{$id}_social_links" => "instagram.com/ali\nhttps://example.com",
             "achiever_{$id}_portrait" => $path,
             "achievement_{$this->achievement->id}_body" => "فقرة أولى\n\nفقرة <ثانية>",
             "achievement_{$this->achievement->id}_achieved_at" => '2011-05',

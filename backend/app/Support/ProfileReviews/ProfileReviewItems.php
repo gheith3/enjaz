@@ -69,11 +69,11 @@ class ProfileReviewItems
         }
 
         $journey = $achiever->journeyItems->map(fn ($item) => trim($item->year.' | '.$item->getTranslation('title', 'ar', false)))->implode("\n");
-        $items[] = self::item(['journey', 'محطات مسيرتك'], 'achiever', $achiever->id, 'journey', 'محطات المسيرة', 'journey',
+        $items[] = self::item(['journey', 'محطات مسيرتك'], 'achiever', $achiever->id, 'journey_items', 'محطات المسيرة', 'journey',
             $journey, null, 'سطر لكل محطة: السنة ثم علامة | ثم المحطة. مثال: 2019 | الانضمام إلى المنتخب الوطني');
 
         $links = $achiever->socialLinks->filter(fn (SocialLink $link) => filled($link->url))->pluck('url')->implode("\n");
-        $items[] = self::item(['links', 'حساباتك على مواقع التواصل'], 'achiever', $achiever->id, 'links', 'روابط الحسابات', 'links',
+        $items[] = self::item(['links', 'حساباتك على مواقع التواصل'], 'achiever', $achiever->id, 'social_links', 'روابط الحسابات', 'links',
             $links, null, 'رابط واحد في كل سطر (إنستغرام، إكس، لينكدإن، يوتيوب، موقعك ...).');
 
         foreach ($achiever->quotes as $index => $quote) {
