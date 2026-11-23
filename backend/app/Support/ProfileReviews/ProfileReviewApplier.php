@@ -6,6 +6,7 @@ use App\Models\Achievement;
 use App\Models\Achiever;
 use App\Models\ProfileReview;
 use App\Models\SocialLink;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -231,7 +232,7 @@ class ProfileReviewApplier
         return (string) config('media-library.disk_name');
     }
 
-    public static function disk(): \Illuminate\Contracts\Filesystem\Filesystem
+    public static function disk(): Filesystem
     {
         return Storage::disk(self::diskName());
     }

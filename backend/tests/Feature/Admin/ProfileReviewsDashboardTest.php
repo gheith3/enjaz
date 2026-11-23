@@ -42,12 +42,13 @@ class ProfileReviewsDashboardTest extends TestCase
         $review = ProfileReview::start($achiever);
         $name = "achiever_{$achiever->id}_name";
         $headline = "achiever_{$achiever->id}_headline";
+        $corrections = [$name => 'الاسم الجديد', $headline => 'وصف جديد'];
         $review->update([
             'status' => 'submitted',
             'items' => collect($review->items)->map(fn ($item) => [
                 ...$item,
-                'decision' => in_array($item['key'], [$name, $headline], true) ? 'edit' : 'ok',
-                'new' => match ($item['key']) { $name => 'الاسم الجديد', $headline => 'وصف جديد', default => null },
+                'decision' => isset($corrections[$item['key']]) ? 'edit' : 'ok',
+                'new' => $corrections[$item['key']] ?? null,
             ])->all(),
         ]);
 
