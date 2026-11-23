@@ -87,6 +87,9 @@ return [
                 'mission' => 'الرسالة: النص', 'vision' => 'الرؤية: النص',
                 'value1' => 'القيمة ١: النص', 'value1_tag' => 'القيمة ١: الكلمة', 'value2' => 'القيمة ٢: النص', 'value2_tag' => 'القيمة ٢: الكلمة',
                 'value3' => 'القيمة ٣: النص', 'value3_tag' => 'القيمة ٣: الكلمة', 'value4' => 'القيمة ٤: النص', 'value4_tag' => 'القيمة ٤: الكلمة',
+                'nav_goals' => 'شريط الأقسام: أهدافنا', 'goals_title' => 'أهدافنا: العنوان', 'goals_lead' => 'أهدافنا: النص تحت العنوان',
+                'goal1_title' => 'الهدف ١: العنوان', 'goal1_text' => 'الهدف ١: الوصف', 'goal2_title' => 'الهدف ٢: العنوان', 'goal2_text' => 'الهدف ٢: الوصف',
+                'goal3_title' => 'الهدف ٣: العنوان', 'goal3_text' => 'الهدف ٣: الوصف', 'goal4_title' => 'الهدف ٤: العنوان', 'goal4_text' => 'الهدف ٤: الوصف',
             ],
         ],
         'contact' => [
@@ -207,6 +210,7 @@ return [
             'main' => false,
             'before' => ['about-roadmap', 'about-page', 'about-footer'],
             'after' => ['about-hero-desktop', 'phone-port-about', 'about-page-2', 'phone-port-journey'],
+            'polish' => ['polish-about-goals'],
         ],
         'inspiring' => [
             'before' => ['inspiring-page', 'inspiring-strip'],

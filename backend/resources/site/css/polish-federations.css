@@ -29,8 +29,6 @@
 
 /* ===== المستطيل: يظهر في ربع ثانية ===== */
 .fed-panel.x-panel { order: 3; flex: 0 0 100%; margin-top: 6px; opacity: 1; grid-template-rows: 1fr; transition: none; }
-.fed-panel.x-panel .fed-inner { animation: x-panel-in .32s var(--x-ease) both; transform-origin: 50% 0; }
-.fed-panel.x-panel .fed { animation: x-fed-in .34s var(--x-ease) both; animation-delay: calc(var(--k, 0) * 18ms); }
 .fed-panel.x-panel.x-closing .fed-inner { animation: x-panel-out .24s ease both; }
 @keyframes x-panel-in { from { opacity: 0; transform: translateY(-8px) scaleY(.92); clip-path: inset(0 0 100% 0 round 14px); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0 round 14px); } }
 @keyframes x-panel-out { to { opacity: 0; transform: translateY(-6px); } }

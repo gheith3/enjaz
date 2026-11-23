@@ -51,7 +51,7 @@ class LayoutTest extends TestCase
         $this->get('/')
             ->assertOk()
             ->assertSee('class="site-header has-desktop-nav"', false)
-            ->assertSee("'x-navfit:' + innerWidth", false)   // تصاميم ٢٠٤٠: section sizes set before the first paint
+            ->assertSee("'x-navfit2:' + innerWidth", false)   // تصاميم ٢٠٤٠: section sizes set before the first paint
             ->assertSee('>إنجازات</a>', false)       // short label in the desktop bar
             ->assertSee('>الإنجازات</a>', false)     // full label in the menu
             ->assertSee('>تواصل معنا</a>', false)    // footer column

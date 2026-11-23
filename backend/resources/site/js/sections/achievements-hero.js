@@ -62,12 +62,8 @@ if (hero) {
  const observer = new IntersectionObserver(entries => {
    if (entries.some(entry => entry.isIntersecting)) { reveal(); observer.disconnect(); }
  }, {threshold: .15});
- // تصاميم ٢٠٤٠ (معتمد): تنزل بعد بدء حركة الواجهة بـ ٠٫٣٥ ثانية (لا بعد انتهائها وتحميل كل صور الجدار)، وبحدّ أقصى ١٫١ ثانية.
- const hero = document.querySelector('.ah2-hero');
- const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
- const heroStarted = new Promise(resolve => {
-   if (!hero || hero.classList.contains('ah2-go')) { resolve(); return; }
-   new MutationObserver((_, watcher) => { if (hero.classList.contains('ah2-go')) { watcher.disconnect(); resolve(); } }).observe(hero, {attributes: true, attributeFilter: ['class']});
- });
- Promise.race([heroStarted.then(() => wait(350)), wait(1100)]).then(() => observer.observe(card.closest('.honor')));
+ // تظهر فور دخولها الشاشة، لكن بعد فكّ ترميز الصورة (حدّ أقصى ٤٥٠ مللي ثانية) فلا تظهر الصورة متقطعة أثناء الحركة.
+ const img = card.querySelector('.honor-img');
+ const decoded = img && img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+ Promise.race([decoded, new Promise(resolve => setTimeout(resolve, 450))]).then(() => observer.observe(card.closest('.honor')));
 })();

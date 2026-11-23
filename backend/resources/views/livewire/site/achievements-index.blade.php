@@ -34,7 +34,7 @@
     @php $honorAchiever = $honor->primaryAchiever(); @endphp
     <section class="wrap honor" aria-labelledby="honor-title" wire:ignore>
       <a class="honor-card honor-pending" href="{{ $honor->url() }}">
-        <img class="honor-img" src="{{ $honor->imageUrl('cover') }}" alt="{{ \App\Models\Achievement::alt($honor->image('cover'), $honor->title) }}" width="1000" height="665" style="object-position:{{ \App\Models\Achievement::focal($honor->image('cover')) }}">
+        <img class="honor-img" src="{{ $honor->imageUrl('cover') }}" alt="{{ \App\Models\Achievement::alt($honor->image('cover'), $honor->title) }}" width="1000" height="665" fetchpriority="high" decoding="async" style="object-position:{{ \App\Models\Achievement::focal($honor->image('cover')) }}">
         <span class="honor-body">
           <span class="honor-kicker"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt="">{{ __('site.achievements.honor') }}</span>
           <span class="honor-title" id="honor-title" role="heading" aria-level="2">{{ $honor->title }}</span>

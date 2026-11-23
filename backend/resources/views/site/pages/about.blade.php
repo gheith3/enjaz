@@ -88,6 +88,25 @@
       <ul class="v-list"><span class="v-dot" aria-hidden="true"></span><li style="--i:0"><div class="v-tx">{{ $p->label('value1') }}<br><span class="v-tag">{{ $p->label('value1_tag') }}</span></div><span class="v-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg></span></li><li style="--i:1"><div class="v-tx">{{ $p->label('value2') }}<br><span class="v-tag">{{ $p->label('value2_tag') }}</span></div><span class="v-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 11-8 11z"/></svg></span></li><li style="--i:2"><div class="v-tx">{{ $p->label('value3') }}<br><span class="v-tag">{{ $p->label('value3_tag') }}</span></div><span class="v-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span></li><li style="--i:3"><div class="v-tx">{{ $p->label('value4') }}<br><span class="v-tag">{{ $p->label('value4_tag') }}</span></div><span class="v-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></span></li></ul>
       <div class="v-foot" aria-hidden="true"></div>
     </article>
+
+    {{-- تصاميم ٢٠٥٠ (معتمد): «أهدافنا» أسفل القيم (css polish-about-goals، js polish/about-goals). النصوص من /admin (صفحة من نحن). --}}
+    @php $goalIcons = ['<path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5z"/><path d="m14.8 11.6 1.6 1.6 3-3.2"/>', '<path d="m12 3 2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.4l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z"/>', '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.4 1.1 2.2h5c0-.8.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/>', '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>']; @endphp
+    <article class="vmv-card" id="vmv-goals" aria-labelledby="goals-title">
+      <span class="vmv-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/><path d="M12 3V1.5M21 12h1.5M12 21v1.5M3 12H1.5"/></svg></span>
+      <h3 id="goals-title">{{ $p->label('goals_title', __('site.about.goals_title')) }}</h3><span class="vmv-rule" aria-hidden="true"></span>
+      @if ($goalsLead = $p->label('goals_lead', __('site.about.goals_lead')))<p class="g-lead">{{ $goalsLead }}</p>@endif
+      <ol class="g-grid">
+        @foreach ([1, 2, 3, 4] as $i)
+          <li class="g-item" style="--i:{{ $i - 1 }}">
+            <span class="g-num" aria-hidden="true">{{ \App\Support\ArabicDate::digits($i) }}</span>
+            <span class="g-ico" aria-hidden="true"><svg viewBox="0 0 24 24">{!! $goalIcons[$i - 1] !!}</svg></span>
+            <h4>{{ $p->label('goal'.$i.'_title', __('site.about.goal'.$i.'_title')) }}</h4>
+            <p>{{ $p->label('goal'.$i.'_text', __('site.about.goal'.$i.'_text')) }}</p>
+          </li>
+        @endforeach
+      </ol>
+      <div class="v-foot" aria-hidden="true"></div>
+    </article>
   </div>
   <svg class="vmv-ribbon" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C110 6 250 70 400 18" fill="none" stroke="#E9CF96" stroke-opacity=".5"/><path d="M0 54 C120 16 250 78 400 28" fill="none" stroke="#E9CF96" stroke-opacity=".25" stroke-dasharray="2 5"/></svg>
 </section>
