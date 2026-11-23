@@ -15,7 +15,7 @@ return new class extends Migration
     {
         try {
             Artisan::call('media-library:regenerate', ['--only-missing' => true, '--queue-all' => true, '--force' => true]);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             Log::warning('Missing image conversions were not queued: '.$e->getMessage());
         }
     }
