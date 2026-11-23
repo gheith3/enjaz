@@ -45,9 +45,19 @@ if (hero) {
                 setTimeout(finishHeroIntro, 2100);
             });
         };
-        Promise.all([document.fonts.ready, ...Array.from(hero.querySelectorAll('img'), img => img.decode().catch(() => {}))])
+        // تصاميم ٢٠٧٠: تنتظر الموجة صور الجدار الظاهرة فقط (الصورة الواحدة تتكرر في الجدار ١٤٠ مرة)، بحدّ أقصى ٠٫٤ ثانية بدل ٣٫٥:
+        // كل صورة تبدأ وجه ميدالية ذهبيًا وتنكشف تباعًا خلال الموجة (حتى ١٫٦ ثانية)، فما يتأخر منها قليلًا يلحق بها، ولا يبقى الجدار فارغًا.
+        const seen = new Set();
+        const visible = Array.from(hero.querySelectorAll('img')).filter((img) => {
+            const r = img.getBoundingClientRect();
+            const inView = r.right > box.left && r.left < box.right && r.bottom > box.top && r.top < box.bottom;
+            if (!inView || seen.has(img.currentSrc || img.src)) return false;
+            seen.add(img.currentSrc || img.src);
+            return true;
+        });
+        Promise.all([document.fonts.ready, ...visible.map(img => img.decode().catch(() => {}))])
             .then(() => requestAnimationFrame(() => requestAnimationFrame(startIntro)));
-        setTimeout(startIntro, 3500);
+        setTimeout(startIntro, 400);
     }
 } else { finishHeroIntro(); }
 

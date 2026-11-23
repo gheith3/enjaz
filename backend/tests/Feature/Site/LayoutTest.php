@@ -2,11 +2,13 @@
 
 namespace Tests\Feature\Site;
 
+use App\Models\Award;
 use App\Models\MenuItem;
 use App\Models\Page;
 use App\Models\SocialLink;
 use App\Settings\GeneralSettings;
 use App\Support\Site\CssBundles;
+use App\Support\Site\PagePrefetch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -70,10 +72,40 @@ class LayoutTest extends TestCase
         $this->assertCount(1, $links);
         // Banner entrance motion plays on every page (the approved motion); nothing finishes it early.
         $this->assertStringNotContainsString('x-instant', $html);
-        // Nothing holds the first paint or loads pages in the background (they made the site feel slow).
+        // Nothing holds the first paint or renders pages in the background (they made the site feel slow).
         $this->assertStringNotContainsString('blocking="render"', $html);
-        $this->assertStringNotContainsString('speculationrules', $html);
+        $this->assertStringNotContainsString('"prerender"', $html);
         $this->assertStringNotContainsString('requestAnimationFrame(loop)', $html);
+    }
+
+    public function test_page_changes_are_prefetched_and_revealed_with_their_banner(): void
+    {
+        $html = $this->get('/achievements')->assertOk()->getContent();
+
+        // تصاميم ٢٠٧٠: the next page's HTML is prefetched on hover (prefetch only), never for the dashboard.
+        $this->assertMatchesRegularExpression('/<script type="speculationrules">\{"prefetch":/', $html);
+        $this->assertStringContainsString('{"not":{"href_matches":"/admin*"}}', $html);
+        // The previous page stays until the new banner image is ready (capped), then the new page fades in.
+        $this->assertStringContainsString('<script id="x-reveal">', $html);
+        $this->assertStringContainsString("addEventListener('pagereveal'", $html);
+        $this->assertStringContainsString('setTimeout(release, 900)', $html);
+        // The header is part of the page snapshot (a separate layer left a white line under it).
+        $this->assertStringNotContainsString('view-transition-name: site-header', file_get_contents(resource_path('site/css/polish-global.css')));
+    }
+
+    public function test_section_stylesheets_are_mapped_for_prefetching(): void
+    {
+        Award::factory()->kind('architecture')->create(['slug' => 'bilarab']);
+
+        $map = PagePrefetch::map();
+
+        $this->assertStringContainsString('/build/assets/achievements-', $map['pages']['/achievements']);
+        $this->assertStringContainsString('/build/assets/home-', $map['pages']['/']);
+        $this->assertStringContainsString('/build/assets/award-architecture-', $map['pages']['/awards/bilarab']);
+        $this->assertStringContainsString('/build/assets/achiever-', $map['prefixes']['/achievers/']);
+
+        $html = $this->get('/achievements')->assertOk()->getContent();
+        $this->assertStringContainsString('<script type="application/json" id="x-css-map">', $html);
     }
 
     public function test_every_page_has_its_stylesheet_bundle_in_sync_with_the_config(): void

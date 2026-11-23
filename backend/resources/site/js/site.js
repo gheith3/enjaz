@@ -4,6 +4,7 @@ import './core/menu.js';
 import './core/nav-fit.js';
 import './core/crumb.js';
 import './core/nav-stable.js';
+import './core/prefetch.js';
 import './sections/story.js';
 import './sections/achievements-hero.js';
 import './sections/achievement-detail.js';
