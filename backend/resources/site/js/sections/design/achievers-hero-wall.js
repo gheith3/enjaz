@@ -8,7 +8,7 @@
   var hero = document.querySelector('.ap-hero');
   if (!hero) return;
   // The wall replaces the card deck, so it must also start the shared text intro.
-  if (window.__xInstant) hero.classList.add('ap-go'); else requestAnimationFrame(function () { hero.classList.add('ap-go'); });
+  requestAnimationFrame(function () { hero.classList.add('ap-go'); });
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ٢٠ منجزًا في ٤ مجالات (التوزيع هنا للمعاينة، ويُربط لاحقًا ببيانات المنجزين الفعلية)

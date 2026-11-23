@@ -35,31 +35,6 @@
 <meta name="twitter:image" content="{{ $socialImage }}">
 @endif
 <link rel="icon" href="{{ \App\Support\Site\SiteMedia::url($general->favicon, 'svg/ornament.svg') }}">
-{{-- الانتقال بين الصفحات (٢٠٢٦-١١): عند التنقل داخل الموقع (أو الرجوع) يظهر البنر مكتملًا بلا حركة دخول تُعاد كل مرة؛
-     حركات الدخول تبقى لأول زيارة وعند إعادة التحميل. خفيف: يُنهي حركات الدخول المحدودة في أول شاشة في لحظات قليلة فقط
-     (قبل أول رسم، وعند اكتمال الصفحة)، ولا يلمس الحركات المستمرة (الشرائح، اللمعات). --}}
-<script id="x-instant">(function () {
-  try {
-    var n = performance.getEntriesByType('navigation')[0], t = n && n.type, r = document.referrer, same = false;
-    try { same = !!r && new URL(r).origin === location.origin; } catch (e) {}
-    if (!(t === 'back_forward' || (t === 'navigate' && same)) || !document.getAnimations) return;
-    var d = document.documentElement;
-    d.classList.add('x-instant'); window.__xInstant = true;
-    var sweep = function () {
-      var h = innerHeight * 1.05;
-      document.getAnimations().forEach(function (a) {
-        if (a.__x || a.playState === 'finished') return;
-        var e = a.effect, el = e && e.target, tm = e && e.getComputedTiming && e.getComputedTiming();
-        if (!el || !tm || tm.iterations === Infinity || !el.getBoundingClientRect) return;
-        a.__x = 1;
-        if (el.getBoundingClientRect().top <= h) try { a.finish(); } catch (x) {}
-      });
-    };
-    requestAnimationFrame(sweep);
-    document.addEventListener('DOMContentLoaded', function () { sweep(); requestAnimationFrame(sweep); });
-    addEventListener('load', function () { requestAnimationFrame(function () { sweep(); d.classList.remove('x-instant'); }); });
-  } catch (e) {}
-})();</script>
 <link rel="preload" href="{{ Vite::asset('resources/site/assets/fonts/Cairo-Variable.woff2') }}" as="font" type="font/woff2" crossorigin>
 @vite($stylesheets)
 {{ $head ?? '' }}
