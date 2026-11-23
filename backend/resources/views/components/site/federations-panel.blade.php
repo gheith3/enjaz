@@ -4,7 +4,7 @@
      (--w = √ratio) so wide plates and square emblems look the same size. --}}
 {{-- preview: drawn hidden (no counts) under the other fields; the federations chip opens it at once in the browser (تصاميم ٢٠٤٠). --}}
 @props(['federations', 'active' => '', 'unit' => 'achievements', 'preview' => false])
-<div @class(['fed-panel open', 'x-preview' => $preview]) data-fed-panel data-unit="{{ $unit }}" @if ($preview) hidden @endif>
+<div @class(['fed-panel open x-panel', 'x-preview' => $preview]) wire:key="fed-panel" data-fed-panel data-unit="{{ $unit }}" @if ($preview) hidden @endif>
   <div class="fed-inner">
     <div class="fed-head"><b>{{ __('site.federations.title') }}</b><span>{{ __('site.federations.hint_'.$unit) }}</span></div>
     <div class="fed-track" role="group" aria-label="{{ __('site.federations.title') }}">

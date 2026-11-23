@@ -39,7 +39,7 @@
   var n = h && h.querySelector('.dnav'), u = n && n.querySelector('ul');
   if (!u || !matchMedia('(min-width: 1100px)').matches) return;
   var set = function (v) { h.style.setProperty('--dp', v[0] + 'px'); h.style.setProperty('--df', v[1] + 'px'); h.style.setProperty('--dg', v[2] + 'px'); };
-  var key = 'x-navfit:' + innerWidth, saved = null;
+  var key = 'x-navfit2:' + innerWidth, saved = null;
   try { saved = sessionStorage.getItem(key); } catch (e) {}
   if (saved) { set(saved.split(',')); return; }
   var S = [[9, 13.5, 2], [8, 13.5, 2], [7, 13, 2], [6, 13, 1], [5, 12.5, 1], [4, 12, 0], [3, 11.5, 0]];

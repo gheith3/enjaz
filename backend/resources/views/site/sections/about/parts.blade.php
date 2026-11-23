@@ -9,7 +9,7 @@
     $ach = $items('about.achievements');
     $anchors = ['about.fields' => '#fields', 'about.journey' => '#journey', 'about.founder' => '#founder', 'about.testimonials' => '#testimonials',
         'about.team' => '#team', 'about.achievements' => '#our-achievements', 'about.media' => '#media'];
-    $nav = collect([['#top', $page->label('nav_top', __('site.about.nav_top'))], ['#mission', $page->label('nav_mission', __('site.about.nav_mission'))]])
+    $nav = collect([['#top', $page->label('nav_top', __('site.about.nav_top'))], ['#mission', $page->label('nav_mission', __('site.about.nav_mission'))], ['#vmv-goals', $page->label('nav_goals', __('site.about.nav_goals'))]])
         ->concat(collect($anchors)->filter(fn ($a, $key) => ! $off($key))
             ->map(fn ($a, $key) => [$a, $sec[$key]?->text('nav') ?: __('site.about.nav_'.\Illuminate\Support\Str::after($key, 'about.'))])->values());
     $data = [

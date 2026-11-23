@@ -79,6 +79,7 @@ import './sections/polish/universities.js';
 import './sections/polish/achiever.js';
 import './sections/polish/achiever-library.js';
 import './sections/polish/award-architecture.js';
+import './sections/polish/about-goals.js';
 import './sections/polish/achiever-said.js';
 import './sections/polish/federations.js';
 import './sections/polish/achievers-week.js';

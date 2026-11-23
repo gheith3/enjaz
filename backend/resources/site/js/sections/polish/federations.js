@@ -37,7 +37,14 @@
     var chip = e.target.closest('[data-fed-field]'); if (!chip || e.button !== 0) return;
     var preview = filters.querySelector('.fed-panel.x-preview[hidden]');
     if (!filters.classList.contains('fed-open') && preview) {
-      preview.hidden = false; preview.classList.add('x-panel'); filters.classList.add('x-fed-on');
+      preview.hidden = false;
+      // الحركة عبر Web Animations: Livewire يحتفظ بالعنصر نفسه (wire:key) فلا تنقطع ولا تتكرر عند وصول الرد
+      if (!RM && preview.animate) {
+        var ease = 'cubic-bezier(.2,.8,.2,1)', inner = preview.querySelector('.fed-inner');
+        inner.style.transformOrigin = '50% 0';
+        inner.animate([{ opacity: 0, transform: 'translateY(-8px) scaleY(.92)', clipPath: 'inset(0 0 100% 0 round 14px)' }, { opacity: 1, transform: 'none', clipPath: 'inset(0 0 0 0 round 14px)' }], { duration: 320, easing: ease });
+        $$('.fed', preview).forEach(function (f, k) { f.animate([{ opacity: 0, transform: 'translateY(10px) scale(.92)' }, { opacity: 1, transform: 'none' }], { duration: 340, easing: ease, delay: k * 18, fill: 'backwards' }); });
+      } filters.classList.add('x-fed-on');
       $$('.chip', filters).forEach(function (c) { c.classList.toggle('active', c === chip); c.setAttribute('aria-pressed', String(c === chip)); });
     } else if (filters.classList.contains('fed-open')) {
       var open = filters.querySelector('.fed-panel:not(.x-preview)'); if (open) open.classList.add('x-panel', 'x-closing');

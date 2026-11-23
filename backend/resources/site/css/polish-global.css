@@ -10,9 +10,9 @@
 .t-share:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -10px rgba(198,161,90,.85), inset 0 1px 0 rgba(255,255,255,.6); }
 .t-share:hover::after { right: -60%; transition: right .8s var(--t-ease); }
 /* الشريط بكل عناصره (ومنها «من نحن» و«تواصل معنا»): مسافات أدق ليتسع الزر دون ضغط، ومسافة بعد الشعار */
-.site-header:has(.t-share) { gap: 14px; }
-.site-header .dsearch { flex: none; }
-.site-header:has(.t-share) .brand { margin-inline-end: 6px; }
+:is(.site-header, .header.has-desktop-nav):has(.t-share) { gap: 14px; }
+:is(.site-header, .header.has-desktop-nav) .dsearch { flex: none; }
+:is(.site-header, .header.has-desktop-nav):has(.t-share) .brand { margin-inline-end: 6px; }
 .site-header:has(.t-share) .dnav a { padding-inline: 7px; }
 .site-header:has(.t-share) .dnav a:hover::after, .site-header:has(.t-share) .dnav a[aria-current=page]::after { left: 7px; right: 7px; }
 @media (max-width: 1500px) { .site-header:has(.t-share) .dnav a { padding-inline: 6px; font-size: 13px; } }
@@ -53,8 +53,9 @@
 @view-transition { navigation: auto; }
 :is(.site-header, .header) { view-transition-name: site-header; }
 ::view-transition-old(site-header), ::view-transition-new(site-header) { animation: none; mix-blend-mode: normal; }
-::view-transition-old(root) { animation: x-vt-out .18s ease both; }
-::view-transition-new(root) { animation: x-vt-in .28s ease both; }
+/* الصفحة القديمة تبقى معتمة تحت الجديدة حتى تكتمل (كان تلاشي الاثنتين معًا يُظهر وميضًا أبيض مكان البنر) */
+::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: x-vt-in .26s ease both; mix-blend-mode: normal; }
 @keyframes x-vt-out { to { opacity: 0; } }
 @keyframes x-vt-in { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }

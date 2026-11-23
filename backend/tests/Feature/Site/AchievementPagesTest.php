@@ -143,7 +143,7 @@ class AchievementPagesTest extends TestCase
 
         // Before «الرياضة»: the panel is drawn hidden (logos and names, no counts) so the chip opens it at once (تصاميم ٢٠٤٠).
         $page = Livewire::test(AchievementsIndex::class, ['sitePage' => Page::forKey('achievements')])
-            ->assertSeeHtml('class="fed-panel open x-preview"')->assertDontSeeHtml('fed-open')->assertSeeHtml('data-fed-field')
+            ->assertSeeHtml('class="fed-panel open x-panel x-preview"')->assertDontSeeHtml('fed-open')->assertSeeHtml('data-fed-field')
             ->assertSeeHtml('<div class="x-count x-word-only" aria-hidden="true"><span class="x-n"></span><span class="x-w">إنجازان</span></div>');
         $this->assertSame([null, null], array_column($page->instance()->federationsPreview, 'count'));
 
@@ -154,6 +154,6 @@ class AchievementPagesTest extends TestCase
 
         $page->call('setOrg', 'oman-fa')->assertSee('هدف في كأس الخليج')->assertDontSee('ذهبية الجري')->assertSee('صفحة الاتحاد')
             ->call('setOrg', 'oman-fa')->assertSee('ذهبية الجري')
-            ->call('setField', 'sports')->assertDontSeeHtml('fed-open')->assertSeeHtml('class="fed-panel open x-preview"');
+            ->call('setField', 'sports')->assertDontSeeHtml('fed-open')->assertSeeHtml('class="fed-panel open x-panel x-preview"');
     }
 }

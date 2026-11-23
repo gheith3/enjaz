@@ -4,7 +4,7 @@
   if (!n) return;
   var save = function () {
     var v = ['--dp', '--df', '--dg'].map(function (k) { return parseFloat(h.style.getPropertyValue(k)); });
-    if (v.every(function (x) { return x > 0; })) try { sessionStorage.setItem('x-navfit:' + innerWidth, v.join(',')); } catch (e) {}
+    if (v.every(function (x) { return x > 0; })) try { sessionStorage.setItem('x-navfit2:' + innerWidth, v.join(',')); } catch (e) {}
   };
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () { setTimeout(save, 400); });
   addEventListener('resize', function () { clearTimeout(save.t); save.t = setTimeout(save, 500); });
