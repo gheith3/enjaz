@@ -14,7 +14,7 @@ const WILAYAT = ['مسقط', 'مطرح', 'بوشر', 'السيب', 'العامر
 
 const hero = document.querySelector('.ah2-hero');
 if (hero) {
-    if (reducedMotion() || window.__xInstant) {
+    if (reducedMotion()) {
         hero.classList.add('ah2-go');
         finishHeroIntro();
     } else {
@@ -56,7 +56,7 @@ if (hero) {
 (() => {
  const card = document.querySelector('.honor-card');
  if (!card) return;
- if (reducedMotion() || window.__xInstant || !('IntersectionObserver' in window)) { card.classList.remove('honor-pending'); return; }
+ if (reducedMotion() || !('IntersectionObserver' in window)) { card.classList.remove('honor-pending'); return; }
  card.classList.add('honor-pending');
  const reveal = () => { card.classList.add('honor-visible', 'x-early'); card.classList.remove('honor-pending'); };
  const observer = new IntersectionObserver(entries => {

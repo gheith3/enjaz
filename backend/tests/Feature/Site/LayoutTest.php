@@ -61,16 +61,15 @@ class LayoutTest extends TestCase
             ->assertDontSee('رابط مخفي');
     }
 
-    public function test_pages_load_one_stylesheet_and_no_banner_intro_on_internal_navigation(): void
+    public function test_pages_load_one_stylesheet_and_keep_the_banner_motion(): void
     {
         $html = $this->get('/achievements')->assertOk()->getContent();
 
         // One merged stylesheet for the page (resources/site/css-bundles), not one per design file.
         $links = collect(explode('<link', $html))->filter(fn ($l) => str_contains($l, 'rel="stylesheet"'));
         $this->assertCount(1, $links);
-        // Internal navigation: banners complete without replaying their intro; it runs before the stylesheet.
-        $this->assertStringContainsString('<script id="x-instant">', $html);
-        $this->assertLessThan(strpos($html, '<link rel="stylesheet"'), strpos($html, 'x-instant'));
+        // Banner entrance motion plays on every page (the approved motion); nothing finishes it early.
+        $this->assertStringNotContainsString('x-instant', $html);
         // Nothing holds the first paint or loads pages in the background (they made the site feel slow).
         $this->assertStringNotContainsString('blocking="render"', $html);
         $this->assertStringNotContainsString('speculationrules', $html);
