@@ -6,7 +6,8 @@
     $progress = $review->progress();
     $sectionList = $sections->map(fn ($items, $key) => ['key' => $key, 'title' => $items->first()['title'], 'count' => $items->count()])->values();
     $firstAchievement = $sectionList->first(fn ($s) => str_starts_with($s['key'], 'achievement_'))['key'] ?? null;
-    $initial = mb_substr(trim((string) $achiever->getTranslation('name', 'ar', false)), 0, 1);
+    // First letter of the name itself, never of a title («د. جوخة» → «ج»).
+    $initial = mb_substr(preg_replace('/^((د|الدكتورة?|الشيخة?|السيدة?|المهندسة?|الأستاذة?)\.?\s+)+/u', '', trim((string) $achiever->getTranslation('name', 'ar', false))), 0, 1);
 @endphp
 <!doctype html>
 <html lang="ar" dir="rtl">
