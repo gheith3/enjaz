@@ -277,6 +277,7 @@ return [
         'all' => 'All articles', 'tabs' => 'Article categories', 'all_tab' => 'All', 'empty' => 'No matching articles.',
         'most_read' => 'Most read', 'writers' => 'Injazat writers', 'more_writers' => 'More writers',
         'minutes' => ':n min', 'minutes_short' => ':n min', 'minutes_unit' => 'min', 'read_time' => ':n min read',
+        'read_time_full' => '{1} 1 minute read|[2,*] :n minutes read', 'toc' => 'In this article', 'toc_intro' => 'Introduction',
         'cta_title' => 'Write for Injazat', 'cta_text' => 'Share an article about an experience or an achievement worth telling.',
         'crumbs' => 'Breadcrumb', 'cover_alt' => '', 'box' => 'Summary', 'share' => 'Share', 'share_btn' => 'Share',
         'share_x' => 'Share on X', 'copy' => 'Copy link', 'copied' => 'Link copied', 'about_writer' => 'About the writer',

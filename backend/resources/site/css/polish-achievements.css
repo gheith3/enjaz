@@ -104,3 +104,14 @@
   .ach.t-pre { opacity: 1; transform: none; }
   .ah2-wall { translate: none; }
 }
+
+/* تصاميم ٢٠٤٠ — صفحة الإنجازات: «لوحة الشرف» أسرع وأنعم */
+@media (prefers-reduced-motion: no-preference) {
+  .honor-card.honor-visible.x-early { animation: x-honor-in .95s cubic-bezier(.22,1,.36,1) both; }
+  .honor-visible.x-early .honor-img { animation: honor-photo 1.4s ease-out both, t-kb 22s 1.4s ease-in-out infinite alternate; }
+  .honor-visible.x-early .honor-kicker { animation-delay: .3s; }
+  .honor-visible.x-early .honor-title { animation-delay: .4s; }
+  .honor-visible.x-early .honor-meta { animation-delay: .5s; }
+  .honor-visible.x-early .honor-cta { animation-delay: .6s; }
+}
+@keyframes x-honor-in { from { opacity: 0; transform: translateY(-36px) scale(.985); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }

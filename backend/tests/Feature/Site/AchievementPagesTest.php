@@ -141,14 +141,19 @@ class AchievementPagesTest extends TestCase
         $this->achievement(['title' => ['ar' => 'هدف في كأس الخليج']], $member);
         $this->achievement(['title' => ['ar' => 'ذهبية الجري']]);
 
+        // Before «الرياضة»: the panel is drawn hidden (logos and names, no counts) so the chip opens it at once (تصاميم ٢٠٤٠).
         $page = Livewire::test(AchievementsIndex::class, ['sitePage' => Page::forKey('achievements')])
-            ->assertDontSee('الاتحادات الرياضية')
-            ->call('setField', 'sports')->assertSee('الاتحادات الرياضية')->assertSee('كرة القدم')->assertSee('ألعاب القوى');
+            ->assertSeeHtml('class="fed-panel open x-preview"')->assertDontSeeHtml('fed-open')->assertSeeHtml('data-fed-field')
+            ->assertSeeHtml('<div class="x-count x-word-only" aria-hidden="true"><span class="x-n"></span><span class="x-w">إنجازان</span></div>');
+        $this->assertSame([null, null], array_column($page->instance()->federationsPreview, 'count'));
+
+        $page->call('setField', 'sports')->assertSee('الاتحادات الرياضية')->assertSee('كرة القدم')->assertSee('ألعاب القوى')
+            ->assertSeeHtml('fed-open')->assertDontSeeHtml('x-preview');
 
         $this->assertSame([1, 0], array_column($page->instance()->federations, 'count'));
 
         $page->call('setOrg', 'oman-fa')->assertSee('هدف في كأس الخليج')->assertDontSee('ذهبية الجري')->assertSee('صفحة الاتحاد')
             ->call('setOrg', 'oman-fa')->assertSee('ذهبية الجري')
-            ->call('setField', 'sports')->assertDontSee('الاتحادات الرياضية');
+            ->call('setField', 'sports')->assertDontSeeHtml('fed-open')->assertSeeHtml('class="fed-panel open x-preview"');
     }
 }

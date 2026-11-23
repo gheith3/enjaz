@@ -30,3 +30,31 @@
   :is(.site-header, .header.has-desktop-nav):has(.t-share) .dnav a:hover::after, :is(.site-header, .header.has-desktop-nav):has(.t-share) .dnav a[aria-current=page]::after { left: var(--dp, 9px); right: var(--dp, 9px); }
   :is(.site-header, .header.has-desktop-nav) .dsearch { position: relative; z-index: 2; }
 }
+
+/* تصاميم ٢٠٤٠ — الشريط العلوي ثابت من أول لحظة في كل الصفحات.
+   السبب: كانت الأقسام تُرسم أولًا بخط ١٣٫٥ ومسافة ٩ (فتفيض وتُقص)، ثم يصغّرها nav-fit بعد نصف ثانية تقريبًا،
+   فيظهر الشريط «يتوسع ويتحرك» عند كل ضغطة على قسم. الآن القيم النهائية هي نفسها قيم أول رسم، وتُحفظ للصفحات التالية. */
+@media (min-width: 1100px) {
+  :is(.site-header, .header.has-desktop-nav) { --dp: 7px; --df: 13px; --dg: 2px; }
+}
+@media (min-width: 1280px) {
+  :is(.site-header, .header.has-desktop-nav) { --dp: 6px; --df: 13px; --dg: 1px; }
+}
+/* لا انتقال لمقاسات الأقسام أبدًا، ولا قصّ مرئي */
+:is(.site-header, .header) .dnav a { transition: color .2s, background .2s; }
+
+/* ضغطة القسم: استجابة فورية قبل أن تبدأ الصفحة التالية بالتحميل */
+:is(.site-header, .header) .dnav a.x-going { color: #fff; }
+:is(.site-header, .header) .dnav a.x-going::after { left: var(--dp, 7px) !important; right: var(--dp, 7px) !important; }
+:is(.site-header, .header) .dnav ul:has(a.x-going) a:not(.x-going) { opacity: .62; transition: opacity .25s; }
+:is(.site-header, .header) .dnav ul:has(a.x-going) a[aria-current=page]:not(.x-going)::after { left: 50% !important; right: 50% !important; }
+
+/* بين الصفحات: الشريط يبقى في مكانه ولا يومض (Chrome / Edge / Safari 18) */
+@view-transition { navigation: auto; }
+:is(.site-header, .header) { view-transition-name: site-header; }
+::view-transition-old(site-header), ::view-transition-new(site-header) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { animation: x-vt-out .18s ease both; }
+::view-transition-new(root) { animation: x-vt-in .28s ease both; }
+@keyframes x-vt-out { to { opacity: 0; } }
+@keyframes x-vt-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
