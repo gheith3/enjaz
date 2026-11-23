@@ -58,6 +58,21 @@ class LayoutTest extends TestCase
             ->assertDontSee('رابط مخفي');
     }
 
+    public function test_pages_open_without_a_white_screen_or_a_replayed_banner_intro(): void
+    {
+        $html = $this->get('/about')->assertOk()->getContent();
+
+        // Internal navigation: banners complete from the first frame (intros only on a first visit or a reload).
+        $this->assertStringContainsString('<script id="x-instant">', $html);
+        // The new page is painted only once its content has arrived, and the next page is prepared on hover.
+        $this->assertStringContainsString('<link rel="expect" href="#x-end" blocking="render">', $html);
+        $this->assertGreaterThan(strrpos($html, '</footer>'), strpos($html, '<span id="x-end" hidden></span>'));
+        $rules = json_decode(str($html)->after('<script type="speculationrules">')->before('</script>')->toString(), true);
+        $this->assertSame('moderate', $rules['prerender'][0]['eagerness']);
+        $this->assertStringContainsString('/admin*', json_encode($rules));
+        $this->assertLessThan(strpos($html, '<link rel="stylesheet"'), strpos($html, 'x-instant'));
+    }
+
     public function test_footer_shows_contact_settings_and_social_links(): void
     {
         $settings = app(GeneralSettings::class);
