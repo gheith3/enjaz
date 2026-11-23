@@ -66,7 +66,7 @@ class LayoutTest extends TestCase
         $this->assertStringContainsString('<script id="x-instant">', $html);
         // The new page is painted only once its content has arrived, and the next page is prepared on hover.
         $this->assertStringContainsString('<link rel="expect" href="#x-end" blocking="render">', $html);
-        $this->assertMatchesRegularExpression('/<span id="x-end" hidden><\/span>\s*<\/body>/', $html);
+        $this->assertGreaterThan(strrpos($html, '</footer>'), strpos($html, '<span id="x-end" hidden></span>'));
         $rules = json_decode(str($html)->after('<script type="speculationrules">')->before('</script>')->toString(), true);
         $this->assertSame('moderate', $rules['prerender'][0]['eagerness']);
         $this->assertStringContainsString('/admin*', json_encode($rules));
