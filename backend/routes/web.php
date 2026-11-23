@@ -11,6 +11,7 @@ use App\Http\Controllers\Site\LabController;
 use App\Http\Controllers\Site\MagazineController;
 use App\Http\Controllers\Site\NewsController;
 use App\Http\Controllers\Site\OrganizationController;
+use App\Http\Controllers\Site\ProfileReviewController;
 use App\Http\Controllers\Site\RedirectController;
 use App\Http\Controllers\Site\RobotsController;
 use App\Http\Controllers\Site\SearchController;
@@ -62,6 +63,11 @@ Route::post('/magazine/{article:slug}/view', [MagazineController::class, 'view']
 
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/robots.txt', RobotsController::class)->name('robots');
+
+// مراجعة المنجز لصفحته: private link sent by the team, never cached, never indexed.
+Route::get('/review/{token}', [ProfileReviewController::class, 'show'])->middleware('throttle:60,1')->name('profile-review.show');
+Route::post('/review/{token}', [ProfileReviewController::class, 'save'])->middleware('throttle:30,1')->name('profile-review.save');
+Route::post('/review/{token}/upload', [ProfileReviewController::class, 'upload'])->middleware('throttle:60,1')->name('profile-review.upload');
 
 // Old addresses (the design's *.html pages, renamed slugs): table `redirects`, edited in the dashboard.
 Route::fallback(RedirectController::class);

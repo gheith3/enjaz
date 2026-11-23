@@ -10,7 +10,7 @@ class RobotsController extends Controller
     public function __invoke(): Response
     {
         $lines = app()->isProduction()
-            ? ['User-agent: *', 'Disallow: /admin', 'Disallow: /horizon', 'Disallow: /livewire', '', 'Sitemap: '.route('sitemap')]
+            ? ['User-agent: *', 'Disallow: /admin', 'Disallow: /horizon', 'Disallow: /livewire', 'Disallow: /review', '', 'Sitemap: '.route('sitemap')]
             // Dev/demo copies are never indexed.
             : ['User-agent: *', 'Disallow: /'];
 
