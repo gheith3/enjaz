@@ -1,0 +1,88 @@
+/* تصاميم ٢٠٤٠ (معتمد) — الاتحادات الرياضية والعدد (صفحتا الإنجازات والمنجزين).
+   العدد والّلمعة في القالب نفسه (Livewire يعيد رسم هذه الأجزاء)، والمستطيل يُرسم مخفيًا (.x-preview) فيفتحه زر «الرياضة» فورًا. */
+:root { --x-gold: #E6C98A; --x-gold-l: #FFF1CC; --x-gold-d: #B98E48; --x-ink: #063135; --x-teal: #0C7F89; --x-ease: cubic-bezier(.22, 1, .36, 1); }
+
+/* ===== العدد: رقم ذهبي كبير + الكلمة ===== */
+.x-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.x-count { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 6px 0 18px; border-radius: 99px; direction: rtl;
+  background: linear-gradient(135deg, #fff, #FBF6EA); box-shadow: inset 0 0 0 1px rgba(201,163,92,.45), 0 10px 22px -16px rgba(6,49,53,.45); }
+.x-count .x-n { position: relative; display: grid; place-items: center; min-width: 46px; height: 36px; padding: 0 12px; border-radius: 99px;
+  font-size: 22px; font-weight: 900; line-height: 1; letter-spacing: .5px; color: var(--x-gold-l); font-variant-numeric: tabular-nums;
+  background: radial-gradient(120% 140% at 30% 0%, #138a93, var(--x-ink)); box-shadow: inset 0 0 0 1.5px rgba(230,201,138,.7), 0 6px 14px -8px rgba(6,49,53,.8);
+  text-shadow: 0 1px 0 rgba(0,0,0,.25); }
+.x-count .x-n::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(255,241,204,.45) 50%, transparent 65%) -150% 0 / 250% 100% no-repeat; }
+.x-count .x-w { font-size: 17px; font-weight: 800; line-height: 1.9; color: var(--x-ink); letter-spacing: .2px; padding-top: 2px; }
+.x-count.x-word-only { padding-inline: 16px; } .x-count.x-word-only .x-n { display: none; }
+.x-count.x-pulse .x-n { animation: x-num .7s var(--x-ease); }
+.x-count.x-pulse .x-n::after, .x-count:hover .x-n::after { animation: x-glare 1s var(--x-ease); }
+@keyframes x-num { 35% { transform: scale(1.12); } }
+@keyframes x-glare { to { background-position: 150% 0; } }
+@media (max-width: 699px) { .x-count { height: 38px; gap: 7px; padding-inline-end: 12px; } .x-count .x-n { min-width: 38px; height: 30px; font-size: 18px; padding: 0 9px; } .x-count .x-w { font-size: 14px; } }
+
+/* ===== زر «الرياضة»: يبقى مع بقية المجالات، وسهم صغير يربطه بالمستطيل ===== */
+.ach-filters.x-fed-on .chips-flow .chip { display: inline-flex; }
+.ach-filters .chips-flow .chip.x-sports.active::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 14px; height: 14px; margin-left: -7px; transform: rotate(45deg);
+  background: #F8F6F1; box-shadow: -1px -1px 0 #E6DCC6; border-radius: 3px 0 0 0; z-index: 3; animation: x-caret .25s var(--x-ease) both; }
+@keyframes x-caret { from { opacity: 0; transform: translateY(6px) rotate(45deg); } }
+.ach-filters .chips-flow .chip.x-sports { cursor: pointer; touch-action: manipulation; }
+
+/* ===== المستطيل: يظهر في ربع ثانية ===== */
+.fed-panel.x-panel { order: 3; flex: 0 0 100%; margin-top: 6px; opacity: 1; grid-template-rows: 1fr; transition: none; }
+.fed-panel.x-panel .fed-inner { animation: x-panel-in .32s var(--x-ease) both; transform-origin: 50% 0; }
+.fed-panel.x-panel .fed { animation: x-fed-in .34s var(--x-ease) both; animation-delay: calc(var(--k, 0) * 18ms); }
+.fed-panel.x-panel.x-closing .fed-inner { animation: x-panel-out .24s ease both; }
+@keyframes x-panel-in { from { opacity: 0; transform: translateY(-8px) scaleY(.92); clip-path: inset(0 0 100% 0 round 14px); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0 round 14px); } }
+@keyframes x-panel-out { to { opacity: 0; transform: translateY(-6px); } }
+@keyframes x-fed-in { from { opacity: 0; transform: translateY(10px) scale(.92); } }
+.fed-track .fed:nth-child(1) { --k: 0; } .fed-track .fed:nth-child(2) { --k: 1; } .fed-track .fed:nth-child(3) { --k: 2; } .fed-track .fed:nth-child(4) { --k: 3; }
+.fed-track .fed:nth-child(5) { --k: 4; } .fed-track .fed:nth-child(6) { --k: 5; } .fed-track .fed:nth-child(7) { --k: 6; } .fed-track .fed:nth-child(8) { --k: 7; }
+.fed-track .fed:nth-child(9) { --k: 2; } .fed-track .fed:nth-child(10) { --k: 3; } .fed-track .fed:nth-child(11) { --k: 4; } .fed-track .fed:nth-child(12) { --k: 5; }
+.fed-track .fed:nth-child(13) { --k: 6; } .fed-track .fed:nth-child(14) { --k: 7; } .fed-track .fed:nth-child(15) { --k: 8; }
+
+/* ===== حركة الماوس على الاتحاد ===== */
+.fed-track { perspective: 700px; }
+.fed { transform-style: preserve-3d; overflow: visible; isolation: isolate;
+  transform: translate(var(--tx, 0), var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0));
+  transition: transform .5s var(--x-ease), box-shadow .35s, opacity .35s, filter .35s; }
+.fed:hover { transition: transform .12s linear, box-shadow .35s, opacity .35s, filter .35s; z-index: 2;
+  box-shadow: 0 0 0 1.5px var(--x-gold), 0 18px 26px -14px rgba(6,49,53,.55), 0 0 22px -6px rgba(230,201,138,.75); }
+.fed .fed-logo { transition: transform .45s var(--x-ease), filter .45s; transform: translateZ(0); }
+.fed:hover .fed-logo { transform: translateZ(26px) scale(1.14); filter: drop-shadow(0 8px 8px rgba(6,49,53,.28)); }
+.fed:hover img { transform: none; }
+.fed .fed-name { transition: color .3s, transform .45s var(--x-ease); }
+.fed:hover .fed-name { color: var(--x-gold-d); transform: translateZ(14px) translateY(-1px); }
+.fed .fed-count { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); z-index: 3; }
+.fed:hover .fed-count { transform: translateZ(30px) scale(1.25); }
+/* لمعة تتبع المؤشر + خط ذهبي يعبر البطاقة */
+.fed .x-glint { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; overflow: hidden; z-index: 1; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(120px circle at var(--gx, 50%) var(--gy, 40%), rgba(255,241,204,.75), rgba(230,201,138,.18) 40%, transparent 70%); mix-blend-mode: multiply; }
+.fed .x-glint::after { content: ""; position: absolute; top: -20%; bottom: -20%; width: 35%; right: 130%; transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent); }
+.fed:hover .x-glint { opacity: 1; }
+.fed:hover .x-glint::after { right: -60%; transition: right .8s var(--x-ease); }
+/* البقية تخفت قليلًا فيبرز الاتحاد المختار */
+@media (hover: hover) and (pointer: fine) {
+  .fed-track:has(.fed:hover) .fed:not(:hover) { opacity: .55; filter: grayscale(.5); }
+}
+/* ضغطة: موجة ذهبية */
+.fed.x-tap::before { content: ""; position: absolute; inset: -2px; border-radius: inherit; pointer-events: none; z-index: 0; box-shadow: 0 0 0 0 rgba(230,201,138,.8); animation: x-tap .6s var(--x-ease) forwards; }
+@keyframes x-tap { to { box-shadow: 0 0 0 12px rgba(230,201,138,0); } }
+.fed[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--x-gold), 0 10px 18px -10px rgba(185,142,72,.8); }
+
+/* ===== النتائج الجديدة تظهر بنعومة ===== */
+[data-results].x-swap > * { animation: x-card-in .5s var(--x-ease) both; }
+[data-results].x-swap > *:nth-child(2) { animation-delay: .04s; } [data-results].x-swap > *:nth-child(3) { animation-delay: .08s; }
+[data-results].x-swap > *:nth-child(4) { animation-delay: .12s; } [data-results].x-swap > *:nth-child(n+5) { animation-delay: .16s; }
+@keyframes x-card-in { from { opacity: 0; transform: translateY(14px); } }
+.x-empty { grid-column: 1 / -1; margin: 6px 0 18px; padding: 26px 18px; border-radius: 16px; text-align: center; color: #5f7473; font-size: 14px; font-weight: 600;
+  background: repeating-linear-gradient(135deg, #FBF8F1 0 12px, #F6F1E4 12px 24px); box-shadow: inset 0 0 0 1px #E6DCC6; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fed, .fed:hover, .fed .fed-logo, .fed:hover .fed-logo { transform: none !important; transition: none; }
+  .fed-panel.x-panel .fed-inner, .fed-panel.x-panel .fed, [data-results].x-swap > * { animation: none; }
+}
+/* المستطيل حين يفتحه الخادم: بقية المجالات تبقى ظاهرة كما في المعاينة */
+.ach-filters.x-fed-on.fed-open .chips-flow .chip:not(.active):not([data-filter="*"]) { display: inline-flex; }
+.ach-filters.x-fed-on .chips-flow .chip.x-sports.active { position: relative; }
+

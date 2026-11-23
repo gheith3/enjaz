@@ -149,3 +149,48 @@
 .person-card .ach-cat { transition: transform .5s var(--t-ease), box-shadow .5s; }
 .person-card:hover .ach-cat { transform: translateY(-3px); box-shadow: 0 8px 16px -8px rgba(185,142,72,.8); }
 @media (prefers-reduced-motion: reduce) { .t-spark, .ap-faces .ap-more { animation: none; } .ap-deck { translate: none; } }
+
+/* تصاميم ٢٠٤٠ — صفحة المنجزين: «منجز الأسبوع» تظهر بعد البنر بثانية، بدخول إبداعي، ولمسة الهولوغرام نفسها المعتمدة للبطاقات */
+@media (prefers-reduced-motion: no-preference) {
+  .week-duo:not(.x-in) .week-card { opacity: 0; transform: translateY(46px) perspective(900px) rotateX(14deg) scale(.95); }
+  .week-duo.x-in .week-card { animation: x-week-in 1.15s cubic-bezier(.16,1,.3,1) both; transform-origin: 50% 100%; }
+  .week-duo.x-in .week-card:nth-child(2) { animation-delay: .2s; }
+  .week-duo.x-in .week-card .x-ring { animation: x-ring 1.6s cubic-bezier(.65,0,.35,1) .25s both; }
+  .week-duo.x-in .week-card:nth-child(2) .x-ring { animation-delay: .45s; }
+  .week-duo.x-in .week-card .x-flash { animation: x-flash 1.2s ease-out .15s both; }
+  .week-duo.x-in .week-card:nth-child(2) .x-flash { animation-delay: .35s; }
+}
+@keyframes x-week-in {
+  0% { opacity: 0; transform: translateY(46px) perspective(900px) rotateX(14deg) scale(.95); filter: blur(6px) brightness(1.4); clip-path: inset(100% 0 0 0 round 16px); }
+  45% { opacity: 1; filter: blur(0) brightness(1.15); clip-path: inset(0 0 0 0 round 16px); }
+  100% { opacity: 1; transform: none; filter: none; clip-path: inset(0 0 0 0 round 16px); }
+}
+/* خط ذهبي يرسم إطار اللوحة مرة واحدة ثم يبقى خافتًا */
+@property --x-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.week-card .x-ring { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 5; padding: 1.5px;
+  background: conic-gradient(from -90deg, #F5CF7A 0deg, #FFF1CC calc(var(--x-a) - 6deg), #E6C98A var(--x-a), transparent calc(var(--x-a) + .5deg));
+  -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  --x-a: 360deg; opacity: .45; }
+@keyframes x-ring { from { --x-a: 0deg; opacity: 1; } 70% { opacity: 1; } to { --x-a: 360deg; opacity: .45; } }
+/* وميض ضوء يعبر اللوحة عند دخولها */
+.week-card .x-flash { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 4; overflow: hidden; opacity: 0; }
+.week-card .x-flash::before { content: ""; position: absolute; top: -30%; bottom: -30%; width: 40%; left: -50%; transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255,241,204,.55), transparent); }
+@keyframes x-flash { 0% { opacity: 1; } 100% { opacity: 1; } }
+.week-duo.x-in .week-card .x-flash::before { animation: x-sweep 1.2s cubic-bezier(.4,0,.2,1) .15s both; }
+.week-duo.x-in .week-card:nth-child(2) .x-flash::before { animation-delay: .35s; }
+@keyframes x-sweep { to { left: 120%; } }
+
+/* اللمسة الإبداعية (نفس تفاصيل بطاقات المنجزين المعتمدة): هولوغرام خفيف ١٠٪ يتبع المؤشر + الاسم يتحول ذهبيًا + ميلان */
+.week-card { transition: transform .6s cubic-bezier(.22,1,.36,1), box-shadow .4s; }
+.week-card.x-tilt { transform: perspective(1000px) rotateX(var(--x-rx, 0)) rotateY(var(--x-ry, 0)); transition: transform .12s linear, box-shadow .4s; }
+.week-card:hover { box-shadow: 0 26px 46px -24px rgba(6,49,53,.75), 0 0 0 1px rgba(245,207,122,.55); }
+.week-card .x-holo { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 3; opacity: .1; mix-blend-mode: color-dodge; transition: opacity .4s;
+  background: linear-gradient(115deg, transparent 20%, #ff9de2 32%, #9ef0ff 42%, #fff6b3 52%, #b4ffcf 62%, #c9a7ff 72%, transparent 84%) var(--x-hx, 50%) 50% / 260% 100% no-repeat; }
+.week-card:hover .x-holo { opacity: .22; }
+.week-name > span { transition: color .4s, text-shadow .4s; }
+.week-card:hover .week-name > span { color: #F5CF7A; text-shadow: 0 0 18px rgba(245,207,122,.35); }
+.week-card:hover .week-cta { background: rgba(245,207,122,.18); border-color: #F5CF7A; }
+.week-cta span { display: inline-block; transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+.week-card:hover .week-cta span { transform: translateX(-5px); }
+@media (prefers-reduced-motion: reduce) { .week-card.x-tilt { transform: none; } .week-card .x-ring { --x-a: 360deg; } }

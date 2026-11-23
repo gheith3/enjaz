@@ -32,4 +32,19 @@
   @else
   <button class="menu-btn" type="button" aria-label="{{ __('site.open_menu') }}" aria-expanded="false" aria-controls="menu" data-menu-open><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
   @endif
+@if ($desktopItems->isNotEmpty())
+<script>/* تصاميم ٢٠٤٠: يضبط مقاس أقسام الشريط قبل أول رسم (يوضع في آخر <header>) */
+(function () {
+  var h = document.currentScript && document.currentScript.closest('header');
+  var n = h && h.querySelector('.dnav'), u = n && n.querySelector('ul');
+  if (!u || !matchMedia('(min-width: 1100px)').matches) return;
+  var set = function (v) { h.style.setProperty('--dp', v[0] + 'px'); h.style.setProperty('--df', v[1] + 'px'); h.style.setProperty('--dg', v[2] + 'px'); };
+  var key = 'x-navfit:' + innerWidth, saved = null;
+  try { saved = sessionStorage.getItem(key); } catch (e) {}
+  if (saved) { set(saved.split(',')); return; }
+  var S = [[9, 13.5, 2], [8, 13.5, 2], [7, 13, 2], [6, 13, 1], [5, 12.5, 1], [4, 12, 0], [3, 11.5, 0]];
+  for (var i = 0; i < S.length; i++) { set(S[i]); if (u.scrollWidth <= n.clientWidth + 1) break; }
+})();
+</script>
+@endif
 </header>

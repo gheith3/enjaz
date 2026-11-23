@@ -8,6 +8,7 @@ use App\Models\ArticleCategory;
 use App\Models\Issue;
 use App\Models\Page;
 use App\Models\Writer;
+use App\Support\ArabicDate;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -70,6 +71,19 @@ class MagazinePagesTest extends TestCase
 
         $this->post('/magazine/applause/view')->assertNoContent();
         $this->assertSame(1, $article->fresh()->views);
+    }
+
+    public function test_article_page_has_the_2040_reading_labels_and_reading_time(): void
+    {
+        foreach ([1 => 'دقيقة قراءة', 2 => 'دقيقتا قراءة', 6 => '٦ دقائق قراءة', 14 => '١٤ دقيقة قراءة'] as $minutes => $label) {
+            $this->assertSame($label, trans_choice('site.magazine.read_time_full', $minutes, ['n' => ArabicDate::digits($minutes)]));
+        }
+        $article = Article::factory()->create(['slug' => 'reading', 'body' => ['ar' => '<p>نص</p>']]);
+        $minutes = max(1, (int) $article->fresh()->read_minutes);
+
+        $this->get('/magazine/reading')->assertOk()
+            ->assertSee(trans_choice('site.magazine.read_time_full', $minutes, ['n' => ArabicDate::digits($minutes)]))
+            ->assertSee('data-toc="في هذا المقال" data-toc-intro="المقدمة"', false);
     }
 
     public function test_draft_article_is_hidden_and_writers_page_lists_published_writers(): void

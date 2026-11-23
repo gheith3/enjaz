@@ -109,12 +109,12 @@ return [
         'achievements' => [
             'before' => ['achievements-page', 'federations', 'achievements-hero', 'achievements-hero-intro', 'achievements-honor'],
             'after' => ['phone-port-achievements'],
-            'polish' => ['polish-achievements'],
+            'polish' => ['polish-achievements', 'polish-federations'],
         ],
         'achievers' => [
             'before' => ['achievements-page', 'achievers-page', 'federations', 'achievers-hero'],
             'after' => ['achievers-hero-cards', 'achievers-hero-intro', 'achievers-hero-wall', 'phone-port-achievers'],
-            'polish' => ['polish-achievers'],
+            'polish' => ['polish-achievers', 'polish-federations'],
         ],
         'achiever' => [
             'before' => ['profile-socials', 'profile-achievements', 'profile-portrait', 'profile-idcard', 'profile-medal-stats', 'profile-enhance', 'profile-journey', 'profile-said', 'profile-hero-map'],
@@ -189,6 +189,7 @@ return [
         'article' => [
             'before' => ['articles-page', 'article-page'],
             'after' => [],
+            'polish' => ['polish-article'],
         ],
         'writers' => [
             'before' => ['articles-page', 'writers-page'],

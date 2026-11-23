@@ -58,11 +58,16 @@ if (hero) {
  if (!card) return;
  if (reducedMotion() || !('IntersectionObserver' in window)) { card.classList.remove('honor-pending'); return; }
  card.classList.add('honor-pending');
- const reveal = () => { card.classList.add('honor-visible'); card.classList.remove('honor-pending'); };
+ const reveal = () => { card.classList.add('honor-visible', 'x-early'); card.classList.remove('honor-pending'); };
  const observer = new IntersectionObserver(entries => {
    if (entries.some(entry => entry.isIntersecting)) { reveal(); observer.disconnect(); }
  }, {threshold: .15});
- const img = card.querySelector('.honor-img');
- Promise.all([heroIntroFinished, img ? img.decode().catch(() => {}) : Promise.resolve()])
-   .then(() => observer.observe(card.closest('.honor')));
+ // تصاميم ٢٠٤٠ (معتمد): تنزل بعد بدء حركة الواجهة بـ ٠٫٣٥ ثانية (لا بعد انتهائها وتحميل كل صور الجدار)، وبحدّ أقصى ١٫١ ثانية.
+ const hero = document.querySelector('.ah2-hero');
+ const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+ const heroStarted = new Promise(resolve => {
+   if (!hero || hero.classList.contains('ah2-go')) { resolve(); return; }
+   new MutationObserver((_, watcher) => { if (hero.classList.contains('ah2-go')) { watcher.disconnect(); resolve(); } }).observe(hero, {attributes: true, attributeFilter: ['class']});
+ });
+ Promise.race([heroStarted.then(() => wait(350)), wait(1100)]).then(() => observer.observe(card.closest('.honor')));
 })();

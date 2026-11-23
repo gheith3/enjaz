@@ -88,6 +88,32 @@ class AchievementsIndex extends Component
         return in_array($this->field, self::FEDERATION_FIELDS, true);
     }
 
+    /** Whether pressing this field opens the federations panel (the chip opens the hidden preview at once in the browser). */
+    public function isFederationField(string $slug): bool
+    {
+        return in_array($slug, self::FEDERATION_FIELDS, true);
+    }
+
+    /**
+     * The federations panel drawn hidden while no federations field is open: logos and names only (no counts, one query),
+     * so pressing «الرياضة» opens it at once in the browser while Livewire brings the counts (تصاميم ٢٠٤٠).
+     *
+     * @return list<array{slug: string, name: string, short: string, logo: ?string, ratio: float, count: null, url: string}>
+     */
+    #[Computed]
+    public function federationsPreview(): array
+    {
+        if ($this->hasFederations()) {
+            return [];
+        }
+
+        return Organization::query()->listed()->whereHas('type', fn (Builder $q) => $q->where('template', 'federation'))->with('media')->get()
+            ->map(fn (Organization $o) => [
+                'slug' => $o->slug, 'name' => $o->name, 'short' => $o->displayName(), 'logo' => $o->logoUrl(),
+                'ratio' => (float) ($o->logo_ratio ?: 1), 'count' => null, 'url' => $o->url(),
+            ])->values()->all();
+    }
+
     /**
      * Federations of the open field with the number of achievements under the current filters (design js/federations.js render()).
      *

@@ -31,7 +31,7 @@
 <x-site.layout :title="$a->title" :description="$a->dek" :image="$a->imageUrl('cover')" styles="article" og-type="article" :noindex="! $a->isLive()"
     :crumb="['title' => $page->title, 'url' => route('magazine.index'), 'sub' => null]">
 <div class="ar-progress" aria-hidden="true"><i data-progress></i></div>
-<article class="mag-page ar-page" data-article-view="{{ route('magazine.view', $a) }}">
+<article class="mag-page ar-page" data-article-view="{{ route('magazine.view', $a) }}" data-toc="{{ __('site.magazine.toc') }}" data-toc-intro="{{ __('site.magazine.toc_intro') }}">
   <header class="wrap ar-head">
     <nav class="ar-crumbs" aria-label="{{ __('site.magazine.crumbs') }}"><a href="{{ route('magazine.index') }}">{{ $page->title }}</a>@if ($a->category)<span aria-hidden="true">‹</span><span>{{ $a->category->name }}</span>@endif</nav>
     <p class="kick">@if ($isLead){{ __('site.magazine.issue_lead') }} · @endif{{ $a->category?->name }}</p>
@@ -41,6 +41,7 @@
       <span class="av" aria-hidden="true">@if ($ph = $w?->photoUrl())<img src="{{ $ph }}" alt="">@endif</span>
       <span>@if ($w)<b>{{ $w->name }}</b>@endif<small>{{ $byline }}</small></span>
       <span class="ring" style="--p:{{ min(1, $a->read_minutes / 10) }}" title="{{ __('site.magazine.read_time', ['n' => $d($a->read_minutes)]) }}"><b>{{ $d($a->read_minutes) }}</b><small>{{ __('site.magazine.minutes_unit') }}</small></span>
+      <span class="xa-time"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>{{ trans_choice('site.magazine.read_time_full', max(1, (int) $a->read_minutes), ['n' => $d(max(1, (int) $a->read_minutes))]) }}</span>
     </div>
   </header>
 

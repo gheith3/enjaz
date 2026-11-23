@@ -1,0 +1,108 @@
+/* ===================== تصاميم ٢٠٤٠ (معتمد) — صفحة المقال: عرض تحريري احترافي =====================
+   ١) واجهة مجلة: العنوان والكاتب يمينًا والغلاف يسارًا في سطر واحد.
+   ٢) ثلاثة أعمدة للقراءة: «في هذا المقال» (فهرس ثابت) · نص المقال بعرض قراءة مريح · شريط المشاركة ووقت القراءة.
+   ٣) شريط تقدّم القراءة، عناوين مرقّمة، اقتباس تحريري بدل الصندوق الأخضر، وخلاصة وبطاقة كاتب أنظف. */
+:root { --xa-ink: #0E2A2D; --xa-text: #2B3B3D; --xa-mute: #6B7B7C; --xa-gold: #B98E48; --xa-gold-l: #E6C98A; --xa-line: #ECE5D6; --xa-teal: #0C7F89; }
+
+/* شريط التقدم */
+.xa-progress { position: fixed; top: 0; inset-inline: 0; height: 3px; z-index: 1000; pointer-events: none; background: transparent; }
+.xa-progress i { display: block; height: 100%; width: 100%; transform-origin: 100% 50%; transform: scaleX(var(--xa-p, 0));
+  background: linear-gradient(270deg, #E6C98A, #B98E48 60%, #0C7F89); box-shadow: 0 0 10px rgba(230,201,138,.6); }
+
+/* ---------- الواجهة ---------- */
+.xa-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); gap: 56px; align-items: center; padding-top: 40px; padding-bottom: 46px; position: relative; }
+.xa-hero::after { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1px; background: linear-gradient(270deg, transparent, var(--xa-line) 15%, var(--xa-line) 85%, transparent); }
+.xa-hero .ar-head { max-width: none !important; margin: 0 !important; padding: 0 !important; text-align: start; }
+.xa-hero .ar-crumbs { margin-bottom: 26px; font-size: 13px; }
+.xa-hero .kick { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 16px; font-size: 13px; font-weight: 800; letter-spacing: .4px; color: var(--xa-gold); }
+.xa-hero .kick::before { content: ""; width: 28px; height: 2px; border-radius: 2px; background: var(--xa-gold); }
+.xa-hero h1 { margin: 0 0 18px; font-size: clamp(32px, 3.4vw, 50px) !important; line-height: 1.32 !important; font-weight: 900; letter-spacing: -.4px; color: var(--xa-ink); text-wrap: balance; }
+.xa-hero .ar-dek { margin: 0 0 30px; max-width: 520px; font-size: 18.5px !important; line-height: 1.95; color: #4A5B5D; text-wrap: pretty; }
+.xa-hero .byline { display: flex; align-items: center; gap: 14px; padding: 18px 0 0 !important; border-top: 1px solid var(--xa-line); border-bottom: 0 !important; margin: 0 !important; }
+.xa-hero .byline .av { width: 52px !important; height: 52px !important; box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--xa-gold-l); border-radius: 50%; overflow: hidden; flex: none; }
+.xa-hero .byline .av img { width: 100%; height: 100%; object-fit: cover; }
+.xa-hero .byline > span:nth-child(2) b { display: block; font-size: 16px; color: var(--xa-ink); }
+.xa-hero .byline > span:nth-child(2) small { font-size: 13px; color: var(--xa-mute); }
+.xa-hero .byline .ring { display: none !important; }
+.xa-time { margin-inline-start: auto; display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 14px; border-radius: 99px; font-size: 13px; font-weight: 700; color: var(--xa-ink);
+  background: #F7F3EA; box-shadow: inset 0 0 0 1px var(--xa-line); white-space: nowrap; }
+.xa-time svg { width: 15px; height: 15px; stroke: var(--xa-gold); fill: none; stroke-width: 2; }
+.xa-hero .ar-cover { margin: 0 !important; max-width: none !important; width: auto !important; position: relative; }
+.xa-hero .ar-cover img { width: 100%; aspect-ratio: 4 / 3.1; object-fit: cover; border-radius: 22px !important; border: 0 !important; display: block;
+  box-shadow: 0 34px 60px -38px rgba(6,49,53,.55); }
+.xa-hero .ar-cover::before { content: ""; position: absolute; inset: 14px -14px -14px 14px; border-radius: 24px; border: 1.5px solid rgba(201,163,92,.55); z-index: -1; }
+.xa-hero .ar-cover figcaption { margin-top: 26px; font-size: 13px; color: var(--xa-mute); text-align: start; display: flex; gap: 8px; align-items: center; }
+.xa-hero .ar-cover figcaption::before { content: ""; width: 18px; height: 1.5px; background: var(--xa-gold); }
+
+/* ---------- تخطيط القراءة ---------- */
+.xa-layout { display: grid; grid-template-columns: 210px minmax(0, 700px) 210px; justify-content: space-between; gap: 40px; padding-top: 52px; align-items: start; }
+.xa-layout .ar-body { max-width: none !important; margin: 0 !important; padding: 0 !important; width: auto !important; }
+.xa-side { position: sticky; top: 112px; font-size: 13px; }
+.xa-side-t { margin: 0 0 14px; font-size: 12px; font-weight: 800; letter-spacing: .5px; color: var(--xa-gold); }
+.xa-toc ol { list-style: none; margin: 0; padding: 0; border-inline-start: 1.5px solid var(--xa-line); }
+.xa-toc a { display: flex; gap: 10px; padding: 9px 14px; margin-inline-start: -1.5px; border-inline-start: 1.5px solid transparent; color: var(--xa-mute); line-height: 1.6; text-decoration: none; transition: color .25s, border-color .25s, background .25s; }
+.xa-toc a b { font-weight: 800; color: var(--xa-gold-l); font-variant-numeric: tabular-nums; transition: color .25s; }
+.xa-toc a:hover { color: var(--xa-ink); }
+.xa-toc a.on { color: var(--xa-ink); font-weight: 700; border-color: var(--xa-gold); background: linear-gradient(270deg, rgba(230,201,138,.14), transparent); }
+.xa-toc a.on b { color: var(--xa-gold); }
+.xa-rail { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.xa-rail .xa-side-t { align-self: flex-end; }
+.xa-rail button, .xa-rail a { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; border: 0; cursor: pointer; color: var(--xa-ink);
+  background: #fff; box-shadow: inset 0 0 0 1px var(--xa-line), 0 6px 14px -10px rgba(6,49,53,.4); transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .25s, color .25s; }
+.xa-rail button:hover, .xa-rail a:hover { transform: translateY(-2px); background: var(--xa-ink); color: var(--xa-gold-l); }
+.xa-rail svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.xa-rail .xa-done { font-size: 11.5px; color: var(--xa-teal); font-weight: 700; min-height: 16px; }
+
+/* ---------- نص المقال ---------- */
+.xa-layout .ar-body > p { font-size: 18.5px !important; line-height: 2.15 !important; color: var(--xa-text); margin: 0 0 26px; text-wrap: pretty; }
+.xa-layout .ar-body > p.ar-lead { font-size: 22px !important; line-height: 2 !important; font-weight: 600; color: var(--xa-ink); border: 0 !important; padding: 0 !important; margin-bottom: 34px; }
+.xa-layout .ar-body > p.ar-lead::after { content: ""; display: block; width: 64px; height: 3px; margin-top: 26px; border-radius: 3px; background: linear-gradient(270deg, var(--xa-gold), var(--xa-gold-l)); }
+.xa-layout .ar-body h2 { display: flex; align-items: baseline; gap: 14px; margin: 50px 0 18px; font-size: 27px !important; font-weight: 900; color: var(--xa-ink); scroll-margin-top: 120px; }
+.xa-layout .ar-body h2 > img { display: none; }
+.xa-layout .ar-body h2 .xa-n { font-size: 15px; font-weight: 800; color: var(--xa-gold); padding: 2px 10px; border-radius: 8px; background: #F7F0E1; font-variant-numeric: tabular-nums; transform: translateY(-4px); }
+.xa-layout .ar-pull { position: relative; margin: 46px 0 !important; padding: 34px 40px 30px !important; border-radius: 0 !important; background: none !important; color: var(--xa-ink) !important; box-shadow: none !important;
+  border-block: 1.5px solid var(--xa-gold-l) !important; font-size: 27px !important; line-height: 1.75 !important; font-weight: 800; text-align: center; text-wrap: balance; }
+.xa-layout .ar-pull > span { position: absolute !important; top: -26px !important; left: 50% !important; right: auto !important; transform: translateX(-50%); width: 52px; height: 52px; display: grid; place-items: center;
+  font-size: 54px !important; line-height: 1 !important; padding-top: 22px; color: var(--xa-gold) !important; background: #fff; opacity: 1 !important; font-family: Georgia, serif; }
+.xa-layout .ar-pull::after { content: "— " attr(data-by); display: block; margin-top: 16px; font-size: 14px; font-weight: 700; color: var(--xa-gold); }
+.xa-layout .ar-box { margin: 40px 0 !important; padding: 26px 30px !important; border: 0 !important; border-radius: 18px !important; background: linear-gradient(160deg, #0C7F89, #063135) !important; color: #fff; position: relative; overflow: hidden; }
+.xa-layout .ar-box::before { content: ""; position: absolute; inset-inline-end: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(230,201,138,.28), transparent 70%); }
+.xa-layout .ar-box .ar-box-t { color: var(--xa-gold-l) !important; font-size: 17px !important; font-weight: 900; margin: 0 0 16px !important; }
+.xa-layout .ar-box ol { counter-reset: xa; list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.xa-layout .ar-box li { counter-increment: xa; display: flex; align-items: center; gap: 14px; padding: 11px 0; font-size: 17px; color: #fff; border-top: 1px solid rgba(255,255,255,.12); }
+.xa-layout .ar-box li:first-child { border-top: 0; }
+.xa-layout .ar-box li::before { content: counter(xa, arabic-indic) !important; flex: none; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; font-weight: 800; font-size: 14px; color: #063135 !important; background: linear-gradient(#F6E3B4, #D9B262) !important; position: static !important; }
+.xa-layout .ar-end { font-weight: 600; color: var(--xa-ink) !important; }
+.xa-layout .ar-tags { margin-top: 30px; }
+.xa-layout .ar-share { display: none !important; }
+.xa-layout .ar-author { margin-top: 34px !important; padding: 28px !important; border-radius: 20px !important; border: 0 !important; background: #FBF8F1 !important; box-shadow: inset 0 0 0 1px var(--xa-line) !important; gap: 22px !important; align-items: center; }
+.xa-layout .ar-author img { width: 92px !important; height: 92px !important; box-shadow: 0 0 0 3px #fff, 0 0 0 4.5px var(--xa-gold-l) !important; }
+.xa-layout .ar-author b { font-size: 20px !important; }
+.xa-layout .ar-author p { font-size: 15px !important; line-height: 1.9 !important; }
+
+/* ظهور ناعم للفقرات أثناء النزول */
+@media (prefers-reduced-motion: no-preference) {
+  .xa-rv { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .8s cubic-bezier(.22,1,.36,1); }
+  .xa-rv.xa-in { opacity: 1; transform: none; }
+  .xa-hero .ar-head > * { animation: xa-up .8s cubic-bezier(.22,1,.36,1) both; }
+  .xa-hero .ar-head > :nth-child(2) { animation-delay: .06s; } .xa-hero .ar-head > :nth-child(3) { animation-delay: .12s; }
+  .xa-hero .ar-head > :nth-child(4) { animation-delay: .2s; } .xa-hero .ar-head > :nth-child(5) { animation-delay: .28s; }
+  .xa-hero .ar-cover { animation: xa-cover 1.1s cubic-bezier(.22,1,.36,1) .1s both; }
+}
+@keyframes xa-up { from { opacity: 0; transform: translateY(16px); } }
+@keyframes xa-cover { from { opacity: 0; clip-path: inset(0 0 0 100% round 22px); } to { opacity: 1; clip-path: inset(-30px -30px -30px -30px); } }
+
+/* شاشات أصغر */
+@media (max-width: 1180px) { .xa-layout { grid-template-columns: minmax(0, 700px) 56px; justify-content: center; } .xa-toc { display: none; } .xa-rail .xa-side-t { display: none; } }
+@media (max-width: 899px) {
+  .xa-hero { grid-template-columns: 1fr; gap: 28px; padding-top: 22px; }
+  .xa-hero .ar-cover { order: -1; } .xa-hero .ar-cover::before { display: none; }
+  .xa-layout { grid-template-columns: minmax(0, 1fr); padding-top: 32px; }
+  .xa-rail { position: static; flex-direction: row; justify-content: flex-start; order: 2; }
+  .xa-layout .ar-body > p { font-size: 17px !important; } .xa-layout .ar-pull { font-size: 21px !important; padding: 30px 8px 24px !important; }
+}
+/* إصلاحات: إطار الغلاف حول الصورة فقط، والمقدمة بلا الشريط القديم */
+.xa-hero .ar-cover::before { content: none; }
+.xa-hero .ar-cover img { outline: 1.5px solid rgba(201,163,92,.55); outline-offset: 10px; }
+.xa-layout .ar-body > p.ar-lead { border-inline-start: 0 !important; padding-inline: 0 !important; margin-inline: 0 !important; text-indent: 0 !important; background: none !important; }
+.xa-layout .ar-body > p.ar-lead::before { content: none !important; display: none !important; }

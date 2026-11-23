@@ -3,6 +3,7 @@
 import './core/menu.js';
 import './core/nav-fit.js';
 import './core/crumb.js';
+import './core/nav-stable.js';
 import './sections/story.js';
 import './sections/achievements-hero.js';
 import './sections/achievement-detail.js';
@@ -79,3 +80,6 @@ import './sections/polish/achiever.js';
 import './sections/polish/achiever-library.js';
 import './sections/polish/award-architecture.js';
 import './sections/polish/achiever-said.js';
+import './sections/polish/federations.js';
+import './sections/polish/achievers-week.js';
+import './sections/polish/article.js';

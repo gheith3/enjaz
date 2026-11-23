@@ -46,23 +46,27 @@
   @endif
 
   @php $feds = $this->federations; @endphp
-  <section @class(['section wrap ach-filters', 'fed-open' => count($feds)]) aria-label="{{ __('site.categories') }}">
+  <section @class(['section wrap ach-filters', 'fed-open' => count($feds), 'x-fed-on' => count($feds)]) aria-label="{{ __('site.categories') }}">
     <div class="cats-wrap" data-cats>
       <div class="chips-flow" data-chips>
         <button type="button" @class(['chip', 'active' => $field === '']) data-filter="*" aria-pressed="{{ $field === '' ? 'true' : 'false' }}" wire:click="setField('')"><span>{{ __('site.all') }}</span></button>
         @foreach ($this->fields as $item)
-          <button type="button" @class(['chip', 'active' => $field === $item->slug]) aria-pressed="{{ $field === $item->slug ? 'true' : 'false' }}" wire:click="setField('{{ $item->slug }}')">@if ($item->iconUrl())<img src="{{ $item->iconUrl() }}" alt="">@endif<span>{{ $item->name }}</span></button>
+          <button type="button" @class(['chip', 'active' => $field === $item->slug, 'x-sports' => $this->isFederationField($item->slug)]) aria-pressed="{{ $field === $item->slug ? 'true' : 'false' }}" @if ($this->isFederationField($item->slug)) data-fed-field @endif wire:click="setField('{{ $item->slug }}')">@if ($item->iconUrl())<img src="{{ $item->iconUrl() }}" alt="">@endif<span>{{ $item->name }}</span></button>
         @endforeach
       </div>
     </div>
     @if (count($feds))
       <x-site.federations-panel :federations="$feds" :active="$org" unit="achievements" />
+    @elseif (count($preview = $this->federationsPreview))
+      <x-site.federations-panel :federations="$preview" unit="achievements" preview />
     @endif
   </section>
 
   <section class="section wrap">
     <div class="res-bar">
-      <p class="res-count" aria-live="polite">{{ $countLabel }}</p>
+      @php preg_match('/[\d٠-٩٬,]+/u', (string) $countLabel, $countNumber); @endphp
+      <div @class(['x-count', 'x-word-only' => ! $countNumber]) aria-hidden="true"><span class="x-n">{{ $countNumber[0] ?? '' }}</span><span class="x-w">{{ trim(str_replace($countNumber[0] ?? '', '', (string) $countLabel)) }}</span></div>
+      <p class="res-count x-sr" aria-live="polite">{{ $countLabel }}</p>
       <div class="flt" x-data="{ open: false }" x-on:click.outside="open = false" x-on:keydown.escape.window="if (open) { open = false; $refs.button.focus() }">
         <button type="button" @class(['flt-btn', 'on' => count($activeFilters)]) x-ref="button" x-bind:aria-expanded="open.toString()" aria-controls="flt-box" x-on:click="open = !open">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
