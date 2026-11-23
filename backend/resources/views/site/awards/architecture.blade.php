@@ -68,7 +68,7 @@
     styles="award-architecture" body-class="flush" :noindex="! $a->isLive()" class="cx" data-c="2" data-bf
     :crumb="['title' => $a->label('crumb', $a->name), 'sub' => $a->subtitle]">
   <section class="c-hero" aria-labelledby="c-h1">
-    @if ($hero = $a->imageUrl('hero'))<img class="bf-hero-img" src="{{ $hero }}" alt="" aria-hidden="true" width="2200" height="1466">@endif
+    @if ($hero = $a->imageUrl('hero'))<img class="bf-hero-img" src="{{ $hero }}" alt="" aria-hidden="true" width="2200" height="1466" fetchpriority="high">@endif
     <div class="h-mash" aria-hidden="true"></div><div class="h-rays" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="c-hero-in">@if ($markUrl)<img class="c-mark" src="{{ $markUrl }}" alt="" width="311" height="281">@endif
       @if ($a->eyebrow)<span class="c-eyebrow">{{ $a->eyebrow }}</span>@endif

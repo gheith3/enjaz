@@ -35,6 +35,46 @@
 <meta name="twitter:image" content="{{ $socialImage }}">
 @endif
 <link rel="icon" href="{{ \App\Support\Site\SiteMedia::url($general->favicon, 'svg/ornament.svg') }}">
+{{-- تصاميم ٢٠٧٠ — ظهور الصفحة التالية: عند التنقل داخل الموقع تبقى الصفحة السابقة ثابتة حتى تجهز صورة البنر (أو صورة كبيرة في
+     أول شاشة) بحدّ أقصى ٩٠٠ مللي ثانية، ثم تظهر الصفحة الجديدة كاملة بتلاشٍ ناعم، فلا تظهر صفحة باهتة/بيضاء بلا صورتها.
+     حركات البنر تنتظر معها (لا تفوت بدايتها) ثم تعمل كما هي. --}}
+<script id="x-reveal">(function () {
+  try {
+    if (!('onpagereveal' in window)) return;
+    addEventListener('pagereveal', function (e) {
+      var vt = e.viewTransition;
+      if (!vt || !document.getAnimations || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var d = document.documentElement, released = false, anims = [];
+      var release = function () {
+        if (released) return;
+        released = true;
+        d.classList.remove('x-hold');
+        anims.forEach(function (a) { a.play(); });
+      };
+      d.classList.add('x-hold');
+      setTimeout(release, 900);
+      vt.ready.then(function () {
+        if (released) return;
+        anims = document.getAnimations().filter(function (a) { return a.effect && a.effect.pseudoElement === '::view-transition-new(root)'; });
+        anims.forEach(function (a) { a.pause(); });
+      }).catch(release);
+      // الصفحة قد تُعرض قبل اكتمال قراءتها: نبحث عن صور أول شاشة الكبيرة بعد اكتمالها، وننتظر فكّ ترميزها.
+      var check = function () {
+        var vw = innerWidth, vh = innerHeight, min = vw * vh * 0.04, found = [], imgs = document.images;
+        for (var i = 0; i < imgs.length; i++) {
+          var r = imgs[i].getBoundingClientRect();
+          var w = Math.min(r.right, vw) - Math.max(r.left, 0), h = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+          if (w > 0 && h > 0 && w * h >= min) found.push({ im: imgs[i], a: w * h });
+        }
+        found.sort(function (a, b) { return b.a - a.a; });
+        Promise.all(found.slice(0, 4).map(function (f) { return f.im.decode ? f.im.decode().catch(function () {}) : 0; })).then(release);
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', check); else check();
+    });
+  } catch (x) {}
+})();</script>
+{{-- تصاميم ٢٠٧٠ — سرعة التنقل: عند الوقوف على رابط (أو لمسه) تُجلب الصفحة مسبقًا (prefetch فقط، بلا تشغيل في الخلفية)، فتفتح فور الضغط. --}}
+<script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/admin*"}},{"not":{"href_matches":"/livewire*"}},{"not":{"href_matches":"/horizon*"}},{"not":{"href_matches":"/mcp*"}},{"not":{"href_matches":"/oauth*"}},{"not":{"href_matches":"/*.pdf"}},{"not":{"selector_matches":"[target=_blank],[download],[data-no-prefetch]"}}]},"eagerness":"moderate"}]}</script>
 <link rel="preload" href="{{ Vite::asset('resources/site/assets/fonts/Cairo-Variable.woff2') }}" as="font" type="font/woff2" crossorigin>
 @vite($stylesheets)
 {{ $head ?? '' }}
@@ -78,6 +118,8 @@
 @endif
 
 <script type="application/json" id="site-labels">@json(__('site.js'))</script>
+{{-- تصاميم ٢٠٧٠: ملف تنسيق كل قسم، يُجلب مسبقًا في وقت الفراغ وعند الوقوف على الرابط (core/prefetch.js) --}}
+<script type="application/json" id="x-css-map">@json(\App\Support\Site\PagePrefetch::map())</script>
 @vite('resources/site/js/site.js')
 {{ $scripts ?? '' }}
 </body>

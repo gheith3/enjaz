@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\LaravelSettings\Events\SettingsSaved;
+use Spatie\MediaLibrary\Conversions\Events\ConversionHasBeenCompletedEvent;
 use Spatie\Permission\Models\Role;
 use Spatie\ResponseCache\Facades\ResponseCache;
 
@@ -46,6 +47,13 @@ class AppServiceProvider extends ServiceProvider
 
         // Settings appear on every page (header, footer, meta): clear the page cache when they change.
         Event::listen(SettingsSaved::class, function (): void {
+            if (config('responsecache.enabled')) {
+                ResponseCache::clear();
+            }
+        });
+
+        // A finished WebP conversion replaces the original image on the pages (Src::of): cached pages must pick it up.
+        Event::listen(ConversionHasBeenCompletedEvent::class, function (): void {
             if (config('responsecache.enabled')) {
                 ResponseCache::clear();
             }

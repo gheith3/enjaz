@@ -49,13 +49,15 @@
 :is(.site-header, .header) .dnav ul:has(a.x-going) a:not(.x-going) { opacity: .62; transition: opacity .25s; }
 :is(.site-header, .header) .dnav ul:has(a.x-going) a[aria-current=page]:not(.x-going)::after { left: 50% !important; right: 50% !important; }
 
-/* بين الصفحات: الشريط يبقى في مكانه ولا يومض (Chrome / Edge / Safari 18) */
+/* بين الصفحات (Chrome / Edge / Safari 18). تصاميم ٢٠٧٠: الشريط جزء من الصفحة نفسها (بلا طبقة منفصلة)، فلا يظهر خط أو
+   فراغ أبيض تحته عندما يختلف ارتفاعه بين الصفحتين؛ وهو متطابق في الصفحتين فلا يومض. */
 @view-transition { navigation: auto; }
-:is(.site-header, .header) { view-transition-name: site-header; }
-::view-transition-old(site-header), ::view-transition-new(site-header) { animation: none; mix-blend-mode: normal; }
 /* الصفحة القديمة تبقى معتمة تحت الجديدة حتى تكتمل (كان تلاشي الاثنتين معًا يُظهر وميضًا أبيض مكان البنر) */
 ::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-new(root) { animation: x-vt-in .26s ease both; mix-blend-mode: normal; }
 @keyframes x-vt-out { to { opacity: 0; } }
 @keyframes x-vt-in { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
+/* تصاميم ٢٠٧٠: أثناء انتظار صورة البنر (html.x-hold من رأس الصفحة، ٩٠٠ مللي ثانية كحدّ أقصى) تنتظر حركات الصفحة معها،
+   فتبدأ من أولها لحظة ظهور الصفحة. */
+html.x-hold body *, html.x-hold body *::before, html.x-hold body *::after { animation-play-state: paused !important; }
