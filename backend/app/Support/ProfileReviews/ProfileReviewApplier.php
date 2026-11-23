@@ -30,29 +30,31 @@ class ProfileReviewApplier
     /** @return array{changes: int, additions: int} */
     public static function apply(ProfileReview $review): array
     {
-        $changes = 0;
-        $additions = 0;
+        $result = DB::transaction(function () use ($review) {
+            $changes = 0;
+            $additions = 0;
 
-        DB::transaction(function () use ($review, &$changes, &$additions) {
             foreach ($review->items ?? [] as $item) {
                 if (($item['decision'] ?? null) === 'edit' && ($item['approved'] ?? false) === true && self::applyItem($item)) {
-                    $changes++;
+                    $changes += 1;
                 }
             }
 
             foreach ($review->additions ?? [] as $addition) {
                 if (($addition['approved'] ?? false) === true && filled($addition['title'] ?? null)) {
                     self::createAchievement($review->achiever, $addition);
-                    $additions++;
+                    $additions += 1;
                 }
             }
+
+            return ['changes' => $changes, 'additions' => $additions];
         });
 
         if (config('responsecache.enabled')) {
             ResponseCache::clear();
         }
 
-        return compact('changes', 'additions');
+        return $result;
     }
 
     /** @param  array<string, mixed>  $item */
