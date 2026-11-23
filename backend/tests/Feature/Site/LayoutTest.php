@@ -6,6 +6,7 @@ use App\Models\MenuItem;
 use App\Models\Page;
 use App\Models\SocialLink;
 use App\Settings\GeneralSettings;
+use App\Support\Site\CssBundles;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -31,10 +32,12 @@ class LayoutTest extends TestCase
 
     public function test_stylesheets_follow_the_design_order(): void
     {
-        $html = $this->get('/')->assertOk()->getContent();
+        // The home page links its merged stylesheet, which keeps the design's order inside.
+        $this->get('/')->assertOk()->assertSee('rel="stylesheet" href="'.url('/build/assets/home-'), false);
+        $bundle = file_get_contents(base_path(CssBundles::path('home')));
 
-        $order = ['main-', 'site-menu-', 'home-banner-', 'desktop-', 'phone-port-home-', 'phone-footer-'];
-        $positions = array_map(fn ($name) => strpos($html, 'rel="stylesheet" href="'.url('/build/assets/'.$name)), $order);
+        $order = ['main', 'site-menu', 'home-banner', 'desktop', 'phone-port-home', 'phone-footer', 'polish-global', 'polish-home'];
+        $positions = array_map(fn ($name) => strpos($bundle, '"../css/'.$name.'.css"'), $order);
 
         $this->assertNotContains(false, $positions, 'a design stylesheet is missing');
         $sorted = $positions;
@@ -58,19 +61,37 @@ class LayoutTest extends TestCase
             ->assertDontSee('رابط مخفي');
     }
 
-    public function test_pages_open_without_a_white_screen_or_a_replayed_banner_intro(): void
+    public function test_pages_load_one_stylesheet_and_no_banner_intro_on_internal_navigation(): void
     {
-        $html = $this->get('/about')->assertOk()->getContent();
+        $html = $this->get('/achievements')->assertOk()->getContent();
 
-        // Internal navigation: banners complete from the first frame (intros only on a first visit or a reload).
+        // One merged stylesheet for the page (resources/site/css-bundles), not one per design file.
+        $links = collect(explode('<link', $html))->filter(fn ($l) => str_contains($l, 'rel="stylesheet"'));
+        $this->assertCount(1, $links);
+        // Internal navigation: banners complete without replaying their intro; it runs before the stylesheet.
         $this->assertStringContainsString('<script id="x-instant">', $html);
-        // The new page is painted only once its content has arrived, and the next page is prepared on hover.
-        $this->assertStringContainsString('<link rel="expect" href="#x-end" blocking="render">', $html);
-        $this->assertGreaterThan(strrpos($html, '</footer>'), strpos($html, '<span id="x-end" hidden></span>'));
-        $rules = json_decode(str($html)->after('<script type="speculationrules">')->before('</script>')->toString(), true);
-        $this->assertSame('moderate', $rules['prerender'][0]['eagerness']);
-        $this->assertStringContainsString('/admin*', json_encode($rules));
         $this->assertLessThan(strpos($html, '<link rel="stylesheet"'), strpos($html, 'x-instant'));
+        // Nothing holds the first paint or loads pages in the background (they made the site feel slow).
+        $this->assertStringNotContainsString('blocking="render"', $html);
+        $this->assertStringNotContainsString('speculationrules', $html);
+        $this->assertStringNotContainsString('requestAnimationFrame(loop)', $html);
+    }
+
+    public function test_every_page_has_its_stylesheet_bundle_in_sync_with_the_config(): void
+    {
+        foreach (CssBundles::keys() as $key) {
+            $path = base_path(CssBundles::path($key));
+            $this->assertFileExists($path, 'Run php artisan site:css-bundles');
+            $this->assertSame(CssBundles::contents($key), file_get_contents($path), CssBundles::name($key).'.css is out of date: run php artisan site:css-bundles');
+        }
+        $this->assertCount(count(CssBundles::keys()), glob(base_path(CssBundles::DIR.'/*.css')));
+
+        // Same files in the same order as before the merge; about.html has no main.css.
+        $this->assertStringStartsWith('/* Generated', CssBundles::contents('home'));
+        $this->assertStringContainsString("@import \"../css/main.css\";\n@import \"../css/site-menu.css\";", CssBundles::contents('home'));
+        $this->assertStringEndsWith("@import \"../css/polish-home.css\";\n", CssBundles::contents('home'));
+        $this->assertStringNotContainsString('main.css', CssBundles::contents('about'));
+        $this->assertSame([CssBundles::path('about')], CssBundles::for('about'));
     }
 
     public function test_footer_shows_contact_settings_and_social_links(): void

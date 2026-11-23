@@ -35,39 +35,31 @@
 <meta name="twitter:image" content="{{ $socialImage }}">
 @endif
 <link rel="icon" href="{{ \App\Support\Site\SiteMedia::url($general->favicon, 'svg/ornament.svg') }}">
-{{-- الانتقال بين الصفحات (٢٠٢٦-١١): عند التنقل داخل الموقع (أو الرجوع) يظهر البنر مكتملًا من أول إطار بلا حركة دخول ولا شاشة بيضاء؛
-     حركات الدخول تبقى لأول زيارة وعند إعادة التحميل. تُنهى فورًا حركات الدخول المحدودة في أول شاشة، وتبقى الحركات المستمرة (الشرائح، اللمعات). --}}
+{{-- الانتقال بين الصفحات (٢٠٢٦-١١): عند التنقل داخل الموقع (أو الرجوع) يظهر البنر مكتملًا بلا حركة دخول تُعاد كل مرة؛
+     حركات الدخول تبقى لأول زيارة وعند إعادة التحميل. خفيف: يُنهي حركات الدخول المحدودة في أول شاشة في لحظات قليلة فقط
+     (قبل أول رسم، وعند اكتمال الصفحة)، ولا يلمس الحركات المستمرة (الشرائح، اللمعات). --}}
 <script id="x-instant">(function () {
   try {
     var n = performance.getEntriesByType('navigation')[0], t = n && n.type, r = document.referrer, same = false;
     try { same = !!r && new URL(r).origin === location.origin; } catch (e) {}
-    if (!(t === 'back_forward' || (t === 'navigate' && same) || document.prerendering)) return;
-    var d = document.documentElement, end = 0;
+    if (!(t === 'back_forward' || (t === 'navigate' && same)) || !document.getAnimations) return;
+    var d = document.documentElement;
     d.classList.add('x-instant'); window.__xInstant = true;
     var sweep = function () {
-      if (!document.getAnimations) return;
       var h = innerHeight * 1.05;
       document.getAnimations().forEach(function (a) {
         if (a.__x || a.playState === 'finished') return;
         var e = a.effect, el = e && e.target, tm = e && e.getComputedTiming && e.getComputedTiming();
         if (!el || !tm || tm.iterations === Infinity || !el.getBoundingClientRect) return;
-        if (el.getBoundingClientRect().top > h) return;
-        a.__x = 1; try { a.finish(); } catch (x) {}
+        a.__x = 1;
+        if (el.getBoundingClientRect().top <= h) try { a.finish(); } catch (x) {}
       });
     };
-    var loop = function () { sweep(); if (performance.now() < end) requestAnimationFrame(loop); else d.classList.remove('x-instant'); };
-    var start = function () {
-      end = performance.now() + 1800; requestAnimationFrame(loop);
-      // بعد سكربتات الصفحة: ما تضيفه من أصناف في أول إطار يُنهى قبل الرسم
-      document.addEventListener('DOMContentLoaded', function () { sweep(); requestAnimationFrame(sweep); });
-      addEventListener('load', function () { requestAnimationFrame(sweep); });
-    };
-    if (document.prerendering) document.addEventListener('prerenderingchange', function () { window.__xInstant = true; start(); sweep(); }, { once: true }); else start();
+    requestAnimationFrame(sweep);
+    document.addEventListener('DOMContentLoaded', function () { sweep(); requestAnimationFrame(sweep); });
+    addEventListener('load', function () { requestAnimationFrame(function () { sweep(); d.classList.remove('x-instant'); }); });
   } catch (e) {}
 })();</script>
-{{-- تجهيز الصفحة التالية في الخلفية عند الوقوف على الرابط أو لمسه (Chrome/Edge)، فتفتح فورًا --}}
-<link rel="expect" href="#x-end" blocking="render">
-<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/admin*"}},{"not":{"href_matches":"/livewire*"}},{"not":{"href_matches":"/*.pdf"}},{"not":{"selector_matches":"[target=_blank],[download],[data-no-prerender]"}}]},"eagerness":"moderate"}]}</script>
 <link rel="preload" href="{{ Vite::asset('resources/site/assets/fonts/Cairo-Variable.woff2') }}" as="font" type="font/woff2" crossorigin>
 @vite($stylesheets)
 {{ $head ?? '' }}
@@ -113,7 +105,5 @@
 <script type="application/json" id="site-labels">@json(__('site.js'))</script>
 @vite('resources/site/js/site.js')
 {{ $scripts ?? '' }}
-{{-- نهاية الصفحة: المتصفح لا يرسم الصفحة الجديدة قبل وصول محتواها كاملًا (link rel=expect في الرأس) فلا تظهر شاشة بيضاء --}}
-<span id="x-end" hidden></span>
 </body>
 </html>

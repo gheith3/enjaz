@@ -9,6 +9,12 @@ const siteCss = readdirSync('resources/site/css')
     .filter((file) => file.endsWith('.css'))
     .map((file) => `resources/site/css/${file}`);
 
+// One merged stylesheet per page (php artisan site:css-bundles): @imports the page's design stylesheets in order,
+// inlined by Vite into a single file, so a page loads 1 stylesheet instead of ~27.
+const siteBundles = readdirSync('resources/site/css-bundles')
+    .filter((file) => file.endsWith('.css'))
+    .map((file) => `resources/site/css-bundles/${file}`);
+
 // Icons used by Blade (<img src="{{ Vite::asset(...) }}">) must be in the manifest.
 const siteIcons = readdirSync('resources/site/assets/svg')
     .filter((file) => file.endsWith('.svg'))
@@ -17,7 +23,7 @@ const siteIcons = readdirSync('resources/site/assets/svg')
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/site/js/site.js', 'resources/css/admin.css', 'resources/site/css-site/overrides.css', ...siteCss, ...siteIcons],
+            input: ['resources/site/js/site.js', 'resources/css/admin.css', 'resources/site/css-site/overrides.css', ...siteCss, ...siteBundles, ...siteIcons],
             refresh: true,
         }),
     ],

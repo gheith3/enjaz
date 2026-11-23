@@ -36,6 +36,9 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
 
 - `styles` picks `config('site.styles.<key>')`; the layout loads `main, site-menu, <before>, desktop, <after>,
   phone-footer`, which is the design's order. Copy the list from the design page's `<link>` tags.
+- The browser gets **one stylesheet per page**: `resources/site/css-bundles/<key>.css` `@import`s that list in order
+  and Vite inlines it. Edit the design stylesheets as usual; after changing a page's list in `config/site.php` (or adding a
+  `styles` key) run `php artisan site:css-bundles` and commit the result (LayoutTest fails when a bundle is out of date).
 - Title = `<page or record title><separator><site name>`; description/OG image fall back to SEO settings.
 - Named slots: `<x-slot:head>` (extra `<head>` tags, JSON-LD) and `<x-slot:scripts>` (page scripts).
 
@@ -161,6 +164,7 @@ Read `architecture.md` first (data model, rules, phases). This file is the pract
 ```bash
 cd backend
 php artisan site:sync                       # roles/permissions, pages/sections, first super admin (idempotent)
+php artisan site:css-bundles                # one stylesheet per page from config/site.php "styles" (commit the files)
 php artisan injazat:import-design           # fill from /design (only empty values; --force overwrites; --only=menus)
 node ../scripts/design-data-to-json.mjs     # after the design's JS data files change
 npm run build                               # no hot reload through Flock/demo
