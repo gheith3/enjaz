@@ -31,6 +31,7 @@ class ProfileReviewPageTest extends TestCase
             'name' => ['ar' => 'علي بن محمد الحبسي'], 'field_id' => $field->id, 'story' => ['ar' => 'بدأت الحكاية في الحارة.'],
         ]);
         $this->achiever->journeyItems()->create(['year' => '2005', 'title' => ['ar' => 'أول مباراة'], 'icon' => 'ball', 'sort_order' => 1]);
+        $this->achiever->socialLinks()->create(['platform' => 'instagram', 'url' => 'https://instagram.com/ali', 'is_active' => true, 'sort_order' => 1]);
         $this->achievement = Achievement::factory()->create(['title' => ['ar' => 'بطولة الخليج'], 'scope_id' => Scope::factory()->create()->id]);
         $this->achievement->achievers()->attach($this->achiever);
     }
@@ -40,32 +41,23 @@ class ProfileReviewPageTest extends TestCase
         return ProfileReview::start($this->achiever);
     }
 
-    /** Every point answered «صحيحة» except the given corrections. */
-    private function answers(ProfileReview $review, array $edits = []): array
+    private function words(int $n): string
     {
-        $data = ['d' => [], 'v' => []];
-        foreach ($review->items as $item) {
-            $data['d'][$item['key']] = array_key_exists($item['key'], $edits) ? 'edit' : 'ok';
-        }
-        foreach ($edits as $key => $value) {
-            $data['v'][$key] = $value;
-        }
-
-        return $data;
+        return trim(str_repeat('كلمة ', $n));
     }
 
-    public function test_page_lists_every_point_privately_and_marks_the_link_opened(): void
+    public function test_page_lists_the_profile_privately_and_marks_the_link_opened(): void
     {
         $review = $this->review();
 
         $this->get($review->url())->assertOk()
             ->assertHeader('X-Robots-Tag', 'noindex, nofollow')
-            ->assertSee('أهلًا علي الحبسي')
+            ->assertSee('علي بن محمد الحبسي')
             ->assertSee('الاسم الكامل')->assertSee('بدأت الحكاية في الحارة.')
-            ->assertSee('2005 | أول مباراة')
+            ->assertSee('أول مباراة')
+            ->assertSee('https://instagram.com/ali')
             ->assertSee('بطولة الخليج')
-            ->assertSee('إنجازات لم نذكرها')
-            ->assertDontSee('site-header'); // never the site's layout
+            ->assertSee('محطات مسيرتك')->assertSee('المكتبة المرئية')->assertSee('المقابلات واللقاءات المرئية')->assertSee('التواصل معك');
 
         $this->assertSame('opened', $review->fresh()->status);
     }
@@ -78,38 +70,50 @@ class ProfileReviewPageTest extends TestCase
         $review = $this->review();
         $review->update(['expires_at' => now()->subDay()]);
         $this->get($review->url())->assertOk()->assertSee('انتهت صلاحية الرابط')->assertDontSee('الاسم الكامل');
-        $this->post(route('profile-review.save', $review->token), $this->answers($review))->assertForbidden();
+        $this->post(route('profile-review.save', $review->token), ['action' => 'submit'])->assertForbidden();
     }
 
-    public function test_draft_keeps_answers_and_submit_needs_every_point(): void
+    public function test_untouched_points_count_as_correct_and_edits_are_kept(): void
     {
         $review = $this->review();
         $nameKey = "achiever_{$this->achiever->id}_name";
 
         $this->post(route('profile-review.save', $review->token), [
-            'd' => [$nameKey => 'edit'], 'v' => [$nameKey => 'علي محمد الحبسي'], 'action' => 'draft',
-        ])->assertRedirect();
-        $item = collect($review->fresh()->items)->firstWhere('key', $nameKey);
-        $this->assertSame(['edit', 'علي محمد الحبسي'], [$item['decision'], $item['new']]);
-        $this->assertSame('sent', $review->fresh()->status);
-
-        $this->post(route('profile-review.save', $review->token), [
-            'd' => [$nameKey => 'edit'], 'v' => [$nameKey => 'علي محمد الحبسي'], 'action' => 'submit',
-        ])->assertSessionHasErrors();
-        $this->assertNotSame('submitted', $review->fresh()->status);
-
-        $this->post(route('profile-review.save', $review->token), [
-            ...$this->answers($review, [$nameKey => 'علي محمد الحبسي']),
-            'add' => ['n1' => ['title' => 'ذهبية آسيا', 'y' => 2024, 'm' => 3, 'description' => "الفقرة الأولى\n\nالفقرة الثانية"]],
-            'note' => 'شكرًا لكم',
+            'd' => [$nameKey => 'edit'], 'v' => [$nameKey => 'علي محمد الحبسي'],
+            'j' => ['s0' => ['y' => 2005, 'text' => 'أول مباراة مع النادي'], 's1' => ['y' => 2010, 'text' => 'الانضمام إلى المنتخب الوطني']],
+            'social' => ['instagram' => 'https://instagram.com/ali', 'x' => '@ali'],
+            'vid' => ['v0' => ['title' => 'لقاء تلفزيوني', 'url' => 'https://youtu.be/abcdefghijk']],
+            'phone' => '+968 9000 0000', 'email' => 'ali@example.com',
+            'add' => ['n1' => ['title' => 'ذهبية آسيا', 'y' => 2024, 'm' => 3, 'description' => $this->words(130)]],
             'action' => 'submit',
         ])->assertRedirect($review->url());
 
         $review->refresh();
         $this->assertSame('submitted', $review->status);
+        $items = collect($review->items);
+        $this->assertSame(['edit', 'علي محمد الحبسي'], [$items->firstWhere('key', $nameKey)['decision'], $items->firstWhere('key', $nameKey)['new']]);
+        $this->assertSame('ok', $items->firstWhere('key', "achiever_{$this->achiever->id}_story")['decision']);
+        $this->assertCount(2, $review->journey['new']);
+        $this->assertTrue($review->changed('journey'));
+        $this->assertSame('@ali', $review->socials['new']['x']);
         $this->assertSame('2024-03', $review->additions[0]['when']);
-        $this->assertSame('شكرًا لكم', $review->note);
         $this->get($review->url())->assertSee('شكرًا لك')->assertDontSee('الاسم الكامل');
+    }
+
+    public function test_submit_checks_word_limits(): void
+    {
+        $review = $this->review();
+        $bodyKey = "achievement_{$this->achievement->id}_body";
+
+        $this->post(route('profile-review.save', $review->token), [
+            'd' => [$bodyKey => 'edit'], 'v' => [$bodyKey => $this->words(20)],
+            'j' => ['s0' => ['y' => 2005, 'text' => $this->words(9)]],
+            'action' => 'submit',
+        ])->assertSessionHasErrors();
+
+        $review->refresh();
+        $this->assertNotSame('submitted', $review->status);
+        $this->assertSame($this->words(20), collect($review->items)->firstWhere('key', $bodyKey)['new']);
     }
 
     public function test_images_upload_into_the_review_folder_only(): void
@@ -125,24 +129,24 @@ class ProfileReviewPageTest extends TestCase
         $this->post(route('profile-review.upload', $review->token), ['image' => UploadedFile::fake()->create('x.pdf', 10, 'application/pdf')], ['Accept' => 'application/json'])
             ->assertUnprocessable();
 
-        $portrait = "achiever_{$this->achiever->id}_portrait";
-        $this->post(route('profile-review.save', $review->token), ['d' => [$portrait => 'edit'], 'v' => [$portrait => 'profile-reviews/999/other.png']]);
-        $this->assertNull(collect($review->fresh()->items)->firstWhere('key', $portrait)['new']);
+        $this->post(route('profile-review.save', $review->token), ['gal' => ['g0' => ['path' => 'profile-reviews/999/other.png', 'caption' => 'x'], 'g1' => ['path' => $path, 'caption' => 'تخرجي']]]);
+        $this->assertSame([['path' => $path, 'caption' => 'تخرجي', 'approved' => null]], $review->fresh()->gallery);
     }
 
     public function test_approved_answers_go_live_and_the_rest_does_not(): void
     {
         $review = $this->review();
         $id = $this->achiever->id;
-        $path = "profile-reviews/{$review->id}/me.png";
-        Storage::disk(ProfileReviewApplier::diskName())->put($path, base64_decode(self::PNG));
+        $disk = Storage::disk(ProfileReviewApplier::diskName());
+        $portrait = "profile-reviews/{$review->id}/me.png";
+        $photo = "profile-reviews/{$review->id}/grad.png";
+        $disk->put($portrait, base64_decode(self::PNG));
+        $disk->put($photo, base64_decode(self::PNG));
 
         $edits = [
             "achiever_{$id}_name" => 'علي محمد الحبسي',
             "achiever_{$id}_story" => 'تعديل لم يُعتمد',
-            "achiever_{$id}_journey_items" => "2003 | البداية في نادي النصر\n2010 - الاحتراف في إنجلترا",
-            "achiever_{$id}_social_links" => "instagram.com/ali\nhttps://example.com",
-            "achiever_{$id}_portrait" => $path,
+            "achiever_{$id}_portrait" => $portrait,
             "achievement_{$this->achievement->id}_body" => "فقرة أولى\n\nفقرة <ثانية>",
             "achievement_{$this->achievement->id}_achieved_at" => '2011-05',
         ];
@@ -153,23 +157,31 @@ class ProfileReviewPageTest extends TestCase
 
             return $item;
         })->all();
+        $review->journey = [...$review->journey, 'new' => [['year' => '2003', 'text' => 'البداية في نادي النصر'], ['year' => '2010', 'text' => 'الاحتراف في إنجلترا']], 'approved' => true];
+        $review->socials = [...$review->socials, 'new' => ['x' => '@ali', 'instagram' => '', 'linkedin' => '', 'facebook' => '', 'snapchat' => ''], 'approved' => true];
+        $review->videos = [...$review->videos, 'new' => [['title' => 'لقاء', 'url' => 'https://youtu.be/abcdefghijk']], 'approved' => true];
+        $review->contact = [...$review->contact, 'new' => ['phone' => '+968 9000 0000', 'email' => 'ali@example.com'], 'approved' => false];
+        $review->gallery = [['path' => $photo, 'caption' => 'تخرجي', 'approved' => true]];
         $review->additions = [
             ['uid' => 'n1', 'title' => 'ذهبية آسيا', 'when' => '2024', 'description' => 'وصف', 'approved' => true],
             ['uid' => 'n2', 'title' => 'لم تُعتمد', 'when' => '2023', 'approved' => false],
         ];
         $review->save();
 
-        $result = ProfileReviewApplier::apply($review);
+        $result = ProfileReviewApplier::apply($review->fresh());
 
-        $this->assertSame(['changes' => 6, 'additions' => 1], $result);
+        $this->assertSame(['changes' => 7, 'additions' => 1, 'photos' => 1], $result);
         $achiever = $this->achiever->fresh();
         $this->assertSame('علي محمد الحبسي', $achiever->getTranslation('name', 'ar'));
         $this->assertSame('بدأت الحكاية في الحارة.', $achiever->getTranslation('story', 'ar'));
         $this->assertSame([['2003', 'البداية في نادي النصر', 'ball'], ['2010', 'الاحتراف في إنجلترا', 'star']],
             $achiever->journeyItems->map(fn ($j) => [$j->year, $j->getTranslation('title', 'ar'), $j->icon])->all());
-        $this->assertSame(['instagram', 'website'], $achiever->socialLinks->pluck('platform')->all());
-        $this->assertSame('https://instagram.com/ali', $achiever->socialLinks->first()->url);
+        $this->assertSame(['x'], $achiever->socialLinks->pluck('platform')->all());
+        $this->assertSame('https://x.com/ali', $achiever->socialLinks->first()->url);
+        $this->assertSame([['title' => 'لقاء', 'url' => 'https://youtu.be/abcdefghijk']], $achiever->interviews);
+        $this->assertNull($achiever->contact_phone);
         $this->assertNotNull($achiever->getFirstMedia('portrait'));
+        $this->assertSame(['ar' => 'تخرجي'], $achiever->getFirstMedia('gallery')->getCustomProperty('caption'));
 
         $achievement = $this->achievement->fresh();
         $this->assertSame('<p>فقرة أولى</p><p>فقرة &lt;ثانية&gt;</p>', $achievement->getTranslation('body', 'ar'));
@@ -178,7 +190,6 @@ class ProfileReviewPageTest extends TestCase
         $added = $achiever->achievements()->where('title->ar', 'ذهبية آسيا')->first();
         $this->assertNotNull($added);
         $this->assertTrue($added->isLive());
-        $this->assertSame('year', $added->date_precision);
         $this->assertFalse(Achievement::query()->where('title->ar', 'لم تُعتمد')->exists());
     }
 }

@@ -211,6 +211,20 @@
             'year' => $video->achieved_at?->year,
         ];
     })->values();
+    // «المقابلات واللقاءات المرئية» added by the achiever's review (Achiever::interviews), after the achievements' videos.
+    $videoItems = $videoItems->concat(collect($achiever->interviews ?? [])->filter(fn ($v) => filled($v['url'] ?? null))
+        ->reject(fn ($v) => $videoItems->contains('url', $v['url']))->map(function ($v) use ($heroImage) {
+            $youtube = preg_match('~(?:youtu\.be/|youtube(?:-nocookie)?\.com/(?:watch\?(?:.*&)?v=|embed/|shorts/|live/))([\w-]{11})~', $v['url'], $m) ? $m[1] : null;
+
+            return [
+                'url' => $v['url'],
+                'youtube' => $youtube,
+                'thumb' => $youtube ? 'https://i.ytimg.com/vi/'.$youtube.'/hq720.jpg' : $heroImage,
+                'fallback' => $youtube ? 'https://i.ytimg.com/vi/'.$youtube.'/mqdefault.jpg' : null,
+                'title' => (string) ($v['title'] ?? ''),
+                'year' => null,
+            ];
+        }))->values();
     // Each library has a cover: a mosaic of its first pictures, or the achiever's photo while it is empty.
     $fallbackCover = $achiever->imageUrl('journey') ?? $achiever->imageUrl('portrait', 'card') ?? $heroImage;
     $coverOf = fn ($items) => $items->filter(fn ($item) => filled($item['thumb']))->take(3)

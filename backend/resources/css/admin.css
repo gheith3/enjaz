@@ -212,3 +212,46 @@
 .prv-add__facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .5rem; margin: 0 0 .5rem; font-size: .875rem; }
 .prv-add__facts dt { font-size: .75rem; color: rgb(100 116 139); }
 .prv-add__desc { font-size: .9rem; line-height: 1.8; margin-bottom: .5rem; }
+.prv-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: .75rem; }
+.prv-photo { display: grid; gap: .35rem; border: 1px solid rgb(15 23 42 / .08); border-radius: .8rem; padding: .5rem; opacity: .7; cursor: pointer; }
+.prv-photo.is-on { opacity: 1; border-color: rgb(37 119 90 / .45); box-shadow: inset 0 -3px 0 #25775a; }
+.prv-photo img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: .5rem; display: block; }
+.prv-photo__cap { font-size: .8rem; line-height: 1.6; }
+.prv-photo__check { display: flex; align-items: center; gap: .4rem; font-size: .8rem; font-weight: 700; }
+.prv-photo__check input { accent-color: #25775a; }
+.prv-diff__old p, .prv-diff__new p { margin: 0 0 .2rem; }
+/* مراجعات المنجزين: المربعات (الأقسام، المجالات، المنجزون) */
+.rh-big { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+.rh-tile { display: flex; flex-direction: column; gap: .5rem; background: #fff; border: 1px solid rgb(15 23 42 / .08); border-radius: 1rem; padding: 1.1rem 1.2rem; text-align: start; cursor: pointer; transition: border-color .2s, box-shadow .2s; }
+.dark .rh-tile { background: rgb(255 255 255 / .04); border-color: rgb(255 255 255 / .08); }
+.rh-tile:hover { border-color: var(--inj-teal); box-shadow: 0 10px 24px -18px rgb(9 103 112 / .7); }
+.rh-tile.is-soon { opacity: .55; cursor: default; pointer-events: none; }
+.rh-tile.is-empty { opacity: .55; }
+.rh-ico { width: 48px; height: 48px; border-radius: .9rem; background: #e1f0ef; color: var(--inj-teal); display: grid; place-items: center; }
+.rh-ico svg { width: 26px; height: 26px; }
+.rh-name { font-size: 1.1rem; font-weight: 800; }
+.rh-num { font-size: 1.8rem; font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.rh-num small { font-size: .85rem; font-weight: 600; color: rgb(100 116 139); }
+.rh-note { font-size: .8rem; color: rgb(100 116 139); }
+.rh-bar { display: flex; height: 8px; border-radius: 99px; overflow: hidden; background: #eef2f6; }
+.rh-bar span { display: block; height: 100%; }
+.rh-legend { display: grid; gap: .1rem; font-size: .85rem; color: rgb(100 116 139); }
+.rh-legend span { display: flex; align-items: center; gap: .5rem; }
+.rh-legend b { margin-inline-start: auto; color: inherit; font-variant-numeric: tabular-nums; }
+.rh-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: none; }
+.rh-pending { background: #94a3b8; } .rh-reviewed { background: #b7791f; } .rh-published { background: #25775a; }
+.rh-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .9rem; }
+.rh-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.rh-filters button { display: inline-flex; align-items: center; gap: .45rem; font-size: .875rem; font-weight: 700; padding: .3rem .9rem; border-radius: 99px; border: 1px solid rgb(15 23 42 / .1); background: #fff; cursor: pointer; }
+.rh-filters button.on { background: #16302f; color: #fff; border-color: #16302f; }
+.dark .rh-filters button { background: transparent; }
+.rh-people { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: .8rem; }
+.rh-person { display: flex; flex-direction: column; gap: .25rem; background: #fff; border: 1px solid rgb(15 23 42 / .08); border-top: 4px solid #94a3b8; border-radius: .9rem; padding: .9rem 1rem; min-height: 140px; text-align: start; cursor: pointer; }
+.dark .rh-person { background: rgb(255 255 255 / .04); }
+.rh-person:hover { box-shadow: 0 10px 24px -18px rgb(9 103 112 / .7); }
+.rh-person.s-reviewed { border-top-color: #b7791f; } .rh-person.s-published { border-top-color: #25775a; }
+.rh-badge { align-self: flex-start; font-size: .72rem; font-weight: 700; border-radius: 99px; padding: 0 .6rem; background: #eef2f6; color: #55657a; }
+.s-reviewed .rh-badge { background: #fbf0dc; color: #b7791f; } .s-published .rh-badge { background: #e2f1ea; color: #25775a; }
+.rh-pname { font-size: 1rem; font-weight: 800; line-height: 1.5; }
+.rh-phead { font-size: .8rem; color: rgb(100 116 139); line-height: 1.6; flex: 1; }
+.rh-act { font-size: .8rem; font-weight: 700; color: var(--inj-teal); }

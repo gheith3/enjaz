@@ -3,7 +3,10 @@
 namespace App\Filament\Resources\ProfileReviews;
 
 use App\Filament\Resources\ProfileReviews\Pages\ListProfileReviews;
+use App\Filament\Resources\ProfileReviews\Pages\ReviewFieldAchievers;
+use App\Filament\Resources\ProfileReviews\Pages\ReviewFields;
 use App\Filament\Resources\ProfileReviews\Pages\ReviewProfileReview;
+use App\Filament\Resources\ProfileReviews\Pages\ReviewsHub;
 use App\Models\ProfileReview;
 use BackedEnum;
 use Filament\Actions\Action;
@@ -17,7 +20,8 @@ use UnitEnum;
 
 /**
  * مراجعات المنجزين: the private links sent to achievers to review their profile, and their answers waiting for approval.
- * A link is created from the achiever's page («رابط مراجعة الصفحة»).
+ * The section opens on two tiles (المنجزون، المؤسسات), then the fields, then the achievers of a field with the stage of their
+ * review. A link is also created from the achiever's page («رابط مراجعة الصفحة»).
  */
 class ProfileReviewResource extends Resource
 {
@@ -60,11 +64,12 @@ class ProfileReviewResource extends Resource
                 TextColumn::make('status')->label('الحالة')->badge()
                     ->formatStateUsing(fn (string $state) => ProfileReview::STATUSES[$state] ?? $state)
                     ->color(fn (string $state) => ProfileReview::STATUS_COLORS[$state] ?? 'gray'),
-                TextColumn::make('progress')->label('المراجَع')
+                TextColumn::make('progress')->label('التغييرات')
                     ->state(function (ProfileReview $r) {
                         $p = $r->progress();
 
-                        return "{$p['answered']} / {$p['total']}".($p['edited'] ? " · {$p['edited']} تعديل" : '');
+                        return collect([$p['edited'] ? "{$p['edited']} تعديل" : null, $p['lists'] ? "{$p['lists']} قسم" : null, $p['photos'] ? "{$p['photos']} صورة" : null])
+                            ->filter()->implode(' · ') ?: '—';
                     }),
                 TextColumn::make('additions')->label('إنجازات مضافة')->state(fn (ProfileReview $r) => count($r->additions ?? []) ?: '—'),
                 TextColumn::make('submitted_at')->label('أُرسلت')->dateTime('Y-m-d H:i')->placeholder('—')->sortable(),
@@ -85,8 +90,11 @@ class ProfileReviewResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListProfileReviews::route('/'),
-            'review' => ReviewProfileReview::route('/{record}'),
+            'index' => ReviewsHub::route('/'),
+            'all' => ListProfileReviews::route('/all'),
+            'fields' => ReviewFields::route('/achievers'),
+            'field' => ReviewFieldAchievers::route('/achievers/{field}'),
+            'review' => ReviewProfileReview::route('/r/{record}'),
         ];
     }
 }

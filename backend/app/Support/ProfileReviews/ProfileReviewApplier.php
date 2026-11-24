@@ -18,19 +18,14 @@ use Spatie\ResponseCache\Facades\ResponseCache;
  */
 class ProfileReviewApplier
 {
-    /** Social platform => pattern of its hosts. */
-    private const PLATFORM_HOSTS = [
-        'instagram' => '/(^|\.)instagram\.com$/', 'x' => '/(^|\.)(x|twitter)\.com$/', 'facebook' => '/(^|\.)(facebook\.com|fb\.com|fb\.me)$/',
-        'linkedin' => '/(^|\.)linkedin\.com$/', 'youtube' => '/(^|\.)(youtube\.com|youtu\.be)$/', 'snapchat' => '/(^|\.)snapchat\.com$/',
-        'tiktok' => '/(^|\.)tiktok\.com$/', 'whatsapp' => '/(^|\.)(wa\.me|whatsapp\.com)$/',
-    ];
-
-    /** @return array{changes: int, additions: int} */
+    /** @return array{changes: int, additions: int, photos: int} */
     public static function apply(ProfileReview $review): array
     {
         $result = DB::transaction(function () use ($review) {
             $changes = 0;
             $additions = 0;
+            $photos = 0;
+            $achiever = $review->achiever;
 
             foreach ($review->items ?? [] as $item) {
                 if (($item['decision'] ?? null) === 'edit' && ($item['approved'] ?? false) === true && self::applyItem($item)) {
@@ -38,14 +33,44 @@ class ProfileReviewApplier
                 }
             }
 
+            foreach (['journey', 'socials', 'videos', 'contact'] as $part) {
+                $value = $review->{$part} ?? [];
+                if (($value['approved'] ?? false) === true && $review->changed($part)) {
+                    match ($part) {
+                        'journey' => self::replaceJourney($achiever, $value['new'] ?? []),
+                        'socials' => self::replaceSocials($achiever, $value['new'] ?? []),
+                        'videos' => $achiever->update(['interviews' => array_values($value['new'] ?? [])]),
+                        'contact' => $achiever->update([
+                            'contact_phone' => ($value['new']['phone'] ?? null) ?: null,
+                            'contact_email' => ($value['new']['email'] ?? null) ?: null,
+                        ]),
+                    };
+                    $changes += 1;
+                }
+            }
+
+            foreach ($review->gallery ?? [] as $photo) {
+                if (($photo['approved'] ?? false) === true && filled($photo['path'] ?? null) && self::disk()->exists($photo['path'])) {
+                    $media = $achiever->addMediaFromDisk($photo['path'], self::diskName());
+                    if (filled($photo['caption'] ?? null)) {
+                        $media->withCustomProperties(['caption' => ['ar' => $photo['caption']]]);
+                    }
+                    $media->toMediaCollection('gallery');
+                    $photos += 1;
+                }
+            }
+            if ($photos) {
+                $achiever->touch();
+            }
+
             foreach ($review->additions ?? [] as $addition) {
                 if (($addition['approved'] ?? false) === true && filled($addition['title'] ?? null)) {
-                    self::createAchievement($review->achiever, $addition);
+                    self::createAchievement($achiever, $addition);
                     $additions += 1;
                 }
             }
 
-            return ['changes' => $changes, 'additions' => $additions];
+            return ['changes' => $changes, 'additions' => $additions, 'photos' => $photos];
         });
 
         if (config('responsecache.enabled')) {
@@ -76,15 +101,8 @@ class ProfileReviewApplier
                 $model->touch();
 
                 return true;
-            case 'journey':
-                self::replaceJourney($model, (string) $value);
-
-                return true;
-            case 'links':
-                self::replaceLinks($model, (string) $value);
-
-                return true;
             case 'select':
+            case 'scope':
                 $model->{$attr} = filled($value) ? (int) $value : null;
                 break;
             case 'when':
@@ -139,19 +157,16 @@ class ProfileReviewApplier
         return $achievement;
     }
 
-    private static function replaceJourney(Achiever $achiever, string $value): void
+    /** @param  list<array{year?: string, text?: string}>  $stations */
+    private static function replaceJourney(Achiever $achiever, array $stations): void
     {
         $icons = $achiever->journeyItems()->pluck('icon')->all();
         $achiever->journeyItems()->delete();
 
-        foreach (self::lines($value) as $index => $line) {
-            $parts = str_contains($line, '|')
-                ? preg_split('/\s*\|\s*/u', $line, 2)
-                : preg_split('/\s+[-–—:]\s+|\s*[،:]\s*/u', $line, 2);
-            [$year, $title] = count($parts) === 2 && preg_match('/^[\d٠-٩]{2,4}/u', $parts[0]) ? $parts : ['', $line];
+        foreach (array_values($stations) as $index => $station) {
             $achiever->journeyItems()->create([
-                'year' => Str::limit(self::latinDigits($year), 20, ''),
-                'title' => ['ar' => $title],
+                'year' => Str::limit(self::latinDigits((string) ($station['year'] ?? '')), 20, ''),
+                'title' => ['ar' => trim((string) ($station['text'] ?? ''))],
                 'icon' => $icons[$index] ?? 'star',
                 'sort_order' => $index + 1,
             ]);
@@ -159,19 +174,30 @@ class ProfileReviewApplier
         $achiever->touch();
     }
 
-    private static function replaceLinks(Achiever $achiever, string $value): void
+    /**
+     * The five accounts asked on the review: an empty one removes that platform's link; a handle becomes a link.
+     *
+     * @param  array<string, string>  $accounts
+     */
+    private static function replaceSocials(Achiever $achiever, array $accounts): void
     {
-        $achiever->socialLinks()->delete();
-
-        foreach (self::lines($value) as $index => $url) {
-            $url = Str::startsWith($url, ['http://', 'https://']) ? $url : 'https://'.ltrim($url, '/');
-            $host = Str::lower((string) parse_url($url, PHP_URL_HOST));
-            $platform = collect(self::PLATFORM_HOSTS)->filter(fn ($pattern) => preg_match($pattern, $host))->keys()->first() ?? 'website';
+        $bases = ['x' => 'https://x.com/', 'instagram' => 'https://instagram.com/', 'linkedin' => 'https://www.linkedin.com/in/',
+            'facebook' => 'https://facebook.com/', 'snapchat' => 'https://snapchat.com/add/'];
+        $order = 1;
+        foreach (ProfileReviewItems::SOCIALS as $platform => $label) {
+            $value = trim((string) ($accounts[$platform] ?? ''));
+            $achiever->socialLinks()->where('platform', $platform)->delete();
+            if ($value === '') {
+                continue;
+            }
+            $url = Str::startsWith($value, ['http://', 'https://']) ? $value
+                : (preg_match('~^[\w.-]+\.[a-z]{2,}/~i', $value) ? 'https://'.$value : $bases[$platform].ltrim($value, '@/'));
             $achiever->socialLinks()->create([
                 'platform' => $platform,
                 'url' => Str::limit($url, 250, ''),
+                'handle' => Str::startsWith($value, '@') ? $value : null,
                 'is_active' => true,
-                'sort_order' => $index + 1,
+                'sort_order' => $order++,
             ]);
         }
         $achiever->touch();
@@ -205,12 +231,6 @@ class ProfileReviewApplier
             ->map(fn ($paragraph) => trim($paragraph))->filter()
             ->map(fn ($paragraph) => '<p>'.nl2br(e($paragraph), false).'</p>')
             ->implode('');
-    }
-
-    /** @return list<string> */
-    private static function lines(string $value): array
-    {
-        return array_values(array_filter(array_map('trim', preg_split('/\R/u', $value))));
     }
 
     private static function latinDigits(string $value): string

@@ -7,6 +7,7 @@ use App\Filament\Support\Publishing;
 use App\Filament\Support\Translatable;
 use App\Models\Achiever;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -57,6 +58,17 @@ class AchieverForm
                     MediaSlot::make('week', 'صورة بطاقة «منجز الأسبوع» (PNG شفاف، اختيارية)', 'فارغة = الصورة المفرّغة.', focal: false),
                     Textarea::make('portrait_trace')->label('مسار الخط الذهبي حول الصورة المفرّغة (SVG path، اختياري)')->rows(2)
                         ->extraInputAttributes(['dir' => 'ltr']),
+                ]),
+                Tab::make('المقابلات والتواصل')->icon('heroicon-o-video-camera')->schema([
+                    Repeater::make('interviews')->label('المقابلات واللقاءات المرئية (تظهر في «المكتبة المرئية» مع فيديوهات الإنجازات)')
+                        ->schema([
+                            TextInput::make('title')->label('عنوان المقابلة')->maxLength(255),
+                            TextInput::make('url')->label('الرابط')->url()->required()->maxLength(500)->extraInputAttributes(['dir' => 'ltr']),
+                        ])->columns(2)->defaultItems(0)->reorderable()->collapsible()->addActionLabel('إضافة مقابلة'),
+                    Section::make('التواصل مع المنجز (خاص، لا يُنشر في الموقع)')->columns(2)->schema([
+                        TextInput::make('contact_phone')->label('رقم الهاتف')->tel()->maxLength(40)->extraInputAttributes(['dir' => 'ltr']),
+                        TextInput::make('contact_email')->label('البريد الإلكتروني')->email()->maxLength(190)->extraInputAttributes(['dir' => 'ltr']),
+                    ]),
                 ]),
                 Tab::make('الظهور في الموقع')->icon('heroicon-o-sparkles')->columns(2)->schema([
                     Toggle::make('show_in_home_strip')->label('في شريط المنجزين بالرئيسية')->columnSpanFull(),

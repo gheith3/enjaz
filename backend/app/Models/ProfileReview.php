@@ -37,14 +37,15 @@ class ProfileReview extends Model
     public const VALID_DAYS = 21;
 
     protected $fillable = [
-        'achiever_id', 'token', 'status', 'items', 'additions', 'note', 'admin_note', 'expires_at', 'opened_at',
+        'achiever_id', 'token', 'status', 'items', 'additions', 'journey', 'socials', 'gallery', 'videos', 'contact', 'note', 'admin_note', 'expires_at', 'opened_at',
         'submitted_at', 'reviewed_at', 'reviewed_by',
     ];
 
     protected function casts(): array
     {
         return [
-            'items' => 'array', 'additions' => 'array', 'expires_at' => 'datetime', 'opened_at' => 'datetime',
+            'items' => 'array', 'additions' => 'array', 'journey' => 'array', 'socials' => 'array', 'gallery' => 'array',
+            'videos' => 'array', 'contact' => 'array', 'expires_at' => 'datetime', 'opened_at' => 'datetime',
             'submitted_at' => 'datetime', 'reviewed_at' => 'datetime',
         ];
     }
@@ -58,6 +59,7 @@ class ProfileReview extends Model
             'status' => 'sent',
             'items' => ProfileReviewItems::build($achiever),
             'additions' => [],
+            ...ProfileReviewItems::sections($achiever),
             'expires_at' => now()->addDays(self::VALID_DAYS),
         ]);
     }
@@ -99,16 +101,41 @@ class ProfileReview extends Model
         return self::STATUSES[$this->status] ?? $this->status;
     }
 
-    /** @return array{total: int, answered: int, edited: int} */
+    /**
+     * What the achiever changed: corrected points, and the list parts they changed.
+     *
+     * @return array{total: int, edited: int, additions: int, photos: int, lists: int}
+     */
     public function progress(): array
     {
         $items = collect($this->items ?? []);
+        $lists = collect(['journey', 'socials', 'videos', 'contact'])->filter(fn ($part) => $this->changed($part))->count();
 
         return [
             'total' => $items->count(),
-            'answered' => $items->whereNotNull('decision')->count(),
             'edited' => $items->where('decision', 'edit')->count(),
+            'additions' => count($this->additions ?? []),
+            'photos' => count($this->gallery ?? []),
+            'lists' => $lists,
         ];
+    }
+
+    /** Whether the achiever changed one of the list parts (journey, socials, videos, contact). */
+    public function changed(string $part): bool
+    {
+        $value = $this->{$part} ?? [];
+
+        return ($value['new'] ?? null) !== ($value['old'] ?? null);
+    }
+
+    /** Group of the dashboard «مراجعات المنجزين»: pending (not reviewed yet), reviewed (waiting for approval), published. */
+    public function stage(): string
+    {
+        return match ($this->status) {
+            'submitted' => 'reviewed',
+            'approved', 'closed' => 'published',
+            default => 'pending',
+        };
     }
 
     /** The message sent with the link (WhatsApp, e-mail). */

@@ -32,6 +32,7 @@ class Achiever extends Model implements HasMedia
         'slug', 'name', 'gender', 'field_id', 'headline', 'hero_lines', 'short_bio', 'story', 'journey_kicker', 'journey_title',
         'personal_quote', 'personal_quote_context', 'personal_quote_source', 'quotes_note', 'portrait_trace', 'is_featured', 'is_inspiring',
         'inspiring_tagline', 'inspiring_field', 'show_in_home_strip', 'week_from', 'week_teaser', 'is_published', 'published_at', 'sort_order',
+        'interviews', 'contact_phone', 'contact_email',
     ];
 
     /** @var list<string> */
@@ -44,7 +45,7 @@ class Achiever extends Model implements HasMedia
     {
         return [
             'is_featured' => 'boolean', 'is_inspiring' => 'boolean', 'show_in_home_strip' => 'boolean',
-            'week_from' => 'date', 'sort_order' => 'integer',
+            'week_from' => 'date', 'sort_order' => 'integer', 'interviews' => 'array',
         ];
     }
 

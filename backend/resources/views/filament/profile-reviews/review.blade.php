@@ -4,9 +4,14 @@
         $progress = $review->progress();
         $sections = $this->editedSections();
         $additions = $review->additions ?? [];
-        $editable = $review->isEditable();
+        $gallery = $review->gallery ?? [];
         $decided = $review->status === 'approved';
         $invitation = $review->invitation();
+        $parts = collect(['journey' => 'محطات المسيرة', 'socials' => 'حسابات التواصل', 'videos' => 'المقابلات واللقاءات', 'contact' => 'بيانات التواصل (خاصة)'])
+            ->filter(fn ($label, $part) => $review->changed($part));
+        $socialLabels = \App\Support\ProfileReviews\ProfileReviewItems::SOCIALS;
+        $nothing = $sections->isEmpty() && ! $additions && ! $gallery && $parts->isEmpty();
+        $badge = fn ($ok) => $ok ? '<em class="prv-ok">اعتُمد</em>' : '<em class="prv-danger">لم يُعتمد</em>';
     @endphp
 
     <div class="prv">
@@ -17,7 +22,7 @@
                     <h2>رابط المراجعة</h2>
                     <span class="prv-muted">
                         @if ($review->isExpired())
-                            <strong class="prv-danger">انتهت صلاحيته</strong> — مدّده من الأعلى.
+                            <strong class="prv-danger">انتهت صلاحيته</strong>، مدّده من الأعلى.
                         @else
                             صالح حتى {{ $review->expires_at?->format('Y-m-d') }}
                         @endif
@@ -37,35 +42,24 @@
             </section>
         @endif
 
-        {{-- Summary --}}
         <section class="prv-stats">
-            <div class="prv-stat"><span>النقاط</span><strong>{{ $progress['total'] }}</strong></div>
-            <div class="prv-stat"><span>راجعها المنجز</span><strong>{{ $progress['answered'] }}</strong></div>
-            <div class="prv-stat prv-stat--ok"><span>أكّدها صحيحة</span><strong>{{ $progress['answered'] - $progress['edited'] }}</strong></div>
+            <div class="prv-stat"><span>نقاط الصفحة</span><strong>{{ $progress['total'] }}</strong></div>
             <div class="prv-stat prv-stat--edit"><span>عدّلها</span><strong>{{ $progress['edited'] }}</strong></div>
-            <div class="prv-stat prv-stat--add"><span>إنجازات أضافها</span><strong>{{ count($additions) }}</strong></div>
+            <div class="prv-stat prv-stat--edit"><span>أقسام غيّرها</span><strong>{{ $progress['lists'] }}</strong></div>
+            <div class="prv-stat prv-stat--add"><span>صور جديدة</span><strong>{{ $progress['photos'] }}</strong></div>
+            <div class="prv-stat prv-stat--add"><span>إنجازات أضافها</span><strong>{{ $progress['additions'] }}</strong></div>
         </section>
 
-        @if (filled($review->note))
-            <section class="prv-card prv-note">
-                <h3>ملاحظات المنجز</h3>
-                <p>{!! nl2br(e($review->note), false) !!}</p>
-            </section>
-        @endif
-
         @if ($review->status === 'returned' && filled($review->admin_note))
-            <section class="prv-card prv-note prv-note--team">
-                <h3>ملاحظتكم للمنجز</h3>
-                <p>{!! nl2br(e($review->admin_note), false) !!}</p>
-            </section>
+            <section class="prv-card prv-note prv-note--team"><h3>ملاحظتكم للمنجز</h3><p>{!! nl2br(e($review->admin_note), false) !!}</p></section>
         @endif
 
-        @if ($sections->isEmpty() && ! $additions)
+        @if ($nothing)
             <section class="prv-card prv-empty">
                 @if (in_array($review->status, ['sent', 'opened', 'returned'], true))
                     لم يرسل المنجز مراجعته بعد. ستظهر هنا تعديلاته وإضافاته فور إرسالها.
                 @else
-                    أكّد المنجز كل النقاط كما هي، لا توجد تعديلات.
+                    أكّد المنجز صفحته كما هي، لا توجد تعديلات.
                 @endif
             </section>
         @else
@@ -77,6 +71,7 @@
                 </div>
             @endif
 
+            {{-- Corrected points --}}
             @foreach ($sections as $title => $items)
                 <section class="prv-card">
                     <h3 class="prv-sec-title">{{ $title }}</h3>
@@ -86,9 +81,7 @@
                             <label class="prv-diff__check">
                                 <input type="checkbox" wire:model.live="approvals.{{ $key }}" @disabled($decided)>
                                 <span>{{ $item['label'] }}</span>
-                                @if ($decided)
-                                    <em class="{{ ($item['approved'] ?? false) ? 'prv-ok' : 'prv-danger' }}">{{ ($item['approved'] ?? false) ? 'اعتُمد' : 'لم يُعتمد' }}</em>
-                                @endif
+                                @if ($decided) {!! $badge($item['approved'] ?? false) !!} @endif
                             </label>
                             <div class="prv-diff__cols">
                                 <div class="prv-diff__old">
@@ -104,9 +97,8 @@
                                     @if ($item['type'] === 'image')
                                         @if ($url = $this->newUrl($item['new'] ?? null))
                                             <a href="{{ $url }}" target="_blank" rel="noopener"><img src="{{ $url }}" alt=""></a>
-                                            <a href="{{ $url }}" target="_blank" rel="noopener" class="prv-small">فتح الصورة بالحجم الكامل</a>
                                         @endif
-                                    @elseif ($item['type'] === 'select')
+                                    @elseif (in_array($item['type'], ['select', 'scope'], true))
                                         <p>{{ $item['options'][$item['new']] ?? $item['new'] ?? '' }}</p>
                                     @else
                                         <p>{!! nl2br(e((string) ($item['new'] ?? ''))) ?: '<span class="prv-muted">فارغ (حذف النص)</span>' !!}</p>
@@ -118,24 +110,74 @@
                 </section>
             @endforeach
 
+            {{-- Lists: stations, accounts, interviews, contact --}}
+            @foreach ($parts as $part => $label)
+                @php $value = $review->{$part}; $old = $value['old'] ?? []; $new = $value['new'] ?? []; @endphp
+                <section class="prv-card">
+                    <article class="prv-diff {{ ($this->partApprovals[$part] ?? false) ? 'is-on' : '' }}" wire:key="p-{{ $part }}">
+                        <label class="prv-diff__check">
+                            <input type="checkbox" wire:model.live="partApprovals.{{ $part }}" @disabled($decided)>
+                            <span>{{ $label }}</span>
+                            @if ($decided) {!! $badge($value['approved'] ?? false) !!} @endif
+                        </label>
+                        <div class="prv-diff__cols">
+                            @foreach (['الحالي' => $old, 'المقترح من المنجز' => $new] as $tag => $list)
+                                <div class="{{ $loop->first ? 'prv-diff__old' : 'prv-diff__new' }}">
+                                    <span class="prv-diff__tag">{{ $tag }}</span>
+                                    @switch($part)
+                                        @case('journey')
+                                            @forelse ($list as $station)<p><b>{{ $station['year'] ?? '' }}</b> · {{ $station['text'] ?? '' }}</p>@empty<p class="prv-muted">لا محطات</p>@endforelse
+                                            @break
+                                        @case('socials')
+                                            @foreach ($socialLabels as $platform => $name)<p><b>{{ $name }}:</b> <span dir="ltr">{{ ($list[$platform] ?? '') ?: '—' }}</span></p>@endforeach
+                                            @break
+                                        @case('videos')
+                                            @forelse ($list as $video)<p>{{ $video['title'] ?: 'بدون عنوان' }} · <a href="{{ $video['url'] }}" target="_blank" rel="noopener" dir="ltr">{{ $video['url'] }}</a></p>@empty<p class="prv-muted">لا مقابلات</p>@endforelse
+                                            @break
+                                        @default
+                                            <p><b>الهاتف:</b> <span dir="ltr">{{ ($list['phone'] ?? '') ?: '—' }}</span></p>
+                                            <p><b>البريد:</b> <span dir="ltr">{{ ($list['email'] ?? '') ?: '—' }}</span></p>
+                                    @endswitch
+                                </div>
+                            @endforeach
+                        </div>
+                    </article>
+                </section>
+            @endforeach
+
+            {{-- New photos for «المكتبة المرئية» --}}
+            @if ($gallery)
+                <section class="prv-card">
+                    <h3 class="prv-sec-title">صور جديدة للمكتبة المرئية</h3>
+                    <div class="prv-gallery">
+                        @foreach ($gallery as $index => $photo)
+                            @php $url = $this->newUrl($photo['path'] ?? null); @endphp
+                            <label class="prv-photo {{ ($this->photoApprovals[$index] ?? false) ? 'is-on' : '' }}" wire:key="g-{{ $index }}">
+                                <a href="{{ $url }}" target="_blank" rel="noopener"><img src="{{ $url }}" alt=""></a>
+                                <span class="prv-photo__cap">{{ $photo['caption'] ?: 'بدون عنوان' }}</span>
+                                <span class="prv-photo__check"><input type="checkbox" wire:model.live="photoApprovals.{{ $index }}" @disabled($decided)> اعتماد @if ($decided) {!! $badge($photo['approved'] ?? false) !!} @endif</span>
+                            </label>
+                        @endforeach
+                    </div>
+                </section>
+            @endif
+
+            {{-- Achievements the achiever added --}}
             @if ($additions)
                 <section class="prv-card">
                     <h3 class="prv-sec-title">إنجازات أضافها المنجز</h3>
-                    <p class="prv-muted">تُنشر عند الاعتماد إنجازًا جديدًا باسمه. أكمل بعدها تفاصيله (الصورة، المجال، الظهور) من صفحة الإنجاز.</p>
+                    <p class="prv-muted">تُنشر عند الاعتماد إنجازًا جديدًا باسمه. أكمل بعدها تفاصيله (المجال، الظهور) من صفحة الإنجاز.</p>
                     @foreach ($additions as $index => $addition)
                         <article class="prv-diff prv-add {{ ($this->additionApprovals[$index] ?? false) ? 'is-on' : '' }}" wire:key="a-{{ $index }}">
                             <label class="prv-diff__check">
                                 <input type="checkbox" wire:model.live="additionApprovals.{{ $index }}" @disabled($decided)>
                                 <span>{{ $addition['title'] ?: 'بدون عنوان' }}</span>
-                                @if ($decided)
-                                    <em class="{{ ($addition['approved'] ?? false) ? 'prv-ok' : 'prv-danger' }}">{{ ($addition['approved'] ?? false) ? 'نُشر' : 'لم يُنشر' }}</em>
-                                @endif
+                                @if ($decided) {!! $badge($addition['approved'] ?? false) !!} @endif
                             </label>
                             <dl class="prv-add__facts">
                                 <div><dt>التاريخ</dt><dd dir="ltr">{{ $addition['when'] ?: '—' }}</dd></div>
                                 <div><dt>المستوى</dt><dd>{{ \App\Support\ProfileReviews\ProfileReviewItems::scopeOptions()[$addition['scope_id'] ?? 0] ?? '—' }}</dd></div>
                                 <div><dt>التخصص</dt><dd>{{ $addition['discipline'] ?: '—' }}</dd></div>
-                                <div><dt>الجهة</dt><dd>{{ $addition['issuer'] ?: '—' }}</dd></div>
                                 <div><dt>المكان</dt><dd>{{ $addition['country'] ?: '—' }}</dd></div>
                             </dl>
                             @if (filled($addition['description'] ?? null))

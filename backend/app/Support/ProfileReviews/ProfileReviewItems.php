@@ -5,106 +5,101 @@ namespace App\Support\ProfileReviews;
 use App\Models\Achievement;
 use App\Models\Achiever;
 use App\Models\Field;
-use App\Models\Quote;
 use App\Models\Scope;
 use App\Models\SocialLink;
 use App\Support\ArabicDate;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * The points of an achiever's profile that the achiever reviews, one entry per point:
+ * What an achiever reviews (تصميم المراجعة ٢: «ملف توثيق»).
  *
+ * items: one entry per existing point; the achiever leaves it as it is or presses «تعديل»:
  *   key        unique, [a-z0-9_] (form field names)
- *   section    group on the review page (about, story, images, journey, links, quotes, achievement_{id})
- *   title      section title (achievement title for achievement sections)
- *   label      the point ("الاسم")
- *   type       text | textarea | html | select | when | image | journey | links
+ *   section    group on the page (about, story, images, achievement_{id})
+ *   title      section title (the achievement's title for achievement sections)
+ *   label, hint, type (text | textarea | html | select | scope | when | image)
  *   model, id, attr   what an approved answer changes (attr = media collection for images)
- *   old        current value as the input expects it (image: URL)
- *   shown      current value as the achiever reads it (date in words, option label ...)
- *   options    select options [id => label]
- *   decision   null | ok | edit (the achiever's answer)
- *   new        the corrected value (image: path of the uploaded file on the media disk)
- *   approved   null | bool (the team's decision on a correction)
+ *   old, shown, options, min_words
+ *   decision   ok | edit,  new: the corrected value,  approved: the team's decision
+ *
+ * The other parts of the page are lists (snapshots kept on the review, see sections()): «محطات مسيرتك»,
+ * the social accounts, the interviews and the private contact details; plus new photos and new achievements.
  */
 class ProfileReviewItems
 {
     /** Models an item may change. */
-    public const MODELS = ['achiever' => Achiever::class, 'achievement' => Achievement::class, 'quote' => Quote::class];
+    public const MODELS = ['achiever' => Achiever::class, 'achievement' => Achievement::class];
 
-    /** Images the achiever may replace (collection => label, hint). */
-    public const IMAGES = [
-        'portrait' => ['الصورة الرئيسية', 'صورة شخصية واضحة، يفضّل أن تكون مربعة وبجودة عالية.'],
-        'cutout' => ['صورة بخلفية مفرّغة', 'صورة لك من الرأس حتى الخصر تقريبًا، يفضّل PNG بخلفية شفافة، وإن لم تتوفر أرسل صورة واضحة بخلفية سادة وسنتولى تفريغها.'],
-        'avatar' => ['صورة صغيرة دائرية', 'صورة قريبة للوجه تُعرض داخل دائرة صغيرة.'],
-        'journey' => ['صورة قسم «مسيرتي»', 'صورة تعبّر عن رحلتك (في الملعب، على المنصة، أثناء العمل ...).'],
-    ];
+    /** Social accounts asked for, in this order (platform => label). */
+    public const SOCIALS = ['x' => 'إكس (تويتر)', 'instagram' => 'إنستغرام', 'linkedin' => 'لينكدإن', 'facebook' => 'فيسبوك', 'snapchat' => 'سناب شات'];
+
+    public const MAX_STATIONS = 10;
+
+    public const STATION_WORDS = 8;
+
+    public const MIN_WORDS = 120;
 
     /**
      * @return list<array<string, mixed>>
      */
     public static function build(Achiever $achiever): array
     {
-        $achiever->loadMissing(['field', 'journeyItems', 'quotes', 'socialLinks', 'media', 'achievements' => fn ($q) => $q->with(['scope', 'media'])->orderByDesc('achieved_at')]);
+        $achiever->loadMissing(['field', 'media', 'achievements' => fn ($q) => $q->with(['scope', 'media'])->orderByDesc('achieved_at')]);
         $items = [];
 
         $about = ['about', 'معلوماتك الأساسية'];
         $items[] = self::text($achiever, 'name', 'الاسم الكامل', $about);
-        $items[] = self::text($achiever, 'headline', 'الوصف المختصر تحت الاسم', $about, hint: 'مثل: حارس مرمى المنتخب الوطني');
+        $items[] = self::text($achiever, 'headline', 'الوصف المختصر تحت الاسم', $about, hint: 'مثل: روائية وأستاذة جامعية');
         $items[] = self::item($about, 'achiever', $achiever->id, 'field_id', 'المجال', 'select', $achiever->field_id,
             $achiever->field?->name, options: self::fieldOptions());
-        $items[] = self::text($achiever, 'hero_lines', 'أسطر التعريف أعلى صفحتك', $about, 'textarea', 'سطر لكل معلومة، مثل: حارس مرمى سابق للمنتخب الوطني');
 
         $story = ['story', 'نبذتك وقصتك'];
         $items[] = self::text($achiever, 'short_bio', 'النبذة المختصرة', $story, 'textarea');
         $items[] = self::text($achiever, 'story', 'قصتك', $story, 'textarea', 'اترك سطرًا فارغًا بين كل فقرة وأخرى.');
-        $items[] = self::text($achiever, 'personal_quote', 'مقولتك الشخصية', $story, 'textarea', 'عبارة تؤمن بها أو قلتها في مناسبة.');
-        $items[] = self::text($achiever, 'personal_quote_context', 'مناسبة المقولة وتاريخها', $story);
-        $items[] = self::text($achiever, 'personal_quote_source', 'مصدر المقولة', $story);
 
-        $images = ['images', 'صورك'];
-        foreach (self::IMAGES as $collection => [$label, $hint]) {
-            $items[] = self::item($images, 'achiever', $achiever->id, $collection, $label, 'image',
-                $achiever->imageUrl($collection, 'card'), null, $hint);
-        }
-
-        $journey = $achiever->journeyItems->map(fn ($item) => trim($item->year.' | '.$item->getTranslation('title', 'ar', false)))->implode("\n");
-        $items[] = self::item(['journey', 'محطات مسيرتك'], 'achiever', $achiever->id, 'journey_items', 'محطات المسيرة', 'journey',
-            $journey, null, 'سطر لكل محطة: السنة ثم علامة | ثم المحطة. مثال: 2019 | الانضمام إلى المنتخب الوطني');
-
-        $links = $achiever->socialLinks->filter(fn (SocialLink $link) => filled($link->url))->pluck('url')->implode("\n");
-        $items[] = self::item(['links', 'حساباتك على مواقع التواصل'], 'achiever', $achiever->id, 'social_links', 'روابط الحسابات', 'links',
-            $links, null, 'رابط واحد في كل سطر (إنستغرام، إكس، لينكدإن، يوتيوب، موقعك ...).');
-
-        foreach ($achiever->quotes as $index => $quote) {
-            $section = ['quotes', 'قالوا عنك'];
-            $n = $index + 1;
-            $items[] = self::text($quote, 'text', "القول $n", $section, 'textarea');
-            $items[] = self::text($quote, 'name', "قائل القول $n", $section);
-            $items[] = self::text($quote, 'role', "صفة القائل $n", $section);
-        }
+        $items[] = self::item(['images', 'صورتك'], 'achiever', $achiever->id, 'portrait', 'الصورة الرئيسية', 'image',
+            $achiever->imageUrl('portrait', 'card'), null, 'صورة شخصية واضحة وبجودة عالية.');
 
         foreach ($achiever->achievements as $achievement) {
-            $section = ['achievement_'.$achievement->id, $achievement->getTranslation('title', 'ar', false)];
-            $body = trim(preg_replace("/\n{3,}/", "\n\n", html_entity_decode(strip_tags(
-                preg_replace('#</(p|h[2-4]|li|blockquote)>#i', "\n\n", (string) $achievement->getTranslation('body', 'ar', false))
-            ))));
+            $section = ['achievement_'.$achievement->id, (string) $achievement->getTranslation('title', 'ar', false)];
             $items[] = self::text($achievement, 'title', 'عنوان الإنجاز', $section);
-            $items[] = self::item($section, 'achievement', $achievement->id, 'achieved_at', 'تاريخ الإنجاز', 'when',
+            $items[] = self::item($section, 'achievement', $achievement->id, 'achieved_at', 'التاريخ', 'when',
                 self::whenValue($achievement), ArabicDate::format($achievement->achieved_at, $achievement->date_precision));
-            $items[] = self::item($section, 'achievement', $achievement->id, 'scope_id', 'مستوى الإنجاز', 'select', $achievement->scope_id,
+            $items[] = self::item($section, 'achievement', $achievement->id, 'scope_id', 'المستوى', 'scope', $achievement->scope_id,
                 $achievement->scope?->name, options: self::scopeOptions());
             $items[] = self::text($achievement, 'discipline', 'التخصص أو الرياضة أو الفئة', $section);
-            $items[] = self::text($achievement, 'issuer', 'الجهة المانحة أو المنظِّمة', $section);
-            $items[] = self::text($achievement, 'country', 'المكان (الدولة أو المدينة)', $section);
-            $items[] = self::text($achievement, 'excerpt', 'وصف مختصر للإنجاز', $section, 'textarea');
-            $items[] = self::item($section, 'achievement', $achievement->id, 'body', 'قصة الإنجاز', 'html', $body, null,
-                'اترك سطرًا فارغًا بين كل فقرة وأخرى.');
-            $items[] = self::item($section, 'achievement', $achievement->id, 'cover', 'صورة الإنجاز', 'image',
-                $achievement->imageUrl('cover', 'card'), null, 'صورة من لحظة الإنجاز أو التتويج، أفقية إن أمكن.');
+            $items[] = self::text($achievement, 'country', 'المكان أو الدولة', $section);
+            $items[] = self::item($section, 'achievement', $achievement->id, 'body', 'وصف الإنجاز وتفاصيله', 'html', self::plain($achievement), null,
+                'اذكر تفاصيل الإنجاز: ما هو، ومتى وأين، ومن منحه، ولماذا هو مهم. لا يقل عن '.ArabicDate::digits(self::MIN_WORDS).' كلمة.')
+                + ['min_words' => self::MIN_WORDS];
+            $items[] = self::item($section, 'achievement', $achievement->id, 'cover', 'صورة الإنجاز', 'image', $achievement->imageUrl('cover', 'card'));
         }
 
         return $items;
+    }
+
+    /**
+     * The list parts of the review, with what the profile has now ("old"); the achiever's answer goes in "new".
+     *
+     * @return array{journey: array<string, mixed>, socials: array<string, mixed>, videos: array<string, mixed>, contact: array<string, mixed>, gallery: list<array<string, mixed>>}
+     */
+    public static function sections(Achiever $achiever): array
+    {
+        $achiever->loadMissing(['journeyItems', 'socialLinks']);
+        $journey = $achiever->journeyItems->take(self::MAX_STATIONS)
+            ->map(fn ($item) => ['year' => (string) $item->year, 'text' => (string) $item->getTranslation('title', 'ar', false)])->values()->all();
+        $socials = collect(self::SOCIALS)->map(fn ($label, $platform) => (string) ($achiever->socialLinks
+            ->first(fn (SocialLink $link) => $link->platform === $platform && filled($link->url))?->url ?? ''))->all();
+        $videos = collect($achiever->interviews ?? [])->map(fn ($v) => ['title' => (string) ($v['title'] ?? ''), 'url' => (string) ($v['url'] ?? '')])->values()->all();
+        $contact = ['phone' => (string) $achiever->contact_phone, 'email' => (string) $achiever->contact_email];
+
+        return [
+            'journey' => ['old' => $journey, 'new' => $journey, 'approved' => null],
+            'socials' => ['old' => $socials, 'new' => $socials, 'approved' => null],
+            'videos' => ['old' => $videos, 'new' => $videos, 'approved' => null],
+            'contact' => ['old' => $contact, 'new' => $contact, 'approved' => null],
+            'gallery' => [],
+        ];
     }
 
     /** "2019" / "2019-04" / "2019-04-29" for the year / month / day inputs. */
@@ -130,6 +125,21 @@ class ProfileReviewItems
     {
         return Scope::query()->orderBy('sort_order')->get()
             ->mapWithKeys(fn (Scope $scope) => [$scope->id => $scope->getTranslation('name', 'ar', false)])->all();
+    }
+
+    public static function words(?string $text): int
+    {
+        return count(preg_split('/\s+/u', trim((string) $text), -1, PREG_SPLIT_NO_EMPTY));
+    }
+
+    /** An achievement's story as plain text, a blank line between paragraphs. */
+    private static function plain(Achievement $achievement): string
+    {
+        $html = (string) $achievement->getTranslation('body', 'ar', false);
+
+        return trim(preg_replace("/\n{3,}/", "\n\n", html_entity_decode(strip_tags(
+            preg_replace('#</(p|h[2-4]|li|blockquote)>#i', "\n\n", $html)
+        ))));
     }
 
     /**
@@ -164,6 +174,6 @@ class ProfileReviewItems
             'old' => $old,
             'shown' => $shown,
             'options' => $options,
-        ], fn ($value) => $value !== null) + ['decision' => null, 'new' => null, 'approved' => null];
+        ], fn ($value) => $value !== null) + ['decision' => 'ok', 'new' => null, 'approved' => null];
     }
 }

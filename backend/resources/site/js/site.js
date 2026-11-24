@@ -24,6 +24,7 @@ import './sections/design/profile-said.js';
 import './sections/design/profile-related.js';
 import './sections/design/aj-bento.js';
 import './sections/design/profile-idcard.js';
+import './sections/design/profile-2080.js';
 import './sections/design/institutions-hero.js';
 import './sections/design/institutions-rings.js';
 import './sections/design/orgs-letter.js';

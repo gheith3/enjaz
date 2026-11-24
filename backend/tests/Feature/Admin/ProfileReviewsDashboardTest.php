@@ -30,7 +30,10 @@ class ProfileReviewsDashboardTest extends TestCase
         Livewire::test(EditAchiever::class, ['record' => $achiever->getRouteKey()])->callAction('reviewLink');
         $this->assertSame(1, ProfileReview::query()->count());
 
-        $this->get(ProfileReviewResource::getUrl('index'))->assertOk()->assertSee('جوخة الحارثي');
+        $this->get(ProfileReviewResource::getUrl('all'))->assertOk()->assertSee('جوخة الحارثي');
+        $this->get(ProfileReviewResource::getUrl('index'))->assertOk()->assertSee('المنجزون')->assertSee('المؤسسات');
+        $this->get(ProfileReviewResource::getUrl('fields'))->assertOk()->assertSee('بلا مجال بعد');
+        $this->get(ProfileReviewResource::getUrl('field', ['field' => 'none']))->assertOk()->assertSee('جوخة الحارثي');
         $this->get(ProfileReviewResource::getUrl('review', ['record' => $review]))->assertOk()
             ->assertSee($review->url())->assertSee('واتساب');
     }
@@ -50,6 +53,7 @@ class ProfileReviewsDashboardTest extends TestCase
                 'decision' => isset($corrections[$item['key']]) ? 'edit' : 'ok',
                 'new' => $corrections[$item['key']] ?? null,
             ])->all(),
+            'journey' => ['old' => [], 'new' => [['year' => '2020', 'text' => 'محطة جديدة']], 'approved' => null],
         ]);
 
         Livewire::test(ReviewProfileReview::class, ['record' => $review->getRouteKey()])
@@ -59,9 +63,24 @@ class ProfileReviewsDashboardTest extends TestCase
             ->assertHasNoActionErrors();
 
         $achiever->refresh();
+        $this->assertSame(['2020'], $achiever->journeyItems()->pluck('year')->all());
         $this->assertSame('الاسم الجديد', $achiever->getTranslation('name', 'ar'));
         $this->assertSame('الوصف القديم', $achiever->getTranslation('headline', 'ar'));
         $this->assertSame('approved', $review->fresh()->status);
+    }
+
+    public function test_a_field_tile_creates_the_link_of_an_achiever_without_one(): void
+    {
+        $this->actingAs($this->userWithRole('editor'));
+        $field = \App\Models\Field::factory()->create(['name' => ['ar' => 'الأدب']]);
+        $achiever = Achiever::factory()->create(['name' => ['ar' => 'زهران القاسمي'], 'field_id' => $field->id]);
+
+        Livewire::test(\App\Filament\Resources\ProfileReviews\Pages\ReviewFieldAchievers::class, ['field' => (string) $field->id])
+            ->assertSee('زهران القاسمي')->assertSee('لم يراجع')
+            ->call('open', $achiever->id)
+            ->assertRedirect();
+
+        $this->assertSame(1, ProfileReview::query()->where('achiever_id', $achiever->id)->count());
     }
 
     public function test_returning_a_review_reopens_the_link_with_a_note(): void

@@ -11,6 +11,6 @@ class ListProfileReviews extends ListRecords
 
     public function getSubheading(): ?string
     {
-        return 'يُنشأ رابط المراجعة من صفحة المنجز (زر «رابط مراجعة الصفحة»).';
+        return 'كل روابط المراجعة. يُنشأ الرابط من «المنجزون حسب المجال» أو من صفحة المنجز (زر «رابط مراجعة الصفحة»).';
     }
 }

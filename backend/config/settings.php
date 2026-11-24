@@ -2,6 +2,7 @@
 
 use App\Settings\GeneralSettings;
 use App\Settings\SeoSettings;
+use App\Settings\SiteLockSettings;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelSettings\SettingsCasts\DataCast;
 use Spatie\LaravelSettings\SettingsCasts\DateTimeInterfaceCast;
@@ -18,6 +19,7 @@ return [
     'settings' => [
         GeneralSettings::class,
         SeoSettings::class,
+        SiteLockSettings::class,
     ],
 
     /*

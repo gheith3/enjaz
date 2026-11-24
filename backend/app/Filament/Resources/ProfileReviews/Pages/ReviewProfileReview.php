@@ -35,6 +35,12 @@ class ReviewProfileReview extends Page
     /** @var array<int, bool> addition index => approved */
     public array $additionApprovals = [];
 
+    /** @var array<string, bool> journey | socials | videos | contact => approved */
+    public array $partApprovals = [];
+
+    /** @var array<int, bool> gallery photo index => approved */
+    public array $photoApprovals = [];
+
     public function mount(int|string $record): void
     {
         $this->record = $this->resolveRecord($record);
@@ -67,6 +73,8 @@ class ReviewProfileReview extends Page
     {
         $this->approvals = array_map(fn () => $value, $this->approvals);
         $this->additionApprovals = array_map(fn () => $value, $this->additionApprovals);
+        $this->partApprovals = array_map(fn () => $value, $this->partApprovals);
+        $this->photoApprovals = array_map(fn () => $value, $this->photoApprovals);
     }
 
     protected function getHeaderActions(): array
@@ -78,8 +86,8 @@ class ReviewProfileReview extends Page
                 ->visible(fn () => $canUpdate() && $this->record->status === 'submitted')
                 ->requiresConfirmation()
                 ->modalHeading('اعتماد المراجعة')
-                ->modalDescription(fn () => 'ستُنشر في الموقع فورًا التعديلات المحددة ('.count(array_filter($this->approvals))
-                    .') والإنجازات المضافة المحددة ('.count(array_filter($this->additionApprovals)).'). ما لم يُحدَّد لا يُنشر.')
+                ->modalDescription(fn () => 'سيُنشر في الموقع فورًا ما حددته: تعديلات ('.(count(array_filter($this->approvals)) + count(array_filter($this->partApprovals)))
+                    .')، صور ('.count(array_filter($this->photoApprovals)).')، إنجازات مضافة ('.count(array_filter($this->additionApprovals)).'). ما لم يُحدَّد لا يُنشر.')
                 ->modalSubmitActionLabel('اعتماد ونشر')
                 ->action(fn () => $this->approve()),
             Action::make('return')->label('إعادة للمنجز')->icon('heroicon-o-arrow-uturn-right')->color('warning')
@@ -106,7 +114,7 @@ class ReviewProfileReview extends Page
                 }),
             Action::make('achiever')->label('صفحة المنجز')->icon('heroicon-o-user')->color('gray')
                 ->url(fn () => $this->record->achiever ? AchieverResource::getUrl('edit', ['record' => $this->record->achiever]) : null),
-            DeleteAction::make()->record($this->record)->successRedirectUrl(ProfileReviewResource::getUrl('index')),
+            DeleteAction::make()->record($this->record)->successRedirectUrl(ProfileReviewResource::getUrl('all')),
         ];
     }
 
@@ -123,6 +131,14 @@ class ReviewProfileReview extends Page
 
             return $addition;
         })->all();
+        foreach (['journey', 'socials', 'videos', 'contact'] as $part) {
+            $review->{$part} = [...($review->{$part} ?? []), 'approved' => (bool) ($this->partApprovals[$part] ?? false)];
+        }
+        $review->gallery = collect($review->gallery ?? [])->map(function (array $photo, int $index) {
+            $photo['approved'] = (bool) ($this->photoApprovals[$index] ?? false);
+
+            return $photo;
+        })->all();
         $review->save();
 
         $result = ProfileReviewApplier::apply($review);
@@ -132,7 +148,7 @@ class ReviewProfileReview extends Page
         $this->fillApprovals();
 
         Notification::make()->success()->title('اعتُمدت المراجعة ونُشرت')
-            ->body("تعديلات منشورة: {$result['changes']} · إنجازات جديدة: {$result['additions']}")->send();
+            ->body("تعديلات منشورة: {$result['changes']} · صور: {$result['photos']} · إنجازات جديدة: {$result['additions']}")->send();
     }
 
     private function fillApprovals(): void
@@ -141,5 +157,10 @@ class ReviewProfileReview extends Page
             ->mapWithKeys(fn (array $item) => [$item['key'] => $item['approved'] ?? true])->all();
         $this->additionApprovals = collect($this->record->additions ?? [])
             ->map(fn (array $addition) => $addition['approved'] ?? true)->all();
+        $this->partApprovals = collect(['journey', 'socials', 'videos', 'contact'])
+            ->filter(fn ($part) => $this->record->changed($part))
+            ->mapWithKeys(fn ($part) => [$part => $this->record->{$part}['approved'] ?? true])->all();
+        $this->photoApprovals = collect($this->record->gallery ?? [])
+            ->map(fn (array $photo) => $photo['approved'] ?? true)->all();
     }
 }
