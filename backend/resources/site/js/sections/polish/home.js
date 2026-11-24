@@ -52,8 +52,9 @@
     { y: 2010, s: 'أمام السلطان قابوس', n: 'مصطفى بارامي', f: 'الابتكار', img: L + 'barami-wide.webp', p: '50% 30%', u: 'https://injazat.om/achievers/mustafa-barami' },
     { y: 2019, s: 'على قمة إيفرست', n: 'نظيرة الحارثية', f: 'تسلق الجبال', img: L + 'nadhira-wide.webp', p: '45% 40%', u: '' },
     { y: 2019, s: 'مان بوكر العالمية', n: 'د. جوخة الحارثية', f: 'الأدب', img: L + 'jokha-booker-wide.webp', p: '50% 22%', u: 'https://injazat.om/achievements/man-booker-2019' },
+    { y: 2021, tag: 'أول ميدالية بارالمبية لعُمان', s: 'برونزية البارالمبياد - طوكيو', n: 'محمد بن جميل المشايخي', f: 'ألعاب القوى', img: L + 'mashaikhi-wide.jpg', p: '50% 0%', u: 'https://injazat.om/achievers/mohammed-almashaikhi' },
     { y: 2021, s: 'شاعرة الرسول', n: 'بدرية البدري', f: 'الشعر', img: L + 'badri-wide.webp', p: '50% 25%', u: '' },
-    { y: 2025, s: 'وصيف العالم في الغوص الحر', n: 'عمر الغيلاني', f: 'الغوص الحر', img: L + 'ghailani-wide.webp', p: '50% 25%', u: '' }
+    { y: 2025, s: 'وصيف العالم - الغوص الحر', n: 'عمر الغيلاني', f: 'الغوص الحر', img: L + 'ghailani-wide.webp', p: '50% 25%', u: '' }
   ];
   var latest = $('.home-latest');
   if (latest) {
