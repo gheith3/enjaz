@@ -45,7 +45,7 @@ class SiteLockTest extends TestCase
     {
         $this->lock();
 
-        $this->from('/')->post('/unlock', ['code' => '000000'])->assertRedirect('/')->assertSessionHasErrors('code');
+        $this->from('/')->post('/unlock', ['code' => '000000'])->assertRedirect('/#sign')->assertSessionHasErrors('code');
         $this->post('/unlock', ['code' => '12345'])->assertSessionHasErrors('code');
 
         $cookie = $this->post('/unlock', ['code' => '123456'])->assertRedirect('/')->getCookie('injazat_pass', false);

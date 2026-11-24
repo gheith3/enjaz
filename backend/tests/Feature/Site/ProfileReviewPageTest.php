@@ -178,7 +178,7 @@ class ProfileReviewPageTest extends TestCase
             $achiever->journeyItems->map(fn ($j) => [$j->year, $j->getTranslation('title', 'ar'), $j->icon])->all());
         $this->assertSame(['x'], $achiever->socialLinks->pluck('platform')->all());
         $this->assertSame('https://x.com/ali', $achiever->socialLinks->first()->url);
-        $this->assertSame([['title' => 'لقاء', 'url' => 'https://youtu.be/abcdefghijk']], $achiever->interviews);
+        $this->assertEquals([['title' => 'لقاء', 'url' => 'https://youtu.be/abcdefghijk']], $achiever->interviews);
         $this->assertNull($achiever->contact_phone);
         $this->assertNotNull($achiever->getFirstMedia('portrait'));
         $this->assertSame(['ar' => 'تخرجي'], $achiever->getFirstMedia('gallery')->getCustomProperty('caption'));
