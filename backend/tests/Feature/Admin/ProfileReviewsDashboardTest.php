@@ -3,9 +3,11 @@
 namespace Tests\Feature\Admin;
 
 use App\Filament\Resources\Achievers\Pages\EditAchiever;
+use App\Filament\Resources\ProfileReviews\Pages\ReviewFieldAchievers;
 use App\Filament\Resources\ProfileReviews\Pages\ReviewProfileReview;
 use App\Filament\Resources\ProfileReviews\ProfileReviewResource;
 use App\Models\Achiever;
+use App\Models\Field;
 use App\Models\ProfileReview;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -72,10 +74,10 @@ class ProfileReviewsDashboardTest extends TestCase
     public function test_a_field_tile_creates_the_link_of_an_achiever_without_one(): void
     {
         $this->actingAs($this->userWithRole('editor'));
-        $field = \App\Models\Field::factory()->create(['name' => ['ar' => 'الأدب']]);
+        $field = Field::factory()->create(['name' => ['ar' => 'الأدب']]);
         $achiever = Achiever::factory()->create(['name' => ['ar' => 'زهران القاسمي'], 'field_id' => $field->id]);
 
-        Livewire::test(\App\Filament\Resources\ProfileReviews\Pages\ReviewFieldAchievers::class, ['field' => (string) $field->id])
+        Livewire::test(ReviewFieldAchievers::class, ['field' => (string) $field->id])
             ->assertSee('زهران القاسمي')->assertSee('لم يراجع')
             ->call('open', $achiever->id)
             ->assertRedirect();
