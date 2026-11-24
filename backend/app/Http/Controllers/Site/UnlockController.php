@@ -16,7 +16,7 @@ class UnlockController extends Controller
         $settings = SiteLock::settings();
 
         if (! $settings || ! $settings->enabled || blank($settings->code) || ! hash_equals((string) $settings->code, (string) $request->input('code'))) {
-            return back()->withErrors(['code' => __('site.lock.wrong')])->withFragment('sign');
+            return redirect('/#sign')->withErrors(['code' => __('site.lock.wrong')]);
         }
 
         return redirect('/')->withCookie(cookie(SiteLock::COOKIE, SiteLock::token($settings->code), 60 * 24 * 30));
