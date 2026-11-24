@@ -133,7 +133,7 @@ class ProfileReviewController extends Controller
         ]);
 
         if ($request->input('action') === 'submit') {
-            $this->assertComplete($items, $additions, $journey);
+            $this->assertComplete($items, $additions, $journey, $request);
             $review->update(['status' => 'submitted', 'submitted_at' => now()]);
         }
 
@@ -187,9 +187,22 @@ class ProfileReviewController extends Controller
      * @param  list<array<string, mixed>>  $additions
      * @param  list<array{year: string, text: string}>  $journey
      */
-    private function assertComplete(array $items, array $additions, array $journey): void
+    private function assertComplete(array $items, array $additions, array $journey, Request $request): void
     {
         $errors = [];
+        // Required: phone, e-mail, the main photo and a photo of every achievement (the achiever sends every photo).
+        // Optional: gallery photos, interviews, social accounts, stations.
+        if (blank($request->input('phone'))) {
+            $errors['phone'] = __('site.review.error_phone');
+        }
+        if (! filter_var(trim((string) $request->input('email')), FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = __('site.review.error_email');
+        }
+        foreach ($items as $item) {
+            if ($item['type'] === 'image' && blank($item['new'])) {
+                $errors["v.{$item['key']}"] = __('site.review.error_photo', ['label' => $item['attr'] === 'cover' ? $item['title'] : $item['label']]);
+            }
+        }
         foreach ($items as $item) {
             if ($item['decision'] !== 'edit') {
                 continue;
@@ -204,6 +217,8 @@ class ProfileReviewController extends Controller
         foreach ($additions as $addition) {
             if (blank($addition['title']) || blank($addition['when'])) {
                 $errors['add'] = __('site.review.error_addition');
+            } elseif (blank($addition['cover'])) {
+                $errors['add_cover'] = __('site.review.error_photo', ['label' => $addition['title']]);
             } elseif (ProfileReviewItems::words($addition['description']) < ProfileReviewItems::MIN_WORDS) {
                 $errors['add_words'] = __('site.review.error_words', ['label' => $addition['title'], 'n' => ProfileReviewItems::MIN_WORDS]);
             }
