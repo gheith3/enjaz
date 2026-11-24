@@ -1,15 +1,16 @@
 {{-- Design index.html .home-sports (js/home-sports.js): people picked in the section's items (image = transparent cutout,
-     label = their sport). Each position keeps one of the design's four ribbon layouts; the first card is repeated at the
-     end as in the design (phone loop). --}}
+     label = their sport). Each position keeps one of the design's four ribbon layouts; with fewer than five people the
+     first card is repeated at the end as in the design (phone loop), with five or more every card is a different person. --}}
 @php
     $layouts = ['ali', 'hamed', 'ghulam', 'mohammed'];
     $items = $section->items()->with(['media', 'itemable'])->get();
+    $loop5 = $items->count() < 5 ? $items->take(1) : collect();
 @endphp
 @if ($items->isNotEmpty())
 <section class="section wrap home-sports" aria-labelledby="sports-title">
   <div class="sec-title"><img src="{{ Vite::asset('resources/site/assets/svg/ornament.svg') }}" alt=""><h2 id="sports-title">{{ $section->text('title', __('site.homepage.sports')) }}</h2></div>
   <div class="sports-grid">
-    @foreach ($items->concat($items->take(1)) as $i => $item)
+    @foreach ($items->concat($loop5) as $i => $item)
       @php
           $layout = $layouts[$i % count($layouts)];
           if ($i === $items->count()) { $layout = $layouts[0]; }

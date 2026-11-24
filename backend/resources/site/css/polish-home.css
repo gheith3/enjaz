@@ -713,3 +713,47 @@ html.t-intro-on .site-header *, html.t-intro-on .home-achievers * { animation-pl
 .home-achievers .strip > button:not(.center):hover .strip-photo img { filter: none; }
 .home-achievers .strip > button:not(.center) .strip-photo::after { border: 2px solid var(--primary, #096770); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
 
+/* ===================== تصاميم ٢٠٩٠ (معتمد) — الصفحة الرئيسية =====================
+   نسخة التصميم: «تصاميم ٢٠٩٠/الصفحة الرئيسية/touches.css». */
+
+/* ---------- ١) «رحلة عبر الزمن»: انتقال سينمائي بدل الستارة ----------
+   الصورة الجديدة تظهر من ضبابية خفيفة إلى وضوح (كأن العدسة تضبط تركيزها) وتستقر بتكبير بطيء،
+   والسابقة تتلاشى تحتها وتبتعد قليلًا، ويمر ضوء ذهبي رفيع على الصورة لحظة الانتقال. */
+.tt-shot { clip-path: none !important; opacity: 0; transform: scale(1.05); filter: blur(12px) brightness(1.15);
+  transition: opacity 1.1s cubic-bezier(.4,0,.2,1), transform 1.6s cubic-bezier(.22,1,.36,1), filter 1.1s cubic-bezier(.4,0,.2,1) !important; }
+.tt-shot.back { transform: scale(.97); }
+.tt-shot.in { opacity: 1; transform: none; filter: none; }
+.tt-shot.in:not(:last-child) { opacity: 0; transform: scale(1.03); filter: blur(6px) brightness(.8); transition-duration: 1.2s, 1.6s, 1.2s !important; }
+.tt-shot.in::before {
+  content: ""; position: absolute; top: -10%; bottom: -10%; width: 30%; left: -40%; z-index: 3; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 241, 204, .28), transparent); transform: skewX(-14deg);
+  animation: tt-sweep 1.4s cubic-bezier(.4,0,.2,1) .25s both;
+}
+@keyframes tt-sweep { to { left: 120%; } }
+@media (prefers-reduced-motion: reduce) { .tt-shot, .tt-shot.in { transition: opacity .3s !important; filter: none; transform: none; } .tt-shot.in::before { display: none; } }
+
+/* ---------- ٤) صور العرض تحت البنر: أعلى، والمسافة فوقها وتحتها أقل ---------- */
+@media (min-width: 1100px) {
+  .home-achievers { margin-top: 18px !important; }
+  .home .home-achievers .strip { --side-photo-height: 270px !important; --active-photo-height: 330px !important; }
+  .home-statistics { margin-top: 18px !important; }
+}
+
+/* ---------- ١-ب) «رحلة عبر الزمن»: النص والصورة بارتفاع ثابت واحد (٤٠٠ بكسل يتسع لأطول عنوان)، فلا يتحرك الخط الزمني
+   ولا ما تحته مهما طال العنوان أو قصر، ولا يُقص شيء من النص ---------- */
+@media (min-width: 900px) {
+  .t-time .tt-copy, .t-time .tt-stage { height: 400px; }
+  .t-time .tt-copy { display: flex; flex-direction: column; justify-content: center; align-self: stretch; }
+  .t-time .tt-copy > * { flex-shrink: 0; }
+  .t-time .tt-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+}
+
+/* ---------- ٥) نقاط الياء في آخر الأسماء: كانت تُقص لأن صندوق النص (أو تدرّجه الذهبي) ينتهي عند خط السطر،
+   والنقاط تحته. مسافة صغيرة أسفل النص تُظهرها كاملة ---------- */
+.tt-name, .tt-title, .tt-who b, .home-culture .person .name, .sports-caption h3, .strip-name,
+.home-achievers .strip-name, .t-time .tt-who { line-height: 1.7 !important; padding-bottom: .22em !important; overflow: visible !important; }
+.t-time .tt-title { padding-bottom: .25em !important; }
+
+/* صورة المشايخي في «رحلة عبر الزمن» كما هي (بشعاراتها)، مكبّرة من أعلاها فيمتلئ بها الإطار ويخرج أسفلها (الشعارات) عن الإطار */
+.tt-shot img[src*="mashaikhi"] { transform-origin: 50% 12%; transform: scale(1.42); }
+.tt-shot.in img[src*="mashaikhi"] { transform: scale(1.32); }
