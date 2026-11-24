@@ -52,7 +52,7 @@ return new class extends Migration
                 'label' => ['ar' => 'ألعاب القوى البارالمبية'],
                 'sort_order' => (int) $sports->items()->max('sort_order') + 1,
             ]);
-            $this->attach($item, 'image', database_path('data/home-2090/mashaikhi-cutout.png'));
+            $this->attach($item, 'image', database_path('data/home-2090/mashaikhi-cutout.webp'));
         }
     }
 
