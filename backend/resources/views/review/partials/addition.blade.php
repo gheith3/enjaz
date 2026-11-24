@@ -8,5 +8,5 @@
     <label>{{ __('site.review.f_discipline') }}<input type="text" name="{{ $base }}[discipline]" value="{{ $a['discipline'] ?? '' }}" maxlength="255"></label>
     <label>{{ __('site.review.f_country') }}<input type="text" name="{{ $base }}[country]" value="{{ $a['country'] ?? '' }}" maxlength="255"></label>
     <label>{{ __('site.review.f_description') }}<textarea name="{{ $base }}[description]" rows="6" data-words placeholder="{{ __('site.review.f_description_ph') }}">{{ $a['description'] ?? '' }}</textarea><p class="count" data-min="{{ \App\Support\ProfileReviews\ProfileReviewItems::MIN_WORDS }}"></p></label>
-    <div class="lab">{{ __('site.review.f_cover') }} ({{ __('site.review.optional') }})@include('review.partials.pick', ['name' => "{$base}[cover]", 'path' => $a['cover'] ?? null])</div>
+    <div class="lab">{{ __('site.review.f_cover') }} <span class="req">{{ __('site.review.required') }}</span>@include('review.partials.pick', ['name' => "{$base}[cover]", 'path' => $a['cover'] ?? null])</div>
 </section>

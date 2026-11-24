@@ -13,7 +13,7 @@
 <div class="pt{{ $editing ? ' is-editing is-edited' : '' }}{{ $hasError ? ' is-error' : '' }}" data-pt id="pt-{{ $key }}">
     <div class="pt-row">
         <div class="pt-body">
-            <p class="lbl">{{ $item['label'] }} <span class="tag">{{ __('site.review.edited') }}</span></p>
+            <p class="lbl">{{ $item['label'] }}@if ($type === 'image') <span class="req">{{ __('site.review.required') }}</span>@endif <span class="tag">{{ __('site.review.edited') }}</span></p>
             @if ($type === 'image')
                 <p class="none">{{ __('site.review.photo_wanted') }}</p>
             @elseif (in_array($type, ['select', 'scope', 'when'], true))

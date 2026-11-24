@@ -79,15 +79,24 @@ class ProfileReviewPageTest extends TestCase
         $review = $this->review();
         $nameKey = "achiever_{$this->achiever->id}_name";
 
+        $portraitKey = "achiever_{$this->achiever->id}_portrait";
+        $coverKey = "achievement_{$this->achievement->id}_cover";
+        $folder = "profile-reviews/{$review->id}";
+
+        // Phone, e-mail and every photo are required.
+        $this->post(route('profile-review.save', $review->token), ['action' => 'submit'])
+            ->assertSessionHasErrors(['phone', 'email', "v.$portraitKey", "v.$coverKey"]);
+
         $this->post(route('profile-review.save', $review->token), [
-            'd' => [$nameKey => 'edit'], 'v' => [$nameKey => 'علي محمد الحبسي'],
+            'd' => [$nameKey => 'edit', $portraitKey => 'edit', $coverKey => 'edit'],
+            'v' => [$nameKey => 'علي محمد الحبسي', $portraitKey => "$folder/me.png", $coverKey => "$folder/cup.png"],
             'j' => ['s0' => ['y' => 2005, 'text' => 'أول مباراة مع النادي'], 's1' => ['y' => 2010, 'text' => 'الانضمام إلى المنتخب الوطني']],
             'social' => ['instagram' => 'https://instagram.com/ali', 'x' => '@ali'],
             'vid' => ['v0' => ['title' => 'لقاء تلفزيوني', 'url' => 'https://youtu.be/abcdefghijk']],
             'phone' => '+968 9000 0000', 'email' => 'ali@example.com',
-            'add' => ['n1' => ['title' => 'ذهبية آسيا', 'y' => 2024, 'm' => 3, 'description' => $this->words(130)]],
+            'add' => ['n1' => ['title' => 'ذهبية آسيا', 'y' => 2024, 'm' => 3, 'description' => $this->words(130), 'cover' => "$folder/asia.png"]],
             'action' => 'submit',
-        ])->assertRedirect($review->url());
+        ])->assertSessionHasNoErrors()->assertRedirect($review->url());
 
         $review->refresh();
         $this->assertSame('submitted', $review->status);

@@ -75,7 +75,7 @@
         <div class="sep" aria-hidden="true"></div>
 
         <section class="card">
-            <h3>{{ __('site.review.journey_title') }}</h3>
+            <h3>{{ __('site.review.journey_title') }} <span class="opt">{{ __('site.review.optional_part') }}</span></h3>
             <div class="intro">
                 <p>{!! __('site.review.journey_text_html', ['n' => $digits(\App\Support\ProfileReviews\ProfileReviewItems::MAX_STATIONS), 'w' => $digits(\App\Support\ProfileReviews\ProfileReviewItems::STATION_WORDS)]) !!}</p>
                 <p class="ex">{{ __('site.review.journey_examples') }}</p>
@@ -90,7 +90,7 @@
         </section>
 
         <section class="card">
-            <h3>{{ __('site.review.socials_title') }}</h3>
+            <h3>{{ __('site.review.socials_title') }} <span class="opt">{{ __('site.review.optional_part') }}</span></h3>
             <div class="intro"><p>{{ __('site.review.socials_text') }}</p></div>
             @foreach (\App\Support\ProfileReviews\ProfileReviewItems::SOCIALS as $platform => $label)
                 <label class="social"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">{!! $socialIcons[$platform] !!}</svg></span><span class="sn">{{ $label }}</span>
@@ -99,7 +99,7 @@
         </section>
 
         <section class="card">
-            <h3>{{ __('site.review.gallery_title') }}</h3>
+            <h3>{{ __('site.review.gallery_title') }} <span class="opt">{{ __('site.review.optional_part') }}</span></h3>
             <div class="intro">
                 <p>{!! __('site.review.gallery_text_html') !!}</p>
                 <p class="ex">{{ __('site.review.gallery_examples') }}</p>
@@ -115,7 +115,7 @@
         </section>
 
         <section class="card">
-            <h3>{{ __('site.review.videos_title') }}</h3>
+            <h3>{{ __('site.review.videos_title') }} <span class="opt">{{ __('site.review.optional_part') }}</span></h3>
             <div class="intro"><p>{{ __('site.review.videos_text') }}</p></div>
             <div class="rows" data-list="video">
                 @foreach ($videos as $video)
@@ -126,10 +126,10 @@
         </section>
 
         <section class="card">
-            <h3>{{ __('site.review.contact_title') }}</h3>
+            <h3>{{ __('site.review.contact_title') }} <span class="req">{{ __('site.review.required') }}</span></h3>
             <div class="intro"><p>{{ __('site.review.contact_text') }}</p></div>
-            <label class="field">{{ __('site.review.phone') }}<input type="text" dir="ltr" name="phone" value="{{ $contact['phone'] ?? '' }}" placeholder="+968" maxlength="40"></label>
-            <label class="field">{{ __('site.review.email') }}<input type="text" dir="ltr" name="email" value="{{ $contact['email'] ?? '' }}" placeholder="name@example.com" maxlength="190"></label>
+            <label class="field">{{ __('site.review.phone') }} <span class="req">*</span><input type="text" dir="ltr" name="phone" value="{{ $contact['phone'] ?? '' }}" placeholder="+968" maxlength="40"></label>
+            <label class="field">{{ __('site.review.email') }} <span class="req">*</span><input type="email" dir="ltr" name="email" value="{{ $contact['email'] ?? '' }}" placeholder="name@example.com" maxlength="190"></label>
         </section>
 
         <div class="send">
