@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Http\Middleware\SiteLock;
 use App\Settings\SiteLockSettings;
 use BackedEnum;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
@@ -38,7 +39,9 @@ class ManageSiteLock extends SettingsPage
                 ->schema([
                     Toggle::make('enabled')->label('الموقع مقفل (صفحة «قريبًا»)')->live(),
                     TextInput::make('code')->label('الرقم السري (٦ أرقام)')->helperText('يُدخله الفريق في صفحة «قريبًا» من زر «دخول» لمشاهدة الموقع. تغييره يُخرج كل من دخل به.')
-                        ->required(fn (Get $get) => (bool) $get('enabled'))->regex('/^\d{6}$/')->length(6)
+                        ->required(fn (Get $get) => (bool) $get('enabled'))->regex('/^[0-9٠-٩۰-۹]{6}$/u')
+                        ->validationMessages(['regex' => 'الرقم السري ٦ أرقام.'])
+                        ->dehydrateStateUsing(fn (?string $state) => filled($state) ? SiteLock::latinDigits($state) : null)
                         ->extraInputAttributes(['dir' => 'ltr', 'inputmode' => 'numeric']),
                 ]),
         ]);
