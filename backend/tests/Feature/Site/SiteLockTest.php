@@ -2,11 +2,13 @@
 
 namespace Tests\Feature\Site;
 
+use App\Filament\Pages\ManageSiteLock;
 use App\Models\Achiever;
 use App\Models\Page;
 use App\Models\ProfileReview;
 use App\Settings\SiteLockSettings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class SiteLockTest extends TestCase
@@ -65,5 +67,34 @@ class SiteLockTest extends TestCase
 
         $this->actingAs($this->userWithRole('editor'));
         $this->get('/')->assertOk()->assertDontSee('من أجل عُمان وأبنائها المبدعين');
+    }
+
+    public function test_admin_locks_the_site_with_a_code_typed_on_an_arabic_keyboard(): void
+    {
+        $this->actingAs($this->userWithRole('admin'));
+
+        Livewire::test(ManageSiteLock::class)
+            ->fillForm(['enabled' => true, 'code' => '١٢٣٤٥٦'])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $settings = app(SiteLockSettings::class);
+        $settings->refresh();
+        $this->assertTrue($settings->enabled);
+        $this->assertSame('123456', $settings->code);
+
+        auth()->logout();
+        $this->get('/')->assertOk()->assertSee('من أجل عُمان وأبنائها المبدعين');
+
+        $cookie = $this->post('/unlock', ['code' => '١٢٣٤٥٦'])->assertRedirect('/')->getCookie('injazat_pass', false);
+        $this->assertNotNull($cookie);
+    }
+
+    public function test_the_site_is_locked_as_soon_as_the_lock_is_on_even_without_a_code(): void
+    {
+        $this->lock(null);
+
+        $this->get('/')->assertOk()->assertSee('من أجل عُمان وأبنائها المبدعين');
+        $this->post('/unlock', ['code' => '123456'])->assertSessionHasErrors('code');
     }
 }
