@@ -25,7 +25,7 @@ class RoleSync
 {
     private const EXCLUDED = [
         'admin' => ['User', 'Role'],
-        'editor' => ['User', 'Role', 'Activity', 'Redirect', 'SocialLink', 'ManageGeneralSettings', 'ManageSeoSettings', 'Mcp'],
+        'editor' => ['User', 'Role', 'Activity', 'Redirect', 'SocialLink', 'ManageGeneralSettings', 'ManageSeoSettings', 'ManageSiteLock', 'Mcp'],
     ];
 
     public static function run(): void

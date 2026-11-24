@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SiteLock;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,6 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: ['magazine/*/view']);
         // Guests reaching an auth-only page (the OAuth consent screen of AI assistants) sign in on the dashboard.
         $middleware->redirectGuestsTo(fn () => route('filament.admin.auth.login'));
+        // Before the launch: the «قريبًا» page for visitors without the code (settings «قفل الموقع قبل التدشين»).
+        $middleware->web(append: [SiteLock::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

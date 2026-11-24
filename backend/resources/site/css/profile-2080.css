@@ -1,0 +1,389 @@
+/* ===================== تصاميم ٢٠٨٠ (معتمد) — صفحة المنجز، لكل المنجزين (النموذج: د. جوخة الحارثية) =====================
+   نسخة التصميم: «تصاميم ٢٠٨٠/صفحة المنجز - جوخة - معتمد/touches.css». السلوك في js/sections/design/profile-2080.js.
+   القواعد هنا مكتوبة لتُعمَّم على كل المنجزين، لا لجوخة وحدها. */
+
+/* ---------- ١) رأس الصفحة: نفس المقاسات لكل منجز (قيم صفحة جوخة على الشاشة الكبيرة) ---------- */
+@media (min-width: 1100px) {
+  .profile-hero { height: 387px; box-sizing: border-box; overflow: hidden; }
+  .profile-hero .top { height: 371px; align-items: center; }
+  .profile-hero .profile-portrait { width: 380px; height: 371px; flex: 0 0 380px; }
+  .profile-hero .profile-portrait .photo {
+    width: 380px; height: 351px; max-width: none;
+    object-fit: contain; object-position: 50% 100%;
+  }
+  .profile-hero h1 { font-size: 38px; font-weight: 500; line-height: 1.35; }
+  .profile-hero .en { font-size: 13.5px; font-weight: 300; line-height: 1.8; }
+  .profile-hero .about { font-size: 16px; font-weight: 400; line-height: 1.7; }
+}
+
+/* ---------- ٢) الإنجازات: الدولية ثم خط ثم المحلية ---------- */
+.x-grp + .x-grp { margin-top: 10px; }
+/* عنوان كل قسم: بسيط ولافت. «إنجازاتي» بخط عادي، والكلمة المميزة عريضة وتحتها ضربة قلم ذهبية،
+   والعدد مرفوع بجانبها في دائرة صغيرة، وتحته سطر الأماكن والسنوات */
+.x-band { margin: 28px 0 18px; }
+.x-band h3 { margin: 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 10px; font-size: 32px; line-height: 1.35; color: #063135; }
+.x-w1 { font-weight: 400; color: #5a6a68; }
+.x-w2 { position: relative; font-weight: 900; color: #063135; padding-bottom: 6px; }
+.x-band-local .x-w2 { color: #2f6b2a; }
+.x-stroke { position: absolute; left: -4%; right: -4%; bottom: -4px; width: 108%; height: 16px; overflow: visible; }
+.x-stroke path { fill: none; stroke: #d7b266; stroke-width: 5; stroke-linecap: round; opacity: .85; }
+.x-band-local .x-stroke path { stroke: #91c46c; }
+.x-band-num {
+  align-self: flex-start; margin-top: 4px; min-width: 30px; height: 30px; padding: 0 8px; border-radius: 99px;
+  display: inline-grid; place-items: center; font-size: 15px; font-weight: 900; line-height: 1; color: #3a2a08;
+  background: linear-gradient(135deg, #f7e7b4, #d7b266); box-shadow: 0 6px 14px -8px rgba(122, 92, 38, .9); vertical-align: top;
+}
+.x-band-local .x-band-num { color: #1f4a1c; background: linear-gradient(135deg, #dcefcf, #91c46c); box-shadow: 0 6px 14px -8px rgba(60, 110, 40, .9); }
+.x-band p { margin: 8px 0 0; font-size: 13.5px; color: #5f6b69; display: flex; flex-wrap: wrap; align-items: center; gap: 2px 12px; }
+.x-band-places i { font-style: normal; font-weight: 700; color: #075a62; }
+.x-band-local .x-band-places i { color: #3d6e33; }
+.x-band-places i + i::before { content: "·"; margin-inline: 7px; color: #c9a053; font-weight: 900; }
+.x-band-years { font-weight: 800; color: #8a6a2f; }
+.x-band-years::before { content: "◆"; font-size: 8px; color: #c9a053; margin-inline-end: 8px; vertical-align: middle; }
+@media (max-width: 640px) { .x-band h3 { font-size: 24px; } }
+
+/* الفاصل قبل المحلية: خط ذهبي ومعيّن في وسطه */
+.x-grp-local { position: relative; padding-top: 22px; margin-top: 30px !important; }
+.x-grp-local::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a053 20%, #c9a053 80%, transparent);
+}
+.x-grp-local::after {
+  content: ""; position: absolute; top: -5px; left: 50%; width: 10px; height: 10px; margin-left: -5px;
+  background: #c9a053; transform: rotate(45deg); box-shadow: 0 0 0 4px #fff;
+}
+.x-grp-local.x-solo { padding-top: 0; margin-top: 0 !important; }
+.x-grp-local.x-solo::before, .x-grp-local.x-solo::after { display: none; }
+@media (max-width: 640px) {
+  .x-band { grid-template-columns: auto minmax(0, 1fr); padding: 14px 16px; gap: 12px; }
+  .x-band-num { grid-column: 1 / -1; font-size: 0; display: none; }
+  .x-band-txt h3 { font-size: 20px; }
+  .x-band-ic { width: 46px; height: 46px; }
+}
+/* دخول العنوان: «إنجازاتي» تظهر، ثم الكلمة المميزة، ثم تُرسم ضربة القلم، ثم يقفز العدد */
+@media (prefers-reduced-motion: no-preference) {
+  .x-band .x-stroke path { stroke-dasharray: 220; }
+  .x-band.x-in .x-w1 { animation: x-up .6s cubic-bezier(.22, 1, .36, 1) both; }
+  .x-band.x-in .x-w2 { animation: x-up .7s cubic-bezier(.22, 1, .36, 1) .15s both; }
+  .x-band.x-in .x-stroke path { animation: x-draw .9s cubic-bezier(.65, 0, .35, 1) .55s both; }
+  .x-band.x-in .x-band-num { animation: x-pop .6s cubic-bezier(.34, 1.56, .64, 1) 1.2s both; }
+  .x-band.x-in p { animation: x-up .7s ease .9s both; }
+}
+@keyframes x-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes x-draw { from { stroke-dashoffset: 220; } to { stroke-dashoffset: 0; } }
+@keyframes x-pop { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: none; } }
+
+/* شبكة كل قسم: الصورة الكبيرة يمينًا، والصغيرة يسارًا (سطران دائمًا على الشاشة الكبيرة) */
+@media (min-width: 1024px) {
+  .x-grp .ab-grid.ab-grid-balanced {
+    grid-template-columns: repeat(calc(var(--x-cols) + 2), minmax(0, 1fr));
+    grid-template-rows: repeat(2, 240px); grid-auto-rows: 240px;
+  }
+  .x-grp .ab-t.xl { grid-column: span 2; grid-row: span 2; }
+  .x-grp .ab-t.sm.x-wide { grid-column: span var(--x-span, 1); }
+}
+
+/* ---------- ٤) «مسيرتي»: حركة للقسم ولصورة المنجز ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  #journey.x-armed .jp-side { opacity: 0; transform: translateY(26px); }
+  #journey.x-armed .jp-side img { opacity: 0; transform: translateY(40px) scale(.96); }
+  #journey.x-armed .jp-now { opacity: 0; transform: translateY(10px); }
+  #journey.x-armed .jp-rule { clip-path: inset(0 0 0 100%); }
+  #journey.x-armed .jp-grid > * { opacity: 0; transform: translateY(18px); }
+
+  #journey.x-in .jp-side { opacity: 1; transform: none; transition: opacity .8s ease, transform 1s cubic-bezier(.22,1,.36,1); }
+  #journey.x-in .jp-side img {
+    opacity: 1; transform: none;
+    transition: opacity 1s ease .35s, transform 1.4s cubic-bezier(.22,1,.36,1) .35s;
+  }
+  #journey.x-in .jp-now { opacity: 1; transform: none; transition: opacity .7s ease .7s, transform .9s cubic-bezier(.22,1,.36,1) .7s; }
+  #journey.x-in .jp-rule { clip-path: inset(0 0 0 0); transition: clip-path 1.4s cubic-bezier(.65,0,.35,1) .45s; }
+  #journey.x-in .jp-grid > * {
+    opacity: 1; transform: none;
+    transition: opacity .6s ease, transform .8s cubic-bezier(.22,1,.36,1), box-shadow .3s, background .3s;
+    transition-delay: calc(.6s + var(--x-i, 0) * 80ms);
+  }
+  /* بعد الدخول: الصورة تتنفس بهدوء، وضوء ذهبي يمر عليها كل بضع ثوانٍ */
+  #journey.x-done .jp-side img { animation: x-breathe 7s ease-in-out infinite; transform-origin: 50% 100%; }
+  #journey .jp-side { position: relative; overflow: hidden; }
+  #journey.x-done .jp-side::after {
+    content: ""; position: absolute; top: -20%; bottom: -20%; width: 35%; left: -60%; pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255, 236, 190, .22), transparent); transform: skewX(-16deg);
+    animation: x-sweep 6.5s ease-in-out 1s infinite;
+  }
+}
+@keyframes x-breathe { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-6px) scale(1.012); } }
+@keyframes x-sweep { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+
+/* ---------- ٥) المكتبة المرئية ---------- */
+/* صورة المنجز في غلاف الفيديو: نفس المقاس للجميع (مقاس صورة جوخة) */
+@media (min-width: 1100px) {
+  .ml-cv.vd .who-img { width: 341px; height: 347px; max-width: none; object-fit: contain; object-position: 50% 100%; }
+}
+/* العناوين تحت الصور والفيديوهات: أصغر وفي الوسط */
+.ml-gi { text-align: center; }
+.ml-gi .cp { font-size: 12px; font-weight: 700; line-height: 1.6; text-align: center; justify-self: center; max-width: 92%; }
+.ml-gi .cp small { font-size: 11px; font-weight: 700; }
+.ml-cap { font-size: 13px; font-weight: 700; text-align: center; }
+.ml-cap small { font-size: 11.5px; }
+
+/* ---------- ٦) أيقونة تشغيل الفيديو في أعلى يسار الغلاف («شاهد الآن» في مكانها) ---------- */
+.ml-cv.vd .playring { top: var(--x-ring-top, 105px); left: 34px; margin: 0; width: 58px; height: 58px; }  /* يسار الغلاف، في سطر شارة «مكتبة الفيديو» (touches.js) */
+
+/* ---------- ٧) عناوين الأقسام: بلونها الأصلي، وخط ذهبي يمتد بعد العنوان وينتهي بمعيّن ---------- */
+.sec-title.x-sec { position: relative; }
+.sec-title.x-sec h2.px-line::after { display: none; }   /* الخط القديم تحت العنوان يحل محله الخط الممتد */
+.sec-title.x-sec::after {
+  content: ""; flex: 1; min-width: 40px; height: 2px; align-self: center; margin-inline-start: 6px;
+  background:
+    linear-gradient(45deg, transparent 45%, #c9a053 45% 55%, transparent 55%) left center / 0 0 no-repeat,
+    linear-gradient(270deg, #c9a053, #e6c98a 40%, rgba(230, 201, 138, 0)) ;
+  transform-origin: right center;
+  -webkit-mask: linear-gradient(#000, #000); mask: linear-gradient(#000, #000);
+}
+.sec-title.x-sec::before {   /* المعيّن في نهاية الخط */
+  content: ""; position: absolute; left: 0; top: 50%; width: 8px; height: 8px; margin-top: -4px;
+  background: #c9a053; transform: rotate(45deg); box-shadow: 0 0 0 3px #e6c98a33;
+}
+.sec-title.light.x-sec h2 { background: none; color: #fff; }
+@media (prefers-reduced-motion: no-preference) {
+  .sec-title.x-sec.x-in img { animation: x-t-img .9s cubic-bezier(.22,1,.36,1) both; }
+  .sec-title.x-sec.x-in h2 { animation: x-t-h2 .9s cubic-bezier(.22,1,.36,1) .15s both; }
+  .sec-title.x-sec.x-in::after { animation: x-t-line 1.3s cubic-bezier(.65,0,.35,1) .3s both; }
+  .sec-title.x-sec.x-in::before { animation: x-t-dot .6s cubic-bezier(.34,1.56,.64,1) 1.4s both; }
+}
+@keyframes x-t-img { from { transform: rotate(-90deg) scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes x-t-h2 { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+@keyframes x-t-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes x-t-dot { from { opacity: 0; transform: rotate(45deg) scale(0); } to { opacity: 1; transform: rotate(45deg) scale(1); } }
+
+/* ---------- ٨) «منجزون في نفس المجال»: التصميم الأصلي، والبطاقة تكبر عند الوقوف عليها دون أن تُقطع ---------- */
+.rel { padding-block: 40px 34px !important; margin-block: -38px -24px !important; }
+.rel-card {
+  position: relative; z-index: 0;
+  transition: transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s, border-color .3s !important;
+}
+.rel-card:hover, .rel-card:focus-visible {
+  z-index: 2; transform: scale(1.12) !important; border-color: #c9a35c;
+  box-shadow: 0 22px 40px -22px rgba(6, 49, 53, .55), 0 0 0 1px #e6c98a;
+}
+.rel-card img { transition: transform .6s cubic-bezier(.22,1,.36,1); }
+.rel-card:hover img { transform: scale(1.04); }
+
+/* الصندوق بزوايا مستديرة */
+.section.gray:has([data-related]) { position: relative; overflow: hidden; border-radius: 28px; }
+.section.gray:has([data-related]) > .wrap { position: relative; z-index: 1; }
+
+/* عرض الصندوق مطابق لعمود المحتوى في الصفحة (١١٢٠ بكسل، نفس حافتي الإنجازات والمكتبة المرئية) */
+@media (min-width: 1200px) {
+  .section.gray:has([data-related]) { width: min(1120px, calc(100% - 80px)); margin-inline: auto; }
+  .section.gray:has([data-related]) > .wrap { padding-inline: 40px; }
+}
+/* لمسة من الأسفل: ذرات ذهبية صغيرة تتطاير من أسفل الصندوق نحو ١ سم ثم تختفي */
+.section.gray:has([data-related]) { padding-bottom: 56px; }
+.x-dust { position: absolute; left: 0; right: 0; bottom: 0; height: 70px; z-index: 0; pointer-events: none; overflow: hidden;
+  -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.x-dust i {
+  position: absolute; bottom: 6px; left: var(--x); width: var(--s); height: var(--s); border-radius: 50%;
+  background: radial-gradient(circle, #fff6dc 0 30%, var(--c) 70%); box-shadow: 0 0 6px var(--c);
+  opacity: 0; animation: x-dust var(--d) ease-out var(--dl) infinite;
+}
+@keyframes x-dust {
+  0% { opacity: 0; transform: translate(0, 0) scale(.6); }
+  20% { opacity: var(--o); }
+  100% { opacity: 0; transform: translate(var(--dx), -38px) scale(1); }   /* نحو ١ سم */
+}
+@media (prefers-reduced-motion: reduce) { .x-dust { display: none; } }
+
+/* ---------- ٩) «قالوا عن»: الحركة الأصلية كما هي، ولمسة: هالة ذهبية تدور على حافة البطاقة ---------- */
+@property --x-rim { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.gd { isolation: isolate; }
+.gd::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; z-index: 4; pointer-events: none;
+  background: conic-gradient(from var(--x-rim), transparent 0 62%, rgba(245, 207, 122, .15) 70%, #f5cf7a 80%, rgba(255, 246, 220, .95) 83%, rgba(245, 207, 122, .15) 90%, transparent 96%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: x-rim 9s linear infinite;
+}
+@keyframes x-rim { to { --x-rim: 360deg; } }
+.gd .gd-mark { text-shadow: 0 0 28px rgba(245, 207, 122, .18); }
+@media (prefers-reduced-motion: reduce) { .gd::after { animation: none; } }
+
+/* ---------- ١٠) العنوان وحده داخل إطار بسيط منخفض: سطر واحد (العنوان والعدد، ثم الدول والسنوات) ---------- */
+.x-band {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px 18px;
+  margin: 26px 0 16px; padding: 8px 22px 9px; border-radius: 16px;
+  background: linear-gradient(90deg, #fffaf0, #fffdf8 60%, rgba(255, 253, 248, .6));
+  border: 1px solid #e8d5a8; box-shadow: 0 10px 24px -22px rgba(122, 92, 38, .7);
+  position: relative;
+}
+.x-band::before {   /* شريط ذهبي رفيع على حافة الإطار اليمنى */
+  content: ""; position: absolute; top: 10px; bottom: 10px; right: -1px; width: 3px; border-radius: 3px; background: linear-gradient(180deg, #f1dca8, #c9a053);
+}
+.x-band h3 { font-size: 24px; line-height: 1.5; }
+.x-w2 { padding-bottom: 3px; }
+.x-stroke { height: 11px; bottom: -3px; }
+.x-band-num { margin-top: 2px; min-width: 26px; height: 26px; font-size: 13.5px; }
+.x-band p { margin: 0; padding-inline-start: 18px; border-inline-start: 1px solid #ead9b4; }
+.x-band-local { background: linear-gradient(90deg, #f6fbf1, #fbfdf8 60%, rgba(251, 253, 248, .6)); border-color: #cfe3bf; }
+.x-band-local::before { background: linear-gradient(180deg, #cfe7c2, #6fa94f); }
+.x-band-local p { border-color: #d6e8c8; }
+@media (max-width: 640px) { .x-band { padding: 8px 14px; } .x-band h3 { font-size: 20px; } .x-band p { border: 0; padding: 0; } }
+
+/* ---------- ١٠-ب) الأقسام بلا إطار: العنوان المطوّر في إطاره المنخفض، ومسافة بين القسمين ---------- */
+.x-grp-local { margin-top: 34px !important; padding-top: 0; }
+.x-grp-local::before, .x-grp-local::after { display: none; }
+
+/* ---------- ١١) «منجزون في نفس المجال»: إطار ذهبي رفيع حول الصندوق، يمر عليه لمعان بسيط ---------- */
+@property --x-shine { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.section.gray:has([data-related]) { box-shadow: inset 0 0 0 1px #e2c98f; }
+.section.gray:has([data-related])::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; z-index: 2; pointer-events: none;
+  background: conic-gradient(from var(--x-shine), transparent 0 80%, rgba(255, 246, 220, .2) 86%, #fff3c9 90%, #e6c98a 93%, transparent 98%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: x-shine 7s linear infinite;
+}
+@keyframes x-shine { to { --x-shine: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .section.gray:has([data-related])::after { animation: none; opacity: .5; } }
+
+/* ---------- ١٢) حذف سطر الملخص «١٢ إنجازات ✦ ٦ دول ✦ ٢٠٠١ – ٢٠٢٣» فوق الإنجازات ---------- */
+[data-aj] .ab-sum { display: none; }
+[data-aj] .ab-top { justify-content: flex-end; }
+
+/* ---------- ١٣) عنوان «إنجازاتي الدولية»: خلفية تركوازية ---------- */
+.x-band.x-band-intl {
+  background: linear-gradient(90deg, #0c7f89, #096770 55%, #07545c);
+  border-color: #0a6c75; box-shadow: 0 14px 28px -20px rgba(7, 84, 92, .9);
+}
+.x-band-intl::before { background: linear-gradient(180deg, #f7e7b4, #d7b266); }
+.x-band-intl .x-w1 { color: rgba(255, 255, 255, .78); }
+.x-band-intl .x-w2 { color: #fff; }
+.x-band-intl .x-stroke path { stroke: #e6c98a; }
+.x-band-intl p { border-color: rgba(255, 255, 255, .25); }
+.x-band-intl .x-band-places i { color: #fff; }
+.x-band-intl .x-band-places i + i::before { color: #e6c98a; }
+.x-band-intl .x-band-years { color: #f1dca8; }
+.x-band-intl .x-band-years::before { color: #e6c98a; }
+
+/* ---------- ١٤) «إنجازاتي الدولية»: بلا ضربة قلم، خلفية بنقش، والعدد ذهبي فخم يلمع في أقصى اليسار ---------- */
+.x-band-intl .x-stroke { display: none; }
+.x-band-intl .x-w2 { padding-bottom: 0; }
+.x-band.x-band-intl {
+  padding-left: 96px; min-height: 60px;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(246, 227, 180, .22) 1px, transparent 1.6px) 0 0 / 14px 14px,
+    radial-gradient(120% 220% at 0% 50%, rgba(230, 201, 138, .28), transparent 45%),
+    repeating-linear-gradient(115deg, transparent 0 22px, rgba(255, 255, 255, .045) 22px 23px),
+    linear-gradient(90deg, #0c7f89, #096770 55%, #07545c);
+}
+.x-band-intl .x-band-num {
+  position: absolute; left: 26px; top: 50%; margin: 0; padding: 0; min-width: 0; height: auto;
+  transform: translateY(-50%); background: none; box-shadow: none; border-radius: 0;
+  font-size: 46px; font-weight: 900; line-height: 1;
+  color: transparent; -webkit-background-clip: text; background-clip: text;
+  background-image: linear-gradient(110deg, #b98e48 0%, #f7e7b4 30%, #fffaf0 42%, #e6c98a 55%, #b98e48 80%, #8a6a2f 100%);
+  background-size: 250% 100%; background-position: 100% 0;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .35)) drop-shadow(0 0 14px rgba(245, 207, 122, .35));
+  animation: x-gold 4.5s ease-in-out infinite;
+}
+@keyframes x-gold { 0%, 55% { background-position: 100% 0; } 100% { background-position: -50% 0; } }
+.x-band.x-band-intl.x-in .x-band-num { animation: x-gold 4.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .x-band-intl .x-band-num { animation: none; } }
+@media (max-width: 640px) { .x-band.x-band-intl { padding-left: 64px; } .x-band-intl .x-band-num { left: 16px; font-size: 34px; } }
+
+
+/* ---------- ١٥) «إنجازاتي المحلية»: خلفية ذهبية بنقش النجمة العُمانية الثمانية، والنص تركوازي داكن،
+   والرقم في أقصى اليسار تركوازي داكن يمر عليه بريق ---------- */
+.x-band-local .x-stroke { display: none; }
+.x-band.x-band-local {
+  padding-left: 96px; min-height: 60px; border-color: #b98e48;
+  box-shadow: 0 14px 28px -20px rgba(122, 92, 38, .95), inset 0 1px 0 rgba(255, 255, 255, .45);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.22' stroke-width='1'%3E%3Crect x='12' y='12' width='16' height='16'/%3E%3Crect x='12' y='12' width='16' height='16' transform='rotate(45 20 20)'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 40px 40px,
+    radial-gradient(140% 260% at 0% 50%, rgba(255, 250, 235, .45), transparent 42%),
+    linear-gradient(90deg, #ecd39c, #d7b266 50%, #b98e48);
+}
+.x-band-local::before { background: linear-gradient(180deg, #0c7f89, #063135); }
+.x-band-local .x-w1 { color: rgba(6, 49, 53, .72); }
+.x-band-local .x-w2 { color: #063135; padding-bottom: 0; }
+.x-band-local p { border-color: rgba(6, 49, 53, .22); }
+.x-band-local .x-band-places i { color: #063135; }
+.x-band-local .x-band-years { color: #4a3410; }
+.x-band-local .x-band-years::before { color: #063135; }
+.x-band-local .x-band-num {
+  position: absolute; left: 26px; top: 50%; margin: 0; padding: 0; min-width: 0; height: auto;
+  transform: translateY(-50%); background: none; box-shadow: none; border-radius: 0;
+  font-size: 46px; font-weight: 900; line-height: 1;
+  color: transparent; -webkit-background-clip: text; background-clip: text;
+  background-image: linear-gradient(110deg, #063135 0%, #0c7f89 32%, #e8fbfb 44%, #0c7f89 56%, #063135 80%);
+  background-size: 250% 100%; background-position: 100% 0;
+  filter: drop-shadow(0 2px 5px rgba(255, 246, 220, .45));
+  animation: x-gold 4.5s ease-in-out 1.2s infinite;
+}
+.x-band.x-band-local.x-in .x-band-num { animation: x-gold 4.5s ease-in-out 1.2s infinite; }
+@media (prefers-reduced-motion: reduce) { .x-band-local .x-band-num { animation: none; } }
+@media (max-width: 640px) { .x-band.x-band-local { padding-left: 64px; } .x-band-local .x-band-num { left: 16px; font-size: 34px; } }
+
+/* ---------- ١٦) «إنجازاتي المحلية»: ذهبي أعمق بنفس نقش نقاط الدولية، ونص أبيض واضح، والرقم عاجي يلمع ---------- */
+.x-band.x-band-local {
+  border-color: #8a6a2f;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255, 246, 220, .28) 1px, transparent 1.6px) 0 0 / 14px 14px,
+    radial-gradient(120% 220% at 0% 50%, rgba(255, 240, 200, .25), transparent 45%),
+    repeating-linear-gradient(115deg, transparent 0 22px, rgba(255, 255, 255, .05) 22px 23px),
+    linear-gradient(90deg, #c49a52, #a88344 55%, #87652a);
+}
+.x-band-local::before { background: linear-gradient(180deg, #fff3d0, #f1dca8); }
+.x-band-local .x-w1 { color: rgba(255, 255, 255, .85); text-shadow: 0 1px 2px rgba(60, 40, 10, .35); }
+.x-band-local .x-w2 { color: #fff; text-shadow: 0 1px 3px rgba(60, 40, 10, .45); }
+.x-band-local p { border-color: rgba(255, 255, 255, .35); }
+.x-band-local .x-band-places i, .x-band-local .x-band-years { color: #fff; text-shadow: 0 1px 2px rgba(60, 40, 10, .4); }
+.x-band-local .x-band-years::before { color: #fff3d0; }
+.x-band-local .x-band-num {
+  background-image: linear-gradient(110deg, #f1dca8 0%, #fffaf0 30%, #ffffff 42%, #fff3d0 55%, #f1dca8 80%, #e6c98a 100%);
+  filter: drop-shadow(0 2px 5px rgba(60, 40, 10, .5)) drop-shadow(0 0 12px rgba(255, 246, 220, .35));
+}
+
+/* ---------- ١٧) «منجزون في نفس المجال»: المسرح. البطاقة التي تمر في الوسط تكبر قليلًا وتتوهج،
+   والبطاقات عند الطرفين تصغر وتخفت، فيبدو الشريط كأنه يدور أمام ضوء في منتصف الصندوق ---------- */
+.rel-card { transform: scale(var(--x-z, 1)); opacity: var(--x-op, 1); transition: box-shadow .45s, border-color .3s !important; }
+.rel-card.x-center { border-color: #e2c98f !important; box-shadow: 0 18px 34px -22px rgba(122, 92, 38, .75), 0 0 0 1px #e6c98a; }
+.rel-card:hover, .rel-card:focus-visible { opacity: 1; }
+.section.gray:has([data-related]) [data-related]::before {   /* بقعة الضوء في المنتصف */
+  content: ""; position: absolute; left: 50%; top: 50%; width: 420px; height: 240px; margin: -120px 0 0 -210px; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(230, 201, 138, .32), rgba(230, 201, 138, .08) 60%, transparent);
+}
+[data-related] { position: relative; isolation: isolate; }
+
+/* ---------- ١٨) بطاقات «منجزون في نفس المجال» بنفس بطاقة صفحة المنجزين:
+   الصورة تملأ البطاقة بإطار ذهبي رفيع، وفي أسفلها تدرّج داكن، الاسم بالأبيض ثم التعريف تحته ---------- */
+.rel .rel-card.x-pc {
+  position: relative; display: block !important; width: 150px !important; flex: 0 0 150px !important; aspect-ratio: 4 / 5; height: auto;
+  padding: 0 !important; overflow: hidden; border: 0 !important; border-radius: 16px !important; background: #eef3f3 !important;
+  box-shadow: 0 10px 24px -16px rgba(6, 49, 53, .5), inset 0 0 0 1px #c9a35c !important;
+}
+.rel .rel-card.x-pc img {
+  position: absolute; inset: 0; width: 100% !important; height: 100% !important; aspect-ratio: auto;
+  object-fit: cover; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; margin: 0;
+}
+.rel .rel-card.x-pc .x-pc-shade {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(rgba(5, 38, 42, 0) 38%, rgba(5, 38, 42, .35) 55%, rgba(5, 38, 42, .82) 78%, rgba(5, 38, 42, .96) 100%);
+  box-shadow: inset 0 0 0 1px #c9a35c;
+}
+.rel .rel-card.x-pc .x-pc-body {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 0 10px 12px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.rel .rel-card.x-pc .x-pc-body b {
+  color: #fff !important; font-size: 13.5px !important; font-weight: 800; line-height: 1.5; white-space: normal !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .35);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.rel .rel-card.x-pc .x-pc-body small {
+  color: #f1dca8 !important; font-size: 10.5px !important; font-weight: 600; line-height: 1.55;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.rel .rel-card.x-pc.x-center { box-shadow: 0 18px 34px -20px rgba(122, 92, 38, .8), inset 0 0 0 1.5px #e6c98a !important; }
+@media (max-width: 760px) { .rel .rel-card.x-pc { width: 124px !important; flex-basis: 124px !important; } }

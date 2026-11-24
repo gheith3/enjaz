@@ -1,0 +1,259 @@
+<?php
+
+namespace App\Support\ProfileReviews;
+
+use App\Models\Achievement;
+use App\Models\Achiever;
+use App\Models\ProfileReview;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Spatie\ResponseCache\Facades\ResponseCache;
+
+/**
+ * Applies the corrections and additions the team approved (approved = true) to the live records.
+ * Records save through their models, so the public pages' cache is cleared and the activity log keeps who changed what.
+ */
+class ProfileReviewApplier
+{
+    /** @return array{changes: int, additions: int, photos: int} */
+    public static function apply(ProfileReview $review): array
+    {
+        $result = DB::transaction(function () use ($review) {
+            $changes = 0;
+            $additions = 0;
+            $photos = 0;
+            $achiever = $review->achiever;
+
+            foreach ($review->items ?? [] as $item) {
+                if (($item['decision'] ?? null) === 'edit' && ($item['approved'] ?? false) === true && self::applyItem($item)) {
+                    $changes += 1;
+                }
+            }
+
+            foreach (['journey', 'socials', 'videos', 'contact'] as $part) {
+                $value = $review->{$part} ?? [];
+                if (($value['approved'] ?? false) === true && $review->changed($part)) {
+                    match ($part) {
+                        'journey' => self::replaceJourney($achiever, $value['new'] ?? []),
+                        'socials' => self::replaceSocials($achiever, $value['new'] ?? []),
+                        'videos' => $achiever->update(['interviews' => array_values($value['new'] ?? [])]),
+                        'contact' => $achiever->update([
+                            'contact_phone' => ($value['new']['phone'] ?? null) ?: null,
+                            'contact_email' => ($value['new']['email'] ?? null) ?: null,
+                        ]),
+                    };
+                    $changes += 1;
+                }
+            }
+
+            foreach ($review->gallery ?? [] as $photo) {
+                if (($photo['approved'] ?? false) === true && filled($photo['path'] ?? null) && self::disk()->exists($photo['path'])) {
+                    $media = $achiever->addMediaFromDisk($photo['path'], self::diskName());
+                    if (filled($photo['caption'] ?? null)) {
+                        $media->withCustomProperties(['caption' => ['ar' => $photo['caption']]]);
+                    }
+                    $media->toMediaCollection('gallery');
+                    $photos += 1;
+                }
+            }
+            if ($photos) {
+                $achiever->touch();
+            }
+
+            foreach ($review->additions ?? [] as $addition) {
+                if (($addition['approved'] ?? false) === true && filled($addition['title'] ?? null)) {
+                    self::createAchievement($achiever, $addition);
+                    $additions += 1;
+                }
+            }
+
+            return ['changes' => $changes, 'additions' => $additions, 'photos' => $photos];
+        });
+
+        if (config('responsecache.enabled')) {
+            ResponseCache::clear();
+        }
+
+        return $result;
+    }
+
+    /** @param  array<string, mixed>  $item */
+    private static function applyItem(array $item): bool
+    {
+        $class = ProfileReviewItems::MODELS[$item['model'] ?? ''] ?? null;
+        $model = $class ? $class::query()->find($item['id'] ?? 0) : null;
+        if (! $model) {
+            return false;
+        }
+
+        $attr = $item['attr'];
+        $value = is_string($item['new'] ?? null) ? trim($item['new']) : ($item['new'] ?? null);
+
+        switch ($item['type']) {
+            case 'image':
+                if (! filled($value) || ! self::disk()->exists($value)) {
+                    return false;
+                }
+                $model->addMediaFromDisk($value, self::diskName())->toMediaCollection($attr);
+                $model->touch();
+
+                return true;
+            case 'select':
+            case 'scope':
+                $model->{$attr} = filled($value) ? (int) $value : null;
+                break;
+            case 'when':
+                [$date, $precision] = self::parseWhen((string) $value);
+                if (! $date) {
+                    return false;
+                }
+                $model->achieved_at = $date;
+                $model->date_precision = $precision;
+                break;
+            case 'html':
+                $model->setTranslation($attr, 'ar', self::paragraphs((string) $value));
+                break;
+            default:
+                $model->setTranslation($attr, 'ar', (string) $value);
+        }
+
+        $model->save();
+
+        return true;
+    }
+
+    /** @param  array<string, mixed>  $addition */
+    private static function createAchievement(Achiever $achiever, array $addition): Achievement
+    {
+        [$date, $precision] = self::parseWhen((string) ($addition['when'] ?? ''));
+        $description = trim((string) ($addition['description'] ?? ''));
+        $translated = fn (?string $value) => filled($value) ? ['ar' => trim($value)] : null;
+
+        $achievement = Achievement::create([
+            'slug' => self::uniqueSlug($achiever),
+            'title' => ['ar' => trim($addition['title'])],
+            'excerpt' => $translated(Str::limit(preg_replace('/\s+/u', ' ', $description), 220)),
+            'body' => $translated(self::paragraphs($description)),
+            'scope_id' => filled($addition['scope_id'] ?? null) ? (int) $addition['scope_id'] : null,
+            'field_id' => $achiever->field_id,
+            'discipline' => $translated($addition['discipline'] ?? null),
+            'issuer' => $translated($addition['issuer'] ?? null),
+            'country' => $translated($addition['country'] ?? null),
+            'achieved_at' => $date,
+            'date_precision' => $date ? $precision : 'day',
+            'is_published' => true,
+            'published_at' => now(),
+        ]);
+        $achievement->achievers()->attach($achiever->id, ['is_primary' => true, 'sort_order' => 0]);
+
+        $cover = $addition['cover'] ?? null;
+        if (filled($cover) && self::disk()->exists($cover)) {
+            $achievement->addMediaFromDisk($cover, self::diskName())->toMediaCollection('cover');
+        }
+
+        return $achievement;
+    }
+
+    /** @param  list<array{year?: string, text?: string}>  $stations */
+    private static function replaceJourney(Achiever $achiever, array $stations): void
+    {
+        $icons = $achiever->journeyItems()->pluck('icon')->all();
+        $achiever->journeyItems()->delete();
+
+        foreach (array_values($stations) as $index => $station) {
+            $achiever->journeyItems()->create([
+                'year' => Str::limit(self::latinDigits((string) ($station['year'] ?? '')), 20, ''),
+                'title' => ['ar' => trim((string) ($station['text'] ?? ''))],
+                'icon' => $icons[$index] ?? 'star',
+                'sort_order' => $index + 1,
+            ]);
+        }
+        $achiever->touch();
+    }
+
+    /**
+     * The five accounts asked on the review: an empty one removes that platform's link; a handle becomes a link.
+     *
+     * @param  array<string, string>  $accounts
+     */
+    private static function replaceSocials(Achiever $achiever, array $accounts): void
+    {
+        $bases = ['x' => 'https://x.com/', 'instagram' => 'https://instagram.com/', 'linkedin' => 'https://www.linkedin.com/in/',
+            'facebook' => 'https://facebook.com/', 'snapchat' => 'https://snapchat.com/add/'];
+        $order = 1;
+        foreach (ProfileReviewItems::SOCIALS as $platform => $label) {
+            $value = trim((string) ($accounts[$platform] ?? ''));
+            $achiever->socialLinks()->where('platform', $platform)->delete();
+            if ($value === '') {
+                continue;
+            }
+            $url = Str::startsWith($value, ['http://', 'https://']) ? $value
+                : (preg_match('~^[\w.-]+\.[a-z]{2,}/~i', $value) ? 'https://'.$value : $bases[$platform].ltrim($value, '@/'));
+            $achiever->socialLinks()->create([
+                'platform' => $platform,
+                'url' => Str::limit($url, 250, ''),
+                'handle' => Str::startsWith($value, '@') ? $value : null,
+                'is_active' => true,
+                'sort_order' => $order++,
+            ]);
+        }
+        $achiever->touch();
+    }
+
+    /**
+     * "2019", "2019-04" or "2019-04-29" => [date, precision].
+     *
+     * @return array{0: ?Carbon, 1: string}
+     */
+    public static function parseWhen(string $value): array
+    {
+        if (! preg_match('/^(\d{4})(?:-(\d{1,2}))?(?:-(\d{1,2}))?$/', trim($value), $m)) {
+            return [null, 'day'];
+        }
+        $month = (int) ($m[2] ?? 0);
+        $day = (int) ($m[3] ?? 0);
+        $precision = $month && $day ? 'day' : ($month ? 'month' : 'year');
+
+        if ($month && $day && ! checkdate($month, $day, (int) $m[1])) {
+            return [null, 'day'];
+        }
+
+        return [Carbon::create((int) $m[1], $month ?: 1, $day ?: 1)->startOfDay(), $precision];
+    }
+
+    /** Plain text with blank lines between paragraphs => <p> paragraphs. */
+    public static function paragraphs(string $text): string
+    {
+        return collect(preg_split('/\R\s*\R/u', trim($text)))
+            ->map(fn ($paragraph) => trim($paragraph))->filter()
+            ->map(fn ($paragraph) => '<p>'.nl2br(e($paragraph), false).'</p>')
+            ->implode('');
+    }
+
+    private static function latinDigits(string $value): string
+    {
+        return strtr(trim($value), ['٠' => '0', '١' => '1', '٢' => '2', '٣' => '3', '٤' => '4', '٥' => '5', '٦' => '6', '٧' => '7', '٨' => '8', '٩' => '9']);
+    }
+
+    private static function uniqueSlug(Achiever $achiever): string
+    {
+        do {
+            $slug = Str::limit($achiever->slug, 60, '').'-'.Str::lower(Str::random(6));
+        } while (Achievement::withTrashed()->where('slug', $slug)->exists());
+
+        return $slug;
+    }
+
+    public static function diskName(): string
+    {
+        return (string) config('media-library.disk_name');
+    }
+
+    public static function disk(): Filesystem
+    {
+        return Storage::disk(self::diskName());
+    }
+}

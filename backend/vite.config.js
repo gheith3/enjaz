@@ -23,7 +23,7 @@ const siteIcons = readdirSync('resources/site/assets/svg')
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/site/js/site.js', 'resources/css/admin.css', 'resources/site/css-site/overrides.css', ...siteCss, ...siteBundles, ...siteIcons],
+            input: ['resources/site/js/site.js', 'resources/css/admin.css', 'resources/review/review.css', 'resources/review/review.js', 'resources/site/css-site/overrides.css', ...siteCss, ...siteBundles, ...siteIcons],
             refresh: true,
         }),
     ],
