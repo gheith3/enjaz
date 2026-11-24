@@ -89,4 +89,12 @@ class SiteLockTest extends TestCase
         $cookie = $this->post('/unlock', ['code' => '١٢٣٤٥٦'])->assertRedirect('/')->getCookie('injazat_pass', false);
         $this->assertNotNull($cookie);
     }
+
+    public function test_the_site_is_locked_as_soon_as_the_lock_is_on_even_without_a_code(): void
+    {
+        $this->lock(null);
+
+        $this->get('/')->assertOk()->assertSee('من أجل عُمان وأبنائها المبدعين');
+        $this->post('/unlock', ['code' => '123456'])->assertSessionHasErrors('code');
+    }
 }

@@ -26,8 +26,9 @@ class SiteLock
     public function handle(Request $request, Closure $next): Response
     {
         $settings = self::settings();
-        if (! $settings || ! $settings->enabled || blank($settings->code) || $request->is(...self::OPEN)
-            || $request->user() || self::passes($request, $settings->code)) {
+        // Enabled = locked, even before a code is saved (then only dashboard users see the site).
+        if (! $settings || ! $settings->enabled || $request->is(...self::OPEN)
+            || $request->user() || (filled($settings->code) && self::passes($request, $settings->code))) {
             return $next($request);
         }
 
