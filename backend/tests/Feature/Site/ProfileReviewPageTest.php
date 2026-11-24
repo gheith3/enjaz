@@ -57,6 +57,7 @@ class ProfileReviewPageTest extends TestCase
             ->assertSee('أول مباراة')
             ->assertSee('https://instagram.com/ali')
             ->assertSee('بطولة الخليج')
+            ->assertSee('أرسل صورة')->assertSee('أرسل لنا هذه الصورة من جهازك')
             ->assertSee('محطات مسيرتك')->assertSee('المكتبة المرئية')->assertSee('المقابلات واللقاءات المرئية')->assertSee('التواصل معك');
 
         $this->assertSame('opened', $review->fresh()->status);

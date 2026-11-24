@@ -58,7 +58,7 @@ class ProfileReviewItems
         $items[] = self::text($achiever, 'story', 'قصتك', $story, 'textarea', 'اترك سطرًا فارغًا بين كل فقرة وأخرى.');
 
         $items[] = self::item(['images', 'صورتك'], 'achiever', $achiever->id, 'portrait', 'الصورة الرئيسية', 'image',
-            $achiever->imageUrl('portrait', 'card'), null, 'صورة شخصية واضحة وبجودة عالية.');
+            $achiever->imageUrl('portrait', 'card'), null, 'صورة شخصية واضحة وبجودة عالية، تُنشر في صفحتك.');
 
         foreach ($achiever->achievements as $achievement) {
             $section = ['achievement_'.$achievement->id, (string) $achievement->getTranslation('title', 'ar', false)];
@@ -72,7 +72,8 @@ class ProfileReviewItems
             $items[] = self::item($section, 'achievement', $achievement->id, 'body', 'وصف الإنجاز وتفاصيله', 'html', self::plain($achievement), null,
                 'اذكر تفاصيل الإنجاز: ما هو، ومتى وأين، ومن منحه، ولماذا هو مهم. لا يقل عن '.ArabicDate::digits(self::MIN_WORDS).' كلمة.')
                 + ['min_words' => self::MIN_WORDS];
-            $items[] = self::item($section, 'achievement', $achievement->id, 'cover', 'صورة الإنجاز', 'image', $achievement->imageUrl('cover', 'card'));
+            $items[] = self::item($section, 'achievement', $achievement->id, 'cover', 'صورة الإنجاز', 'image', $achievement->imageUrl('cover', 'card'), null,
+                'صورة من لحظة الإنجاز أو التتويج، أفقية إن أمكن.');
         }
 
         return $items;

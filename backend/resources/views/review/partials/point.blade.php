@@ -6,7 +6,8 @@
     $editing = ($item['decision'] ?? 'ok') === 'edit';
     $value = old("v.$key", $item['new'] ?? null) ?? ($type === 'image' ? null : $old);
     $empty = blank($old);
-    $button = $type === 'image' && ! $empty ? __('site.review.change') : ($empty ? __('site.review.add') : __('site.review.edit'));
+    // Photos: the site's current photos are never shown here; the achiever sends every photo themselves.
+    $button = $type === 'image' ? __('site.review.send_photo') : ($empty ? __('site.review.add') : __('site.review.edit'));
     $hasError = $errors->has("v.$key");
 @endphp
 <div class="pt{{ $editing ? ' is-editing is-edited' : '' }}{{ $hasError ? ' is-error' : '' }}" data-pt id="pt-{{ $key }}">
@@ -14,7 +15,7 @@
         <div class="pt-body">
             <p class="lbl">{{ $item['label'] }} <span class="tag">{{ __('site.review.edited') }}</span></p>
             @if ($type === 'image')
-                @if ($old)<img class="thumb" src="{{ $old }}" alt="">@else<p class="none">{{ __('site.review.no_image') }}</p>@endif
+                <p class="none">{{ __('site.review.photo_wanted') }}</p>
             @elseif (in_array($type, ['select', 'scope', 'when'], true))
                 @if (filled($item['shown'] ?? null))<p class="val">{{ $item['shown'] }}</p>@else<p class="none">{{ __('site.review.empty') }}</p>@endif
             @elseif ($empty)
